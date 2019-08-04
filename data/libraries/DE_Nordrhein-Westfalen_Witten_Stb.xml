@@ -10,6 +10,6 @@
 
   <homepage value="http://www.kulturforum-witten.de/bibliothek.html"/>
   <testing-search value="yes"/>
-  <testing-account value="unknown"/>
+  <testing-account value="yes"/>
 </library>
 

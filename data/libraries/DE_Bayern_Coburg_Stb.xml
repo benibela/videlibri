@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbücherei Coburg"/>
+  
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://open.coburg.de/open/Ihr-Konto"/>
+  <variable name="urlsearch" value="https://open.coburg.de/open/MedienSUCHE/Erweiterte-Suche"/>
+  
+  <homepage value="https://open.coburg.de/open/"/>
+  <testing-search value="unknown"/> 
+  <testing-account value="unknown"/>
+</library>

@@ -2,11 +2,11 @@
 <library>
   <longName value="Stadtbibliothek Weinheim"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/weinheim"/>	
-  <variable name="DB" value="Weinheim"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.kivbf.de/weinheim/Meine-Bibliothek"/>	
+  <variable name="urlsearch" value="https://bibliotheken.kivbf.de/weinheim/Mediensuche/Erweiterte-Suche"/>
   
   <homepage value="http://www.weinheim.de/servlet/PB/menu/1075105/index.html"/>
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

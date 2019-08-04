@@ -11,6 +11,6 @@
   
   <homepage value="http://www.uni-bamberg.de/ub/"/>
   <testing-search value="yes"/>
-  <testing-account value="unknown"/>
+  <testing-account value="yes"/>
   
 </library>
