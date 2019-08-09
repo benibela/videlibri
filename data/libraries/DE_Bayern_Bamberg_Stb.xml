@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Bamberg"/>
+  
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://open.stadtbuecherei-bamberg.de/Mein-Konto"/>	
+  <variable name="urlsearch" value="https://www.stadtbibliothek-bielefeld.de/open/Mediensuche"/>
+
+  <homepage value="https://www.stadtbuecherei-bamberg.de"/>
+  <testing-search value="yes"/>  <testing-account value="yes"/></library>
+
