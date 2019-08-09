@@ -29,7 +29,7 @@
     <json url="{$server}/primo_library/libweb/webservices/rest/v1/configuration/{$vid}"/>
     <s>
     xquery version "3.0-videlibri";
-    institute := ( $json.beacon.alternative-institution-code, get("institute"), $vid )[.][1],
+    institute := ( $json.primo-view.institution.institution-code, $json.beacon.alternative-institution-code, get("institute"), $vid )[.][1],
     authentication := $json.authentication,
     authentication-header := "",
     search-scopes := $json.primo-view.scopes()
@@ -99,7 +99,8 @@
         <font t:test="$datasend" color="red">{local:raise(.)}<!--htw--></font>
         <p t:test="$datasend" style="color:red;">{local:raise(.)}<!--fu--></p>
         <p t:test="$datasend" class="error">{local:raise(.)}<!--hu intern--></p>
-        
+        <p t:test="$datasend" class="text-danger">{local:raise(.)}<!--hu intern new--></p>
+                        
         <form>
           <input name="username"/>
           {request := form(., {"username": $username, "password": $password} ), datasend := true()}
