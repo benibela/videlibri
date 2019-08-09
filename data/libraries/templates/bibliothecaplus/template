@@ -10,10 +10,11 @@
 <action id="internal-login">
   <page url="{$urlaccount}">
     <template><form>{
-      loginForm := form(., {"__EVENTTARGET": (//input[contains(@name, "cmdLogin")])[1]/@name, 
-                           (//input[contains(@name, "Username")])[1]/@name: $username, 
-                           (//input[contains(@name, "txtPassword")],
-                            //input[contains(@name, "password")])[1]/@name: $password  })
+      let $names := //input/@name[contains(., "login")]
+      return
+      loginForm := form(., {"__EVENTTARGET": ($names[ends-with(., "cmdLogin")])[1], 
+                            ($names[ends-with(., "txtUsername")])[1]: $username, 
+                            ($names[ends-with(., "txtPassword")])[1]: $password  })
     }</form></template>
   </page>
 </action>
