@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<library>
+  <longName value="Hochschulbibliothek Neu-Ulm"/>
+  
+  <template value="sisis"/>  
+  <variable name="server" value="https://opac.hs-neu-ulm.de/TouchPoint/"/>
+  <variable name="startparams" value="?View=fnu"/>
+
+  <homepage value="https://www.hs-neu-ulm.de/studium/bibliothek//"/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
+</library>
