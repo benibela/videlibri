@@ -168,13 +168,6 @@ class Options : VideLibriBaseActivity() {
                 true
             })
         }
-
-        override fun onDisplayPreferenceDialog(preference: Preference?) {
-            if (preference is PreferenceInteger) {
-
-            } else
-                super.onDisplayPreferenceDialog(preference)
-        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
