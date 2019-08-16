@@ -9,6 +9,7 @@ import de.benibela.videlibri.jni.Bridge
 
 
 internal object BookFormatter {
+    @Suppress("ClassName")
     internal object tr {
         internal object bookStatus {
             lateinit var provided: String
@@ -74,7 +75,7 @@ internal object BookFormatter {
                     val fd = formatDate(book.dueDate)
                     if (options.showRenewCount) {
                         val renewCount = book.getProperty("renewCount")
-                        if ("" != renewCount && "0" != renewCount) "${renewCount}V ${fd}"
+                        if ("" != renewCount && "0" != renewCount) "${renewCount}V $fd"
                         else fd
                     } else fd
                 }
