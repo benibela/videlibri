@@ -90,7 +90,10 @@ class AccountInfo : VideLibriBaseActivity() {
             findViewById<View>(R.id.completeAccountButton).setOnClickListener {
                 if (!checkInputConstraints())
                     return@setOnClickListener
-                changeAccountNow()
+                possiblyWarnAboutShortExtendDays() {
+                    withActivity<AccountInfo> { changeAccountNow() }
+                }
+
             }
         } else {
             lib.paintFlags = lib.paintFlags or Paint.UNDERLINE_TEXT_FLAG
@@ -103,25 +106,20 @@ class AccountInfo : VideLibriBaseActivity() {
                 if (accountId.text.isEmpty())
                     addAccountNow()
                 else
-                    showDialog {
-                    message(if (accountAutoExtend)
-                        resources.getQuantityString(R.plurals.warning_autorenewal_onD, accountAutoExtendDays, accountAutoExtendDays)
-                    else
-                        tr(R.string.warning_autorenewal_off))
-                    negativeButton(R.string.cancel)
-                    positiveButton(R.string.ok) {
+                    warnAboutAutoExtend {
                         withActivity<AccountInfo> {
-                            libdetails?.let {
-                                if (it.prettyName.contains("(nur Suche getestet)"))
-                                    showDialog {
-                                        message(R.string.warning_alphalib)
-                                        onDismiss = { withActivity<AccountInfo> { addAccountNow() } }
-                                    }
-                                else addAccountNow()
+                            possiblyWarnAboutShortExtendDays() {
+                                libdetails?.let {
+                                    if (it.prettyName.contains("(nur Suche getestet)"))
+                                        showDialog {
+                                            message(R.string.warning_alphalib)
+                                            onDismiss = { withActivity<AccountInfo> { addAccountNow() } }
+                                        }
+                                    else addAccountNow()
+                                }
                             }
                         }
                     }
-                }
             })
             accountPrettyName.setText(libshortname)
         }
@@ -191,6 +189,29 @@ class AccountInfo : VideLibriBaseActivity() {
             else null
         errorMessage?.let { showMessage(it) }
         return errorMessage == null
+    }
+
+    private fun warnAboutAutoExtend(callback: () -> Unit){
+        showDialog {
+            message(if (accountAutoExtend)
+                resources.getQuantityString(R.plurals.warning_autorenewal_onD, accountAutoExtendDays, accountAutoExtendDays)
+            else
+                tr(R.string.warning_autorenewal_off))
+            negativeButton(R.string.cancel)
+            positiveButton(R.string.ok) { callback() }
+        }
+    }
+
+    private fun possiblyWarnAboutShortExtendDays(callback: () -> Unit){
+        val MIN_SAFE_EXTEND = 3
+        if (!accountAutoExtend || accountAutoExtendDays >= MIN_SAFE_EXTEND) callback()
+        else {
+            showDialog {
+                message(R.string.warning_autorenewal_short)
+                negativeButton(R.string.cancel)
+                positiveButton(R.string.ok) { callback() }
+            }
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

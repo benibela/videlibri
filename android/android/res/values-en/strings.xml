@@ -442,5 +442,6 @@
     <string name="lay_options_label_autocheckdelay_too_large">Warning: High values are risky, because you might have already turned off the device again, before it is time to show the notification.</string>
     <string name="lay_options_warningtimedelay_too_small">Warning: Small values are risky, in case you do not use your device for a few days, and do not see the notification in time.</string>
     <string name="lay_options_check_summary_too_large">Warning: If the value is too high and you lend something with a very short lending period, it might become due, before VideLibri updates the list of lendings.</string>
+    <string name="warning_autorenewal_short">Setting the \"days before the due date\" option to a small value is risky, because nothing might be renewed, when you turn your device off for several days or the webpage of the library is not accessible for a few days.</string>
 
 </resources>
