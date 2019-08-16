@@ -453,5 +453,8 @@
     <string name="warning_account_is_broken">Bei dieser Bibliothek funktioniert der Kontozugriff nicht, deshalb bringt es nichts eine Kontonummer einzugeben.</string>
     <string name="book_renewCount">Anzahl Verlängerungen</string>
     <string name="lay_options_seekbar_tap_to_change">(ändern)</string>
+    <string name="lay_options_label_autocheckdelay_too_large">Achtung: Bei zu hohen Werten hat man das Gerät vielleicht schon wieder ausgeschaltet, bevor eine Warnung angezeigt wird.</string>
+    <string name="lay_options_warningtimedelay_too_small">Achtung: Bei zu geringen Werten könnte man die Warnung übersehen, wenn man das Gerät ein paar Tage lang nicht einschaltet.</string>
+    <string name="lay_options_check_summary_too_large">Achtung: Wenn die Bibliothek Medien mit sehr kurzer Leihfristdauer hat (z.B.: Filme) und das Aktualisierungs-Interval geringer als die Leihfristdauer ist, ist die Leihfrist vielleicht schon abgelaufen, bevor aktualisiert wird.</string>
 </resources>
 

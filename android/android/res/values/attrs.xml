@@ -1,5 +1,8 @@
 <resources>
     <declare-styleable name="PreferenceSeekBar">
         <attr name="dynamicSummary" format="string"/>
+        <attr name="safeMin" format="integer"/>
+        <attr name="safeMax" format="integer"/>
+        <attr name="unsafeWarning" format="string"/>
     </declare-styleable>
 </resources>

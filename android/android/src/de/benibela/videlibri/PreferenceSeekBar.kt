@@ -13,17 +13,25 @@ class PreferenceSeekBar @JvmOverloads constructor(context: Context, attrs: Attri
     private val dynamicSummary: String?
     private var seekbarView: SeekBar? = null
     private var editable: Boolean = false
+    private var safeMin: Int
+    private var safeMax: Int
+    private var unsafeWarning: String?
 
     init {
 
         val a = context.obtainStyledAttributes(attrs, R.styleable.PreferenceSeekBar, defStyleAttr, defStyleRes)
 
         dynamicSummary = a.getString(R.styleable.PreferenceSeekBar_dynamicSummary)
+        safeMin = a.getInt(R.styleable.PreferenceSeekBar_safeMin, Int.MIN_VALUE)
+        safeMax = a.getInt(R.styleable.PreferenceSeekBar_safeMax, Int.MAX_VALUE)
+        unsafeWarning = a.getString(R.styleable.PreferenceSeekBar_unsafeWarning)
         a.recycle()
         showDynamicSummary()
     }
 
     override fun persistInt(value: Int): Boolean {
+        if (unsafeWarning != null && (value < safeMin || value > safeMax) && (value != getPersistedInt(value.inv())))
+            showMessage(unsafeWarning)
         val temp = super.persistInt(value)
         showDynamicSummary()
         return temp

@@ -439,4 +439,8 @@
     <string name="warning_account_is_broken">There is no account functionality with this library, so it is pointless to enter an account number.</string>
     <string name="book_renewCount">Renewal count</string>
     <string name="lay_options_seekbar_tap_to_change">(tap to change)</string>
+    <string name="lay_options_label_autocheckdelay_too_large">Warning: High values are risky, because you might have already turned off the device again, before it is time to show the notification.</string>
+    <string name="lay_options_warningtimedelay_too_small">Warning: Small values are risky, in case you do not use your device for a few days, and do not see the notification in time.</string>
+    <string name="lay_options_check_summary_too_large">Warning: If the value is too high and you lend something with a very short lending period, it might become due, before VideLibri updates the list of lendings.</string>
+
 </resources>
