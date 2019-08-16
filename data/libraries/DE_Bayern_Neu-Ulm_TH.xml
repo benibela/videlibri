@@ -3,6 +3,7 @@
 
 <library>
   <longName value="Hochschulbibliothek Neu-Ulm"/>
+  <shortName value="HNU"/> 
   
   <template value="sisis"/>  
   <variable name="server" value="https://opac.hs-neu-ulm.de/TouchPoint/"/>
