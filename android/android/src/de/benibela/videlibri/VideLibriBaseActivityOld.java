@@ -45,110 +45,15 @@ public class VideLibriBaseActivityOld extends AppCompatActivity{
     static final int LOADING_INSTALL_LIBRARY = 600;
 
 
-    private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mDrawerToggle;
-
-
-    @Override
-    public void setContentView(@LayoutRes int layoutResID) {
-        LayoutInflater inflater = (LayoutInflater) getSystemService( Context.LAYOUT_INFLATER_SERVICE );
-        setContentView(inflater.inflate(layoutResID, null));
-    }
-    @Override
-    public void setContentView(View view) {
-        super.setContentView(view);
-        // initActionBar
-        Toolbar bar = (Toolbar) findViewById(R.id.actionbar);
-        if (bar != null) {
-            setSupportActionBar(bar);
-            ActionBar sbar = getSupportActionBar();
-            if (sbar != null) {
-                sbar.setDisplayHomeAsUpEnabled(true);
-                sbar.setHomeButtonEnabled(true);
-            }
-        }
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (mDrawerLayout != null) {
-            NavigationView navi = (NavigationView) findViewById(R.id.navigation);
-            if (navi != null) {
-                navi.inflateHeaderView(R.layout.naviheader);
-                navi.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        mDrawerLayout.closeDrawer(GravityCompat.START);
-                        return onOptionsItemIdSelected(item.getItemId());
-                    }
-                });
-            }
-        }
-    }
-
-    public void setVideLibriView(@LayoutRes int layoutResID) {
-        LayoutInflater inflater = (LayoutInflater) getSystemService( Context.LAYOUT_INFLATER_SERVICE );
-        View layout = inflater.inflate(R.layout.videlibribaselayout, null);
-        inflater.inflate(layoutResID, (ViewGroup) layout.findViewById(R.id.content_holder), true);
-        setContentView(layout);
-    }
-
-    protected void createDrawerToggle(){
-        if (mDrawerLayout != null && mDrawerToggle == null) {
-            mDrawerToggle = new ActionBarDrawerToggle(
-                    this,
-                    mDrawerLayout,
-                    R.string.drawer_open,
-                    R.string.drawer_close
-            );
-            mDrawerLayout.addDrawerListener(mDrawerToggle);
-        }
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
-        if (mDrawerToggle != null) mDrawerToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        if (mDrawerToggle != null) mDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    public boolean onOptionsItemIdSelected(int id){
-        return false;
-    }
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (mDrawerToggle != null && mDrawerToggle.onOptionsItemSelected(item)) return true;
-        if (onOptionsItemIdSelected(item.getItemId())) return true;
-        return super.onOptionsItemSelected(item);
-    }
-
-
-
-
-    int currentMainIcon;
-    public void checkMainIcon(){
-        if (VideLibriApp.getMainIcon() != currentMainIcon) {
-            /*ActionBar ab = getSupportActionBar();
-            if (ab != null) {
-                currentMainIcon = VideLibriApp.getMainIcon();
-                ab.setHomeAsUpIndicator(currentMainIcon);
-            }*/
-
-            NavigationView navi = (NavigationView) findViewById(R.id.navigation);
-            if (navi != null) {
-                ImageView iv = ((ImageView) navi.getHeaderView(0).findViewById(R.id.icon));
-                if (iv != null) iv.setImageResource(VideLibriApp.getMainIcon());
-            }
-
-        }
-    }
 
 
 
 
 
-    //Util
+
+
+
+    //deprecated Util
     public Button findButtonById(int id){
         return (Button)findViewById(id);
     }

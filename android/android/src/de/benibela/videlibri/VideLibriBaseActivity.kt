@@ -2,17 +2,25 @@ package de.benibela.videlibri
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
+import android.support.annotation.LayoutRes
+import android.support.design.widget.NavigationView
+import android.support.v4.view.GravityCompat
+import android.support.v4.widget.DrawerLayout
+import android.support.v7.app.ActionBarDrawerToggle
+import android.view.*
+import android.widget.ImageView
 import de.benibela.videlibri.jni.Bridge
 
 @SuppressLint("Registered")
 open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
 
+    private var mDrawerLayout: DrawerLayout? = null
+    private var mDrawerToggle: ActionBarDrawerToggle? = null
 
     private val loadingTasks = ArrayList<Int>()
     private var loadingItem: MenuItem? = null
@@ -35,7 +43,7 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
 
     override fun onPostResume() {
         super.onPostResume()
-        VideLibriApp.currentActivity = this;
+        VideLibriApp.currentActivity = this
         for (b in VideLibriApp.pendingDialogs)
             showPreparedDialog(this, b)
         VideLibriApp.pendingDialogs.clear()
@@ -56,6 +64,68 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
         if (VideLibriApp.currentActivity === this) VideLibriApp.currentActivity = null
         super.onDestroy()
     }
+
+
+
+
+    override fun setContentView(@LayoutRes layoutResID: Int) {
+        val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        setContentView(inflater.inflate(layoutResID, null))
+    }
+
+    override fun setContentView(view: View) {
+        super.setContentView(view)
+        // initActionBar
+        setSupportActionBar(findViewById(R.id.actionbar))
+        mDrawerLayout = findViewById(R.id.drawer_layout)
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setHomeButtonEnabled(true)
+        }
+        findViewById<NavigationView>(R.id.navigation)?.let { navi ->
+            navi.inflateHeaderView(R.layout.naviheader)
+            navi.setNavigationItemSelectedListener { item ->
+                mDrawerLayout?.closeDrawer(GravityCompat.START)
+                onOptionsItemIdSelected(item.itemId)
+            }
+        }
+    }
+
+    fun setVideLibriView(@LayoutRes layoutResID: Int) {
+        val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val layout = inflater.inflate(R.layout.videlibribaselayout, null)
+        inflater.inflate(layoutResID, layout.findViewById<ViewGroup>(R.id.content_holder), true)
+        setContentView(layout)
+    }
+
+    protected fun createDrawerToggle() {
+        val layout = mDrawerLayout ?: return
+        if (mDrawerToggle == null)
+            mDrawerToggle = ActionBarDrawerToggle(
+                    this,
+                    layout,
+                    R.string.drawer_open,
+                    R.string.drawer_close
+            ).also { toggle ->
+                layout.addDrawerListener(toggle)
+            }
+    }
+
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        mDrawerToggle?.syncState()
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration?) {
+        super.onConfigurationChanged(newConfig)
+        mDrawerToggle?.onConfigurationChanged(newConfig)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean = item?.let {
+        (mDrawerToggle?.onOptionsItemSelected(item) ?: false) ||
+                onOptionsItemIdSelected(item.itemId) ||
+                super.onOptionsItemSelected(item)
+    } ?: false
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -84,6 +154,23 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
 
         return x
     }
+
+
+    internal var currentMainIcon: Int = 0
+    fun checkMainIcon() {
+        if (VideLibriApp.mainIcon != currentMainIcon) {
+            /*ActionBar ab = getSupportActionBar();
+            if (ab != null) {
+                currentMainIcon = VideLibriApp.getMainIcon();
+                ab.setHomeAsUpIndicator(currentMainIcon);
+            }*/
+            currentMainIcon = VideLibriApp.mainIcon
+
+            val iconView = findViewById<NavigationView>(R.id.navigation)?.getHeaderView(0)?.findViewById<ImageView>(R.id.icon)
+            iconView?.setImageResource(currentMainIcon)
+        }
+    }
+
 
     private fun refreshLoadingIcon(){
         loadingItem?.isVisible = loadingTasks.size > 0
@@ -132,7 +219,7 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
     private val REQUESTED_LIBRARY_HOMEPAGE = 29324
     private val REQUESTED_LIBRARY_CATALOGUE = 29325
 
-    override fun onOptionsItemIdSelected(id: Int): Boolean {
+    open fun onOptionsItemIdSelected(id: Int): Boolean {
         when (id) {
             android.R.id.home -> onBackPressed()
             R.id.search -> VideLibriApp.newSearchActivity()
