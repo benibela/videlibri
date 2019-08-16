@@ -20,11 +20,10 @@ public class X509TrustManagerWrapper implements X509TrustManager {
     public interface CustomTrustManagerFactory{
         ArrayList<X509TrustManager> getTrustManagers();
     }
-    public static CustomTrustManagerFactory defaultCustomTrustManagerFactory;
 
     public X509TrustManagerWrapper(){
-        if (defaultCustomTrustManagerFactory != null) {
-            ArrayList<X509TrustManager> tms = defaultCustomTrustManagerFactory.getTrustManagers();
+        if (Config.defaultCustomTrustManagerFactory != null) {
+            ArrayList<X509TrustManager> tms = Config.defaultCustomTrustManagerFactory.getTrustManagers();
             if (tms != null) nestedTrustManagers.addAll(tms);
         }
         loadKeystore(null);
@@ -97,7 +96,7 @@ public class X509TrustManagerWrapper implements X509TrustManager {
         if (chain.length > 0)
             name = chain[0].getSubjectDN().toString();
 
-        throw new CertificateException("Ungültiges Serverzertifikat für "+name+"\nIn den Einstellungen kann für diesen Server eine Ausnahme gesetzt werden.");
+        throw new CertificateException(String.format(Config.invalidCerticateMessage, name));
     }
 
     public X509Certificate[] getAcceptedIssuers() {

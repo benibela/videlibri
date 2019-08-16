@@ -13,12 +13,11 @@ public class X509TrustManagerWithAdditionalKeystores extends X509TrustManagerWra
     }
 
     private LazyLoadKeystore pendingKeystores;
-    public static LazyLoadKeyStoreFactory defaultKeystoreFactory;
 
     public X509TrustManagerWithAdditionalKeystores() {
         super();
-        if (defaultKeystoreFactory != null)
-            pendingKeystores = defaultKeystoreFactory.factor();
+        if (Config.defaultKeystoreFactory != null)
+            pendingKeystores = Config.defaultKeystoreFactory.factor();
     }
     public X509TrustManagerWithAdditionalKeystores(LazyLoadKeystore additionalkeyStores) {
         super();

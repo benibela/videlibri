@@ -10,6 +10,7 @@ import android.graphics.Color
 import android.os.*
 import android.preference.PreferenceManager
 import android.util.Log
+import de.benibela.internettools.Config
 import de.benibela.internettools.X509TrustManagerWithAdditionalKeystores
 import de.benibela.internettools.X509TrustManagerWrapper
 import de.benibela.videlibri.internet.UserKeyStore
@@ -242,9 +243,10 @@ class VideLibriApp : Application() {
 
             val prefs = PreferenceManager.getDefaultSharedPreferences(context)
 
-            X509TrustManagerWrapper.defaultCustomTrustManagerFactory = UserKeyStore.makeFactory()
+            Config.defaultCustomTrustManagerFactory = UserKeyStore.makeFactory()
             UserKeyStore.loadUserCertificates(prefs)
-            X509TrustManagerWithAdditionalKeystores.defaultKeystoreFactory = X509TrustManagerWithAdditionalKeystores.LazyLoadKeyStoreFactory { VideLibriKeyStore() }
+            Config.defaultKeystoreFactory = X509TrustManagerWithAdditionalKeystores.LazyLoadKeyStoreFactory { VideLibriKeyStore() }
+            Config.invalidCerticateMessage = context.getString(R.string.internet_invalid_certificateS)
 
             languageOverride = prefs.getString("languageOverride", null)?.takeIf { it.isNotEmpty() }
             checkLanguageOverride(context)
@@ -307,6 +309,7 @@ class VideLibriApp : Application() {
                     event.searcherAccess!!.pendingEvents.add(event)
                 }
             }
+
 
 
 

@@ -457,5 +457,6 @@
     <string name="lay_options_warningtimedelay_too_small">Achtung: Bei zu geringen Werten könnte man die Warnung übersehen, wenn man das Gerät ein paar Tage lang nicht einschaltet.</string>
     <string name="lay_options_check_summary_too_large">Achtung: Wenn die Bibliothek Medien mit sehr kurzer Leihfristdauer hat (z.B.: Filme) und das Aktualisierungs-Interval geringer als die Leihfristdauer ist, ist die Leihfrist vielleicht schon abgelaufen, bevor aktualisiert wird.</string>
     <string name="warning_autorenewal_short">Achtung: Die \"Tage vor Fristablauf\"-Einstellung auf einen niedrigen Wert zu setzen ist riskant, denn, wenn man das Gerät ein paar Tage lang nicht einschaltet oder die Büchereiwebseite eine Weile gestört ist, wird vielleicht nichts verlängert.</string>
+    <string name="internet_invalid_certificateS">Ungültiges Serverzertifikat für %s\nIn den Einstellungen unter \"Serverzertifikat herunterladen und als gültig akzeptieren\" kann hierfür eine Ausnahme gesetzt werden.</string>
 </resources>
 
