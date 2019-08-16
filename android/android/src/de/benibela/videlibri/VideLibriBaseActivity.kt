@@ -2,7 +2,6 @@ package de.benibela.videlibri
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
@@ -12,7 +11,10 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import android.widget.ImageView
 import de.benibela.videlibri.jni.Bridge
 
@@ -69,8 +71,7 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
 
 
     override fun setContentView(@LayoutRes layoutResID: Int) {
-        val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        setContentView(inflater.inflate(layoutResID, null))
+        setContentView(layoutInflater.inflate(layoutResID, null))
     }
 
     override fun setContentView(view: View) {
@@ -92,9 +93,9 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
     }
 
     fun setVideLibriView(@LayoutRes layoutResID: Int) {
-        val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater = layoutInflater
         val layout = inflater.inflate(R.layout.videlibribaselayout, null)
-        inflater.inflate(layoutResID, layout.findViewById<ViewGroup>(R.id.content_holder), true)
+        inflater.inflate(layoutResID, layout.findViewById(R.id.content_holder), true)
         setContentView(layout)
     }
 
