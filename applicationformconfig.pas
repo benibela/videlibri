@@ -24,6 +24,7 @@ uses bbdebugtools, LCLType,StdCtrls, ComCtrls, Dialogs, LCLIntf;
 
 type TControlBreaker = class(TControl);
 
+//lcl's bounds do not include the border, so try to infer the border size
 var BoundsRectOffset: TPoint;
 
 function TVideLibriForm.GetRealBounds: TRect;
@@ -54,10 +55,14 @@ begin
   workarea := default(TRect);
   if Application.MainForm <> nil then mon := Application.MainForm.Monitor
   else mon := Monitor;
-  if mon <> nil then
-    workarea := mon.WorkareaRect;
-  if (workarea.Width = 0) or (workarea.Height = 0) then //safety check. does this part have any use?
-    workarea := screen.WorkAreaRect;
+  if mon <> nil then workarea := mon.WorkareaRect;
+  if (workarea.Width <= 0) or (workarea.Height <= 0) then workarea := screen.WorkAreaRect;
+  if (workarea.Width <= 0) or (workarea.Height <= 0) then workarea := screen.DesktopRect;
+  if ((workarea.Width <= 0) or (workarea.Height <= 0)) and (mon <> nil) then workarea := mon.BoundsRect;
+  if (workarea.Width <= 0) or (workarea.Height <= 0) then begin
+    workarea.Width := screen.Width;
+    workarea.Height := screen.Height;
+  end;
 
 {  if (Application.MainForm <> nil) and (Application.MainForm <> self) then
   ShowMessage(
@@ -70,9 +75,11 @@ begin
   );
 }
 
-  if bounds.Width > workarea.Width then bounds.Width := workarea.Width;
-  if bounds.Height > workarea.Height then bounds.Height := workarea.Height;
-  bounds.SetLocation(workarea.Left + (workarea.Width - bounds.Width) div 2, workarea.Top + (workarea.Height - bounds.Height) div 2);
+  if (workarea.Width > 0) and (workarea.Height > 0) then begin
+    if bounds.Width > workarea.Width then bounds.Width := workarea.Width;
+    if bounds.Height > workarea.Height then bounds.Height := workarea.Height;
+    bounds.SetLocation(workarea.Left + (workarea.Width - bounds.Width) div 2, workarea.Top + (workarea.Height - bounds.Height) div 2);
+  end;
 
   if bounds <> oldbounds then
     SetRealBounds(bounds);
