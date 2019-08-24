@@ -147,6 +147,16 @@ downloadTable)
      LIBS=$(ls data/libraries/*.xml | grep -oE "[^_]+_[^_]+.xml" | sort | xargs -I{} find data/libraries/ -name "*{}" -maxdepth 1 | sort | uniq)
      grep -oE "[^/]*$" <<<"$LIBS" | sed -e 's/\.xml$//' > data/libraries/libraries.list
     ;;
+    
+    
+  create-common-interface)
+    xidel interface.xml --module interface-generator.xqm -e 'ig:pascal-make(/)' | tee commoninterface.pas
+#    xidel interface.xml --module interface-generator.xqm -e 'ig:kotlin-make(/)'
+#    xidel interface.xml --module interface-generator.xqm -e 'ig:pascal-kotlin-make-bridge(/)'
+
+    
+    #android/android/src/de/benibela/videlibri/PreferenceSeekBar.kt
+    ;;
   
 	changelog)
     sed -e 's/<stable  *value="[0-9]*"/<stable value="'$INTVERSION'"/'  -i $VIDELIBRIBASE/_meta/version/version.xml;

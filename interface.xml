@@ -1,0 +1,19 @@
+<api>
+
+<class id="FormInput">
+  <string name="name"/>
+  <string name="caption"/>
+</class>
+
+<class id="FormSelect" extends="FormInput">
+  <property-array name="options"/>
+</class>
+
+<class id="FormParams">
+  <array name="inputs"><classref ref="FormInput"/></array>
+</class>
+
+</api>
+
+
+  <array><string>FormSelectOption" name="options"/>
