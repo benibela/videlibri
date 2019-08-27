@@ -7,7 +7,7 @@ interface
  type TFormInput = class; TFormInputArray = array of TFormInput; 
  
 type TFormInput = class
-  name, caption: string;
+  name, caption, value: string;
   procedure toJSON(var builder: TJSONXHTMLStrBuilder);
   function toJSON(): string;
   class function fromJSON(json: string): TFormInput;
@@ -196,7 +196,8 @@ end;
 begin
   with builder do begin    
     appendJSONObjectKeyColon('name'); appendJSONString(self.name); appendJSONObjectComma;
-    appendJSONObjectKeyColon('caption'); appendJSONString(self.caption);
+    appendJSONObjectKeyColon('caption'); appendJSONString(self.caption); appendJSONObjectComma;
+    appendJSONObjectKeyColon('value'); appendJSONString(self.value);
     
   end;
 end;
@@ -258,6 +259,12 @@ begin
         scanner.fetchNonWSToken; scanner.expectToken(tkColon); 
         scanner.fetchNonWSToken; scanner.expectToken(tkString); 
         caption := scanner.CurTokenString;
+        scanner.fetchNonWSToken;
+      end;
+    'value': begin
+        scanner.fetchNonWSToken; scanner.expectToken(tkColon); 
+        scanner.fetchNonWSToken; scanner.expectToken(tkString); 
+        value := scanner.CurTokenString;
         scanner.fetchNonWSToken;
       end;
     else scanner.skipUnknownProperty();
@@ -484,31 +491,35 @@ end;
 
 
 function TFormInput.toJava: jobject;
-var temp: array[0..1] of jvalue;
-begin
-  with j do begin
-    temp[0].l := stringToJString(self.name);
-    temp[1].l := stringToJString(self.caption);
-
-    result := newObject(FormInputClass, FormInputClassInitWithData, @temp[0]); 
-    deleteLocalRef(temp[0].l);
-    deleteLocalRef(temp[1].l);
-
- end;
-end;
- 
-function TFormSelect.toJava: jobject;
 var temp: array[0..2] of jvalue;
 begin
   with j do begin
     temp[0].l := stringToJString(self.name);
     temp[1].l := stringToJString(self.caption);
-    temp[2].l := arrayToJArray(self.options);
+    temp[2].l := stringToJString(self.value);
+
+    result := newObject(FormInputClass, FormInputClassInitWithData, @temp[0]); 
+    deleteLocalRef(temp[0].l);
+    deleteLocalRef(temp[1].l);
+    deleteLocalRef(temp[2].l);
+
+ end;
+end;
+ 
+function TFormSelect.toJava: jobject;
+var temp: array[0..3] of jvalue;
+begin
+  with j do begin
+    temp[0].l := stringToJString(self.name);
+    temp[1].l := stringToJString(self.caption);
+    temp[2].l := stringToJString(self.value);
+    temp[3].l := arrayToJArray(self.options);
 
     result := newObject(FormSelectClass, FormSelectClassInitWithData, @temp[0]); 
     deleteLocalRef(temp[0].l);
     deleteLocalRef(temp[1].l);
     deleteLocalRef(temp[2].l);
+    deleteLocalRef(temp[3].l);
 
  end;
 end;
@@ -531,9 +542,9 @@ procedure initBridge;
 begin
   with needJ do begin 
     FormInputClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/FormInput'));
-    FormInputClassInit := getmethod(FormInputClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;)V'); 
+    FormInputClassInit := getmethod(FormInputClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V'); 
     FormSelectClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/FormSelect'));
-    FormSelectClassInit := getmethod(FormSelectClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;)V'); 
+    FormSelectClassInit := getmethod(FormSelectClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V'); 
     FormParamsClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/FormParams'));
     FormParamsClassInit := getmethod(FormParamsClass, '<init>', '([Lde/benibela/videlibri/jni/)V');
   end;

@@ -3,6 +3,7 @@
 <class id="FormInput">
   <string name="name"/>
   <string name="caption"/>
+  <string name="value"/>
 </class>
 
 <class id="FormSelect" extends="FormInput">
