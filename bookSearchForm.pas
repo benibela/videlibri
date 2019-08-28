@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   CheckLst, StdCtrls,bookListView, ComCtrls, Menus,librarySearcher,booklistreader,TreeListView,math,
-  librarySearcherAccess,multipagetemplate,applicationformconfig;
+  librarySearcherAccess,multipagetemplate,applicationformconfig, commoninterface;
 
 type
 
@@ -22,28 +22,14 @@ type
     PopupMenu1: TPopupMenu;
     holdingsSplitter: TSplitter;
     startAutoSearchButton: TButton;
-    searchBranch: TComboBox;
-    homeBranch: TComboBox;
-    Label10: TLabel;
-    Label11: TLabel;
     Label12: TLabel;
     Label2xx: TLabel;
-    searchBranchLabel: TLabel;
-    homeBranchLabel: TLabel;
-    Label7: TLabel;
-    Label8: TLabel;
-    Label9: TLabel;
     LabelOrder: TLabel;
     LabelOrderFor: TLabel;
     LabelSaveTo: TLabel;
     saveToAccountMenu: TPopupMenu;
     orderForAccountMenu: TPopupMenu;
-    ScrollBox1: TScrollBox;
-    searchAuthor: TComboBox;
-    searchISBN: TComboBox;
-    searchKeywords: TComboBox;
-    searchTitle: TComboBox;
-    searchYear: TComboBox;
+    SearchParamsBox: TScrollBox;
     startSearch: TButton;
     displayImage: TCheckBox;
     displayInternalProperties: TCheckBox;
@@ -70,7 +56,6 @@ type
     procedure bookListVScrollBarChange(Sender: TObject);
     procedure menuCopyRowClick(Sender: TObject);
     procedure menuCopyValueClick(Sender: TObject);
-    procedure searchKeywordsChange(Sender: TObject);
     procedure searchLocationRegionSelect(Sender: TObject);
     procedure startAutoSearchButtonClick(Sender: TObject);
     procedure detaillistClickAtRecordItem({%H-}sender: TObject; recorditem: TTreeListRecordItem);
@@ -86,9 +71,6 @@ type
     procedure LabelOrderClick(Sender: TObject);
     procedure LabelOrderForClick(Sender: TObject);
     procedure LabelSaveToClick(Sender: TObject);
-    procedure Label2Click(Sender: TObject);
-    procedure searchAuthorEnter(Sender: TObject);
-    procedure searchAuthorExit(Sender: TObject);
     procedure searcherAccessOrderComplete(sender: TObject; book: TBook);
     procedure searcherAccessPendingMessageCompleted(Sender: TObject);
     procedure searcherAccessTakePendingMessage({%H-}sender: TObject; book: TBook; pendingMessage: TPendingMessage);
@@ -114,7 +96,6 @@ type
     autoSearchDetailCount: integer;
     procedure makeSearcherAccess(connectNow: boolean = true);
     function currentLocationRegionConfig: string;
-    procedure updateBranches(init: boolean);
   public
     { public declarations }
     bookList: TBookListView;
@@ -133,6 +114,12 @@ type
     procedure selectBookToReSearch(book: TBook);
     procedure loadDefaults;
     procedure saveDefaults;
+  protected
+    searchParams: TFormParams;
+    searchLabels: array of TLabel;
+    searchControls: array of TComboBox;
+    procedure createSearchControls;
+    function findSearchControl(const n: string): TComboBox;
   public
     saveToDefaultAccountID, orderForDefaultAccountID: string;
     procedure changeDefaultSaveToAccount(sender:tobject);
@@ -145,7 +132,7 @@ const SB_PANEL_FOUND_COUNT=1;
       SB_PANEL_SEARCH_STATUS=0;
 implementation
 
-uses applicationconfig,applicationdesktopconfig, libraryParser,simplexmlparser,bbdebugtools,bookWatchMain,bbutils,LCLType,libraryAccess,LCLIntf,strutils,Clipbrd,inputlistbox,bookproperties;
+uses applicationconfig,applicationdesktopconfig, libraryParser,simplexmlparser,bbdebugtools,bookWatchMain,bbutils,LCLType,libraryAccess,LCLIntf,strutils,Clipbrd,inputlistbox,bookproperties,xquery__regex;
 
 { TbookSearchFrm }
 resourcestring
@@ -229,6 +216,8 @@ begin
   if debugMode then begin
     startAutoSearchButton.Visible := true;
   end;
+
+  createSearchControls;
 end;
 
 procedure TbookSearchFrm.startSearchClick(Sender: TObject);
@@ -269,32 +258,13 @@ begin
   if searcherAccess.searcher = nil then exit;
 
   //thread pending now, no need to use any locking
-
-  if homeBranch.ItemIndex >= 0 then begin
-    searcherAccess.searcher.HomeBranch:=homeBranch.ItemIndex;
-    userConfig.WriteString('BookSearcher', homeBranch.Name + '-' + searcherAccess.searcher.getLibraryIds, homeBranch.text);
+  for i := 0 to high(searchControls) do begin
+    searcherAccess.searcher.SearchOptions.setProperty(searchParams.inputs[i].name, searchControls[i].Text);
+    addCbHistory(searchControls[i])
   end;
-  if searchBranch.ItemIndex >= 0 then begin
-    searcherAccess.searcher.SearchBranch:=searchBranch.ItemIndex;
-    userConfig.WriteString('BookSearcher', searchBranch.Name + '-' + searcherAccess.searcher.getLibraryIds, searchBranch.text);
-  end;
-
-  searcherAccess.searcher.SearchOptions.author:=searchAuthor.Text;
-  searcherAccess.searcher.SearchOptions.title:=searchTitle.Text;
-  searcherAccess.searcher.SearchOptions.year:=searchYear.Text;
-  searcherAccess.searcher.SearchOptions.isbn:=searchISBN.Text;
-  setProperty('keywords', searchKeywords.Text, searcherAccess.searcher.SearchOptions.additional);
-
-
   searcherAccess.searchAsync;
 
   StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:=rsSearching;
-
-  addCbHistory(searchAuthor);
-  addCbHistory(searchTitle );
-  addCbHistory(searchKeywords);
-  addCbHistory(searchYear);
-  addCbHistory(searchISBN);
 end;
 
 procedure TbookSearchFrm.displayInternalPropertiesChange(Sender: TObject);
@@ -407,10 +377,6 @@ begin
   Clipboard.AsText := detaillistLastClickedRecordItem.Text;
 end;
 
-procedure TbookSearchFrm.searchKeywordsChange(Sender: TObject);
-begin
-
-end;
 
 procedure TbookSearchFrm.searchLocationRegionSelect(Sender: TObject);
 var
@@ -478,45 +444,12 @@ begin
      tlv.Cursor:=crDefault;
 end;
 
-procedure TbookSearchFrm.updateBranches(init: boolean);
-  procedure update(cb: TComboBox; sa: TStringArray; l: TLabel);
-  var
-    i, selectedIndex: Integer;
-    selectedBranch: string;
-  begin
-    selectedBranch := cb.Text;
-    if init then selectedBranch:=userConfig.ReadString('BookSearcher', cb.Name + '-' + newSearcherAccess.searcher.getLibraryIds, selectedBranch);
-    selectedIndex := -1;
-
-    l.Visible:=length(sa) > 0;
-    cb.Visible:=length(sa) > 0;
-    cb.Clear;
-    if length(sa) = 0 then exit;
-    for i := 0 to high(sa) do begin
-      cb.Items.Add(sa[i]);
-      if sa[i] = selectedBranch then selectedIndex := i;
-    end;
-    if selectedIndex >= 0 then begin
-      cb.ItemIndex := selectedIndex;
-    end else if cb.ItemIndex < 0 then cb.ItemIndex:=0;
-  end;
-
-begin
-  if newSearcherAccess.searcher = nil then exit;
-  newSearcherAccess.beginResultReading;
-  try
-    update(homeBranch, newSearcherAccess.searcher.HomeBranches, homeBranchLabel);
-    update(searchBranch, newSearcherAccess.searcher.SearchBranches, searchBranchLabel);
-  finally
-    newSearcherAccess.endResultReading;
-  end;
-end;
 
 procedure TbookSearchFrm.searcherAccessConnected(Sender: TObject);
 begin
   if sender <> newSearcherAccess then exit;
   if newSearcherAccess.searcher = nil then exit;
-  updateBranches(false);
+  createSearchControls;
   autoSearchPhase:=aspConnected;
 end;
 
@@ -649,18 +582,6 @@ begin
   saveToAccountMenu.PopUp;
 end;
 
-procedure TbookSearchFrm.Label2Click(Sender: TObject);
-begin
-
-end;
-
-procedure TbookSearchFrm.searchAuthorEnter(Sender: TObject);
-begin
-end;
-
-procedure TbookSearchFrm.searchAuthorExit(Sender: TObject);
-begin
-end;
 
 procedure TbookSearchFrm.searcherAccessOrderComplete(sender: TObject; book: TBook);
 var
@@ -765,6 +686,7 @@ begin
   locations.locations.Free;
   locations.regions.Free;
   selectedLibrariesPerLocation.free;
+  searchParams._ReleaseIfNonNil;
 end;
 
 procedure TbookSearchFrm.Image1Click(Sender: TObject);
@@ -934,7 +856,7 @@ begin
   if connectNow then begin
     result.connectAsync;
   end;
-  updateBranches(true); //from cache
+  createSearchControls; //from cache
 end;
 
 function TbookSearchFrm.currentLocationRegionConfig: string;
@@ -1168,37 +1090,14 @@ var i,rp:longint;
     s: string;
     accId: Integer;
     lib: TLibrary;
+    tempc: TComboBox;
+    r: TWrappedRegExpr;
 begin
   researchedBook := nil;
   if book = nil then
     exit;
 
   displayDetails(book);
-  searchAuthor.Text:=book.author;
-  s:=book.title;
-  for i:=length(s) downto 1 do
-    if s[i] in [' ',',','.'] then s[i]:=' '
-    else break;
-  s:=trim(s);
-  while striendswith(s,'Aufl') or striendswith(s,'Ausg') or striendswith(s,'Nachdr')
-        or striendswith(s,'print') or striendswith(s,' ed') or striendswith(s,' pr') do begin
-    rp:=0;
-    for i:=length(s) downto 2 do
-      if (s[i] = '.') and (s[i-1] in ['0'..'9']) then begin
-        rp:=i-1;
-        break;
-      end;
-    delete(s,rp,length(s)-rp+1);
-    for i:=length(s) downto 1 do
-      if s[i] in [' ',',','.'] then s[i]:=' '
-      else break;
-    s:=trim(s);
-    if rp=0 then break;
-  end;
-
-
-  
-  searchTitle.Text:=trim(s)+'*';
   if book.owningAccount is TCustomAccountAccess then begin
     lib := TCustomAccountAccess(book.owningAccount).getLibrary();
     if not selectLibrary(lib.prettyLocation, lib) then
@@ -1214,6 +1113,15 @@ begin
     end;
   end;
 
+  tempc := findSearchControl('author');
+  if tempc <> nil then tempc.text := book.author;
+
+  tempc := findSearchControl('title');
+  if tempc <> nil then begin
+    r := wregexprParse('(Aufl|Ausg|Nachdr|print| ed| pr)*[ ,.]*$', [wrfIgnoreCase]);
+    tempc.Text := strTrimAndNormalize(wregexprReplaceAll(r, book.title, '', true));
+    wregexprFree(r);
+  end;
 
   displayedBook := researchedBook;
 
@@ -1229,16 +1137,6 @@ begin
 end;
 
 procedure TbookSearchFrm.loadDefaults;
-  procedure loadComboBoxItems(cb: TComboBox);
-  begin
-    cb.Items.Text:=StringReplace(
-                      StringReplace(
-                         userConfig.ReadString('BookSearcher','History'+cb.Name,''),
-                         '\n',
-                         LineEnding,
-                         [rfReplaceAll]),
-                      '\\','\',[rfReplaceAll]);
-  end;
 var i:longint;
   temp: String;
 begin
@@ -1261,11 +1159,6 @@ begin
   else searchLocationRegion.Text:=searchLocationRegion.items[0];
   searchLocationRegionSelect(self);
 
-  loadComboBoxItems(searchAuthor);
-  loadComboBoxItems(searchTitle);
-  loadComboBoxItems(searchKeywords);
-  loadComboBoxItems(searchYear);
-  loadComboBoxItems(searchISBN);
   saveToDefaultAccountID := userConfig.ReadString('BookSearcher','default-save-to', '');
   if accounts.IndexOf(saveToDefaultAccountID) >= 0 then
     LabelSaveTo.Caption := rsIn + ' \/ '+ accounts[accounts.IndexOf(saveToDefaultAccountID)].prettyName;
@@ -1275,26 +1168,111 @@ begin
 end;
 
 procedure TbookSearchFrm.saveDefaults;
-  procedure saveComboBoxItems(cb: TComboBox);
-  begin
-    userConfig.WriteString('BookSearcher','History'+cb.Name,
-       StringReplace(
-         StringReplace(cb.Items.Text,'\','\\',[rfReplaceAll]),
-         LineEnding,'\n',[rfReplaceAll]));
-  end;
 var i:longint;
 begin
   for i:=0 to selectedLibrariesPerLocation.Count-1 do
     userConfig.WriteString('BookSearcher','selection-'+selectedLibrariesPerLocation.Names[i],selectedLibrariesPerLocation.ValueFromIndex[i]);
-  saveComboBoxItems(searchAuthor);
-  saveComboBoxItems(searchTitle );
-  saveComboBoxItems(searchKeywords);
-  saveComboBoxItems(searchYear);
-  saveComboBoxItems(searchISBN);
+  for i := 0 to high(searchControls) do begin
+    if not (searchParams.inputs[i] is TFormSelect) then
+      userConfig.WriteString('BookSearcher','Historysearch'+searchParams.inputs[i].name,
+         StringReplace(
+           StringReplace(searchControls[i].Items.Text,'\','\\',[rfReplaceAll]),
+           LineEnding,'\n',[rfReplaceAll]));
+  end;
   userConfig.WriteString('BookSearcher','default-save-to', saveToDefaultAccountID);
   userConfig.WriteString('BookSearcher','default-order-for', orderForDefaultAccountID);
   userConfig.WriteString('BookSearcher', 'default-region', searchLocationRegion.Text);
   userConfig.WriteString('BookSearcher', currentLocationRegionConfig, searchLocation.Text);
+end;
+
+procedure TbookSearchFrm.createSearchControls;
+const OFFSET_DISTANCE = 6;
+var previousControl: TControl = nil;
+  procedure appendToBox(c: tcontrol);
+  begin
+    c.left := OFFSET_DISTANCE;
+    if previousControl = nil then c.Top := OFFSET_DISTANCE
+    else begin
+      c.AnchorSideTop.Control := previousControl;
+      c.AnchorSideTop.Side := asrBottom;
+    end;
+    c.Parent := SearchParamsBox;
+    previousControl := c;
+  end;
+
+var
+  params, oldParams: TFormParams;
+  i: SizeInt;
+  fs: TFormSelect;
+  j: Integer;
+  oldLabels: array of TLabel;
+  oldControls: array of TComboBox;
+begin
+  params := defaultSearchParams;
+  if Assigned(searcherAccess) and Assigned(searcherAccess.searcher) then begin
+    searcherAccess.beginResultReading;
+    params := searcherAccess.searcher.SearchParams;
+    params._AddRef;
+    searcherAccess.endResultReading;
+  end else params._AddRef;
+
+  oldParams := searchParams;
+  oldControls := searchControls;
+  oldLabels := searchLabels;
+
+  searchControls := nil;
+  searchLabels := nil;
+  SetLength(searchControls, length(params.inputs));
+  SetLength(searchLabels, length(params.inputs));
+  for i := 0 to high(params.inputs) do begin
+    searchLabels[i] := TLabel.Create(SearchParamsBox);
+    searchLabels[i].Caption := params.inputs[i].caption;
+    searchLabels[i].AutoSize := true;
+    case params.inputs[i].name of
+      'title', 'author': searchLabels[i].Font.Style := [fsBold];
+    end;
+    appendToBox(searchLabels[i]);
+
+    searchControls[i] := TComboBox.Create(SearchParamsBox);
+    with searchControls[i] do begin
+      Anchors := [akLeft, aktop, akRight];
+      Width := SearchParamsBox.ClientWidth - 2 * OFFSET_DISTANCE;
+      BorderSpacing.Bottom := 10;
+      if params.inputs[i] is TFormSelect then begin
+        style := csDropDownList;
+        fs := TFormSelect( params.inputs[i]);
+        items.BeginUpdate;
+        items.Clear;
+        for j := 0 to high(fs.options) do
+          items.Add(fs.options[j].name);
+        items.EndUpdate;
+      end else begin
+        style := csDropDown;
+        searchControls[i].Items.Text:=StringReplace(
+                                        StringReplace(
+                                           userConfig.ReadString('BookSearcher','Historysearch'+params.inputs[i].name,''),
+                                           '\n',
+                                           LineEnding,
+                                           [rfReplaceAll]),
+                                        '\\','\',[rfReplaceAll]);
+      end;
+    end;
+    appendToBox(searchControls[i]);
+
+  end;
+
+  oldparams._ReleaseIfNonNil;
+  searchParams := params;
+end;
+
+function TbookSearchFrm.findSearchControl(const n: string): TComboBox;
+var
+  i: Integer;
+begin
+  for i := 0 to high(searchControls) do
+    if searchParams.inputs[i].name = n then
+      Exit(searchControls[i]);
+  result := nil;
 end;
 
 procedure TbookSearchFrm.changeDefaultSaveToAccount(sender: tobject);

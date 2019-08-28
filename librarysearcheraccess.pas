@@ -335,22 +335,10 @@ end;
 const BranchSeparator = ',//,';
 
 procedure TLibrarySearcherAccess.connectAsync;
-var
-  branches, homes, ids: String;
 begin
   if not assigned(fthread) then exit;
   removeOldMessageOf(smtConnect);
-  ids := searcher.getLibraryIds;
-  homes := userConfig.ReadString('Search-Cache', ids + '-HomeBranches','');
-  branches := userConfig.ReadString('Search-Cache', ids + '-Branches','');
-  beginResultReading;
-  try
-    searcher.HomeBranches := strSplit(homes, BranchSeparator, false);
-    searcher.SearchBranches := strSplit(branches, BranchSeparator, false);
-  finally
-    endResultReading;
-    fthread.messages.storeMessage(TSearcherMessage.Create(smtConnect));
-  end;
+  fthread.messages.storeMessage(TSearcherMessage.Create(smtConnect));
 end;
 
 procedure TLibrarySearcherAccess.searchAsync;
@@ -361,17 +349,6 @@ begin
   if not assigned(fthread) then exit;
   removeOldMessageOf(smtSearch);
   fthread.messages.storeMessage(TSearcherMessage.Create(smtSearch));
-
-  beginResultReading;
-  try
-    ids := searcher.getLibraryIds;
-    homes := strJoin(searcher.HomeBranches, BranchSeparator);
-    branches := strJoin(searcher.SearchBranches, BranchSeparator);
-  finally
-    endResultReading;
-  end;
-  userConfig.WriteString('Search-Cache', ids + '-HomeBranches', homes);
-  userConfig.WriteString('Search-Cache', ids + '-Branches', branches);
 end;
 
 procedure TLibrarySearcherAccess.searchNextAsync;
@@ -562,7 +539,7 @@ begin
           if Searcher.SearchOptions <> nil then
             debugLastSearchQuery := Searcher.SearchOptions.title + '/'+Searcher.SearchOptions.author+'/'+
                                     Searcher.SearchOptions.getPropertyAdditional('keywords') + '/' + Searcher.SearchOptions.isbn + '/' +
-                                    Searcher.SearchOptions.year + '@' + inttostr(Searcher.SearchBranch)+':'+inttostr(searcher.HomeBranch);
+                                    Searcher.SearchOptions.year;// + '@' + inttostr(Searcher.SearchBranch)+':'+inttostr(searcher.HomeBranch);
           searcher.search;
           callPageCompleteEvent(access.FOnSearchPageComplete, true, searcher.SearchNextPageAvailable);
         end;

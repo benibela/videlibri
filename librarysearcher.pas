@@ -1,11 +1,11 @@
 unit librarySearcher;
 
-{$mode objfpc}{$H+}
+{$mode objfpc}{$H+}{$ModeSwitch autoderef}
 
 interface
 
 uses
-  Classes, SysUtils, booklistreader, libraryParser, multipagetemplate, xquery, bbutils;
+  Classes, SysUtils, booklistreader, libraryParser, multipagetemplate, xquery, bbutils, commoninterface;
 
 type
 TBookSearchOptions = class(TBook);
@@ -14,10 +14,6 @@ TBookSearchOptions = class(TBook);
 
 TLibrarySearcher = class
 private
-  fhomeBranch: integer;
-  fhomeBranches: TStringArray;
-  fsearchBranch: integer;
-  fsearchBranches: TStringArray;
   flibsToSearch: TList;
   fsearchBook: TBookSearchOptions;
   FSearchNextPageAvailable: boolean;
@@ -26,10 +22,9 @@ private
   FConnected: boolean;
   FTimeout, FLastAccessTime: QWORD;
   template: TMultiPageTemplate;
+  fsearchparams: TFormParams;
   function GetConnected: boolean;
   procedure updateAccessTimeout;
-  procedure setHomeBranch(AValue: Integer);
-  procedure setSearchBranch(AValue: Integer);
 public
   bookListReader:TBookListReader;
 
@@ -48,14 +43,10 @@ public
   procedure completePendingMessage(pm: TPendingMessage; idx: integer);
   procedure disconnect;
 
-  property HomeBranch: Integer read fhomebranch write setHomeBranch;
-  property SearchBranch: Integer read fsearchBranch write setSearchBranch;
+  property SearchParams: TFormParams read fsearchParams;
 
   property Connected: boolean read GetConnected;
   property Timeout: qword read FTimeout write FTimeout;
-
-  property HomeBranches: TStringArray read fhomeBranches write fhomeBranches;
-  property SearchBranches: TStringArray read fsearchBranches write fsearchBranches;
 
   property SearchOptions: TBookSearchOptions read fsearchBook;
   property SearchResult: TBookList read fsearchResult;
@@ -63,11 +54,98 @@ public
   property SearchNextPageAvailable: boolean read FSearchNextPageAvailable ;
 end;
 
+var defaultSearchParams: TFormParams;
 implementation
-uses internetAccess;
+uses internetAccess, bookproperties, applicationconfig;
 
 resourcestring
   rsDefault = 'Standard';
+  rsKeywords = 'Stichworte';
+
+type TFormParamsHelper = class helper for TFormParams
+  procedure setCaptions;
+  class function createFromXQValue(const v: IXQValue): TFormParams; static;
+private
+  class function createDefault: TFormParams; static;
+end;
+
+procedure TFormParamsHelper.setCaptions;
+var
+  i: SizeInt;
+begin
+  for i := 0 to high(inputs) do
+    with inputs[i] do
+      if (caption = '') and (name <> '') then begin
+        caption := getBookPropertyPretty(name);
+        if caption = '' then
+          case name of
+            'keywords': caption := rsKeywords;
+          end;
+      end;
+end;
+
+class function TFormParamsHelper.createDefault: TFormParams;
+begin
+  result := TFormParams.create;
+  with result do begin
+    SetLength(inputs, 5);
+    inputs[0] := TFormInput.Create; inputs[0].name := 'title';
+    inputs[1] := TFormInput.Create; inputs[1].name := 'author';
+    inputs[2] := TFormInput.Create; inputs[2].name := 'keywords';
+    inputs[3] := TFormInput.Create; inputs[3].name := 'year';
+    inputs[4] := TFormInput.Create; inputs[4].name := 'isbn';
+    setCaptions;
+  end;
+end;
+
+class function TFormParamsHelper.createFromXQValue(const v: IXQValue): TFormParams;
+var
+  pv, pw: PIXQValue;
+  fi: TFormInput;
+  fs: TFormSelect;
+  options: IXQValue;
+  i,j : SizeInt;
+begin
+  result := TFormParams.Create;
+  with result do begin
+    SetLength(inputs, v.Count);
+    i := 0;
+    for pv in v.GetEnumeratorPtrUnsafe do begin
+      case pv.kind of
+        pvkString: begin
+          fi := TFormInput.Create;
+          fi.name := pv.toString;
+        end;
+        pvkObject: begin
+          options := pv.getProperty('options');
+          if options.isUndefined then fi := TFormInput.Create
+          else begin
+            fs := TFormSelect.Create;
+            fi := fs;
+            for pw in options.GetEnumeratorPtrUnsafe do begin
+              case pw.kind of
+                pvkString: {todo};
+                pvkObject: begin
+                  fs.options[j].name := pw.getProperty('name').toString;
+                  fs.options[j].value := pw.getProperty('value').toString;
+                end;
+                pvkNode: begin
+                  fs.options[j].name := pw.toNode.innerText();
+                  fs.options[j].value := pw.toNode.getAttribute('value');
+                end;
+                else raise EVideLibriInterfaceException.Create('Invalid option: '+pw.toXQuery);
+              end;
+            end;
+          end;
+        end;
+        else raise EVideLibriInterfaceException.Create('Invalid form input: '+pv.toXQuery);
+      end;
+      inputs[i] := fi;
+      inc(i);
+    end;
+    setCaptions;
+  end;
+end;
 
 function TLibrarySearcher.GetConnected: boolean;
 var
@@ -77,23 +155,10 @@ begin
   result:=FConnected and (tempTime >= FLastAccessTime) and (tempTime - FLastAccessTime < Timeout);
 end;
 
+
 procedure TLibrarySearcher.updateAccessTimeout;
 begin
   FLastAccessTime := GetTickCount64;
-end;
-
-procedure TLibrarySearcher.setHomeBranch(AValue: Integer);
-begin
-  if fhomeBranch=AValue then Exit;
-  fhomeBranch:=AValue;
-  bookListReader.parser.variableChangeLog.add('home-branch-id', AValue);
-end;
-
-procedure TLibrarySearcher.setSearchBranch(AValue: Integer);
-begin
-  if fsearchBranch=AValue then Exit;
-  fsearchBranch:=AValue;
-  bookListReader.parser.variableChangeLog.add('search-branch-id', AValue);
 end;
 
 constructor TLibrarySearcher.create(searchTemplate: TMultiPageTemplate);
@@ -108,6 +173,9 @@ begin
 
   FTimeout:=10*60*1000;
   FConnected:=false;
+
+  fsearchparams := defaultSearchParams;
+  fsearchparams._AddRef;
 end;
 
 destructor TLibrarySearcher.Destroy;
@@ -117,6 +185,7 @@ begin
   fsearchResult.free;
   flibsToSearch.Free;
   fsearchBook.Free;
+  fsearchparams._ReleaseIfNonNil;
   inherited Destroy;
 end;
 
@@ -167,37 +236,46 @@ begin
   bookListReader.parser.oldVariableChangeLog.clear;
 end;
 
+
 procedure TLibrarySearcher.connect;
 var
   i: Integer;
   connectAction: TTemplateAction;
-  temp: IXQValue;
+  temp, tempoptions: IXQValue;
+  newsearchparams: TFormParams;
 begin
   assert(Assigned(bookListReader.bookAccessSection));
   connectAction := bookListReader.findAction('search-connect');
   if connectAction <> nil then begin
     bookListReader.callAction(connectAction);
 
+    temp := bookListReader.parser.variableChangeLog.get('search-params');
+    if temp.Count > 0 then newsearchparams := TFormParams.createFromXQValue(temp)
+    else newsearchparams := defaultSearchParams;
+    newsearchparams._AddRef;
     EnterCriticalSection(bookListReader.bookAccessSection^);
-    try
-      temp := bookListReader.parser.variableChangeLog.get('home-branches');
-      if temp.getSequenceCount > 0 then begin
-        SetLength(fhomebranches, temp.getSequenceCount+1);
-        fhomebranches[0] := '(' + rsDefault + ')';
-        for i:=1 to temp.getSequenceCount do
-          fhomebranches[i] := temp.get(i).toString;
-      end;
+    fsearchparams._ReleaseIfNonNil;
+    fsearchparams := newsearchparams;
+    LeaveCriticalSection(bookListReader.bookAccessSection^);
+    if fsearchparams <> defaultSearchParams then
+      strSaveToFileUTF8(userPath + '/' + getLibraryIds + '.cache', '{"search-params": ' + fsearchparams.toJSON() + '}');
 
-      temp := bookListReader.parser.variableChangeLog.get('search-branches');
-      if temp.getSequenceCount > 0 then begin
-        SetLength(fsearchBranches, temp.getSequenceCount+1);
-        fsearchBranches[0] :='(' + rsDefault + ')';
-        for i:=1 to temp.getSequenceCount do
-          fsearchBranches[i] := temp.get(i).toString;
-      end;
-    finally
-      LeaveCriticalSection(bookListReader.bookAccessSection^);
-    end;
+    {end else begin
+        temp := bookListReader.parser.variableChangeLog.get('home-branches');
+        if temp.getSequenceCount > 0 then begin
+          SetLength(fhomebranches, temp.getSequenceCount+1);
+          fhomebranches[0] := '(' + rsDefault + ')';
+          for i:=1 to temp.getSequenceCount do
+            fhomebranches[i] := temp.get(i).toString;
+        end;
+
+        temp := bookListReader.parser.variableChangeLog.get('search-branches');
+        if temp.getSequenceCount > 0 then begin
+          SetLength(fsearchBranches, temp.getSequenceCount+1);
+          fsearchBranches[0] :='(' + rsDefault + ')';
+          for i:=1 to temp.getSequenceCount do
+            fsearchBranches[i] := temp.get(i).toString;
+        end;}
   end;
   FConnected:=true;
   updateAccessTimeout;
@@ -276,5 +354,10 @@ begin
   FConnected:=false;
 end;
 
+initialization
+  defaultSearchParams := TFormParams.createDefault;
+  defaultSearchParams._AddRef;
+finalization
+  defaultSearchParams._Release;
 end.
 

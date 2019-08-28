@@ -10,7 +10,7 @@
   <property-array name="options"/>
 </class>
 
-<class id="FormParams">
+<class id="FormParams" extends="FastInterfacedObject">
   <array name="inputs"><classref ref="FormInput"/></array>
 </class>
 

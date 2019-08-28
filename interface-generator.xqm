@@ -1,8 +1,12 @@
 xquery version "3.1-xidel";
 module namespace ig="ig";
 
+declare function ig:parent($e){
+  $e/@extends[. ne "FastInterfacedObject"]
+};
+
 declare function ig:ancestors($e){
-  let $parent-id := $e/@extends
+  let $parent-id := ig:parent($e)
   let $parent := $e/root()//class[@id = $parent-id]
   where $parent
   return (ig:ancestors($parent), $parent)
@@ -19,12 +23,12 @@ declare function ig:jni-name($c){
 
 
 declare function ig:pascal-make-class($s){
-$s/(let $virtual := if (@extends) then "override;" else "virtual;" return x"
+$s/(let $virtual := if (ig:parent(.)) then "override;" else "virtual;" return x"
 type T{@id} = class{@extends!concat("(T",.,")")}
   {join(( if (./string) then join(./string/@name, ", ") || ": string;" else (),
   ./array/x"{@name}: array of T{classref/@ref};",
   ./property-array/x"{@name}: TProperties;",
-  if (not(@extends)) then "procedure toJSON(var builder: TJSONXHTMLStrBuilder);
+  if (not(ig:parent(.))) then "procedure toJSON(var builder: TJSONXHTMLStrBuilder);
   function toJSON(): string;" else (),
   if (.//classref) then "destructor destroy; override;" else ()), "&#x0A;  ")
   }
@@ -179,7 +183,7 @@ end;"}
 
 {
 $r/api/class/(
-.[not(@extends)]!
+.[not(ig:parent(.))]!
 x"procedure T{@id}.toJSON(var builder: TJSONXHTMLStrBuilder);
 begin
   with builder do begin
@@ -200,7 +204,7 @@ end;
 ",
 
 x"procedure T{@id}.appendToJSON(var builder: TJSONXHTMLStrBuilder);{if (./array, ./property-array) then "&#x0A;var i: sizeint;" else ()}
-begin{@extends!"
+begin{ig:parent(.)!"
   inherited;
   builder.appendJSONObjectComma;"
   }
@@ -290,7 +294,7 @@ begin
       default return ()
     ), "&#x0A;    ")
     }
-    else {if (@extends) then "inherited;" else "scanner.skipUnknownProperty();"
+    else {if (ig:parent(.)) then "inherited;" else "scanner.skipUnknownProperty();"
     }
   end;
 end;
@@ -382,7 +386,7 @@ declare function ig:kotlin-make-class($s){
     */ig:kotlin-make-prop(.)!concat("public val ",.)
   ), ",&#x0A;    ")
   }
-  ) {@extends!x": {.}({join($aprops!@name, ", ")})"} {{
+  ) {ig:parent(.)!x": {.}({join($aprops!@name, ", ")})"} {{
   }}")
 };
 declare function ig:kotlin-make($r){

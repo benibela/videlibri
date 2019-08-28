@@ -36,7 +36,7 @@ public
   function toJava: jobject; override;
   {$endif}
 end; 
-type TFormParams = class
+type TFormParams = class(TFastInterfacedObject)
   inputs: array of TFormInput;
   procedure toJSON(var builder: TJSONXHTMLStrBuilder);
   function toJSON(): string;
