@@ -82,6 +82,7 @@ private
 
   procedure removeOldMessageOf(typ: TSearcherMessageTyp);
   function GetSearcher: TLibrarySearcher;
+  procedure loadSearchCache;
 public
   function operationActive: boolean;
 
@@ -151,7 +152,7 @@ type
 function getSearchableLocations: TSearchableLocations;
 implementation
 
-uses applicationconfig, bbdebugtools, internetaccess, androidutils {$ifdef android}, bbjniutils{$else},forms{$endif};
+uses applicationconfig, bbdebugtools, internetaccess, androidutils {$ifdef android}, bbjniutils{$else},forms{$endif}, commoninterface, jsonscanner, jsonscannerhelper;
 
 resourcestring
   rsSearchAllRegions = 'alle Regionen';
@@ -247,6 +248,7 @@ begin
 end;
 
 
+
 constructor TLibrarySearcherAccess.create();
 begin
 end;
@@ -332,19 +334,37 @@ begin
   end;
 end;
 
-const BranchSeparator = ',//,';
+procedure TLibrarySearcherAccess.loadSearchCache;
+var
+  cache: String;
+  scanner: TJSONScanner;
+begin
+  cache := strLoadFromFile(searcher.getCacheFile);
+  if cache = '' then exit;
+  scanner := TJSONScanner.Create(cache, [joUTF8, joIgnoreTrailingComma]);
+  try
+    scanner.fetchExpectedToken(tkCurlyBraceOpen);
+    scanner.fetchExpectedToken(tkString);
+    if scanner.CurTokenString = 'search-params' then begin
+      scanner.fetchExpectedToken(tkColon);
+      scanner.fetchExpectedToken(tkCurlyBraceOpen);
+      searcher.SearchParams := TFormParams.fromJSON(scanner);
+    end;
+  except
+  end;
+  scanner.free;
+end;
+
 
 procedure TLibrarySearcherAccess.connectAsync;
 begin
   if not assigned(fthread) then exit;
   removeOldMessageOf(smtConnect);
+  if FileExists(searcher.getCacheFile) then loadSearchCache;
   fthread.messages.storeMessage(TSearcherMessage.Create(smtConnect));
 end;
 
 procedure TLibrarySearcherAccess.searchAsync;
-var
-  branches, homes: RawByteString;
-  ids: String;
 begin
   if not assigned(fthread) then exit;
   removeOldMessageOf(smtSearch);

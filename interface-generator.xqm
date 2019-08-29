@@ -33,6 +33,7 @@ type T{@id} = class{@extends!concat("(T",.,")")}
   if (.//classref) then "destructor destroy; override;" else ()), "&#x0A;  ")
   }
   class function fromJSON(json: string): T{@id};
+  class function fromJSON(json: TJSONScanner): T{@id};
 protected
   procedure appendToJSON(var builder: TJSONXHTMLStrBuilder); {$virtual}
   class function readTypedObject(scanner: TJSONScanner): T{@id}; //['type', {{obj}}]
@@ -50,7 +51,7 @@ x"unit commoninterface;
 {{$mode objfpc}}{{$H+}}
 {{$ModeSwitch typehelpers}}{{$ModeSwitch advancedrecords}}{{$ModeSwitch autoderef}}
 interface
- uses sysutils, simplexmlparser, xquery.internals.common, jsonscanner {{$ifdef android}}, commoninterface, jni, bbjniutils{{$endif}};
+ uses sysutils, simplexmlparser, xquery.internals.common, jsonscanner, jsonscannerhelper {{$ifdef android}}, commoninterface, jni, bbjniutils{{$endif}};
  type EVideLibriInterfaceException = class(Exception);
  { let $arrayrefs := distinct-values($r/api//array/classref/@ref)
    where exists($arrayrefs)
@@ -77,59 +78,13 @@ begin
   end;
 end;
 
-procedure raiseJSONParsingError(scanner: TJSONScanner);
-var
-  at: String;
-begin
-  at := Copy(scanner.CurLine, scanner.CurColumn - 30, min(scanner.CurColumn - 1, 30) ) + '|' + Copy(scanner.CurLine, scanner.CurColumn, 30 ) ;
-  raise EVideLibriInterfaceException.create('Konfigurationsdatei konnte nicht geladen werden. Unerwartetes ' + scanner.CurTokenString + '<'+inttostr(ord(scanner.CurToken)) + '> '+at);
-end;         
-
-type TJSONScannerHelper = class helper for TJSONScanner
-  procedure expectToken(token: TJSONToken);
-  function fetchNonWSToken: TJSONToken;
-  procedure skipUnknownProperty;
-end;
-procedure TJSONScannerHelper.expectToken(token: TJSONToken);
-begin
-  if CurToken <> token then
-    raiseJSONParsingError(self);
-end;
-
-function TJSONScannerHelper.fetchNonWSToken: TJSONToken;
-begin
-  repeat
-    result := FetchToken;
-  until result <> tkWhitespace;
-end;
-
-procedure TJSONScannerHelper.skipUnknownProperty;
-var nesting: sizeint;
-begin
-  fetchNonWSToken; expectToken(tkColon);
-  fetchNonWSToken;
-  case CurToken of
-    tkString: ;
-    tkSquaredBraceOpen: begin
-      nesting := 1;
-      while nesting > 0 do
-        case fetchNonWSToken of
-          tkSquaredBraceOpen: inc(nesting);
-          tkSquaredBraceClose: dec(nesting);
-          tkEOF: exit;
-        end;
-    end;
-    else expectToken(tkString);
-  end;
-  fetchNonWSToken;
-end;
 
 type TPropertiesRecordArrayList = specialize TRecordArrayList<TProperty>;
 procedure readArray(var p: TProperties; scanner: TJSONScanner); overload;
 var temp: TPropertiesRecordArrayList;
   pname: String;
 begin
-  scanner.fetchNonWSToken; scanner.expectToken(tkSquaredBraceOpen);
+  scanner.fetchNonWSToken; scanner.expectCurrentToken(tkSquaredBraceOpen);
   temp.init;
   while true do begin
     case scanner.fetchNonWSToken of
@@ -138,8 +93,8 @@ begin
         while true do case scanner.fetchNonWSToken of
           tkString: begin
             pname := scanner.CurTokenString;
-            scanner.fetchNonWSToken; scanner.expectToken(tkColon);
-            scanner.fetchNonWSToken; scanner.expectToken(tkString);
+            scanner.fetchNonWSToken; scanner.expectCurrentToken(tkColon);
+            scanner.fetchNonWSToken; scanner.expectCurrentToken(tkString);
             case pname of
               'name': temp.last.name := scanner.CurTokenString;
               'value': temp.last.value := scanner.CurTokenString;
@@ -147,12 +102,12 @@ begin
           end;
           tkComma: ;
           tkCurlyBraceClose, tkEOF: break;
-          else raiseJSONParsingError(scanner);
+          else scanner.raiseUnexpectedError();
         end;
       end;
       tkComma:;
       tkSquaredBraceClose: break;
-      else raiseJSONParsingError(scanner);
+      else scanner.raiseUnexpectedError();
     end;
   end;
 
@@ -166,7 +121,7 @@ type T{.}ArrayList = specialize TCopyingPtrArrayList<T{.}>;
 procedure readArray(var p: T{.}Array; scanner: TJSONScanner); overload;
 var temp: T{.}ArrayList;
 begin
-  scanner.fetchNonWSToken; scanner.expectToken(tkSquaredBraceOpen);
+  scanner.fetchNonWSToken; scanner.expectCurrentToken(tkSquaredBraceOpen);
   temp.init;
   while true do begin
     case scanner.fetchNonWSToken of
@@ -174,7 +129,7 @@ begin
       tkComma: ;
       tkSquaredBraceClose: break;
       tkCurlyBraceOpen: temp.add(T{.}.readObject(T{.}.create, scanner));
-      else raiseJSONParsingError(scanner);
+      else scanner.raiseUnexpectedError();
     end;
   end;
 
@@ -238,21 +193,25 @@ var scanner: TJSONScanner;
 begin
   scanner := TJSONScanner.Create(json, [joUTF8, joIgnoreTrailingComma]);
   scanner.fetchNonWSToken;
-  result := readObject(T{@id}.create, scanner);
+  result := fromJSON(scanner);
   scanner.free;
+end;
+class function T{@id}.fromJSON(json: TJSONScanner): T{@id};
+begin
+  result := readObject(T{@id}.create, json);
 end;
 
 class function T{@id}.readObject(obj: T{@id}; scanner: TJSONScanner): T{@id};
 begin
   result := obj;
-  scanner.expectToken(tkCurlyBraceOpen); scanner.fetchNonWSToken;
+  scanner.expectCurrentToken(tkCurlyBraceOpen); scanner.fetchNonWSToken;
   while true do begin    
     case scanner.curtoken of
       tkString: result.readProperty(scanner);
       tkEOF: exit;
       tkCurlyBraceClose: exit;
       tkComma: scanner.fetchNonWSToken;
-      else raiseJSONParsingError(scanner);
+      else scanner.raiseUnexpectedError();
     end;
   end;
 end;
@@ -262,17 +221,17 @@ var additionalArray: boolean;
 begin
   additionalArray := scanner.curtoken = tkSquaredBraceOpen;
   if additionalArray  then scanner.fetchNonWSToken;
-  scanner.expectToken(tkString);
+  scanner.expectCurrentToken(tkString);
   case scanner.CurTokenString of
   {let $id := @id return (., /api/class[$id = ig:ancestors(.)/@id])!x"
     '{@id}': result := T{@id}.create;"}
-  else raiseJSONParsingError(scanner);
+  else scanner.raiseUnexpectedError();
   end;
-  scanner.fetchNonWSToken; scanner.expectToken(tkComma);
+  scanner.fetchNonWSToken; scanner.expectCurrentToken(tkComma);
   scanner.fetchNonWSToken;
   result := readObject(result, scanner);
   if additionalArray then begin
-    scanner.fetchNonWSToken; scanner.expectToken(tkSquaredBraceClose);
+    scanner.fetchNonWSToken; scanner.expectCurrentToken(tkSquaredBraceClose);
   end;
 end;
 
@@ -281,20 +240,20 @@ begin
   case scanner.CurTokenString of
     {join(*/(typeswitch (.) 
       case element(string) return x"'{@name}': begin
-        scanner.fetchNonWSToken; scanner.expectToken(tkColon); 
-        scanner.fetchNonWSToken; scanner.expectToken(tkString); 
+        scanner.fetchNonWSToken; scanner.expectCurrentToken(tkColon); 
+        scanner.fetchNonWSToken; scanner.expectCurrentToken(tkString); 
         {@name} := scanner.CurTokenString;
         scanner.fetchNonWSToken;
       end;"
       case element(array) | element(property-array) return x"'{@name}': begin
-        scanner.fetchNonWSToken; scanner.expectToken(tkColon); 
+        scanner.fetchNonWSToken; scanner.expectCurrentToken(tkColon); 
         readArray({@name}, scanner);
         scanner.fetchNonWSToken;
       end;"
       default return ()
     ), "&#x0A;    ")
     }
-    else {if (ig:parent(.)) then "inherited;" else "scanner.skipUnknownProperty();"
+    else {if (ig:parent(.)) then "inherited;" else "scanner.skipObjectPropertyValue();"
     }
   end;
 end;

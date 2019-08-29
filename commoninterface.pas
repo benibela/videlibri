@@ -2,7 +2,7 @@ unit commoninterface;
 {$mode objfpc}{$H+}
 {$ModeSwitch typehelpers}{$ModeSwitch advancedrecords}{$ModeSwitch autoderef}
 interface
- uses sysutils, simplexmlparser, xquery.internals.common, jsonscanner {$ifdef android}, commoninterface, jni, bbjniutils{$endif};
+ uses sysutils, simplexmlparser, xquery.internals.common, jsonscanner, jsonscannerhelper {$ifdef android}, commoninterface, jni, bbjniutils{$endif};
  type EVideLibriInterfaceException = class(Exception);
  type TFormInput = class; TFormInputArray = array of TFormInput; 
  
@@ -11,6 +11,7 @@ type TFormInput = class
   procedure toJSON(var builder: TJSONXHTMLStrBuilder);
   function toJSON(): string;
   class function fromJSON(json: string): TFormInput;
+  class function fromJSON(json: TJSONScanner): TFormInput;
 protected
   procedure appendToJSON(var builder: TJSONXHTMLStrBuilder); virtual;
   class function readTypedObject(scanner: TJSONScanner): TFormInput; //['type', {obj}]
@@ -25,6 +26,7 @@ end;
 type TFormSelect = class(TFormInput)
   options: TProperties;
   class function fromJSON(json: string): TFormSelect;
+  class function fromJSON(json: TJSONScanner): TFormSelect;
 protected
   procedure appendToJSON(var builder: TJSONXHTMLStrBuilder); override;
   class function readTypedObject(scanner: TJSONScanner): TFormSelect; //['type', {obj}]
@@ -42,6 +44,7 @@ type TFormParams = class(TFastInterfacedObject)
   function toJSON(): string;
   destructor destroy; override;
   class function fromJSON(json: string): TFormParams;
+  class function fromJSON(json: TJSONScanner): TFormParams;
 protected
   procedure appendToJSON(var builder: TJSONXHTMLStrBuilder); virtual;
   class function readTypedObject(scanner: TJSONScanner): TFormParams; //['type', {obj}]
@@ -73,59 +76,13 @@ begin
   end;
 end;
 
-procedure raiseJSONParsingError(scanner: TJSONScanner);
-var
-  at: String;
-begin
-  at := Copy(scanner.CurLine, scanner.CurColumn - 30, min(scanner.CurColumn - 1, 30) ) + '|' + Copy(scanner.CurLine, scanner.CurColumn, 30 ) ;
-  raise EVideLibriInterfaceException.create('Konfigurationsdatei konnte nicht geladen werden. Unerwartetes ' + scanner.CurTokenString + '<'+inttostr(ord(scanner.CurToken)) + '> '+at);
-end;         
-
-type TJSONScannerHelper = class helper for TJSONScanner
-  procedure expectToken(token: TJSONToken);
-  function fetchNonWSToken: TJSONToken;
-  procedure skipUnknownProperty;
-end;
-procedure TJSONScannerHelper.expectToken(token: TJSONToken);
-begin
-  if CurToken <> token then
-    raiseJSONParsingError(self);
-end;
-
-function TJSONScannerHelper.fetchNonWSToken: TJSONToken;
-begin
-  repeat
-    result := FetchToken;
-  until result <> tkWhitespace;
-end;
-
-procedure TJSONScannerHelper.skipUnknownProperty;
-var nesting: sizeint;
-begin
-  fetchNonWSToken; expectToken(tkColon);
-  fetchNonWSToken;
-  case CurToken of
-    tkString: ;
-    tkSquaredBraceOpen: begin
-      nesting := 1;
-      while nesting > 0 do
-        case fetchNonWSToken of
-          tkSquaredBraceOpen: inc(nesting);
-          tkSquaredBraceClose: dec(nesting);
-          tkEOF: exit;
-        end;
-    end;
-    else expectToken(tkString);
-  end;
-  fetchNonWSToken;
-end;
 
 type TPropertiesRecordArrayList = specialize TRecordArrayList<TProperty>;
 procedure readArray(var p: TProperties; scanner: TJSONScanner); overload;
 var temp: TPropertiesRecordArrayList;
   pname: String;
 begin
-  scanner.fetchNonWSToken; scanner.expectToken(tkSquaredBraceOpen);
+  scanner.fetchNonWSToken; scanner.expectCurrentToken(tkSquaredBraceOpen);
   temp.init;
   while true do begin
     case scanner.fetchNonWSToken of
@@ -134,8 +91,8 @@ begin
         while true do case scanner.fetchNonWSToken of
           tkString: begin
             pname := scanner.CurTokenString;
-            scanner.fetchNonWSToken; scanner.expectToken(tkColon);
-            scanner.fetchNonWSToken; scanner.expectToken(tkString);
+            scanner.fetchNonWSToken; scanner.expectCurrentToken(tkColon);
+            scanner.fetchNonWSToken; scanner.expectCurrentToken(tkString);
             case pname of
               'name': temp.last.name := scanner.CurTokenString;
               'value': temp.last.value := scanner.CurTokenString;
@@ -143,12 +100,12 @@ begin
           end;
           tkComma: ;
           tkCurlyBraceClose, tkEOF: break;
-          else raiseJSONParsingError(scanner);
+          else scanner.raiseUnexpectedError();
         end;
       end;
       tkComma:;
       tkSquaredBraceClose: break;
-      else raiseJSONParsingError(scanner);
+      else scanner.raiseUnexpectedError();
     end;
   end;
 
@@ -160,7 +117,7 @@ type TFormInputArrayList = specialize TCopyingPtrArrayList<TFormInput>;
 procedure readArray(var p: TFormInputArray; scanner: TJSONScanner); overload;
 var temp: TFormInputArrayList;
 begin
-  scanner.fetchNonWSToken; scanner.expectToken(tkSquaredBraceOpen);
+  scanner.fetchNonWSToken; scanner.expectCurrentToken(tkSquaredBraceOpen);
   temp.init;
   while true do begin
     case scanner.fetchNonWSToken of
@@ -168,7 +125,7 @@ begin
       tkComma: ;
       tkSquaredBraceClose: break;
       tkCurlyBraceOpen: temp.add(TFormInput.readObject(TFormInput.create, scanner));
-      else raiseJSONParsingError(scanner);
+      else scanner.raiseUnexpectedError();
     end;
   end;
 
@@ -207,21 +164,25 @@ var scanner: TJSONScanner;
 begin
   scanner := TJSONScanner.Create(json, [joUTF8, joIgnoreTrailingComma]);
   scanner.fetchNonWSToken;
-  result := readObject(TFormInput.create, scanner);
+  result := fromJSON(scanner);
   scanner.free;
+end;
+class function TFormInput.fromJSON(json: TJSONScanner): TFormInput;
+begin
+  result := readObject(TFormInput.create, json);
 end;
 
 class function TFormInput.readObject(obj: TFormInput; scanner: TJSONScanner): TFormInput;
 begin
   result := obj;
-  scanner.expectToken(tkCurlyBraceOpen); scanner.fetchNonWSToken;
+  scanner.expectCurrentToken(tkCurlyBraceOpen); scanner.fetchNonWSToken;
   while true do begin    
     case scanner.curtoken of
       tkString: result.readProperty(scanner);
       tkEOF: exit;
       tkCurlyBraceClose: exit;
       tkComma: scanner.fetchNonWSToken;
-      else raiseJSONParsingError(scanner);
+      else scanner.raiseUnexpectedError();
     end;
   end;
 end;
@@ -231,18 +192,18 @@ var additionalArray: boolean;
 begin
   additionalArray := scanner.curtoken = tkSquaredBraceOpen;
   if additionalArray  then scanner.fetchNonWSToken;
-  scanner.expectToken(tkString);
+  scanner.expectCurrentToken(tkString);
   case scanner.CurTokenString of
   
     'FormInput': result := TFormInput.create; 
     'FormSelect': result := TFormSelect.create;
-  else raiseJSONParsingError(scanner);
+  else scanner.raiseUnexpectedError();
   end;
-  scanner.fetchNonWSToken; scanner.expectToken(tkComma);
+  scanner.fetchNonWSToken; scanner.expectCurrentToken(tkComma);
   scanner.fetchNonWSToken;
   result := readObject(result, scanner);
   if additionalArray then begin
-    scanner.fetchNonWSToken; scanner.expectToken(tkSquaredBraceClose);
+    scanner.fetchNonWSToken; scanner.expectCurrentToken(tkSquaredBraceClose);
   end;
 end;
 
@@ -250,24 +211,24 @@ procedure TFormInput.readProperty(scanner: TJSONScanner);
 begin
   case scanner.CurTokenString of
     'name': begin
-        scanner.fetchNonWSToken; scanner.expectToken(tkColon); 
-        scanner.fetchNonWSToken; scanner.expectToken(tkString); 
+        scanner.fetchNonWSToken; scanner.expectCurrentToken(tkColon); 
+        scanner.fetchNonWSToken; scanner.expectCurrentToken(tkString); 
         name := scanner.CurTokenString;
         scanner.fetchNonWSToken;
       end;
     'caption': begin
-        scanner.fetchNonWSToken; scanner.expectToken(tkColon); 
-        scanner.fetchNonWSToken; scanner.expectToken(tkString); 
+        scanner.fetchNonWSToken; scanner.expectCurrentToken(tkColon); 
+        scanner.fetchNonWSToken; scanner.expectCurrentToken(tkString); 
         caption := scanner.CurTokenString;
         scanner.fetchNonWSToken;
       end;
     'value': begin
-        scanner.fetchNonWSToken; scanner.expectToken(tkColon); 
-        scanner.fetchNonWSToken; scanner.expectToken(tkString); 
+        scanner.fetchNonWSToken; scanner.expectCurrentToken(tkColon); 
+        scanner.fetchNonWSToken; scanner.expectCurrentToken(tkString); 
         value := scanner.CurTokenString;
         scanner.fetchNonWSToken;
       end;
-    else scanner.skipUnknownProperty();
+    else scanner.skipObjectPropertyValue();
   end;
 end;
 
@@ -301,21 +262,25 @@ var scanner: TJSONScanner;
 begin
   scanner := TJSONScanner.Create(json, [joUTF8, joIgnoreTrailingComma]);
   scanner.fetchNonWSToken;
-  result := readObject(TFormSelect.create, scanner);
+  result := fromJSON(scanner);
   scanner.free;
+end;
+class function TFormSelect.fromJSON(json: TJSONScanner): TFormSelect;
+begin
+  result := readObject(TFormSelect.create, json);
 end;
 
 class function TFormSelect.readObject(obj: TFormSelect; scanner: TJSONScanner): TFormSelect;
 begin
   result := obj;
-  scanner.expectToken(tkCurlyBraceOpen); scanner.fetchNonWSToken;
+  scanner.expectCurrentToken(tkCurlyBraceOpen); scanner.fetchNonWSToken;
   while true do begin    
     case scanner.curtoken of
       tkString: result.readProperty(scanner);
       tkEOF: exit;
       tkCurlyBraceClose: exit;
       tkComma: scanner.fetchNonWSToken;
-      else raiseJSONParsingError(scanner);
+      else scanner.raiseUnexpectedError();
     end;
   end;
 end;
@@ -325,17 +290,17 @@ var additionalArray: boolean;
 begin
   additionalArray := scanner.curtoken = tkSquaredBraceOpen;
   if additionalArray  then scanner.fetchNonWSToken;
-  scanner.expectToken(tkString);
+  scanner.expectCurrentToken(tkString);
   case scanner.CurTokenString of
   
     'FormSelect': result := TFormSelect.create;
-  else raiseJSONParsingError(scanner);
+  else scanner.raiseUnexpectedError();
   end;
-  scanner.fetchNonWSToken; scanner.expectToken(tkComma);
+  scanner.fetchNonWSToken; scanner.expectCurrentToken(tkComma);
   scanner.fetchNonWSToken;
   result := readObject(result, scanner);
   if additionalArray then begin
-    scanner.fetchNonWSToken; scanner.expectToken(tkSquaredBraceClose);
+    scanner.fetchNonWSToken; scanner.expectCurrentToken(tkSquaredBraceClose);
   end;
 end;
 
@@ -343,7 +308,7 @@ procedure TFormSelect.readProperty(scanner: TJSONScanner);
 begin
   case scanner.CurTokenString of
     'options': begin
-        scanner.fetchNonWSToken; scanner.expectToken(tkColon); 
+        scanner.fetchNonWSToken; scanner.expectCurrentToken(tkColon); 
         readArray(options, scanner);
         scanner.fetchNonWSToken;
       end;
@@ -402,21 +367,25 @@ var scanner: TJSONScanner;
 begin
   scanner := TJSONScanner.Create(json, [joUTF8, joIgnoreTrailingComma]);
   scanner.fetchNonWSToken;
-  result := readObject(TFormParams.create, scanner);
+  result := fromJSON(scanner);
   scanner.free;
+end;
+class function TFormParams.fromJSON(json: TJSONScanner): TFormParams;
+begin
+  result := readObject(TFormParams.create, json);
 end;
 
 class function TFormParams.readObject(obj: TFormParams; scanner: TJSONScanner): TFormParams;
 begin
   result := obj;
-  scanner.expectToken(tkCurlyBraceOpen); scanner.fetchNonWSToken;
+  scanner.expectCurrentToken(tkCurlyBraceOpen); scanner.fetchNonWSToken;
   while true do begin    
     case scanner.curtoken of
       tkString: result.readProperty(scanner);
       tkEOF: exit;
       tkCurlyBraceClose: exit;
       tkComma: scanner.fetchNonWSToken;
-      else raiseJSONParsingError(scanner);
+      else scanner.raiseUnexpectedError();
     end;
   end;
 end;
@@ -426,17 +395,17 @@ var additionalArray: boolean;
 begin
   additionalArray := scanner.curtoken = tkSquaredBraceOpen;
   if additionalArray  then scanner.fetchNonWSToken;
-  scanner.expectToken(tkString);
+  scanner.expectCurrentToken(tkString);
   case scanner.CurTokenString of
   
     'FormParams': result := TFormParams.create;
-  else raiseJSONParsingError(scanner);
+  else scanner.raiseUnexpectedError();
   end;
-  scanner.fetchNonWSToken; scanner.expectToken(tkComma);
+  scanner.fetchNonWSToken; scanner.expectCurrentToken(tkComma);
   scanner.fetchNonWSToken;
   result := readObject(result, scanner);
   if additionalArray then begin
-    scanner.fetchNonWSToken; scanner.expectToken(tkSquaredBraceClose);
+    scanner.fetchNonWSToken; scanner.expectCurrentToken(tkSquaredBraceClose);
   end;
 end;
 
@@ -444,11 +413,11 @@ procedure TFormParams.readProperty(scanner: TJSONScanner);
 begin
   case scanner.CurTokenString of
     'inputs': begin
-        scanner.fetchNonWSToken; scanner.expectToken(tkColon); 
+        scanner.fetchNonWSToken; scanner.expectCurrentToken(tkColon); 
         readArray(inputs, scanner);
         scanner.fetchNonWSToken;
       end;
-    else scanner.skipUnknownProperty();
+    else scanner.skipObjectPropertyValue();
   end;
 end;
 

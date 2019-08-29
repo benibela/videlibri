@@ -24,6 +24,7 @@ private
   template: TMultiPageTemplate;
   fsearchparams: TFormParams;
   function GetConnected: boolean;
+  procedure setSearchParams(AValue: TFormParams);
   procedure updateAccessTimeout;
 public
   bookListReader:TBookListReader;
@@ -33,6 +34,7 @@ public
   
   function addLibrary(lib: tlibrary): boolean;
   function getLibraryIds: string;
+  function getCacheFile: string;
   procedure clear;
   
   procedure connect;
@@ -43,11 +45,11 @@ public
   procedure completePendingMessage(pm: TPendingMessage; idx: integer);
   procedure disconnect;
 
-  property SearchParams: TFormParams read fsearchParams;
 
   property Connected: boolean read GetConnected;
   property Timeout: qword read FTimeout write FTimeout;
 
+  property SearchParams: TFormParams read fsearchParams write setSearchParams;
   property SearchOptions: TBookSearchOptions read fsearchBook;
   property SearchResult: TBookList read fsearchResult;
   property SearchResultCount: integer read fsearchResultCount;
@@ -59,8 +61,12 @@ implementation
 uses internetAccess, bookproperties, applicationconfig;
 
 resourcestring
-  rsDefault = 'Standard';
+  //rsDefault = 'Standard';
   rsKeywords = 'Stichworte';
+  rsLanguage = 'Sprache';
+  rsSort = 'Sortierung';
+  rsMediaType = 'Medientyp';
+  rsFree = 'Freitext';
 
 type TFormParamsHelper = class helper for TFormParams
   procedure setCaptions;
@@ -80,6 +86,10 @@ begin
         if caption = '' then
           case name of
             'keywords': caption := rsKeywords;
+            'sort': caption := rsSort;
+            'mediaType': caption := rsMediaType;
+            'language': caption := rsLanguage;
+            'free': caption := rsFree;
           end;
       end;
 end;
@@ -103,7 +113,7 @@ var
   pv, pw: PIXQValue;
   fi: TFormInput;
   fs: TFormSelect;
-  options: IXQValue;
+  options, value: IXQValue;
   i,j : SizeInt;
 begin
   result := TFormParams.Create;
@@ -118,10 +128,13 @@ begin
         end;
         pvkObject: begin
           options := pv.getProperty('options');
+          value := pv.getProperty('value');
           if options.isUndefined then fi := TFormInput.Create
           else begin
             fs := TFormSelect.Create;
             fi := fs;
+            SetLength(fs.options, options.Count);
+            j := 0;
             for pw in options.GetEnumeratorPtrUnsafe do begin
               case pw.kind of
                 pvkString: {todo};
@@ -132,11 +145,17 @@ begin
                 pvkNode: begin
                   fs.options[j].name := pw.toNode.innerText();
                   fs.options[j].value := pw.toNode.getAttribute('value');
+                  if value.isUndefined and (fi.value = '') and (pw.toNode.getAttribute('selected') <> '') then
+                    fi.value := fs.options[j].value;
                 end;
                 else raise EVideLibriInterfaceException.Create('Invalid option: '+pw.toXQuery);
               end;
+              inc(j);
             end;
           end;
+          fi.name := pv.getProperty('name').toString;
+          fi.caption := pv.getProperty('caption').toString;
+          if fi.value = '' then fi.value := pv.getProperty('value').toString;
         end;
         else raise EVideLibriInterfaceException.Create('Invalid form input: '+pv.toXQuery);
       end;
@@ -155,6 +174,15 @@ begin
   result:=FConnected and (tempTime >= FLastAccessTime) and (tempTime - FLastAccessTime < Timeout);
 end;
 
+procedure TLibrarySearcher.setSearchParams(AValue: TFormParams);
+begin
+  if fsearchParams=AValue then Exit;
+  EnterCriticalSection(bookListReader.bookAccessSection^);
+  avalue._AddRef;
+  fsearchparams._ReleaseIfNonNil;
+  fsearchparams := AValue;
+  LeaveCriticalSection(bookListReader.bookAccessSection^);
+end;
 
 procedure TLibrarySearcher.updateAccessTimeout;
 begin
@@ -227,6 +255,11 @@ begin
     result := result + TLibrary(flibsToSearch[i]).id;
 end;
 
+function TLibrarySearcher.getCacheFile: string;
+begin
+  result := userPath + '/' + getLibraryIds + '.cache';
+end;
+
 procedure TLibrarySearcher.clear;
 begin
   flibsToSearch.Clear;
@@ -239,9 +272,8 @@ end;
 
 procedure TLibrarySearcher.connect;
 var
-  i: Integer;
   connectAction: TTemplateAction;
-  temp, tempoptions: IXQValue;
+  temp: IXQValue;
   newsearchparams: TFormParams;
 begin
   assert(Assigned(bookListReader.bookAccessSection));
@@ -252,30 +284,9 @@ begin
     temp := bookListReader.parser.variableChangeLog.get('search-params');
     if temp.Count > 0 then newsearchparams := TFormParams.createFromXQValue(temp)
     else newsearchparams := defaultSearchParams;
-    newsearchparams._AddRef;
-    EnterCriticalSection(bookListReader.bookAccessSection^);
-    fsearchparams._ReleaseIfNonNil;
-    fsearchparams := newsearchparams;
-    LeaveCriticalSection(bookListReader.bookAccessSection^);
+    SearchParams := newsearchparams;
     if fsearchparams <> defaultSearchParams then
-      strSaveToFileUTF8(userPath + '/' + getLibraryIds + '.cache', '{"search-params": ' + fsearchparams.toJSON() + '}');
-
-    {end else begin
-        temp := bookListReader.parser.variableChangeLog.get('home-branches');
-        if temp.getSequenceCount > 0 then begin
-          SetLength(fhomebranches, temp.getSequenceCount+1);
-          fhomebranches[0] := '(' + rsDefault + ')';
-          for i:=1 to temp.getSequenceCount do
-            fhomebranches[i] := temp.get(i).toString;
-        end;
-
-        temp := bookListReader.parser.variableChangeLog.get('search-branches');
-        if temp.getSequenceCount > 0 then begin
-          SetLength(fsearchBranches, temp.getSequenceCount+1);
-          fsearchBranches[0] :='(' + rsDefault + ')';
-          for i:=1 to temp.getSequenceCount do
-            fsearchBranches[i] := temp.get(i).toString;
-        end;}
+      strSaveToFileUTF8(getCacheFile, '{"search-params": ' + fsearchparams.toJSON() + '}');
   end;
   FConnected:=true;
   updateAccessTimeout;

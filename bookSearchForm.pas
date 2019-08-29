@@ -132,7 +132,7 @@ const SB_PANEL_FOUND_COUNT=1;
       SB_PANEL_SEARCH_STATUS=0;
 implementation
 
-uses applicationconfig,applicationdesktopconfig, libraryParser,simplexmlparser,bbdebugtools,bookWatchMain,bbutils,LCLType,libraryAccess,LCLIntf,strutils,Clipbrd,inputlistbox,bookproperties,xquery__regex;
+uses applicationconfig,applicationdesktopconfig, libraryParser,simplexmlparser,bbdebugtools,bookWatchMain,bbutils,LCLType,libraryAccess,LCLIntf,strutils,Clipbrd,inputlistbox,bookproperties,xquery__regex,commoninterfacehelpers;
 
 { TbookSearchFrm }
 resourcestring
@@ -259,7 +259,11 @@ begin
 
   //thread pending now, no need to use any locking
   for i := 0 to high(searchControls) do begin
-    searcherAccess.searcher.SearchOptions.setProperty(searchParams.inputs[i].name, searchControls[i].Text);
+    if searchParams.inputs[i] is TFormSelect then begin
+      if (searchControls[i].ItemIndex >= 0) and (searchControls[i].ItemIndex < length(TFormSelect(searchParams.inputs[i]).options)) then
+        searcherAccess.searcher.SearchOptions.setProperty(searchParams.inputs[i].name, TFormSelect(searchParams.inputs[i]).options[searchControls[i].ItemIndex].value);
+    end else
+      searcherAccess.searcher.SearchOptions.setProperty(searchParams.inputs[i].name, searchControls[i].Text);
     addCbHistory(searchControls[i])
   end;
   searcherAccess.searchAsync;
@@ -1086,9 +1090,7 @@ procedure TbookSearchFrm.selectBookToReSearch(book: TBook);
     makeSearcherAccess;
   end;
 
-var i,rp:longint;
-    s: string;
-    accId: Integer;
+var accId: Integer;
     lib: TLibrary;
     tempc: TComboBox;
     r: TWrappedRegExpr;
@@ -1191,8 +1193,10 @@ var previousControl: TControl = nil;
   procedure appendToBox(c: tcontrol);
   begin
     c.left := OFFSET_DISTANCE;
-    if previousControl = nil then c.Top := OFFSET_DISTANCE
-    else begin
+    if previousControl = nil then begin
+      c.AnchorSideTop.Control := SearchParamsBox;
+      c.Top := OFFSET_DISTANCE;
+    end else begin
       c.AnchorSideTop.Control := previousControl;
       c.AnchorSideTop.Side := asrBottom;
     end;
@@ -1204,17 +1208,27 @@ var
   params, oldParams: TFormParams;
   i: SizeInt;
   fs: TFormSelect;
-  j: Integer;
+  j, itemIndexToSelect, oldPos: Integer;
   oldLabels: array of TLabel;
   oldControls: array of TComboBox;
+  access: TLibrarySearcherAccess;
 begin
   params := defaultSearchParams;
-  if Assigned(searcherAccess) and Assigned(searcherAccess.searcher) then begin
-    searcherAccess.beginResultReading;
-    params := searcherAccess.searcher.SearchParams;
+  if Assigned(newSearcherAccess) and Assigned(newSearcherAccess.searcher) then access := newSearcherAccess
+  else if Assigned(searcherAccess) and Assigned(searcherAccess.searcher) then access := searcherAccess
+  else access := nil;
+
+  if assigned(access) then begin
+    access.beginResultReading;
+    params := access.searcher.SearchParams;
     params._AddRef;
-    searcherAccess.endResultReading;
+    access.endResultReading;
   end else params._AddRef;
+
+  if searchParams = params then begin
+    params._Release;
+    exit;
+  end;
 
   oldParams := searchParams;
   oldControls := searchControls;
@@ -1225,15 +1239,35 @@ begin
   SetLength(searchControls, length(params.inputs));
   SetLength(searchLabels, length(params.inputs));
   for i := 0 to high(params.inputs) do begin
-    searchLabels[i] := TLabel.Create(SearchParamsBox);
+    if i <= high(oldLabels) then begin
+      searchLabels[i] := oldLabels[i];
+      oldLabels[i] := nil;
+    end else searchLabels[i] := TLabel.Create(self);
     searchLabels[i].Caption := params.inputs[i].caption;
     searchLabels[i].AutoSize := true;
     case params.inputs[i].name of
-      'title', 'author': searchLabels[i].Font.Style := [fsBold];
+      'title', 'author', 'free': searchLabels[i].Font.Style := [fsBold];
+      else searchLabels[i].Font.Style := [];
     end;
     appendToBox(searchLabels[i]);
 
-    searchControls[i] := TComboBox.Create(SearchParamsBox);
+    oldPos := -1;
+    if oldParams <> nil then begin
+      if (i <= high(oldControls)) and assigned(oldControls[i]) and (i <= high(oldParams.inputs)) and (oldParams.inputs[i].name = params.inputs[i].name) then
+        oldPos := i;
+      if oldPos = -1 then
+        for j := 0 to high(oldParams.inputs) do
+          if (j <= high(oldControls)) and assigned(oldControls[j]) and (oldParams.inputs[j].name = params.inputs[i].name) then begin
+            oldPos := j;
+            break;
+          end;
+      if (oldPos >= 0) and not (params.inputs[i].equals(oldParams.inputs[oldPos])) then oldPos := -1;
+    end;
+
+    if oldPos >= 0 then begin
+      searchControls[i] := oldControls[oldPos];
+      oldControls[oldPos] := nil;
+    end else searchControls[i] := TComboBox.Create(SearchParamsBox);
     with searchControls[i] do begin
       Anchors := [akLeft, aktop, akRight];
       Width := SearchParamsBox.ClientWidth - 2 * OFFSET_DISTANCE;
@@ -1241,11 +1275,15 @@ begin
       if params.inputs[i] is TFormSelect then begin
         style := csDropDownList;
         fs := TFormSelect( params.inputs[i]);
+        itemIndexToSelect := -1;
         items.BeginUpdate;
         items.Clear;
-        for j := 0 to high(fs.options) do
+        for j := 0 to high(fs.options) do begin
           items.Add(fs.options[j].name);
+          if fs.options[j].value = fs.value then itemIndexToSelect := j;
+        end;
         items.EndUpdate;
+        if itemIndexToSelect >= 0 then itemIndex := itemIndexToSelect;
       end else begin
         style := csDropDown;
         searchControls[i].Items.Text:=StringReplace(
@@ -1258,8 +1296,9 @@ begin
       end;
     end;
     appendToBox(searchControls[i]);
-
   end;
+  for i := 0 to high(oldLabels) do oldLabels[i].free;
+  for i := 0 to high(oldControls) do oldControls[i].free;
 
   oldparams._ReleaseIfNonNil;
   searchParams := params;
