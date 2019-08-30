@@ -2,7 +2,7 @@ unit commoninterface;
 {$mode objfpc}{$H+}
 {$ModeSwitch typehelpers}{$ModeSwitch advancedrecords}{$ModeSwitch autoderef}
 interface
- uses sysutils, simplexmlparser, xquery.internals.common, jsonscanner, jsonscannerhelper {$ifdef android}, commoninterface, jni, bbjniutils{$endif};
+ uses sysutils, simplexmlparser, xquery.internals.common, jsonscanner, jsonscannerhelper {$ifdef android}, jni, bbjniutils{$endif};
  type EVideLibriInterfaceException = class(Exception);
  type TFormInput = class; TFormInputArray = array of TFormInput; 
  
@@ -24,7 +24,8 @@ public
   {$endif}
 end; 
 type TFormSelect = class(TFormInput)
-  options: TProperties;
+  optionCaptions: array of string;
+  optionValues: array of string;
   class function fromJSON(json: string): TFormSelect;
   class function fromJSON(json: TJSONScanner): TFormSelect;
 protected
@@ -62,55 +63,33 @@ end;
 implementation
 uses bbutils, math;
 
-type TPropertyHelper = record helper for TProperty
-  procedure toJSON(var builder: TJSONXHTMLStrBuilder);
-end;
 
-procedure TPropertyHelper.toJSON(var builder: TJSONXHTMLStrBuilder);
-begin
-  with builder do begin
-    appendJSONObjectStart();
-    appendJSONObjectKeyColon('name'); appendJSONString(name); appendJSONObjectComma();
-    appendJSONObjectKeyColon('value'); appendJSONString(value); 
-    appendJSONObjectEnd();
-  end;
-end;
-
-
-type TPropertiesRecordArrayList = specialize TRecordArrayList<TProperty>;
-procedure readArray(var p: TProperties; scanner: TJSONScanner); overload;
-var temp: TPropertiesRecordArrayList;
+type TStringArray = array of string;
+procedure readArray(var sa: TStringArray; scanner: TJSONScanner); overload;
+var temp: TStringArrayList;
   pname: String;
 begin
   scanner.fetchNonWSToken; scanner.expectCurrentToken(tkSquaredBraceOpen);
   temp.init;
   while true do begin
     case scanner.fetchNonWSToken of
-      tkCurlyBraceOpen: begin
-        temp.add(default(TProperty));
-        while true do case scanner.fetchNonWSToken of
-          tkString: begin
-            pname := scanner.CurTokenString;
-            scanner.fetchNonWSToken; scanner.expectCurrentToken(tkColon);
-            scanner.fetchNonWSToken; scanner.expectCurrentToken(tkString);
-            case pname of
-              'name': temp.last.name := scanner.CurTokenString;
-              'value': temp.last.value := scanner.CurTokenString;
-            end;
-          end;
-          tkComma: ;
-          tkCurlyBraceClose, tkEOF: break;
-          else scanner.raiseUnexpectedError();
-        end;
-      end;
+      tkString: temp.add(scanner.CurTokenString);
       tkComma:;
       tkSquaredBraceClose: break;
       else scanner.raiseUnexpectedError();
     end;
   end;
 
-  p := temp.toSharedArray;
+  sa := temp.toSharedArray;
 end;        
+
+type TStringHelper = type helper for string
+  procedure toJSON(var builder: TJSONXHTMLStrBuilder);
+end;
+procedure TStringHelper.toJSON(var builder: TJSONXHTMLStrBuilder);
+begin
+  builder.appendJSONString(self);
+end;
 
 
 type TFormInputArrayList = specialize TCopyingPtrArrayList<TFormInput>;
@@ -243,14 +222,24 @@ begin
   inherited;
   builder.appendJSONObjectComma;
   with builder do begin    
-    appendJSONObjectKeyColon('options'); appendJSONArrayStart();
-    if length(options) > 0 then begin
-      options[0].toJSON(builder);
+    appendJSONObjectKeyColon('optionCaptions'); appendJSONArrayStart();
+    if length(optionCaptions) > 0 then begin
+      optionCaptions[0].toJSON(builder);
     end;
-    for i := 1 to high(options) do begin
+    for i := 1 to high(optionCaptions) do begin
       appendJSONArrayComma();
       
-      options[i].toJSON(builder);
+      optionCaptions[i].toJSON(builder);
+    end;
+    appendJSONArrayEnd(); appendJSONObjectComma;
+    appendJSONObjectKeyColon('optionValues'); appendJSONArrayStart();
+    if length(optionValues) > 0 then begin
+      optionValues[0].toJSON(builder);
+    end;
+    for i := 1 to high(optionValues) do begin
+      appendJSONArrayComma();
+      
+      optionValues[i].toJSON(builder);
     end;
     appendJSONArrayEnd();
     
@@ -307,9 +296,14 @@ end;
 procedure TFormSelect.readProperty(scanner: TJSONScanner);
 begin
   case scanner.CurTokenString of
-    'options': begin
+    'optionCaptions': begin
         scanner.fetchNonWSToken; scanner.expectCurrentToken(tkColon); 
-        readArray(options, scanner);
+        readArray(optionCaptions, scanner);
+        scanner.fetchNonWSToken;
+      end;
+    'optionValues': begin
+        scanner.fetchNonWSToken; scanner.expectCurrentToken(tkColon); 
+        readArray(optionValues, scanner);
         scanner.fetchNonWSToken;
       end;
     else inherited;
@@ -457,17 +451,21 @@ begin
   end;
 end;
 
+function arrayToJArray(const a: array of string): jobject; overload;
+begin;
+  result := j.arrayToJArray(a);
+end;
 
 
 function TFormInput.toJava: jobject;
 var temp: array[0..2] of jvalue;
 begin
-  with j do begin
-    temp[0].l := stringToJString(self.name);
-    temp[1].l := stringToJString(self.caption);
-    temp[2].l := stringToJString(self.value);
+    temp[0].l := j.stringToJString(self.name);
+    temp[1].l := j.stringToJString(self.caption);
+    temp[2].l := j.stringToJString(self.value);
 
-    result := newObject(FormInputClass, FormInputClassInitWithData, @temp[0]); 
+  with j do begin
+    result := newObject(FormInputClass, FormInputClassInit, @temp[0]); 
     deleteLocalRef(temp[0].l);
     deleteLocalRef(temp[1].l);
     deleteLocalRef(temp[2].l);
@@ -476,19 +474,21 @@ begin
 end;
  
 function TFormSelect.toJava: jobject;
-var temp: array[0..3] of jvalue;
+var temp: array[0..4] of jvalue;
 begin
-  with j do begin
-    temp[0].l := stringToJString(self.name);
-    temp[1].l := stringToJString(self.caption);
-    temp[2].l := stringToJString(self.value);
-    temp[3].l := arrayToJArray(self.options);
+    temp[0].l := j.stringToJString(self.name);
+    temp[1].l := j.stringToJString(self.caption);
+    temp[2].l := j.stringToJString(self.value);
+    temp[3].l := arrayToJArray(self.optionCaptions);
+    temp[4].l := arrayToJArray(self.optionValues);
 
-    result := newObject(FormSelectClass, FormSelectClassInitWithData, @temp[0]); 
+  with j do begin
+    result := newObject(FormSelectClass, FormSelectClassInit, @temp[0]); 
     deleteLocalRef(temp[0].l);
     deleteLocalRef(temp[1].l);
     deleteLocalRef(temp[2].l);
     deleteLocalRef(temp[3].l);
+    deleteLocalRef(temp[4].l);
 
  end;
 end;
@@ -496,10 +496,10 @@ end;
 function TFormParams.toJava: jobject;
 var temp: array[0..0] of jvalue;
 begin
-  with j do begin
     temp[0].l := arrayToJArray(self.inputs);
 
-    result := newObject(FormParamsClass, FormParamsClassInitWithData, @temp[0]); 
+  with j do begin
+    result := newObject(FormParamsClass, FormParamsClassInit, @temp[0]); 
     deleteLocalRef(temp[0].l);
 
  end;
@@ -513,9 +513,9 @@ begin
     FormInputClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/FormInput'));
     FormInputClassInit := getmethod(FormInputClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V'); 
     FormSelectClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/FormSelect'));
-    FormSelectClassInit := getmethod(FormSelectClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V'); 
+    FormSelectClassInit := getmethod(FormSelectClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;)V'); 
     FormParamsClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/FormParams'));
-    FormParamsClassInit := getmethod(FormParamsClass, '<init>', '([Lde/benibela/videlibri/jni/)V');
+    FormParamsClassInit := getmethod(FormParamsClass, '<init>', '([Lde/benibela/videlibri/jni/FormInput;)V');
   end;
 end;
 {$endif}

@@ -15,6 +15,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.*;
 
+
+
 @Retention(RetentionPolicy.SOURCE)
 @interface NotNullLateInit {}
 
@@ -374,7 +376,7 @@ public class Bridge {
     static public native @Nullable String[] VLGetNotifications();
 
     static public native void VLSearchConnect(@NotNull SearcherAccess searcher, @NotNull String libId);
-    static public native void VLSearchStart(@NotNull SearcherAccess searcher, @NotNull Book query, int homeBranch, int searchBranch);
+    static public native void VLSearchStart(@NotNull SearcherAccess searcher, @NotNull Book query);
     static public native void VLSearchNextPage(@NotNull SearcherAccess searcher);
     static public native void VLSearchDetails(@NotNull SearcherAccess searcher, @NotNull Book book);
     static public native void VLSearchOrder(@NotNull SearcherAccess searcher, @NotNull Book[] book);
@@ -398,7 +400,7 @@ public class Bridge {
         public long nativePtr;
         public volatile int totalResultCount;
         public volatile boolean nextPageAvailable;
-        @NotNullLateInit public volatile String[] homeBranches, searchBranches; //from java and pascal
+        @NotNullLateInit public volatile FormParams searchParams; //from java and pascal
 
         //set in Java
         @NotNull public final String libId;
@@ -421,8 +423,8 @@ public class Bridge {
         public void connect(){
             VLSearchConnect(this, libId);
         }
-        public void start(@NotNull Book query, int homeBranch, int searchBranch){
-            VLSearchStart(this, query, homeBranch, searchBranch);
+        public void start(@NotNull Book query){
+            VLSearchStart(this, query);
         }
         public void nextPage(){
             VLSearchNextPage(this);
@@ -459,7 +461,7 @@ public class Bridge {
         }
 
 
-        public void onConnected(@NotNull String[] homeBranches, @NotNull String[] searchBranches){ send(newEvent(SearchEventKind.CONNECTED, 0, homeBranches, searchBranches)); }
+        public void onConnected(@NotNull FormParams params){ send(newEvent(SearchEventKind.CONNECTED, params)); }
         public void onSearchFirstPageComplete(@NotNull Book[] books) { send(newEvent(SearchEventKind.FIRST_PAGE, books)); }
         public void onSearchNextPageComplete(@NotNull Book[] books) { send(newEvent(SearchEventKind.NEXT_PAGE, books)); }
         public void onSearchDetailsComplete(@NotNull Book book) { send(newEvent(SearchEventKind.DETAILS, book)); }
@@ -470,7 +472,7 @@ public class Bridge {
     }
 
     public enum SearchEventKind {
-        CONNECTED, //obj1 = String[] homeBranches, obj2 = String[] searchBranches
+        CONNECTED, //obj1 = params
         FIRST_PAGE, //obj1 = Book[] books
         NEXT_PAGE,  //obj1 = Book[] books
         DETAILS,    //obj1 = Book book

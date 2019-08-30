@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import de.benibela.videlibri.jni.Bridge
+import de.benibela.videlibri.jni.FormParams
 
 class SearchResult : BookListActivity(), SearchEventHandler {
 
@@ -30,13 +31,13 @@ class SearchResult : BookListActivity(), SearchEventHandler {
                     beginLoading(VideLibriBaseActivityOld.LOADING_SEARCH_CONNECTING)
                     it.waitingForDetails = -1
                     it.nextDetailsRequested = -1
-                    it.start(book, intent.getIntExtra("homeBranch", -1), intent.getIntExtra("searchBranch", -1))
+                    it.start(book)
                     beginLoading(VideLibriBaseActivityOld.LOADING_SEARCH_SEARCHING)
                 }
                 Search.SEARCHER_STATE_CONNECTED -> {
                     it.waitingForDetails = -1
                     it.nextDetailsRequested = -1
-                    it.start(book, intent.getIntExtra("homeBranch", -1), intent.getIntExtra("searchBranch", -1))
+                    it.start(book)
                     beginLoading(VideLibriBaseActivityOld.LOADING_SEARCH_SEARCHING)
                 }
                 else -> bookCache = it.bookCache
@@ -113,11 +114,10 @@ class SearchResult : BookListActivity(), SearchEventHandler {
         when (event.kind) {
             Bridge.SearchEventKind.CONNECTED -> {
                 access.state = Search.SEARCHER_STATE_CONNECTED
-                access.homeBranches = event.obj1 as? Array<String>
-                access.searchBranches = event.obj2 as? Array<String>
+                access.searchParams = event.obj1 as? FormParams
                 access.waitingForDetails = -1
                 access.nextDetailsRequested = -1
-                access.start(intent.getSerializableExtra("searchQuery") as Bridge.Book, intent.getIntExtra("homeBranch", -1), intent.getIntExtra("searchBranch", -1))
+                access.start(intent.getSerializableExtra("searchQuery") as Bridge.Book)
                 beginLoading(VideLibriBaseActivityOld.LOADING_SEARCH_SEARCHING)
                 endLoadingAll(VideLibriBaseActivityOld.LOADING_SEARCH_CONNECTING)
                 return true

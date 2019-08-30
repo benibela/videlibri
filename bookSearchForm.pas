@@ -260,8 +260,8 @@ begin
   //thread pending now, no need to use any locking
   for i := 0 to high(searchControls) do begin
     if searchParams.inputs[i] is TFormSelect then begin
-      if (searchControls[i].ItemIndex >= 0) and (searchControls[i].ItemIndex < length(TFormSelect(searchParams.inputs[i]).options)) then
-        searcherAccess.searcher.SearchOptions.setProperty(searchParams.inputs[i].name, TFormSelect(searchParams.inputs[i]).options[searchControls[i].ItemIndex].value);
+      if (searchControls[i].ItemIndex >= 0) and (searchControls[i].ItemIndex < length(TFormSelect(searchParams.inputs[i]).optionValues)) then
+        searcherAccess.searcher.SearchOptions.setProperty(searchParams.inputs[i].name, TFormSelect(searchParams.inputs[i]).optionValues[searchControls[i].ItemIndex]);
     end else
       searcherAccess.searcher.SearchOptions.setProperty(searchParams.inputs[i].name, searchControls[i].Text);
     addCbHistory(searchControls[i])
@@ -1278,9 +1278,9 @@ begin
         itemIndexToSelect := -1;
         items.BeginUpdate;
         items.Clear;
-        for j := 0 to high(fs.options) do begin
-          items.Add(fs.options[j].name);
-          if fs.options[j].value = fs.value then itemIndexToSelect := j;
+        for j := 0 to high(fs.optionCaptions) do begin
+          items.Add(fs.optionCaptions[j]);
+          if fs.optionValues[j] = fs.value then itemIndexToSelect := j;
         end;
         items.EndUpdate;
         if itemIndexToSelect >= 0 then itemIndex := itemIndexToSelect;

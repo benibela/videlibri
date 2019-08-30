@@ -7,7 +7,8 @@
 </class>
 
 <class id="FormSelect" extends="FormInput">
-  <property-array name="options"/>
+  <array name="optionCaptions"><string/></array>
+  <array name="optionValues"><string/></array>
 </class>
 
 <class id="FormParams" extends="FastInterfacedObject">

@@ -91,6 +91,7 @@ begin
             'language': caption := rsLanguage;
             'free': caption := rsFree;
           end;
+        if caption <> '' then caption := caption + ': ';
       end;
 end;
 
@@ -133,20 +134,21 @@ begin
           else begin
             fs := TFormSelect.Create;
             fi := fs;
-            SetLength(fs.options, options.Count);
+            SetLength(fs.optionCaptions, options.Count);
+            SetLength(fs.optionValues, options.Count);
             j := 0;
             for pw in options.GetEnumeratorPtrUnsafe do begin
               case pw.kind of
                 pvkString: {todo};
                 pvkObject: begin
-                  fs.options[j].name := pw.getProperty('name').toString;
-                  fs.options[j].value := pw.getProperty('value').toString;
+                  fs.optionCaptions[j] := pw.getProperty('name').toString;
+                  fs.optionValues[j] := pw.getProperty('value').toString;
                 end;
                 pvkNode: begin
-                  fs.options[j].name := pw.toNode.innerText();
-                  fs.options[j].value := pw.toNode.getAttribute('value');
+                  fs.optionCaptions[j] := pw.toNode.innerText();
+                  fs.optionValues[j] := pw.toNode.getAttribute('value');
                   if value.isUndefined and (fi.value = '') and (pw.toNode.getAttribute('selected') <> '') then
-                    fi.value := fs.options[j].value;
+                    fi.value := fs.optionValues[j];
                 end;
                 else raise EVideLibriInterfaceException.Create('Invalid option: '+pw.toXQuery);
               end;

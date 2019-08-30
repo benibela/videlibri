@@ -151,7 +151,7 @@ downloadTable)
     
   create-common-interface)
     xidel interface.xml --module interface-generator.xqm -e 'ig:pascal-make(/)' | tee commoninterface.pas
-#    xidel interface.xml --module interface-generator.xqm -e 'ig:kotlin-make(/)'
+    xidel interface.xml --module interface-generator.xqm -e 'ig:kotlin-make(/)' | tee android/android/src/de/benibela/videlibri/jni/CommonInterface.kt
 #    xidel interface.xml --module interface-generator.xqm -e 'ig:pascal-kotlin-make-bridge(/)'
 
     

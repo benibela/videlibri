@@ -4,23 +4,32 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
-import android.preference.PreferenceManager
+import android.support.v4.view.ViewCompat
 import android.support.v7.app.ActionBar
 import android.util.Log
+import android.view.Gravity
 import android.view.Menu
 import android.view.View
+import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
 import de.benibela.videlibri.jni.Bridge
+import de.benibela.videlibri.jni.FormInput
+import de.benibela.videlibri.jni.FormParams
+import de.benibela.videlibri.jni.FormSelect
 import java.util.*
-import android.view.Gravity
-
-
 
 internal interface SearchEventHandler {
     fun onSearchEvent(event: Bridge.SearchEvent): Boolean
 }
+private class SearchParamHolder(val input: FormInput, val caption: TextView, val view: View) {
+    val edit get() = view as? EditText
+    val spinner get() = view as? Spinner
+}
 class Search: VideLibriBaseActivity(), SearchEventHandler{
+    private val searchParamHolders = mutableMapOf<String, SearchParamHolder>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setVideLibriView(R.layout.searchlayout)
@@ -41,42 +50,34 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
             else libName = LibraryList.lastSelectedLibName ?: ""
         }
 
-        val defaultQuery = intent?.getSerializableExtra("query")
-        if (defaultQuery is Map<*, *>) {
-            findViewById<TextView>(R.id.title).text = defaultQuery.get("title").toString()
-            findViewById<TextView>(R.id.author).text = defaultQuery.get("author").toString()
-        }
-
         findViewById<View>(R.id.library).setOnClickListener( { changeSearchLib() })
 
         val searchStartClickListener = View.OnClickListener {
             obtainSearcher()
 
-            if ("debug" == getTextViewText(R.id.year)) {
+            if ("debug" == searchParamHolders["year"]?.edit?.text?.toString()) {
                 activateHiddenDebugMode()
                 return@OnClickListener
             }
 
             val intent = Intent(this@Search, SearchResult::class.java)
             val book = Bridge.Book()
-            book.title = getTextViewText(R.id.title)
-            book.author = getTextViewText(R.id.author)
-            book.setProperty("keywords", getTextViewText(R.id.keywords))
-            book.year = getTextViewText(R.id.year)
-            book.setProperty("isbn", getTextViewText(R.id.isbn))
-            intent.putExtra("searchQuery", book)
-
-            for (i in BRANCH_NAMES.indices) {
-                if (findViewById<View>(BRANCH_LAYOUT_IDS[i]).getVisibility() != View.GONE) {
-                    val spinner = findViewById<Spinner>(BRANCH_IDS[i])
-                    intent.putExtra(BRANCH_NAMES[i], spinner.selectedItemPosition)
-                    val branch = spinner.selectedItem as? String ?: continue
-                    val sp = PreferenceManager.getDefaultSharedPreferences(this@Search)
-                    val editor = sp.edit()
-                    editor.putString("Search|" + libId + "|" + BRANCH_NAMES[i], branch)
-                    editor.apply()
+            for (e in searchParamHolders.entries) {
+                val view = e.value.view
+                val value = when (view) {
+                    is EditText -> view.text.toString()
+                    is Spinner -> (e.value.input as? FormSelect)?.optionValues?.getOrNull(view.selectedItemPosition)
+                    else -> null
+                } ?: continue
+                when (e.key) {
+                    "title" -> book.title = value
+                    "author" -> book.author = value
+                    "year" -> book.year = value
+                    "id" -> book.id = value
+                    else -> book.setProperty(e.key, value)
                 }
             }
+            intent.putExtra("searchQuery", book)
             startActivity(intent)
         }
         findViewById<View>(R.id.button).setOnClickListener(searchStartClickListener)
@@ -93,15 +94,21 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
 
         if (libId != "") {
             obtainSearcher()
-            setBranchViewes(true)
+            updateSearchParamsViews()
+        }
+
+        val defaultQuery = intent?.getSerializableExtra("query")
+        if (defaultQuery is Map<*, *>) {
+            for (key in arrayOf("title", "author"))
+                searchParamHolders[key]?.edit?.setText(defaultQuery.get(key).toString())
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         outState?.apply{
-            putString("libId", libId);
-            putString("libName", libName);
+            putString("libId", libId)
+            putString("libName", libName)
         }
     }
 
@@ -112,9 +119,6 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
 
     internal var searcher: Bridge.SearcherAccess? = null
 
-    internal val BRANCH_NAMES = arrayOf("homeBranch", "searchBranch")
-    internal val BRANCH_LAYOUT_IDS = intArrayOf(R.id.homeBranchLayout, R.id.searchBranchLayout)
-    internal val BRANCH_IDS = intArrayOf(R.id.homeBranch, R.id.searchBranch)
 
     fun gcSearchers() {
         for (i in searchers.indices.reversed()) {
@@ -186,19 +190,41 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
         )
     }
 
-    internal fun setBranchViewes(init: Boolean) {
-        val sp = if (init) PreferenceManager.getDefaultSharedPreferences(this) else null
-        for (i in BRANCH_NAMES.indices) {
-            val branches: Array<String>? = if (BRANCH_IDS[i] == R.id.homeBranch) searcher?.homeBranches else searcher?.searchBranches
-            if (branches != null && branches.isNotEmpty()) {
-                val spinner = findViewById<Spinner>(BRANCH_IDS[i])
-                val current = if (init) sp?.getString("Search|" + libId + "|" + BRANCH_NAMES[i], null) else spinner.selectedItem as? String
+    internal fun updateSearchParamsViews() {
+        val searcher = searcher ?: return
+        val lay = findViewById<LinearLayout>(R.id.layout)
+        lay.removeAllViews()
+        val inflater = layoutInflater
+        val oldSearchParamHolders = searchParamHolders.toMap()
+        searchParamHolders.clear()
+        for (param in searcher.searchParams.inputs){
+            if (param.name in searchParamHolders) continue;
+            val old = oldSearchParamHolders[param.name]?.takeIf { it.input == param }
+            if (old != null) {
+                lay.addView(old.caption)
+                lay.addView(old.view)
+                searchParamHolders[param.name] = old
+            } else {
+                val row = inflater.inflate(if (param is FormSelect) R.layout.searchlayout_row_spinner else R.layout.searchlayout_row_edit, lay, true)
+                val caption = row.findViewById<TextView>(R.id.textView).also {
+                    it.text = param.caption
+                    it.id = ViewCompat.generateViewId()
+                }
+                val inputView: View = if (param is FormSelect) {
+                    val spinner = row.findViewById<Spinner>(R.id.spinner)
+                    spinner.setItems(param.optionCaptions)
+                    val i = param.optionValues.indexOf(param.value)
+                    spinner.setSelection(if (i >= 0) i else 0)
+                    spinner
+                } else {
+                    val edit = row.findViewById<EditText>(R.id.edit)
+                    edit
+                }
 
-                findViewById<View>(BRANCH_LAYOUT_IDS[i]).visibility = View.VISIBLE
-                spinner.setItems(branches)
-                spinner.setSelection(current, branches)
-            } else
-                findViewById<View>(BRANCH_LAYOUT_IDS[i]).visibility = View.GONE
+                searchParamHolders[param.name] = SearchParamHolder(param, caption, inputView)
+                val id = (if (param is FormSelect) "FormSelect" else "FormInput") + param.name
+                inputView.id = namedViewIds.getOrPut(id, { ViewCompat.generateViewId() })
+            }
         }
     }
 
@@ -210,7 +236,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
                 findViewById<TextView>(R.id.library).setText(libName)
 
                 obtainSearcher()
-                setBranchViewes(true)
+                updateSearchParamsViews()
             } else if ("" == libId) finish()
         } else
             super.onActivityResult(requestCode, resultCode, data)
@@ -225,9 +251,8 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
                     endLoadingAll(VideLibriBaseActivityOld.LOADING_SEARCH_CONNECTING)
                     s.heartBeat = System.currentTimeMillis()
                     s.state = SEARCHER_STATE_CONNECTED
-                    s.homeBranches = event.obj1 as? Array<String>
-                    s.searchBranches = event.obj2 as? Array<String>
-                    setBranchViewes(false)
+                    s.searchParams = event.obj1 as? FormParams
+                    updateSearchParamsViews()
                     return true
                 }
                 Bridge.SearchEventKind.EXCEPTION -> {
@@ -252,8 +277,8 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
                 showMessageYesNo("Do you want to search ALL libraries? ") {
                     withActivity<Search> {
                         val book = Bridge.Book()
-                        book.title = findViewById<TextView>(R.id.title).text.toString()
-                        book.author = findViewById<TextView>(R.id.author).text.toString()
+                        book.title = searchParamHolders["title"]?.edit?.text.toString()
+                        book.author = searchParamHolders["author"]?.edit?.text.toString()
                         debugTester = SearchDebugTester(book, libId)
                     }
                 }
@@ -270,6 +295,8 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
         internal const val SEARCHER_STATE_CONNECTED = 1
         internal const val SEARCHER_STATE_SEARCHING = 2
         internal const val SEARCHER_STATE_FAILED = 3
+
+        internal val namedViewIds = mutableMapOf<String, Int>()
     }
 }
 
@@ -312,7 +339,7 @@ internal class SearchDebugTester(var query: Bridge.Book, startId: String) {
         if (event.searcherAccess !== searcher) return false
         val currentSearcher = searcher ?: return false
         when (event.kind) {
-            Bridge.SearchEventKind.CONNECTED -> currentSearcher.start(query, -1, -1)
+            Bridge.SearchEventKind.CONNECTED -> currentSearcher.start(query)
             Bridge.SearchEventKind.FIRST_PAGE -> {
                 if (currentSearcher.nextPageAvailable) {
                     currentSearcher.nextPage()
