@@ -1,57 +1,48 @@
 <t:if> 
 <!-- no wrapping form/fieldset, due to invalid /html closing tag in mannheim. 
     t:if makes it a valid xml file -->
-  <template:meta default-text-matching="regex"/>
   
-  {selections := true()}
-  
-  <fieldset id="OPACGP" t:optional="true"> <!-- nürnberg -->
-    <label>Titel</label>       <input>{$nameTitle := @name}</input>
-    <label>Person|Name</label> <input>{$nameAuthor := @name}</input>
-    <label>ISBN</label>        <input>{$nameIsbn := @name}</input>
-    <label>Schlag</label>      <input>{$nameKeywords := @name}</input>
-    <label>[jJ]ahr</label>     <input>{$nameYear := @name}</input>
-    
-    {
-      startSearch := form(//form, {
-        $nameTitle: $book.title,
-        $nameAuthor: $book.author,
-        $nameIsbn: $book.isbn,
-        $nameKeywords: $book.keywords,
-        $nameYear: $book.year
-      }),
-      selections := false()
-    }
-  </fieldset>
-  
-  <t:if test="$selections"> <!-- everything else (cannot use switch-prioritized due to broken html closing tag in mannheim) -->
-    {search-keys := {}, selects := (), inputs := () }
-    <select>{$selects := ($selects, @name)} <option>Titel<t:s>$search-keys.title := @value</t:s></option>   </select>   
-    <input>{$inputs := ($inputs, @name)}</input>
-    <select>{$selects := ($selects, @name)} <option>Person|Autor<t:s>$search-keys.author := @value</t:s></option>   </select>   
-    <input>{$inputs := ($inputs, @name)}</input>
-    <select>{$selects := ($selects, @name)} <option>ISBN|ISSN<t:s>$search-keys.isbn := @value</t:s></option>    </select>   
-    <input>{$inputs := ($inputs, @name)}</input>
-    <select>{$selects := ($selects, @name)} <option>Schlag|Thema<t:s>$search-keys.keywords := @value</t:s></option>  </select>   
-    <input>{$inputs := ($inputs, @name)}</input>
-    
-    
-    <label>[jJ]ahr</label>     <input>{$nameYear := @name}</input>
+{
+let $search-keys-regex := {"author": "Person|Autor", "title": "Titel", "free": "Freie *Suche", "keywords": "Schlag|Thema", "isbn": "ISBN"}
+let $inputs := //input
+let $selects := //select
+let $elements := $inputs | $selects
+let $basic-selects-pos := for $e at $i in $elements where $e/(self::select and contains($e/@id, "SUCH0")) return $i
+let $basic-selects := for $i in $basic-selects-pos return $elements[$i]
+let $options := $basic-selects//option
 
-    {
-      if ($book.keywords != "" and not($selects[last()]/../following::input[1] is $inputs[last()])) then (
-         $selects := ($selects[position() le 3], $selects[3]), 
-         $search-keys.keywords := ($selects[last()]/..//option[matches(., "Schlag|Thema")]/@value)[1],
-         $inputs := ($inputs[position() le 3], $inputs[3])
-      ) else (),
-      i := 1,
-      startSearch := form(//form, {|
-        { $nameYear: $book.year },
-          for $key at $i in ("title", "author", "isbn", "keywords") where (boolean($book($key)) and exists($search-keys($key))) 
-          return  {$selects[$i]: $search-keys($key), $inputs[$i]: $book($key)}
-        
-      |})
-            
-    }
-  </t:if>
+let $filter-names := {"libraryLocation": "BEZIWA_1", "libraryBranch": "AUSGAB_1", "mediaType": "MEDIUM_1", "language": "GHTSPR_1"}
+let $filter-selects := {|for $name in jn:keys($filter-names)
+                         let $ids := $filter-names($name)
+                         let $select := $selects[@id = $ids][1]
+                         where $select
+                         return {$name: $select} |}
+let $filter-selects := if ($filter-selects.libraryLocation and $filter-selects.libraryBranch) then
+                         (:vöbb special case. we need to uncheck checkbox to allow location search, but that is not possible with form:)
+                         map:remove($filter-selects, ("libraryBranch", "libraryLocation"))
+                       else $filter-selects
+return (
+  search-basic-selects := $basic-selects/@name,
+  search-basic-inputs := for $i in $basic-selects-pos return $elements[$i + 1][self::input]/@name,
+  if (count($search-basic-selects) lt 3 or count($search-basic-selects) ne count($search-basic-inputs)) then
+    vl:raise-internal("Zu wenig Suchfelder oder die Suchfelder wurden nicht erkannt.")
+  else (),
+  search-basic-options := map:merge( for $key in jn:keys($search-keys-regex) let $r :=  $search-keys-regex($key)
+                                     return  {$key: head($options[matches(., $r)]/@value)}
+                                   ),
+
+  search-basic-input-year := $inputs[@id = "GEJAHR_1"]/@name,
+
+  search-filter-map := {| map:keys($filter-selects)  ! {.: $filter-selects(.)/@name} |},
+
+  search-params := (
+    for $key in ("title", "author", "free", "keywords", "isbn")
+     where $search-basic-options($key)
+     return $key, 
+    $search-basic-input-year[1]!"year",
+    map:keys($filter-selects) ! {"name": ., "options": $filter-selects(.)//option}
+  )
+)
+ }
+
 </t:if>

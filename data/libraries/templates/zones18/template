@@ -33,8 +33,7 @@
   </page>-->
   <s>style := get('style', 'Portal2'), 
      accountUrl := x"{$baseurl}/APS_ACCOUNT?fn=advancedsearch&Style={$style}&BrowseAsHloc=-2",
-     $search-branch-values := (),
-     $search-branch-id := 0
+     $limit-map := {"libraryBranch": "Branch.", "libraryLocation": "scope.", "mediaType": "medium.", "language": ("publicationLang.", "Sprache.") }
      </s>
 
   <page url="{$baseurl}/APS_ZONES?fn=advancedsearch&Style={$style}"> 
@@ -42,37 +41,30 @@
 <!--      <a t:condition="matches(@href, 'APS_ACCOUNT|/APS_ZONES.*fn=Account')">{accountUrl := @href}</a>-->
       <FORM NAME="ExpertSearch">
         {$search-start:=form(.),
-         $search-branches := (), 
-         $search-branch-values := ()}
-      <div class="inSearchLimits" >
-        <div class="floatingBox">
-          <table>
-            <tr>Stadtteilbibliothek</tr>
-            <tr><td>
-              <table>
-                <tr><input>{search-branches := ($search-branches, ..), search-branch-values := ($search-branch-values, @value)}</input></tr>*
-              </table>
-            </td></tr>
-          </table>
-        </div>
-      </div>?
+         let $limits := //input[starts-with(@name, "q.limits.limit")]
+         return 
+         search-params := ("title", "author", "free", "keywords", "year", "isbn", 
+           for $key in jn:keys($limit-map) let $prefix := $limit-map($key) let $available := $limits[some $p in $prefix satisfies starts-with(@value, $p)]
+           where exists($available)
+           return {"name": $key, "options": ({"caption": "alle", "value": ""}, $available/{"caption": normalize-space(..), "value": @value}) }
+         )}
       </form>
     </body></template>
   </page>
 </action>
 
 <action id="search"> 
-  <variable name="search-keys">{"author": "au=", "title": "ti=", "keywords": "su=", "isbn": "sb=", "year": "dp="}</variable>
+  <variable name="search-keys">{"author": "au=", "title": "ti=", "free": "any=", "keywords": "su=", "isbn": "sb=", "year": "dp="}</variable>
   
   <s>
     i := 1,
     requestId := 0,
     request := uri-combine($search-start.url, 
-      (for $key in jn:keys($book) return if (boolean($book($key)) and exists($search-keys($key))) then (
-              {x"q.form.t{$i}&#46;expr": $book($key), x"q.form.t{$i}&#46;term": $search-keys($key)},
-              (i := $i + 1)[2]
-            ) else (),
-       if (exists($search-branch-values[$search-branch-id])) then {"q.limits.limit": $search-branch-values[$search-branch-id]} else () ) )
+      (for $key in jn:keys($book) where $book($key) and $search-keys($key) count $i 
+       return {x"q.form.t{$i}&#46;expr": $book($key), x"q.form.t{$i}&#46;term": $search-keys($key)},
+       for $key in jn:keys($limit-map) where $book($key) 
+       return{"q.limits.limit": $book($key)}
+      ))
   </s>
   
   <page url="{$request}" templateFile="searchList">

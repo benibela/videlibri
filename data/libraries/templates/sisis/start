@@ -1,19 +1,29 @@
 <html>
 <body>
   <a template:condition="contains(@href, 'userAccount.do')">{jsession:=extract(@href,"jsessionid=[0-9a-zA-Z_-]*"), user-account-page:=resolve-html()}</a> <!-- jsession can be empty?-->
+  <form>
   <input type="hidden" name="CSId">{$CSId:=@value}</input>
-  { (id("selectedViewBranchlib"), id("selectedBranchView"))[1] ! ( 
-      home-branches := option, 
-      home-branch-values := option/@value,
-      home-branch-name := @name
-    ), 
-    (//select[@id=("selectedSearchBranchlib", "Suche in Zweigstelle", "searchRestrictionValue1_0")])[1] ! (
-      search-branches := option, 
-      search-branch-values := option/@value, 
-      search-branch-name := @name, 
-      search-branch-extended-options := if (@id = "Suche in Zweigstelle") then ./preceding-sibling::input[1] else ()      
-    )
-  } 
+  {
+  search-form := form(.),
+  let $homeBranchView := (id("selectedViewBranchlib"), id("selectedBranchView"))[1]
+  let $searchBranchView := (//select[@id=("selectedSearchBranchlib", "Suche in Zweigstelle", "searchRestrictionValue1_0")])[1]
+  let $mediaTypeView := id("Medienart")
+  let $languageView := id("Sprache")
+  return (
+    search-params := ("title", "author", "free", "keywords", "year", "isbn", 
+      $homeBranchView !   {"name": "libraryHomeBranch", "options": .//option, "caption": "Zweigstelle (für Bestellungen)" },
+      $searchBranchView ! {"name": "libraryBranch",     "options": .//option, "caption": "Zweigstelle (für Suche)" },
+      $mediaTypeView ! {"name": "mediaType", "options": .//option},
+      $languageView ! {"name": "language", "options": .//option}
+    ),
+    search-restriction-keys := {"libraryHomeBranch": $homeBranchView/@name,
+                                "libraryBranch": $searchBranchView/@name,
+                                "mediaType": $mediaTypeView/@name,
+                                "language": $languageView/@name
+                               }
+  )
+  }
+  </form>
   <!--  both id lists:  sisis: firsts, touchpoint: last -->
 </body>
 </html>

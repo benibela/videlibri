@@ -54,14 +54,20 @@
   <page url="{$searchurl}/Advanced"/>
   <pattern>
     <form t:condition="contains(@action, 'Search/Results')">
-      {$search-branches := $search-branch-values := (), 
-       $search-branch-id:=0,
-       $search-request := {"url": resolve-html(@action) || "?", "method": (@method, "GET")[1]},
-       $daterange := (.//input[@name = "daterange[]"]/@value, "publishDate")[1]
+      {$search-request := {"url": resolve-html(@action) || "?", "method": (@method, "GET")[1]},
+       $daterange := (.//input[@name = "daterange[]"]/@value, "publishDate")[1],
+       search-params := ("title", "author", "free", "keywords", "year", "isbn", 
+         //select/(
+           let $name := switch (@id)
+             case 'limit_collection' case 'limit_mega_collection' return "libraryBranch"
+             case 'limit_building' return "libraryLocation"
+             case 'limit_format' return "mediaType"
+             default return ()
+           where $name
+           return {"name": $name, "options": ({"caption": "Alle", "value": ""}, .//option)}
+         )
+       )
        }
-      <select t:condition="@id=('limit_collection', 'limit_mega_collection')">
-       {search-branches := option, search-branch-values := option/@value}
-      </select>?
     </form>
   </pattern>
 </action>
@@ -69,12 +75,13 @@
 <action id="search">
   <s>
     page := 1,
-    search-keys := {"author": "Author", "title": "Title", "keywords": "Subject", "isbn": "ISN"},
+    search-keys := {"author": "Author", "title": "Title", "free": "AllFields", "keywords": "Subject", "isbn": "ISN"},
+    search-filter-keys := ("libraryBranch", "libraryLocation", "mediaType"),
     search-next-page := request-combine($search-request, (
       "sort=relevance",
       "join=AND",
       {"bool0[]": "AND"},
-      for $key in jn:keys($book) where boolean($book($key)) and exists($search-keys($key)) return
+      for $key in jn:keys($book) where $book($key) and $search-keys($key) return
         {"lookfor0[]": $book($key), "type0[]": $search-keys($key)},
       if (boolean($book.year)) then 
         if (contains($book.year, "-")) then 
@@ -83,7 +90,7 @@
             $daterange || "to": substring-after($book.year, "-") })
         else {"lookfor0[]": $book.year, "type0[]": "year"}
       else (),
-      $search-branch-values[$search-branch-id] ! {"filter[]": .}
+      $search-filter-keys!$book(.)[.]!{"filter[]": .}
      ))
   </s>
   <call action="search-internal-vufind"/>

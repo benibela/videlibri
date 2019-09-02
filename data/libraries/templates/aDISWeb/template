@@ -219,7 +219,7 @@
 
 
 
-
+ 
 <action id="gotoindex">
   <loop test="$firstIndex > $targetIndex">
     <page url="{$form.url}" templateFile="searchBasicForm">
@@ -235,21 +235,37 @@
   
 </action>
 
-<action id="search">
-  <variable name="connected">false()</variable>
+<action id="search-connect">
+  <s>connected:=false()</s>
   
   <page url="https://{$server}/aDISWeb/app{get('startparams', '')}" templateFile="connected"/> <!-- some libraries log in directly, some redirect -->
   <page url="{$connectPage}" test="not($connected)" templateFile="connected"/>
   
   <page url="{$searchPage}" templateFile="searchInputForm"/>
+</action>
 
-  <variable>
+<action id="search">
+  <if test="not($connected)">
+    <!-- go back to search form -->
+    <call action="search-connect"/>
+  </if> 
+  
+  <s>
+  connected := false(),
   lastSearchedIndex := 0, 
   search-next-page-available := (), 
   gotDetails_GoBackPage := (),
   toolbarForward := 5,
-  toolbarBackward := 4  
-  </variable>
+  toolbarBackward := 4,
+  startSearch := form(//form, {|
+    { $search-basic-input-year: $book.year },
+      for $key in jn:keys($book) where $book($key) and $search-basic-options($key) count $i
+       return  {$search-basic-selects[$i]: $search-basic-options($key), $search-basic-inputs[$i]: $book($key)},
+      for $key in jn:keys($book) where $book($key) and $search-filter-map($key) 
+       return {$search-filter-map($key): $book($key)}
+  |})
+
+  </s>
 
   <page url="{$startSearch}" templateFile="search"/>
 

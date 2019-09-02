@@ -127,7 +127,6 @@
 </action>-->
 
 <action id="search-connect">
-  <s>$home-branches := $search-branches := (), $home-branch-id := $search-branch-id := 0</s>
   <call action="connect"/>
 </action>
 
@@ -135,26 +134,26 @@
 <action id="search">
 
   <s>
+  search-keys := if ($touchpoint) then
+                   {"author": "100", "title": "200", "free": "-1", "keywords": "50", "isbn": "490", "year": "280"}
+                 else  
+                   {"author": "100", "title": "331", "free": "-1", "keywords": "902", "isbn": "540", "year": "425"},
   oldSearchOptionCount := get("searchOptionCount", 0),
-  searchOptions := 
-    (if ($book.title)    then [if ($touchpoint) then "200" else "331", ($book.title)]    else (),
-     if ($book.author)   then ["100", ($book.author)]   else (),
-     if ($book.isbn)     then [if ($touchpoint) then "490" else "540", ($book.isbn)]     else (),
-     if ($book.year)     then [if ($touchpoint) then "280" else "425", ($book.year)]     else (),
-     if ($book.keywords) then [if ($touchpoint) then "50" else "902", ($book.keywords)] else ()),
+  searchOptions := (
+    for $key in jn:keys($book) where $book($key) and $search-keys($key) 
+    return [ $search-keys($key), $book($key) ]
+  ),
   searchOptionCount := count($searchOptions),
-  searchUrl :=  uri-combine( 
-    x"{$server}/search.do?methodToCall=submit&CSId={$CSId}&methodToCallParameter=submitSearch", (
+  searchUrl :=  request-combine(
+    $search-form, (
     { "searchCategories[0]": $searchOptions[1](1), "searchString[0]": $searchOptions[1](2) },
     if ($searchOptionCount > 1 or $oldSearchOptionCount > 1) then 
       { "combinationOperator[1]": "AND", "searchCategories[1]": $searchOptions[2](1), "searchString[1]": $searchOptions[2](2) } else (),
     if ($searchOptionCount > 2 or $oldSearchOptionCount > 2) then
       { "combinationOperator[2]": "AND", "searchCategories[2]": $searchOptions[3](1), "searchString[2]": $searchOptions[3](2) } else (),
     {"submitSearch": "Suchen", "callingPage": "searchParameters"},
-    if (exists($home-branches[$home-branch-id])) then  
-      {$home-branch-name: $home-branch-values[$home-branch-id]} else (),
-    if (exists($search-branches[$search-branch-id])) then   
-      ($search-branch-extended-options, {$search-branch-name: $search-branch-values[$search-branch-id]}) else ()
+    for $key in jn:keys($book) where $book($key) and $search-restriction-keys($key)
+    return {$search-restriction-keys($key): $book($key)}
     )
   )
   </s>

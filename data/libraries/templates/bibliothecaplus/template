@@ -111,27 +111,38 @@ function __doPostBack(eventTarget, eventArgument) {
 
 <action id="search-connect">
   <s>loggedIn := false()</s>
+  <page url="{$urlsearch}"/>
+  <pattern><form>{
+    search-form := form(., .//input[contains(@name, "BtnSearch")]), 
+    search-fields := .//select[contains(@name, "SearchField")]/@name,
+    search-values := .//input[contains(@name, "SearchValue")]/@name,
+    search-year-values := .//input[contains(@name, "Year")]/@name,
+    let $selects := //select
+    let $names := {"libraryBranch": "BranchValue", "mediaType": "MediaGroupValue"}
+    return (    
+    select-map := map:merge(for $key in map:keys($names) return {$key:$selects[ends-with(@name, $names($key))]}),
+    search-params := (  "title", "author", "free", "keywords", "year", "isbn", 
+      map:keys($select-map)!{"name": ., "options": $select-map(.)//option}
+    )
+    )
+  }</form></pattern>
 </action>
 
 <action id="search">
-    <page url="{$urlsearch}"><template><form>{
-      search-form := form(., .//input[contains(@name, "BtnSearch")]), 
-      search-fields := .//select[contains(@name, "SearchField")],
-      search-values := .//input[contains(@name, "SearchValue")],
-      search-year-values := .//input[contains(@name, "Year")]
-    }</form></template></page>
     
-    <s>   current-page := 1, last-visited-page := 1, next-page := (), i := 1,
-          search-keys := {"title": "Title", "author": "Author", "keywords": "Keyword", "isbn": "ISBNandISSN"},
-          search-reverse-keys := {"Publisher": "publisher", "ProductionYear": "year", "Author": "author", "IsbnTitle": "isbn", "1stIsbnTitle": "isbn"},
+    <s>   current-page := 1, last-visited-page := 1, next-page := (),
+          search-keys := {"title": "Title", "author": "Author", "free": "Free", "keywords": "Keyword", "isbn": "ISBNandISSN"},
+          search-reverse-keys := {"Publisher": "publisher", "ProductionYear": "year", "Author": "author", "IsbnTitle": "isbn", "1stIsbnTitle": "isbn", "Free": "free"},
           startSearch := form-combine($search-form, {|
-            $search-year-values ! { @name: $book.year },
-            (
-              for $key in jn:keys($book) return if (boolean($book($key)) and exists($search-keys($key)) and $i le count($search-fields) ) then (
-                      {($search-fields[$i]/@name) : $search-keys($key), ($search-values[$i]/@name) :  $book($key)},
-                      ($i := $i + 1)[0]
-                    ) else ()
-            )
+            $search-year-values ! { .: $book.year },
+            for $key in map:keys($book) 
+             where $book($key) and $search-keys($key) 
+             count $i 
+             where $i le count($search-fields)
+             return {$search-fields[$i] : $search-keys($key), $search-values[$i]:  $book($key)},
+            for $key in jn:keys($book)
+             where $book($key) and $select-map($key)
+             return {$select-map($key)/@name: $book($key)}
           |})
     </s>
     <page url="{$startSearch}" templateFile="searchList"/>

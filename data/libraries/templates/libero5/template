@@ -71,7 +71,6 @@
 </action>
 
 <action id="search-connect">
-  <s>$search-branch-values := (), $search-branch-id := 0</s>,
   <page url="{$baseurl}WebOpac.cls">
   <template>
     <t:switch-prioritized>
@@ -82,18 +81,23 @@
   </template> <!-- condition is for dresden which has a link "erweiterte suche in der Hilfe" -->
   </page>
 
-  <variable name="search-keys">{"author": "kb", "title": "k", "keywords": "kj", "isbn": "i"}</variable>
+  <s>search-keys := {"author": "kb", "title": "k", "free": "ku", "keywords": "kj", "isbn": "i"},
+     search-select-map := {"LIMLOC": "libraryBranch", "LIMCOL": "category", "LIMGMD": "mediaType", "PREFER": "sort", "LIMLNG": "language"},
+     search-select-map-reverse := map:merge(jn:keys($search-select-map)!{$search-select-map(.):.}) 
+  </s>
 
   <page url="{$search}">
   <template><form>
-    {search-form := form(., .//input[@type="submit"]), keyword-key := ""}
-    
-    <option>Schlagwörter<t:s>search-keys.keywords := @value</t:s></option>?
-    <option>Schlagwort<t:s>search-keys.keywords := @value</t:s></option>?
-    
-    <select name='LIMLOC' t:optional="true">
-    {search-branches := option, search-branch-values := option/@value}
-    </select>?
+    {search-form := form(., .//input[@type="submit"]),
+     search-params := (  "title", "author", "free", "keywords", "year", "isbn",
+       .//select/(
+       let $name := @name
+       return
+         if ($name = "USE_1") then ( .//option[starts-with(., "Schlag")]/(search-keys.keywords := @value) )[0]
+         else let $mapped := $search-select-map($name) where $mapped 
+              return {"name": $mapped, "options": .//option}
+     ))
+    }
   </form></template>
   </page>
 </action>
@@ -110,11 +114,12 @@
          else 
            {"YEARFROM": $book.year, "YEARTO": $book.year} 
        else (),
-       if ($search-branch-values[$search-branch-id]) then {"LIMLOC": $search-branch-values[$search-branch-id]} else (),
        for $key in jn:keys($book) return if (boolean($book($key)) and exists($search-keys($key))) then (
          {x"TERM_{$i}": $book($key), x"USE_{$i}": $search-keys($key)},
          (i := $i + 1)[2]
-       ) else ()
+       ) else if ($search-select-map-reverse($key)) then 
+         { $search-select-map-reverse($key): $book($key) }
+       else ()
     )
      )
   </s>

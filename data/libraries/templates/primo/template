@@ -265,17 +265,20 @@
   <call action="connect"/>
   <if test="$primo-explore">
   <!-- or https://tu-berlin.hosted.exlibrisgroup.com/primo_library/libweb/webservices/rest/v1/configuration/TUB/scopes -->
-    <s>search-branches := $search-scopes ! scope-id, search-branch-id := 0</s>
+    <s>search-params := (  "title", "author", "free", "keywords", "year", "isbn", 
+                           {"name": "libraryBranch", "options": $search-scopes ! scope-id } 
+                        )
+    </s>
   </if>
 </action>
 
 <action id="search">
   <if test="$primo-explore">
-    <variable name="search-keys">{"author": "creator", "title": "title", "keywords": "sub", "isbn": "isbn", "year": "cdate"}</variable>
+    <variable name="search-keys">{"author": "creator", "title": "title", "free": "any", "keywords": "sub", "isbn": "isbn", "year": "cdate"}</variable>
     <s>
     all-raw-docs := (),
     offset := 0,
-    if (empty($search-branches[$search-branch-id])) then $search-branch-id := 1 else (),
+    search-branch-id := (for $s at $i in $search-scopes where $s.scope-id eq $book.libraryBranch return $i, 1)[1],
     encoded-scope := uri-encode($search-scopes[$search-branch-id].scope-id),
     encoded-tab := uri-encode($search-scopes[$search-branch-id].tab),
     encoded-query := uri-encode(join(for $key in jn:keys($book) where boolean($book($key)) and exists($search-keys($key)) return

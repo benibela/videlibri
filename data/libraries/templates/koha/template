@@ -30,23 +30,31 @@
 </action>
 
 <action id="search-connect">
-  <s>kohaurl := $baseurl || "/cgi-bin/koha/"</s>
-  <page url="{$kohaurl}opac-search.pl">
-  </page>
+  <s>kohaurl := $baseurl || "/cgi-bin/koha/",
+     search-keys := {"author": "au,wrdl", "title": "ti", "keywords": "su,wrdl", "isbn": "nb"}
+  </s>
+  <page url="{$kohaurl}opac-search.pl"/>
   <pattern><body>{
-    .//select[@name eq "limit"] ! (switch(@id) 
-      case "branchloop" return ( search-branches := option, search-branches-value := option/@value )
-      default return ())
+    search-params := ("title", "author", "keywords", "year", "isbn", 
+     .//select[@name eq "limit"]/(let $name := (switch(@id) 
+        case "branchloop" return "libraryBranch"
+        case "language-limit" return "language"
+        default return ())
+     where $name
+     return {"name": $name, "options": .//option }
+     )
+    )        
   }</body></pattern>
 </action>
 
 <action id="search">
-  <s>search-keys := {"author": "au,wrdl", "title": "ti", "keywords": "su,wrdl", "isbn": "nb", "year": ""},
-  req:=$kohaurl || "opac-search.pl?sort_by=relevance&count=20&" || string-join((for $key in jn:keys($search-keys) let $value := $book($key) where boolean($value) return
-    switch ($key) 
-      case "year" return "limit-yr=" || uri-encode($value)
-      default return ("idx="||uri-encode($search-keys($key)), "q="||uri-encode($value), "op=and")
-   ), $amp)</s>
+  <s>
+  req:=$kohaurl || "opac-search.pl?sort_by=relevance&count=20&" || string-join((
+     for $key in jn:keys($search-keys) let $value := $book($key) where $value 
+     return ("idx="||uri-encode($search-keys($key)), "q="||uri-encode($value), "op=and"),
+     $book.year[.]!("limit-yr=" || uri-encode(.)),
+     ($book?("libraryBranch", "language"))[.]!("limit=" || uri-encode(.))
+    ), $amp)</s>
   <page url="{$req}"/>
   <pattern href="search"/>
   <s>$search-next-page-available:=$search-result-count > 20,offset:=0</s>
