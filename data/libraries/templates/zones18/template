@@ -89,7 +89,7 @@
   <page url="{$accountUrl}">
     <template>
       <t:switch-prioritized>
-        <form name="LoginForm">  {form := form(., {"BRWR": $username, "PIN": $password})} </form>
+        <form name="LoginForm">  {form := form(., ({"BRWR": $username, "PIN": $password}, (.//input[@type="submit"])[1]))} </form>
         <h2>Das System ist gerade offline<t:s>vl:raise(.)</t:s></h2>
         <a t:condition="contains(@href, 'MyLoans')">{form := $accountUrl}</a> <!-- are already logged in-->
         <table>
