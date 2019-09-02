@@ -7,6 +7,7 @@ object newAccountWizard: TnewAccountWizard
   Caption = 'Neues Konto'
   ClientHeight = 422
   ClientWidth = 517
+  FormStyle = fsStayOnTop
   OnActivate = FormActivate
   OnCreate = FormCreate
   OnShow = FormShow
@@ -17,7 +18,7 @@ object newAccountWizard: TnewAccountWizard
     Height = 383
     Top = 0
     Width = 517
-    PageIndex = 1
+    PageIndex = 0
     Align = alClient
     TabOrder = 0
     TabStop = True
