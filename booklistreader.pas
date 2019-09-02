@@ -148,6 +148,7 @@ type
     class procedure setBookProperty(book:TBook;variable: string; const value:IXQValue); static;
     procedure parserVariableRead(variable: string; value: IXQValue);
     procedure logall(sender: TMultipageTemplateReader; logged: string; debugLevel: integer=0);
+    procedure TraceEvent(sender: TXQueryEngine; value, info: IXQValue);
   protected
     procedure applyPattern(pattern, name: string); override;
     function evaluateQuery(const query: IXQuery): IXQValue; override;
@@ -1012,6 +1013,12 @@ begin
   if logging then log(logged);
 end;
 
+procedure TBookListReader.TraceEvent(sender: TXQueryEngine; value, info: IXQValue);
+begin
+  if not logging then exit;
+  log(info.toString+ ': ' + value.toXQuery)
+end;
+
 procedure TBookListReader.applyPattern(pattern, name: string);
 var
   varlog: TXQVariableChangeLog;
@@ -1253,6 +1260,8 @@ begin
   temp.assign(parser.QueryEngine.StaticContext);
   parser.QueryEngine.StaticContext.free;
   parser.QueryEngine.StaticContext := temp;
+  if logging then
+    parser.QueryEngine.OnTrace:=@TraceEvent;
   tempc := parser.QueryContext;
   tempc.staticContext := temp;
   parser.QueryContext := tempc;
