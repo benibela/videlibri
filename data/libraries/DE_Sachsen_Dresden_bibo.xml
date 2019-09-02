@@ -7,7 +7,7 @@
   
   <template value="sisis"/>  
   <variable name="server" value="https://katalog.bibo-dresden.de/webOPACClient/"/>
-  <variable name="startparams" value="?Login=webopac&amp;BaseURL=this&amp;StartPage=userAccount"/>
+  <variable name="startparams" value="?Login=webopac&amp;BaseURL=this"/>
   
   <homepage value="http://www.bibo-dresden.de/"/>
   <testing-search value="yes"/>
