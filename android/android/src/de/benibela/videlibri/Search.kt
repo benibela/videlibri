@@ -23,6 +23,12 @@ import de.benibela.videlibri.jni.FormSelect
 import java.util.*
 import android.view.ViewGroup
 import kotlin.math.roundToInt
+import android.R.attr.y
+import android.R.attr.x
+import android.graphics.Point
+import android.view.Display
+
+
 
 
 internal interface SearchEventHandler {
@@ -244,10 +250,19 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
             }
         }
 
+
         val portMode = resources.getBoolean(R.bool.port_mode)
-        val minimumWidth = if (portMode) 0 else searchParamHolders.values.map{it.caption.paint.measureText(it.caption.text.toString())}.max()?.roundToInt()?:0
-        for (h in searchParamHolders.values)
-            if (portMode) {
+        var displayWidth = 0
+        var minimumWidth = 0
+        if (portMode) {
+            val display = windowManager.defaultDisplay
+            val size = Point()
+            display.getSize(size)
+            displayWidth = size.x
+        }
+        for (h in searchParamHolders.values) {
+            val captionWidth = h.caption.paint.measureText(h.caption.text.toString()).roundToInt()
+            if (portMode || (displayWidth > 0 && captionWidth > displayWidth / 3) ) {
                 h.layout.orientation = LinearLayout.VERTICAL
                 h.caption.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 h.view.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -255,8 +270,14 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
                 h.layout.orientation = LinearLayout.HORIZONTAL
                 h.caption.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 h.view.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                h.caption.minimumWidth = minimumWidth + 10
+                if (captionWidth > minimumWidth) minimumWidth = captionWidth
             }
+        }
+        if (!portMode) {
+            minimumWidth = minimumWidth + 10 // some border
+            for (h in searchParamHolders.values)
+                h.caption.minimumWidth = minimumWidth + 10
+        }
 
     }
 
