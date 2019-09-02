@@ -111,6 +111,9 @@
           </t:s>
         </div></form>
         <form><div class="message">vl:raise(.)</div></form>
+        <form t:condition=" .//@name = ('_eventId_proceed', 'SAMLResponse', 'RelayState') ">
+        { $loginFormPost := $lf, $idpSystem := true() (:we are logged in SAML but not in OPAC:) }
+        </form>
       </t:switch></template>
     </page>
   </loop>
