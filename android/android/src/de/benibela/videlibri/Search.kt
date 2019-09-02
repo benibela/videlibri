@@ -3,9 +3,11 @@ package de.benibela.videlibri
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Paint
+import android.graphics.Typeface
 import android.os.Bundle
 import android.support.v4.view.ViewCompat
 import android.support.v7.app.ActionBar
+import android.text.InputType
 import android.util.Log
 import android.view.Gravity
 import android.view.Menu
@@ -19,11 +21,18 @@ import de.benibela.videlibri.jni.FormInput
 import de.benibela.videlibri.jni.FormParams
 import de.benibela.videlibri.jni.FormSelect
 import java.util.*
+import android.view.ViewGroup
+import kotlin.math.roundToInt
+
 
 internal interface SearchEventHandler {
     fun onSearchEvent(event: Bridge.SearchEvent): Boolean
 }
-private class SearchParamHolder(val input: FormInput, val caption: TextView, val view: View) {
+private class SearchParamHolder(
+        val input: FormInput,
+        val layout: LinearLayout,
+        val caption: TextView,
+        val view: View) {
     val edit get() = view as? EditText
     val spinner get() = view as? Spinner
 }
@@ -190,7 +199,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
         )
     }
 
-    internal fun updateSearchParamsViews() {
+    private fun updateSearchParamsViews() {
         val searcher = searcher ?: return
         val lay = findViewById<LinearLayout>(R.id.layout)
         lay.removeAllViews()
@@ -201,14 +210,19 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
             if (param.name in searchParamHolders) continue;
             val old = oldSearchParamHolders[param.name]?.takeIf { it.input == param }
             if (old != null) {
-                lay.addView(old.caption)
-                lay.addView(old.view)
+                lay.addView(old.layout)
                 searchParamHolders[param.name] = old
             } else {
                 val row = inflater.inflate(if (param is FormSelect) R.layout.searchlayout_row_spinner else R.layout.searchlayout_row_edit, lay, true)
+                val layout = row.findViewById<LinearLayout>(R.id.innerLayout).also {
+                    it.id = ViewCompat.generateViewId()
+                }
                 val caption = row.findViewById<TextView>(R.id.textView).also {
                     it.text = param.caption
                     it.id = ViewCompat.generateViewId()
+                    when (param.name) {
+                        "title", "author", "free" -> it.setTypeface(null, Typeface.BOLD)
+                    }
                 }
                 val inputView: View = if (param is FormSelect) {
                     val spinner = row.findViewById<Spinner>(R.id.spinner)
@@ -218,14 +232,32 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
                     spinner
                 } else {
                     val edit = row.findViewById<EditText>(R.id.edit)
+                    when (param.name) {
+                        "year" -> edit.setRawInputType(InputType.TYPE_CLASS_NUMBER)
+                    }
                     edit
                 }
 
-                searchParamHolders[param.name] = SearchParamHolder(param, caption, inputView)
+                searchParamHolders[param.name] = SearchParamHolder(param, layout, caption, inputView)
                 val id = (if (param is FormSelect) "FormSelect" else "FormInput") + param.name
                 inputView.id = namedViewIds.getOrPut(id, { ViewCompat.generateViewId() })
             }
         }
+
+        val portMode = resources.getBoolean(R.bool.port_mode)
+        val minimumWidth = if (portMode) 0 else searchParamHolders.values.map{it.caption.paint.measureText(it.caption.text.toString())}.max()?.roundToInt()?:0
+        for (h in searchParamHolders.values)
+            if (portMode) {
+                h.layout.orientation = LinearLayout.VERTICAL
+                h.caption.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                h.view.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            } else {
+                h.layout.orientation = LinearLayout.HORIZONTAL
+                h.caption.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                h.view.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                h.caption.minimumWidth = minimumWidth + 10
+            }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
