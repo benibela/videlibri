@@ -139,9 +139,12 @@ begin
             j := 0;
             for pw in options.GetEnumeratorPtrUnsafe do begin
               case pw.kind of
-                pvkString: {todo};
+                pvkString: begin
+                  fs.optionCaptions[j] := pw.toString;
+                  fs.optionValues[j] := pw.toString;
+                end;
                 pvkObject: begin
-                  fs.optionCaptions[j] := pw.getProperty('name').toString;
+                  fs.optionCaptions[j] := pw.getProperty('caption').toString;
                   fs.optionValues[j] := pw.getProperty('value').toString;
                 end;
                 pvkNode: begin
