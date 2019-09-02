@@ -6,13 +6,13 @@ interface
 
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  Buttons, applicationconfig;
+  Buttons, applicationconfig, applicationformconfig;
 
 type
 
   { TshowErrorForm }
 
-  TshowErrorForm = class(TForm)
+  TshowErrorForm = class(TVideLibriForm)
     Button1: TButton;
     Button2: TButton;
     Button3: TButton;
