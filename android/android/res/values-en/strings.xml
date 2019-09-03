@@ -444,4 +444,5 @@
     <string name="lay_options_check_summary_too_large">Warning: If the value is too high and you lend something with a very short lending period, it might become due, before VideLibri updates the list of lendings.</string>
     <string name="warning_autorenewal_short">Setting the \"days before the due date\" option to a small value is risky, because nothing might be renewed, when you turn your device off for several days or the webpage of the library is not accessible for a few days.</string>
     <string name="internet_invalid_certificateS">Invalid certificate for %s.\nIn the options you can set an exception at \"Download the certificate of a server and register it as valid\".</string>
+    <string name="R.string.warning_duplicate_account">This account has already been registered in the app. To change the account information, select the account in the options (to open the options use the drawer menu).</string>
 </resources>
