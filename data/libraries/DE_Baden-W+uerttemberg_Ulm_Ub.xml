@@ -8,7 +8,7 @@
   <template value="aDISWeb"/>
   <variable name="server" value="ulm.ibs-bw.de"/>
 
-  <homepage value="http://www.uni-ulm.de/einrichtungen/kiz/bibliothek.html"/>
+  <homepage value="https://ulm.ibs-bw.de"/>
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
   
