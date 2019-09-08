@@ -73,7 +73,7 @@ var programPath,userPath:string;
     nextLimitStr: string;
 
     appFullTitle:string='VideLibri';
-    versionNumber:integer=2070;
+    versionNumber:integer=2100;
     //=>versionNumber/1000
     newVersionInstalled: boolean=false;
 
@@ -294,7 +294,7 @@ resourcestring
     inherited create(amessage);
     if asender <> nil then begin
       partialMatches := asender.debugMatchings(80);
-      anonymousPartialMatches := asender.debugMatchings(80, false, ['class', 'id', 'style']);
+      anonymousPartialMatches := asender.debugMatchings(80, false, ['class', 'id', 'style', 'abbr', 'http-equiv', 'type', 'fld']);
     end;
   end;
 
