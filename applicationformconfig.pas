@@ -35,8 +35,10 @@ begin
     result.Right += BoundsRectOffset.x;
     result.Bottom += BoundsRectOffset.y;
   end else if HandleAllocated and (GetWindowRect(Handle, realRect{%H-}) <> 0) then begin
-    result.Width := realRect.Width;
-    result.Height := realRect.Height;
+    if (realrect.Width > 0) and (realRect.Height > 0) then begin
+      result.Width := realRect.Width;
+      result.Height := realRect.Height;
+    end;
   end;
 end;
 
@@ -45,6 +47,16 @@ begin
   bounds.Right -= BoundsRectOffset.x;
   bounds.Bottom -= BoundsRectOffset.y;
   BoundsRect := bounds;
+end;
+
+function pointToString(const p: TPoint): string;
+begin
+  result :=  '(' + inttostr(p.X) + ', ' + inttostr(p.y) + ')';
+end;
+
+function rectToString(const r: TRect): string;
+begin
+  result := inttostr(r.Width) + 'x' + inttostr(r.Height) + ' at ' + pointToString(r.TopLeft) + '-' + pointToString(r.BottomRight);
 end;
 
 procedure TVideLibriForm.MyAutoPlacement(var bounds: TRect; const oldBounds: TRect);
@@ -79,6 +91,21 @@ begin
     if bounds.Width > workarea.Width then bounds.Width := workarea.Width;
     if bounds.Height > workarea.Height then bounds.Height := workarea.Height;
     bounds.SetLocation(workarea.Left + (workarea.Width - bounds.Width) div 2, workarea.Top + (workarea.Height - bounds.Height) div 2);
+  end;
+
+  if logging then begin
+    log('Window placement for ' + name + ' ' + ClassName);
+    if mon <> nil then begin
+      log('  monitor workeara: ' + rectToString(mon.WorkareaRect));
+      log('  monitor bounds: ' + rectToString(mon.BoundsRect));
+    end;
+    log('  screen workeara: ' + rectToString(screen.WorkAreaRect));
+    log('  screen desktop: ' + rectToString(screen.DesktopRect));
+    log('  screen size: ' + inttostr(screen.width) + 'x' + inttostr(screen.Height));
+
+    log('  window old outer bounds: ' + rectToString(BoundsRect));
+    log('  window old inner bounds: ' + rectToString(oldBounds));
+    log('  window bounds: ' + rectToString(bounds));
   end;
 
   if bounds <> oldbounds then
@@ -145,6 +172,10 @@ begin
     guiScaleFactor := fontHeight / REFERENCE_FONT;
     bounds.Width := MulDiv(bounds.Width, fontHeight, REFERENCE_FONT);
     bounds.Height := MulDiv(bounds.Height, fontHeight, REFERENCE_FONT);
+    if logging then begin
+      log('  scale factor: ' + FloatToStr(guiScaleFactor));
+      log('  window scaled bounds: ' + rectToString(bounds));
+    end;
   end;
 
   MyAutoPlacement(bounds, oldBounds);
