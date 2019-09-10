@@ -4,6 +4,6 @@
       $submit := ($submits[contains(@value, "bestellen")],$submits)[1]
   return 
   if (matches($message, "(ist +erfolgt|Außenmagazinbestellung für.*:)")) then ( final-form := form(., $submit), form := () )
-  else if (count($submits) eq 1 and $message ne "") then vl:raise($message)
+  else if (count($submits) eq 1 and $message ne "") then ($error := $message, form := (), final-form := form(., $submit) )
   else form := form(., $submit)
 }</form>

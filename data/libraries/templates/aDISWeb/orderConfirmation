@@ -52,6 +52,6 @@
   <input name="$Textfield">{ $internal-loggedin := false(), loginFormPost := form((ancestor::form, //form)[1], {"$Textfield": $username, "$Textfield$0": $password}) } <!-- Aalen has invalid html where the form is not an ancestor of the input-->  </input> 
   <input name="j_username">{ $internal-loggedin := false(), loginFormPost := form((ancestor::form, //form)[1], {"j_username": $username, "j_password": $password}), idpSystem := true() }</input> 
 
-  <body class="msgpage">{vl:raise(.)}</body>
+  <body class="msgpage">{error := inner-text()}</body>
 </t:switch>
    

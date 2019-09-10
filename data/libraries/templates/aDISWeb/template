@@ -11,13 +11,14 @@
 <action id="connect"></action>
 
 <action id="internal-login"> 
+  <s>error-login := ()</s>
   <if test="get('idpSystem')">
     <s>i := 1</s>
     <!-- follow links till we reach the login page -->
     <loop test="$i < 10">
         <page url="{$loginFormPost}"/>
         <pattern><t:switch prioritized="true">
-          <p class="form-error">Benutzernummer oder Passwort falsch<t:s>vl:raise-login(.)</t:s></p><!-- blb karlsruhe -->
+          <p class="form-error">Benutzernummer oder Passwort falsch<t:s>$error-login := .</t:s></p><!-- blb karlsruhe -->
 
           <!-- seems we already are on the correct page, send request again (not tested with any library) -->
           <td>Keine Ausleihen<t:s>i:=1000</t:s></td>
@@ -50,34 +51,36 @@
   <page test="not(get('idpSystem'))" url="{$loginFormPost}">
     <post name="textButton" value="Anmeldung abschicken"/>
   </page>
-      
-  <pattern>
-    <template:switch prioritized="true">
-      <form>{loginFormPost:=form(.)}
-      <h1>Sie sind angemeldet.</h1>
-      </form>
-
-      <td>Keine Ausleihen</td>
-      <a>Ausleihen zeigen oder verlängern</a> <!-- seems we already are on the correct page, send request again (not tested with any library) -->
-      <a>Ausleihe zeigen oder verlängern</a>
-      
-      <h1>Bitte auch das Passwort angeben<t:s>vl:raise-login(.)</t:s></h1>
-      <h1>Sie sind nicht mit Ihren Angaben registriert<t:s>vl:raise-login(.)</t:s></h1>
-      <li>Benutzernummer oder Passwort falsch?<t:s>vl:raise-login(.)</t:s></li>
-      <h1>Das System kann Sie derzeit nicht anmelden! Angaben sind fehlerhaft!<t:s>vl:raise-login(.)</t:s></h1>
-      <h1>Anmeldung fehlgeschlagen. Bitte überprüfen Sie Ihre Eingabe.<t:s>vl:raise-login(.)</t:s></h1>
-      <h1>Die angegebene Lesernummer oder das Passwort ist falsch.<t:s>vl:raise-login(.)</t:s></h1>
-      
-       
-      <span class="bnzeig" t:condition="contains(text(), 'Sie sind angemeldet')" /> <!-- sind schon angemeldet. (neuess, ordering!) -->
-      
-      <div class="message"><div id="R01"><h1>{vl:raise-login(.)}</h1></div></div>
-      <span class="alert">{vl:raise-login(.)}</span>
-      <input type="password" class="errstate">{vl:raise-login("")}</input>
-       
-      <form><select/><select/></form> <!-- munich ordering -->
-    </template:switch>
-  </pattern>
+  
+  <if test="empty($error-login)">
+    <pattern>
+      <template:switch prioritized="true">
+        <form>{loginFormPost:=form(.)}
+        <h1>Sie sind angemeldet.</h1>
+        </form>
+  
+        <td>Keine Ausleihen</td>
+        <a>Ausleihen zeigen oder verlängern</a> <!-- seems we already are on the correct page, send request again (not tested with any library) -->
+        <a>Ausleihe zeigen oder verlängern</a>
+        
+        <h1>Bitte auch das Passwort angeben<t:s>$error-login := .</t:s></h1>
+        <h1>Sie sind nicht mit Ihren Angaben registriert<t:s>$error-login := .</t:s></h1>
+        <li>Benutzernummer oder Passwort falsch?<t:s>$error-login := .</t:s></li>
+        <h1>Das System kann Sie derzeit nicht anmelden! Angaben sind fehlerhaft!<t:s>$error-login := .</t:s></h1>
+        <h1>Anmeldung fehlgeschlagen. Bitte überprüfen Sie Ihre Eingabe.<t:s>$error-login := .</t:s></h1>
+        <h1>Die angegebene Lesernummer oder das Passwort ist falsch.<t:s>$error-login := .</t:s></h1>
+        
+         
+        <span class="bnzeig" t:condition="contains(text(), 'Sie sind angemeldet')" /> <!-- sind schon angemeldet. (neuess, ordering!) -->
+        
+        <div class="message"><div id="R01"><h1>{$error-login}</h1></div></div>
+        <span class="alert">{$error-login}</span>
+        <input type="password" class="errstate">{$error-login}</input>
+         
+        <form><select/><select/></form> <!-- munich ordering -->
+      </template:switch>
+    </pattern>
+  </if>
 </action>
 
 <action id="update-all">
@@ -118,9 +121,11 @@
     </page>
   </loop>
   <call action="internal-login"/>
-  
-  <variable name="first-login">true()</variable>
-  
+  <s>
+  if (exists($error-login)) then vl:raise-login($error-login) 
+  else $first-login := true()
+  </s>
+ 
   
   <page url="{$loginFormPost}" templateFile="accountOverview"/>
 
@@ -336,22 +341,28 @@
     </pattern>
   </if>
   
-  <if test="not(get('internal-loggedin', false())) and not($subBookOnly)">
+  <if test="not(get('internal-loggedin', false())) and not($subBookOnly) and not(exists($error))">
     <call action="internal-login"/>
-    <variable name="internal-loggedin">true()</variable>
-    <variable name="form">$loginFormPost</variable>
-    <pattern href="orderConfirmation"/>
-    <if test="exists($error)">
-      <s>error:=()</s>
-      <page url="{$form}" templateFile="orderConfirmation"/>
+    <if test="exists($error-login)">
+      <s>error := $error-login</s>
+      <pattern><form>{$goBackPage}</form></pattern> <!-- this only will lead back to the login page. but if there is a trefferliste-link like on voebb, internal-get-go-back-step will find its way -->
     </if>
+    <else>
+      <variable name="internal-loggedin">true()</variable>
+      <variable name="form">$loginFormPost</variable>
+      <pattern href="orderConfirmation"/>
+      <if test="exists($error)"> <!-- it thinks the login confirmation is an error -->
+       <s>error:=()</s>
+       <page url="{$form}" templateFile="orderConfirmation"/>
+      </if>
+    </else>
   </if>
   
 
   <if test="$error">
     <call action="internal-get-go-back-step"/>
-    <s>vl:raise($error)</s>
     <page url="{$goBackPage}" templateFile="searchBasicForm"/>
+    <s>vl:raise($error)</s>
   </if>
 
 </action>
@@ -391,11 +402,13 @@
     <page url="{$form}" templateFile="orderConfirmed"/>
     <page url="{$form}" templateFile="orderConfirmed"/>
     <page url="{$final-form}"/>
-    <s>book.statusId := "ordered"</s>
 
     <pattern href="goBackToSearchList"/>
     <page url="{$goBackPage}" templateFile="searchBasicForm"/>
 
+    <s>if (empty($error)) then book.statusId := "ordered"
+       else vl:raise($error)
+    </s>
   </if>
 </action>
 
