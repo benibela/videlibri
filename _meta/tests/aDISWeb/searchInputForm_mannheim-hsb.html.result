@@ -1,28 +1,20 @@
 book := {}
-selections := true()
-selects := ()
-inputs := ()
-selects := text{"select"}
-inputs := text{"$Textfield"}
-selects := (text{"select"}, 
-text{"select$1"})
-inputs := (text{"$Textfield"}, 
-text{"$Textfield$0"})
-selects := (text{"select"}, 
-text{"select$1"}, 
-text{"select$3"})
-inputs := (text{"$Textfield"}, 
-text{"$Textfield$0"}, 
-text{"$Textfield$1"})
-selects := (text{"select"}, 
+search-basic-selects := (text{"select"}, 
 text{"select$1"}, 
 text{"select$3"}, 
 text{"select$5"})
-search-keys := {"keywords": "Schlagwort", "isbn": "ISSN, ISBN, SWB-Nr.", "author": "Autor (Person)", "title": "Titelwort"}
-inputs := (text{"$Textfield"}, 
+search-basic-inputs := (text{"$Textfield"}, 
 text{"$Textfield$0"}, 
 text{"$Textfield$1"}, 
 text{"$Textfield$2"})
-nameYear := text{"$Textfield$5"}
-i := 1
-startSearch := {"method": "POST", "post": "service=direct%2F1%2FPOOLM24PBSZPROD%40_44276700_2AE9E380%2F%24Form.form&sp=S0&Form0=focus%2CkeyCode%2Cstz%2Csource%2Cselected%2CrequestCount%2CscriptEnabled%2CscrollPos%2CscrDim%2CwinDim%2CimgDim%2C%24Toolbar%2Cselect%2C%24Textfield%2C%24FormConditional%2CimageButton%2Cselect%240%2Cselect%241%2C%24Textfield%240%2C%24FormConditional%240%2CimageButton%240%2Cselect%242%2Cselect%243%2C%24Textfield%241%2C%24FormConditional%241%2CimageButton%241%2Cselect%244%2Cselect%245%2C%24Textfield%242%2C%24FormConditional%242%2CimageButton%242%2Cselect%246%2Cselect%247%2C%24Textfield%243%2C%24Textfield%244%2C%24Textfield%245%2C%24Textfield%246%2C%24Textfield%247%2C%24Textfield%248%2C%24Textfield%249%2C%24Textfield%2410%2C%24Toolbar%240&focus=&keyCode=0&stz=&source=&selected=&requestCount=1&scriptEnabled=F&scrollPos=0&scrDim=&winDim=&imgDim=&%24FormConditional=T&%24FormConditional%240=T&%24FormConditional%241=T&%24FormConditional%242=T&%24Textfield%245=", "url": "file:///aDISWeb/app;jsessionid=115DA206421D6D67D1F0DADECB606D0C"}
+search-basic-options := {"author": "Autor (Person)", "title": "Titelwort", "free": "Freie Suche", "keywords": "Schlagwort", "isbn": "ISSN, ISBN, SWB-Nr."}
+search-basic-input-year := text{"$Textfield$5"}
+search-filter-map := {"mediaType": "select$6", "language": "select$7"}
+search-params := ("title", 
+"author", 
+"free", 
+"keywords", 
+"isbn", 
+"year", 
+{"name": "mediaType", "options": ["", "Bücher", "Datenträger", "E-Book", "Filme", "Hochschulschrift", "Tonträger", "Zeitschrift"]}, 
+{"name": "language", "options": ["", "Deutsch", "Englisch", "Französisch", "Italienisch", "Spanisch"]})

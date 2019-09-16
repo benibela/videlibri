@@ -1,2 +1,4 @@
 book := {}
-raised := "Bestellung nur in andere Bibliothek möglich"
+error := "Bestellung nur in andere Bibliothek möglich"
+form := ()
+final-form := {"method": "POST", "post": "service=direct%2F1%2FPOOLM21PBSZTEST%40_43003100_2C2A4000%2F%24Form.form&sp=S0&Form0=focus%2CkeyCode%2Cstz%2Csource%2Cselected%2CrequestCount%2CscriptEnabled%2CscrollPos%2CscrDim%2CwinDim%2CimgDim%2CmessageButton&focus=&keyCode=0&stz=&source=&selected=&requestCount=15&scriptEnabled=T&scrollPos=0&scrDim=&winDim=&imgDim=&messageButton=Ok", "url": "file:///aDISWeb/app;jsessionid=56A83BE4B69EE2A962711B804B2D247A"}
