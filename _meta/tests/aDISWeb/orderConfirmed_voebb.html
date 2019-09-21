@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="de"><head>
+	<style type="text/css">
+		@import url(css/aDISStandard.css);
+	</style>
+	<script src="js/aDISMain.min.js" type="text/javascript"></script>
+	<script src="js/fckeditor/fckeditor.js" type="text/javascript"></script>
+	<title> Katalog </title>
+<title>Hinweis</title>
+ <!--
+  (c) Software: aDIS/BMS und aDIS/Archiv by |a|S|tec| GmbH Berlin und Muenchen - www.astec.de
+  (c) Template-Modifikationen: ena Webstudio - www.ena-webstudio.com
+  Projekt: MSG01, de
+  Letztes Update: 21.10.2016 - 11:57
+//-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta charset="utf-8">
+<meta name="robots" content="noindex,follow">
+<meta name="keywords" content="OPAC, Bibliothekssoftware">
+<meta name="description" content="Hinweis zum Bibliothekskatalog">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link rel="stylesheet" href="/aDISWeb_kopac/css/kopac_style.css" type="text/css"><object data="/aDISWeb/app;jsessionid=C0DDAD8D2B6CB2E43A434FC531CB2690?service=aDISPrint/POOLVX00vb@@@@@@_4B00CD00_33B5A580/$Plugin" id="$Plugin" height="0" type="application/x-aStec-aDISPrint" width="0"></object>
+</head>
+<body class="einer msg01 deutsch">
+<script type="text/javascript"><!--
+
+
+
+
+function startIdleTimer() {
+  if (typeof idleId != 'undefined')
+    clearTimeout(idleId)
+  idleId = window.setTimeout("to('"+ idleLink + "')", idleTime);
+}			
+function to(link) {
+  location.href=link;
+}
+
+
+
+
+
+function setupHandlers()  {
+  document.onmousedown = docOnEvent;		
+  document.onkeydown = docOnEvent;	
+  document.onkeypress = docOnEvent;
+  document.onhelp = cancelF1;
+
+  initFormElements();
+  initIframes();
+  initScrollPos();
+}
+function getDimensions()  {
+  document.forms[0].scrDim.value = screen.width + ";" + screen.height;
+  if (window.innerWidth)
+    document.forms[0].winDim.value = window.innerWidth + ";" + window.innerHeight;
+  else
+    document.forms[0].winDim.value = document.body.offsetWidth + ";" + document.body.offsetHeight;
+  node = document.getElementById("img_content");
+  if (node != undefined)
+    document.forms[0].imgDim.value = node.offsetWidth + ";" + node.offsetHeight;
+}
+
+
+
+
+aDIS.onLoad = function (e)
+{
+
+  idleTime=360000000;
+  idleLink="/aDISWeb/app;jsessionid=C0DDAD8D2B6CB2E43A434FC531CB2690?service=direct/1/POOLVX00vb@@@@@@_4B00CD00_33B5A580/$Timeout";
+  startIdleTimer();
+
+
+  if (!e) var e = window.event;
+  document.forms[0].scriptEnabled.value=true;
+  if (self.specialOnLoad != undefined)
+    specialOnLoad(e);
+  setupHandlers();
+  getDimensions();
+
+}
+
+aDIS.addListener('load', window, aDIS.onLoad);
+
+
+// --></script>
+<div class="aDISMaske"><form method="post" name="Form0" action="/aDISWeb/app;jsessionid=C0DDAD8D2B6CB2E43A434FC531CB2690" onsubmit="return formOnSubmit();">
+<input type="hidden" name="service" value="direct/1/POOLVX00vb@@@@@@_4B00CD00_33B5A580/$Form.form"/>
+<input type="hidden" name="sp" value="S0"/>
+<input type="hidden" name="Form0" value="focus,keyCode,stz,source,selected,requestCount,scriptEnabled,scrollPos,scrDim,winDim,imgDim,$FormConditional,textButton"/>
+<input type="hidden" name="focus" value=""/>
+<input type="hidden" name="keyCode" value="0"/>
+<input type="hidden" name="stz" value=""/>
+<input type="hidden" name="source" value=""/>
+<input type="hidden" name="selected" value=""/>
+<input type="hidden" name="requestCount" value="11"/>
+<input type="hidden" name="scriptEnabled" value="F"/>
+<input type="hidden" name="scrollPos" value="0"/>
+<input type="hidden" name="scrDim" value=""/>
+<input type="hidden" name="winDim" value=""/>
+<input type="hidden" name="imgDim" value=""/>
+<input type="hidden" name="$FormConditional" value="T"/>
+				
+<div id="wrapper">
+  <div id="wrapper_inside">
+
+     <div id="container">
+      <div id="container_inside">
+
+        <div id="main" role="main">
+          <div class="inside">
+
+            <div class="block message">
+            <div id="R01"><div style="   width:99%;" class="aDISListe"><div class="html_div" style="width:99%; height:100%;"><p>Informationen zu Ihrem Bestellvorgang:</p></div></div>
+</div>
+            <div id="OPACLI" style="   width:99%; " class="aDISListe"><div class="html_div" style="width:99%; height:100%;"><p> <br/>1. Die Magazinbestellung ist erfolgt für: "Fischkutter H. F. 13"<br/><br/>Hinweis:<br/>Ausweis nicht mehr gültig<br/><br/>Abholcode: 41 Za</p></div></div>  
+            <div id="R03" class="links"><input type="submit" name="textButton" value="OK" class="buttong" fld="$$GFBO_1" style="  margin-left:44%; "/>
+</div><br class="klar"/>
+
+            </div>
+            <div class="clear"></div>
+
+          </div>
+          <div id="clear"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div></form>
+</div></body>
+</html>
