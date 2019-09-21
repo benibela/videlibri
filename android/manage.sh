@@ -257,13 +257,7 @@ setupfpccrosscompile)
   sudo make crossinstall OS_TARGET=android CPU_TARGET=x86_64 BINUTILSPREFIX=x86_64-linux-android INSTALL_PREFIX=/usr;
 ;;
 
-setupfpccfg)
-  echo -Fu$PWD/import/flre/src/ 
-  echo -Fi$PWD/components/pascal/  
-  echo -Fi$PWD/components/pascal/data  
-  echo -Fu$PWD/components/pascal/data  
-  ln -s $PWD/import/flre components/pascal/import/flre > /dev/null
-
+setupfpccrosscfg)
   echo "#ifdef android"
 
   function singleplatform(){
