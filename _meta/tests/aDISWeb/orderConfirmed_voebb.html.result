@@ -1,0 +1,3 @@
+book := {}
+final-form := {"method": "POST", "post": "service=direct%2F1%2FPOOLVX00vb%40%40%40%40%40%40_4B00CD00_33B5A580%2F%24Form.form&sp=S0&Form0=focus%2CkeyCode%2Cstz%2Csource%2Cselected%2CrequestCount%2CscriptEnabled%2CscrollPos%2CscrDim%2CwinDim%2CimgDim%2C%24FormConditional%2CtextButton&focus=&keyCode=0&stz=&source=&selected=&requestCount=11&scriptEnabled=F&scrollPos=0&scrDim=&winDim=&imgDim=&%24FormConditional=T&textButton=OK", "url": "file:///aDISWeb/app;jsessionid=C0DDAD8D2B6CB2E43A434FC531CB2690"}
+form := ()
