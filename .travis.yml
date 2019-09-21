@@ -1,7 +1,7 @@
 language: android
   
 sudo: required
-dist: bionic
+dist: trusty
 
 os:
   - linux
