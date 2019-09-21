@@ -1,12 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-      <build version="2050" date="2019-06-09">
+      <build version="2110" date="2019-09-10">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <fix>Stadtbücherei Halle: Anpassung an geänderte URL.</fix>
+        <fix>VÖBB: Wenn eine Vormerkung nicht erlaubt ist, breche nicht die Suche ab.</fix>
+     </build>
+      <build version="2100" date="2019-09-03">
+        <change>Neue Suche: Die verfügbaren Suchfelder können nun bei jeder Bibliothek anders sein, anstatt sich auf die wenigen Suchfelder zu beschränken, die bei allen Bibliotheken und der Digibib vorhanden sind. Je nach Bibliothek gibt es nun zusätzlich Felder für Freitext, Medienart, Kategorie, Sortierung und Sprache.</change>
+        <change>Android: Warne über unsinnige Benutzereinstellungen.</change>
+        <change>zones: Login mittels Button statt Entertaste.</change>
+        <fix>Universitätsbibliotheken Ulm und Hohenheim: Anpassung an geänderte URLs.</fix>
+        <fix>Linux/Windows: Korrigiere Fensterpositionierung.</fix>
+     </build>
+      <build version="2070" date="2019-08-13">
+        <fix>Anpassungen an geändertes JSON bei HU Berlin.</fix>
+        <fix>OCLC OPEN: Verwende das richtige Passwortfeld, wenn mehrere Passwortfelder auf der Loginseite sind.</fix>
+        <add>Stadtbibliothek Bamberg, Hochschulbibliothek Neu-Ulm</add>
+     </build>
+      <build version="2064" date="2019-08-04">
+        <change>android: 64-BIT VERSION</change>
+        <change>Zeige Verlängerungsanzahl und Standort als eigene Eigenschaften von Büchern, statt sie wegzulassen oder als Bemerkung anzuzeigen.</change>
+        <change>Entferne veraltete Sonderbehandlung von VÖBB-Zweigstellen bei Vormerkungen.</change>
+        <fix>Weinheim: Anpassung an geänderte URL.</fix>
+        <fix>OPEN: Zeige Text in gelben Boxen nicht als Fehlermeldung an.</fix>
+        <add>Lade Titelbilder von Buchhandel.</add>
+        <add>Stadtbücherei Coburg.</add>
+     </build>
+      <build version="2056" date="2019-07-06">
+        <change>Bibliotheca Plus/OCLC OPEN: Akzeptiere beliebige Reihenfolgen der Spalten der Tabelle mit den ausgeliehenen Büchern.</change>
+        <change>Staatsbibliothek Berlin: Zeige Ausleihkartenablaufdatum und eine Begründung, wenn bei abgelaufenen Karten die Verlängerung fehlschlägt.</change>
+        <fix>Anpassung an neues System der Büchereien Wien.</fix>
+        <fix>Anpassung an neues HTTPS-Zertifikat der Stadtbibliothek Koblenz.</fix>
+        <fix>Anpassung an geänderte URLs der Stadtbibliotheken Heidelberg, Bonn, und aller BSZ IBS/BW Bibliotheken (Bibliothek der Hochschule Aalen, Hochschulbibliothek Albstadt-Sigmaringen, Bibliothek der HS Biberach, Hochschulbibliothek Esslingen, Bibliothek der Hochschule für Musik Freiburg,  Bibliothek der Zeppelin Universität,  Bibliotheken der Hochschule Furtwangen,  Bibliothek der HfG Schwäbisch Gmünd,  Bibliothek der PH Gmünd,  Bibliothek der Pädagogischen Hochschule Heidelberg,  Bibliothek der DHBW Heidenheim,  Hochschulbibliothek Heilbronn,  Bibliothek der Hochschule für Musik Karlsruhe,  Hochschulbibliothek der Ph Karlsruhe,  Hochschulbibliothek Kehl,  Bibliothek der HTWG Konstanz,  Bibliothek der DHBW Lörrach,  Bibliothek der Wissenschaftlichen Regionalbibliothek Lörrach,  Pädagogische Hochschulbibliothek Ludwigsburg,  Bibliothek der DHBW Mannheim,  Hochschulbibliothek Mannheim,  Bibliothek der Musikhochschule Mannheim,  Bibliothek des Technoseum,  Hochschulbibliothek Mosbach,  Hochschulbibliothek HWU Nürtingen-Geislingen,  Hochschulbibliothek Offenburg,  Bibliothek der Hochschule Pforzheim,  Bibliothek der DHBW Ravensburg-Friedrichshafen,  Bibliothek der Hochschule Reutlingen,  Bibliothek der Hochschule Rottenburg,  Bibliothek der staatlichen Akademie der Künste Stuttgart,  Bibliothek der DHBW Stuttgart,  Bibliothek der DHS Stuttgart Campus Horb,  Bibliothek der HFT Stuttgart,  Bibliothek der Hochschule der Medien Stuttgart,  Bibliothek der Hochschule für Musik und darstellende Kunst,  Bibliothek der Musikhochschule Trossingen,  Bibliothek der Hochschule Ulm,  Bibliothek der Dualen Hochschule Villingen-Schwenningen,  Bibliothek der Hochschule für Polizei Villingen-Schwenningen,  Hochschulbibliothek Weingarten).</fix>
+        <fix>Versuch die Katholischen Hochschule Köln fertig zu programmieren.</fix>
+     </build>
+      <build version="2052" date="2019-06-14">
+        <change>Verwende Android 5.0 NDK für x86 ABI (wie bei allen anderen ABIs), da das Android 4.0 NDK gelöscht werden musste, um genügend Speicherplatz für ein Linuxupdate freizugeben. Verwende ld/GNU Binutils 2.32 für Linux, da es beim Update installiert wurde.</change>
+        <fix>aDIS/Berlin: Korrigiere Vormerkungen/Bestellungen.</fix>
+        <fix>Sortiere die Stadt Öhringen an die richtige Stelle in der alphabetischen Liste, damit es nicht abstürzt, wenn die Stadt vom Nutzer ausgewählt wird, aber dann nicht gefunden werden kann.</fix>
+        <fix>android: Zeige die Überschrift von Auswahllisten (für z.B.: Zweigstellenauswahlen) an.</fix>
+     </build>
+      <build version="2050" date="2019-06-09">
         <change>Geringerer Speicherverbrauch beim Aufrufen von mehreren Webseiten.</change>
-        <fix>aDIS: Weitere Anpassungen für Stadtbibliothek München, insbesondere für Vormerkungen und die Auswirkungen auf andere aDIS-Bibliotheken wie Berlin.  </fix>
+        <fix>aDIS: Weitere Anpassungen für Stadtbibliothek München, insbesondere für Vormerkungen.  </fix>
         <fix>Öffentliche Bücherei Mainz Anna Seghers: Umstellung auf neues System.</fix>
         <add>Auflistung aller Franken/Baden KIVBF Bibliotheken: Stadtbücherei Adelsheim, Gemeindebücherei Altlußheim, Mediathek Bad Friedrichshall, Gemeindebibliothek Bad Schönborn, Stadtbücherei Bad Wildbad, Gemeindebücherei Bammental, Stadtbibliothek Blankenloch, Mediothek Boxberg, Stadtbücherei Brackenheim, Öffentliche Bibliothek Breisach, Stadtbücherei Bretten, Stadtbibliothek Bruchsal, Gemeindebücherei Brühl, Stadtbücherei Buchen, Mediathek Bühl, Stadtbibliothek Calw, Stadtbibliothek Crailsheim, Mediathek Denzlingen, Stadtbibliothek Eberbach, Mediathek Ebhausen, Gemeinde- und Schulbücherei Empfingen, Stadtbibliothek Engen, Stadtbücherei Eppingen, Stadtbibliothek Ettlingen, Servicezentrum Französisch Freiburg im KMZ, Stadtbibliothek Gaggenau, Stadtbücherei Gaildorf, Stadtbücherei Gottmadingen, Mediothek Güglingen, Mediathek Gundelfingen, Stadtbücherei Gundelsheim, Stadt- und Schulbücherei Haiterbach, Stadtbücherei Haslach, Gemeindebücherei Hirschberg, Stadtbibliothek Hockenheim, Iffothek Iffezheim, Gemeindebücherei Ilsfeld, Gemeindebücherei Ispringen, Ortsbücherei Ittlingen, Stadtbücherei Kandern, Gemeindebücherei Karlsbad, Bibliothek Karlsdorf-Neuthard, Gemeindebücherei Ketsch, Gemeindebücherei Kirchardt, Öffentliche Bibliothek Kirchzarten, Gemeindebücherei Königsbach-Stein, Stadtbücherei Künzelsau, GemeindeBücherei Laudenbach, Stadtbücherei Lauda-Königshofen, Stadtbücherei Leimen, Bücherei Leingarten, Gemeindebibliothek Linkenheim-Hochstetten, Gemeindebücherei Malsch, Gemeindebücherei Mauer, Mediathek Möckmühl, Stadtbibliothek Mosbach, Medienwelt Bücherei Neckarwestheim, Stadtbibliothek Neuenburg am Rhein, Gemeindebücherei Neulußheim, Gemeindebücherei Niefern-Öschelbronn, Ortsbücherei Nordheim, Gemeindebücherei Nußloch, Mediathek Oberderdingen, Gemeindebücherei Obersulm, Schul- und Gemeindebücherei Obrigheim, Stadtbücherei Öhringen, Gemeindebücherei Offenau, Gemeindebücherei Oftersheim, Gemeindebücherei Pfinztal, Bücherei Plankstadt, Stadtbibliothek Rastatt, Mediathek Rheinfelden (Baden), Stadtbibliothek Rheinfelden (CH), Stadtbibliothek Rheinstetten, Gemeindebücherei Rot am See, Gemeindebibliothek Sandhausen, Stadtbücherei Schrozberg, Stadtbibliothek Schwäbisch Hall, Mediathek Schwaigern, Stadtbibliothek Schwetzingen, Öffentliche Bibliothek Staufen, Gemeindebücherei St. Leon-Rot, Gemeindebücherei Talheim, Öffentliche Bibliothek Titisee-Neustadt, Gemeindebücherei Untereisesheim, Stadtbibliothek Waghäusel, Stadtücherei Waibstadt, Gemeindebücherei Walzbachtal, Stadtbücherei Weikersheim, Stadtbibliothek Weil am Rhein, Stadtbücherei Weinsberg, Stadtbibliothek Wiesloch, Mediathek Willstätt.</add>
      </build>
