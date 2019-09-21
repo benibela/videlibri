@@ -250,6 +250,44 @@ setupbinutils)
   singleplatform x86_64
 ;;
   
+setupfpccrosscompile)
+  sudo make crossinstall OS_TARGET=android CPU_TARGET=arm BINUTILSPREFIX=arm-linux-androideabi- INSTALL_PREFIX=/usr;
+  sudo make crossinstall OS_TARGET=android CPU_TARGET=i386 BINUTILSPREFIX=i686-linux-android- INSTALL_PREFIX=/usr;
+  sudo make crossinstall OS_TARGET=android CPU_TARGET=aarch64 BINUTILSPREFIX=aarch64-linux-android- INSTALL_PREFIX=/usr;
+  sudo make crossinstall OS_TARGET=android CPU_TARGET=x86_64 BINUTILSPREFIX=x86_64-linux-android INSTALL_PREFIX=/usr;
+;;
+
+setupfpccfg)
+  echo -Fu$PWD/import/flre/src/ 
+  echo -Fi$PWD/components/pascal/  
+  echo -Fi$PWD/components/pascal/data  
+  echo -Fu$PWD/components/pascal/data  
+  ln -s $PWD/import/flre components/pascal/import/flre > /dev/null
+
+  echo "#ifdef android"
+
+  function singleplatform(){
+    platformdefine=$1; shift
+    platformbinutils=$1; shift
+    echo "#IFDEF $platformdefine"
+    echo -XP$platformbinutils
+    for l in "$@"; do 
+      echo -Fl$l 
+    done;
+    echo "#ENDIF"
+  }
+
+  androidpath=$ANDROID_HOME/ndk-bundle/platforms/android-24
+  
+  singleplatform CPUARM arm-linux-androideabi- $androidpath/arch-arm/usr/lib /usr/lib/gcc/arm-linux-androideabi/* /usr/arm-linux-androideabi/lib
+  singleplatform CPU386 i686-linux-android- $androidpath/arch-x86/usr/lib/ /usr/lib/gcc/i686-linux-gnu/* /usr/lib/gcc/i586-mingw32msvc/*
+  singleplatform CPUAARCH64 aarch64-linux-android- $androidpath/arch-aarch64/usr/lib/
+  singleplatform CPU64      x86_64-linux-android-  $androidpath/arch-x86_64/usr/lib/
+  
+  
+  echo "#endif"
+;;
+  
 esac
 
 

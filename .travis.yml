@@ -1,7 +1,7 @@
 language: android
   
 sudo: required
-dist: trusty
+dist: bionic
 
 os:
   - linux
@@ -31,37 +31,22 @@ install:
   - cd ..
   #get dependencies from sourceforge
   - (hg clone http://hg.code.sf.net/p/videlibri/code sf) || (sleep $( echo $$ | head -c 2); hg clone http://hg.code.sf.net/p/videlibri/code sf) || (sleep 60; hg clone http://hg.code.sf.net/p/videlibri/code sf) || (sleep 60; hg clone http://hg.code.sf.net/p/videlibri/code sf) 
-  - cd sf
-  - hg pull && hg update default
-  - rm -rf programs/internet/VideLibri; mv ../videlibri programs/internet/VideLibri
-  - mkdir import; git clone https://github.com/benibela/flre.git import/flre; 
-  - echo -Fu$PWD/import/flre/src/ >> ~/.fpc.cfg;
-  - echo -Fi$PWD/components/pascal/ >> ~/.fpc.cfg;
-  - echo -Fi$PWD/components/pascal/data >> ~/.fpc.cfg;
-  - echo -Fu$PWD/components/pascal/data >> ~/.fpc.cfg;
-  - ln -s $PWD/import/flre components/pascal/import/flre
-  - cat ~/.fpc.cfg
-  - echo Fu$PWD/components/pascal/data
-  - if [[ $android = true ]]; then 
+  - | 
+    cd sf
+    hg pull && hg update default
+    rm -rf programs/internet/VideLibri; mv ../videlibri programs/internet/VideLibri
+    mkdir import; git clone https://github.com/benibela/flre.git import/flre; 
+  - env
+  - |
+    if [[ $android = true ]]; then 
       yes | sdkmanager ndk-bundle "build-tools;25.0.3"  "platforms;android-25";
       sudo apt-get install -y gcc-arm-linux-androideabi libstdc++6:i386 libgcc1:i386 zlib1g:i386 libncurses5:i386;
       oldpath=$PWD;
-      binutilsi686=$(find /usr/local/android-sdk/ndk-bundle/ -name "i686-linux-android-ld" | head -1 | sed -e 's/-ld$/-/');
       cd /usr/share/fpcsrc/3* ;
-      sudo make crossinstall OS_TARGET=android CPU_TARGET=arm BINUTILSPREFIX=arm-linux-androideabi- INSTALL_PREFIX=/usr;
-      sudo make crossinstall OS_TARGET=android CPU_TARGET=i386 BINUTILSPREFIX=$binutilsi686 INSTALL_PREFIX=/usr;
-      (hash ppcrossarm && hash ppcross386) || sudo cp /usr/lib/fpc/3*/ppc* /usr/bin;
+      $oldpath/programs/internet/VideLibri/android/manage.sh setupbinutils
+      $oldpath/programs/internet/VideLibri/android/manage.sh setupfpccrosscompile
       cd $oldpath;
-      gccv=$(gcc-arm-linux-androideabi -dumpversion);
-      echo '#IFDEF CPUARM' >> ~/.fpc.cfg;
-      echo '-XParm-linux-androideabi-' >> ~/.fpc.cfg;
-      for l in  /usr/local/android-sdk-*/ndk-bundle/platforms/android-24/arch-arm/usr/lib /usr/lib/gcc/arm-linux-androideabi/* /usr/arm-linux-androideabi/lib; do echo -Fl$l >> ~/.fpc.cfg; done;
-      echo '#ENDIF' >> ~/.fpc.cfg;
-      echo '#IFDEF CPU386' >> ~/.fpc.cfg;
-      echo -XP$binutilsi686  >> ~/.fpc.cfg;
-      for l in /usr/local/android-sdk/ndk-bundle/platforms/android-24/arch-x86/usr/lib/ /usr/lib/gcc/i686-linux-gnu/* /usr/lib/gcc/i586-mingw32msvc/*; do echo -Fl$l >> ~/.fpc.cfg; done;
-      echo '#ENDIF' >> ~/.fpc.cfg;
-      cat ~/.fpc.cfg;
+      $oldpath/programs/internet/VideLibri/android/manage.sh setupfpccfg > ~/.fpc.cfg
       mkdir -p ~/.gradle;
       echo 'ANDROID_STORE_PASSWORD=F2XyHtMYmG65GQimSQmm4WDD' > ~/.gradle/gradle.properties;
       echo 'ANDROID_KEY_PASSWORD=F2XyHtMYmG65GQimSQmm4WDD' >> ~/.gradle/gradle.properties;
@@ -76,6 +61,7 @@ install:
   - if [[ -z "$LAZ_ENV" ]] && [[ $android = false ]]; then 
       sudo apt-get install fakeroot lintian;
     fi
+  - cat ~/.fpc.cfg
 
 #    svn checkout -r 37480 https://svn.freepascal.org/svn/fpc/trunk	fpc-trunk
 #    cd fpc-trunk
