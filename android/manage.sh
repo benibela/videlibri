@@ -251,10 +251,12 @@ setupbinutils)
 ;;
   
 setupfpccrosscompile)
-  sudo make crossinstall OS_TARGET=android CPU_TARGET=arm BINUTILSPREFIX=arm-linux-androideabi- INSTALL_PREFIX=/usr;
-  sudo make crossinstall OS_TARGET=android CPU_TARGET=i386 BINUTILSPREFIX=i686-linux-android- INSTALL_PREFIX=/usr;
-  sudo make crossinstall OS_TARGET=android CPU_TARGET=aarch64 BINUTILSPREFIX=aarch64-linux-android- INSTALL_PREFIX=/usr;
-  sudo make crossinstall OS_TARGET=android CPU_TARGET=x86_64 BINUTILSPREFIX=x86_64-linux-android INSTALL_PREFIX=/usr;
+  prefix=/usr/
+  sudo make crossinstall OS_TARGET=android CPU_TARGET=arm BINUTILSPREFIX=arm-linux-androideabi- INSTALL_PREFIX=$prefix
+  sudo make crossinstall OS_TARGET=android CPU_TARGET=i386 BINUTILSPREFIX=i686-linux-android- INSTALL_PREFIX=$prefix
+  sudo make crossinstall OS_TARGET=android CPU_TARGET=aarch64 BINUTILSPREFIX=aarch64-linux-android- INSTALL_PREFIX=$prefix
+  sudo make crossinstall OS_TARGET=android CPU_TARGET=x86_64 BINUTILSPREFIX=x86_64-linux-android INSTALL_PREFIX=$prefix
+  for ppc in $prefix/lib/fpc/3.{1..9}.*/ppc*; do sudo ln -s $ppc $prefix/bin/; done  
 ;;
 
 setupfpccrosscfg)
