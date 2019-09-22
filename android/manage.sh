@@ -251,13 +251,20 @@ setupbinutils)
 ;;
   
 setupfpccrosscompile)
+  set -e
   prefix=/usr/local/
   copyprefix=/usr
-  make crossinstall OS_TARGET=android CPU_TARGET=arm BINUTILSPREFIX=arm-linux-androideabi- INSTALL_PREFIX=$prefix
-  make crossinstall OS_TARGET=android CPU_TARGET=i386 BINUTILSPREFIX=i686-linux-android- INSTALL_PREFIX=$prefix
-  make crossinstall OS_TARGET=android CPU_TARGET=aarch64 BINUTILSPREFIX=aarch64-linux-android- INSTALL_PREFIX=$prefix
-  make crossinstall OS_TARGET=android CPU_TARGET=x86_64 BINUTILSPREFIX=x86_64-linux-android INSTALL_PREFIX=$prefix
-  for ppc in $prefix/lib/fpc/3.{1..9}.*/ppc*; do ln -s $ppc $copyprefix/bin/; done  
+  localfpc=$(which ppcx64)
+  echo FPC Cross Compiling: Using old FPC: $localfpc
+  echo Start FPC Cross Compiling: arm android
+  make crossinstall OS_TARGET=android CPU_TARGET=arm BINUTILSPREFIX=arm-linux-androideabi- INSTALL_PREFIX=$prefix PP=$localfpc
+  echo Start FPC Cross Compiling: i386 android
+  make crossinstall OS_TARGET=android CPU_TARGET=i386 BINUTILSPREFIX=i686-linux-android- INSTALL_PREFIX=$prefix PP=$localfpc
+  echo Start FPC Cross Compiling: aarch64 android
+  make crossinstall OS_TARGET=android CPU_TARGET=aarch64 BINUTILSPREFIX=aarch64-linux-android- INSTALL_PREFIX=$prefix PP=$localfpc
+  echo Start FPC Cross Compiling: x86_64 android
+  make crossinstall OS_TARGET=android CPU_TARGET=x86_64 BINUTILSPREFIX=x86_64-linux-android- INSTALL_PREFIX=$prefix PP=$localfpc
+  for ppc in $prefix/lib/fpc/3.{1..9}.*/ppc*; do ln -sv $ppc $copyprefix/bin/; done  
 ;;
 
 setupfpccrosscfg)
