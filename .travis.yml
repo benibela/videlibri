@@ -67,7 +67,7 @@ install:
         for arg in "$@"; do
           winargs+=(${arg/\/home\/travis/Z:\\\\home\\\\travis})
         done
-        wine ../../../xidel/xidel.exe --extract-exclude line-ending -e 'line-ending:=x:cps(10), $line-ending' "${winargs[@]}" | dos2unix | perl -pne \' s!(file://Z:[^"]+)! {my $temp = $1; $temp =~ s%(Z:)?\\\\{1,2}%/%g; $temp}!ge\'
+        wine ../../../xidel/xidel.exe --extract-exclude line-ending -e \'line-ending:=x:cps(10)\' "${winargs[@]}" | dos2unix | perl -pne \' s!(file://Z:[^"]+)! {my $temp = $1; $temp =~ s%(Z:)?\\\\{1,2}%/%g; $temp}!ge\'
       ';
       chmod +x programs/internet/xidel/xidel;
     fi
