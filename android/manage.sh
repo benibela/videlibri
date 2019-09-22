@@ -23,7 +23,9 @@ export JAVA_BINDIR="$JAVA_HOME/bin"
 FPC_ARM=ppcrossarm
 FPC_386=ppcross386
 FPC_ARM64=ppcrossa64
-FPC_X64=ppcx64
+if hash ppcrossx64 2>/dev/null; then FPC_X64=ppcrossx64
+else FPC_X64=ppcx64
+fi
 LAZBUILD=lazbuild
 
 hash $LAZBUILD || { echo >&2 "Failed to find Lazarus build command. Install Lazarus."; exit 1; }
