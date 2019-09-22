@@ -290,9 +290,9 @@ setupfpccrosscfg)
   androidpath=$ANDROID_HOME/ndk-bundle/platforms/android-24
   
   singleplatform CPUARM arm-linux-androideabi- $androidpath/arch-arm/usr/lib /usr/lib/gcc/arm-linux-androideabi/* /usr/arm-linux-androideabi/lib
-  singleplatform CPU386 i686-linux-android- $androidpath/arch-x86/usr/lib/ /usr/lib/gcc/i686-linux-gnu/* /usr/lib/gcc/i586-mingw32msvc/*
+  singleplatform CPUI386    i686-linux-android-    $androidpath/arch-x86/usr/lib/ /usr/lib/gcc/i686-linux-gnu/* /usr/lib/gcc/i586-mingw32msvc/*
   singleplatform CPUAARCH64 aarch64-linux-android- $androidpath/arch-aarch64/usr/lib/
-  singleplatform CPU64      x86_64-linux-android-  $androidpath/arch-x86_64/usr/lib/
+  singleplatform CPUX64     x86_64-linux-android-  $androidpath/arch-x86_64/usr/lib/
   
   
   echo "#endif"
