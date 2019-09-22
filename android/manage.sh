@@ -291,8 +291,8 @@ setupfpccrosscfg)
   
   singleplatform CPUARM arm-linux-androideabi- $androidpath/arch-arm/usr/lib /usr/lib/gcc/arm-linux-androideabi/* /usr/arm-linux-androideabi/lib
   singleplatform CPUI386    i686-linux-android-    $androidpath/arch-x86/usr/lib/ /usr/lib/gcc/i686-linux-gnu/* /usr/lib/gcc/i586-mingw32msvc/*
-  singleplatform CPUAARCH64 aarch64-linux-android- $androidpath/arch-aarch64/usr/lib/
-  singleplatform CPUX64     x86_64-linux-android-  $androidpath/arch-x86_64/usr/lib/
+  singleplatform CPUAARCH64 aarch64-linux-android- $androidpath/arch-arm64/usr/lib/
+  singleplatform CPUX64     x86_64-linux-android-  $androidpath/arch-x86_64/usr/lib64/
   
   
   echo "#endif"
