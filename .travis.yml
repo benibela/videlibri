@@ -46,10 +46,11 @@ install:
       yes | sdkmanager ndk-bundle "build-tools;25.0.3"  "platforms;android-25";
       sudo apt-get install -y gcc-arm-linux-androideabi libstdc++6:i386 libgcc1:i386 zlib1g:i386 libncurses5:i386;
       oldpath=$PWD;
-      $oldpath/programs/internet/VideLibri/android/manage.sh setupbinutils /usr/bin
+      cd ..
       svn checkout https://svn.freepascal.org/svn/fpc/trunk fpc      
       cd fpc
-      $oldpath/programs/internet/VideLibri/android/manage.sh setupfpccrosscompile
+      sudo -E $oldpath/programs/internet/VideLibri/android/manage.sh setupbinutils /usr/bin
+      sudo -E $oldpath/programs/internet/VideLibri/android/manage.sh setupfpccrosscompile
       cd $oldpath;
       $oldpath/programs/internet/VideLibri/android/manage.sh setupfpccrosscfg >> ~/.fpc.cfg
       mkdir -p ~/.gradle;
@@ -64,9 +65,9 @@ install:
       tee programs/internet/xidel/xidel <<<$'#!/bin/bash
         winargs=()
         for arg in "$@"; do
-          winargs+=(${arg/\/home\/travis/z:\\\\home\\\\travis})
+          winargs+=(${arg/\/home\/travis/Z:\\\\home\\\\travis})
         done
-        wine ../../../xidel/xidel.exe "${winargs[@]}" | dos2unix | perl -pne \' s!(file://Z:[^"]+)! {my $temp = $1; $temp =~ s%(Z:)?\\\\{1,2}%/%g; $temp}!ge\'
+        wine ../../../xidel/xidel.exe --extract-exclude line-ending -e 'line-ending:=x:cps(10), $line-ending' "${winargs[@]}" | dos2unix | perl -pne \' s!(file://Z:[^"]+)! {my $temp = $1; $temp =~ s%(Z:)?\\\\{1,2}%/%g; $temp}!ge\'
       ';
       chmod +x programs/internet/xidel/xidel;
     fi

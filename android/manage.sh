@@ -238,11 +238,11 @@ setupbinutils)
   function singleplatform(){
     platform=$1
     path=$ANDROID_HOME/ndk-bundle/toolchains/$platform*/prebuilt/linux-x86_64/bin/
-    ln -sr $path/*-ld $targetdir
-    ln -sr $path/*-ld.bfd $targetdir
-    ln -sr $path/*-as $targetdir
-    ln -sr $path/*-strip $targetdir
-    ln -sr $path/*-addr2line $targetdir
+    ln -srv $path/*-ld $targetdir
+    ln -srv $path/*-ld.bfd $targetdir
+    ln -srv $path/*-as $targetdir
+    ln -srv $path/*-strip $targetdir
+    ln -srv $path/*-addr2line $targetdir
   }
   singleplatform arm
   singleplatform x86-
@@ -251,12 +251,13 @@ setupbinutils)
 ;;
   
 setupfpccrosscompile)
-  prefix=/usr/
-  sudo make crossinstall OS_TARGET=android CPU_TARGET=arm BINUTILSPREFIX=arm-linux-androideabi- INSTALL_PREFIX=$prefix
-  sudo make crossinstall OS_TARGET=android CPU_TARGET=i386 BINUTILSPREFIX=i686-linux-android- INSTALL_PREFIX=$prefix
-  sudo make crossinstall OS_TARGET=android CPU_TARGET=aarch64 BINUTILSPREFIX=aarch64-linux-android- INSTALL_PREFIX=$prefix
-  sudo make crossinstall OS_TARGET=android CPU_TARGET=x86_64 BINUTILSPREFIX=x86_64-linux-android INSTALL_PREFIX=$prefix
-  for ppc in $prefix/lib/fpc/3.{1..9}.*/ppc*; do sudo ln -s $ppc $prefix/bin/; done  
+  prefix=/usr/local/
+  copyprefix=/usr
+  make crossinstall OS_TARGET=android CPU_TARGET=arm BINUTILSPREFIX=arm-linux-androideabi- INSTALL_PREFIX=$prefix
+  make crossinstall OS_TARGET=android CPU_TARGET=i386 BINUTILSPREFIX=i686-linux-android- INSTALL_PREFIX=$prefix
+  make crossinstall OS_TARGET=android CPU_TARGET=aarch64 BINUTILSPREFIX=aarch64-linux-android- INSTALL_PREFIX=$prefix
+  make crossinstall OS_TARGET=android CPU_TARGET=x86_64 BINUTILSPREFIX=x86_64-linux-android INSTALL_PREFIX=$prefix
+  for ppc in $prefix/lib/fpc/3.{1..9}.*/ppc*; do ln -s $ppc $copyprefix/bin/; done  
 ;;
 
 setupfpccrosscfg)
