@@ -47,10 +47,8 @@ install:
       sudo apt-get install -y gcc-arm-linux-androideabi libstdc++6:i386 libgcc1:i386 zlib1g:i386 libncurses5:i386;
       oldpath=$PWD;
       $oldpath/programs/internet/VideLibri/android/manage.sh setupbinutils /usr/bin
-      wget ftp://ftp.freepascal.org/pub/fpc/snapshot/trunk/source/fpc.zip
-      unzip fpc.zip
-      ls -l
-      cd fpc*
+      svn checkout https://svn.freepascal.org/svn/fpc/trunk fpc      
+      cd fpc
       $oldpath/programs/internet/VideLibri/android/manage.sh setupfpccrosscompile
       cd $oldpath;
       $oldpath/programs/internet/VideLibri/android/manage.sh setupfpccrosscfg >> ~/.fpc.cfg
@@ -66,7 +64,7 @@ install:
       tee programs/internet/xidel/xidel <<<$'#!/bin/bash
         winargs=()
         for arg in "$@"; do
-          winargs+=${arg/\/home\/travis/z:\\home\\travis}
+          winargs+=(${arg/\/home\/travis/z:\\\\home\\\\travis})
         done
         wine ../../../xidel/xidel.exe "${winargs[@]}" | dos2unix | perl -pne \' s!(file://Z:[^"]+)! {my $temp = $1; $temp =~ s%(Z:)?\\\\{1,2}%/%g; $temp}!ge\'
       ';
