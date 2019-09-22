@@ -264,11 +264,17 @@ setupfpccrosscompile)
   make crossinstall OS_TARGET=android CPU_TARGET=aarch64 BINUTILSPREFIX=aarch64-linux-android- INSTALL_PREFIX=$prefix PP=$localfpc
   echo Start FPC Cross Compiling: x86_64 android
   make crossinstall OS_TARGET=android CPU_TARGET=x86_64 BINUTILSPREFIX=x86_64-linux-android- INSTALL_PREFIX=$prefix PP=$localfpc
-  for ppc in $prefix/lib/fpc/3.{1..9}.*/ppc*; do ln -sv $ppc $copyprefix/bin/; done  
+  for ppc in $prefix/lib/fpc/3.{1..9}.*/ppc*; do ln -sfv $ppc $copyprefix/bin/; done  
 ;;
 
 setupfpccrosscfg)
-  echo "#ifdef android"
+  cat <<< "
+  -Fu/usr/local/lib/fpc/$fpcversion/units/$fpctarget
+  -Fu/usr/local/lib/fpc/$fpcversion/units/$fpctarget/*
+  -Fu/usr/local/lib/fpc/$fpcversion/units/$fpctarget/rtl  
+  
+  #ifdef android
+  "
 
   function singleplatform(){
     platformdefine=$1; shift
