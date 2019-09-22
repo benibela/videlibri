@@ -268,13 +268,13 @@ setupfpccrosscompile)
 ;;
 
 setupfpccrosscfg)
-  cat <<< "
+  cat <<< '
   -Fu/usr/local/lib/fpc/$fpcversion/units/$fpctarget
   -Fu/usr/local/lib/fpc/$fpcversion/units/$fpctarget/*
   -Fu/usr/local/lib/fpc/$fpcversion/units/$fpctarget/rtl  
   
   #ifdef android
-  "
+  '
 
   function singleplatform(){
     platformdefine=$1; shift
