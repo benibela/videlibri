@@ -28,7 +28,6 @@
     <TABLE t:condition="contains(@id, 'grdViewLoans')">
       <t:switch prioritized="true">
         <tr>
-          <th/>
           <t:siblings-header>
           <th t:condition='@abbr="Cover" or contains(., "Cover")'/>
           <th t:condition='@abbr="Titel" or matches(., "Titel|Title")'/>
@@ -44,8 +43,7 @@
         <tr class="oclc-module-table-nodata"/>
       </t:switch>
       <t:loop>
-        <TR>
-          <TD>{book := {"_renewid": head(.//input/@name)}}</TD>
+        <TR>{book:={}}
           <t:siblings>
           <TD>{$book.image-url := .//(img,input[type="image"])!(@src, tokenize(@sources, "[|]")[contains(.,"://")]),
                $book.image-url!extract(., "(amazon.*/(ASIN|P)/|isbn=|cover/)([-0-9]{8,})([./&amp;]|[.]jpg)", 3)[.][1]!($book.ISBN := .)
@@ -55,8 +53,14 @@
           <TD>{book.category := local:parse-column(.)}</TD>
           <TD>{book.libraryBranch := local:parse-column(.)}</TD>
           <TD>{book.duedate := parse-date(extract(., "[0-9./-]{6,}"))}</TD>
-          <td>
-          <div class="extendableRegion"><input t:condition="contains(@name, 'CopyId')">{book._copyId := @value, book.id := @value}</input></div>?
+          <td>{
+          .//input/(
+            if (@type = "checkbox") then $book._renewid := @name
+            else if (contains(@name, 'CopyId')) then (
+              book._copyId := @value, book.id := @value
+            ) else ()
+          )
+          }
           </td>
           </t:siblings>          
         </TR>
