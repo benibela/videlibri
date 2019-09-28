@@ -5,8 +5,8 @@
   <longName value="Hochschulbibliothek der TH"/>
   
   <template value="sisis"/>  
-  <variable name="server" value="https://opac.th-nuernberg.de/InfoGuideClient.fhnsis/"/>
-  <variable name="startparams" value="?Login=wofhn00"/>
+  <variable name="server" value="https://opac.th-nuernberg.de/TouchPoint/"/>
+  <variable name="startparams" value="?View=fhn"/>
 
   <homepage value="https://www.th-nuernberg.de/einrichtungen-gesamt/zentrale-einrichtungen/bibliothek/"/>
   <testing-search value="yes"/>
