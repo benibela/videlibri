@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<library>
+  <longName value="Hochschulbibliothek HWR"/>
+  <shortName value="HWR Berlin"/> 
+  
+  <template value="sisis"/>  
+  <variable name="server" value="https://opac.hwr-berlin.de/InfoGuideClient.hwrsis/start.do?StartPage=UserAccount"/>
+  
+  <homepage value="https://opac.hwr-berlin.de/InfoGuideClient.hwrsis/start.do?StartPage=UserAccount"/>
+  
+</library>
