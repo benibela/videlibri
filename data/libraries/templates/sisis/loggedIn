@@ -48,91 +48,127 @@ touchpoint := get('touchpoint', false())
     </t:if>
     <!--<fieldset>-->
 
-    <t:if test="$nextPage != ''">{nextPage := ()}</t:if>
+    {
+     if ($nextPage != '') then nextPage := () else (),
+     $default-book := switch ($mode) 
+       case 3 return {"statusId": "ordered", "cancelable": false()}
+       case 2 return {"statusId": "provided", "cancelable": false()}
+       default return {"statusId": "critical"}
+    }
 
 <!--    <template:if test="$allBooksAway=''">-->
-    <table class="data">
-      <tr>
-        <th scope="col"></th>
-      </tr>
-
-      <template:loop>      
-
-      <tr>
-        <t:if test="$touchpoint">
-          <td/><td><img/></td>
-        </t:if>
-        <t:else>
-          <th scope="row"></th>
-        </t:else>
-        {book := object()}
-        <td>
-          <t:switch> 
-            <strong>{$book.title}</strong>
-            <b>{$book.title}</b>
-          </t:switch>
-          <br/>
-          <!-- <template:read source="true()" var="spanmissing"/>
-         <template:read source="false()" var="previousspan"/>-->
-          <template:read source="text()" var="book.author"/><br/>
-          <template:read source="text()" var="book.id" regex="^[^/]*"/>
-          <a template:optional="true">
-            {$book.actionURI := resolve-html(.)}
-            <span>
-              {$book.status := ., $book.statusId := "curious"}
-            <!--  <template:read source="@class != 'textgruen'" var="spanmissing"/>-->
-            </span>
-            {book._onPage := base-uri(), book._onPageStart := $startUrl}
-          </a>
-          <span template:optional="true">
-            {$book.status := ., $book.statusId := "critical"}
-          </span>
-          <a template:optional="true">
-            {book.actionURI := resolve-html(.),
-             book.statusId := if ($mode eq 3) then "ordered" else if ($mode eq 2) then "provided" else "curious",
-             book.cancelable := $mode eq 3,
-             book._onPage := base-uri(), book._onPageStart := $startUrl}          
-          </a>
-          <t:if test="not($book.actionURI) and not($book.status)">
-            {$book.status := (br[last()]/following-sibling::text())[last()], $book.statusId := "critical"}
+    <t:switch prioritized="true">
+      <table class="data">
+        <tr>
+          <th scope="col"></th>
+        </tr>
+  
+        <template:loop>      
+  
+        <tr>
+          <t:if test="$touchpoint">
+            <td/><td><img/></td>
           </t:if>
-<!--	  <template:if test="$previousspan">
-	    <span template:optional="true">
-              <template:read source="concat(x"$book.status:problematic ", text())" var="book.status:problematic"/>
-              <template:read source="false()" var="spanmissing"/>
+          <t:else>
+            <th scope="row"></th>
+          </t:else>
+          {book := $default-book}
+          <td>
+            <t:switch> 
+              <strong>{$book.title}</strong>
+              <b>{$book.title}</b>
+            </t:switch>
+            <br/>
+            <!-- <template:read source="true()" var="spanmissing"/>
+           <template:read source="false()" var="previousspan"/>-->
+            <template:read source="text()" var="book.author"/><br/>
+            <template:read source="text()" var="book.id" regex="^[^/]*"/>
+            <a template:optional="true">
+              {$book.actionURI := resolve-html(.)}
+              <span>
+                {$book.status := ., $book.statusId := "curious"}
+              <!--  <template:read source="@class != 'textgruen'" var="spanmissing"/>-->
+              </span>
+              {book._onPage := base-uri(), book._onPageStart := $startUrl}
+            </a>
+            <span template:optional="true">
+              {$book.status := ., $book.statusId := "critical"}
             </span>
-           </template:if>-->
-         </td>
-      <!--   <template:if test="$spanmissing"><broken/></template:if>-->
-         <template:switch>        
-           <td>{
-             switch ($mode)
-               case 3 return  ( (:  bestellt | ... br Vormerkung :)
-                 book.status := ./text()[1],
-                 book.issuedate := parse-date(extract(., '\d{2}\.\d{2}\.\d{4}', 0), 'dd.mm.yyyy|'), 
-                 book.statusId := "ordered",
-                 book.cancelable := boolean($book.actionURI)
-               )
-               case 2 return (
-                 book.status := ./text()[1],
-                 book.issuedate := parse-date(extract(., '\d{2}\.\d{2}\.\d{4}', 0), 'dd.mm.yyyy|'), 
-                 book.statusId := "provided",
-                 book.cancelable := boolean($book.actionURI)
-               )
-               default return 
-               let $dates := extract(., '((\d{2}\.\d{2}\.\d{4}) *-)? *(\d{2}\.\d{2}\.\d{4})', (1,3)) 
-               return (
-                 if ($dates[1]) then book.issuedate:=parse-date($dates[1], 'dd.mm.yyyy') else (),
-                 if ($dates[2]) then book.duedate:=parse-date($dates[2], 'dd.mm.yyyy') else vl:raise("DATUM KANN NICHT GELESEN WERDEN: " || .)
-               )
-           }</td>
-         </template:switch>
-       </tr>
-              
-      </template:loop>      
-               
-      </table>
-  <!--    </template:if>-->
+            <a template:optional="true">
+              {book.actionURI := resolve-html(.),
+               if ($mode = (2,3)) then () else book.statusId := "curious",
+               book.cancelable := $mode eq 3,
+               book._onPage := base-uri(), book._onPageStart := $startUrl}          
+            </a>
+            <t:if test="not($book.actionURI) and not($book.status)">
+              {$book.status := (br[last()]/following-sibling::text())[last()], $book.statusId := "critical"}
+            </t:if>
+  <!--	  <template:if test="$previousspan">
+  	    <span template:optional="true">
+                <template:read source="concat(x"$book.status:problematic ", text())" var="book.status:problematic"/>
+                <template:read source="false()" var="spanmissing"/>
+              </span>
+             </template:if>-->
+           </td>
+        <!--   <template:if test="$spanmissing"><broken/></template:if>-->
+           <template:switch>        
+             <td>{
+               switch ($mode)
+                 case 2 
+                 case 3 return  ( (:  bestellt | ... br Vormerkung :)
+                   book.status := ./text()[1],
+                   book.issuedate := parse-date(extract(., '\d{2}\.\d{2}\.\d{4}', 0), 'dd.mm.yyyy|'), 
+                   book.cancelable := boolean($book.actionURI)
+                 )
+                 default return 
+                 let $dates := extract(., '((\d{2}\.\d{2}\.\d{4}) *-)? *(\d{2}\.\d{2}\.\d{4})', (1,3)) 
+                 return (
+                   if ($dates[1]) then book.issuedate:=parse-date($dates[1], 'dd.mm.yyyy') else (),
+                   if ($dates[2]) then book.duedate:=parse-date($dates[2], 'dd.mm.yyyy') else vl:raise("DATUM KANN NICHT GELESEN WERDEN: " || .)
+                 )
+             }</td>
+           </template:switch>
+         </tr>
+                
+        </template:loop>      
+                 
+        </table>
+      
+        <div class="data">
+          <div class="tableheader row d-flex">
+          </div>
+          <div class="row d-flex">
+            <div class="account-display-title">
+              {$book:=$default-book}
+              <strong>{$book.title}</strong><br/>
+              {$book.author := matched-text()}<br/>
+              {$book.id := extract(matched-text(), "^[^/]*")}<br/>?
+              <span>{$book.status}</span>?
+              <a>{$book.actionURI := resolve-html(.), 
+                  if ($mode = (2,3)) then () else book.statusId := "curious"
+              }</a>?
+            </div>
+            <div class="account-display-state">{
+              switch ($mode) 
+                case 2 case 3 return ( 
+                   book.status := ./text()[1],
+                   book.issuedate := parse-date(extract(., '\d{2}\.\d{2}\.\d{4}', 0), 'dd.mm.yyyy|'), 
+                   book.cancelable := boolean($book.actionURI)
+                 )
+                default return 
+                 let $dates := extract(., '((\d{2}\.\d{2}\.\d{4}) *-)? *(\d{2}\.\d{2}\.\d{4})', (1,3)) 
+                 return (
+                   if ($dates[1]) then book.issuedate:=parse-date($dates[1], 'dd.mm.yyyy') else (),
+                   if ($dates[2]) then book.duedate:=parse-date($dates[2], 'dd.mm.yyyy') else vl:raise("DATUM KANN NICHT GELESEN WERDEN: " || .)
+                 )
+            }</div>
+          </div>*
+        </div>
+        
+        <div>Ausgewähltes Unterkonto enthält keine Daten|Selected sub-account does not contain any data</div>
+      </t:switch>
+        
+          <!--    </template:if>-->
     <!-- </fieldset> -->
       <div class="box-header"><div t:condition="@class=('box-right', 'pagination')">
         {let $selected := .//span[contains(@class, "selectedlink")] return

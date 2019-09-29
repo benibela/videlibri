@@ -19,7 +19,8 @@
 
 <action id="login">
   <s>$user-account-page := if ($user-account-page) then $user-account-page 
-                           else x"{$server}/userAccount.do;{$jsession}?methodToCall={if ($touchpoint) then "start" else "show&amp;typ=1&amp;type=1"}"</s>
+                           else x"{$server}/userAccount.do;{$jsession}?methodToCall={if ($touchpoint) then "start" else "show&amp;typ=1&amp;type=1"}",
+     $urgent-message := ()</s>
   <page url="{$user-account-page}"/>
   <pattern>
     <t:switch prioritized="true">
@@ -36,9 +37,6 @@
   <page url="{$request}">   
     <template><t:switch prioritized="true">
     <body>
-    <a t:optional="true">deutsch<t:if test="/html/@lang != 'de'">
-        <t:read var="raise()" source="concat('VideLibri funktioniert nur, wenn die Sprache des Webkatalogs auf deutsch gesetzt ist.', $line-ending, 'Die Einstellung kann auf der normalen Katalogseite unter Konto / Sucheinstellungen / Sprache geändert werden.', $line-ending, $line-ending, $line-ending, 'VideLibri only works, if the language of the library web catalog is set to German. ', $line-ending, ' You can change the language setting on the normal web page on the  Account / Search preferences / Language page.')"/>
-    </t:if></a>
     <form id="LoginBean" t:optional="true">
       <t:switch>
       <div class="error">{vl:raise-login()}</div>
@@ -47,11 +45,18 @@
       <div class="message-error">{vl:raise-login()}</div>
       </t:switch>
     </form>
+    <div id="middle"><div class="box-container">
+      <div class="alert">{$urgent-message}</div>
+    </div></div>?
     </body>
     <table class="data" id="holdings_"></table> <!-- touch point sends us to the last AJAX request -->
     </t:switch>
     </template>
   </page>
+  <if test="$urgent-message">
+    <page url="{$server}/login.do?methodToCall=done"/>
+<!--    <s>vl:raise($urgent-message)</s>-->
+  </if>
 </action>
 
 <action id="update-all">

@@ -7,6 +7,7 @@ result := ()
 result := ()
 mode := 1
 books-deleted := true()
+default-book := {"statusId": "critical"}
 book := {"duedate": "2015-09-17", "_onPageStart": "", "_onPage": "vltest://sisis/touchpoint/userAccount_1-10lend_chem.html", "cancelable": false, "statusId": "curious", "actionURI": "vltest://sisis/TouchPoint/renewal.do?methodToCall=renewal&pos=0", "id": "A9034165 ", "author": "Kipp, Angelika", "title": "Lustige Frühlings-Minis"}
 book := {"duedate": "2015-09-17", "_onPageStart": "", "_onPage": "vltest://sisis/touchpoint/userAccount_1-10lend_chem.html", "cancelable": false, "statusId": "curious", "actionURI": "vltest://sisis/TouchPoint/renewal.do?methodToCall=renewal&pos=1", "id": "A3766447 ", "author": "Altmeyer, Maria-Regina", "title": "Österlich geschmückt"}
 book := {"duedate": "2015-10-16", "statusId": "critical", "status": "Eine Verlängerung ist noch nicht möglich.", "id": "A9560074 ", "author": "Birkholz, Peter", "title": "Reparaturen zu Hause"}

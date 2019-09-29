@@ -6,4 +6,5 @@ touchpoint := true()
 result := ()
 result := ()
 mode := 3
+default-book := {"statusId": "ordered", "cancelable": false}
 nextPage := ()

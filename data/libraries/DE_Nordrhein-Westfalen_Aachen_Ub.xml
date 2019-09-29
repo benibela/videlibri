@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
-
 <library>
   <deprecatedName value="202"/>
 
-  <longName value="Hochschulbibliothek der RWTH Aachen"/>
-  <shortName value="BTH Aachen"/>
+  <longName value="Universitätsbibliothek der RWTH Aachen"/>
+  <shortName value="UB Aachen"/>
 
   <template value="sisis"/>
   <variable name="server" value="https://index.ub.rwth-aachen.de/TouchPointClient_touchpoint/"/>

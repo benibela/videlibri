@@ -32,6 +32,8 @@
     
     <div class="message-confirm">Medium erfolgreich verlängert!<t:s>need-update:=true()</t:s></div>
     
+    <div class="alert message-error ">{vl:raise(.)}</div>
+    
     <span class="textrot">{vl:raise("Fehler beim Verlängern von " || $book.title ||": "|| .)} </span>
   </t:switch>
 </body>

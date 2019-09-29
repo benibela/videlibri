@@ -7,6 +7,7 @@ result := ()
 result := ()
 mode := 1
 books-deleted := true()
+default-book := {"statusId": "critical"}
 book := {"duedate": "2015-10-19", "statusId": "critical", "status": "Eine Verlängerung ist noch nicht möglich.", "id": "B0559651 ", "author": "Scheib, Asta", "title": "Schwere Reiter"}
 book := {"duedate": "2015-10-19", "statusId": "critical", "status": "Eine Verlängerung ist noch nicht möglich.", "id": "B1200884 ", "author": "Cornwell, Bernard", "title": "Sharpes Trafalgar"}
 book := {"duedate": "2015-10-19", "statusId": "critical", "status": "Eine Verlängerung ist noch nicht möglich.", "id": "A9349511 ", "author": "Simonds, Merilyn", "title": "¬Das alte Land"}

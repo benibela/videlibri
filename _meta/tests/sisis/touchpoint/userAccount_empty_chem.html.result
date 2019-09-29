@@ -7,4 +7,5 @@ result := ()
 result := ()
 mode := 1
 books-deleted := true()
+default-book := {"statusId": "critical"}
 nextPage := ()
