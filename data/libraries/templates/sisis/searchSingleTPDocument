@@ -1,5 +1,5 @@
-<table class="data">
-  { let $rows := .//tr[td//a]
+<t:element class="data">
+  { let $rows := (.//tr[td//a], .//div[contains-token(@class, "row") and .//a])
     return (
     $book.orderable := exists($rows),
     $book._orderCount := count($rows),
@@ -9,7 +9,4 @@
     )
     )
   }
-</table>
- 
-
-
+</t:element>

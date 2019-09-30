@@ -1,5 +1,7 @@
+<t:switch>
+
 <table class="data">
-  <tr><t:siblings-header>
+  <tr><t:siblings-header id="table">
     <th>Zweigstelle / Abteilung<br />Standort</th>?
     <th>Leihstatus<br /></th>?
     <th>Zweigstelle / Abteilung</th>?
@@ -17,7 +19,7 @@
   </t:siblings-header></tr>
   
   <tr>{$holding:={"orderable": false()}}  <!--<t:if test="td[1]/@class='errortext'"><td>{$holding.status}</td></t:if>
-  <t:else>--><t:siblings>
+  <t:else>--><t:siblings id="table">
    <td>{$holding.libraryBranch:=matched-text()}<br/>{$holding.libraryLocation:=matched-text()}</td>
    <td>{$holding.status:=matched-text()}<br/></td>
    <td>{$holding.libraryBranch}</td>
@@ -36,3 +38,30 @@
   {$book.holdings[]:=$holding}
   </tr>*
 </table> 
+
+
+<div class="data">
+  <div class="d-md-block">
+    <t:siblings-header id="div">
+      <div class="d-inline-block">Signatur</div>
+      <div class="d-inline-block">Zweigstelle / Abteilung</div>
+      <div class="d-inline-block">Status</div>
+      <div class="d-inline-block">Hinweis</div>
+      <div/>*
+    </t:siblings-header>
+  </div>
+  <div>
+  {$holding:={"orderable": false()}}
+  <t:siblings id="div">
+    <div class="d-inline-block">{$holding.id}</div>
+    <div class="d-inline-block">{$holding.libraryBranch}</div>
+    <div class="d-inline-block">{$holding.status}</div>
+    <div/>
+    <div/>
+  </t:siblings>
+  {$book.holdings[]:=$holding}
+  </div>*      
+  
+</div>
+
+</t:switch>
