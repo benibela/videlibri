@@ -22,6 +22,7 @@
       <div class="uic-error" t:condition="$datasend">
         <span class="requestError">{vl:raise(.)}</span>
       </div>
+      <div class="object-error" t:condition="$datasend">{vl:raise(.)}</div>
     
       <table class="datarows">{$request := (), $accountUrl := $url (:we have reached our destination:)}</table>
       <form>{  
@@ -37,6 +38,25 @@
             (.//input[@type="submit" and not(contains(@name, "decline"))])[1]
           else ())
       }</form>
+      <script t:condition="contains(., 'INITIAL_STATE')">
+      {request := 
+       let $type := if ($type ge 1) then $type else 1
+       let $initialstate := parse-json(parse-json( extract(., "JSON.parse *\((.*)\);", 1) ))
+       let $postUrl := $initialstate?postUrl
+       return 
+       if ($postUrl) then {"url": $postUrl, 
+                           "method": "POST", 
+                           "post": x"acsURL={uri-encode($postUrl)}{$amp}SAMLResponse={uri-encode($initialstate?postBody)}"}
+       else
+       let $contextInstId := $initialstate?contextInstId
+       let $identityString := $initialstate?institutionIdpList?($type)?idpIdentity?identityString
+       let $encoded := uri-encode(replace($identityString, " ", "||"))
+       return            {"url": "https://authn.sd02.worldcat.org/wayf/metaauth-ui/cmnd/wayf/selectIdp", 
+                          "method": "POST", 
+                          "post": x"contextInstId={$contextInstId}{$amp}encodedIdpIdentity={$encoded}"}
+      
+      }
+      </script>
       <!-- not used: -->
       <a>{$request}</a>
       <meta http-equiv="refresh">{$request}</meta>    
