@@ -1,6 +1,17 @@
 curPos := 1
 book := {}
 nextPage := ()
+box-header := ()
+box-header := text{"«
+‹
+1
+›
+
+          
+         
+         
+         Treffer 155"}
+search-result-count := "155"
 curPos := "11"
 nextPage := "file:///TouchPoint_touchpoint/hitList.do?methodToCall=pos&amp;identifier=1578db9&amp;curPos=11#1578db9"
 hasZ3988 := false()

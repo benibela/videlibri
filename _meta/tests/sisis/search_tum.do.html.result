@@ -1,9 +1,26 @@
 curPos := 1
 book := {}
 nextPage := ()
+box-header := ()
+box-header := text{"|«
+«
+1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+»
+»|
+
+				
+				Treffer Katalog (2090)"}
+search-result-count := "2090"
 curPos := "11"
 nextPage := "file:///Katalog/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.42.3087&amp;curPos=11#-1"
-search-result-count := "2090"
 hasZ3988 := false()
 brs := ("", 
 "Kleuker, Stephan", 

@@ -1,35 +1,39 @@
 <template:meta default-text-matching="regex"/>
 <template:switch-prioritized>
    <DIV t:condition="matches(@id, 'hitlist|speed_result_list_')">
-    <DIV t:condition="@class=('box', 'trefferbox')">
-      {nextPage := ()}
+    <DIV t:condition="tokenize(@class)=('box', 'trefferbox')">
+      {nextPage := (), box-header := ()}
       <DIV class="box-header">
-        <DIV t:condition="tokenize(@class, ' ') = ('box-right','pagination')">
-        {for $href in .//a/@href
-         let $cp := extract($href,"(?:hitList.*curPos=|javascript.*move\( *[0-9]+ *, *)([0-9]+)", 1)
-         where $cp and $cp > $curPos
-         order by $cp ascending
-         count $c
-         where $c = 1
-         return (
-          $curPos := $cp,
-          $nextPage := if (contains($href, "javascript")) then 
-           let $args := extract($href, "\( *([0-9]+) *, *([0-9]+) *\)", (1,2) )
-           return
-             x"speedHitList.do?methodToCall=refineHitList&speedHitlistUrl=speedHitList.do&newMemorizeListName=&databaseId={$args[1]}&dbIdentifier={$args[1]}&pos={$args[2]}"
-           else
-            resolve-html($href))
+        {box-header := .,
+         (.//*[starts-with(name(), "h")]/extract(., "[0-9]+")[.])[1] ! (search-result-count := .)
          }
-<!--        <span class="selectedlink" t:condition="not(contains(text(), '&#171;'))"/>
-        <a>{nextPage:=if (contains(@href, "javascript:")) then 
-
-            else @href }</a>-->
-        </DIV>
-        <H2>{search-result-count := extract(., "[0-9]+")}</h2>?
       </DIV>?
       <h1 t:test="not(get('search-result-count', ()))" 
           t:condition="contains(., 'Treffer')">{search-result-count := extract(., "[0-9]+")}</h1>?
-      
+      <t:s>( 
+         let $pagination := if ($box-header) then $box-header//div[tokenize(@class, ' ') = ('box-right','pagination')] 
+                            else ()
+         let $pagination := if ($pagination) then $pagination
+                            else .//*[tokenize(@class, ' ') = ('box-right','pagination')] 
+         return $pagination[1]
+       ) ! (
+       for $href in .//a/@href
+       let $cp := extract($href,"(?:hitList.*curPos=|javascript.*move\( *[0-9]+ *, *)([0-9]+)", 1)
+       where $cp and $cp > $curPos
+       order by $cp ascending
+       count $c
+       where $c = 1
+       return (
+        $curPos := $cp,
+        $nextPage := if (contains($href, "javascript")) then 
+         let $args := extract($href, "\( *([0-9]+) *, *([0-9]+) *\)", (1,2) )
+         return
+           x"speedHitList.do?methodToCall=refineHitList&speedHitlistUrl=speedHitList.do&newMemorizeListName=&databaseId={$args[1]}&dbIdentifier={$args[1]}&pos={$args[2]}"
+         else
+          resolve-html($href))
+       
+      )</t:s>
+
       
       <TABLE class="data">
         <TR>
@@ -65,8 +69,8 @@
           typeswitch ($book.title) 
             case node() return
               if ($book.author = "" and not($book.subTitle) and exists($book.title/following-sibling::br[1])) then (
-                brs := (for tumbling window $w in $book.title/following-sibling::node() start when true() end $e when $e/self::br  
-                       return normalize-space(join($w[not(self::div[contains(@id, "ncip")])]!inner-text())))[position() le 3], 
+                brs := (for tumbling window $w in $book.title/following-sibling::node() start when true() end $e when $e/(self::br or (self::comment() and contains(., "br")) )
+                       return normalize-space(join($w[not(self::div[contains(@id, "ncip")] or self::comment())]!inner-text())))[position() le 3], 
                 if ($brs[1] = "") then $brs := tail($brs) else (),
                 if (matches($brs[1], "[0-9]{2,4}")) then 
                   brs := (replace($brs[1], "([\s-]*)[0-9]{2,}", ""), extract($brs[1], "[0-9]+"), tail($brs))

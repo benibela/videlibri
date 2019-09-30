@@ -1,96 +1,114 @@
 curPos := 1
 book := {}
 nextPage := ()
+box-header := ()
+box-header := text{"«
+1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+»
+
+          
+          
+         
+         
+         Treffer Hauptkatalog (632)"}
+search-result-count := "632"
 curPos := "11"
 nextPage := "speedHitList.do?methodToCall=refineHitList&amp;speedHitlistUrl=speedHitList.do&amp;newMemorizeListName=&amp;databaseId=2&amp;dbIdentifier=2&amp;pos=11"
-search-result-count := "632"
 hasZ3988 := false()
 brs := ("Cohen-Janca, Irene . - 2011", 
-"START of /sunrise/result/loanstatus.jsp END of /sunrise/result/loanstatus.jsp", 
+"", 
 "Buch")
 brs := ("Cohen-Janca, Irene .", 
 "2011", 
-"START of /sunrise/result/loanstatus.jsp END of /sunrise/result/loanstatus.jsp", 
+"", 
 "Buch")
 book := {"year": "2011", "author": "Cohen-Janca, Irene .", "title": "Annes Baum", "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=1&identifier=2_SOLR_SERVER_1027567885", "orderable": false}
 hasZ3988 := false()
 brs := ("Desmond, Jenni . - 2016", 
-"START of /sunrise/result/loanstatus.jsp END of /sunrise/result/loanstatus.jsp", 
+"", 
 "Buch")
 brs := ("Desmond, Jenni .", 
 "2016", 
-"START of /sunrise/result/loanstatus.jsp END of /sunrise/result/loanstatus.jsp", 
+"", 
 "Buch")
 book := {"year": "2016", "author": "Desmond, Jenni .", "title": "Albert und der Baum", "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=2&identifier=2_SOLR_SERVER_1027567885", "orderable": false}
 hasZ3988 := false()
 brs := ("Teckentrup, Britta . - 2015", 
-"START of /sunrise/result/loanstatus.jsp END of /sunrise/result/loanstatus.jsp", 
+"", 
 "Buch")
 brs := ("Teckentrup, Britta .", 
 "2015", 
-"START of /sunrise/result/loanstatus.jsp END of /sunrise/result/loanstatus.jsp", 
+"", 
 "Buch")
 book := {"year": "2015", "author": "Teckentrup, Britta .", "title": "Der Baum der Jahreszeiten", "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=3&identifier=2_SOLR_SERVER_1027567885", "orderable": false}
 hasZ3988 := false()
 brs := ("Teckentrup, Britta . - 2013", 
-"START of /sunrise/result/loanstatus.jsp END of /sunrise/result/loanstatus.jsp", 
+"", 
 "Buch")
 brs := ("Teckentrup, Britta .", 
 "2013", 
-"START of /sunrise/result/loanstatus.jsp END of /sunrise/result/loanstatus.jsp", 
+"", 
 "Buch")
 book := {"year": "2013", "author": "Teckentrup, Britta .", "title": "Der Baum der Erinnerung", "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=4&identifier=2_SOLR_SERVER_1027567885", "orderable": false}
 hasZ3988 := false()
 brs := ("Richter, Jutta . - 2012", 
-"START of /sunrise/result/loanstatus.jsp END of /sunrise/result/loanstatus.jsp", 
+"", 
 "CD")
 brs := ("Richter, Jutta .", 
 "2012", 
-"START of /sunrise/result/loanstatus.jsp END of /sunrise/result/loanstatus.jsp", 
+"", 
 "CD")
 book := {"year": "2012", "author": "Richter, Jutta .", "title": "Das Schiff im Baum", "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=5&identifier=2_SOLR_SERVER_1027567885", "orderable": false}
 hasZ3988 := false()
 brs := ("Tison, Annette . - 2008", 
-"START of /sunrise/result/loanstatus.jsp END of /sunrise/result/loanstatus.jsp", 
+"", 
 "Buch")
 brs := ("Tison, Annette .", 
 "2008", 
-"START of /sunrise/result/loanstatus.jsp END of /sunrise/result/loanstatus.jsp", 
+"", 
 "Buch")
 book := {"year": "2008", "author": "Tison, Annette .", "title": "Barbapapa und der Baum", "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=6&identifier=2_SOLR_SERVER_1027567885", "orderable": false}
 hasZ3988 := false()
 brs := ("Pauli, Lorenz . - 2005", 
-"START of /sunrise/result/loanstatus.jsp END of /sunrise/result/loanstatus.jsp", 
+"", 
 "Buch")
 brs := ("Pauli, Lorenz .", 
 "2005", 
-"START of /sunrise/result/loanstatus.jsp END of /sunrise/result/loanstatus.jsp", 
+"", 
 "Buch")
 book := {"year": "2005", "author": "Pauli, Lorenz .", "title": "Ich schmück den Baum", "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=7&identifier=2_SOLR_SERVER_1027567885", "orderable": false}
 hasZ3988 := false()
 brs := ("Winton, Tim . - 2004", 
-"START of /sunrise/result/loanstatus.jsp END of /sunrise/result/loanstatus.jsp", 
+"", 
 "Buch")
 brs := ("Winton, Tim .", 
 "2004", 
-"START of /sunrise/result/loanstatus.jsp END of /sunrise/result/loanstatus.jsp", 
+"", 
 "Buch")
 book := {"year": "2004", "author": "Winton, Tim .", "title": "Der singende Baum Roman", "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=8&identifier=2_SOLR_SERVER_1027567885", "orderable": false}
 hasZ3988 := false()
 brs := ("Oe, Kenzaburo . - 2000", 
-"START of /sunrise/result/loanstatus.jsp END of /sunrise/result/loanstatus.jsp", 
+"", 
 "Buch")
 brs := ("Oe, Kenzaburo .", 
 "2000", 
-"START of /sunrise/result/loanstatus.jsp END of /sunrise/result/loanstatus.jsp", 
+"", 
 "Buch")
 book := {"year": "2000", "author": "Oe, Kenzaburo .", "title": "Grüner Baum in Flammen", "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=9&identifier=2_SOLR_SERVER_1027567885", "orderable": false}
 hasZ3988 := false()
 brs := ("Zavrel, Stepán . - 1991", 
-"START of /sunrise/result/loanstatus.jsp END of /sunrise/result/loanstatus.jsp", 
+"", 
 "Buch")
 brs := ("Zavrel, Stepán .", 
 "1991", 
-"START of /sunrise/result/loanstatus.jsp END of /sunrise/result/loanstatus.jsp", 
+"", 
 "Buch")
 book := {"year": "1991", "author": "Zavrel, Stepán .", "title": "Der letzte Baum", "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=10&identifier=2_SOLR_SERVER_1027567885", "orderable": false}

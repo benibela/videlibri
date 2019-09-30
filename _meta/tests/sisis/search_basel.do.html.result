@@ -1,9 +1,29 @@
 curPos := 1
 book := {}
 nextPage := ()
+box-header := ()
+box-header := text{"|«
+«
+ 1
+2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+»
+»|
+
+				
+				
+				
+				
+					Treffer Katalog Stadtbibliothek Basel (133)"}
+search-result-count := "133"
 curPos := "21"
 nextPage := "file:///InfoGuideClient.sisis/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.1273.27359&amp;curPos=21#-1"
-search-result-count := "133"
 hasZ3988 := false()
 brs := ("", 
 "Online-Dokument", 

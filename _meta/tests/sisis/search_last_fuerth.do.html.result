@@ -1,9 +1,23 @@
 curPos := 1
 book := {}
 nextPage := ()
+box-header := ()
+box-header := text{"|«
+«
+ 1
+ 2
+3
+»
+»|
+
+				
+				
+				
+				
+					Treffer lokale Datenbank (23)"}
+search-result-count := "23"
 curPos := "11"
 nextPage := "file:///webOPACClient/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.12.6398&amp;curPos=11#-1"
-search-result-count := "23"
 hasZ3988 := false()
 brs := ("", 
 "Nance, John J.", 
