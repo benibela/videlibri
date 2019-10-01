@@ -5,9 +5,8 @@
   <longName value="Universitätsbibliothek Ilmenau"/>
   <shortName value="Ub Ilmenau"/>
   
-  <template value="pica"/>  
+  <template value="lbs"/>
   <variable name="server" value="https://opac.lbs-ilmenau.gbv.de/"/>
-  <variable name="picadb" value="1"/>
 
 
   <homepage value="http://www.tu-ilmenau.de/ub/"/>
