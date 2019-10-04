@@ -6,7 +6,7 @@
   <shortName value="HWR Berlin"/> 
   
   <template value="sisis"/>  
-  <variable name="server" value="https://opac.hwr-berlin.de/InfoGuideClient.hwrsis/start.do?StartPage=UserAccount"/>
+  <variable name="server" value="https://opac.hwr-berlin.de/InfoGuideClient.hwrsis"/>
   
   <homepage value="https://opac.hwr-berlin.de/InfoGuideClient.hwrsis/start.do?StartPage=UserAccount"/>
   
