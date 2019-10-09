@@ -170,12 +170,12 @@ touchpoint := get('touchpoint', false())
         
           <!--    </template:if>-->
     <!-- </fieldset> -->
-      <div class="box-header"><div t:condition="@class=('box-right', 'pagination')">
+      <div t:condition="@class=('box-right', 'pagination')">
         {let $selected := .//span[contains(@class, "selectedlink")] return
          nextPage := $selected[if (count($selected) ge 2) then 2 else 1]/following-sibling::a[1]/@href[not(ends-with(., "anzPos=1"))]  }
         <!--<span class="selectedlink" t:condition="not(contains(text(), '&#171;'))"/>
         <a>{nextPage:=@href}</a>-->
-      </div></div>?
+      </div>?
    </div>
   </div>
  </div>
