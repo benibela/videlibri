@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
 <library>
   <longName value="Hochschulbibliothek HWR"/>
   <shortName value="HWR Berlin"/> 
@@ -10,4 +8,6 @@
   
   <homepage value="https://opac.hwr-berlin.de/InfoGuideClient.hwrsis/start.do?StartPage=UserAccount"/>
   
+  <testing-search value="yes"/> 
+  <testing-account value="yes"/>
 </library>
