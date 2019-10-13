@@ -1,7 +1,9 @@
+touchpoint := false
 book := {}
 jsession := "jsessionid=9096233F65EDF6AF6D356BEB9E7BF4C3"
 user-account-page := "http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/userAccount.do;jsessionid=9096233F65EDF6AF6D356BEB9E7BF4C3?methodToCall=show&amp;type=1"
 CSId := text{"47894N10S9f2865c2959d62208fcfa3e74688ba6c5cf6e68f"}
+search-keys := {"author": "100", "title": "331", "free": "-1", "keywords": "902", "isbn": "540", "year": "425"}
 search-form := {"method": "GET", "url": "file:///InfoGuideClient/search.do;jsessionid=9096233F65EDF6AF6D356BEB9E7BF4C3?methodToCall=submit&CSId=47894N10S9f2865c2959d62208fcfa3e74688ba6c5cf6e68f&methodToCallParameter=submitSearch&searchCategories%5B0%5D=331&searchString%5B0%5D=&combinationOperator%5B1%5D=AND&searchCategories%5B1%5D=100&searchString%5B1%5D=&combinationOperator%5B2%5D=AND&searchCategories%5B2%5D=425&searchString%5B2%5D=&callingPage=searchParameters&selectedViewBranchlib=0&selectedSearchBranchlib=&searchRestrictionID%5B0%5D=8&searchRestrictionValue1%5B0%5D=&searchRestrictionID%5B1%5D=7&searchRestrictionValue1%5B1%5D=&searchRestrictionID%5B2%5D=6&searchRestrictionValue1%5B2%5D=&searchRestrictionID%5B3%5D=5&searchRestrictionValue1%5B3%5D=&searchRestrictionValue2%5B3%5D="}
 search-params := ("title", 
 "author", 

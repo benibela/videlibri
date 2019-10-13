@@ -4,9 +4,14 @@
   <form>
   <input type="hidden" name="CSId">{$CSId:=@value}</input>
   {
-  search-form := form(.),
+  search-keys := if ($touchpoint) then
+                   {"author": "100", "title": "200", "free": "-1", "keywords": "50", "isbn": "490", "year": "280"}
+                 else  
+                   {"author": "100", "title": "331", "free": "-1", "keywords": "902", "isbn": "540", "year": "425"},
+  search-form := form(.),  
   let $homeBranchView := (id("selectedViewBranchlib"), id("selectedBranchView"))[1]
-  let $searchBranchView := (//select[@id=("selectedSearchBranchlib", "Suche in Zweigstelle", "searchRestrictionValue1_0")])[1]
+  let $selects := //select
+  let $searchBranchView := ($selects[@id=("selectedSearchBranchlib", "Suche in Zweigstelle", "searchRestrictionValue1_0")])[1]
   let $mediaTypeView := id("Medienart")
   let $languageView := id("Sprache")
   return (
@@ -20,7 +25,18 @@
                                 "libraryBranch": $searchBranchView/@name,
                                 "mediaType": $mediaTypeView/@name,
                                 "language": $languageView/@name
-                               }
+                               },
+    $selects[@id = "searchCategories_0"]//option/(
+      let $text := string()
+      let $key := if (starts-with($text, "Schlagwort")) then "keywords"
+            else if (starts-with($text, "ISBN")) then "isbn"
+            else ()
+      where $key
+      let $value := @value
+      where $value ne $search-keys?($key)
+      return $search-keys($key) := $value
+    )
+
   )
   }
   </form>

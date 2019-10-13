@@ -123,14 +123,6 @@
 
 
 
-<!--<action id="renew-all">
-  <page url="{$server}/AusleiheVerlaengerungServlet;{$jsession}" templateFile="KontoServlet">
-    <post name="Kontoart" value="Ausleihkonto"/>
-    <post name="Bibliothek" value="111"/>
-    <post name="homegkz" value="111"/>
-  </page>
-</action>-->
-
 <action id="search-connect">
   <call action="connect"/>
 </action>
@@ -139,10 +131,6 @@
 <action id="search">
 
   <s>
-  search-keys := if ($touchpoint) then
-                   {"author": "100", "title": "200", "free": "-1", "keywords": "50", "isbn": "490", "year": "280"}
-                 else  
-                   {"author": "100", "title": "331", "free": "-1", "keywords": "902", "isbn": "540", "year": "425"},
   oldSearchOptionCount := get("searchOptionCount", 0),
   searchOptions := (
     for $key in jn:keys($book) where $book($key) and $search-keys($key) 

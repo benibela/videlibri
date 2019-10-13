@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Universitätsbibliothek Erlangen-Nürnberg"/>
+  <shortName value="FAU Erlangen"/> 
+  
+  <template value="sisis"/>  
+  <variable name="server" value="https://www.katalog.fau.de/TouchPoint"/>
+  <variable name="startparams" value="?View=uer&Language=de&Branch=0"/>
+  
+  <homepage value="https://ub.fau.de"/>
+  
+  <testing-search value="yes"/> 
+  <testing-account value="unknown"/>
+</library>
