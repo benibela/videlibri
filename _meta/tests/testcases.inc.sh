@@ -60,8 +60,10 @@ test libero5 orderComplete orderfail.verl.html ordersuccess.verl.html
 mkdir -p $OUTPATH/sisis
 mkdir -p $OUTPATH/sisis/touchpoint
 
-test sisis start"{touchpoint:=false\(\)}" start.do.html start_schweinfurt.do.html
-test sisis start"{touchpoint:=true\(\)}" touchpoint/start_chem.html touchpoint/start_erlangen.html
+test sisis start start.do.html start_schweinfurt.do.html
+test sisis start touchpoint/start_chem.html touchpoint/start_erlangen.html
+test sisis start-search"{touchpoint:=false\(\)}" start-search.do.html start-search_schweinfurt.do.html
+test sisis start-search"{touchpoint:=true\(\)}" touchpoint/start-search_chem.html touchpoint/start-search_erlangen.html
 
 test sisis loggedIn userAccount.do_empty.html userAccount.do_singlebook.html userAccount.do_singlebook2.html userAccount.do_2books.html 
 testCrossDir sisis "loggedIn{touchpoint:=true\(\)}" sisis/touchpoint userAccount_0provided_chem.html userAccount_0requests_chem.html userAccount_1-10lend_chem.html userAccount_11-20lend_chem.html userAccount_empty_chem.html 

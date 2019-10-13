@@ -125,6 +125,7 @@
 
 <action id="search-connect">
   <call action="connect"/>
+  <pattern href="start-search"/>
 </action>
 
 

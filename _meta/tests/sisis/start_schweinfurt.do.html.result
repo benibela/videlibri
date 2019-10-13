@@ -1,17 +1,4 @@
-touchpoint := false
 book := {}
 jsession := "jsessionid=ED6A67CF21CC1E7CD571F5D0C5FBBA32"
 user-account-page := "https://recherche.bibkatalog.de/InfoGuideClient.fwssis/userAccount.do;jsessionid=ED6A67CF21CC1E7CD571F5D0C5FBBA32?methodToCall=show&amp;type=1"
 CSId := text{"168N9Sac154c4614770f96bba9b035c057808040f455fe"}
-search-keys := {"author": "100", "title": "331", "free": "-1", "keywords": "902", "isbn": "540", "year": "425"}
-search-form := {"method": "GET", "url": "file:///InfoGuideClient.fwssis/search.do;jsessionid=ED6A67CF21CC1E7CD571F5D0C5FBBA32?methodToCall=submit&CSId=168N9Sac154c4614770f96bba9b035c057808040f455fe&methodToCallParameter=submitSearch&searchCategories%5B0%5D=-1&searchString%5B0%5D=&combinationOperator%5B1%5D=AND&searchCategories%5B1%5D=331&searchString%5B1%5D=&combinationOperator%5B2%5D=AND&searchCategories%5B2%5D=100&searchString%5B2%5D=&combinationOperator%5B3%5D=AND&searchCategories%5B3%5D=902&searchString%5B3%5D=&callingPage=searchParameters&linguistic=false&selectedViewBranchlib=0&searchRestrictionID%5B0%5D=5&searchRestrictionValue1%5B0%5D=&searchRestrictionID%5B1%5D=4&searchRestrictionValue1%5B1%5D=&searchRestrictionID%5B2%5D=3&searchRestrictionValue1%5B2%5D=&searchRestrictionID%5B3%5D=2&searchRestrictionValue1%5B3%5D=&searchRestrictionValue2%5B3%5D="}
-search-params := ("title", 
-"author", 
-"free", 
-"keywords", 
-"year", 
-"isbn", 
-{"name": "libraryHomeBranch", "options": ["FHWS-Bib Würzburg (863)", "FHWS-Bib Schweinfurt (862)", "Hochschule Aschaffenburg (1043)", "Hofbibl. Aschaffenburg (128)", "Hochschule Coburg (858)"], "caption": "Zweigstelle (für Bestellungen)"}, 
-{"name": "libraryBranch", "options": ["alle", "FH-Bibl. Würzburg (863)", "FH-Bibl. Schweinfurt (862)", "Hochschule Aschaffenburg (1043)", "Hofbibl. Aschaffenburg (128)", "FH-Bibl. Coburg (858)"], "caption": "Zweigstelle (für Suche)"}, 
-{"name": "language", "options": ["alle", "Français", "Deutsch", "Español", "English", "Italiano", "Russian"]})
-search-restriction-keys := {"libraryHomeBranch": "selectedViewBranchlib", "libraryBranch": "searchRestrictionValue1[0]", "mediaType": null, "language": "searchRestrictionValue1[2]"}

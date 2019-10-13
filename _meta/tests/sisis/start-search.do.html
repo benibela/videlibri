@@ -1,0 +1,1276 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="de" xmlns="http://www.w3.org/1999/xhtml" lang="de"><head>
+
+
+
+
+<!--URL: http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/start.do-->
+
+
+
+
+
+
+
+
+<!-- START jsp/common/metaHeader.jsp -->
+
+
+
+ 
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta http-equiv="cache-control" content="no-cache">
+  <link rel="stylesheet" href="start.do-Dateien/infoguide.css" type="text/css">
+  <link rel="shortcut icon" href="http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/images/OCLC.ico">
+  
+  <!--[if IE 7]>
+    <style type="text/css">
+      #tab-content{margin-top:5px;}
+      select {height:auto;}
+      #searchfield input#f1 {width:10em;}
+    </style>
+  <![endif]-->
+  
+  <title>
+    
+      RWTH Aachen - Hochschulbibliothek
+    
+  </title>
+<!-- END of jsp/common/metaHeader.jsp -->
+<!-- START jsp/search/Layout.jsp --> 
+
+</head><body onunload="unBlockAction();">
+
+<script language="javascript" type="text/javascript" src="start.do-Dateien/stdButton.js">
+</script>
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" language="javascript">
+	function send(toDo){
+
+ 		document.forms['AdvancedSearchForm'].methodToCallParameter.value=toDo;
+ 		document.forms['AdvancedSearchForm'].submit();
+ 		return false;
+ 	}
+</script>
+	<div id="pageContainer">
+		
+		
+ 		
+ 	  
+ 		
+
+
+<!-- START jsp/common/header.jsp -->
+
+
+<div id="branding">
+    
+    <a href="http://www.bth.rwth-aachen.de/">
+    <img src="start.do-Dateien/LBTH535x60N.jpg" heigth="60" alt="Hochschulbibliothek" title="Hochschulbibliothek" width="535"></a>
+     <div style="position: absolute; top: 0pt; right: 0px;">
+  <a href="http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/start.do"><br><br> 
+   <img src="start.do-Dateien/InfoGuide.gif" alt="InfoGuide" title="InfoGuide" height="16" width="84"></a>
+    
+   </div>
+    
+</div>
+<!-- END of jsp/common/header.jsp -->
+
+		<div id="mainnav">
+			
+
+
+
+
+<!-- START jsp/navigation/mainNavi.jsp --> 
+
+
+<!-- Actual Tiles Context 751 -->
+
+<ul>
+
+
+	<li id="current"><div id="active">Suche</div>
+		<ul>
+			 
+				
+				
+					<li>
+						<a href="http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/search.do;jsessionid=9096233F65EDF6AF6D356BEB9E7BF4C3?methodToCall=switchSearchPage&amp;SearchType=1" title="Einfache Suche">Einfache Suche</a>
+					</li>
+				
+			
+			 
+				
+					<li id="current2">Erweiterte Suche</li>
+				
+				
+			
+			 
+				
+				
+					<li>
+						<a href="http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/search.do;jsessionid=9096233F65EDF6AF6D356BEB9E7BF4C3?methodToCall=switchSearchPage&amp;SearchType=3" title="Fachzeitschriften">Fachzeitschriften</a>
+					</li>
+				
+			
+      
+		  
+		
+			
+				
+				
+				
+				
+			
+				
+			
+			
+			
+		</ul>
+	</li>
+
+
+
+	<li><a href="http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/memorizelist.do;jsessionid=9096233F65EDF6AF6D356BEB9E7BF4C3?methodToCall=show" title="Merkliste">Merkliste</a></li>
+
+
+
+
+
+<li><a href="http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/userAccount.do;jsessionid=9096233F65EDF6AF6D356BEB9E7BF4C3?methodToCall=show&amp;type=1" title="Konto">Konto</a></li>
+
+
+
+
+  
+    <li><a href="http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/stackOrder.do;jsessionid=9096233F65EDF6AF6D356BEB9E7BF4C3?methodToCall=start" title="Magazin-Bestellung">Magazin-Bestellung</a></li>
+  
+  
+
+
+
+	<li><a href="http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/additional.do;jsessionid=9096233F65EDF6AF6D356BEB9E7BF4C3?methodToCall=show" title="Nichts gefunden?">Nichts gefunden?</a></li>
+
+
+
+</ul>
+<!-- END of jsp/navigation/mainNavi.jsp --> 
+
+			
+
+
+
+
+<!-- START jsp/navigation/loginnavi.jsp --> 
+
+<div id="login">
+	
+		<a href="http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/loginpage.do;jsessionid=9096233F65EDF6AF6D356BEB9E7BF4C3?methodToCall=showLogin" title="Anmelden">Anmelden</a>
+	
+	
+</div>
+<!-- END of jsp/navigation/loginnavi.jsp --> 
+		</div> 
+		<br class="cleaner">
+ 		
+
+
+
+
+
+
+
+
+
+<!-- START jsp/navigation/bgnavi.jsp --> 
+<script language="javascript" type="text/javascript" src="start.do-Dateien/help.js">
+</script>
+
+<div id="bgmainnav">
+	<div id="nav2">
+		<ul>
+			
+			
+			
+				
+				
+					
+						
+						<li><a href="http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/asklibrary.do;jsessionid=9096233F65EDF6AF6D356BEB9E7BF4C3?methodToCall=show" title="Auskunft">Auskunft</a></li>
+						
+					
+					
+					
+				
+			
+			
+			
+			<li>
+			  <a href="#" onclick="return openHelp('/InfoGuideClient');" title="Hilfe">
+			   Hilfe</a>
+		  </li>
+  		
+	    	
+		  	
+			   	<li><a href="http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/actual.do;jsessionid=9096233F65EDF6AF6D356BEB9E7BF4C3?methodToCall=show" title="Aktuelles">Aktuelles</a></li>
+    		
+    	
+		</ul>
+	</div>  
+</div>
+<!-- END of jsp/navigation/bgnavi.jsp --> 
+
+		<br class="cleaner">
+ 		
+
+
+
+
+
+
+
+<!-- START jsp/search/sublinks.jsp --> 
+
+
+<div id="info1">
+
+	<strong class="c1">Sprachauswahl</strong> 
+	
+		
+			
+		
+		
+		
+		
+	
+		
+		
+		
+			
+		
+		
+	
+		
+		
+		
+		
+			
+		
+	
+		
+		
+			
+		
+		
+		
+	
+	 
+		
+		
+			deutsch
+		
+		 
+			&nbsp;|&nbsp;
+		
+	
+	 
+		
+ 			<a href="http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/search.do;jsessionid=9096233F65EDF6AF6D356BEB9E7BF4C3?methodToCall=selectLanguage&amp;Language=en">english</a>
+		
+		
+		 
+			&nbsp;|&nbsp;
+		
+	
+	 
+		
+ 			<a href="http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/search.do;jsessionid=9096233F65EDF6AF6D356BEB9E7BF4C3?methodToCall=selectLanguage&amp;Language=nl">nederlands</a>
+		
+		
+		 
+			&nbsp;|&nbsp;
+		
+	
+	 
+		
+ 			<a href="http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/search.do;jsessionid=9096233F65EDF6AF6D356BEB9E7BF4C3?methodToCall=selectLanguage&amp;Language=fr">français</a>
+		
+		
+	
+
+</div>
+
+<!-- END of jsp/search/sublinks.jsp --> 
+ 		<br class="cleaner">
+ 	 	<div id="main"> 
+
+
+		 <div id="SOWrap"> 
+			 <div id="middle"> 
+				<form id="AdvancedSearchForm" method="get" action="/InfoGuideClient/search.do;jsessionid=9096233F65EDF6AF6D356BEB9E7BF4C3">
+			       <input name="methodToCall" value="submit" type="hidden">
+			       <input name="CSId" value="47894N10S9f2865c2959d62208fcfa3e74688ba6c5cf6e68f" type="hidden">
+			       <input name="methodToCallParameter" value="submitSearch" type="hidden">
+			       <div class="box">
+			 	       
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- START jsp/search/advancedSearch.jsp --> 
+<script language="javascript" type="text/javascript">
+/* <![CDATA[ */
+ 	var indexList = new Array();
+	 
+		indexList[0]="331";
+	 
+		indexList[1]="100";
+	 
+		indexList[2]="200";
+	 
+		indexList[3]="902";
+	 
+		indexList[4]="1701";
+	 
+	function hideIndexField(name)
+	{
+	  if ( document.getElementById )
+	  {
+			document.getElementById(''+name).style.visibility = "hidden";
+			return false;
+		}
+		if (document.layers)
+		{
+	  	return false;
+	  }
+	  else
+	  {
+	    document.all[''+name].style.visibility = "hidden";
+	    return false;
+	  }
+	}
+	function showIndexField(name)
+	{
+	  if ( document.getElementById )
+	  {
+			document.getElementById(''+name).style.visibility = "visible";
+			return false;
+		}
+		if (document.layers)
+		{
+	  	return false;
+	  }
+	  else
+	  {
+	
+	  	document.all[''+name].style.visibility = "visible";
+	  	return false;
+	  }
+	}
+	function checkIndexField(iInputField)
+	{
+		var indexCategory;
+		var selectedIndex = document.forms['AdvancedSearchForm'].elements['searchCategories['+iInputField+']'].selectedIndex;
+		if(selectedIndex <0){
+ 			hideIndexField('index_'+iInputField);
+			return;
+ 		}
+ 		if(!indexList || indexList.length <=0){
+			hideIndexField('index_'+iInputField);
+			return;
+		}
+		var iCategory = document.forms['AdvancedSearchForm'].elements['searchCategories['+iInputField+']'].options[selectedIndex].value;
+		for(i=0;i<indexList.length;i++)
+		{
+			indexCategory = indexList[i];
+			
+			if(""+indexCategory == ""+iCategory)
+			{
+				showIndexField('index_'+iInputField);
+				return;
+			}
+		}
+		hideIndexField('index_'+iInputField);
+		return;
+	}
+	function startcheckIndexField(fieldNumber)
+	{
+	  for(j=0;j<=fieldNumber;j++)
+	  {
+	  	checkIndexField(""+j);
+	  }
+	  return;
+	}
+/* ]]>	*/
+</script>
+
+<h2></h2>
+<div class="box-container">
+		
+	<fieldset>
+		<table summary="Sucheingabe" class="formular" style="width: 90%;">
+			
+				<tbody><tr>
+	       		
+	       			
+				      
+				       	<td colspan="2" width="45%">
+				      
+	      		
+	          	
+	          	<select name="searchCategories[0]" size="1" onchange="checkIndexField(0);"><option value="331" selected="selected">Titel</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="100">Autor</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="425">Jahr</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="412">Verlag</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="451">Serie/Reihe und Band</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="200">Körperschaft</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="540">ISBN</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="543">ISSN</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="-331">Ganzer Titel</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="902">Schlagworte</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="1701">Sachgruppe</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="9902">Signatur</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+			          			
+	           						<option value="-1">Freie Suche</option></select>
+					</td>
+					<td width="55%"><input name="searchString[0]" type="text"></td>
+					<td><div style="visibility: visible;" id="index_0">&nbsp;&nbsp;<a href="#" title="Index" onclick="return send('index_0')">Index</a></div></td>
+		 		</tr>      
+			
+				<tr>
+	       		
+	       			
+	       				<td>
+	       					<select name="combinationOperator[1]" size="1"><option value="AND" selected="selected">und</option>
+	         					
+	          						<option value="OR">oder</option>
+	         					
+	          						<option value="NOT">und nicht</option></select>
+	      				</td>
+	       				<td> 
+		       		
+				      
+	      		
+	          	
+	          	<select name="searchCategories[1]" size="1" onchange="checkIndexField(1);"><option value="331">Titel</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="100" selected="selected">Autor</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="425">Jahr</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="412">Verlag</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="451">Serie/Reihe und Band</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="200">Körperschaft</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="540">ISBN</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="543">ISSN</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="-331">Ganzer Titel</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="902">Schlagworte</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="1701">Sachgruppe</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="9902">Signatur</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+			          			
+	           						<option value="-1">Freie Suche</option></select>
+					</td>
+					<td width="55%"><input name="searchString[1]" type="text"></td>
+					<td><div style="visibility: visible;" id="index_1">&nbsp;&nbsp;<a href="#" title="Index" onclick="return send('index_1')">Index</a></div></td>
+		 		</tr>      
+			
+				<tr>
+	       		
+	       			
+	       				<td>
+	       					<select name="combinationOperator[2]" size="1"><option value="AND" selected="selected">und</option>
+	         					
+	          						<option value="OR">oder</option>
+	         					
+	          						<option value="NOT">und nicht</option></select>
+	      				</td>
+	       				<td> 
+		       		
+				      
+	      		
+	          	
+	          	<select name="searchCategories[2]" size="1" onchange="checkIndexField(2);"><option value="331">Titel</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="100">Autor</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="425" selected="selected">Jahr</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="412">Verlag</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="451">Serie/Reihe und Band</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="200">Körperschaft</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="540">ISBN</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="543">ISSN</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="-331">Ganzer Titel</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="902">Schlagworte</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="1701">Sachgruppe</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+	          				
+	          					
+	           						<option value="9902">Signatur</option>
+	          					
+	          					
+	          				
+	          			
+	          		
+			         	
+			         	
+			          		
+			          			
+	           						<option value="-1">Freie Suche</option></select>
+					</td>
+					<td width="55%"><input name="searchString[2]" type="text"></td>
+					<td><div style="visibility: hidden;" id="index_2">&nbsp;&nbsp;<a href="#" title="Index" onclick="return send('index_2')">Index</a></div></td>
+		 		</tr>      
+			
+			
+			<tr>
+				
+					<td colspan="2">
+				  	
+				  	<strong class="c1">Suche in Katalog:<br></strong><span class="textrot">Katalog der Hochschulbibliothek</span> 
+					</td>
+					<td class="right" width="55%">
+				
+				
+					<input name="clearSearchFields" value="Zurücksetzen" onclick="document.forms['AdvancedSearchForm'].methodToCallParameter.value='clearSearchFields';document.forms['AdvancedSearchForm'].submit();return false;" class="dbutton" type="button">&nbsp;&nbsp;
+					
+						<input name="submitSearch" value="Suchen" id="submitSearch" class="dbuttonb" type="submit">
+					
+				</td>
+				<td>&nbsp;</td>
+			</tr>
+		</tbody></table>
+	</fieldset>
+</div>
+
+<script language="javascript" type="text/javascript">
+/* <![CDATA[ */
+ setHelp("rech_erweitert", "");
+ setStdButtonForm("AdvancedSearchForm");
+ 
+ function set(target)
+ {
+  document.forms['AdvancedSearchForm'].forward.value=target;
+ }
+
+  var fieldNumber =  "2" ;
+  startcheckIndexField(""+fieldNumber);
+  var pos = 5;
+
+   document.getElementsByName("searchString[0]")[0].focus();
+/* ]]> */
+</script>
+<!-- END of jsp/search/advancedSearch.jsp --> 
+    
+  
+    
+
+
+   
+    
+
+
+
+					</div>
+					<br>
+					<div id="tab">
+						
+
+
+
+
+
+
+
+<!-- START jsp/search/searchparameternavi.jsp --> 
+<ul>
+	 
+	
+	
+		<li id="current1"><div id="active1">Sucheingrenzung</div></li>
+	
+	
+	
+		<li><a href="#" onclick="send('searchPreferences');" title="Sucheinstellungen">Sucheinstellungen</a></li>
+	
+	
+	 
+		
+			<li><a href="#" onclick="send('databaseSelection');" title="Katalogauswahl">Katalogauswahl</a></li>
+		
+		
+	 
+</ul>
+<!-- END of jsp/search/searchparameternavi.jsp --> 
+					</div>
+					<!-- tab -->
+			  	 	<div class="cleaner"></div>
+			  	 	<div id="tab-content">
+			  	 	
+			 				
+
+
+
+
+
+
+  
+<!-- START jsp/search/searchparameter.jsp --> 
+<!-- START jsp/search/searchparameter.jsp -->
+
+
+<input name="callingPage" value="searchParameters" type="hidden">
+	<fieldset>
+      <legend>Sucheingrenzung</legend>
+      <table class="formular" style="width: 90%;">
+      	
+			 
+				<tbody><tr>
+					 
+						<td colspan="2" width="50%">
+							<label for="selectedViewBranchlib">Aktuelle Zweigstelle</label>
+							<br>
+							<select name="selectedViewBranchlib" size="1" onchange="send('searchParameters');" id="selectedViewBranchlib"><option value="0" selected="selected">Zentralbibliothek</option>
+     							
+      							<option value="1">Lehrbuchsammlung</option>
+     							
+      							<option value="2">Medizinische Bibliothek</option></select>
+						</td>
+					
+					
+					 
+							<td colspan="2" width="50%">
+		<label for="selectedSearchBranchlib">Suche in Zweigstelle&nbsp;
+<a style="text-decoration: none;" href="http://sisis.bth.rwth-aachen.de/Wegweiser/Sonderstandorte.html" target="_blank">[ Institute ]</a></label>
+	<select name="selectedSearchBranchlib" size="1" id="selectedSearchBranchlib"><option value="" selected="selected">Alle Zweigstellen</option>
+									
+										<option value="0">Zentralbibliothek</option>
+									
+										<option value="1">Lehrbuchsammlung</option>
+									
+										<option value="2">Medizinische Bibliothek</option>
+									
+										<option value="3">Chemie-Bibliothek</option>
+									
+										<option value="16">EONERC</option>
+									
+										<option value="17">GTE der Medizin</option>
+									
+										<option value="21">HUMTEC</option>
+									
+										<option value="80">Dez. 8.0</option></select>
+							</td>
+					  
+				  
+ 				</tr>
+			
+			
+			
+			   
+			    	<tr>
+			   
+			  
+			   	<td colspan="2" width="50%">
+			    		<label for="Sprache">Sprache</label>
+			    		<br>
+			    		<input name="searchRestrictionID[0]" value="8" type="hidden">
+			    		<select name="searchRestrictionValue1[0]" size="1" id="Sprache"><option selected="selected" value="">alle</option>
+			     			
+			      			<option value="25">Englisch</option>
+			     			
+			      			<option value="24">Deutsch</option>
+			     			
+			      			<option value="28">Italienisch</option>
+			     			
+			      			<option value="27">Spanisch</option>
+			     			
+			      			<option value="29">Niederländisch</option>
+			     			
+			      			<option value="26">Französisch</option></select>
+			   	</td>
+			  
+			  
+			  
+				
+				
+				
+			
+			   
+			  
+			  
+			  
+				
+			   	<td colspan="2" width="50%">
+			    		<label for="Gedruckt oder elektronisch?">Gedruckt oder elektronisch?</label>
+			    		<br>
+			    		<input name="searchRestrictionID[1]" value="7" type="hidden">
+			    		<select name="searchRestrictionValue1[1]" size="1" id="Gedruckt oder elektronisch?"><option selected="selected" value="">alle</option>
+			     			
+			      			<option value="49">Gedruckt</option>
+			     			
+			      			<option value="46">Elektronisch</option>
+			     			
+			      			<option value="48">- CD-ROM, DVD, Diskette</option>
+			     			
+			      			<option value="47">- E-Book</option></select>
+			   	</td>
+			  
+				
+				
+				  	
+				  	</tr>
+				
+			
+			   
+			    	<tr>
+			   
+			  
+			  
+			  
+				
+			   	<td colspan="2" width="50%">
+			    		<label for="Publikationstyp">Publikationstyp</label>
+			    		<br>
+			    		<input name="searchRestrictionID[2]" value="6" type="hidden">
+			    		<select name="searchRestrictionValue1[2]" size="1" id="Publikationstyp"><option selected="selected" value="">alle</option>
+			     			
+			      			<option value="50">Bücher</option>
+			     			
+			      			<option value="13">Zeitschriften</option>
+			     			
+			      			<option value="14">Dissertationen</option>
+			     			
+			      			<option value="15">Kongressschriften und Festschriften</option></select>
+			   	</td>
+			  
+				
+				
+			
+			   
+			  
+			  
+					<td colspan="1" width="25%">
+						Erscheinungsjahr&nbsp;von
+						<br>
+						<input name="searchRestrictionID[3]" value="5" type="hidden">
+						<input name="searchRestrictionValue1[3]" size="5" type="text">
+					</td>
+					<td colspan="1" width="25%">
+						Erscheinungsjahr&nbsp;&nbsp;bis
+						<br>
+						<input name="searchRestrictionValue2[3]" size="5" type="text">
+					</td>
+			  
+			  
+				
+				
+				
+				  	
+				  	</tr>
+				
+			
+			
+		</tbody></table>
+	</fieldset>
+<!-- END of jsp/search/searchparameter.jsp --> 
+ 
+        
+        
+
+			
+			 	   </div>
+				</form>  
+			</div>
+		<!-- middle -->
+		</div>
+ 	 		<!-- SOWrap -->
+ 	 		<div id="right">
+ 	 			
+
+
+
+
+
+
+
+<!-- START of jsp/common/welcome.jsp --> 
+
+
+
+	
+		
+	
+
+
+
+<!-- END of jsp/common/welcome.jsp --> 
+ 	 			
+
+
+
+
+<!-- START jsp/common/news.jsp -->
+
+
+	<!-- START jsp/news+info/de_751_3.jsp -->
+		<div class="box3">
+   <div class="box3-header">
+      <div class="box3-img">
+     <img src="start.do-Dateien/box3-right.gif" alt="" height="8" width="8"></div>
+      <h2>Information zur Ausleihe</h2>
+   </div>
+   <div class="box3-content">
+<ul>
+<div style="float: left; padding-right: 50px;"><img src="start.do-Dateien/buch01.gif"><br>&nbsp;<br>&nbsp;<br></div>
+<li><a href="http://www.bth.rwth-aachen.de/oeffnung.html#ausleihe" target="_blank">
+<font style="font-size: 0.8em;">Öffnungszeiten</font></a></li>
+<font style="font-size: 0.8em;"><li><a href="http://www.bth.rwth-aachen.de/anmeld.html" target="_blank">Anmeldung</a></li>
+<li><a href="http://sisis.bth.rwth-aachen.de/Wegweiser/Zweigstellen.html#Zweigstellen" target="_blank">Zweigstellen</a></li>
+<li><a href="http://sisis.bth.rwth-aachen.de/Wegweiser/Zweigstellen.html#InstMed" target="_blank">Med. Institutsbibl.</a></li>
+<li><a href="http://www.bth.rwth-aachen.de/orts1.html#Ausbuch" target="_blank">Ausleihe</a></li>
+<li><a href="http://www.bth.rwth-aachen.de/orts1.html#Buchab" target="_blank">Buchabholung</a></li>
+<li><a href="http://www.bth.rwth-aachen.de/orts1.html#Buchrueck" target="_blank">Buchrückgabe</a></li>
+<li><a href="http://www.bth.rwth-aachen.de/orts1.html#Buchverlust" target="_blank">Buchverlust</a></li>
+<li><a href="http://www.bth.rwth-aachen.de/orts1.html#Leihfrist" target="_blank">Leihfrist</a></li>
+<li><a href="http://www.bth.rwth-aachen.de/orts1.html#Leihverlaeng" target="_blank">Leihfristverlängerung</a></li>
+<li><a href="http://www.bth.rwth-aachen.de/orts1.html#Saeumnis" target="_blank">Säumnisgebühren</a></li>
+<li><a href="http://www.bth.rwth-aachen.de/orts1.html#Vormerk" target="_blank">Vormerkung</a>
+<a style="text-decoration: none; padding-left: 60px;" href="http://www.bth.rwth-aachen.de/orts.html" target="_blank">
+...mehr</a></li></font>
+</ul>
+   </div>
+</div>	
+  
+	<!-- END of jsp/news+info/de_751_3.jsp -->
+	<br class="space">
+
+
+
+
+	<!-- START jsp/news+info/de_751_4.jsp -->
+		<div class="box3">
+   <div class="box3-header">
+      <div class="box3-img"><img src="start.do-Dateien/box3-right.gif" alt="" height="8" width="8"></div>
+      <h2>Tipps zur Suche</h2>
+   </div>
+   <div class="box3-content">
+  <ul style="margin: 0pt 0pt 0pt 1.5em; font-size: 0.8em; list-style-position: outside; list-style-type: disc;">
+   <li>Über die <strong>Einfache Suche</strong> suchen Sie nach einem Begriff in allen Feldern.</li>
+   <li>Bei der <strong> Erweiterten Suche </strong>werden mehrere Begriffe gezielt verknüpft.</li>
+   <li><strong> Groß- und Kleinschreibung</strong> muss dabei nicht berücksichtigt werden.</li>
+   <li><strong>Trunkierung</strong><br> 
+   <strong>*</strong> ersetzt mehrere, <br>
+   ? ersetzt genau ein Zeichen.</li>
+   <li><strong>Umlaute</strong> und <strong>Akzente </strong>können, müssen aber nicht eingegeben werden.</li>
+   <li>Die <strong>Signatursuche</strong> ist möglich.</li>
+   <li>Nutzen Sie die Möglichkeiten der "<strong>Sucheingrenzung</strong>". 
+   So können Sie die Treffer z.B. auf eine Sprache* 
+   <!--<span style="color:#FF0000;">(Neu)</span>-->, 
+    einen Zeitraum oder eine Erscheinungsform eingrenzen.</li></ul>
+<font style="font-size: 0.8em;"><em>*Besonders bei älteren Titel fehlen vorerst die 
+ Angaben zur Sprache, daher ist das Suchergebnis noch nicht immer vollständig.
+</em></font>
+  </div>	
+</div>	
+	<!-- END of jsp/news+info/de_751_4.jsp -->
+	<br class="space">
+
+
+
+<!-- END of jsp/common/news.jsp --> 
+ 	 		</div>
+    		<!-- right -->
+    		<br class="cleaner">
+  		</div>
+  		<!-- main -->
+ 		
+
+
+
+
+
+
+
+
+<!-- START jsp/common/footer.jsp -->
+
+<div id="footer">
+  
+	
+	
+		&nbsp;
+	
+	
+  <div id="copyright">
+	  Copyright © 2009.&nbsp;Alle Rechte vorbehalten.
+	  <img src="start.do-Dateien/OCLC.jpg" alt="OCLC" title="OCLC" height="19" width="54">
+  </div>
+  <div class="cleaner"></div>
+</div>
+<!-- END of jsp/common/footer.jsp -->
+ 
+ 	</div>
+<!-- END of jsp/search/Layout.jsp --> 
+<!-- START jsp/common/metaFooter.jsp -->
+<!-- END of jsp/common/metaFooter.jsp --> 
+
+
+
+  </body></html>
