@@ -41,7 +41,7 @@
                "image-url": $cover}
      )}
      
-     <ul class="pagination">{
+     <ul class="pagination" t:test="not($search-result-count = 0)">{
      let $next-page := "page=" || (get("page", 1) + 1)
      return (
        search-next-page := (.//a/@href[contains(., "/Search/Results") and contains(., $next-page)])[1],
