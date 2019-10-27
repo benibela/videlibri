@@ -4,9 +4,9 @@
 <library>
   <longName value="Volksbücherei Fürth"/>
   <shortName value="Vb Fürth"/> 
-  
-  <template value="sisis"/>  
-  <variable name="server" value="https://serviceweb.fuerth.de/webOPACClient/"/>
+
+  <template value="koha"/>
+  <variable name="baseurl" value="https://vb-fuerth.lmscloud.net/"/>	
   
   <homepage value="http://www.fuerth.de/Home/Leben-in-Fuerth/Volksbuecherei/Aktuelles-VOBUE.aspx"/>
   <testing-search value="yes"/>

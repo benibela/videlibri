@@ -11,7 +11,7 @@
 
   <homepage value="http://www.abk-stuttgart.de/hochschule/einrichtungen/bibliothek.html"/>
   <testing-search value="yes"/>
-  <testing-account value="unknown"/>
+  <testing-account value="no"/>
   
 </library>  
 

@@ -3,7 +3,7 @@
   <longName value="Gemeindebücherei Offenau"/>
   
   <template value="bibliothecaplus"/>
-  <variable name="urlaccount" value="https://bibliotheken.kivbf.de/offenau/MeineBibliothek.aspx"/>
+  <variable name="urlaccount" value="https://bibliotheken.kivbf.de/offenau/login.aspx?ReturnUrl=%2foffenau%2fMeineBibliothek.aspx"/>
   <variable name="urlsearch" value="https://bibliotheken.kivbf.de/offenau/Mediensuche/ErweiterteSuche.aspx"/>
   
   <homepage value="https://bibliotheken.kivbf.de/offenau/"/>
