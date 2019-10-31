@@ -18,7 +18,7 @@
     <loop test="$i < 10">
         <page url="{$loginFormPost}"/>
         <pattern><t:switch prioritized="true">
-          <p class="form-error">Benutzernummer oder Passwort falsch<t:s>$error-login := .</t:s></p><!-- blb karlsruhe -->
+          <p class="form-error">Benutzernummer oder Passwort falsch<t:s>$error-login := ., i := 1000</t:s></p><!-- blb karlsruhe -->
 
           <!-- seems we already are on the correct page, send request again (not tested with any library) -->
           <td>Keine Ausleihen<t:s>i:=1000</t:s></td>
