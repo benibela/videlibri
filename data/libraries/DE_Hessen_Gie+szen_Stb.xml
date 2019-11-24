@@ -4,8 +4,8 @@
 <library>
   <longName value="Stadtbücherei Gießen"/>
 
-  <template value="libero5"/>
-  <variable name="baseurl" value="https://stadtbibliothek.giessen.de/libero/"/>
+  <template value="koha"/>
+  <variable name="baseurl" value="https://stadtbibliothek.giessen.de/"/>
 
   <homepage value="http://www.stadtbibliothek.giessen.de/"/>
   <testing-search value="yes"/>
