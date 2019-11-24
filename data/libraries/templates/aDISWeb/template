@@ -48,9 +48,7 @@
   </if>  
 
 
-  <page test="not(get('idpSystem'))" url="{$loginFormPost}">
-    <post name="textButton" value="Anmeldung abschicken"/>
-  </page>
+  <page test="not(get('idpSystem'))" url="{$loginFormPost}"/>
   
   <if test="empty($error-login)">
     <pattern>
@@ -104,7 +102,11 @@
     <s>lf := $loginForm, loginForm := ()</s>
     <page url="{$lf}">
       <template><t:switch prioritized="true">
-        <input name="$Textfield">{ loginFormPost := form((ancestor::form, //form)[1], {"$Textfield": $username, "$Textfield$0": $password}) } <!-- Aalen has invalid html where the form is not an ancestor of the input-->  </input> 
+        <input name="$Textfield">{ loginFormPost := 
+          let $form := (ancestor::form, //form)[1] (:Aalen has invalid html where the form is not an ancestor of the input:)
+          let $buttons := $form//input[@type="submit" and matches(@value, "Anmeld|Login")]
+          let $buttons := if ($buttons) then $buttons else "textButton=Anmeldung abschicken" (:vl:raise-internal("Anmeldebutton nicht gefunden"):)
+          return form($form, ({"$Textfield": $username, "$Textfield$0": $password}, $buttons[1])) } </input> 
         <input name="j_username">{ loginFormPost := let $form := (ancestor::form, //form)[1] return form($form, ({"j_username": $username, "j_password": $password}, ($form//button)[1])),
                 idpSystem := true() }</input> 
         <form><div class="message">Sind Sie Angehörige/r unserer Hochschule?

@@ -9,34 +9,26 @@
    head(//tr[ends-with(normalize-space(th[1]), "Ausweis gültig bis")])!($account-expiration := join(td)) }
   <t:switch>
   <td>Keine Ausleihen<t:s>kontoPage:=""</t:s></td>
-  <a>Ausleihen zeigen<!-- oder verlängern--><t:s>kontoPage := @href</t:s></a>
-  <a>Ausleihe zeigen<!-- oder verlängern--><t:s>kontoPage := @href</t:s></a>
+  <a t:condition="contains(., 'Ausleihe')">{kontoPage := @href}</a>
   </t:switch>
 
-  <t:switch t:optional="true">
-  <td>Keine Bestellungen/Magazin<t:s>orderedMagazinePage:=""</t:s></td>
-  <a>Bestellung/Magazin zeigen<!-- oder löschen--><t:s>orderedMagazinePage := @href</t:s></a>
-  <a>Bestellungen/Magazin zeigen<!-- oder löschen--><t:s>orderedMagazinePage := @href</t:s></a>
-  </t:switch>
-
-<!--  Keine Bestellungen/Magazin .  ? -->
-
+  <t:element 
+     t:optional="true"
+     t:condition="(self::a or self::td) and contains(., 'Bestellung') and contains(., 'Magazin')">{orderedMagazinePage := self::a/@href}</t:element>
+  
   <t:switch>
   <td>Keine Bereitstellung<t:s>providedPage:=""</t:s></td>
-  <a>Bereitstellung zeigen<!-- oder löschen--><t:s>providedPage := @href</t:s></a>
-  <a>Bereitstellungen zeigen<!-- oder löschen--><t:s>providedPage := @href</t:s></a>
+  <a t:condition="contains(., 'Bereitstellung')">{providedPage := @href}</a>
   </t:switch>
   
   <t:switch t:optional="true">
   <td>Keine Bestellwünsche<t:s>orderedPage:=""</t:s></td>
-  <a>Bestellwunsch zeigen<!-- oder löschen--><t:s>orderedPage := @href</t:s></a>
-  <a>Bestellwünsche zeigen<!-- oder löschen--><t:s>orderedPage := @href</t:s></a>
+  <a t:condition="contains(., 'Bestellw')">{orderedPage := @href}</a>
   </t:switch>
 
   <t:switch>
   <td>Keine Vormerkung<t:s>requestedPage:=""</t:s></td>
-  <a>Vormerkung zeigen<!-- oder löschen--><t:s>requestedPage := @href</t:s></a>
-  <a>Vormerkungen zeigen<!-- oder löschen--><t:s>requestedPage := @href</t:s></a>
+  <a t:condition="contains(., 'Vormerkung')"><t:s>requestedPage := @href</t:s></a>
   </t:switch>
   
   

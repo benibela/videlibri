@@ -1,12 +1,17 @@
 <html>
 <template:meta default-text-matching="regex"/>
 {
-      (id("R06"), id("R03"))!extract(., "(Gesucht|Treffer).*:(.*)", 2)[.]!
-          ( let $temp := extract(., '(([0-9]+)[^0-9.:"]+([0-9]+)[^0-9.:"]+)?([0-9]+)$', (2,3)) return ( 
-               $firstIndex := number($temp[1]),
-               $lastIndex := number($temp[2])(:,
-               $search-result-count := xs:integer($temp[2]):)
-          ) )
+  let $resultCountText := join( (id("R06"), id("R03"))!extract(., "(Gesucht|Treffer).*:(.*)", 2)[.])
+  let $temp := extract($resultCountText, '(([0-9]+)[^0-9.:"]+([0-9]+)[^0-9.:"]+)?([0-9]+)', (2,3))   
+  return 
+    if ($temp[1] and $temp[2]) then (  
+      $firstIndex := xs:integer($temp[1]) ,
+      $lastIndex := xs:integer($temp[2]) 
+    ) else let $indices := css(".rList_num")!xs:integer(.) return (
+      $firstIndex := $indices[1] ,
+      $lastIndex := $indices[last()] 
+    )
+  
 }
 
      <div class="toolbar_div"><ul class="toolbar_ul">

@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="de"><head>
+	<style type="text/css">
+		@import url(css/aDISStandard.css);
+	</style>
+	<script src="js/aDISMain.min.js" type="text/javascript"></script>
+	<script src="js/fckeditor/fckeditor.js" type="text/javascript"></script>
+	<title> Die neue Website des V&#214;BB </title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,shrink-to-fit=no">
+<meta name="description" content="OPAC der &ouml;ffentlichen Bibliotheken in Berlin (V&Ouml;BB)">
+<!--
+(c) Software: aDIS/BMS und aDIS/Archiv by |a|S|tec| angewandte Systemtechnik - www.astec.de
+HTML/CSS: Formulare, Tabellen, Inhalte, etc. werden automatisiert durch aDIS/BMS generiert
+Anpassungen im aDIS-Rahmen: Nina Gerling
+Projekt: aDIS-85 V&Ouml;BB, OPAC01 de
+Letztes Update: 20.11.2019 13.08 Uhr 
+//-->
+<script src="/aDISWeb_kopac85/js/scripts-head.js"></script>
+<link rel="stylesheet" href="/aDISWeb_kopac85/css/kopac_style.css">
+<link rel="stylesheet" href="/aDISWeb_vob/css/style_wartung.css">
+<!--
+<link jwcid="@aDIS:Style" objectId="5458271C"/>
+<link jwcid="@aDIS:Style" objectId="5458271D"/>
+//-->
+<!--[if lte IE 8]><link rel="stylesheet" href="/aDISWeb_kopac85/css/kopac_ie-old.css"><![endif]-->
+<!--[if lt IE 9]><script src="/aDISWeb_kopac85/js/html5shiv-printshiv.min.js"></script><script src="/aDISWeb_kopac85/js/css3-mediaqueries.js"></script><![endif]-->
+<link rel="shortcut icon" type="image/x-icon" href="/aDISWeb_vob/images/favicon.ico">
+</head>
+<body class="opac01">
+<script type="text/javascript"><!--
+
+
+
+
+
+
+aDIS.sendBackRequest = function(e) {
+  if(e.state != null && e.state.action)
+    location.href="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$BrowserBack";
+}
+
+
+
+
+
+
+
+function startIdleTimer() {
+  if (typeof idleId != 'undefined')
+    clearTimeout(idleId)
+  idleId = window.setTimeout("to('"+ idleLink + "')", idleTime);
+}			
+function to(link) {
+  location.href=link;
+}
+
+
+
+
+
+function setupaDISHandlers()  {
+  aDIS.addListener("mousedown",document, aDIS.docOnEvent);
+  aDIS.addListener("keydown",document, aDIS.docOnEvent);
+  aDIS.addListener("help",document, aDIS.docOnEvent); 
+
+  aDIS.initFormElements();
+  aDIS.initIframes();
+  aDIS.initScrollPos();
+}
+
+
+
+
+
+
+aDISAjax.URL = "/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=aDISAjax/POOLVX00p-varuba_4B033700_00000000/$AjaxScript";
+
+
+
+
+
+  var UserAgent = navigator.userAgent.toLowerCase();
+  var mobileBrowser = false;
+  if (UserAgent.search(/(iphone|ipod|ipad|opera mini|fennec|palm|blackberry|android|symbian|series60)/) != -1)
+    mobileBrowser = true;
+  
+  aDIS.isFirstFocusAllowed = function(el){
+    if(el && !mobileBrowser){
+
+      var yPos = el.getBoundingClientRect().top;
+      var pageScroll = document.forms[0].scrollPos.value;
+      
+      if(pageScroll == 0 || yPos > 0)
+       return true;
+    }
+
+    return false;
+
+}
+
+
+function submitLink(form, elementId) { form._linkSubmit.value = elementId; if (form.onsubmit == null || form.onsubmit()) form.submit(); }
+
+
+
+
+RButton.add("lrb_0_11","AK03249644","lcont_0","BM6314","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_0_12","AK03249644","lcont_0","BM3600","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_1_11","AK01382754","lcont_1","BM6314","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_1_12","AK01382754","lcont_1","BM3600","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_2_11","AK34156721","lcont_2","BM6314","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_2_12","AK34156721","lcont_2","BM3600","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_3_11","AK13964554","lcont_3","BM6314","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_3_12","AK13964554","lcont_3","BM3600","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_4_11","AK01350420","lcont_4","BM6314","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_4_12","AK01350420","lcont_4","BM3600","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_5_11","AK09095904","lcont_5","BM6314","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_5_12","AK09095904","lcont_5","BM3600","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_6_11","AK34108531","lcont_6","BM6314","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_6_12","AK34108531","lcont_6","BM3600","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_7_11","AK03138723","lcont_7","BM6314","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_7_12","AK03138723","lcont_7","BM3600","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_8_11","AK12356315","lcont_8","BM6314","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_8_12","AK12356315","lcont_8","BM3600","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_9_11","AK03048554","lcont_9","BM6314","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_9_12","AK03048554","lcont_9","BM3600","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_10_11","AK00306172","lcont_10","BM6314","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_11_11","AK01047408","lcont_11","BM6314","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_11_12","AK01047408","lcont_11","BM3600","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_12_11","AK03371878","lcont_12","BM6314","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_12_12","AK03371878","lcont_12","BM3600","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_13_11","AK34118909","lcont_13","BM6314","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_14_11","AK13964575","lcont_14","BM6314","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_14_12","AK13964575","lcont_14","BM3600","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_15_11","AK09310419","lcont_15","BM6314","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_15_12","AK09310419","lcont_15","BM3600","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_16_11","AK14079003","lcont_16","BM6314","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_16_12","AK14079003","lcont_16","BM3600","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_17_11","AK02192718","lcont_17","BM6314","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_17_12","AK02192718","lcont_17","BM3600","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_18_11","AK02189813","lcont_18","BM6314","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_18_12","AK02189813","lcont_18","BM3600","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_19_11","AK03458741","lcont_19","BM6314","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_19_12","AK03458741","lcont_19","BM3600","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_20_11","AK03479792","lcont_20","BM6314","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_20_12","AK03479792","lcont_20","BM3600","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_21_11","AK14117525","lcont_21","BM6314","", "rbutton button-inactive", "rpanel content-inactive");
+
+RButton.add("lrb_21_12","AK14117525","lcont_21","BM3600","", "rbutton button-inactive", "rpanel content-inactive");
+
+
+
+
+aDIS.onLoad = function (e)
+{
+
+
+
+if (history.pushState && history.state == null) {
+  history.pushState({ action : 1 }, "", null);
+  history.pushState({ action : 2 }, "", null);
+}       
+
+window.onpopstate = function (e){  
+  aDIS.sendBackRequest(e);
+}
+
+
+
+
+  idleTime=360000000;
+  idleLink="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$Timeout";
+  startIdleTimer();
+
+
+  if (!e) var e = window.event;
+  document.forms[0].scriptEnabled.value=true;
+  if (self.specialOnLoad != undefined)
+    specialOnLoad(e);
+  setupaDISHandlers();
+  aDIS.getDimensions();
+
+
+  aDIS.Suggest["Autosuggest"] = new Suggester({inputid:"Autosuggest",listid:"listAutosuggest",rule:"BM9316", minchars:3, searchhistory:true, ajaxcontext:"", observes:""}); 
+
+
+      var el = document.Form0.$Autosuggest;
+      if(aDIS.isFirstFocusAllowed(el))
+       el.focus();
+    
+
+
+
+
+  aDIS.loadDelayedImg();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+aDIS.addListener('load', window, aDIS.onLoad);
+
+
+// --></script>
+<div class="aDISMaske"><form method="post" name="Form0" action="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3" onsubmit="return formOnSubmit();">
+<input type="hidden" name="service" value="direct/1/POOLVX00p-varuba_4B033700_00000000/$Form.form"/>
+<input type="hidden" name="sp" value="S0"/>
+<input type="hidden" name="Form0" value="focus,keyCode,stz,source,selected,requestCount,scriptEnabled,scrollPos,scrDim,winDim,imgDim,$Autosuggest,select,$FormConditional,textButton,$LinkSubmit$0,$LinkSubmit,$LinkSubmit$1,$Toolbar,cellCheck,cellCheck$0,cellCheck$1,cellCheck$2,cellCheck$3,cellCheck$4,cellCheck$5,cellCheck$6,cellCheck$7,cellCheck$8,cellCheck$9,cellCheck$10,cellCheck$11,cellCheck$12,cellCheck$13,cellCheck$14,cellCheck$15,cellCheck$16,cellCheck$17,cellCheck$18,cellCheck$19,cellCheck$20,$FormConditional$0,textButton$0,$FormConditional$1,textButton$1,$FormConditional$2,textButton$2,$FormConditional$3,textButton$3,$FormConditional$4,textButton$4,$FormConditional$5,textButton$5,$FormConditional$6,textButton$6,$FormConditional$7,textButton$7,textButton$8,textButton$9,textButton$10,textButton$11,textButton$12,textButton$13,textButton$14,$Toolbar$0"/>
+<input type="hidden" name="focus" value=""/>
+<input type="hidden" name="keyCode" value="0"/>
+<input type="hidden" name="stz" value=""/>
+<input type="hidden" name="source" value=""/>
+<input type="hidden" name="selected" value=""/>
+<input type="hidden" name="requestCount" value="2"/>
+<input type="hidden" name="scriptEnabled" value="T"/>
+<input type="hidden" name="scrollPos" value="0"/>
+<input type="hidden" name="scrDim" value=""/>
+<input type="hidden" name="winDim" value=""/>
+<input type="hidden" name="imgDim" value=""/>
+<input type="hidden" name="$FormConditional" value="T"/>
+<input type="hidden" name="$FormConditional$0" value="T"/>
+<input type="hidden" name="$FormConditional$1" value="T"/>
+<input type="hidden" name="$FormConditional$2" value="T"/>
+<input type="hidden" name="$FormConditional$3" value="T"/>
+<input type="hidden" name="$FormConditional$4" value="T"/>
+<input type="hidden" name="$FormConditional$5" value="T"/>
+<input type="hidden" name="$FormConditional$6" value="T"/>
+<input type="hidden" name="$FormConditional$7" value="T"/>
+				
+<div id="wrapper">
+  <div id="wrapper_inside">
+    <nav id="sprunglinks" aria-label="Sprunglinks">
+      <ul>
+        <li><a class="sprung" href="#main">Zum Inhalt</a></li>
+      </ul>
+    </nav>
+
+<!-- BEGIN Sticky-Wrapper -->
+<div class="sticky-wrapper">
+    <header id="header">
+      <div class="inside">
+         <div id="mhead-meta" class="block">
+          <div id="mhead-meta-inside">
+              <nav class="mod_navigation block" id="mnav" aria-label="Men&uuml; zum An-/Abmelden am Bibliothekssystem"><div class="tree_div">
+<ul class="tree_ul">
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$Tree.treeNodes&amp;sp=SL1&amp;requestCount=2" class="tree_leaf_a">Anmelden</a></li>
+<li class="tree_leaf_li_sel">
+<strong><span class="tree_strong">Abmelden</span></strong></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$Tree.treeNodes&amp;sp=SE&amp;requestCount=2" class="tree_leaf_a">Sitzung beenden</a></li>
+</ul></div>
+ </nav>
+               <nav id="lnav" aria-label="Service-Men�"><ul class="mod_navigation block">
+               <li id="lnav-gebaerdensprache"><a href="javascript:top.htmlOnLink('*SW41')">Geb&auml;rden</a></li>
+              <li id="lnav-leichte-sprache"><a href="javascript:top.htmlOnLink('*SW42')">Leichte Sprache</a></li>
+              <li id="lnav-haeufige-fragen"><a href="javascript:top.htmlOnLink('*SW9')">H&auml;ufige Fragen</a></li>
+              <li id="lnav-kontakt"><a href="javascript:top.htmlOnLink('*SW320')">Kontakt</a></li>
+              </ul></nav>
+          </div>
+        </div>
+        <div id="mhead" class="block">
+          <div id="mhead-inside">
+            <div id="logo" role="banner"><a href="javascript:top.htmlOnLink('*SW4')" title="Zur Startseite" aria-label="Zur Startseite"><img class="img-standard" src="/aDISWeb_vob/images/icons/VOEBB-Logo.png" alt="V&Ouml;BB Logo" width="146" height="150"><img class="img-fixed" src="/aDISWeb_vob/images/voebb-logo-fixed.svg" alt="V&Ouml;BB Logo" width="60" height="83"></a></div>
+             <div id="slogan-wrapper">
+              <div id="spruch"><span>Die neue Website des V&#214;BB</span></div>
+              <div id="slogan">Wir bringen Medien in Bewegung</div>
+            </div>
+              <nav id="fontsizer" aria-label="Schriftgr&ouml;&szlig;e">
+               <ul>
+                 <li><a href="#" id="small" data-set-font-size="small"><span class="schrift">Schrift</span> <span class="schriftgroesse">klein</span></a></li>
+                 <li><a href="#" id="normal" data-set-font-size="medium" class="selected"><span class="schrift">Schrift</span> <span class="schriftgroesse">normal</span></a></li>
+                 <li><a href="#" id="big" data-set-font-size="large"><span class="schrift">Schrift</span> <span class="schriftgroesse">gro&szlig;</span></a></li>
+               </ul>
+             </nav>
+           </div>
+        </div>
+        <div class="nav-wrapper">
+        <nav id="hnav" class="mod_navigation block" aria-label="Hauptnavigation">
+            <input id="main-menu-state" type="checkbox">
+            <label class="main-menu-btn" for="main-menu-state" aria-label="Navigation aktivieren oder deaktivieren"><span class="main-menu-btn-icon"></span> Navigation</label>
+
+<!-- Menu -->
+          <ul class="cssmenu_ul sm sm-style" id="main-menu">
+<li class="cssmenu_button"><a href="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink.directlink&amp;sp=S%24%24GFBO_41&amp;sp=SW4&amp;requestCount=2" fld="$$GFBO_41" title="">Start</a></li>
+<li class="cssmenu_button"><a href="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$0.directlink&amp;sp=S%24%24GFBO_42&amp;sp=SBK&amp;requestCount=2" fld="$$GFBO_42" title="">Mein Konto</a></li>
+<li class="cssmenu_ul"><a href="#">Aktuelles</a>
+<ul class="menufts">
+<li class="cssmenu_button"><a href="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$1.directlink&amp;sp=S%24%24GFBO_43&amp;sp=SW100&amp;requestCount=2" fld="$$GFBO_43" title="">Neuigkeiten</a></li>
+<li class="cssmenu_button"><a href="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$2.directlink&amp;sp=S%24%24GFBO_44&amp;sp=SW110&amp;requestCount=2" fld="$$GFBO_44" title="">Veranstaltungen</a></li>
+<li class="cssmenu_button"><a href="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$3.directlink&amp;sp=S%24%24GFBO_45&amp;sp=SW120&amp;requestCount=2" fld="$$GFBO_45" title="">Thementipps</a></li>
+<li class="cssmenu_button"><a href="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$4.directlink&amp;sp=S%24%24GFBO_46&amp;sp=SW130&amp;requestCount=2" fld="$$GFBO_46" title="">Projekte</a></li>
+<li class="cssmenu_button"><a href="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$5.directlink&amp;sp=S%24%24GFBO_47&amp;sp=SW140&amp;requestCount=2" fld="$$GFBO_47" title="">Neuerwerbungen</a></li>
+</ul></li>
+<li class="cssmenu_button"><a href="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$6.directlink&amp;sp=S%24%24GFBO_48&amp;sp=SW2&amp;requestCount=2" fld="$$GFBO_48" title="">Digitale Angebote</a></li>
+<li class="cssmenu_ul"><a href="#">Services</a>
+<ul class="menufts">
+<li class="cssmenu_button"><a href="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$7.directlink&amp;sp=S%24%24GFBO_49&amp;sp=SW200&amp;requestCount=2" fld="$$GFBO_49" title="">Bestellungen</a></li>
+<li class="cssmenu_button"><a href="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$8.directlink&amp;sp=S%24%24GFBO_50&amp;sp=SW210&amp;requestCount=2" fld="$$GFBO_50" title="">Fernleihe</a></li>
+<li class="cssmenu_button"><a href="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$9.directlink&amp;sp=S%24%24GFBO_51&amp;sp=SW220&amp;requestCount=2" fld="$$GFBO_51" title="">Fristverlängerung</a></li>
+<li class="cssmenu_button"><a href="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$10.directlink&amp;sp=S%24%24GFBO_52&amp;sp=SW230&amp;requestCount=2" fld="$$GFBO_52" title="">Entgeltzahlung</a></li>
+<li class="cssmenu_button"><a href="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$11.directlink&amp;sp=S%24%24GFBO_53&amp;sp=SW240&amp;requestCount=2" fld="$$GFBO_53" title="">Benachrichtigung</a></li>
+<li class="cssmenu_button"><a href="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$12.directlink&amp;sp=S%24%24GFBO_54&amp;sp=SW250&amp;requestCount=2" fld="$$GFBO_54" title="">Rückgabeservice</a></li>
+<li class="cssmenu_button"><a href="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$13.directlink&amp;sp=S%24%24GFBO_55&amp;sp=SW260&amp;requestCount=2" fld="$$GFBO_55" title="">Verwaltungsservice</a></li>
+</ul></li>
+<li class="cssmenu_ul"><a href="#">Über uns</a>
+<ul class="menufts">
+<li class="cssmenu_button"><a href="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$14.directlink&amp;sp=S%24%24GFBO_56&amp;sp=SW300&amp;requestCount=2" fld="$$GFBO_56" title="">Wir bilden aus</a></li>
+<li class="cssmenu_button"><a href="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$15.directlink&amp;sp=S%24%24GFBO_57&amp;sp=SW310&amp;requestCount=2" fld="$$GFBO_57" title="">Auszeichnungen</a></li>
+<li class="cssmenu_button"><a href="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$16.directlink&amp;sp=S%24%24GFBO_58&amp;sp=SW320&amp;requestCount=2" fld="$$GFBO_58" title="">Kontakt</a></li>
+</ul></li>
+</ul>
+        </nav>
+        </div>
+       </div>
+    </header>
+    <div class="search-wrapper">
+    <div id="R22"> <div id="search" role="search" aria-label="Schnellsuche">
+      <div class="grid-wrapper">
+        <div class="grid-row">
+          <div class="grid-col col-12">
+            <div class="grid-inside">
+            
+              <div class="field-phrase">
+                <label for="Autosuggest"><span class="fbz-text">Suchbegriff</span></label><input type="text" autocomplete="off" id="Autosuggest" list="listAutosuggest" data-allowReturn="true" placeholder="" name="$Autosuggest" fld="THEMA2_1" value="huhn"/><datalist id="listAutosuggest" role="listbox" aria-live="polite"></datalist> </div>
+              
+              <div class="field-library">
+                <label for="SUCBER_1"><span class="fbz-text">Suchbereich</span></label><select name="select" id="SUCBER_1" class="fb">
+<option value=""></option>
+<option value="&#220;berall suchen" selected="selected">&#220;berall suchen</option>
+<option value="Bibliotheksbestand">Bibliotheksbestand</option>
+<option value="Fernleihe (deutschlandweit)">Fernleihe (deutschlandweit)</option>
+<option value="Artikel und mehr">Artikel und mehr</option>
+<option value="Charlottenburg-Wilmersdorf: Adolf-Reichwein-Bibliothek">Charlottenburg-Wilmersdorf: Adolf-Reichwein-Bibliothek</option>
+<option value="Charlottenburg-Wilmersdorf: Dietrich-Bonhoeffer-Bibliothek">Charlottenburg-Wilmersdorf: Dietrich-Bonhoeffer-Bibliothek</option>
+<option value="Charlottenburg-Wilmersdorf: Eberhard-Alexander-Burgh-Bibliothek">Charlottenburg-Wilmersdorf: Eberhard-Alexander-Burgh-Bibliothek</option>
+<option value="Charlottenburg-Wilmersdorf: Heinrich-Schulz-Bibliothek mit Musikabteilung">Charlottenburg-Wilmersdorf: Heinrich-Schulz-Bibliothek mit Musikabteilung</option>
+<option value="Charlottenburg-Wilmersdorf: Ingeborg-Bachmann-Bibliothek">Charlottenburg-Wilmersdorf: Ingeborg-Bachmann-Bibliothek</option>
+<option value="Charlottenburg-Wilmersdorf: Johanna-Moosdorf-Bibliothek">Charlottenburg-Wilmersdorf: Johanna-Moosdorf-Bibliothek</option>
+<option value="Charlottenburg-Wilmersdorf: Stadtteilbibliothek Halemweg">Charlottenburg-Wilmersdorf: Stadtteilbibliothek Halemweg</option>
+<option value="Friedrichshain - Kreuzberg: Else-Ury-Bibliothek">Friedrichshain - Kreuzberg: Else-Ury-Bibliothek</option>
+<option value="Friedrichshain - Kreuzberg: Friedrich-von-Raumer-Bibliothek">Friedrichshain - Kreuzberg: Friedrich-von-Raumer-Bibliothek</option>
+<option value="Friedrichshain - Kreuzberg: Pablo-Neruda-Bibliothek">Friedrichshain - Kreuzberg: Pablo-Neruda-Bibliothek</option>
+<option value="Friedrichshain - Kreuzberg: Schulbibliothek Bl&#252;cherstr. (nicht &#246;ffentlich)">Friedrichshain - Kreuzberg: Schulbibliothek Bl&#252;cherstr. (nicht &#246;ffentlich)</option>
+<option value="Friedrichshain - Kreuzberg: Wilhelm-Liebknecht-/Namik-Kemal-Bibliothek">Friedrichshain - Kreuzberg: Wilhelm-Liebknecht-/Namik-Kemal-Bibliothek</option>
+<option value="Lichtenberg: Anna-Seghers-Bibliothek">Lichtenberg: Anna-Seghers-Bibliothek</option>
+<option value="Lichtenberg: Anton - Saefkow - Bibliothek">Lichtenberg: Anton - Saefkow - Bibliothek</option>
+<option value="Lichtenberg: Bodo - Uhse - Bibliothek">Lichtenberg: Bodo - Uhse - Bibliothek</option>
+<option value="Lichtenberg: Egon - Erwin - Kisch - Bibliothek">Lichtenberg: Egon - Erwin - Kisch - Bibliothek</option>
+<option value="Marzahn - Hellersdorf: Bibl. Kaulsdorf - Nord">Marzahn - Hellersdorf: Bibl. Kaulsdorf - Nord</option>
+<option value="Marzahn - Hellersdorf: Bibl. Mahlsdorf">Marzahn - Hellersdorf: Bibl. Mahlsdorf</option>
+<option value="Marzahn - Hellersdorf: Ehm Welk Bibliothek">Marzahn - Hellersdorf: Ehm Welk Bibliothek</option>
+<option value="Marzahn - Hellersdorf: Erich Weinert Bibliothek">Marzahn - Hellersdorf: Erich Weinert Bibliothek</option>
+<option value="Marzahn - Hellersdorf: Heinrich von Kleist Bibliothek">Marzahn - Hellersdorf: Heinrich von Kleist Bibliothek</option>
+<option value="Marzahn - Hellersdorf: Mark Twain Bibliothek">Marzahn - Hellersdorf: Mark Twain Bibliothek</option>
+<option value="Marzahn - Hellersdorf: Musikbibliothek">Marzahn - Hellersdorf: Musikbibliothek</option>
+<option value="Mitte: Bibliothek Tiergarten S&#252;d">Mitte: Bibliothek Tiergarten S&#252;d</option>
+<option value="Mitte: Bibliothek am Luisenbad">Mitte: Bibliothek am Luisenbad</option>
+<option value="Mitte: Bruno - Loesche - Bibliothek">Mitte: Bruno - Loesche - Bibliothek</option>
+<option value="Mitte: Fahrbibliothek Mitte Bus 1">Mitte: Fahrbibliothek Mitte Bus 1</option>
+<option value="Mitte: Fahrbibliothek Mitte Bus 2">Mitte: Fahrbibliothek Mitte Bus 2</option>
+<option value="Mitte: Fahrbibliothek Mitte Bus 3">Mitte: Fahrbibliothek Mitte Bus 3</option>
+<option value="Mitte: Hansabibliothek">Mitte: Hansabibliothek</option>
+<option value="Mitte: Kurt - Tucholsky - Bibliothek">Mitte: Kurt - Tucholsky - Bibliothek</option>
+<option value="Mitte: Philipp - Schaeffer - Bibliothek">Mitte: Philipp - Schaeffer - Bibliothek</option>
+<option value="Mitte: Schiller - Bibliothek mit @hugo Jugendmedienetage">Mitte: Schiller - Bibliothek mit @hugo Jugendmedienetage</option>
+<option value="Neukoelln: Bibliothek Britz S&#252;d">Neukoelln: Bibliothek Britz S&#252;d</option>
+<option value="Neukoelln: Bibliothek Rudow">Neukoelln: Bibliothek Rudow</option>
+<option value="Neukoelln: Bibliothek im Gemeinschaftshaus">Neukoelln: Bibliothek im Gemeinschaftshaus</option>
+<option value="Neukoelln: Helene - Nathan - Bibliothek">Neukoelln: Helene - Nathan - Bibliothek</option>
+<option value="Neukoelln: Museum Neuk&#246;lln (kein Ausgabeort)">Neukoelln: Museum Neuk&#246;lln (kein Ausgabeort)</option>
+<option value="Pankow: Bettina von Arnim Bibliothek">Pankow: Bettina von Arnim Bibliothek</option>
+<option value="Pankow: Bibliothek Buch">Pankow: Bibliothek Buch</option>
+<option value="Pankow: Bibliothek Karow">Pankow: Bibliothek Karow</option>
+<option value="Pankow: Bibliothek am Wasserturm">Pankow: Bibliothek am Wasserturm</option>
+<option value="Pankow: Heinrich B&#246;ll Bibliothek">Pankow: Heinrich B&#246;ll Bibliothek</option>
+<option value="Pankow: Janusz Korczak Bibliothek">Pankow: Janusz Korczak Bibliothek</option>
+<option value="Pankow: Kurt Tucholsky Bibliothek">Pankow: Kurt Tucholsky Bibliothek</option>
+<option value="Pankow: Museumsarchiv Pankow (kein Ausgabeort)">Pankow: Museumsarchiv Pankow (kein Ausgabeort)</option>
+<option value="Pankow: Wolfdietrich Schnurre Bibliothek">Pankow: Wolfdietrich Schnurre Bibliothek</option>
+<option value="Reinickendorf: Bibl. Frohnau">Reinickendorf: Bibl. Frohnau</option>
+<option value="Reinickendorf: Bibl. M&#228;rkisches Viertel">Reinickendorf: Bibl. M&#228;rkisches Viertel</option>
+<option value="Reinickendorf: Bibl. Reinickendorf - West">Reinickendorf: Bibl. Reinickendorf - West</option>
+<option value="Reinickendorf: Bibliothek am Sch&#228;fersee  Stadtteilbibliothek Reinickendorf - Ost">Reinickendorf: Bibliothek am Sch&#228;fersee  Stadtteilbibliothek Reinickendorf - Ost</option>
+<option value="Reinickendorf: Fahrbibliothek Reinickendorf">Reinickendorf: Fahrbibliothek Reinickendorf</option>
+<option value="Reinickendorf: Humboldt-Bibliothek">Reinickendorf: Humboldt-Bibliothek</option>
+<option value="Reinickendorf: Humboldtschule (nicht &#246;ffentlich)">Reinickendorf: Humboldtschule (nicht &#246;ffentlich)</option>
+<option value="Reinickendorf: Ju.bibl. Humboldt-Bibliothek">Reinickendorf: Ju.bibl. Humboldt-Bibliothek</option>
+<option value="Reinickendorf: Kleiner B&#252;cherbus">Reinickendorf: Kleiner B&#252;cherbus</option>
+<option value="Spandau: Fahrbibliothek Spandau">Spandau: Fahrbibliothek Spandau</option>
+<option value="Spandau: Hauptbibliothek Spandau">Spandau: Hauptbibliothek Spandau</option>
+<option value="Spandau: Kinder- und Jugendbibliothek Spandau">Spandau: Kinder- und Jugendbibliothek Spandau</option>
+<option value="Spandau: Schulbibliothek Carlo Schmid (nicht oeffentlich)">Spandau: Schulbibliothek Carlo Schmid (nicht oeffentlich)</option>
+<option value="Spandau: Stadtteilbibliothek Falkenhagener Feld">Spandau: Stadtteilbibliothek Falkenhagener Feld</option>
+<option value="Spandau: Stadtteilbibliothek Haselhorst">Spandau: Stadtteilbibliothek Haselhorst</option>
+<option value="Spandau: Stadtteilbibliothek Heerstrasse">Spandau: Stadtteilbibliothek Heerstrasse</option>
+<option value="Spandau: Stadtteilbibliothek Kladow">Spandau: Stadtteilbibliothek Kladow</option>
+<option value="Steglitz - Zehlendorf: Fahrbibliothek Steglitz-Zehlendorf">Steglitz - Zehlendorf: Fahrbibliothek Steglitz-Zehlendorf</option>
+<option value="Steglitz - Zehlendorf: Gottfried Benn Bibliothek">Steglitz - Zehlendorf: Gottfried Benn Bibliothek</option>
+<option value="Steglitz - Zehlendorf: Ingeborg Drewitz Bibliothek">Steglitz - Zehlendorf: Ingeborg Drewitz Bibliothek</option>
+<option value="Steglitz - Zehlendorf: Stadtteilbibliothek Lankwitz">Steglitz - Zehlendorf: Stadtteilbibliothek Lankwitz</option>
+<option value="Tempelhof-Sch&#246;neberg: Bezirkszentralbibliothek Tempelhof-Sch&#246;neberg">Tempelhof-Sch&#246;neberg: Bezirkszentralbibliothek Tempelhof-Sch&#246;neberg</option>
+<option value="Tempelhof-Sch&#246;neberg: Fahrbibliothek Tempelhof-Sch&#246;neberg">Tempelhof-Sch&#246;neberg: Fahrbibliothek Tempelhof-Sch&#246;neberg</option>
+<option value="Tempelhof-Sch&#246;neberg: Mittelpunktbibliothek Sch&#246;neberg">Tempelhof-Sch&#246;neberg: Mittelpunktbibliothek Sch&#246;neberg</option>
+<option value="Tempelhof-Sch&#246;neberg: Stadtteilbibliothek Lichtenrade">Tempelhof-Sch&#246;neberg: Stadtteilbibliothek Lichtenrade</option>
+<option value="Tempelhof-Sch&#246;neberg: Stadtteilbibliothek Marienfelde">Tempelhof-Sch&#246;neberg: Stadtteilbibliothek Marienfelde</option>
+<option value="Tempelhof-Sch&#246;neberg: Stadtteilbibliothek Sch&#246;neberg-Nord">Tempelhof-Sch&#246;neberg: Stadtteilbibliothek Sch&#246;neberg-Nord</option>
+<option value="Tempelhof-Sch&#246;neberg: Thomas-Dehler-Bibliothek">Tempelhof-Sch&#246;neberg: Thomas-Dehler-Bibliothek</option>
+<option value="Treptow - Koepenick: Fahrbibliothek Treptow-K&#246;penick">Treptow - Koepenick: Fahrbibliothek Treptow-K&#246;penick</option>
+<option value="Treptow - Koepenick: Fahrbibliothek Treptow-K&#246;penick Kleiner Bus">Treptow - Koepenick: Fahrbibliothek Treptow-K&#246;penick Kleiner Bus</option>
+<option value="Treptow - Koepenick: Mittelpunktbibliothek K&#246;penick Alter Markt">Treptow - Koepenick: Mittelpunktbibliothek K&#246;penick Alter Markt</option>
+<option value="Treptow - Koepenick: Mittelpunktbibliothek Treptow Alte Feuerwache">Treptow - Koepenick: Mittelpunktbibliothek Treptow Alte Feuerwache</option>
+<option value="Treptow - Koepenick: Stadtteilbibliothek Adlershof Stefan Heym">Treptow - Koepenick: Stadtteilbibliothek Adlershof Stefan Heym</option>
+<option value="Treptow - Koepenick: Stadtteilbibliothek Alt-Treptow Manfred Bofinger">Treptow - Koepenick: Stadtteilbibliothek Alt-Treptow Manfred Bofinger</option>
+<option value="Treptow - Koepenick: Stadtteilbibliothek Altglienicke">Treptow - Koepenick: Stadtteilbibliothek Altglienicke</option>
+<option value="Treptow - Koepenick: Stadtteilbibliothek Friedrichshagen">Treptow - Koepenick: Stadtteilbibliothek Friedrichshagen</option>
+<option value="ZLB Kinder- und Jugendbibliothek">ZLB Kinder- und Jugendbibliothek</option>
+<option value="ZLB Zentral- und Landesbibliothek">ZLB Zentral- und Landesbibliothek</option>
+</select> </div>
+              
+              <div class="field-buttons"><input type="submit" name="textButton" value="Suchen" class="imp-button suche-starten" fld="$$GFBO_8"/> </div>
+
+              <div class="field-buttons-adv"><a href="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=direct/1/POOLVX00p-varuba_4B033700_00000000/SEL1_ddGFBO_7.directlink&amp;sp=S%24%24GFBO_7&amp;sp=SS6&amp;requestCount=2" class="link-button search-adv" fld="$$GFBO_7" title="Erweiterte Suche" name="textButton">Erweiterte Suche</a> </div>
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+    </div>
+   </div>
+<!-- END Sticky-Wrapper -->
+     <div id="container" class="container-wrapper">
+      <div id="container-inside">
+        <main id="main" aria-label="Hauptbereich">
+          <div class="inside"><div id="kartei-nav" class="tabctl" Focus="true">	<div class="tab_outer"><nav class="tab_nav" aria-label="Navigation">	<ul class="tab_ul">	<li class="tab_lic"><input type="hidden" name="_linkSubmit"/><a href="javascript:submitLink(document.Form0,&quot;$LinkSubmit$0&quot;);" class="tab_ac">Bibliotheksbestand</a>	</li>	<li class="tab_li"><a href="javascript:submitLink(document.Form0,&quot;$LinkSubmit&quot;);" class="tab_a">Fernleihe (deutschlandweit)</a>	</li>	<li class="tab_li"><a href="javascript:submitLink(document.Form0,&quot;$LinkSubmit$1&quot;);" class="tab_a">Artikel und mehr</a>	</li>	</ul></nav>	</div>	
+	<div style="clear:both;">
+<div class="aDISPage" style="height: 100%;">
+
+
+<!-- GRID SYSTEM START -->
+            <div class="grid-wrapper">
+              <div class="grid-row">
+
+<!-- START: KOPFBEREICH -->
+                <div class="grid-col col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
+                  <div class="grid-inside">
+                     <h1><span class="invisible">Aktuelle Seite: </span>
+                      Trefferliste
+                      </h1>
+                  </div>
+                </div>
+
+<!-- START Druckbutton -->
+                    <div class="grid-col col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                      <div class="grid-inside">
+                        <div class="wissen">
+                          <p id="druckversion">
+                          <a href="#" onclick="openPP(); return false;" class="drucken-no">Druckversion</a>
+                          <a href="javascript:window.print()" class="drucken">Drucken</a>
+                          <a href="javascript:window.close()" class="drucken abbrechen">Abbrechen</a>
+                           </p>
+                        </div>
+                      </div>
+                    </div>
+
+<!-- Toolbar -->
+                <div class="grid-col col-12">
+                  <div class="grid-inside">
+                    <div id="R06">
+  <p><div class="html_div" style="width:100%; height:100%;">Gesucht wurde mit "Freie Suche = huhn", Treffer: 2092  im "Bibliotheksbestand"</div> </p>
+</div><div class="toolbar_div">
+<ul class="toolbar_ul">
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00p-varuba/png/POOLVX00p-varuba_53010E00_36C0CC00.png;jsessionid=726C60E46BB77677BD59D75847577CE3" alt="zur&#252;ck zur letzten Anzeige" id="Toolbar_0" name="$Toolbar_0" title="zur&#252;ck zur letzten Anzeige" onmouseover="self.status='zur&#252;ck zur letzten Anzeige';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_0"><span class="toolbar_txt">Zur&#252;ck</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00p-varuba/png/POOLVX00p-varuba_53006900_370BF180.png;jsessionid=726C60E46BB77677BD59D75847577CE3" alt="zum Anfang" id="Toolbar_1" name="$Toolbar_1" title="zum Anfang" onmouseover="self.status='zum Anfang';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_1"><span class="toolbar_txt"></span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00p-varuba/png/POOLVX00p-varuba_53011500_370BF180.png;jsessionid=726C60E46BB77677BD59D75847577CE3" alt="zur&#252;ck" id="Toolbar_2" name="$Toolbar_2" title="zur&#252;ck" onmouseover="self.status='zur&#252;ck';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_2"><span class="toolbar_txt"></span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00p-varuba/png/POOLVX00p-varuba_53011400_370BF180.png;jsessionid=726C60E46BB77677BD59D75847577CE3" alt="n&#228;chster" id="Toolbar_3" name="$Toolbar_3" title="n&#228;chster" onmouseover="self.status='n&#228;chster';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_3"><span class="toolbar_txt"></span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00p-varuba/png/POOLVX00p-varuba_53011B01_370BF180.png;jsessionid=726C60E46BB77677BD59D75847577CE3" alt="zum Ende" id="Toolbar_4" name="$Toolbar_4" disabled="disabled" title="zum Ende" onmouseover="self.status='zum Ende';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar_4"><span class="toolbar_txt_dis"></span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00p-varuba/png/POOLVX00p-varuba_53002800_31169A00.png;jsessionid=726C60E46BB77677BD59D75847577CE3" alt="zur Vollanzeige der Treffer" id="Toolbar_5" name="$Toolbar_5" title="zur Vollanzeige der Treffer" onmouseover="self.status='zur Vollanzeige der Treffer';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_5"><span class="toolbar_txt">Vollanzeige</span></label></li></ul><div style="clear:both"></div></div> </div>
+                </div>
+
+<!-- START: HAUPTBEREICH-Spalte -->
+                <div class="grid-col col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 arena-standard">
+                  <div class="grid-inside">
+                     <section id="results">
+                       <div id="R07">
+  <div class="resultlist">	<div class="rList_wrapper"><ul class="rList"><li class="rList_li rList_li_even rList_cover_active rList_cover_right" data-ajax="AK03249644"><div class="rList_cover"><div class="rList_col rList_img" style=""><img alt="" title="" src="" data-src="https://www.voebb.de/vlb/cover/9783880104716/s" class="img-delayed"/></div>	</div>	<div class="rList_grid_wrapper"><div class="rList_grid"><div class="rList_col rList_num" style="width: 06%;">23</div>		<div class="rList_col rList_availability" style="width: 06%;"><span><img class='icon'  src='/aDISWeb_kopac85/images/icons/availability-green.svg' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div class="rList_col rList_titel" style="width: 87%;"><a href="javascript:htmlOnLink('AK03249644')">Das verrückte Huhn</a></div>		<div class="rList_col rList_medium" style="width: 17%;"><img class='icon'  src='/aDISWeb_kopac85/images/icons/medien/buch.svg' alt='Buch' title='Buch' /></div>	</div>	<div class="rList_grid"><div class="rList_col rList_name" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_name" style="width: 70%;">Julia Andreae. Ill. von Manfred Bofinger. - Lentz</div>		<div class="rList_col rList_jahr" style="width: 17%;">1999</div>	</div>	<div class="rList_grid"><div class="rList_col rList_signatur" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_check" style="width: 18%;"><input type="checkbox" name="cellCheck" fld="###CH1_1" id="cellCheck"/><label for="cellCheck"><span class="invisible">Markieren</span></label></div>		<div class="rList_col rList_button but_merken" style="width: 18%;"><button value="Merken" id="lrb_0_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_0" type="button"><span class="rlabel">Merken</span></button></div>		<div class="rList_col rList_button but_standort" style="width: 19%;"><button value="Standort" id="lrb_0_12" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_0" type="button"><span class="rlabel">Standort</span></button></div>		<div class="rList_col rList_button but_werktitel" style="width: 15%;">&nbsp;</div>		<div class="rList_col rList_www" style="width: 17%;">&nbsp;</div>	</div></div>	<div aria-hidden="true" id="lcont_0" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li rList_li_odd rList_cover_active rList_cover_right" data-ajax="AK01382754"><div class="rList_cover"><div class="rList_col rList_img" style=""><img alt="" title="" src="" data-src="https://www.voebb.de/vlb/cover/9783702658434/s" class="img-delayed"/></div>	</div>	<div class="rList_grid_wrapper"><div class="rList_grid"><div class="rList_col rList_num" style="width: 06%;">24</div>		<div class="rList_col rList_availability" style="width: 06%;"><span><img class='icon'  src='/aDISWeb_kopac85/images/icons/availability-green.svg' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div class="rList_col rList_titel" style="width: 87%;"><a href="javascript:htmlOnLink('AK01382754')">Oma, Huhn und Kümmelfritz</a></div>		<div class="rList_col rList_medium" style="width: 17%;"><img class='icon'  src='/aDISWeb_kopac85/images/icons/medien/buch.svg' alt='Buch' title='Buch' /></div>	</div>	<div class="rList_grid"><div class="rList_col rList_name" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_name" style="width: 70%;">Michael Roher. - 1. Aufl.. - Jungbrunnen</div>		<div class="rList_col rList_jahr" style="width: 17%;">2012</div>	</div>	<div class="rList_grid"><div class="rList_col rList_signatur" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_check" style="width: 18%;"><input type="checkbox" name="cellCheck$0" fld="###CH1_2" id="cellCheck_0"/><label for="cellCheck_0"><span class="invisible">Markieren</span></label></div>		<div class="rList_col rList_button but_merken" style="width: 18%;"><button value="Merken" id="lrb_1_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_1" type="button"><span class="rlabel">Merken</span></button></div>		<div class="rList_col rList_button but_standort" style="width: 19%;"><button value="Standort" id="lrb_1_12" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_1" type="button"><span class="rlabel">Standort</span></button></div>		<div class="rList_col rList_button but_werktitel" style="width: 15%;">&nbsp;</div>		<div class="rList_col rList_www" style="width: 17%;">&nbsp;</div>	</div></div>	<div aria-hidden="true" id="lcont_1" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li rList_li_even rList_cover_active rList_cover_right" data-ajax="AK34156721"><div class="rList_cover"><div class="rList_col rList_img" style=""><img alt="" title="" src="" data-src="https://www.voebb.de/vlb/cover/9783702658434/s" class="img-delayed"/></div>	</div>	<div class="rList_grid_wrapper"><div class="rList_grid"><div class="rList_col rList_num" style="width: 06%;">25</div>		<div class="rList_col rList_availability" style="width: 06%;"><span><img class='icon'  src='/aDISWeb_kopac85/images/icons/availability-green.svg' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div class="rList_col rList_titel" style="width: 87%;"><a href="javascript:htmlOnLink('AK34156721')">Oma, Huhn und Kümmelfritz</a></div>		<div class="rList_col rList_medium" style="width: 17%;"><img class='icon'  src='/aDISWeb_kopac85/images/icons/medien/buch.svg' alt='Buch' title='Buch' /></div>	</div>	<div class="rList_grid"><div class="rList_col rList_name" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_name" style="width: 70%;">Michael Roher. - 3. Aufl.. - Jungbrunnen</div>		<div class="rList_col rList_jahr" style="width: 17%;">2018</div>	</div>	<div class="rList_grid"><div class="rList_col rList_signatur" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_check" style="width: 18%;"><input type="checkbox" name="cellCheck$1" fld="###CH1_3" id="cellCheck_1"/><label for="cellCheck_1"><span class="invisible">Markieren</span></label></div>		<div class="rList_col rList_button but_merken" style="width: 18%;"><button value="Merken" id="lrb_2_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_2" type="button"><span class="rlabel">Merken</span></button></div>		<div class="rList_col rList_button but_standort" style="width: 19%;"><button value="Standort" id="lrb_2_12" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_2" type="button"><span class="rlabel">Standort</span></button></div>		<div class="rList_col rList_button but_werktitel" style="width: 15%;">&nbsp;</div>		<div class="rList_col rList_www" style="width: 17%;">&nbsp;</div>	</div></div>	<div aria-hidden="true" id="lcont_2" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li rList_li_odd rList_cover_active rList_cover_right" data-ajax="AK13964554"><div class="rList_cover"><div class="rList_col rList_img" style=""><img alt="" title="" src="" data-src="&lt;img class='icon'  src='/aDISWeb_kopac85/images/icons/medien/konsolenspiel.svg' alt='Konsolenspiel' title='Konsolenspiel' /&gt;" class="img-delayed"/></div>	</div>	<div class="rList_grid_wrapper"><div class="rList_grid"><div class="rList_col rList_num" style="width: 06%;">26</div>		<div class="rList_col rList_availability" style="width: 06%;"><span><img class='icon'  src='/aDISWeb_kopac85/images/icons/availability-green.svg' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div class="rList_col rList_titel" style="width: 87%;"><a href="javascript:htmlOnLink('AK13964554')">Himmel und Huhn : GameCube ; [Konsolenspiel]</a></div>		<div class="rList_col rList_medium" style="width: 17%;"><img class='icon'  src='/aDISWeb_kopac85/images/icons/medien/konsolenspiel.svg' alt='Konsolenspiel' title='Konsolenspiel' /></div>	</div>	<div class="rList_grid"><div class="rList_col rList_name" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_name" style="width: 70%;">Walt Disney Company. - Buena Vista interactive</div>		<div class="rList_col rList_jahr" style="width: 17%;">2006</div>	</div>	<div class="rList_grid"><div class="rList_col rList_signatur" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_check" style="width: 18%;"><input type="checkbox" name="cellCheck$2" fld="###CH1_4" id="cellCheck_2"/><label for="cellCheck_2"><span class="invisible">Markieren</span></label></div>		<div class="rList_col rList_button but_merken" style="width: 18%;"><button value="Merken" id="lrb_3_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_3" type="button"><span class="rlabel">Merken</span></button></div>		<div class="rList_col rList_button but_standort" style="width: 19%;"><button value="Standort" id="lrb_3_12" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_3" type="button"><span class="rlabel">Standort</span></button></div>		<div class="rList_col rList_button but_werktitel" style="width: 15%;">&nbsp;</div>		<div class="rList_col rList_www" style="width: 17%;">&nbsp;</div>	</div></div>	<div aria-hidden="true" id="lcont_3" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li rList_li_even rList_cover_active rList_cover_right" data-ajax="AK01350420"><div class="rList_cover"><div class="rList_col rList_img" style=""><img alt="" title="" src="" data-src="https://www.voebb.de/vlb/cover/9783250600909/s" class="img-delayed"/></div>	</div>	<div class="rList_grid_wrapper"><div class="rList_grid"><div class="rList_col rList_num" style="width: 06%;">27</div>		<div class="rList_col rList_availability" style="width: 06%;"><span><img class='icon'  src='/aDISWeb_kopac85/images/icons/availability-green.svg' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div class="rList_col rList_titel" style="width: 87%;"><a href="javascript:htmlOnLink('AK01350420')">Maurice mit Huhn : Roman</a></div>		<div class="rList_col rList_medium" style="width: 17%;"><img class='icon'  src='/aDISWeb_kopac85/images/icons/medien/buch.svg' alt='Band' title='Band' /></div>	</div>	<div class="rList_grid"><div class="rList_col rList_name" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_name" style="width: 70%;">Matthias Zschokke. - 1. Aufl.. - Ammann</div>		<div class="rList_col rList_jahr" style="width: 17%;">2006</div>	</div>	<div class="rList_grid"><div class="rList_col rList_signatur" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_check" style="width: 18%;"><input type="checkbox" name="cellCheck$3" fld="###CH1_5" id="cellCheck_3"/><label for="cellCheck_3"><span class="invisible">Markieren</span></label></div>		<div class="rList_col rList_button but_merken" style="width: 18%;"><button value="Merken" id="lrb_4_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_4" type="button"><span class="rlabel">Merken</span></button></div>		<div class="rList_col rList_button but_standort" style="width: 19%;"><button value="Standort" id="lrb_4_12" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_4" type="button"><span class="rlabel">Standort</span></button></div>		<div class="rList_col rList_button but_werktitel" style="width: 15%;">&nbsp;</div>		<div class="rList_col rList_www" style="width: 17%;">&nbsp;</div>	</div></div>	<div aria-hidden="true" id="lcont_4" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li rList_li_odd rList_cover_active rList_cover_right" data-ajax="AK09095904"><div class="rList_cover"><div class="rList_col rList_img" style=""><img alt="" title="" src="" data-src="https://www.voebb.de/vlb/cover/9783821836454/s" class="img-delayed"/></div>	</div>	<div class="rList_grid_wrapper"><div class="rList_grid"><div class="rList_col rList_num" style="width: 06%;">28</div>		<div class="rList_col rList_availability" style="width: 06%;"><span><img class='icon'  src='/aDISWeb_kopac85/images/icons/availability-green.svg' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div class="rList_col rList_titel" style="width: 87%;"><a href="javascript:htmlOnLink('AK09095904')">Mein Huhn tanzt</a></div>		<div class="rList_col rList_medium" style="width: 17%;"><img class='icon'  src='/aDISWeb_kopac85/images/icons/medien/buch.svg' alt='Buch' title='Buch' /></div>	</div>	<div class="rList_grid"><div class="rList_col rList_name" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_name" style="width: 70%;">Karin Wallace . Ill. von Anita Jeram. - Eichborn</div>		<div class="rList_col rList_jahr" style="width: 17%;">1993</div>	</div>	<div class="rList_grid"><div class="rList_col rList_signatur" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_check" style="width: 18%;"><input type="checkbox" name="cellCheck$4" fld="###CH1_6" id="cellCheck_4"/><label for="cellCheck_4"><span class="invisible">Markieren</span></label></div>		<div class="rList_col rList_button but_merken" style="width: 18%;"><button value="Merken" id="lrb_5_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_5" type="button"><span class="rlabel">Merken</span></button></div>		<div class="rList_col rList_button but_standort" style="width: 19%;"><button value="Standort" id="lrb_5_12" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_5" type="button"><span class="rlabel">Standort</span></button></div>		<div class="rList_col rList_button but_werktitel" style="width: 15%;">&nbsp;</div>		<div class="rList_col rList_www" style="width: 17%;">&nbsp;</div>	</div></div>	<div aria-hidden="true" id="lcont_5" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li rList_li_even rList_cover_active rList_cover_right" data-ajax="AK34108531"><div class="rList_cover"><div class="rList_col rList_img" style=""><img alt="" title="" src="" data-src="https://www.voebb.de/vlb/cover/9783944874845/s" class="img-delayed"/></div>	</div>	<div class="rList_grid_wrapper"><div class="rList_grid"><div class="rList_col rList_num" style="width: 06%;">29</div>		<div class="rList_col rList_availability" style="width: 06%;"><span><img class='icon'  src='/aDISWeb_kopac85/images/icons/availability-green.svg' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div class="rList_col rList_titel" style="width: 87%;"><a href="javascript:htmlOnLink('AK34108531')">Huhn & Hähnchen : vielseitig und weltweit beliebt</a></div>		<div class="rList_col rList_medium" style="width: 17%;"><img class='icon'  src='/aDISWeb_kopac85/images/icons/medien/buch.svg' alt='Buch' title='Buch' /></div>	</div>	<div class="rList_grid"><div class="rList_col rList_name" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_name" style="width: 70%;">Tareq Taylor; Marcus Lawett ; Inga Nevermann-Ballandis. - Sieveking Verlag</div>		<div class="rList_col rList_jahr" style="width: 17%;">2018</div>	</div>	<div class="rList_grid"><div class="rList_col rList_signatur" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_check" style="width: 18%;"><input type="checkbox" name="cellCheck$5" fld="###CH1_7" id="cellCheck_5"/><label for="cellCheck_5"><span class="invisible">Markieren</span></label></div>		<div class="rList_col rList_button but_merken" style="width: 18%;"><button value="Merken" id="lrb_6_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_6" type="button"><span class="rlabel">Merken</span></button></div>		<div class="rList_col rList_button but_standort" style="width: 19%;"><button value="Standort" id="lrb_6_12" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_6" type="button"><span class="rlabel">Standort</span></button></div>		<div class="rList_col rList_button but_werktitel" style="width: 15%;">&nbsp;</div>		<div class="rList_col rList_www" style="width: 17%;">&nbsp;</div>	</div></div>	<div aria-hidden="true" id="lcont_6" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li rList_li_odd rList_cover_active rList_cover_right" data-ajax="AK03138723"><div class="rList_cover"><div class="rList_col rList_img" style=""><img alt="" title="" src="" data-src="&lt;img class='icon'  src='/aDISWeb_kopac85/images/icons/medien/buch.svg' alt='Buch' title='Buch' /&gt;" class="img-delayed"/></div>	</div>	<div class="rList_grid_wrapper"><div class="rList_grid"><div class="rList_col rList_num" style="width: 06%;">30</div>		<div class="rList_col rList_availability" style="width: 06%;"><span><img class='icon'  src='/aDISWeb_kopac85/images/icons/availability-green.svg' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div class="rList_col rList_titel" style="width: 87%;"><a href="javascript:htmlOnLink('AK03138723')">Das Huhn und der Karpfen</a></div>		<div class="rList_col rList_medium" style="width: 17%;"><img class='icon'  src='/aDISWeb_kopac85/images/icons/medien/buch.svg' alt='Buch' title='Buch' /></div>	</div>	<div class="rList_grid"><div class="rList_col rList_name" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_name" style="width: 70%;">D. Kunze. - 2. Aufl.. - Postreiter-Verl.</div>		<div class="rList_col rList_jahr" style="width: 17%;">1986</div>	</div>	<div class="rList_grid"><div class="rList_col rList_signatur" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_check" style="width: 18%;"><input type="checkbox" name="cellCheck$6" fld="###CH1_8" id="cellCheck_6"/><label for="cellCheck_6"><span class="invisible">Markieren</span></label></div>		<div class="rList_col rList_button but_merken" style="width: 18%;"><button value="Merken" id="lrb_7_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_7" type="button"><span class="rlabel">Merken</span></button></div>		<div class="rList_col rList_button but_standort" style="width: 19%;"><button value="Standort" id="lrb_7_12" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_7" type="button"><span class="rlabel">Standort</span></button></div>		<div class="rList_col rList_button but_werktitel" style="width: 15%;">&nbsp;</div>		<div class="rList_col rList_www" style="width: 17%;">&nbsp;</div>	</div></div>	<div aria-hidden="true" id="lcont_7" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li rList_li_even rList_cover_active rList_cover_right" data-ajax="AK12356315"><div class="rList_cover"><div class="rList_col rList_img" style=""><img alt="" title="" src="" data-src="&lt;img class='icon'  src='/aDISWeb_kopac85/images/icons/medien/buch.svg' alt='Band' title='Band' /&gt;" class="img-delayed"/></div>	</div>	<div class="rList_grid_wrapper"><div class="rList_grid"><div class="rList_col rList_num" style="width: 06%;">31</div>		<div class="rList_col rList_availability" style="width: 06%;"><span><img class='icon'  src='/aDISWeb_kopac85/images/icons/availability-green.svg' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div class="rList_col rList_titel" style="width: 87%;"><a href="javascript:htmlOnLink('AK12356315')">Kurt Huhn : [Gedichte]</a></div>		<div class="rList_col rList_medium" style="width: 17%;"><img class='icon'  src='/aDISWeb_kopac85/images/icons/medien/buch.svg' alt='Band' title='Band' /></div>	</div>	<div class="rList_grid"><div class="rList_col rList_name" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_name" style="width: 70%;">[Ausw.: Ingeborg Klaas-Ortloff]. - Verl. Neues Leben</div>		<div class="rList_col rList_jahr" style="width: 17%;">1980</div>	</div>	<div class="rList_grid"><div class="rList_col rList_signatur" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_check" style="width: 18%;"><input type="checkbox" name="cellCheck$7" fld="###CH1_9" id="cellCheck_7"/><label for="cellCheck_7"><span class="invisible">Markieren</span></label></div>		<div class="rList_col rList_button but_merken" style="width: 18%;"><button value="Merken" id="lrb_8_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_8" type="button"><span class="rlabel">Merken</span></button></div>		<div class="rList_col rList_button but_standort" style="width: 19%;"><button value="Standort" id="lrb_8_12" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_8" type="button"><span class="rlabel">Standort</span></button></div>		<div class="rList_col rList_button but_werktitel" style="width: 15%;">&nbsp;</div>		<div class="rList_col rList_www" style="width: 17%;">&nbsp;</div>	</div></div>	<div aria-hidden="true" id="lcont_8" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li rList_li_odd rList_cover_active rList_cover_right" data-ajax="AK03048554"><div class="rList_cover"><div class="rList_col rList_img" style=""><img alt="" title="" src="" data-src="https://www.voebb.de/vlb/cover/9783358013274/s" class="img-delayed"/></div>	</div>	<div class="rList_grid_wrapper"><div class="rList_grid"><div class="rList_col rList_num" style="width: 06%;">32</div>		<div class="rList_col rList_availability" style="width: 06%;"><span><img class='icon'  src='/aDISWeb_kopac85/images/icons/availability-green.svg' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div class="rList_col rList_titel" style="width: 87%;"><a href="javascript:htmlOnLink('AK03048554')">Meine Mutter das Huhn</a></div>		<div class="rList_col rList_medium" style="width: 17%;"><img class='icon'  src='/aDISWeb_kopac85/images/icons/medien/buch.svg' alt='Buch' title='Buch' /></div>	</div>	<div class="rList_grid"><div class="rList_col rList_name" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_name" style="width: 70%;">Hannes Hüttner ; Thomas Schleusing. - 4. Aufl.. - Kinderbuchverl.</div>		<div class="rList_col rList_jahr" style="width: 17%;">1989</div>	</div>	<div class="rList_grid"><div class="rList_col rList_signatur" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_check" style="width: 18%;"><input type="checkbox" name="cellCheck$8" fld="###CH1_10" id="cellCheck_8"/><label for="cellCheck_8"><span class="invisible">Markieren</span></label></div>		<div class="rList_col rList_button but_merken" style="width: 18%;"><button value="Merken" id="lrb_9_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_9" type="button"><span class="rlabel">Merken</span></button></div>		<div class="rList_col rList_button but_standort" style="width: 19%;"><button value="Standort" id="lrb_9_12" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_9" type="button"><span class="rlabel">Standort</span></button></div>		<div class="rList_col rList_button but_werktitel" style="width: 15%;">&nbsp;</div>		<div class="rList_col rList_www" style="width: 17%;">&nbsp;</div>	</div></div>	<div aria-hidden="true" id="lcont_9" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li rList_li_even rList_cover_active rList_cover_right" data-ajax="AK00306172"><div class="rList_cover"><div class="rList_col rList_img" style=""><img alt="" title="" src="" data-src="&lt;img class='icon'  src='/aDISWeb_kopac85/images/icons/medien/serie.svg' alt='Mehrteiliges Werk' title='Mehrteiliges Werk' /&gt;" class="img-delayed"/></div>	</div>	<div class="rList_grid_wrapper"><div class="rList_grid"><div class="rList_col rList_num" style="width: 06%;">33</div>		<div class="rList_col rList_availability" style="width: 06%;"><span><img class='icon'  src='/aDISWeb_kopac85/images/icons/availability-info-blue.svg' alt='siehe Vollanzeige' title='siehe Vollanzeige' /><em>siehe Vollanzeige</em></span></div>		<div class="rList_col rList_titel" style="width: 87%;"><a href="javascript:htmlOnLink('AK00306172')">Rind, Huhn, Schwein und Co.</a></div>		<div class="rList_col rList_medium" style="width: 17%;"><img class='icon'  src='/aDISWeb_kopac85/images/icons/medien/serie.svg' alt='Mehrteiliges Werk' title='Mehrteiliges Werk' /></div>	</div>	<div class="rList_grid"><div class="rList_col rList_name" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_name" style="width: 70%;">Bildungsverl. EINS</div>		<div class="rList_col rList_jahr" style="width: 17%;">&nbsp;</div>	</div>	<div class="rList_grid"><div class="rList_col rList_signatur" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_check" style="width: 18%;"><input type="checkbox" name="cellCheck$9" fld="###CH1_11" id="cellCheck_9"/><label for="cellCheck_9"><span class="invisible">Markieren</span></label></div>		<div class="rList_col rList_button but_merken" style="width: 18%;"><button value="Merken" id="lrb_10_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_10" type="button"><span class="rlabel">Merken</span></button></div>		<div class="rList_col rList_button but_standort" style="width: 19%;">&nbsp;</div>		<div class="rList_col rList_button but_werktitel" style="width: 15%;">&nbsp;</div>		<div class="rList_col rList_www" style="width: 17%;">&nbsp;</div>	</div></div>	<div aria-hidden="true" id="lcont_10" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li rList_li_odd rList_cover_active rList_cover_right" data-ajax="AK01047408"><div class="rList_cover"><div class="rList_col rList_img" style=""><img alt="" title="" src="" data-src="&lt;img class='icon'  src='/aDISWeb_kopac85/images/icons/medien/buch.svg' alt='Buch' title='Buch' /&gt;" class="img-delayed"/></div>	</div>	<div class="rList_grid_wrapper"><div class="rList_grid"><div class="rList_col rList_num" style="width: 06%;">34</div>		<div class="rList_col rList_availability" style="width: 06%;"><span><img class='icon'  src='/aDISWeb_kopac85/images/icons/availability-green.svg' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div class="rList_col rList_titel" style="width: 87%;"><a href="javascript:htmlOnLink('AK01047408')">Meine Mutter das Huhn</a></div>		<div class="rList_col rList_medium" style="width: 17%;"><img class='icon'  src='/aDISWeb_kopac85/images/icons/medien/buch.svg' alt='Buch' title='Buch' /></div>	</div>	<div class="rList_grid"><div class="rList_col rList_name" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_name" style="width: 70%;">Hannes Hüttner ; Thomas Schleusing. - 1. Aufl.. - Kinderbuchverl.</div>		<div class="rList_col rList_jahr" style="width: 17%;">1981</div>	</div>	<div class="rList_grid"><div class="rList_col rList_signatur" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_check" style="width: 18%;"><input type="checkbox" name="cellCheck$10" fld="###CH1_12" id="cellCheck_10"/><label for="cellCheck_10"><span class="invisible">Markieren</span></label></div>		<div class="rList_col rList_button but_merken" style="width: 18%;"><button value="Merken" id="lrb_11_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_11" type="button"><span class="rlabel">Merken</span></button></div>		<div class="rList_col rList_button but_standort" style="width: 19%;"><button value="Standort" id="lrb_11_12" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_11" type="button"><span class="rlabel">Standort</span></button></div>		<div class="rList_col rList_button but_werktitel" style="width: 15%;">&nbsp;</div>		<div class="rList_col rList_www" style="width: 17%;">&nbsp;</div>	</div></div>	<div aria-hidden="true" id="lcont_11" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li rList_li_even rList_cover_active rList_cover_right" data-ajax="AK03371878"><div class="rList_cover"><div class="rList_col rList_img" style=""><img alt="" title="" src="" data-src="https://www.voebb.de/vlb/cover/9783935261043/s" class="img-delayed"/></div>	</div>	<div class="rList_grid_wrapper"><div class="rList_grid"><div class="rList_col rList_num" style="width: 06%;">35</div>		<div class="rList_col rList_availability" style="width: 06%;"><span><img class='icon'  src='/aDISWeb_kopac85/images/icons/availability-green.svg' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div class="rList_col rList_titel" style="width: 87%;"><a href="javascript:htmlOnLink('AK03371878')">Wunder mit Huhn</a></div>		<div class="rList_col rList_medium" style="width: 17%;"><img class='icon'  src='/aDISWeb_kopac85/images/icons/medien/buch.svg' alt='Buch' title='Buch' /></div>	</div>	<div class="rList_grid"><div class="rList_col rList_name" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_name" style="width: 70%;">erzählt von Ute Kleeberg. Gemalt von Christian Dierks. - 1. Aufl.. - Ed. See-Igel</div>		<div class="rList_col rList_jahr" style="width: 17%;">2004</div>	</div>	<div class="rList_grid"><div class="rList_col rList_signatur" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_check" style="width: 18%;"><input type="checkbox" name="cellCheck$11" fld="###CH1_13" id="cellCheck_11"/><label for="cellCheck_11"><span class="invisible">Markieren</span></label></div>		<div class="rList_col rList_button but_merken" style="width: 18%;"><button value="Merken" id="lrb_12_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_12" type="button"><span class="rlabel">Merken</span></button></div>		<div class="rList_col rList_button but_standort" style="width: 19%;"><button value="Standort" id="lrb_12_12" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_12" type="button"><span class="rlabel">Standort</span></button></div>		<div class="rList_col rList_button but_werktitel" style="width: 15%;">&nbsp;</div>		<div class="rList_col rList_www" style="width: 17%;">&nbsp;</div>	</div></div>	<div aria-hidden="true" id="lcont_12" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li rList_li_odd rList_cover_active rList_cover_right" data-ajax="AK34118909"><div class="rList_cover"><div class="rList_col rList_img" style=""><img alt="" title="" src="" data-src="https://www.voebb.de/vlb/cover/9783958437296/s" class="img-delayed"/></div>	</div>	<div class="rList_grid_wrapper"><div class="rList_grid"><div class="rList_col rList_num" style="width: 06%;">36</div>		<div class="rList_col rList_availability" style="width: 06%;"><span><img class='icon'  src='/aDISWeb_kopac85/images/icons/availability-info-blue.svg' alt='siehe Vollanzeige' title='siehe Vollanzeige' /><em>siehe Vollanzeige</em></span></div>		<div class="rList_col rList_titel" style="width: 87%;"><a href="javascript:htmlOnLink('AK34118909')">BBQ Huhn : Raichlens beste Chicken-Rezepte</a></div>		<div class="rList_col rList_medium" style="width: 17%;"><img class='icon'  src='/aDISWeb_kopac85/images/icons/medien/ebook.svg' alt='E-Book' title='E-Book' /></div>	</div>	<div class="rList_grid"><div class="rList_col rList_name" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_name" style="width: 70%;">Steven Raichlen. - Heel Verlag</div>		<div class="rList_col rList_jahr" style="width: 17%;">2018</div>	</div>	<div class="rList_grid"><div class="rList_col rList_signatur" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_check" style="width: 18%;"><input type="checkbox" name="cellCheck$12" fld="###CH1_14" id="cellCheck_12"/><label for="cellCheck_12"><span class="invisible">Markieren</span></label></div>		<div class="rList_col rList_button but_merken" style="width: 18%;"><button value="Merken" id="lrb_13_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_13" type="button"><span class="rlabel">Merken</span></button></div>		<div class="rList_col rList_button but_standort" style="width: 19%;">&nbsp;</div>		<div class="rList_col rList_button but_werktitel" style="width: 15%;">&nbsp;</div>		<div class="rList_col rList_www" style="width: 17%;"><a href="http://voebb.onleihe.de/berlin/frontend/mediaInfo,51-0-713123925-100-0-0-0-0-0-0-0.html" title="http://voebb.onleihe.de/berlin/frontend/mediaInfo,51-0-713123925-100-0-0-0-0-0-0-0.html" target="_blank">E-Medium</a></div>	</div></div>	<div aria-hidden="true" id="lcont_13" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li rList_li_even rList_cover_active rList_cover_right" data-ajax="AK13964575"><div class="rList_cover"><div class="rList_col rList_img" style=""><img alt="" title="" src="" data-src="&lt;img class='icon'  src='/aDISWeb_kopac85/images/icons/medien/konsolenspiel.svg' alt='Konsolenspiel' title='Konsolenspiel' /&gt;" class="img-delayed"/></div>	</div>	<div class="rList_grid_wrapper"><div class="rList_grid"><div class="rList_col rList_num" style="width: 06%;">37</div>		<div class="rList_col rList_availability" style="width: 06%;"><span><img class='icon'  src='/aDISWeb_kopac85/images/icons/availability-no-red.svg' alt='ist zur Zeit nicht verf&#0252;gbar' title='ist zur Zeit nicht verf&#0252;gbar' /><em>ist nicht verf&#0252;gbar</em></span></div>		<div class="rList_col rList_titel" style="width: 87%;"><a href="javascript:htmlOnLink('AK13964575')">Himmel und Huhn : Game Boy advance ; [Konsolenspiel]</a></div>		<div class="rList_col rList_medium" style="width: 17%;"><img class='icon'  src='/aDISWeb_kopac85/images/icons/medien/konsolenspiel.svg' alt='Konsolenspiel' title='Konsolenspiel' /></div>	</div>	<div class="rList_grid"><div class="rList_col rList_name" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_name" style="width: 70%;">Walt Disney Company. - Buena Vista interactive</div>		<div class="rList_col rList_jahr" style="width: 17%;">2006</div>	</div>	<div class="rList_grid"><div class="rList_col rList_signatur" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_check" style="width: 18%;"><input type="checkbox" name="cellCheck$13" fld="###CH1_15" id="cellCheck_13"/><label for="cellCheck_13"><span class="invisible">Markieren</span></label></div>		<div class="rList_col rList_button but_merken" style="width: 18%;"><button value="Merken" id="lrb_14_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_14" type="button"><span class="rlabel">Merken</span></button></div>		<div class="rList_col rList_button but_standort" style="width: 19%;"><button value="Standort" id="lrb_14_12" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_14" type="button"><span class="rlabel">Standort</span></button></div>		<div class="rList_col rList_button but_werktitel" style="width: 15%;">&nbsp;</div>		<div class="rList_col rList_www" style="width: 17%;">&nbsp;</div>	</div></div>	<div aria-hidden="true" id="lcont_14" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li rList_li_odd rList_cover_active rList_cover_right" data-ajax="AK09310419"><div class="rList_cover"><div class="rList_col rList_img" style=""><img alt="" title="" src="" data-src="https://www.voebb.de/vlb/cover/9783833818837/s" class="img-delayed"/></div>	</div>	<div class="rList_grid_wrapper"><div class="rList_grid"><div class="rList_col rList_num" style="width: 06%;">38</div>		<div class="rList_col rList_availability" style="width: 06%;"><span><img class='icon'  src='/aDISWeb_kopac85/images/icons/availability-green.svg' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div class="rList_col rList_titel" style="width: 87%;"><a href="javascript:htmlOnLink('AK09310419')">1 Huhn - 50 Rezepte</a></div>		<div class="rList_col rList_medium" style="width: 17%;"><img class='icon'  src='/aDISWeb_kopac85/images/icons/medien/buch.svg' alt='Band' title='Band' /></div>	</div>	<div class="rList_grid"><div class="rList_col rList_name" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_name" style="width: 70%;">Autorin: Cornelia Schinharl. Fotos: Jörn Rynio. - 1. Aufl.. - Gräfe und Unzer</div>		<div class="rList_col rList_jahr" style="width: 17%;">2011</div>	</div>	<div class="rList_grid"><div class="rList_col rList_signatur" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_check" style="width: 18%;"><input type="checkbox" name="cellCheck$14" fld="###CH1_16" id="cellCheck_14"/><label for="cellCheck_14"><span class="invisible">Markieren</span></label></div>		<div class="rList_col rList_button but_merken" style="width: 18%;"><button value="Merken" id="lrb_15_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_15" type="button"><span class="rlabel">Merken</span></button></div>		<div class="rList_col rList_button but_standort" style="width: 19%;"><button value="Standort" id="lrb_15_12" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_15" type="button"><span class="rlabel">Standort</span></button></div>		<div class="rList_col rList_button but_werktitel" style="width: 15%;">&nbsp;</div>		<div class="rList_col rList_www" style="width: 17%;">&nbsp;</div>	</div></div>	<div aria-hidden="true" id="lcont_15" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li rList_li_even rList_cover_active rList_cover_right" data-ajax="AK14079003"><div class="rList_cover"><div class="rList_col rList_img" style=""><img alt="" title="" src="" data-src="https://www.voebb.de/vlb/cover/9783865660442/s" class="img-delayed"/></div>	</div>	<div class="rList_grid_wrapper"><div class="rList_grid"><div class="rList_col rList_num" style="width: 06%;">39</div>		<div class="rList_col rList_availability" style="width: 06%;"><span><img class='icon'  src='/aDISWeb_kopac85/images/icons/availability-green.svg' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div class="rList_col rList_titel" style="width: 87%;"><a href="javascript:htmlOnLink('AK14079003')">Kleines Huhn & kleines Füchslein</a></div>		<div class="rList_col rList_medium" style="width: 17%;"><img class='icon'  src='/aDISWeb_kopac85/images/icons/medien/buch.svg' alt='Buch' title='Buch' /></div>	</div>	<div class="rList_grid"><div class="rList_col rList_name" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_name" style="width: 70%;">Brigitte Sidjanski & Sarah Emmanuelle Burg. - 2. Aufl.. - mined.</div>		<div class="rList_col rList_jahr" style="width: 17%;">2006</div>	</div>	<div class="rList_grid"><div class="rList_col rList_signatur" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_check" style="width: 18%;"><input type="checkbox" name="cellCheck$15" fld="###CH1_17" id="cellCheck_15"/><label for="cellCheck_15"><span class="invisible">Markieren</span></label></div>		<div class="rList_col rList_button but_merken" style="width: 18%;"><button value="Merken" id="lrb_16_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_16" type="button"><span class="rlabel">Merken</span></button></div>		<div class="rList_col rList_button but_standort" style="width: 19%;"><button value="Standort" id="lrb_16_12" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_16" type="button"><span class="rlabel">Standort</span></button></div>		<div class="rList_col rList_button but_werktitel" style="width: 15%;">&nbsp;</div>		<div class="rList_col rList_www" style="width: 17%;">&nbsp;</div>	</div></div>	<div aria-hidden="true" id="lcont_16" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li rList_li_odd rList_cover_active rList_cover_right" data-ajax="AK02192718"><div class="rList_cover"><div class="rList_col rList_img" style=""><img alt="" title="" src="" data-src="https://www.voebb.de/vlb/cover/9783314014833/s" class="img-delayed"/></div>	</div>	<div class="rList_grid_wrapper"><div class="rList_grid"><div class="rList_col rList_num" style="width: 06%;">40</div>		<div class="rList_col rList_availability" style="width: 06%;"><span><img class='icon'  src='/aDISWeb_kopac85/images/icons/availability-green.svg' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div class="rList_col rList_titel" style="width: 87%;"><a href="javascript:htmlOnLink('AK02192718')">Das schwarze Huhn</a></div>		<div class="rList_col rList_medium" style="width: 17%;"><img class='icon'  src='/aDISWeb_kopac85/images/icons/medien/buch.svg' alt='Buch' title='Buch' /></div>	</div>	<div class="rList_grid"><div class="rList_col rList_name" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_name" style="width: 70%;">erzählt von Martina Schloßmacher mit Bildern von Iskender Gider. - 5., Aufl.. - NordSüd</div>		<div class="rList_col rList_jahr" style="width: 17%;">2006</div>	</div>	<div class="rList_grid"><div class="rList_col rList_signatur" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_check" style="width: 18%;"><input type="checkbox" name="cellCheck$16" fld="###CH1_18" id="cellCheck_16"/><label for="cellCheck_16"><span class="invisible">Markieren</span></label></div>		<div class="rList_col rList_button but_merken" style="width: 18%;"><button value="Merken" id="lrb_17_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_17" type="button"><span class="rlabel">Merken</span></button></div>		<div class="rList_col rList_button but_standort" style="width: 19%;"><button value="Standort" id="lrb_17_12" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_17" type="button"><span class="rlabel">Standort</span></button></div>		<div class="rList_col rList_button but_werktitel" style="width: 15%;">&nbsp;</div>		<div class="rList_col rList_www" style="width: 17%;">&nbsp;</div>	</div></div>	<div aria-hidden="true" id="lcont_17" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li rList_li_even rList_cover_active rList_cover_right" data-ajax="AK02189813"><div class="rList_cover"><div class="rList_col rList_img" style=""><img alt="" title="" src="" data-src="https://www.voebb.de/vlb/cover/9783314014208/s" class="img-delayed"/></div>	</div>	<div class="rList_grid_wrapper"><div class="rList_grid"><div class="rList_col rList_num" style="width: 06%;">41</div>		<div class="rList_col rList_availability" style="width: 06%;"><span><img class='icon'  src='/aDISWeb_kopac85/images/icons/availability-green.svg' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div class="rList_col rList_titel" style="width: 87%;"><a href="javascript:htmlOnLink('AK02189813')">Bravo, kleines Huhn!</a></div>		<div class="rList_col rList_medium" style="width: 17%;"><img class='icon'  src='/aDISWeb_kopac85/images/icons/medien/buch.svg' alt='Buch' title='Buch' /></div>	</div>	<div class="rList_grid"><div class="rList_col rList_name" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_name" style="width: 70%;">Sarah E. Burg ; ill. von Sarah E. Burg. - 1. Aufl.. - Nord-Süd Vlg</div>		<div class="rList_col rList_jahr" style="width: 17%;">2005</div>	</div>	<div class="rList_grid"><div class="rList_col rList_signatur" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_check" style="width: 18%;"><input type="checkbox" name="cellCheck$17" fld="###CH1_19" id="cellCheck_17"/><label for="cellCheck_17"><span class="invisible">Markieren</span></label></div>		<div class="rList_col rList_button but_merken" style="width: 18%;"><button value="Merken" id="lrb_18_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_18" type="button"><span class="rlabel">Merken</span></button></div>		<div class="rList_col rList_button but_standort" style="width: 19%;"><button value="Standort" id="lrb_18_12" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_18" type="button"><span class="rlabel">Standort</span></button></div>		<div class="rList_col rList_button but_werktitel" style="width: 15%;">&nbsp;</div>		<div class="rList_col rList_www" style="width: 17%;">&nbsp;</div>	</div></div>	<div aria-hidden="true" id="lcont_18" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li rList_li_odd rList_cover_active rList_cover_right" data-ajax="AK03458741"><div class="rList_cover"><div class="rList_col rList_img" style=""><img alt="" title="" src="" data-src="https://www.voebb.de/vlb/cover/9783701720941/s" class="img-delayed"/></div>	</div>	<div class="rList_grid_wrapper"><div class="rList_grid"><div class="rList_col rList_num" style="width: 06%;">42</div>		<div class="rList_col rList_availability" style="width: 06%;"><span><img class='icon'  src='/aDISWeb_kopac85/images/icons/availability-green.svg' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div class="rList_col rList_titel" style="width: 87%;"><a href="javascript:htmlOnLink('AK03458741')">Ein verrücktes Huhn</a></div>		<div class="rList_col rList_medium" style="width: 17%;"><img class='icon'  src='/aDISWeb_kopac85/images/icons/medien/buch.svg' alt='Band' title='Band' /></div>	</div>	<div class="rList_grid"><div class="rList_col rList_name" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_name" style="width: 70%;">Text Heinz Janisch. Bilder Walter Schmögner. - Residenz-Verl.</div>		<div class="rList_col rList_jahr" style="width: 17%;">2011</div>	</div>	<div class="rList_grid"><div class="rList_col rList_signatur" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_check" style="width: 18%;"><input type="checkbox" name="cellCheck$18" fld="###CH1_20" id="cellCheck_18"/><label for="cellCheck_18"><span class="invisible">Markieren</span></label></div>		<div class="rList_col rList_button but_merken" style="width: 18%;"><button value="Merken" id="lrb_19_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_19" type="button"><span class="rlabel">Merken</span></button></div>		<div class="rList_col rList_button but_standort" style="width: 19%;"><button value="Standort" id="lrb_19_12" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_19" type="button"><span class="rlabel">Standort</span></button></div>		<div class="rList_col rList_button but_werktitel" style="width: 15%;">&nbsp;</div>		<div class="rList_col rList_www" style="width: 17%;">&nbsp;</div>	</div></div>	<div aria-hidden="true" id="lcont_19" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li rList_li_even rList_cover_active rList_cover_right" data-ajax="AK03479792"><div class="rList_cover"><div class="rList_col rList_img" style=""><img alt="" title="" src="" data-src="https://www.voebb.de/vlb/cover/9783946301004/s" class="img-delayed"/></div>	</div>	<div class="rList_grid_wrapper"><div class="rList_grid"><div class="rList_col rList_num" style="width: 06%;">43</div>		<div class="rList_col rList_availability" style="width: 06%;"><span><img class='icon'  src='/aDISWeb_kopac85/images/icons/availability-green.svg' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div class="rList_col rList_titel" style="width: 87%;"><a href="javascript:htmlOnLink('AK03479792')">Couscous mit Huhn</a></div>		<div class="rList_col rList_medium" style="width: 17%;"><img class='icon'  src='/aDISWeb_kopac85/images/icons/medien/buch.svg' alt='Buch' title='Buch' /></div>	</div>	<div class="rList_grid"><div class="rList_col rList_name" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_name" style="width: 70%;">eine Geschichte von Annette Stirnberg ; gezeichnet von Carsten Schacher. - Erstauflage. - EJM - Echt Jood Medien</div>		<div class="rList_col rList_jahr" style="width: 17%;">2016</div>	</div>	<div class="rList_grid"><div class="rList_col rList_signatur" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_check" style="width: 18%;"><input type="checkbox" name="cellCheck$19" fld="###CH1_21" id="cellCheck_19"/><label for="cellCheck_19"><span class="invisible">Markieren</span></label></div>		<div class="rList_col rList_button but_merken" style="width: 18%;"><button value="Merken" id="lrb_20_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_20" type="button"><span class="rlabel">Merken</span></button></div>		<div class="rList_col rList_button but_standort" style="width: 19%;"><button value="Standort" id="lrb_20_12" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_20" type="button"><span class="rlabel">Standort</span></button></div>		<div class="rList_col rList_button but_werktitel" style="width: 15%;">&nbsp;</div>		<div class="rList_col rList_www" style="width: 17%;">&nbsp;</div>	</div></div>	<div aria-hidden="true" id="lcont_20" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li rList_li_odd rList_cover_active rList_cover_right" data-ajax="AK14117525"><div class="rList_cover"><div class="rList_col rList_img" style=""><img alt="" title="" src="" data-src="&lt;img class='icon'  src='/aDISWeb_kopac85/images/icons/medien/dvd-rom.svg' alt='DVD-ROM' title='DVD-ROM' /&gt;" class="img-delayed"/></div>	</div>	<div class="rList_grid_wrapper"><div class="rList_grid"><div class="rList_col rList_num" style="width: 06%;">44</div>		<div class="rList_col rList_availability" style="width: 06%;"><span><img class='icon'  src='/aDISWeb_kopac85/images/icons/availability-green.svg' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div class="rList_col rList_titel" style="width: 87%;"><a href="javascript:htmlOnLink('AK14117525')">Himmel und Huhn : [Computerspiel] ; [DVD-ROM]</a></div>		<div class="rList_col rList_medium" style="width: 17%;"><img class='icon'  src='/aDISWeb_kopac85/images/icons/medien/dvd-rom.svg' alt='DVD-ROM' title='DVD-ROM' /></div>	</div>	<div class="rList_grid"><div class="rList_col rList_name" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_name" style="width: 70%;">Disney. - Buena Vista Games</div>		<div class="rList_col rList_jahr" style="width: 17%;">2006</div>	</div>	<div class="rList_grid"><div class="rList_col rList_signatur" style="width: 12%;">&nbsp;</div>		<div class="rList_col rList_check" style="width: 18%;"><input type="checkbox" name="cellCheck$20" fld="###CH1_22" id="cellCheck_20"/><label for="cellCheck_20"><span class="invisible">Markieren</span></label></div>		<div class="rList_col rList_button but_merken" style="width: 18%;"><button value="Merken" id="lrb_21_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_21" type="button"><span class="rlabel">Merken</span></button></div>		<div class="rList_col rList_button but_standort" style="width: 19%;"><button value="Standort" id="lrb_21_12" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_21" type="button"><span class="rlabel">Standort</span></button></div>		<div class="rList_col rList_button but_werktitel" style="width: 15%;">&nbsp;</div>		<div class="rList_col rList_www" style="width: 17%;">&nbsp;</div>	</div></div>	<div aria-hidden="true" id="lcont_21" class="rList_panel content-inactive" aria-expanded="false"></div></li></ul>	</div> </div>
+</div>
+                     </section>
+                  </div>
+                </div>
+
+<!-- START: Hilfetext 1 -->
+                 <div class="grid-col col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 arena-standard arena-trefferliste arena-vollanzeige">
+                  <div class="grid-inside">
+                    <section id="options">
+                       <div id="R04">
+  <p><input type="submit" name="textButton$0" value="Meine Suche speichern" class="imp-button speichern" fld="$$GFBO_6"/> </p>
+</div>
+                      <div class="title-widget"><h3><i class="icon merkliste" aria-hidden="true"></i>Merklisten</h3></div>
+                       <div class="helptext">
+                        <div class="accordion">
+                          <h4 class="toggler" role="tab" id="accordion-help-1-toggler" aria-controls="accordion-help-1-content" aria-selected="false" aria-expanded="false">
+                            <i class="accordion-icon icon-help" aria-hidden="true"></i>Merkliste aktivieren
+                           </h4>
+                          <div class="accordion-content" id="accordion-help-1-content" aria-labelledby="accordion-help-1-toggler" role="tabpanel" aria-hidden="true"><div class="accordion-inner"><div class="html_div">Durch Anklicken einer Merkliste wird diese an die erste Position platziert und wird zur <strong>aktiven Merkliste</strong>. Ist das Stern-Icon gefüllt, führt der Klick auf diese <strong>aktive Merkliste</strong> zur Anzeige der Merkliste.</div> </div></div>
+                        </div>
+                        <ul class="cssmenu_ul" id="Mainmenu">
+<li class="cssmenu_ul"><a href="#"> </a>
+<ul class="menufts">
+<li class="var_button"><a href="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$17.directlink&amp;sp=S%24%24GFBO_41&amp;sp=SML01&amp;requestCount=2" fld="$$GFBO_41" title="" data-ajax="$MLFLD_1"><span class="merkzettel status-inactive">Merkliste</span></a></li>
+<li class="var_button"><a href="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$18.directlink&amp;sp=S%24%24GFBO_42&amp;sp=SML02&amp;requestCount=2" fld="$$GFBO_42" title="" data-ajax="$MLFLD_2"></a></li>
+<li class="var_button"><a href="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$19.directlink&amp;sp=S%24%24GFBO_43&amp;sp=SML03&amp;requestCount=2" fld="$$GFBO_43" title="" data-ajax="$MLFLD_3"></a></li>
+<li class="var_button"><a href="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$20.directlink&amp;sp=S%24%24GFBO_44&amp;sp=SML04&amp;requestCount=2" fld="$$GFBO_44" title="" data-ajax="$MLFLD_4"></a></li>
+<li class="var_button"><a href="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$21.directlink&amp;sp=S%24%24GFBO_45&amp;sp=SML05&amp;requestCount=2" fld="$$GFBO_45" title="" data-ajax="$MLFLD_5"></a></li>
+<li class="var_button"><a href="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$22.directlink&amp;sp=S%24%24GFBO_46&amp;sp=SML06&amp;requestCount=2" fld="$$GFBO_46" title="" data-ajax="$MLFLD_6"></a></li>
+<li class="var_button"><a href="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$23.directlink&amp;sp=S%24%24GFBO_47&amp;sp=SML07&amp;requestCount=2" fld="$$GFBO_47" title="" data-ajax="$MLFLD_7"></a></li>
+<li class="var_button"><a href="/aDISWeb/app;jsessionid=726C60E46BB77677BD59D75847577CE3?service=direct/1/POOLVX00p-varuba_4B033700_00000000/$InternalLink$24.directlink&amp;sp=S%24%24GFBO_48&amp;sp=SML08&amp;requestCount=2" fld="$$GFBO_48" title="" data-ajax="$MLFLD_8"></a></li>
+</ul></li>
+</ul>
+                       </div>
+
+<!-- START Hilfetext 2 -->
+                        <div class="title-widget"><h3><i class="icon merkliste" aria-hidden="true"></i>Trefferliste filtern</h3></div>
+                        <div class="helptext">
+                          <div class="accordion">
+                          <h4 class="toggler" role="tab" id="accordion-help-2-toggler" aria-controls="accordion-help-2-content" aria-selected="false" aria-expanded="false">
+                          <i class="accordion-icon icon-help" aria-hidden="true"></i>So funktioniert das Filtern
+                          </h4>
+                          <div class="accordion-content" id="accordion-help-2-content" aria-labelledby="accordion-help-2-toggler" role="tabpanel" aria-hidden="true"><div class="accordion-inner"><div class="html_div">Klicken Sie einen Filter an, um dessen Werte anzuzeigen.<br/> Sie können Ihre Trefferliste einschränken, indem Sie einen oder mehrere dieser Werte von einem oder mehrere(n) Filtern auswählen und auf die Schaltfläche "Filter aktivieren/deaktivieren" klicken. Sie können Ihre eingeschränkte Trefferliste wieder erweitern, indem Sie die Häkchen der Werte unter der Rubrik "Aktive Filter" wieder entfernen und die Schaltfläche "Filter aktivieren/deaktivieren" auslösen.</div> </div></div>
+                        </div>
+
+<!-- STOP Hilfetext 2: Trefferliste filtern -->
+                      <div class="filter-widget">
+                      <div id="R19">
+  <p class="widget-submit block"><input type="submit" name="textButton$1" value="Filtern" class="imp-button filter" fld="$$GFBO_11"/> </p>
+</div><div class="cbtree_div" role="tabpanel">
+<ul class="cbtree_ul" role="tablist">
+<li class="cbtree_branch_li">
+<button type="submit" role="tab" aria-controls="sub-PTL1_tree_1_0" name="PTL1_tree_1_0" id="but-PTL1_tree_1_0" class="cbtree_branch_a inactive" aria-selected="false" aria-expanded="false"><i aria-hidden="true" class="icon-type"></i>Medienart<i aria-hidden="true" class="icon-collapsible"></i></button></li>
+<li class="cbtree_branch_li">
+<button type="submit" role="tab" aria-controls="sub-PTL1_tree_1_31" name="PTL1_tree_1_31" id="but-PTL1_tree_1_31" class="cbtree_branch_a inactive" aria-selected="false" aria-expanded="false"><i aria-hidden="true" class="icon-type"></i>Bibliothek<i aria-hidden="true" class="icon-collapsible"></i></button></li>
+<li class="cbtree_branch_li">
+<button type="submit" role="tab" aria-controls="sub-PTL1_tree_1_118" name="PTL1_tree_1_118" id="but-PTL1_tree_1_118" class="cbtree_branch_a inactive" aria-selected="false" aria-expanded="false"><i aria-hidden="true" class="icon-type"></i>Schlagwort<i aria-hidden="true" class="icon-collapsible"></i></button></li>
+<li class="cbtree_branch_li">
+<button type="submit" role="tab" aria-controls="sub-PTL1_tree_1_149" name="PTL1_tree_1_149" id="but-PTL1_tree_1_149" class="cbtree_branch_a inactive" aria-selected="false" aria-expanded="false"><i aria-hidden="true" class="icon-type"></i>Jahr<i aria-hidden="true" class="icon-collapsible"></i></button></li>
+<li class="cbtree_branch_li">
+<button type="submit" role="tab" aria-controls="sub-PTL1_tree_1_156" name="PTL1_tree_1_156" id="but-PTL1_tree_1_156" class="cbtree_branch_a inactive" aria-selected="false" aria-expanded="false"><i aria-hidden="true" class="icon-type"></i>Sprache<i aria-hidden="true" class="icon-collapsible"></i></button></li>
+<li class="cbtree_branch_li">
+<button type="submit" role="tab" aria-controls="sub-PTL1_tree_1_187" name="PTL1_tree_1_187" id="but-PTL1_tree_1_187" class="cbtree_branch_a inactive" aria-selected="false" aria-expanded="false"><i aria-hidden="true" class="icon-type"></i>Notenausgabe<i aria-hidden="true" class="icon-collapsible"></i></button></li>
+<li class="cbtree_branch_li">
+<button type="submit" role="tab" aria-controls="sub-PTL1_tree_1_192" name="PTL1_tree_1_192" id="but-PTL1_tree_1_192" class="cbtree_branch_a inactive" aria-selected="false" aria-expanded="false"><i aria-hidden="true" class="icon-type"></i>Zielgruppe<i aria-hidden="true" class="icon-collapsible"></i></button></li>
+<li class="cbtree_branch_li">
+<button type="submit" role="tab" aria-controls="sub-PTL1_tree_1_200" name="PTL1_tree_1_200" id="but-PTL1_tree_1_200" class="cbtree_branch_a inactive" aria-selected="false" aria-expanded="false"><i aria-hidden="true" class="icon-type"></i>Art/Inhalt<i aria-hidden="true" class="icon-collapsible"></i></button></li>
+</ul></div>
+ </div>
+                      <div id="R09">
+  <p class="widget-submit block"><input type="submit" name="textButton$2" value="Filtern" class="imp-button filter" fld="$$GFBO_12"/> </p>
+</div>
+                      <div class="title-widget"><h3><i class="icon other" aria-hidden="true"></i>Weitere Optionen</h3></div>
+                      <div id="R05">
+<div class="accordion">
+  <h3 class="toggler" role="tab" id="accordion-R05-toggler" aria-controls="accordion-R05-content" aria-selected="false" aria-expanded="false">
+    <i class="accordion-icon icon-sort" aria-hidden="true"></i><span class="fbz-text">Sortierung &#228;ndern</span> </h3>
+  <div class="accordion-content" id="accordion-R05-content" aria-labelledby="accordion-R05-toggler" role="tabpanel" aria-hidden="true">
+    <div class="accordion-inner">
+
+      <p><input type="submit" name="textButton$3" value="Relevanz" class="buttong" fld="$$GFBO_13"/><input type="submit" name="textButton$4" value="Titel" class="buttong" fld="$$GFBO_19"/><input type="submit" name="textButton$5" value="Verfasser" class="buttong" fld="$$GFBO_2"/><input type="submit" name="textButton$6" value="Jahr abw&#228;rts" class="buttong" fld="$$GFBO_3"/><input type="submit" name="textButton$7" value="Jahr aufw&#228;rts" class="buttong" fld="$$GFBO_4"/> </p>
+
+    </div>
+  </div>
+</div>
+</div>
+                      <div id="R11">
+
+<div class="accordion">
+  <h3 class="toggler" role="tab" id="accordion-R11-toggler" aria-controls="accordion-R11-content" aria-selected="false" aria-expanded="false">
+    <i class="accordion-icon icon-export" aria-hidden="true"></i><span class="fbz-text">Titel exportieren</span> </h3>
+  <div class="accordion-content" id="accordion-R11-content" aria-labelledby="accordion-R11-toggler" role="tabpanel" aria-hidden="true">
+    <div class="accordion-inner"><p class="buttong"><input type="submit" name="textButton$8" value="BibTeX" class="buttong"/><input type="submit" name="textButton$9" value="Citavi" class="buttong"/><input type="submit" name="textButton$10" value="EndNote" class="buttong"/><input type="submit" name="textButton$11" value="ProCite" class="buttong"/><input type="submit" name="textButton$12" value="Reference Manager" class="buttong"/><input type="submit" name="textButton$13" value="RefWorks" class="buttong"/><input type="submit" name="textButton$14" value="Zotero" class="buttong"/></p> </div>
+  </div>
+</div>
+
+</div>
+                     </section>
+                  </div>
+                </div>
+
+<!-- ENDE: OPTIONEN-Spalte RECHTS -->
+                 <div class="grid-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 arena-all">
+                  <div class="grid-inside"><div class="toolbar_div">
+<ul class="toolbar_ul">
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00p-varuba/png/POOLVX00p-varuba_53010E00_36C0CC00.png;jsessionid=726C60E46BB77677BD59D75847577CE3" alt="zur&#252;ck zur letzten Anzeige" id="Toolbar$0_0" name="$Toolbar$0_0" title="zur&#252;ck zur letzten Anzeige" onmouseover="self.status='zur&#252;ck zur letzten Anzeige';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_0"><span class="toolbar_txt">Zur&#252;ck</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00p-varuba/png/POOLVX00p-varuba_53006900_370BF180.png;jsessionid=726C60E46BB77677BD59D75847577CE3" alt="zum Anfang" id="Toolbar$0_1" name="$Toolbar$0_1" title="zum Anfang" onmouseover="self.status='zum Anfang';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_1"><span class="toolbar_txt"></span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00p-varuba/png/POOLVX00p-varuba_53011500_370BF180.png;jsessionid=726C60E46BB77677BD59D75847577CE3" alt="zur&#252;ck" id="Toolbar$0_2" name="$Toolbar$0_2" title="zur&#252;ck" onmouseover="self.status='zur&#252;ck';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_2"><span class="toolbar_txt"></span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00p-varuba/png/POOLVX00p-varuba_53011400_370BF180.png;jsessionid=726C60E46BB77677BD59D75847577CE3" alt="n&#228;chster" id="Toolbar$0_3" name="$Toolbar$0_3" title="n&#228;chster" onmouseover="self.status='n&#228;chster';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_3"><span class="toolbar_txt"></span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00p-varuba/png/POOLVX00p-varuba_53011B01_370BF180.png;jsessionid=726C60E46BB77677BD59D75847577CE3" alt="zum Ende" id="Toolbar$0_4" name="$Toolbar$0_4" disabled="disabled" title="zum Ende" onmouseover="self.status='zum Ende';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar$0_4"><span class="toolbar_txt_dis"></span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00p-varuba/png/POOLVX00p-varuba_53002800_31169A00.png;jsessionid=726C60E46BB77677BD59D75847577CE3" alt="zur Vollanzeige der Treffer" id="Toolbar$0_5" name="$Toolbar$0_5" title="zur Vollanzeige der Treffer" onmouseover="self.status='zur Vollanzeige der Treffer';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_5"><span class="toolbar_txt">Vollanzeige</span></label></li></ul><div style="clear:both"></div></div> </div>
+                </div>
+               </div>
+            </div>
+
+<!-- GRID SYSTEM STOP -->
+            
+</div> <!-- page -->	</div></div> <!-- block--> <!-- block--> <!-- block-->
+
+          </div>
+        </main>
+      </div>
+    </div>
+
+<!-- STOP Container -->
+     <footer id="footer">
+      <div class="inside">
+            <div class="grid-wrapper">
+              <div class="grid-row">
+                 <div id="fnav-logo" class="grid-col col-12 col-sm-2 col-md-5 col-lg-3">
+                  <a href="https://www.voebb.de" title="Zur Homepage des Bibliothekskataloges V&Ouml;BB" aria-label="Zur Homepage des Bibliothekskataloges V&Ouml;BB"><img src="/aDISWeb_vob/images/icons/VOEBB-Logo-Footer.svg" width="157" height="218" alt="V&Ouml;BB Logo"></a>
+                </div>
+                <div id="legal" class="grid-col col-12 col-sm-10 col-md-5 col-lg-7">
+                  <nav class="mod_navigation block" aria-label="Men&uuml;: &Uuml;bersicht, Nutzungsbedingungen und sonstige rechtliche Hinweise">
+                    <ul>
+                      <li><a href="/aDISWeb_vob/entgelt.html" target="_blank" aria-label="Benutzungs- und Entgeltordnung (neues Browser-Fenster)">Benutzungs- und Entgeltordnung</a></li>
+                      <li><a href="/aDISWeb_vob/datenschutz.html" target="_blank" aria-label="Datenschutz (neues Browser-Fenster)">Datenschutz</a></li>
+                      <li><a href="/aDISWeb_vob/impressum.html" target="_blank" aria-label="Impressum (neues Browser-Fenster)">Impressum</a></li>
+                    </ul>
+                  </nav>
+                </div>
+
+<!--
+                <div id="social" class="grid-col col-12 col-md-2 col-lg-2">
+                  <nav class="mod_navigation block" aria-label="Men&uuml;: Soziale Medien">
+                    <ul>                                                                                                                 
+                      <li id="snav-facebook"><a href="#" target="_blank" rel="nofollow noopener" aria-label="Externer Link: facebook-Seite des V&Ouml;BB (neues Browser-Fenster)">facebook</a></li>
+                      <li id="snav-twitter"><a href="#" target="_blank" rel="nofollow noopener" aria-label="Externer Link: twitter-Seite des V&Ouml;BB (neues Browser-Fenster)">twitter</a></li>
+                      <li id="snav-youtube"><a href="#r" target="_blank" rel="nofollow noopener" aria-label="Externer Link: youtube-Seite des V&Ouml;BB (neues Browser-Fenster)">youtube</a></li>
+                    </ul>
+                  </nav>
+                </div>
+                -->
+                 <div id="toplink" class="grid-col col-12 col-md-2 col-lg-2">
+                  <p id="goingup" class="block">
+                    <a href="#wrapper" aria-label="Nach oben zum Seitenanfang" title="Nach oben zum Seitenanfang">Nach oben</a>
+                  </p>
+                </div>
+                <div class="grid-col col-12 offset-md-5 col-md-5">
+                  <p id="credits">
+                    &copy; Verbund der &Ouml;ffentlichen Bibliotheken Berlins, 2019<br>
+                    <a href="https://www.astec.de" target="_blank">Barrierefreie Bibliothekssoftware der aStec angewandte Systemtechnik</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+        <div class="clear"></div>
+      </div>
+    </footer>
+  </div>
+</div>
+<script src="/aDISWeb_vob/js/scripts-main.js"></script>
+<script src="/aDISWeb_vob/js/fixedThing.js"></script></form>
+</div></body>
+</html>

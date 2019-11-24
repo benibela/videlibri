@@ -2,10 +2,10 @@
   <html>
     <template:meta default-text-matching="regex"/>
     { declare function local:img-to-status($img){
-        switch (extract($img/@src, "verfu_(.*)[.](gif|png)", 1))
-          case "ja" return "available"
-          case "nein" return "lend"
-          case "info" return "virtual"
+        switch (extract($img/@src, "(verfu_|availability-)(.*)[.](gif|png|svg)", 2))
+          case "ja" case "green" return "available"
+          case "nein" case "no-red" return "lend"
+          case "info" case "info-blue" return "virtual"
           default return "unknown"
       };
     

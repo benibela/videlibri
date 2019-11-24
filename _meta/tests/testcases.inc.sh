@@ -110,7 +110,7 @@ test aDISWeb 'list{splitIndex:=0,mode:=\"requested\"}' list_requested_munich.htm
 test aDISWeb 'list{splitIndex:=0,mode:=\"orderedMagazine\"}' list_orders_munich.html
 
 
-test aDISWeb search search_stuttgart_abk.do.html search_no-result.aalen.html search_no-result.voebb.html search_single-page.biberach.html search_go-back.freiburg.html search_single-result_hdmtest.html search_single-result_hdmtest2.html search_single-result_nuernberg.html search_nurnberg.html search_munich.html search_dortmund.html  search_due.html search_go-back.voebb.html  search_new.voebb.html search_new5.voebb.html search_duesseldorf.html search_strangenum.ulm.html search_single-page.isbn.voebb.html
+test aDISWeb search search_stuttgart_abk.do.html search_no-result.aalen.html search_no-result.voebb.html search_single-page.biberach.html search_go-back.freiburg.html search_single-result_hdmtest.html search_single-result_hdmtest2.html search_single-result_nuernberg.html search_nurnberg.html search_munich.html search_dortmund.html  search_due.html search_go-back.voebb.html  search_new.voebb.html search_new5.voebb.html search_duesseldorf.html search_strangenum.ulm.html search_single-page.isbn.voebb.html search_newer.voebb.html
 
 test aDISWeb searchBasicForm search_go-back.voebb..html search_due..html  search_go-back.freiburg..html search_go-back.single-result.voebb.html search_new.voebbBF.html search_duesseldorfBF.html 
 

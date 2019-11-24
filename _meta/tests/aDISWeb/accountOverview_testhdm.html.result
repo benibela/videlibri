@@ -4,7 +4,7 @@ orderedPage := ""
 orderedMagazinePage := ""
 account-expiration := "07.07.2014"
 kontoPage := text{"/aDISWeb/app;jsessionid=BAD103FCCA5E6C45BA21B0B0B50159DF?service=direct/1/POOLM21PBSZTEST@_4B004500_2C34CC00/Tabelle_ZLLW01.cellInternalLink.directlink&amp;sp=SRGLINK_1&amp;sp=SZA&amp;requestCount=7"}
-orderedMagazinePage := ""
+orderedMagazinePage := ()
 providedPage := text{"/aDISWeb/app;jsessionid=BAD103FCCA5E6C45BA21B0B0B50159DF?service=direct/1/POOLM21PBSZTEST@_4B004500_2C34CC00/Tabelle_ZLLW01.cellInternalLink.directlink&amp;sp=SRGLINK_3&amp;sp=SZS&amp;requestCount=7"}
 orderedPage := ""
 requestedPage := text{"/aDISWeb/app;jsessionid=BAD103FCCA5E6C45BA21B0B0B50159DF?service=direct/1/POOLM21PBSZTEST@_4B004500_2C34CC00/Tabelle_ZLLW01.cellInternalLink.directlink&amp;sp=SRGLINK_5&amp;sp=SZM&amp;requestCount=7"}
