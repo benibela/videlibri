@@ -35,7 +35,7 @@ class LendingList: BookListActivity(){
         searchPanel = findViewById<View>(R.id.searchFilterPanel)
 
         savedInstanceState?.apply{
-            filterActually = getString("filterActually")
+            filterActually = getString("filterActually") ?: ""
             setFilterMultiLine(getBoolean("filterIsMultiLine", false))
         }
         updateViewFilters()

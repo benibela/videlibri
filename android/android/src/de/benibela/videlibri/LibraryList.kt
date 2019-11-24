@@ -126,8 +126,8 @@ class LibraryList: VideLibriBaseActivity() {
         super.onRestoreInstanceState(savedInstanceState)
         savedInstanceState ?: return
         val libView = libView ?: return
-        val lastExpandedState = savedInstanceState.getString("lastExpandedState")
-        val lastExpandedCity = savedInstanceState.getString("lastExpandedCity")
+        val lastExpandedState = savedInstanceState.getString("lastExpandedState") ?: ""
+        val lastExpandedCity = savedInstanceState.getString("lastExpandedCity") ?: ""
         val state = states.indexOf(lastExpandedState)
         val city = cities.getOrNull(state)?.indexOf(lastExpandedCity) ?: return
         if (city < 0) libView.expand(state, true)
@@ -401,7 +401,7 @@ class LibraryList: VideLibriBaseActivity() {
                 val lv = v.findViewById<ListView>(R.id.listView)
                 lv.adapter = object : ArrayAdapter<String>(activity, R.layout.bookoverview, R.id.bookoverviewCaption, itemsSubCaption) {
                     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
-                        return super.getView(position, convertView, parent)?.apply {
+                        return super.getView(position, convertView, parent).apply {
                             findViewById<View>(R.id.bookoverviewDate).visibility = View.GONE
                             findViewById<TextView>(R.id.bookoverviewMore).text = itemsSubCaption.getOrElse(position, {""})
                             findViewById<TextView>(R.id.bookoverviewCaption).apply {
