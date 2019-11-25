@@ -22,9 +22,8 @@
 
           <!-- seems we already are on the correct page, send request again (not tested with any library) -->
           <td>Keine Ausleihen<t:s>i:=1000</t:s></td>
-          <a>Ausleihen zeigen oder verlängern<t:s>i:=1000</t:s></a> 
-          <a>Ausleihe zeigen oder verlängern<t:s>i:=1000</t:s></a>
-        
+          <a t:condition="contains(., 'Ausleihe')"><t:s>i:=1000</t:s></a>
+       
           <!-- we were logged out ? -->
           <a>Mein Konto<t:s>loginFormPost := .</t:s></a>
   
@@ -58,8 +57,7 @@
         </form>
   
         <td>Keine Ausleihen</td>
-        <a>Ausleihen zeigen oder verlängern</a> <!-- seems we already are on the correct page, send request again (not tested with any library) -->
-        <a>Ausleihe zeigen oder verlängern</a>
+        <a t:condition="contains(., 'Ausleihe')"></a>
         
         <h1>Bitte auch das Passwort angeben<t:s>$error-login := .</t:s></h1>
         <h1>Sie sind nicht mit Ihren Angaben registriert<t:s>$error-login := .</t:s></h1>

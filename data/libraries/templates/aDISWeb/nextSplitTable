@@ -12,7 +12,13 @@
        <th>Anzahl</th>
        <th>Darstellung</th>
      </tr>
-     <tr><td/><td>Keine Ausleihen in:|Ausleihen zeigen oder verlängern in:</td></tr>
+     <tr>
+       <td/>
+       <t:switch>
+        <td>Keine Ausleihen</td>
+        <a t:condition="contains(., 'Ausleihe')"/>
+       </t:switch>
+     </tr>
      {nextSplitTable := (.//a/@href)[$splitIndex]}
      </table>
   </div></div></div>
