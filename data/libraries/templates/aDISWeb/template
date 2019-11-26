@@ -398,7 +398,8 @@
       "post": replace($form.post, "_DESTINATIONFILLER_", $choose-result)
     }
     </variable>  
-
+    
+    <s>oldmessage:=()</s>
     <page url="{$form}" templateFile="orderConfirmed"/>
     <page url="{$form}" templateFile="orderConfirmed"/>
     <page url="{$final-form}"/>

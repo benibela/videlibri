@@ -4,6 +4,10 @@
       $submit := ($submits[contains(@value, "bestellen")],$submits)[1]
   return 
   if (matches($message, "(ist +erfolgt|Außenmagazinbestellung für.*:)")) then ( final-form := form(., $submit), form := () )
-  else if (count($submits) eq 1 and $message ne "") then ($error := $message, form := (), final-form := form(., $submit) )
-  else form := form(., $submit)
+  else if ($message ne "" and ($message = get("oldmessage", "") or count($submits) eq 1 ) ) then (
+    $error := $message, 
+    form := (), 
+    final-form := form(., ($submits[@class = "abbrechen" or @value="Zurück"], $submit)[1]) 
+  )
+  else (form := form(., $submit), $oldmessage := $message)
 }</form>
