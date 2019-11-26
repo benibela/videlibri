@@ -16,7 +16,7 @@
        <td/>
        <t:switch>
         <td>Keine Ausleihen</td>
-        <a t:condition="contains(., 'Ausleihe')"/>
+        <a t:condition="contains(., 'Ausleihe') and contains(@href, 'app;')"/>
        </t:switch>
      </tr>
      {nextSplitTable := (.//a/@href)[$splitIndex]}

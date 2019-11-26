@@ -3,6 +3,6 @@ goBackPage := ""
 orderedPage := ""
 orderedMagazinePage := ""
 account-expiration := "23.12.2023"
-kontoPage := text{"/fakeurl"}
+kontoPage := text{"/aDISWeb/app;?sp=SRGLINK_5&amp;sp=SZA&amp;requestCount=4"}
 providedPage := ""
 requestedPage := text{"/fakeurl2"}
