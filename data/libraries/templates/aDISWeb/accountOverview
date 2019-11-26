@@ -14,7 +14,7 @@
 
   <t:element 
      t:optional="true"
-     t:condition="(self::a or self::td) and contains(., 'Bestellung') and contains(., 'Magazin')">{orderedMagazinePage := self::a/@href}</t:element>
+     t:condition="(self::a or self::td) and contains(., 'Bestellung') and contains(., 'Magazin')">{orderedMagazinePage := descendant-or-self::a/@href}</t:element>
   
   <t:switch>
   <td>Keine Bereitstellung<t:s>providedPage:=""</t:s></td>
