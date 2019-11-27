@@ -90,10 +90,15 @@
 
   <page url="{$connectPage}"/>
   <pattern>
+    <t:switch prioritized="true">
     <a>
       <template:meta default-text-matching="regex"/>
       Benutzerkonto|Konto|Anmeldung<t:s>loginForm:=@href</t:s>
     </a>
+    
+    <h1>Achtung<t:s>vl:raise(ancestor::div[1]!inner-text())</t:s></h1>
+    
+    </t:switch>
   </pattern>
   
   <loop test="exists($loginForm)">
