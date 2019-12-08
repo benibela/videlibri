@@ -18,7 +18,9 @@
          <t:loop>
            <TR>{$book := {}}<t:siblings id="lendings">
              <TD>{$book.status}</TD>
-             <TD>{$book.renewCount := extract(., "[0-9]+")}</TD>
+             <TD>{$book.renewCount := normalize-space() ! (
+                                      if (. eq "E") then 0
+                                      else extract(., "[0-9]+"))}</TD>
              <TD>{$book.author}</TD>
              <TD>{$book.title}</TD>
              <TD>{$book.duedate := parse-date(.)}</TD>
