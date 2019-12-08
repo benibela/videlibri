@@ -5,7 +5,8 @@
       <TABLE>
          <tr>
          <t:siblings-header id="lendings">
-           <th>Status|Verlänger(ungen|t)|Number of renewals|Verl[.]</th>?
+           <th>Status</th>?
+           <th>Verlänger(ungen|t)|Number of renewals|Verl[.]</th>?
            <th>Verfasser|Author|Autor</th>?
            <th>Titel|Title</th>
            <th>Frist|Due date|Rückgabe|zurückzugeben bis</th>
@@ -17,6 +18,7 @@
          <t:loop>
            <TR>{$book := {}}<t:siblings id="lendings">
              <TD>{$book.status}</TD>
+             <TD>{$book.renewCount := extract(., "[0-9]+")}</TD>
              <TD>{$book.author}</TD>
              <TD>{$book.title}</TD>
              <TD>{$book.duedate := parse-date(.)}</TD>
