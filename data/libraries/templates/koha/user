@@ -29,7 +29,7 @@
         <t:siblings>
         <td>{$book.title := a, $prestatus[] := a/@href!("Details: "||resolve-uri(.)), $book("author") := join(a/following-sibling::node())}</td>
         <td>{$book.author}</td>
-        <td>{$book.duedate := xs:dateTime(span/@title)}</td>
+        <td>{$book.duedate := parse-date(span/@title)}</td>
         <td>{$book.id := join(node() except span[1])}</td>
         <td>{$book._item := input/@value, $prestatus[] := span}</td>
         <td>{$prestatus[] := .}</td>
