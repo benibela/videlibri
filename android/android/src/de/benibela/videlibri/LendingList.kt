@@ -9,6 +9,7 @@ import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.preference.PreferenceManager
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
@@ -76,13 +77,6 @@ class LendingList: BookListActivity(){
 
         //setTitle("Ausleihen");  //does not work in onCreate (why? makes the title invisible) No. it just works sometimes?
 
-        if (accounts.isEmpty()) {
-            val v: View? = findViewById(R.id.layout)?:findViewById(R.id.booklistview) //need an arbitrary view. Depends on landscape/portrait, which is there
-            v?.postDelayed({
-                startActivity<AccountInfo>("mode" to AccountInfo.MODE_ACCOUNT_CREATION_INITIAL)
-            }, 400)
-        }
-
         if (accounts.filterWithRunningUpdate().isNotEmpty()) beginLoading(VideLibriBaseActivityOld.LOADING_ACCOUNT_UPDATE)
         if (!cacheShown)
             displayBookCache()
@@ -90,6 +84,16 @@ class LendingList: BookListActivity(){
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED)
         //unnecessary, because not dangerous??
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.INTERNET), 0)
+    }
+
+    override fun onPostResume() {
+        super.onPostResume()
+
+        if (accounts.isEmpty())
+            Handler().postDelayed({
+                if (VideLibriApp.currentActivity is LendingList) //do not open the list, if the user navigated away
+                    startActivity<AccountInfo>("mode" to AccountInfo.MODE_ACCOUNT_CREATION_INITIAL)
+            }, 200) //without delay it has crashed on old android (android 3 or something) in onresume
     }
 
 
