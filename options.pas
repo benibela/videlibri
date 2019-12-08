@@ -679,13 +679,16 @@ procedure ToptionForm.TrackBar1Change(Sender: TObject);
 var
   s: String;
 begin
-  lblRefreshTIming.Left:=TrackBar1.left+15+(TrackBar1.width-15)*(TrackBar1.Position-TrackBar1.min) div (TrackBar1.Max-TrackBar1.min)-lblRefreshTIming.Width div 2;
   s := rsAutoRenewing + LineEnding;
   case TrackBar1.Position of
     0: lblRefreshTIming.Caption:=Format(rsAutoRenewAlways, [s]);
     1: lblRefreshTIming.Caption:=Format(rsAutoRenewDaily, [s]);
     else lblRefreshTIming.Caption:=Format(rsAutoRenewInterval, [s, IntToStr(TrackBar1.Position)]);
   end;
+  lblRefreshTIming.Left:=max(0,
+                         min(notebook1.Width - lblRefreshTIming.Width,
+                           TrackBar1.left+15+(TrackBar1.width-15)*(TrackBar1.Position-TrackBar1.min) div (TrackBar1.Max-TrackBar1.min)-lblRefreshTIming.Width div 2
+                         ));
 end;
 
 procedure ToptionForm.TrackBar2Change(Sender: TObject);
