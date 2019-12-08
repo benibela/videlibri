@@ -3,6 +3,7 @@ package de.benibela.videlibri
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import java.io.Serializable
@@ -25,7 +26,10 @@ fun internalStartActivity(
         activity: Class<out Activity>,
         params: Array<out Pair<String, Any?>>
 ) {
-    ctx.startActivity(createIntent(ctx, activity, params))
+    val intent = createIntent(ctx, activity, params)
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && ctx !is Activity)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) //without this flag applicationContext cannot start activities
+    ctx.startActivity(intent)
 }
 
 fun internalStartActivityForResult(
