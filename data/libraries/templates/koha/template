@@ -11,10 +11,13 @@
 </action>
 
 <action id="internal-login"> 
-  <page url="{$kohaurl}opac-user.pl">
-    <post name="userid" value="{$username}"/>
-    <post name="password" value="{$password}"/>
-  </page>
+  <page url="{$kohaurl}opac-user.pl"/>
+  <pattern>
+    <form t:condition="contains(@action, 'opac-user.pl')">
+    {$request := form(., {"userid": $username, "password": $password})}
+    </form>
+  </pattern>
+  <page url="{$request}"/>
 </action>
 
 
