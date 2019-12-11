@@ -57,7 +57,7 @@
         <td>{for $type in tokenize(@class, " ") return 
          switch ($type) 
            case "title" return ($book.title := a, $prestatus[] := a/@href!("Details: "||resolve-uri(.)), $book("author") := join(span) )
-           case "date_due" return $book.duedate := xs:dateTime(span/@title)
+           case "date_due" return $book.duedate := parse-date(span/@title)
            case "call_no" return $book.id := join(node() except span[1])
            case "renew" return ($book._item := input/@value, $prestatus[] := span)
            case "fines" return ($prestatus[] := .)
