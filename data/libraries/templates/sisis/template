@@ -31,6 +31,7 @@
         {$request := ()}
       </table></div>    
       <table class="data" id="holdings_">{$request := ()}</table><!--see below???-->
+      <div class="data"><div class="account-display-title"/>{$request := ()}</div> <!-- touchpoint 6 -->
       <div class="box error">{vl:raise(.)}</div>
     </t:switch>
   </pattern>
