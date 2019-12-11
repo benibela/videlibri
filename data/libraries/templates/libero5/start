@@ -16,5 +16,6 @@
 
 <font>Server ist zurzeit nicht verfügbar<t:s>vl:raise(.)</t:s></font>
 
+<div class="content-txt">{vl:raise(.)}</div>
 
 </t:switch-prioritized>
