@@ -5,7 +5,7 @@
   <longName value="Bibliothek der FH Schmalkalden"/>
   <shortName value="FHB Schmalkalden"/>
   
-  <template value="pica"/>  
+  <template value="lbs"/>  
   <variable name="server" value="https://opac.lbs-ilmenau.gbv.de:443/"/>
   <variable name="picadb" value="2"/>
   <variable name="borrower" value="USR=1152"/>

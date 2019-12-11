@@ -8,8 +8,8 @@
   <variable name="baseurl" value="https://buecherei-obertshausen.de/libero/"/>
 
   <homepage value="http://www.obertshausen.de/de/service/staedtische-einrichtungen/buechereien.html"/>
-  <testing-search value="yes"/>
-  <testing-account value="unknown"/>
+  <testing-search value="broken"/>
+  <testing-account value="broken"/>
   
 </library>
 

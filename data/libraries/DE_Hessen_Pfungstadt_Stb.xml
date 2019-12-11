@@ -4,8 +4,8 @@
 <library>
   <longName value="Stadtbibliothek Pfungstadt"/>
 
-  <template value="libero5"/>
-  <variable name="baseurl" value="http://buecherei.pfungstadt.de/libero/"/>
+  <template value="koha"/>
+  <variable name="baseurl" value="http://buecherei.pfungstadt.de/"/>
 
   <homepage value="http://www.pfungstadt.de/freizeit-tourismus/stadtbibliothek.html"/>
   <testing-search value="yes"/>

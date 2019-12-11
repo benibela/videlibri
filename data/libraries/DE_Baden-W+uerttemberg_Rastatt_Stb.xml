@@ -2,9 +2,11 @@
 <library>
   <longName value="Stadtbibliothek Rastatt"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/rastatt"/>	
-  <variable name="DB" value="Rastatt"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.kivbf.de/rastatt/Mein-Konto"/>	
+  <variable name="urlsearch" value="https://bibliotheken.kivbf.de/rastatt/Mediensuche/Erweiterte-Suche"/>
+  
+  
   
   <homepage value="https://web-opac.kivbf.de/rastatt/index.asp?DB=Rastatt"/>
   <testing-search value="unknown"/>

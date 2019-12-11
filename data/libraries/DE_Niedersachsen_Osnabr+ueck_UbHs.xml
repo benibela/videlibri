@@ -6,11 +6,11 @@
   <shortName value="HSB Osnabrück"/>
   
   <template value="pica"/>  
-  <variable name="server" value="http://osopc4.ub.uni-osnabrueck.de:8080"/>
+  <variable name="server" value="https://lhosb.gbv.de"/>
   <variable name="picadb" value="2"/>
 
 
-  <homepage value="http://www.ub.uni-osnabrueck.de/"/>
+  <homepage value="http://www.bib.hs-osnabrueck.de/"/>
   <testing-search value="yes"/>
   <testing-account value="yes"/>
   
