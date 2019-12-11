@@ -112,6 +112,15 @@ build-gradle|build-java)
   
   ./gradlew $GRADLEMODE || { echo "FAILED!"; exit 1; }
   
+  if readelf  -l android/libs/*/*.so  | grep RELRO; then
+    echo -------------------------------------- 
+    echo RELRO is enabled
+    echo VideLibri cannot start with RELRO
+    echo pass -k-znorelro  to fpc
+    echo --------------------------------------
+    exit 1
+  fi
+
   if [[ "$TRAVIS" != true ]]; then
     cd android
     #$ADB uninstall de.benibela.videlibri || { echo "FAILED!"; exit 1;}
@@ -283,6 +292,7 @@ setupfpccrosscfg)
     platformbinutils=$1; shift
     echo "#IFDEF $platformdefine"
     echo -XP$platformbinutils
+    echo -k-znorelro
     for l in "$@"; do 
       echo -Fl$l 
     done;
