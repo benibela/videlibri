@@ -96,8 +96,8 @@
       Benutzerkonto|Konto|Anmeldung<t:s>loginForm:=@href</t:s>
     </a>
     
-    <h1>Achtung<t:s>vl:raise(ancestor::div[1]!inner-text())</t:s></h1>
-    
+    <div class="aDISMaske"><div id="spruch">Zu viele Benutzer</div><div id="main">{vl:raise(inner-text())}</div></div>
+    <div id="main" t:condition="contains(., 'Benutzer')">{vl:raise(inner-text())}</div>
     </t:switch>
   </pattern>
   
