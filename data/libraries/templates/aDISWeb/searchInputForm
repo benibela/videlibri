@@ -11,16 +11,12 @@ let $basic-selects-pos := for $e at $i in $elements where $e/(self::select and c
 let $basic-selects := for $i in $basic-selects-pos return $elements[$i]
 let $options := $basic-selects//option
 
-let $filter-names := {"libraryLocation": "BEZIWA_1", "libraryBranch": "AUSGAB_1", "mediaType": "MEDIUM_1", "language": "GHTSPR_1"}
+let $filter-names := {"libraryLocation": "BEZIWA_1", "libraryBranch": ("AUSGAB_1","SUCBER_1"), "mediaType": "MEDIUM_1", "language": "GHTSPR_1"}
 let $filter-selects := {|for $name in jn:keys($filter-names)
                          let $ids := $filter-names($name)
                          let $select := $selects[@id = $ids][1]
                          where $select
                          return {$name: $select} |}
-let $filter-selects := if ($filter-selects.libraryLocation and $filter-selects.libraryBranch) then
-                         (:vöbb special case. we need to uncheck checkbox to allow location search, but that is not possible with form:)
-                         map:remove($filter-selects, ("libraryBranch", "libraryLocation"))
-                       else $filter-selects
 return (
   search-basic-selects := $basic-selects/@name,
   search-basic-inputs := for $i in $basic-selects-pos return $elements[$i + 1][self::input]/@name,
