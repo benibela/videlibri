@@ -5,8 +5,8 @@
   <longName value="Hochschulbibliothek Würzburg-Schweinfurt"/>
   
   <template value="sisis"/>  
-  <variable name="server" value="https://recherche.bibkatalog.de/InfoGuideClient.fwssis/"/>
-  <variable name="startparams" value="?Login=wofwsw"/>
+  <variable name="server" value="https://recherche.bibkatalog.de/TouchPoint/"/>
+  <variable name="startparams" value="?View=fws&amp;Branch=00"/>
   
   <homepage value="http://bibliothek.fhws.de/"/>
   <testing-search value="yes"/>

@@ -5,8 +5,8 @@
   <deprecatedName value="DE_Coburg_Coburg_Hb"/>
   
   <template value="sisis"/>  
-  <variable name="server" value="https://recherche.bibkatalog.de/InfoGuideClient.fwssis/"/>
-  <variable name="startparams" value="?Login=wofwss"/>
+  <variable name="server" value="https://recherche.bibkatalog.de/TouchPoint/"/>
+  <variable name="startparams" value="?View=fwsfco&amp;Language=de&amp;Branch=5"/>
   
   <homepage value="http://www.hs-coburg.de/library.html"/>
   <testing-search value="yes"/>

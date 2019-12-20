@@ -6,8 +6,8 @@
   <shortName value="Hofb Aschaffenburg"/> 
   
   <template value="sisis"/>  
-  <variable name="server" value="https://recherche.bibkatalog.de/InfoGuideClient.fwssis/"/>
-  <variable name="startparams" value="?Login=wofwsh"/>
+  <variable name="server" value="https://recherche.bibkatalog.de/TouchPoint/"/>
+  <variable name="startparams" value="?View=fwssab&amp;Branch=4"/>
   
   <homepage value="http://www.hofbibliothek-ab.de/"/>
   <testing-search value="yes"/>
