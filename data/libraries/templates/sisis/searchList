@@ -115,7 +115,7 @@
     </div>
   </div>
   
-  <h2 t:condition="matches(normalize-space(), 'Ihre Suche erzielte ( *leider *)?keine Treffer')">{search-result-count:=0}</h2>
+  <t:element t:condition="(self::h1 or self::h2) and matches(normalize-space(), 'Ihre Suche erzielte ( *leider *)?keine Treffer')">{search-result-count:=0}</t:element>
   
   <form>
     <input type="hidden" name="speedHitlistUrl" value="speedHitList.do" /> 
