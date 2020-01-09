@@ -18,4 +18,4 @@ book := {"duedate": "2015-10-19", "statusId": "critical", "status": "Eine Verlä
 book := {"duedate": "2015-10-19", "statusId": "critical", "status": "Eine Verlängerung ist noch nicht möglich.", "id": "A7518120 ", "author": "Scarrow, Simon", "title": "Gladiator"}
 book := {"duedate": "2015-10-19", "statusId": "critical", "status": "Eine Verlängerung ist noch nicht möglich.", "id": "B0955836 ", "author": "Adlon, Hedda", "title": "Hotel Adlon"}
 book := {"duedate": "2015-10-19", "statusId": "critical", "status": "Eine Verlängerung ist noch nicht möglich.", "id": "B0778007 ", "author": "Rasheed, Leila", "title": "Rückkehr nach Somerton Court"}
-nextPage := text{"/TouchPoint/userAccount.do?methodToCall=pos&amp;accountTyp=loaned&amp;anzPos=11"}
+nextPage := "/TouchPoint/userAccount.do?methodToCall=pos&amp;accountTyp=loaned&amp;anzPos=11"
