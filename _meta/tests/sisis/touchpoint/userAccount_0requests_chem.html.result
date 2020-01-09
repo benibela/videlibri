@@ -6,5 +6,5 @@ touchpoint := true()
 result := ()
 result := ()
 mode := 3
-default-book := {"statusId": "ordered", "cancelable": false}
+default-book := {"statusId": "ordered", "cancelable": false, "_onPage": "vltest://sisis/touchpoint/userAccount_0request_chem.html", "_onPageStart": ""}
 nextPage := ()

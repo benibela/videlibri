@@ -70,21 +70,21 @@
      nextPage := ()
   </s>
   
-  <page url="{$startUrl}"  templateFile="loggedIn"></page>
+  <page url="{$startUrl}"  templateFile="loggedIn"/>
   <loop test="$nextPage != ''">
-    <page url="{$nextPage}"  templateFile="loggedIn"></page>
+    <page url="{$nextPage}"  templateFile="loggedIn"/>
   </loop>
 
   <variable name="startUrl">resolve-uri($requestedUrl)</variable>
-  <page url="{$startUrl}"  templateFile="loggedIn"></page>
+  <page url="{$startUrl}"  templateFile="loggedIn"/>
   <loop test="$nextPage != ''">
-    <page url="{$nextPage}"  templateFile="loggedIn"></page>
+    <page url="{$nextPage}"  templateFile="loggedIn"/>
   </loop>
 
   <variable name="startUrl">resolve-uri($orderedUrl)</variable>
-  <page url="{$startUrl}"  templateFile="loggedIn"></page>
+  <page url="{$startUrl}"  templateFile="loggedIn"/>
   <loop test="$nextPage != ''">
-    <page url="{$nextPage}"  templateFile="loggedIn"></page>
+    <page url="{$nextPage}"  templateFile="loggedIn"/>
   </loop>
   <!--  <error templateFile="loginError"/>-->
 </action>

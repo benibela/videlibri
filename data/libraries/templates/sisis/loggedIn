@@ -50,10 +50,12 @@ touchpoint := get('touchpoint', false())
 
     {
      if ($nextPage != '') then nextPage := () else (),
-     $default-book := switch ($mode) 
+     $default-book := map:merge((switch ($mode) 
        case 3 return {"statusId": "ordered", "cancelable": false()}
        case 2 return {"statusId": "provided", "cancelable": false()}
-       default return {"statusId": "critical"}
+       default return {"statusId": "critical"},
+       {"_onPage": base-uri(), "_onPageStart": $startUrl})
+     )
     }
 
 <!--    <template:if test="$allBooksAway=''">-->
@@ -89,7 +91,6 @@ touchpoint := get('touchpoint', false())
                 {$book.status := ., $book.statusId := "curious"}
               <!--  <template:read source="@class != 'textgruen'" var="spanmissing"/>-->
               </span>
-              {book._onPage := base-uri(), book._onPageStart := $startUrl}
             </a>
             <span template:optional="true">
               {$book.status := ., $book.statusId := "critical"}
@@ -97,8 +98,8 @@ touchpoint := get('touchpoint', false())
             <a template:optional="true">
               {book.actionURI := resolve-html(.),
                if ($mode = (2,3)) then () else book.statusId := "curious",
-               book.cancelable := $mode eq 3,
-               book._onPage := base-uri(), book._onPageStart := $startUrl}          
+               book.cancelable := $mode eq 3
+              }
             </a>
             <t:if test="not($book.actionURI) and not($book.status)">
               {$book.status := (br[last()]/following-sibling::text())[last()], $book.statusId := "critical"}
