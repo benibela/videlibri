@@ -81,15 +81,12 @@ touchpoint := get('touchpoint', false())
               <b>{$book.title}</b>
             </t:switch>
             <br/>
-            <!-- <template:read source="true()" var="spanmissing"/>
-           <template:read source="false()" var="previousspan"/>-->
-            <template:read source="text()" var="book.author"/><br/>
-            <template:read source="text()" var="book.id" regex="^[^/]*"/>
+            {$book.author := matched-text()}<br/>
+            {$book.id := extract(matched-text(), "^[^/]*")}
             <a template:optional="true">
               {$book.actionURI := resolve-html(.)}
               <span>
                 {$book.status := ., $book.statusId := "curious"}
-              <!--  <template:read source="@class != 'textgruen'" var="spanmissing"/>-->
               </span>
             </a>
             <span template:optional="true">
@@ -104,14 +101,8 @@ touchpoint := get('touchpoint', false())
             <t:if test="not($book.actionURI) and not($book.status)">
               {$book.status := (br[last()]/following-sibling::text())[last()], $book.statusId := "critical"}
             </t:if>
-  <!--	  <template:if test="$previousspan">
-  	    <span template:optional="true">
-                <template:read source="concat(x"$book.status:problematic ", text())" var="book.status:problematic"/>
-                <template:read source="false()" var="spanmissing"/>
-              </span>
-             </template:if>-->
            </td>
-        <!--   <template:if test="$spanmissing"><broken/></template:if>-->
+
            <template:switch>        
              <td>{
                switch ($mode)
