@@ -13,7 +13,19 @@
 </action>
 
 <action id="connect">
-  <s>touchpoint := contains($server, "touchpoint")</s>
+  <s>
+  declare function local:getpage($u){
+    (extract($u, "anzPos=([0-9]+)", 1)[.], "1")[1]
+  };  
+  declare function local:pair-le($pair1, $pair2){
+   let $p1 := local:getpage($pair1?page)
+   let $p2 := local:getpage($pair2?page)
+   return 
+     if ($p1 lt $p2) then true()
+     else if ($p1 > $p2) then false()
+     else $pair1?pos le $pair2?pos
+  };
+  touchpoint := contains($server, "touchpoint")</s>
   <page url="{$server}/start.do{get('startparams','')}" templateFile="start"/>
 </action>
 
@@ -66,7 +78,7 @@
   <s>requestedUrl := (),
      orderedUrl := (),
      startUrl := $user-account-page,
-     minRenewedId := $minCancelId := "ZZZZZZZZ",
+     $lastRenew := $lastCancel := {"pos": "ZZZZZZZZ", "page": "ZZZZZZZZ&amp;anzPos=9999999"},
      nextPage := ()
   </s>
   
@@ -90,38 +102,56 @@
 </action>
 
 
-<action id="renew-list">
-  <s>list := for $book in $renew-books order by $book.actionURI descending return $book, need-update := false()</s>
-  <if test="$list[1].actionURI ge $minRenewedId">
+<action id="internal-action-list">
+  <s>
+     need-update := false(),
+     switch ($action-mode) 
+       case "renew"  return ( $last-pair := $lastRenew )
+       case "cancel" return ( $last-pair := $lastCancel )
+       default return vl:raise-internal("invalid action mode " || $action-mode),
+     pages := for $p in distinct-values($list?_onPage) order by local:getpage($p) descending return $p,
+     let $last-page := $pages[1] 
+     return max-pair := {"page": $last-page, "pos": max($list[?_onPage eq $last-page]?actionURI) }
+  </s>
+  <if test="local:pair-le($last-pair, $max-pair)">
     <call action="update-all"/>
-    <s>list := for $book in $list ! vl:select-book(.) order by $book.actionURI descending return $book</s>
+    <s>list := $list ! vl:select-book(.),
+       last-pair := $lastRenew,
+       pages := for $p in distinct-values($list?_onPage) order by local:getpage($p) descending return $p</s>
   </if>
-  <loop var="b" list="$list">
-    <page url="{$b._onPageStart}"/> <!-- only possible  -->
-    <page test="$b._onPage != $b._onPageStart" url="{$b._onPage}"/> <!-- todo: test if this is needed as well -->
-    
-    <page url="{$b.actionURI}" templateFile="singleExtended"/>
+  
+  <loop var="p" list="$pages">
+    <loop var="b" list="for $book in $list[?_onPage eq $p] order by $book.actionURI descending return $book">
+      <page url="{$b._onPageStart}"/> 
+      <page test="$b._onPage != $b._onPageStart" url="{$b._onPage}"/> 
+      
+      <page url="{$b.actionURI}"/> 
+      <if test="$action-mode eq 'renew'"><pattern href="singleExtended"/></if>
+    </loop>
   </loop>
-  <s>let $x := ($list[count($list)].actionURI) return if ($x lt $minRenewedId) then $minRenewedId := $x else ()</s>
+  
+  <s>
+   let $first-page := $pages[count($pages)] 
+   let $min-pair := {"page": $first-page, "pos": min($list[?_onPage eq $first-page]?actionURI) }
+   where local:pair-le($min-pair, $last-pair)
+   return $last-pair := $min-pair,
+   switch ($action-mode) 
+      case "renew" return $lastRenew := $last-pair
+      case "cancel" return $lastCancel := $last-pair
+      default return ()
+  </s>
+
   <if test="$need-update"><call action="update-all"/></if>
 </action>
-
-<action id="cancel-list">
-  <s>list := for $book in $cancel-books order by $book.actionURI descending return $book</s>
-  <if test="$list[1].actionURI ge $minCancelId">
-    <call action="update-all"/>
-    <s>list := for $book in $list ! vl:select-book(.) order by $book.actionURI descending return $book</s>
-  </if>
-  <loop var="b" list="$list">
-    <page url="{$b._onPageStart}"/> <!-- only possible  -->
-    <page test="$b._onPage != $b._onPageStart" url="{$b._onPage}"/> <!-- todo: test if this is needed as well -->
-    
-    <page url="{$b.actionURI}"/>
-    <!--  <template>      	 <span class="textgruen"><strong>Stornierung durchgeführt</strong></span></br></template>-->
-  </loop>
-  <s>let $x := ($list[count($list)].actionURI) return if ($x lt $minCancelId) then $minCancelId := $x else ()</s>
+  
+<action id="renew-list">
+  <s>action-mode := "renew", $list := $renew-books</s>
+  <call action="internal-action-list"/>
 </action>
-
+<action id="cancel-list">
+  <s>action-mode := "cancel", $list := $cancel-books</s>
+  <call action="internal-action-list"/>
+</action>
 
 
 <action id="search-connect">

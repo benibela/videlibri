@@ -2,6 +2,9 @@
 <template:meta default-text-matching="regex"/>
 <head>
 {
+(:declare function local:getpage($u){ this function cannot be declared here, because it would override an existing function and then crash when something still references the old function
+  (extract($u, "anzPos=([0-9]+)", 1)[.], "1")[1]
+};:)
 nextPage := get('nextPage', ()),
 startUrl := get('startUrl', ''),
 touchpoint := get('touchpoint', false())
@@ -164,7 +167,7 @@ touchpoint := get('touchpoint', false())
     <!-- </fieldset> -->
       <t:element t:condition="matches(@class, 'box-right|pagination')">
         {let $curAnzPos := (extract(base-uri(), "anzPos=([0-9]+)", 1)[.], "1")[1]
-         let $links := .//a/@href[extract(., "anzPos=([0-9]+)", 1) > $curAnzPos]/string()
+         let $links := .//a/@href[(extract(., "anzPos=([0-9]+)", 1)[.], "1")[1] > $curAnzPos]/string()
          return
            $nextPage := min($links)
         }
