@@ -6,10 +6,10 @@
   <longName value="Stadtbibliothek Mannheim"/>
   <shortName value="Stb Mannheim"/>
   
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://katalog.mannheim.de/wopac"/>	
-  <variable name="DB" value="web_biblio"/>
-  
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://katalog.mannheim.de/Mein-Konto"/>
+  <variable name="urlsearch" value="https://katalog.mannheim.de/Mediensuche/Erweiterte-Suche"/>
+   
   <homepage value="https://www.mannheim.de/de/bildung-staerken/stadtbibliothek"/>
   <testing-search value="yes"/>  <testing-account value="unknown"/></library>
 
