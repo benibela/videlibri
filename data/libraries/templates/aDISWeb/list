@@ -96,33 +96,14 @@
   <FORM>
     {form := .}
     
-    <span class="txtinsert">((Mein Konto */|Benutzerkonto) +Ausleihen)|Benutzerkonto:? Übersicht</span>
-
-    <t:switch prioritized="true">
-      <input title="Zurück zur vorherigen Seite">{backButtonName := uri-encode(@name)}</input>
-      <input t:condition="contains(@title, 'zur vorherigen Seite')">{backButtonName := uri-encode(@name)}</input>
-    </t:switch> 
-    {goBackPage := form($form),
-    goBackPage.post := x"{$goBackPage.post}&{$backButtonName}.x=0&{$backButtonName}.y=0"}
-
-    <div id="R06">
-     <div>
-      <div class="rTable_div">       
-       <table class="rTable_table">
-       <tr>
-         <th>Anzahl</th>
-         <th>Darstellung</th>
-       </tr>
-       <tr>
-         <td/>
-         <t:switch>
-          <td>Keine Ausleihen</td>
-          <a t:condition="contains(., 'Ausleihe')"/>
-         </t:switch>
-       </tr>
-       {nextSplitTable := (.//a/@href)[$splitIndex], splitCount := count(.//a)}
-       </table>
-    </div></div></div>
+    <!--Servicebereiche-->
+    <a t:condition="contains(., 'zeigen oder verlängern in:')"/>
+    {let $sublinks := //a[contains(., 'zeigen oder verlängern in:')]
+     return (
+       nextSplitTable := ($sublinks/@href)[$splitIndex], 
+       splitCount := count($sublinks)
+     )
+    }
   </form>
   </t:switch>
 </div>
