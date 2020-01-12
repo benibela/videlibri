@@ -8,8 +8,8 @@
   <variable name="baseurl" value="http://webopac.stadtbuecherei-hattersheim.de/libero/"/>
 
   <homepage value="http://www.stadtbuecherei-hattersheim.de"/>
-  <testing-search value="yes"/>
-  <testing-account value="unknown"/>
+  <testing-search value="broken"/>
+  <testing-account value="broken"/>
   
 </library>
 
