@@ -43,10 +43,12 @@
 <div class="data">
   <div class="d-md-block">
     <t:siblings-header id="div">
-      <div class="d-inline-block">Signatur</div>
-      <div class="d-inline-block">Zweigstelle / Abteilung</div>
+      <div class="d-inline-block">Signatur</div>?
+      <div class="d-inline-block">Mediennummer</div>?
+      <div class="d-inline-block">Regalstandort</div>?
+      <div class="d-inline-block">Zweigstelle / Abteilung</div>?
       <div class="d-inline-block">Status</div>
-      <div class="d-inline-block">Hinweis</div>
+      <div class="d-inline-block">Hinweis</div>?
       <div/>*
     </t:siblings-header>
   </div>
@@ -54,6 +56,8 @@
   {$holding:={"orderable": false()}}
   <t:siblings id="div">
     <div class="d-inline-block">{$holding.id}</div>
+    <div class="d-inline-block">{$holding.barcode}</div>
+    <div class="d-inline-block">{$holding.libraryLocation}</div>
     <div class="d-inline-block">{$holding.libraryBranch}</div>
     <div class="d-inline-block">{$holding.status}</div>
     <div/>

@@ -135,9 +135,13 @@ touchpoint := get('touchpoint', false())
           <div class="row d-flex">
             <div class="account-display-title">
               {$book:=$default-book}
-              <strong>{$book.title}</strong><br/>
+              <t:element t:condition="self::strong or self::b">{$book.title}</t:element><br/>
               {$book.author := matched-text()}<br/>
-              {$book.id := extract(matched-text(), "^[^/]*")}<br/>?
+              {let $mt := matched-text()
+               return ( 
+                 $book.id := extract($mt, "^[^/]*"), 
+                 $book.libraryLocation := substring-after($mt, "/")
+               )}<br/>?
               <span>{$book.status}</span>?
               <a>{$book.actionURI := resolve-html(.), 
                   if ($mode = (2,3)) then () else book.statusId := "curious"
@@ -146,7 +150,7 @@ touchpoint := get('touchpoint', false())
             <div class="account-display-state">{
               switch ($mode) 
                 case 2 case 3 return ( 
-                   book.status := ./text()[1],
+                   book.status := inner-text(),
                    book.issuedate := parse-date(extract(., '\d{2}\.\d{2}\.\d{4}', 0), 'dd.mm.yyyy|'), 
                    book.cancelable := boolean($book.actionURI)
                  )
