@@ -14,6 +14,7 @@ type TVideLibriForm = class(TForm)
 protected
   guiScaleFactor: Double;
   procedure videLibriScale(pcontrol: twincontrol);
+  function getRealFontHeight: integer;
   procedure DoCreate; override;
   procedure DoShow; override;
 end;
@@ -26,6 +27,7 @@ type TControlBreaker = class(TControl);
 
 //lcl's bounds do not include the border, so try to infer the border size
 var BoundsRectOffset: TPoint;
+    GlobalDefaultFontSize: integer = 0;
 
 function TVideLibriForm.GetRealBounds: TRect;
 var realRect: TRect;
@@ -150,6 +152,30 @@ begin
 
 end;
 
+function TVideLibriForm.getRealFontHeight: integer;
+const temp_str = 'Hm,.|';
+var
+  bmp: TBitmap;
+begin
+  if logging then log('Getting font size for '+Name + ' ' + ClassName +' ' + BoolToStr(HandleAllocated));
+  if HandleAllocated then
+    result := Canvas.GetTextHeight(temp_str)
+  else if (Application.MainForm <> nil) and Application.MainForm.HandleAllocated then
+    result := Application.MainForm.Canvas.GetTextHeight(temp_str)
+  else begin
+    bmp := TBitmap.Create;
+    bmp.Canvas.Font := Font;
+    result := bmp.Canvas.GetTextHeight(temp_str);
+    bmp.free;
+  end;
+  if (result > 0) then GlobalDefaultFontSize := result
+  else result := GlobalDefaultFontSize;
+  if logging then begin
+    log('size: ' + inttostr(result));
+    log('has handle: '+BoolToStr(HandleAllocated));
+  end;
+end;
+
 procedure TVideLibriForm.DoCreate;
 const REFERENCE_FONT = 19; //19 on Linux, 15 on Windows for the same DPI
 var
@@ -157,13 +183,7 @@ var
   bounds, oldbounds: TRect;
 begin
   guiScaleFactor := 1;
-  fontHeight := Canvas.GetTextHeight('Hm,.|');
-
-  {Canvas.GetTextMetrics(metrics);
-  log('METRI'+IntToStr(metrics.Height));
-  log('PP::::' + inttostr(font.PixelsPerInch));
-  log('GT::::' + inttostr(font.GetTextHeight('Hm,.|')));
-  log('CGT::::' + inttostr(Canvas.GetTextHeight('Hm,.|')));}
+  fontHeight := getRealFontHeight;
 
   oldbounds := GetRealBounds;
   bounds := oldbounds;
@@ -186,6 +206,7 @@ begin
   inherited DoCreate;
 
   UnlockRealizeBounds;
+  if logging then log('has handle (2): '+BoolToStr(HandleAllocated));
 {  if (Application.MainForm <> nil) and (Application.MainForm <> self) then
   ShowMessage(
     'bounds: ' + IntToStr(bounds.Left) + ' ' + inttostr(bounds.Top) + ' x ' + IntToStr(bounds.Width) + ' ' + inttostr(bounds.Height)  + #13#10  +
