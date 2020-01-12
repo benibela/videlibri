@@ -1,10 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-      <build version="2126" date="2019-11-25">
+      <build version="2140" date="2020-01-12">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <change>Windows/Linux: Änderung der Schriftgrößenermittlung.</change>
+        <fix>sisis/touchpoint/chemnitz: Anzeige von mehreren Ausleihkontoseiten, Vormerkungen, Suchdetails. </fix>
+        <fix>vöbb: Anpassung an Zweigstellensplitting.</fix>
+        <fix>Stadtbibliothek Mannheim: Anpassung an neuen OPAC.</fix>
+     </build>
+      <build version="2134" date="2019-12-20">
+        <fix>Stadtbibliothek Linz; Hochschulbibliotheken Aschaffenburg, Coburg, Würzburg-Schweinfurt; WRB Lörrach: Anpassung an neuen Katalog.</fix>
+        <add>VÖBB: Zweigstellenauswahl bei der Suche. Bessere Fehlermeldung, wenn der Katalog schon wieder für Wartungsarbeiten abgeschaltet ist.</add>
+     </build>
+      <build version="2130" date="2019-12-11">
+        <change>bibliotheca: Zeige Verlängerungsanzahl im richtigen Feld.</change>
+        <fix>koha: Korrigiere Login.</fix>
+        <fix>Behebt Android 9 Absturz, wenn die Aktivität geschlossen wird, während die Bücherei-Auswahlliste für die erste Konto-Erstellung geöffnet wird.</fix>
+	<fix>Behebt x86 64-Bit Android-Absturz.</fix>
+        <fix>Windows/Linux: Lade umsortiere Spalten korrekt.</fix>
+        <fix>Sisis/Touchpoint 6: Erkenne, ob man bereits auf der Katalogseite angemeldet ist.</fix>
+        <fix>Stadtbibliotheken Pfungstadt, Rastatt; Universitätsbibliotheken Osnabrück, Schmalkalden: Anpassungen an geänderte OPAC-Adresse.</fix>
+     </build>
+      <build version="2127" date="2019-11-27">
+        <fix>vöbb: weitere Anpassungen für Magazinbestellungen</fix>
+        <fix>Rückgängig machen von VÖBB Anpassungen, die nicht mit den Stadtbüchereien Düsseldorf laufen.</fix>
+     </build>
+      <build version="2126" date="2019-11-25">
         <fix>weitere Anpassungen an VÖBB Änderungen</fix>
      </build>
       <build version="2125" date="2019-11-25">
