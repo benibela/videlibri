@@ -9,7 +9,7 @@ text{"(2 of 3 renewals remaining)"},
 text{"Fines:
                                                         
                                                             No"})
-book := {"statusId": "curious", "status": "Fines:\n                                                        \n                                                            No; (2 of 3 renewals remaining); Details: vltest://koha/cgi-bin/koha/opac-detail.pl?biblionumber=512202", "_item": "65911", "id": " Thriller", "duedate": "2018-01-30T23:59:00", "author": " Schwarz, Åsa ", "title": "Nephilim"}
+book := {"statusId": "curious", "status": "Fines:\n                                                        \n                                                            No; (2 of 3 renewals remaining); Details: vltest://koha/cgi-bin/koha/opac-detail.pl?biblionumber=512202", "_item": "65911", "id": " Thriller", "duedate": "2018-01-30", "author": " Schwarz, Åsa ", "title": "Nephilim"}
 prestatus := ()
 prestatus := "Details: vltest://koha/cgi-bin/koha/opac-detail.pl?biblionumber=502970"
 prestatus := ("Details: vltest://koha/cgi-bin/koha/opac-detail.pl?biblionumber=502970", 
@@ -19,7 +19,7 @@ text{"(3 of 3 renewals remaining)"},
 text{"Fines:
                                                         
                                                             No"})
-book := {"statusId": "curious", "status": "Fines:\n                                                        \n                                                            No; (3 of 3 renewals remaining); Details: vltest://koha/cgi-bin/koha/opac-detail.pl?biblionumber=502970", "_item": "120112", "id": " CD Folk Country Song", "duedate": "2018-01-05T23:59:00", "author": "  ", "title": "Bis nach Toulouse"}
+book := {"statusId": "curious", "status": "Fines:\n                                                        \n                                                            No; (3 of 3 renewals remaining); Details: vltest://koha/cgi-bin/koha/opac-detail.pl?biblionumber=502970", "_item": "120112", "id": " CD Folk Country Song", "duedate": "2018-01-05", "author": "  ", "title": "Bis nach Toulouse"}
 prestatus := ()
 prestatus := "Details: vltest://koha/cgi-bin/koha/opac-detail.pl?biblionumber=95805"
 prestatus := ("Details: vltest://koha/cgi-bin/koha/opac-detail.pl?biblionumber=95805", 
