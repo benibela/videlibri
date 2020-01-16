@@ -1,25 +1,11 @@
-<FORM>
-  <template:meta default-text-matching="regex"/>  
-  {form := .}
-  
-  <span class="txtinsert">((Mein Konto */|Benutzerkonto) +Ausleihen)|Benutzerkonto:? Übersicht</span>
-  
-  <div id="R06">
-   <div>
-    <div class="rTable_div">       
-     <table class="rTable_table">
-     <tr>
-       <th>Anzahl</th>
-       <th>Darstellung</th>
-     </tr>
-     <tr>
-       <td/>
-       <t:switch>
-        <td>Keine Ausleihen</td>
-        <a t:condition="contains(., 'Ausleihe') and contains(@href, 'app;')"/>
-       </t:switch>
-     </tr>
-     {nextSplitTable := (.//a/@href)[$splitIndex]}
-     </table>
-  </div></div></div>
-</form>
+  <FORM>
+    {form := .}
+    
+    <!--Servicebereiche-->
+    <a t:condition="contains(., 'zeigen oder verlängern in:')"/>
+    {let $sublinks := //a[contains(., 'zeigen oder verlängern in:')]
+     return (
+       nextSplitTable := ($sublinks/@href)[$splitIndex]
+     )
+    }
+  </form>
