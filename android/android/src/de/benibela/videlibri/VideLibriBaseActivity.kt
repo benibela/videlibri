@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
+import android.os.Parcelable
 import android.support.annotation.LayoutRes
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
@@ -27,14 +28,18 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
     private val loadingTasks = ArrayList<Int>()
     private var loadingItem: MenuItem? = null
 
+    protected var activityBaseState: Parcelable? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         VideLibriApp.initializeAll(this)
         if (savedInstanceState != null) {
             loadingTasks.clear()
             loadingTasks += savedInstanceState.getIntegerArrayList("activeLoadingTasks")
+            activityBaseState = savedInstanceState.getParcelable("activityBaseState")
         }
     }
+
 
     override fun onResume() {
         super.onResume()
@@ -59,6 +64,7 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         outState?.putIntegerArrayList("activeLoadingTasks", loadingTasks)
+        activityBaseState?.let { outState?.putParcelable("activityBaseState", it) }
         if (VideLibriApp.currentActivity === this) VideLibriApp.currentActivity = null
     }
 

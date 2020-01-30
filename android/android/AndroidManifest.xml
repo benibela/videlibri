@@ -30,9 +30,9 @@
         </activity>
 
         <activity android:name=".LibraryList"
-                  android:configChanges="keyboardHidden"
-                  android:label="@string/app_name"
-                  android:launchMode="singleTop">
+            android:configChanges="keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTop">
 
         </activity>
 

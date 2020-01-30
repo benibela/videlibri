@@ -1,65 +1,94 @@
 package de.benibela.videlibri
 
-import android.content.Context
 import android.content.Intent
-import android.graphics.Rect
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.StateListDrawable
 import android.os.Bundle
-import android.util.TypedValue
+import android.os.Parcelable
+import android.support.annotation.LayoutRes
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.*
-import android.view.View.OnClickListener
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.ListView
+import android.widget.TextView
+import de.benibela.multilevellistview.ExpandableMultiLevelListView
+import de.benibela.multilevellistview.MultiColumnListView
+import de.benibela.multilevellistview.MultiLevelListView
+import de.benibela.multilevellistview.PartialMultiLevelListView
 import de.benibela.videlibri.jni.Bridge
+import kotlinx.android.parcel.Parcelize
 import java.util.*
 
-class LibraryList: VideLibriBaseActivity() {
-    internal val states: MutableList<String> = ArrayList()
-    internal val cities: MutableList<MutableList<String>> = ArrayList()
-    internal val localLibs: MutableList<MutableList<MutableList<MutableMap<String, String>>>> = ArrayList()
+class LibraryListAdapter: MultiLevelListView.Adapter<LibraryListAdapter.Holder>(){
+    private val states: MutableList<String> = ArrayList()
+    private val cities: MutableList<MutableList<String>> = ArrayList()
+    private val localLibs: MutableList<MutableList<MutableList<String>>> = ArrayList()
 
-    internal lateinit var scrollView: ScrollView
-    private var libView: LibraryListView? = null
-    private var metaCat: Int = 0
-
-    override fun onCreateOptionsMenuOverflow(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenuOverflow(menu, inflater)
-        inflater.inflate(R.menu.librarylistmenu, menu)
+    class Holder(view: View): RecyclerView.ViewHolder(view){
+        val text = view as TextView
     }
 
-    private fun makeLibView(cityView: ScrollView? = null, libView: ScrollView? = null): LibraryListView {
-        metaCat = -1
+    override fun getLevels(): Int = 3
+    override fun getChildCount(position: IntArray): Int =
+        when (position.size) {
+            0 -> states.size
+            1 -> cities[position[0]].size
+            2 -> localLibs[position[0]][position[1]].size
+            else -> 0
+        }
+    override fun getItemViewType(position: IntArray): Int = position.size
+    private fun holder(parent: ViewGroup, @LayoutRes view: Int): Holder{
+        val v = LayoutInflater.from(parent.context).inflate(view, parent, false)
+        return Holder(v)
+    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder =
+        when (viewType) {
+            1 -> holder(parent, android.R.layout.simple_expandable_list_item_1).apply {
+                itemView.setBackgroundResource(android.R.drawable.list_selector_background)
+            }
+            2 -> holder(parent, R.layout.librarycityinlistview)
+            3 -> holder(parent, R.layout.libraryinlistview)
+            else -> Holder(TextView(parent.context))
+        }
+    override fun onBindViewHolder(holder: Holder, position: IntArray){
+        when (position.size) {
+            1 -> holder.text.text = states.get(position[0])
+            2 -> holder.text.text = cities[position[0]][position[1]]
+            3 -> holder.text.text = getLibraryText(getLibraryId(position))
+        }
+    }
+    val detailCache = mutableMapOf<String, Bridge.LibraryDetails>()
+    internal fun getLibraryDetails(id: String): Bridge.LibraryDetails =
+            detailCache.getOrPut(id) { Bridge.VLGetLibraryDetails(id) ?: Bridge.LibraryDetails() }
+    internal fun getLibraryId(position: IntArray) =
+            localLibs[position[0]][position[1]][position[2]]
+    private fun getLibraryText(id: String): String{
+        val info = getLibraryDetails(id)
+        val name = info.prettyName
+        return info.tableComment.takeNonEmpty()?.let { "$name\n\t$it" } ?: name
+    }
+
+    val metaCatalogs: Int
+    val autoExpand: Int
+
+    init {
+        var localMetaCatalogs = -1
+        var localAutoExpand = 0
+
         val libs = Bridge.VLGetLibraryIds()
 
-        states.clear()
-        cities.clear()
-        localLibs.clear()
-
-        var autoExpand = 0
         if (Accounts.size > 0) {
-            autoExpand = 1
-            val used = ArrayList<String>()
-            states.add(tr(R.string.liblist_withaccounts))
-            cities.add(ArrayList())
-            cities[0].add(tr(R.string.liblist_withaccounts))
-            localLibs.add(ArrayList())
-            localLibs[0].add(ArrayList())
-            for (account in Accounts.toArray) {
-                if (used.contains(account.libId)) continue
-                used.add(account.libId)
-
-                val map = TreeMap<String, String>()
-                localLibs[0][localLibs.size - 1].add(map)
-
-                map["ID"] = account.libId
-            }
+            localAutoExpand = 1
+            states.add(getString(R.string.liblist_withaccounts)?:"")
+            cities.add(mutableListOf(getString(R.string.liblist_withaccounts)?:""))
+            localLibs.add(mutableListOf(Accounts.toArray.map { it.libId }.toSet().toMutableList()))
         }
 
         var lastIdSplit = listOf("", "", "", "")
         for (id in libs) {
             val split = id.split("_".toRegex())
             if (states.isEmpty() || split[0] != lastIdSplit[0] || split[1] != lastIdSplit[1]) {
-                if (metaCat < 0 && id.contains("ueberregional")) metaCat = states.size
+                if (localMetaCatalogs < 0 && id.contains("ueberregional")) localMetaCatalogs = states.size
                 states.add(Bridge.LibraryDetails.decodeIdEscapes(split[0] + " - " + split[1]))
                 cities.add(ArrayList())
                 localLibs.add(ArrayList())
@@ -67,30 +96,41 @@ class LibraryList: VideLibriBaseActivity() {
             val curCities = cities[cities.size - 1]
             if (curCities.isEmpty() || split[2] != lastIdSplit[2]) {
                 curCities.add(Bridge.LibraryDetails.decodeIdEscapes(split[2]))
-                if ("-" == split[2] && autoExpand < 2) autoExpand += 1
+                if ("-" == split[2] && localAutoExpand < 2) localAutoExpand += 1
                 localLibs[localLibs.size - 1].add(ArrayList())
             }
-            val map = TreeMap<String, String>()
-            localLibs[localLibs.size - 1][localLibs[localLibs.size - 1].size - 1].add(map)
-            map["ID"] = id
+            localLibs[localLibs.size - 1][localLibs[localLibs.size - 1].size - 1].add(id)
             lastIdSplit = split
         }
 
-        val lv = LibraryListView(this, cityView, libView)
+        autoExpand = localAutoExpand
+        metaCatalogs = localMetaCatalogs
+    }
+}
 
-        for (i in 0 until autoExpand) {
-            lv.expand(i, false)
-            if (cities[i].size == 1) lv.expand(i, 0, false)
-            if (cityView != null) break
-        }
+class LibraryList: VideLibriBaseActivity() {
+    @Parcelize
+    class State(var lastClickedItem: Long = -1L): Parcelable
+    private val state: State? get() = activityBaseState as? State
 
-        return lv
+    internal lateinit var adapter: LibraryListAdapter
+    var listView: ExpandableMultiLevelListView? = null
+    var columnView: MultiColumnListView? = null
+
+
+    override fun onCreateOptionsMenuOverflow(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenuOverflow(menu, inflater)
+        inflater.inflate(R.menu.librarylistmenu, menu)
     }
 
-    private fun onLeafClick(state: Int, city: Int, lib: Int) {
-        val leaf = localLibs[state][city][lib]
-        lastSelectedLibId = leaf["ID"]
-        lastSelectedLibName = leaf["NAME"]
+
+    private fun onLeafClick(@Suppress("UNUSED_PARAMETER") rv: RecyclerView, vh: RecyclerView.ViewHolder) {
+        state?.lastClickedItem = vh.itemId
+        val p = adapter.idToPosition(vh.itemId)
+        if (p.size != 3) return
+        val id = adapter.getLibraryId(p)
+        lastSelectedLibId = id
+        lastSelectedLibName = adapter.getLibraryDetails(id).prettyName
         lastSelectedTime = System.currentTimeMillis()
 
         finishWithResult()
@@ -98,15 +138,24 @@ class LibraryList: VideLibriBaseActivity() {
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setVideLibriView(R.layout.chooselib)
+        if (state == null) activityBaseState = State()
+        setVideLibriView(R.layout.librarylist)
 
         intent.getStringExtra("reason")?.takeNonEmpty()?.let { findViewById<TextView>(R.id.textView) }
 
-        createListView()
+
+        val portMode = resources.getBoolean(R.bool.port_mode)
+        if (portMode) listView = findViewById<ExpandableMultiLevelListView>(R.id.libListView).also {
+            it.layoutManager = LinearLayoutManager(this)
+            it.addOnItemClickListener(::onLeafClick)
+        }
+        else columnView = findViewById<MultiColumnListView>(R.id.libColumnListView).also {
+            it.addOnItemClickListener(::onLeafClick)
+        }
+        createListAdapter()
 
         findViewById<View>(R.id.textViewLibWhyNot).apply {
-            if (//false &&
-                    accounts.isNotEmpty())
+            if (false && accounts.isNotEmpty())
                 visibility = View.GONE
             else
                 setOnClickListener { showHowToAddLibraryDialog() }
@@ -114,275 +163,37 @@ class LibraryList: VideLibriBaseActivity() {
 
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
-        super.onSaveInstanceState(outState)
-        outState ?: return
-        val libView = libView ?: return
-        outState.putString("lastExpandedState", libView.lastExpandedState)
-        outState.putString("lastExpandedCity", libView.lastExpandedCity)
+    private fun restoreExpansion(l: PartialMultiLevelListView) {
+        val lastClickedItem = state?.lastClickedItem ?: -1L
+        if (lastClickedItem <= 0) return;
+        val bits = adapter.bitsPerLevel
+        val level = adapter.idToLevel(lastClickedItem)
+        val ancestors = (0 until level).map { lastClickedItem shr (bits * it) }.reversed()
+        ancestors.take(level - 1).forEach { l.expand(it) }
+        (l as? ExpandableMultiLevelListView)?.autoScrollOnExpansion = true
+        ancestors.takeLast(1).forEach { l.expand(it) }
     }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
-        super.onRestoreInstanceState(savedInstanceState)
-        savedInstanceState ?: return
-        val libView = libView ?: return
-        val lastExpandedState = savedInstanceState.getString("lastExpandedState") ?: ""
-        val lastExpandedCity = savedInstanceState.getString("lastExpandedCity") ?: ""
-        val state = states.indexOf(lastExpandedState)
-        val city = cities.getOrNull(state)?.indexOf(lastExpandedCity) ?: return
-        if (city < 0) libView.expand(state, true)
-        else libView.expand(state, city, true)
-    }
+    private fun createListAdapter(){
 
-    private fun createListView() {
-        val portMode = resources.getBoolean(R.bool.port_mode)
-        scrollView = findViewById(R.id.libListView)
-        scrollView.let {
-            it.removeAllViews()
-            libView = if (portMode) makeLibView()
-                      else makeLibView(findViewById(R.id.libListViewCities), findViewById(R.id.libListViewLibs))
-            it.addView(libView)
+        adapter = LibraryListAdapter()
+        listView?.let {
+            it.adapter = adapter
+            it.autoScrollOnExpansion = false
+            for (i in (adapter.autoExpand - 1) downTo 0 )
+                it.expand(adapter.childId(adapter.bitsPerLevel, 0, i))
+            restoreExpansion(it)
+            it.autoScrollOnExpansion = true
+        }
+        columnView?.let {
+            it.adapter = adapter
+            restoreExpansion(it)
         }
     }
-
-    internal class ViewIdState( var a: Int )
-    internal class ViewIdCity(var a: Int, var b: Int)
-    internal class ViewIdLibrary(var a: Int, var b: Int, var c: Int)
-
-
-    inner class LibraryListView internal constructor(
-            context: Context,
-            private var cityView: ScrollView?,
-            private var libView: ScrollView?) : LinearLayout(context) {
-        private var stateViews: List<TextView>
-        private var stateChildViews: List<LinearLayout>
-        private var cityViews: List<Array<TextView?>>
-        private var cityChildViews: List<Array<LinearLayout?>>
-        private var portMode: Boolean = false
-        //View libViews[][][];
-
-        internal var lastExpandedState: String? = null
-        internal var lastExpandedCity: String? = null
-
-        private var groupIndicator: Drawable? = null
-        private var groupIndicatorExpanded: Drawable? = null
-
-        private var combinedListener: View.OnClickListener = OnClickListener { view ->
-            view.tag.let {
-                when (it) {
-                    is ViewIdState -> if (!isExpanded(it.a)) openState(it.a, portMode) else collapse(it.a)
-                    is ViewIdCity -> if (!isExpanded(it.a, it.b)) expand(it.a, it.b, true) else collapse(it.a, it.b)
-                    is ViewIdLibrary -> onLeafClick(it.a, it.b, it.c)
-                }
-            }
-        }
-
-        init {
-            portMode = cityView == null
-            orientation = LinearLayout.VERTICAL
-            if (portMode) {
-                val typedValue = TypedValue()
-                if (theme.resolveAttribute(android.R.attr.expandableListViewStyle, typedValue, true)) {
-                    val typedArray = theme.obtainStyledAttributes(typedValue.resourceId, intArrayOf(android.R.attr.groupIndicator))
-                    (typedArray.getDrawable(0) as? StateListDrawable)?.let {
-                        groupIndicator = it
-                    }
-                    (typedArray.getDrawable(0) as? StateListDrawable)?.let {
-                        it.state = intArrayOf(android.R.attr.state_expanded)
-                        groupIndicatorExpanded = it.current
-                    }
-                }
-            }
-
-            //create all state views
-            stateViews = states.mapIndexed { i, s ->
-                (layoutInflater.inflate(android.R.layout.simple_expandable_list_item_1, this, false) as TextView).apply {
-                    setBackgroundResource(android.R.drawable.list_selector_background)
-                    text = s
-                    setCompoundDrawablesWithIntrinsicBounds(groupIndicator, null, null, null)
-                    tag = ViewIdState(i)
-                    setOnClickListener(combinedListener)
-                }
-            }
-            stateChildViews = states.map {
-                LinearLayout(context).apply {
-                    layoutParams = LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-                    orientation = VERTICAL
-                }
-            }
-            for (i in states.indices) {
-                addView(stateViews[i])
-                if (portMode)
-                    addView(stateChildViews[i])
-            }
-
-
-            //create null arrays for city views
-            cityViews = states.mapIndexed { i, _ -> arrayOfNulls<TextView>(cities[i].size) }
-            cityChildViews = states.mapIndexed { i, _ -> arrayOfNulls<LinearLayout>(cities[i].size) }
-        }
-
-        private fun isExpanded(state: Int): Boolean {
-            return stateChildViews[state].childCount > 0 && stateChildViews[state].isShown
-        }
-
-        private fun isExpanded(state: Int, city: Int): Boolean {
-            return cityChildViews[state][city]?.run { childCount > 0 && isShown } ?: false
-        }
-
-
-        internal fun expand(state: Int, scroll: Boolean) {
-            if (stateChildViews[state].childCount == 0) {
-                for (b in cities[state].indices) {
-                    (layoutInflater.inflate(R.layout.librarycityinlistview, this, false) as TextView).apply {
-                        text = cities[state][b]
-                        setCompoundDrawablesWithIntrinsicBounds(groupIndicator, null, null, null)
-                        //l.setPadding((int)(60 * getResources().getDisplayMetrics().density), l.getPaddingTop(), l.getPaddingRight(), l.getPaddingBottom());
-                        tag = ViewIdCity(state, b)
-                        setOnClickListener(combinedListener)
-                        stateChildViews[state].addView(this)
-                        cityViews[state][b] = this
-                    }
-
-                    LinearLayout(context).apply {
-                        layoutParams = LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-                        orientation = VERTICAL
-                        cityChildViews[state][b] = this
-                        if (portMode)
-                            stateChildViews[state].addView(this)
-                    }
-                }
-            }
-            if (!portMode) cityView?.apply {
-                removeAllViews()
-                addView(stateChildViews[state])
-            }
-            stateChildViews[state].visibility = View.VISIBLE
-
-            if (portMode)
-                setIndicator(stateViews[state], true)
-
-            if (scroll)
-                smoothScrollTo(
-                        if (portMode)
-                            if (cityChildViews[state].isNotEmpty() && isExpanded(state, cityChildViews[state].size - 1))
-                                cityChildViews[state][cityChildViews[state].size - 1]?:return
-                            else
-                                stateChildViews[state]
-                        else
-                            stateViews[state],
-                        stateViews[state])
-
-            if (state < states.size) {
-                lastExpandedState = states[state]
-                lastExpandedCity = null
-            }
-        }
-
-        internal fun expand(state: Int, city: Int, scroll: Boolean) {
-            cityChildViews[state][city] ?: expand(state, scroll)
-            cityChildViews[state][city]?.let { libraryHolder ->
-                if (libraryHolder.childCount == 0) {
-                    localLibs[state][city].forEachIndexed { index, libraryMap ->
-                        if (!libraryMap.containsKey("NAME")) {
-                            val id = libraryMap["ID"] ?: return@forEachIndexed
-                            val details = Bridge.VLGetLibraryDetails(id)
-                            libraryMap["NAME"] = details?.prettyName ?: "Failed to load: $id"
-                            details?.tableComment?.takeNonEmpty()?.let { libraryMap["TABLECOMMENT"] = it }
-                        }
-                        libraryHolder.addView((layoutInflater.inflate(R.layout.libraryinlistview, this, false) as TextView).apply {
-                            text = libraryMap["NAME"].let { name ->
-                                libraryMap["TABLECOMMENT"]?.takeNonEmpty()?.let { "$name\n\t$it" } ?: name
-                            }
-                            tag = ViewIdLibrary(state, city, index)
-                            setOnClickListener(combinedListener)
-                        })
-                    }
-                }
-                if (!portMode) libView?.apply{
-                    removeAllViews()
-                    addView(libraryHolder)
-                }
-                libraryHolder.visibility = View.VISIBLE
-                if (portMode) cityViews[state][city]?.let{
-                    setIndicator(it, true)
-                    smoothScrollTo(libraryHolder, it)
-                }
-                if (state < Math.min(states.size, cities.size) && city < cities[state].size) {
-                    lastExpandedState = states[state]
-                    lastExpandedCity = cities[state][city]
-                }
-            }
-        }
-
-        private fun collapse(state: Int) {
-            if (portMode) {
-                stateChildViews[state].visibility = View.GONE
-                setIndicator(stateViews[state], false)
-            }
-        }
-
-        private fun collapse(state: Int, city: Int) {
-            if (portMode) {
-                cityChildViews[state][city]?.visibility = View.GONE
-                cityViews[state][city]?.let { setIndicator(it, false) }
-            }
-        }
-
-        private fun setIndicator(view: TextView, expanded: Boolean) {
-            playSoundEffect(SoundEffectConstants.CLICK)
-            if (groupIndicator != null || groupIndicatorExpanded != null)
-                view.postDelayed({ view.setCompoundDrawablesWithIntrinsicBounds(if (expanded) groupIndicatorExpanded else groupIndicator, null, null, null) }, 150)
-
-            /*TransitionDrawable trans = new TransitionDrawable(new ColorDrawable[]{new ColorDrawable(Color.BLACK), new ColorDrawable(Color.BLUE), new ColorDrawable(Color.BLACK)});
-            view.setBackgroundDrawable(trans);
-            trans.startTransition(500);                             */
-        }
-
-        internal fun openState(i: Int, scroll: Boolean) {
-            expand(i, scroll)
-            if (cities[i].size == 1 && !isExpanded(i, 0)) expand(i, 0, portMode)
-        }
-
-        private fun offsetParent(r: Rect, view: View) {
-            if (view.parent !== this@LibraryListView && view.parent is View) {
-                val temp = Rect()
-                (view.parent as View).getHitRect(temp)
-                r.top += temp.top
-                r.bottom += temp.top
-            }
-        }
-
-        private fun smoothScrollTo(view: View, header: View) {
-            view.postDelayed(Runnable {
-                val viewRect = Rect()
-                val scrollRect = Rect()
-                view.getHitRect(viewRect)
-                offsetParent(viewRect, view)
-                scrollView.getDrawingRect(scrollRect)
-
-                //Log.i("VL", "center: "+center+ " temp "+temp.top+" "+temp.bottom);
-
-                if (viewRect.bottom >= scrollRect.top && viewRect.bottom <= scrollRect.bottom) return@Runnable
-                val headerRect = Rect()
-                header.getHitRect(headerRect)
-                offsetParent(headerRect, header)
-
-                val target = if (headerRect.height() + viewRect.height() + 20 /* arbitrary offset */ >= scrollRect.height())
-                    headerRect.top
-                else
-                    viewRect.bottom - scrollRect.height()
-
-                scrollView.smoothScrollTo(measuredWidth / 2, target)
-            }, 150) //wait for post onMeasure
-        }
-
-    }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
-            VideLibriBaseActivityOld.RETURNED_FROM_NEW_LIBRARY -> createListView()
+            RETURNED_FROM_NEW_LIBRARY -> createListAdapter()
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
@@ -400,7 +211,7 @@ class LibraryList: VideLibriBaseActivity() {
 
                 val lv = v.findViewById<ListView>(R.id.listView)
                 lv.adapter = object : ArrayAdapter<String>(activity, R.layout.bookoverview, R.id.bookoverviewCaption, itemsSubCaption) {
-                    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
+                    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View? {
                         return super.getView(position, convertView, parent).apply {
                             findViewById<View>(R.id.bookoverviewDate).visibility = View.GONE
                             findViewById<TextView>(R.id.bookoverviewMore).text = itemsSubCaption.getOrElse(position, {""})
@@ -417,7 +228,11 @@ class LibraryList: VideLibriBaseActivity() {
                             1, 3 -> startActivity<NewLibrary>(
                                     "mode" to if (i == 3) 0 else NewLibrary.MODE_LIBRARY_ENTER_NEW_DATA
                             )
-                            2 -> if (metaCat >= 0) libView?.openState(metaCat, true)
+                            2 -> if (adapter.metaCatalogs >= 0) {
+                                val id = adapter.childId(adapter.bitsPerLevel, 0, adapter.metaCatalogs)
+                                listView?.expand(id)
+                                columnView?.expand(id)
+                            }
                             4 -> startActivity<SourceEdit>() //showUriInBrowser("http://www.videlibri.de/help/neuebibliothek.html")
                             5 -> startActivity<Feedback> ()
                         }
