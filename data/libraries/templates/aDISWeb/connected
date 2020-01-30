@@ -15,7 +15,7 @@
        <a>Mein Konto<t:s>searchPage:=$url,connected:=true()</t:s></a>
        
        <div class="aDISMaske"><div id="spruch">Zu viele Benutzer</div><div id="main">{vl:raise(inner-text())}</div></div>
-       <div id="main" t:condition="matches(., 'Benutzer|Wartung')">{vl:raise(inner-text())}</div>
+       <div id="main" t:condition="matches(., 'Benutzer|Wartung|Störung')">{vl:raise(inner-text())}</div>
        
        <meta http-equiv="refresh">{connectPage:=extract(@content, "url=(.*)", 1)}</meta>
        <a title="Zur Startseite">{connectPage:=@href}</a>
