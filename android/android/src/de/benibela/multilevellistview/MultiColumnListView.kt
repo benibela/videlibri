@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 
-@Suppress("unused")
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 open class MultiColumnListView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0): LinearLayout(context, attrs, defStyleAttr), PartialMultiLevelListView{
     abstract class SingleLevelAdapter<VH: RecyclerView.ViewHolder>: ClickableRecyclerView.Adapter<VH>(){
         open var currentParent: Long = -1L

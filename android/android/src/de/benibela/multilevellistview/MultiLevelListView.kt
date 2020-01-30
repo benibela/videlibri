@@ -3,9 +3,9 @@ package de.benibela.multilevellistview
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
-import android.util.Log
 
 
+@Suppress("RedundantVisibilityModifier", "RemoveRedundantQualifierName", "MemberVisibilityCanBePrivate")
 open class MultiLevelListView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): ClickableRecyclerView(context, attrs, defStyle) {
     abstract class Adapter<VH: RecyclerView.ViewHolder>: ClickableRecyclerView.Adapter<VH>() {
         abstract fun getLevels(): Int
@@ -17,6 +17,7 @@ open class MultiLevelListView @JvmOverloads constructor(context: Context, attrs:
         open fun getItemViewType(id: Long): Int = getItemViewType(idToPosition(id))
 
         init {
+            @Suppress("LeakingThis")
             setHasStableIds(true)
         }
 
@@ -82,7 +83,7 @@ open class MultiLevelListView @JvmOverloads constructor(context: Context, attrs:
                 curPos = nextId(curPos)
                 p--
             }
-            Log.d("LISTVIEW", pos.toString() + " => "+curPos)
+            //Log.d("LISTVIEW", pos.toString() + " => "+curPos)
             return curPos
         }
         internal fun idToLinearPosition(id: Long): Int {
@@ -91,8 +92,7 @@ open class MultiLevelListView @JvmOverloads constructor(context: Context, attrs:
             var pid = id
             var res = 0
             while (pid > 0) {
-                val childIndex = (pid and mask).toInt()
-                when (childIndex) {
+                when ((pid and mask).toInt()) {
                     0, 1 -> { //0 should not happen
                         pid = parentId(bits, pid)
                         res++
@@ -138,7 +138,7 @@ open class MultiLevelListView @JvmOverloads constructor(context: Context, attrs:
         //        onCreateViewHolder(parent, viewType >> 16)
         override fun onBindViewHolder(holder: VH, position: Int){
             val pos = idToPosition(holder.itemId)
-            Log.d("LISTVIEW", pos.joinToString() + ": " + position+ " " + holder.itemId)
+            //Log.d("LISTVIEW", pos.joinToString() + ": " + position+ " " + holder.itemId)
             onBindViewHolder(holder, pos)
         }
         override fun getItemCount(): Int{

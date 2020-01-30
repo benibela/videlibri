@@ -3,8 +3,10 @@ package de.benibela.videlibri
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Paint
+import android.graphics.Point
 import android.graphics.Typeface
 import android.os.Bundle
+import android.os.Parcelable
 import android.support.v4.view.ViewCompat
 import android.support.v7.app.ActionBar
 import android.text.InputType
@@ -20,15 +22,9 @@ import de.benibela.videlibri.jni.Bridge
 import de.benibela.videlibri.jni.FormInput
 import de.benibela.videlibri.jni.FormParams
 import de.benibela.videlibri.jni.FormSelect
-import java.util.*
-import android.view.ViewGroup
-import kotlin.math.roundToInt
-import android.R.attr.y
-import android.R.attr.x
-import android.graphics.Point
-import android.os.Parcelable
-import android.view.Display
 import kotlinx.android.parcel.Parcelize
+import java.util.*
+import kotlin.math.roundToInt
 
 
 internal interface SearchEventHandler {
@@ -164,7 +160,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
             it.state = SEARCHER_STATE_INIT
             it.connect()
             if (it.nativePtr != 0L) {
-                beginLoading(VideLibriBaseActivityOld.LOADING_SEARCH_CONNECTING)
+                beginLoading(LOADING_SEARCH_CONNECTING)
                 searchers.add(it)
             }
         }
@@ -181,7 +177,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
             }
             it.pendingEvents.clear()
             if (it.state != SEARCHER_STATE_INIT)
-                endLoadingAll(VideLibriBaseActivityOld.LOADING_SEARCH_CONNECTING)
+                endLoadingAll(LOADING_SEARCH_CONNECTING)
         }
     }
 
@@ -213,7 +209,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
         val oldSearchParamHolders = searchParamHolders.toMap()
         searchParamHolders.clear()
         for (param in searcher.searchParams.inputs){
-            if (param.name in searchParamHolders) continue;
+            if (param.name in searchParamHolders) continue
             val old = oldSearchParamHolders[param.name]?.takeIf { it.input == param }
             if (old != null) {
                 lay.addView(old.layout)
@@ -264,12 +260,12 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
             val captionWidth = h.caption.paint.measureText(h.caption.text.toString()).roundToInt()
             if (portMode || (displayWidth > 0 && captionWidth > displayWidth / 3) ) {
                 h.layout.orientation = LinearLayout.VERTICAL
-                h.caption.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                h.view.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                h.caption.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                h.view.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
             } else {
                 h.layout.orientation = LinearLayout.HORIZONTAL
-                h.caption.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                h.view.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                h.caption.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                h.view.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
                 if (captionWidth > minimumWidth) minimumWidth = captionWidth
             }
         }
@@ -301,7 +297,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
         event.searcherAccess?.let { s ->
             when (event.kind) {
                 Bridge.SearchEventKind.CONNECTED -> {
-                    endLoadingAll(VideLibriBaseActivityOld.LOADING_SEARCH_CONNECTING)
+                    endLoadingAll(LOADING_SEARCH_CONNECTING)
                     s.heartBeat = System.currentTimeMillis()
                     s.state = SEARCHER_STATE_CONNECTED
                     s.searchParams = event.obj1 as? FormParams
@@ -309,7 +305,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
                     return true
                 }
                 Bridge.SearchEventKind.EXCEPTION -> {
-                    endLoadingAll(VideLibriBaseActivityOld.LOADING_SEARCH_CONNECTING)
+                    endLoadingAll(LOADING_SEARCH_CONNECTING)
                     s.state = SEARCHER_STATE_FAILED
                     searcher = null
                     gcSearchers()

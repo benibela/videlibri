@@ -6,7 +6,6 @@ import android.graphics.drawable.StateListDrawable
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
-import android.util.Log
 import android.util.TypedValue
 import android.view.ViewGroup
 import android.widget.TextView
@@ -33,7 +32,7 @@ open class ExpandableMultiLevelListView @JvmOverloads constructor(context: Conte
     }
     open class DefaultExpandableAdapter<VH: RecyclerView.ViewHolder>(private val wrapped: MultiLevelListView.Adapter<VH>): ExpandableAdapter<VH>() {
 
-        private val expanded = mutableSetOf<Long>(0L)
+        private val expanded = mutableSetOf(0L)
 
         override val bitsPerLevel = wrapped.bitsPerLevel
 
@@ -75,7 +74,7 @@ open class ExpandableMultiLevelListView @JvmOverloads constructor(context: Conte
             expanded.add(id)
             val descendants = countDescendants(id)
 
-            Log.i("LISTVIEW", "EXPAND: $id $linearPosition $descendants")
+            //Log.i("LISTVIEW", "EXPAND: $id $linearPosition $descendants")
 
             if (descendants > 0)
                 notifyItemRangeInserted(linearPosition + 1, descendants)
@@ -91,7 +90,7 @@ open class ExpandableMultiLevelListView @JvmOverloads constructor(context: Conte
             val descendants = countDescendants(id)
             expanded.remove(id)
 
-            Log.i("LISTVIEW", "COLLAPSE: $id $linearPosition $descendants")
+            //Log.i("LISTVIEW", "COLLAPSE: $id $linearPosition $descendants")
 
             if (descendants > 0)
                 notifyItemRangeRemoved(linearPosition + 1, descendants)
@@ -136,7 +135,7 @@ open class ExpandableMultiLevelListView @JvmOverloads constructor(context: Conte
                     val firstPosition = lm.findFirstCompletelyVisibleItemPosition()
                     val visibleItemCount = lastPosition - firstPosition + 1
                     val scrollTarget = if (visibleItemCount >= descendants) linearPosition + descendants else linearPosition + visibleItemCount - 1
-                    Log.i("LISTVIEW", "Scroll to: $scrollTarget   $linearPosition $firstPosition $lastPosition ")
+                    //Log.i("LISTVIEW", "Scroll to: $scrollTarget   $linearPosition $firstPosition $lastPosition ")
                     smoothScrollToPosition(scrollTarget)
                 }
 
