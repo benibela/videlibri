@@ -231,8 +231,9 @@ class ImportExport : VideLibriBaseActivity() {
         }
     }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
         super.onRestoreInstanceState(savedInstanceState)
+        savedInstanceState ?: return
         val fn = savedInstanceState.getString("activeImportFileName")?.takeNonEmpty() ?: return
         try {
             showPreparedImport(fn)

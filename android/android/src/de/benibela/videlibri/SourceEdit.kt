@@ -224,8 +224,9 @@ class SourceEdit : VideLibriBaseActivity() {
         }
     }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
         super.onRestoreInstanceState(savedInstanceState)
+        savedInstanceState ?: return
         spinner.setSelection(savedInstanceState.getInt("base", 0))
         fileSpinner.setSelection(savedInstanceState.getInt("file", 0))
         restoreEditText(savedInstanceState)

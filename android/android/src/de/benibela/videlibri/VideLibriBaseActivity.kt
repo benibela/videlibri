@@ -18,6 +18,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import de.benibela.videlibri.jni.Bridge
+import kotlin.reflect.KMutableProperty0
 
 @SuppressLint("Registered")
 open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
@@ -28,18 +29,22 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
     private val loadingTasks = ArrayList<Int>()
     private var loadingItem: MenuItem? = null
 
-    protected var activityBaseState: Parcelable? = null
+    private var savedInstanceState: Bundle? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        this.savedInstanceState = savedInstanceState
         VideLibriApp.initializeAll(this)
         if (savedInstanceState != null) {
             loadingTasks.clear()
             loadingTasks += savedInstanceState.getIntegerArrayList("activeLoadingTasks")
-            activityBaseState = savedInstanceState.getParcelable("activityBaseState")
         }
     }
 
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        this.savedInstanceState = null
+    }
 
     override fun onResume() {
         super.onResume()
@@ -64,7 +69,7 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         outState?.putIntegerArrayList("activeLoadingTasks", loadingTasks)
-        activityBaseState?.let { outState?.putParcelable("activityBaseState", it) }
+        registeredStates.forEach { outState?.putParcelable(it.key, it.value()) }
         if (VideLibriApp.currentActivity === this) VideLibriApp.currentActivity = null
     }
 
@@ -104,6 +109,21 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
         inflater.inflate(layoutResID, layout.findViewById(R.id.content_holder), true)
         setContentView(layout)
     }
+
+    private val registeredStates = mutableMapOf<String, () -> Parcelable>()
+    fun <T: Parcelable> registerState(property: KMutableProperty0<T>){
+        val name = property.name
+        if (!registeredStates.containsKey(name))
+            registeredStates[name] = property::get
+        if (savedInstanceState?.containsKey(name) == true) {
+            val value = savedInstanceState?.getParcelable<T>(name)
+            if (value != null) {
+                property.set(value)
+                return
+            }
+        }
+    }
+
 
     protected fun createDrawerToggle() {
         val layout = mDrawerLayout ?: return

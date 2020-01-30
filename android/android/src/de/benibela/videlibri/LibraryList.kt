@@ -111,7 +111,7 @@ class LibraryListAdapter: MultiLevelListView.Adapter<LibraryListAdapter.Holder>(
 class LibraryList: VideLibriBaseActivity() {
     @Parcelize
     class State(var lastClickedItem: Long = -1L): Parcelable
-    private val state: State? get() = activityBaseState as? State
+    private var state = State()
 
     internal lateinit var adapter: LibraryListAdapter
     var listView: ExpandableMultiLevelListView? = null
@@ -125,7 +125,7 @@ class LibraryList: VideLibriBaseActivity() {
 
 
     private fun onLeafClick(@Suppress("UNUSED_PARAMETER") rv: RecyclerView, vh: RecyclerView.ViewHolder) {
-        state?.lastClickedItem = vh.itemId
+        state.lastClickedItem = vh.itemId
         val p = adapter.idToPosition(vh.itemId)
         if (p.size != 3) return
         val id = adapter.getLibraryId(p)
@@ -138,7 +138,7 @@ class LibraryList: VideLibriBaseActivity() {
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (state == null) activityBaseState = State()
+        registerState(::state)
         setVideLibriView(R.layout.librarylist)
 
         intent.getStringExtra("reason")?.takeNonEmpty()?.let { findViewById<TextView>(R.id.textView) }
@@ -164,8 +164,8 @@ class LibraryList: VideLibriBaseActivity() {
     }
 
     private fun restoreExpansion(l: PartialMultiLevelListView) {
-        val lastClickedItem = state?.lastClickedItem ?: -1L
-        if (lastClickedItem <= 0) return;
+        val lastClickedItem = state.lastClickedItem
+        if (lastClickedItem <= 0) return
         val bits = adapter.bitsPerLevel
         val level = adapter.idToLevel(lastClickedItem)
         val ancestors = (0 until level).map { lastClickedItem shr (bits * it) }.reversed()

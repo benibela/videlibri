@@ -26,9 +26,9 @@ import kotlin.math.roundToInt
 import android.R.attr.y
 import android.R.attr.x
 import android.graphics.Point
+import android.os.Parcelable
 import android.view.Display
-
-
+import kotlinx.android.parcel.Parcelize
 
 
 internal interface SearchEventHandler {
@@ -43,26 +43,36 @@ private class SearchParamHolder(
     val spinner get() = view as? Spinner
 }
 class Search: VideLibriBaseActivity(), SearchEventHandler{
+    @Parcelize
+    class State(var libId: String = "",
+                var libName: String = ""
+    ): Parcelable
+
+    var state = State()
     private val searchParamHolders = mutableMapOf<String, SearchParamHolder>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setVideLibriView(R.layout.searchlayout)
+        registerState(::state)
 
-        libId = savedInstanceState?.getString("libId") ?: intent?.getStringExtra("libId") ?: ""
-        libName = savedInstanceState?.getString("libName") ?: intent?.getStringExtra("libName") ?: ""
+        state.apply {
+            if (libId == "") {
+                libId = intent?.getStringExtra("libId") ?: ""
+                libName = intent?.getStringExtra("libName") ?: ""
+            }
 
+            if (libName.isEmpty() && libId != "")
+                libName = Bridge.VLGetLibraryDetails(libId)?.prettyName ?: ""
 
-        if (libName.isEmpty() && libId != "")
-            libName = Bridge.VLGetLibraryDetails(libId)?.prettyName ?: ""
-
-        val lib = findViewById<TextView>(R.id.library)
-        lib.setText(libName + " (" + tr(R.string.change) + ")")
-        lib.paintFlags = lib.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-        if (libId.isEmpty() || (intent?.getBooleanExtra("showLibList", false)?:false) && savedInstanceState == null) {
-            libId = LibraryList.lastSelectedFallbackLibraryId() ?: ""
-            if (libId.isEmpty()) changeSearchLib()
-            else libName = LibraryList.lastSelectedLibName ?: ""
+            val lib = findViewById<TextView>(R.id.library)
+            lib.setText(libName + " (" + tr(R.string.change) + ")")
+            lib.paintFlags = lib.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+            if (libId.isEmpty() || (intent?.getBooleanExtra("showLibList", false) ?: false) && savedInstanceState == null) {
+                libId = LibraryList.lastSelectedFallbackLibraryId() ?: ""
+                if (libId.isEmpty()) this@Search.changeSearchLib()
+                else libName = LibraryList.lastSelectedLibName ?: ""
+            }
         }
 
         findViewById<View>(R.id.library).setOnClickListener( { changeSearchLib() })
@@ -107,7 +117,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
             it.customView.findViewById<View>(R.id.button).setOnClickListener(searchStartClickListener)
         }
 
-        if (libId != "") {
+        if (state.libId != "") {
             obtainSearcher()
             updateSearchParamsViews()
         }
@@ -119,18 +129,8 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
-        super.onSaveInstanceState(outState)
-        outState?.apply{
-            putString("libId", libId)
-            putString("libName", libName)
-        }
-    }
-
     internal val REQUEST_CHOOSE_LIBRARY = 1234
 
-    internal var libId: String = ""
-    internal var libName: String = ""
 
     internal var searcher: Bridge.SearcherAccess? = null
 
@@ -150,7 +150,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
         gcSearchers()
         if (searchers.size > 0) {
             val candidate = searchers[searchers.size - 1]
-            if (candidate.libId == libId)
+            if (candidate.libId == state.libId)
                 when (candidate.state) {
                     SEARCHER_STATE_INIT, SEARCHER_STATE_CONNECTED -> {
                         searcher = candidate
@@ -158,7 +158,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
                     }
                 }
         }
-        searcher = Bridge.SearcherAccess(libId)
+        searcher = Bridge.SearcherAccess(state.libId)
         searcher?.let {
             it.heartBeat = System.currentTimeMillis()
             it.state = SEARCHER_STATE_INIT
@@ -199,7 +199,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
 
     internal fun changeSearchLib() {
         startActivityForResult<LibraryList>(REQUEST_CHOOSE_LIBRARY,
-                "defaultLibId" to libId,
+                "defaultLibId" to state.libId,
                 "reason" to getString(R.string.search_selectlib),
                 "search" to true
         )
@@ -284,13 +284,13 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_CHOOSE_LIBRARY) {
             if (resultCode == Activity.RESULT_OK) {
-                libId = LibraryList.lastSelectedLibId ?: ""
-                libName = LibraryList.lastSelectedLibName ?: ""
-                findViewById<TextView>(R.id.library).setText(libName)
+                state.libId = LibraryList.lastSelectedLibId ?: ""
+                state.libName = LibraryList.lastSelectedLibName ?: ""
+                findViewById<TextView>(R.id.library).setText(state.libName)
 
                 obtainSearcher()
                 updateSearchParamsViews()
-            } else if ("" == libId) finish()
+            } else if ("" == state.libId) finish()
         } else
             super.onActivityResult(requestCode, resultCode, data)
     }
@@ -332,7 +332,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
                         val book = Bridge.Book()
                         book.title = searchParamHolders["title"]?.edit?.text.toString()
                         book.author = searchParamHolders["author"]?.edit?.text.toString()
-                        debugTester = SearchDebugTester(book, libId)
+                        debugTester = SearchDebugTester(book, state.libId)
                     }
                 }
             }
@@ -381,9 +381,9 @@ internal class SearchDebugTester(var query: Bridge.Book, startId: String) {
         searcher = Bridge.SearcherAccess(libs[pos])
         searcher?.connect()
         withActivity<Search> {
-            libId = libs[pos]
-            libName = libs[pos]
-            findViewById<TextView>(R.id.library).setText(libName)
+            state.libId = libs[pos]
+            state.libName = libs[pos]
+            findViewById<TextView>(R.id.library).setText(state.libName)
             beginLoading(VideLibriBaseActivityOld.LOADING_SEARCH_SEARCHING)
         }
     }
