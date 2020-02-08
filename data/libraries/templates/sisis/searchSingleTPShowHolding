@@ -1,4 +1,4 @@
-<t:switch>
+<t:switch prioritized="true">
 
 <table class="data">
   <tr><t:siblings-header id="table">
@@ -67,5 +67,7 @@
   </div>*      
   
 </div>
+
+<div t:condition="empty(*)"></div>
 
 </t:switch>
