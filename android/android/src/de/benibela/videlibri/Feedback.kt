@@ -43,18 +43,22 @@ class Feedback : VideLibriBaseActivity() {
             try {
                 append("Android: ${Build.VERSION.RELEASE}\n")
                 append("Device: ${Build.MODEL} ${Build.FINGERPRINT}\n")
-                append("CPU: ")
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    append(Build.SUPPORTED_ABIS.joinToString())
-                } else @Suppress("DEPRECATION") {
-                    append(Build.CPU_ABI)
-                    append('+')
-                    append(Build.CPU_ABI2)
-                }
+                val cpu = (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                    Build.SUPPORTED_ABIS.joinToString()
+                else @Suppress("DEPRECATION")
+                    "${Build.CPU_ABI}+${Build.CPU_ABI2}")
+                append("CPU: $cpu\n")
 
                 val cpuinfo = File("/proc/cpuinfo")
-                if (cpuinfo.exists())
-                    append(FileInputStream(cpuinfo).readAllText())
+                if (cpuinfo.exists()) {
+                    val map = mutableMapOf<String, MutableSet<String>>()
+                    FileInputStream(cpuinfo).useLines { line ->
+                        val key = line.substringBefore(":")
+                        if (key == line) append("$line\n")
+                        else map.getOrPut(key) { mutableSetOf() }.add(line.substringAfter(":"))
+                    }
+                    append(map.toList().joinToString("\n") { "${it.first}: ${it.second.joinToString(", ")}" })
+                }
             } catch (ignored: Exception) {
                 append("??")
             }
@@ -135,15 +139,15 @@ class Feedback : VideLibriBaseActivity() {
                     try {
                         fbb.add("app", "VideLibri")
                         fbb.add("ver", version)
-                        fbb.add("system", system)
                         fbb.add("data", sendData)
                         if (i < errCache.size) {
                             val e = errCache[i]
-                            fbb.add("error$i", "Error: " + e.error + " bei " + e.library + "\n")
+                            fbb.add("error$i", "Error: ${e.error} bei ${e.library}\n")
                             if (details)
                                 fbb.add("errorDetails$i", e.details)
-                            else if (anonymousDetails) fbb.add("errorAnonDetails$i", e.anonymousDetails) //including both will cause an outofmemory exception
+                            else if (anonymousDetails) fbb.add("errorAnonDetails$i", e.anonymousDetails) //including both will cause an out of memory exception
                         }
+                        fbb.add("system", system)
 
                         val r = rb.post(fbb.build()).build()
                         client.newCall(r).execute().use { response ->
@@ -166,17 +170,17 @@ class Feedback : VideLibriBaseActivity() {
                             }
                         }
                     } else
-                        showMessage(tr(R.string.feedback_send_failedconnect) + "\n" + err)
+                        showMessage("${tr(R.string.feedback_send_failedconnect)}\n$err")
                 }
             }).start()
         }
 
         findViewById<View>(R.id.textViewMail).setOnClickListener {
-            val emailIntent = Intent(android.content.Intent.ACTION_SEND)
+            val emailIntent = Intent(Intent.ACTION_SEND)
             emailIntent.action = Intent.ACTION_SEND
             emailIntent.type = "message/rfc822"
-            emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, "benito@benibela.de")
-            emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "VideLibri feedback $version")
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, "benito@benibela.de")
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "VideLibri feedback $version")
             try {
                 startActivity(emailIntent)
             } catch (e: ActivityNotFoundException) {
