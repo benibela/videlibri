@@ -1,4 +1,4 @@
-<template:switch-prioritized>
+<template:switch prioritized="true">
   <html>
     <template:meta default-text-matching="regex"/>
     { declare function local:img-to-status($img){
@@ -153,5 +153,7 @@
   <span class="alert">Ihre Suche erzielte keinen Treffer<t:s>search-result-count :=  0</t:s></span>
   <span class="alert">{vl:raise(.)}</span>
   
-</template:switch-prioritized>
+  <h1>Wir haben seit einiger Zeit<t:s>vl:raise-timeout(.)</t:s></h1>
+  <h1>Ihre Sitzung wurde beendet<t:s>vl:raise-timeout(.)</t:s></h1>     
+</template:switch>
 

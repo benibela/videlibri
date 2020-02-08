@@ -14,20 +14,27 @@
   
 }
 
-     <div class="toolbar_div"><ul class="toolbar_ul">
-     <t:switch prioritized="true">        
-        <li class="toolbar_li">
-          <span>Vorwärts</span>
-          {
-           form := form(//form)            
-          }
-        </li>
-        
-        <input t:condition="matches(@title, 'nächster|Vorwärts')">
-          {
-           form := form(//form)
-          }</input>
-     </t:switch>
-     </ul></div>
+  <t:switch prioritized="true">        
+
+    <div class="toolbar_div"><ul class="toolbar_ul">
+    <t:switch prioritized="true">        
+      <li class="toolbar_li">
+        <span>Vorwärts</span>
+        {
+         form := form(//form)            
+        }
+      </li>
+      
+      <input t:condition="matches(@title, 'nächster|Vorwärts')">
+        {
+         form := form(//form)
+        }</input>
+    </t:switch>
+    </ul></div>
+
+    <h1>Wir haben seit einiger Zeit<t:s>vl:raise-timeout(.)</t:s></h1>
+    <h1>Ihre Sitzung wurde beendet<t:s>vl:raise-timeout(.)</t:s></h1>     
+
+  </t:switch>
 
 </html>

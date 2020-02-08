@@ -1333,6 +1333,14 @@ begin
   result := xqvalue();
 end;
 
+function xqFunctionRaise_Timeout(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
+begin
+  requiredArgCount(argc, 0, 1);
+  if argc = 0 then context.staticContext.sender.VariableChangelog.add('raise()', 'Timeout: ' + context.contextNode(false).innerText())
+  else context.staticContext.sender.VariableChangelog.add('raise()', 'Timeout: ' + argv[0].toString);
+  result := xqvalue();
+end;
+
 function xqFunctionRaise_Internal(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
 begin
   requiredArgCount(argc, 0, 1);
@@ -1515,6 +1523,7 @@ initialization
   vl.registerFunction('raise', 0, 1, @xqFunctionRaise, []);
   vl.registerFunction('raise-internal', 0, 1, @xqFunctionRaise_Internal, []);
   vl.registerFunction('raise-login', 0, 1, @xqFunctionRaise_Login, []);
+  vl.registerFunction('raise-timeout', 0, 1, @xqFunctionRaise_Timeout, []);
   vl.registerFunction('choose', 4, 4, @xqFunctionChoose, []);
   vl.registerFunction('confirm', 2, 2, @xqFunctionConfirm, []);
   vl.registerFunction('select-book', 1, 1, @xqFunctionSelectBook, []);

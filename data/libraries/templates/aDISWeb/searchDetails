@@ -1,4 +1,5 @@
-<html>
+<template:switch prioritized="true">
+  <html>
     <template:meta default-text-matching="regex"/>
     
     <DIV id="R30">
@@ -99,3 +100,9 @@
     </DIV>-->
     
     </html>
+    
+  <h1>Wir haben seit einiger Zeit<t:s>vl:raise-timeout(.)</t:s></h1>
+  <h1>Ihre Sitzung wurde beendet<t:s>vl:raise-timeout(.)</t:s></h1>     
+    
+    
+</template:switch>
