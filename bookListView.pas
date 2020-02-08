@@ -373,6 +373,26 @@ begin
   fillBookItem(bookItem, book);
 end;
 
+function bestIssueDateGuessPretty(book: TBook): string;
+begin
+  if (book.issueDate > 0) or (book.firstExistsDate = 0) then
+    result := DateToPrettyStr(book.issueDate)
+  else
+    result := '<= ' + DateToPrettyStr(book.firstExistsDate);
+end;
+
+function dueDatePretty(book: TBook): string;
+var
+  inLendingHistory: Boolean;
+begin
+  inLendingHistory := (book.lend = false) and (book.owningAccount <> nil);
+  if inLendingHistory and (book.dueDate = -2) then result := rsNeverLend
+  else begin
+    result := DateToPrettyStr(book.dueDate);
+    if inLendingHistory then result := '(' + result + ')';
+  end;
+end;
+
 procedure TBookListView.fillBookItem(item: TTreeListItem; book: TBook);
 var
   i: Integer;
@@ -384,18 +404,9 @@ begin
     item.RecordItems.Clear;
     RecordItems.Capacity := length(properties) + 1;
     for i := 0 to high(properties) do
-      if i = ColumnIssueDateId then begin
-        if (book.issueDate > 0) or (book.firstExistsDate = 0) then
-          RecordItems.Add(DateToPrettyStr(book.issueDate))
-         else
-          RecordItems.Add('<= ' + DateToPrettyStr(book.firstExistsDate));
-      end else if i = ColumnDueDateId then begin
-        if (book.lend = false) and (book.owningAccount <> nil) then begin
-          if book.dueDate = -2 then RecordItems.Add(rsNeverLend)
-          else RecordItems.Add(rsLendHistory)
-        end else
-         RecordItems.Add(DateToPrettyStr(book.dueDate));
-      end else
+      if i = ColumnIssueDateId then RecordItems.Add(bestIssueDateGuessPretty(book))
+      else if i = ColumnDueDateId then RecordItems.Add(dueDatePretty(book))
+      else
         case properties[i] of
           '?account': if book.owningAccount <> nil then RecordItems.Add(book.owningAccount.prettyName)
                       else RecordItems.Add(rsunknown);
