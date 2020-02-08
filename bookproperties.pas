@@ -92,10 +92,16 @@ function getBookPropertyDefaultWidth(const s: string): integer;
 
 
 const
-  groupingPropertyNames: array[0..12] of string = (rsBookPropertyNone, rsBookPropertyAccount, rsBookPropertyLimitWeek,
-    rsBookPropertyLimitDate, rsBookPropertyStatusComment, rsBookPropertyIssueWeek, rsBookPropertyIssueDate, rsBookPropertyLocationLend,
-    rsBookPropertyID, rsBookPropertyCategory, rsBookPropertyTitle, rsBookPropertyAuthor, rsBookPropertyYear);
-  groupingPropertyMap: array[0..12] of string = ('', '_account', '_dueWeek', 'dueDate', '_status', '_issueWeek', 'issueDate', 'libraryBranch', 'id', 'category', 'title', 'author', 'year');
+  groupingPropertyNames: array[0..15] of string = (rsBookPropertyNone, rsBookPropertyAccount,
+                                                   rsBookPropertyLimitWeek, rsBookPropertyLimitDate, rsBookPropertyStatusComment, rsBookPropertyRenewCount,
+                                                   rsBookPropertyIssueWeek, rsBookPropertyIssueDate,
+                                                   rsBookPropertyLocationLend, rsBookPropertyLibraryLocation,
+                                                   rsBookPropertyID, rsBookPropertyBarcode, rsBookPropertyCategory, rsBookPropertyTitle, rsBookPropertyAuthor, rsBookPropertyYear);
+  groupingPropertyMap: array[0..15] of string = ('', '_account',
+                                                 '_dueWeek', 'dueDate', '_status', 'renewCount',
+                                                 '_issueWeek', 'issueDate',
+                                                 'libraryBranch', 'libraryLocation',
+                                                 'id', 'barcode', 'category', 'title', 'author', 'year');
 
 var
   translationMap: array[0..18] of record
@@ -119,10 +125,10 @@ var
 
   (key: 'publisher'; text: rsBookPropertyPublisher; defaultWidth: 50),
   (key: 'location'; text: rsBookPropertyLocationSearch; defaultWidth: 50),
+  (key: 'pendingOrders'; text: rsBookPropertyPendingOrders; defaultWidth: 30),
 
   (key: 'barcode'; text: rsBookPropertyBarcode; defaultWidth: 30),
-  (key: 'libraryLocation'; text: rsBookPropertyLibraryLocation; defaultWidth: 40),
-  (key: 'pendingOrders'; text: rsBookPropertyPendingOrders; defaultWidth: 30)
+  (key: 'libraryLocation'; text: rsBookPropertyLibraryLocation; defaultWidth: 40)
 
   );
 
