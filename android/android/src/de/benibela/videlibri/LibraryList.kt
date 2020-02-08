@@ -52,7 +52,7 @@ class LibraryListAdapter: MultiLevelListView.Adapter<LibraryListAdapter.Holder>(
         }
     override fun onBindViewHolder(holder: Holder, position: IntArray){
         when (position.size) {
-            1 -> holder.text.text = states.get(position[0])
+            1 -> holder.text.text = states[position[0]]
             2 -> holder.text.text = cities[position[0]][position[1]]
             3 -> holder.text.text = getLibraryText(getLibraryId(position))
         }
@@ -216,7 +216,7 @@ class LibraryList: VideLibriBaseActivity() {
                             findViewById<View>(R.id.bookoverviewDate).visibility = View.GONE
                             findViewById<TextView>(R.id.bookoverviewMore).text = itemsSubCaption.getOrElse(position, {""})
                             findViewById<TextView>(R.id.bookoverviewCaption).apply {
-                                text = items.getOrElse(position - 1, {""})
+                                text = items.getOrElse(position - 1) {""}
                                 isVisibleNotGone = position > 0
                             }
                         }
@@ -230,6 +230,13 @@ class LibraryList: VideLibriBaseActivity() {
                             )
                             2 -> if (adapter.metaCatalogs >= 0) {
                                 val id = adapter.childId(adapter.bitsPerLevel, 0, adapter.metaCatalogs)
+                                listView?.expandableAdapter?.let { ea ->
+                                    if (ea.isExpanded(id) == true) {
+                                        val pos = ea.idToLinearPosition(id)
+                                        val d = ea.countDescendants(id)
+                                        listView?.smoothScrollToPosition(pos + d)
+                                    }
+                                }
                                 listView?.expand(id)
                                 columnView?.expand(id)
                             }

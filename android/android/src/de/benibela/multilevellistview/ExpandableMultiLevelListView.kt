@@ -124,10 +124,10 @@ open class ExpandableMultiLevelListView @JvmOverloads constructor(context: Conte
         expandableAdapter?.let { ea ->
             val descendants = ea.expand(id)
 
-            if (descendants > 0) 
+            if (descendants > 0) {
                 if (autoExpandSingleChildren && ea.getChildCount(id) == 1 && ea.getPotentialChildCount(ea.childId(ea.bitsPerLevel, id, 0)) > 0)
-                    if (expand(ea.childId(ea.bitsPerLevel, id, 0)) > 0) 
-		        return descendants
+                    if (expand(ea.childId(ea.bitsPerLevel, id, 0)) > 0)
+                        return descendants
                 if (autoScrollOnExpansion) {
                     val lm = layoutManager as? LinearLayoutManager ?: return descendants
                     val linearPosition = ea.idToLinearPosition(id)
@@ -138,6 +138,7 @@ open class ExpandableMultiLevelListView @JvmOverloads constructor(context: Conte
                     //Log.i("LISTVIEW", "Scroll to: $scrollTarget   $linearPosition $firstPosition $lastPosition ")
                     smoothScrollToPosition(scrollTarget)
                 }
+            }
 
             descendants 
         } ?: 0

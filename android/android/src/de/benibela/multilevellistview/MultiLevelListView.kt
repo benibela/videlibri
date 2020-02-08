@@ -116,7 +116,7 @@ open class MultiLevelListView @JvmOverloads constructor(context: Context, attrs:
                     return false
             return true
         }
-        protected fun countDescendants(id: Long): Int {
+        public fun countDescendants(id: Long): Int {
             val c = getChildCount(id)
             val childId = childId (bitsPerLevel, id, 0)
             var res = c
