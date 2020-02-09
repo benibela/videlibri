@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Oldenburg"/>
+  
+  <template value="bibdia"/>
+  <variable name="baseurl" value="https://opac.oldenburg.de//opax/"/>
+
+  <homepage value="https://www.oldenburg.de/startseite/kultur/bibliothek.html"/>
+  <testing-search value="no"/>  
+  <testing-account value="unknown"/>
+</library>
+

@@ -20,6 +20,7 @@ DE_Baden-W+uerttemberg_Bad++Sch+oenborn_Gb
 DE_Baden-W+uerttemberg_Bad++Wildbad_Stb
 DE_Baden-W+uerttemberg_Bammental_Gb
 DE_Baden-W+uerttemberg_Biberach_Hs
+DE_Baden-W+uerttemberg_Biberach_MIZ
 DE_Baden-W+uerttemberg_Blankenloch_Stb
 DE_Baden-W+uerttemberg_Boxberg_Mt
 DE_Baden-W+uerttemberg_Br+uehl_Gb
@@ -37,6 +38,7 @@ DE_Baden-W+uerttemberg_Empfingen_Gb
 DE_Baden-W+uerttemberg_Engen_Stb
 DE_Baden-W+uerttemberg_Eppingen_Stb
 DE_Baden-W+uerttemberg_Esslingen_HS
+DE_Baden-W+uerttemberg_Esslingen_Stb
 DE_Baden-W+uerttemberg_Ettlingen_Stb
 DE_Baden-W+uerttemberg_Filderstadt_Stb
 DE_Baden-W+uerttemberg_Freiburg_HS
@@ -75,6 +77,7 @@ DE_Baden-W+uerttemberg_Karlsdorf-Neuthard_Mt
 DE_Baden-W+uerttemberg_Karlsruhe_Blb
 DE_Baden-W+uerttemberg_Karlsruhe_Hfm
 DE_Baden-W+uerttemberg_Karlsruhe_Ph
+DE_Baden-W+uerttemberg_Karlsruhe_Stb
 DE_Baden-W+uerttemberg_Kehl_HS
 DE_Baden-W+uerttemberg_Ketsch_Gb
 DE_Baden-W+uerttemberg_Kirchardt_Gb
@@ -145,6 +148,7 @@ DE_Baden-W+uerttemberg_Talheim_Gb
 DE_Baden-W+uerttemberg_Titisee-Neustadt_Mt
 DE_Baden-W+uerttemberg_Trossingen_Mh
 DE_Baden-W+uerttemberg_Ulm_Hs
+DE_Baden-W+uerttemberg_Ulm_Stb
 DE_Baden-W+uerttemberg_Ulm_Ub
 DE_Baden-W+uerttemberg_Untereisesheim_Gb
 DE_Baden-W+uerttemberg_Villingen_DHs
@@ -171,6 +175,7 @@ DE_Bayern_Coburg_Stb
 DE_Bayern_Erlangen_Stb
 DE_Bayern_Erlangen_Ub
 DE_Bayern_F+uerth_Vb
+DE_Bayern_Ingolstadt_Stb
 DE_Bayern_M+uenchen_Alpen
 DE_Bayern_M+uenchen_Stb
 DE_Bayern_M+uenchen_UbLMU
@@ -180,10 +185,12 @@ DE_Bayern_N+uernberg_TH
 DE_Bayern_Neu-Ulm_TH
 DE_Bayern_Neubiberg_Ub
 DE_Bayern_Passau_Ub
+DE_Bayern_Regensburg_Stb
 DE_Bayern_Regensburg_Ub
 DE_Bayern_Schweinfurt_Hb
 DE_Bayern_W+uerzburg_Hb
 DE_Bayern_W+uerzburg_Hsb
+DE_Bayern_W+uerzburg_Stb
 DE_Berlin_Berlin_BeuthHS
 DE_Berlin_Berlin_HTW
 DE_Berlin_Berlin_HWR
@@ -195,6 +202,7 @@ DE_Berlin_Berlin_UbTU
 DE_Berlin_Berlin_VOEBB
 DE_Brandenburg_Cottbus_Stb
 DE_Brandenburg_Potsdam_Fh
+DE_Brandenburg_Potsdam_Stb
 DE_Bremen_Bremen_Stb
 DE_Bremen_Bremen_Sub
 DE_Hamburg_Hamburg_Oebh
@@ -225,6 +233,7 @@ DE_Niedersachsen_Clausthal_Ub
 DE_Niedersachsen_Elsfleth_Ub
 DE_Niedersachsen_Emden_OstBib
 DE_Niedersachsen_Emden_Ub
+DE_Niedersachsen_G+oettingen_Stb
 DE_Niedersachsen_G+oettingen_Ub
 DE_Niedersachsen_Hannover_GWLB
 DE_Niedersachsen_Hannover_HMTMH
@@ -239,6 +248,7 @@ DE_Niedersachsen_Hildesheim_Mkb
 DE_Niedersachsen_Hildesheim_Stb
 DE_Niedersachsen_Hildesheim_Ub
 DE_Niedersachsen_L+ueneburg_Ub
+DE_Niedersachsen_Oldenburg_Stb
 DE_Niedersachsen_Osnabr+ueck_Ub
 DE_Niedersachsen_Osnabr+ueck_UbHs
 DE_Niedersachsen_Wilhelmshaven_Ub
@@ -271,11 +281,13 @@ DE_Nordrhein-Westfalen_Hagen_Stb
 DE_Nordrhein-Westfalen_Halle_Stb
 DE_Nordrhein-Westfalen_Haltern++am++See_Stb
 DE_Nordrhein-Westfalen_Hamm_Stb
+DE_Nordrhein-Westfalen_Herne_Stb
 DE_Nordrhein-Westfalen_Herten_Stb
 DE_Nordrhein-Westfalen_K+oeln_KatHO
 DE_Nordrhein-Westfalen_K+oeln_Stb
 DE_Nordrhein-Westfalen_Leverkusen_Stb
 DE_Nordrhein-Westfalen_M+oenchengladbach_Stb
+DE_Nordrhein-Westfalen_M+uelheim++an++der++Ruhr
 DE_Nordrhein-Westfalen_M+uenster_Fh
 DE_Nordrhein-Westfalen_M+uenster_Stb
 DE_Nordrhein-Westfalen_M+uenster_Ulb
@@ -291,6 +303,7 @@ DE_Nordrhein-Westfalen_Recklinghausen_Stb
 DE_Nordrhein-Westfalen_Solingen_Stb
 DE_Nordrhein-Westfalen_Steinfurt_Stb
 DE_Nordrhein-Westfalen_Stolberg_Stb
+DE_Nordrhein-Westfalen_Troisdorf_Stb
 DE_Nordrhein-Westfalen_Verl_Stb
 DE_Nordrhein-Westfalen_Witten_Stb
 DE_Nordrhein-Westfalen_Witten_Ulb

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Göttingen"/>
+  
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://stadtbibliothek.goettingen.de/Mein-Konto"/>	
+  <variable name="urlsearch" value="https://stadtbibliothek.goettingen.de/Mediensuche/Erweiterte-Suche"/>
+
+  <homepage value="https://stadtbibliothek.goettingen.de"/>
+  <testing-search value="yes"/>  
+  <testing-account value="unknown"/>
+</library>
+

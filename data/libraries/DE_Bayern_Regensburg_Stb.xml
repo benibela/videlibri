@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbücherei Regensburg"/>
+  
+  <template value="bibdia"/>
+  <variable name="baseurl" value="https://srv17.regensburg.de/opax"/>
+
+  <homepage value="https://www.regensburg.de/stadtbuecherei/"/>
+  <testing-search value="no"/>  
+  <testing-account value="unknown"/>
+</library>
+

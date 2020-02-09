@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Troisdorf"/>
+  
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://www.troisdorf-open.de/Mein-Konto"/>	
+  <variable name="urlsearch" value="https://www.troisdorf-open.de/Mediensuche/ErweiterteSuche.aspx"/>
+
+  <homepage value="https://www.troisdorf.de/web/de/familie_bildung/Bildung/Stadtbibliothek/index.htm"/>
+  <testing-search value="yes"/>  
+  <testing-account value="unknown"/>
+</library>
+

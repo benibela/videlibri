@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Ulm"/>
+  
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://opac.ulm.de/webopac/"/>	
+  <variable name="DB" value="w_biblio"/>	
+  
+
+  <homepage value="https://stadtbibliothek.ulm.de/"/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
+</library>
+
+

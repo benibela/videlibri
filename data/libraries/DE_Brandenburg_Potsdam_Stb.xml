@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadt- und Landesbibliothek Potsdam"/>
+  
+  <template value="bibdia"/>
+  <variable name="baseurl" value="https://biberdb.bibliothek.potsdam.de/opax/"/>
+
+  <homepage value="https://www.bibliothek.potsdam.de/"/>
+  <testing-search value="no"/>  
+  <testing-account value="unknown"/>
+</library>
+

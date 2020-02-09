@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Gemeindebibliothek Haßloch"/>
+  <shortName value="Gb Haßloch"/>
+  
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://hassloch.internetopac.de/"/>	
+  <variable name="DB" value="107296"/>	
+
+  <homepage value="https://www.hassloch.de/gv_hassloch/Bildung%20&amp;%20Kultur/Gemeindeb%c3%bccherei/"/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+</library>
+

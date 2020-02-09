@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Würzburg"/>
+  
+  <template value="bibdia"/>
+  <variable name="baseurl" value="https://opac.stadt.wuerzburg.de/opax/"/>
+
+  <homepage value="https://www.wuerzburg.de/themen/kultur-bildung-kulturangebot/stadtbuecherei/index.html"/>
+  <testing-search value="no"/>  
+  <testing-account value="unknown"/>
+</library>
+

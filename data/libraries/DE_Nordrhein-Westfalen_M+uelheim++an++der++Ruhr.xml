@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Mülheim an der Ruhr"/>
+  <template value="bibdia"/>
+  <variable name="baseurl" value="https://medienauskunft.muelheim-ruhr.de/opax/"/>
+
+  <template value="digibib">
+    <variable name="location" value="168"/>
+    <variable name="view" value="168:RecherchedatenbankenExt"/>
+    <variable name="searchid" value="SERVICEGROUP1.SERVICE.SEARCH_SBMH"/>
+  </template>
+
+  <homepage value="https://www.muelheim-ruhr.de/cms/stadtbibliothek.html"/>
+  <testing-search value="yes"/>  <testing-account value="unknown"/></library>
+

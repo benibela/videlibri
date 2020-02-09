@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Herne"/>
+  <shortName value="VÖBB"/> 
+  
+  <template value="aDISWeb"/>
+  <variable name="server" value="katalog.herne.de"/>
+ 
+  
+  <homepage value="https://www.herne.de/Kultur-und-Freizeit/Kulturelle-Bildung/Stadtbibliothek/"/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
+</library>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbücherei Esslingen"/>
+  
+  <template value="sisis"/>  
+  <variable name="server" value="https://buecherei.esslingen.de/webOPACClient/"/>
+  <variable name="startparams" value="?Login=opacext&BaseURL=this"/>
+  
+  <homepage value="https://stadtbuecherei.esslingen.de/start"/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>  
+</library>

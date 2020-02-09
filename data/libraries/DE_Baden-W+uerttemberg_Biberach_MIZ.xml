@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Medien- und Informationszentrum Stadtbücherei Biberach"/>
+  
+  <template value="bibdia"/>
+  <variable name="baseurl" value="https://katalog.medienzentrum-biberach.de/opax/"/>
+
+  <homepage value="https://miz.biberach-riss.de/"/>
+  <testing-search value="no"/>  
+  <testing-account value="unknown"/>
+</library>
+

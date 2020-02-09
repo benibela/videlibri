@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Ingolstadt"/>
+  
+  <template value="bibdia"/>
+  <variable name="baseurl" value="https://opac.ingolstadt.de/opax/"/>
+
+  <homepage value="https://www.ingolstadt.de/stadtbuecherei"/>
+  <testing-search value="no"/>  
+  <testing-account value="unknown"/>
+</library>
+

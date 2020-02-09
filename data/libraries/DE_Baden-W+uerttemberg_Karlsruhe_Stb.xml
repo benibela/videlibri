@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Karlsruhe"/>
+  
+  <template value="bibdia"/>
+  <variable name="baseurl" value="https://opac.karlsruhe.de/opax/"/>
+
+  <homepage value="https://www.karlsruhe.de/b2/bibliotheken/stadtbibliothek/staendehaus.de"/>
+  <testing-search value="no"/>  
+  <testing-account value="unknown"/>
+</library>
+
