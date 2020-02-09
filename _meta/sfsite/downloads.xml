@@ -9,6 +9,12 @@
 
 <insert href="downloadTable.html"/>
 
+Es ist auch eine 
+<a href="https://play.google.com/store/apps/details?id=de.benibela.videlibri" rel="nofollow"><img alt="Android app on Google Play" width="125" height="45" src="https://developer.android.com/images/brand/de_app_rgb_wo_45.png" /></a>. 
+<br/><br/>
+Außerdem lässt es sich als <a href="https://fdroid.videlibri.de/repo/">F-Droid Repository</a> installieren.
+
+
 <br/><br/>
 Die Windowsversion besteht aus einem automatischen Installer und ist 32 Bit, so dass sie auf allen Windowscomputern laufen sollte. Falls die Bibliothek (wie die VÖBB) TLS1.2 verwendet, muss auf Systemen älter als Windows 8.1 erst TLS1.2 <a href='http://www.videlibri.de/help/faq.html#inet_failed'>aktiviert werden</a>, bevor VideLibri auf den Server zu greifen kann. <br/>
 Für Linux muss jeweils die passende Version heruntergeladen werden. Die relevante Unterscheidung ist 32/64-Bit, die deb-Datei kann auf nicht Debian-basierten-Systemen mit dem Programm <code>alien</code> installiert werden.
