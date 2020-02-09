@@ -763,6 +763,7 @@ begin
   else if (ftestingSearch = tiYes) and (ftestingAccount = tiUnknown) then prettyNameLong += ' (nur Suche getestet)'
   else if (ftestingSearch in [tiBroken, tiNo]) and (ftestingAccount = tiYes) then prettyNameLong += ' (nur Konto)'
   else if (ftestingSearch = tiUnknown) and (ftestingAccount = tiUnknown) then prettyNameLong += ' (nicht getestet)'
+  else if (ftestingSearch in [tiBroken, tiNo]) and (ftestingAccount = tiUnknown) then prettyNameLong += ' (keine Suche, nicht getestet)'
 end;
 
 //==============================================================================

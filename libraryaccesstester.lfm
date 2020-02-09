@@ -9,7 +9,7 @@ object libraryTesterForm: TlibraryTesterForm
   OnClose = FormClose
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
-  LCLVersion = '2.0.0.4'
+  LCLVersion = '2.0.6.0'
   Scaled = False
   object PageControl1: TPageControl
     Left = 0
@@ -142,7 +142,7 @@ object libraryTesterForm: TlibraryTesterForm
           Left = 8
           Height = 19
           Top = 9
-          Width = 25
+          Width = 28
           Caption = 'titel:'
           ParentColor = False
         end
@@ -150,7 +150,7 @@ object libraryTesterForm: TlibraryTesterForm
           Left = 128
           Height = 19
           Top = 8
-          Width = 36
+          Width = 39
           Caption = 'autor:'
           ParentColor = False
         end
@@ -163,10 +163,10 @@ object libraryTesterForm: TlibraryTesterForm
           Text = 'pass'
         end
         object CheckBox1: TCheckBox
-          Left = 939
+          Left = 940
           Height = 21
           Top = 5
-          Width = 62
+          Width = 61
           Anchors = [akTop, akRight]
           Caption = 'all libs'
           Checked = True
@@ -183,10 +183,10 @@ object libraryTesterForm: TlibraryTesterForm
           TabOrder = 6
         end
         object CheckBox2: TCheckBox
-          Left = 1014
+          Left = 1015
           Height = 21
           Top = 5
-          Width = 62
+          Width = 61
           Anchors = [akTop, akRight]
           Caption = 'Suche'
           Checked = True
@@ -194,10 +194,10 @@ object libraryTesterForm: TlibraryTesterForm
           TabOrder = 7
         end
         object CheckBox3: TCheckBox
-          Left = 1076
+          Left = 1075
           Height = 21
           Top = 5
-          Width = 60
+          Width = 61
           Anchors = [akTop, akRight]
           Caption = 'Konto'
           Checked = True
@@ -217,7 +217,7 @@ object libraryTesterForm: TlibraryTesterForm
           Left = 1032
           Height = 21
           Top = 5
-          Width = 50
+          Width = 51
           Caption = 'web'
           Checked = True
           State = cbChecked

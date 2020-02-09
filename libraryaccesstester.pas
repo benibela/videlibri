@@ -429,7 +429,7 @@ begin
       searcher.free;
       DoneCriticalsection(critSection);
     except
-      on e: EDoNotTestThis do  resultAccount := '0b-known broken';
+      on e: EDoNotTestThis do  resultSearch := '0b-known broken';
       on e: exception do
         resultSearch := '2-UNHANDLED EXCEPTION: '+e.Message;
     end;
