@@ -28,17 +28,17 @@ class SearchResult : BookListActivity(), SearchEventHandler {
             when (it.state) {
                 Search.SEARCHER_STATE_INIT -> {
                     //searcher.connect(); //should not happen
-                    beginLoading(VideLibriBaseActivityOld.LOADING_SEARCH_CONNECTING)
+                    beginLoading(LOADING_SEARCH_CONNECTING)
                     it.waitingForDetails = -1
                     it.nextDetailsRequested = -1
                     it.start(book)
-                    beginLoading(VideLibriBaseActivityOld.LOADING_SEARCH_SEARCHING)
+                    beginLoading(LOADING_SEARCH_SEARCHING)
                 }
                 Search.SEARCHER_STATE_CONNECTED -> {
                     it.waitingForDetails = -1
                     it.nextDetailsRequested = -1
                     it.start(book)
-                    beginLoading(VideLibriBaseActivityOld.LOADING_SEARCH_SEARCHING)
+                    beginLoading(LOADING_SEARCH_SEARCHING)
                 }
                 else -> bookCache = it.bookCache
             }
@@ -118,45 +118,45 @@ class SearchResult : BookListActivity(), SearchEventHandler {
                 access.waitingForDetails = -1
                 access.nextDetailsRequested = -1
                 access.start(intent.getSerializableExtra("searchQuery") as Bridge.Book)
-                beginLoading(VideLibriBaseActivityOld.LOADING_SEARCH_SEARCHING)
-                endLoadingAll(VideLibriBaseActivityOld.LOADING_SEARCH_CONNECTING)
+                beginLoading(LOADING_SEARCH_SEARCHING)
+                endLoadingAll(LOADING_SEARCH_CONNECTING)
                 return true
             }
             Bridge.SearchEventKind.FIRST_PAGE //obj1 = Book[] books
             -> {
-                endLoadingAll(VideLibriBaseActivityOld.LOADING_SEARCH_SEARCHING)
+                endLoadingAll(LOADING_SEARCH_SEARCHING)
                 access.state = Search.SEARCHER_STATE_SEARCHING
                 onSearchFirstPageComplete(event.obj1 as Array<Bridge.Book>)
             }
             Bridge.SearchEventKind.NEXT_PAGE  //obj1 = Book[] books
             -> {
-                endLoadingAll(VideLibriBaseActivityOld.LOADING_SEARCH_SEARCHING)
+                endLoadingAll(LOADING_SEARCH_SEARCHING)
                 onSearchNextPageComplete(event.obj1 as Array<Bridge.Book>)
             }
             Bridge.SearchEventKind.DETAILS    //obj1 = Book book
             -> onSearchDetailsComplete(event.obj1 as Bridge.Book)
             Bridge.SearchEventKind.ORDER_COMPLETE //obj1 = Book book
             -> {
-                endLoading(VideLibriBaseActivityOld.LOADING_SEARCH_ORDER)
-                endLoading(VideLibriBaseActivityOld.LOADING_SEARCH_ORDER_HOLDING)
-                endLoading(VideLibriBaseActivityOld.LOADING_SEARCH_MESSAGE)
+                endLoading(LOADING_SEARCH_ORDER)
+                endLoading(LOADING_SEARCH_ORDER_HOLDING)
+                endLoading(LOADING_SEARCH_MESSAGE)
                 onOrderComplete(event.obj1 as Bridge.Book)
             }
             Bridge.SearchEventKind.TAKE_PENDING_MESSAGE //arg1 = int kind, obj1 = String caption, obj2 = String[] options
             -> {
-                endLoading(VideLibriBaseActivityOld.LOADING_SEARCH_MESSAGE)
+                endLoading(LOADING_SEARCH_MESSAGE)
                 onTakePendingMessage(event.arg1, event.obj1 as String, event.obj2 as Array<String>)
             }
             Bridge.SearchEventKind.PENDING_MESSAGE_COMPLETE -> {
                 onOrderFailed()
-                endLoading(VideLibriBaseActivityOld.LOADING_SEARCH_MESSAGE)
-                endLoading(VideLibriBaseActivityOld.LOADING_SEARCH_ORDER)
-                endLoading(VideLibriBaseActivityOld.LOADING_SEARCH_ORDER_HOLDING)
+                endLoading(LOADING_SEARCH_MESSAGE)
+                endLoading(LOADING_SEARCH_ORDER)
+                endLoading(LOADING_SEARCH_ORDER_HOLDING)
                 details.setOrderButtonsClickable()
             }
             Bridge.SearchEventKind.EXCEPTION -> {
                 onOrderFailed()
-                endLoadingAll(intArrayOf(VideLibriBaseActivityOld.LOADING_SEARCH_CONNECTING, VideLibriBaseActivityOld.LOADING_SEARCH_SEARCHING, VideLibriBaseActivityOld.LOADING_SEARCH_DETAILS, VideLibriBaseActivityOld.LOADING_SEARCH_ORDER, VideLibriBaseActivityOld.LOADING_SEARCH_ORDER_HOLDING, VideLibriBaseActivityOld.LOADING_SEARCH_MESSAGE))
+                endLoadingAll(intArrayOf(LOADING_SEARCH_CONNECTING, LOADING_SEARCH_SEARCHING, LOADING_SEARCH_DETAILS, LOADING_SEARCH_ORDER, LOADING_SEARCH_ORDER_HOLDING, LOADING_SEARCH_MESSAGE))
                 setTitle()
                 //searcher.state = Search.SEARCHER_STATE_FAILED;
                 //searcher = null;
@@ -198,7 +198,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
             if (oldWaitingForDetails in searcher.bookCache.indices)
                 searcher.bookCache[oldWaitingForDetails] = book //still save the search result, so it does not need to be searched again
 
-            endLoading(VideLibriBaseActivityOld.LOADING_SEARCH_DETAILS)
+            endLoading(LOADING_SEARCH_DETAILS)
 
             if (detailsVisible()) {
                 val nextDetailsRequested = searcher.nextDetailsRequested
@@ -206,7 +206,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
                     return
                 if (nextDetailsRequested != oldWaitingForDetails) {
                     searcher.waitingForDetails = nextDetailsRequested
-                    beginLoading(VideLibriBaseActivityOld.LOADING_SEARCH_DETAILS)
+                    beginLoading(LOADING_SEARCH_DETAILS)
                     searcher.details(bookCache[nextDetailsRequested])
                     return
                 }
@@ -234,7 +234,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
     override fun onPlaceHolderShown(position: Int) {
         searcher?.let { searcher ->
             searcher.nextPageAvailable = false
-            beginLoading(VideLibriBaseActivityOld.LOADING_SEARCH_SEARCHING)
+            beginLoading(LOADING_SEARCH_SEARCHING)
             searcher.nextPage()
         }
     }
@@ -253,7 +253,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
             searcher.nextDetailsRequested = bookpos
             if (searcher.waitingForDetails == -1) {
                 searcher.waitingForDetails = bookpos
-                beginLoading(VideLibriBaseActivityOld.LOADING_SEARCH_DETAILS)
+                beginLoading(LOADING_SEARCH_DETAILS)
                 searcher.details(bookCache[searcher.waitingForDetails])
             }
         }
@@ -278,10 +278,10 @@ class SearchResult : BookListActivity(), SearchEventHandler {
                 searcher.orderingAccount = book.account //this property is lost on roundtrip, saved it on java side
                 if (choosenHolding < 0) {
                     bookActionButton?.isClickable = false
-                    beginLoading(VideLibriBaseActivityOld.LOADING_SEARCH_ORDER)
+                    beginLoading(LOADING_SEARCH_ORDER)
                     searcher.order(book)
                 } else {
-                    beginLoading(VideLibriBaseActivityOld.LOADING_SEARCH_ORDER_HOLDING)
+                    beginLoading(LOADING_SEARCH_ORDER_HOLDING)
                     details.setOrderButtonsClickable()
                     searcher.order(book, choosenHolding)
                 }

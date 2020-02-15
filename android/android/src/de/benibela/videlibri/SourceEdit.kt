@@ -82,7 +82,7 @@ class SourceEdit : VideLibriBaseActivity() {
             else -> {
                 selection2 = arrayOf()
                 baseDir = BASEDIR_TEMPLATES + templateIds[positionOfSelection1 - 1]
-                val files = assets.list(baseDir).toMutableList()
+                val files = assets.list(baseDir)?.toMutableList() ?: return
                 try {
                     val userFiles = userFile(baseDir).takeIf { it.exists() }?.list()?.filter { !files.contains(it)  }
                     userFiles?.let { files.addAll(userFiles) }
@@ -212,7 +212,6 @@ class SourceEdit : VideLibriBaseActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState ?: return
         outState.putInt("base", spinner.selectedItemPosition)
         outState.putInt("file", fileSpinner.selectedItemPosition)
         outState.putString("filename", fileName)

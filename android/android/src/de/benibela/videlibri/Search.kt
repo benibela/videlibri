@@ -62,9 +62,9 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
                 libName = Bridge.VLGetLibraryDetails(libId)?.prettyName ?: ""
 
             val lib = findViewById<TextView>(R.id.library)
-            lib.setText(libName + " (" + tr(R.string.change) + ")")
+            lib.setText("$libName (${getString(R.string.change)})")
             lib.paintFlags = lib.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-            if (libId.isEmpty() || (intent?.getBooleanExtra("showLibList", false) ?: false) && savedInstanceState == null) {
+            if (libId.isEmpty() || (intent?.getBooleanExtra("showLibList", false) == true) && savedInstanceState == null) {
                 libId = LibraryList.lastSelectedFallbackLibraryId() ?: ""
                 if (libId.isEmpty()) this@Search.changeSearchLib()
                 else libName = LibraryList.lastSelectedLibName ?: ""

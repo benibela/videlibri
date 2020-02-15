@@ -73,7 +73,6 @@ open class BookListActivity: VideLibriBaseActivity(){
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState ?: return
 
         outState.putBoolean("portInDetailMode", portInDetailMode)
         outState.putInt("currentBookPos", currentBookPos)

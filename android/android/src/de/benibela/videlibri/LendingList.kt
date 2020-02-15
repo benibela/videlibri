@@ -58,7 +58,7 @@ class LendingList: BookListActivity(){
         }
 
 
-        endLoadingAll(VideLibriBaseActivityOld.LOADING_COVER_IMAGE)
+        endLoadingAll(LOADING_COVER_IMAGE)
     }
 
     internal fun setFilter(s: String) {
@@ -78,7 +78,7 @@ class LendingList: BookListActivity(){
 
         //setTitle("Ausleihen");  //does not work in onCreate (why? makes the title invisible) No. it just works sometimes?
 
-        if (accounts.filterWithRunningUpdate().isNotEmpty()) beginLoading(VideLibriBaseActivityOld.LOADING_ACCOUNT_UPDATE)
+        if (accounts.filterWithRunningUpdate().isNotEmpty()) beginLoading(LOADING_ACCOUNT_UPDATE)
         if (!cacheShown)
             displayBookCache()
 
@@ -100,7 +100,7 @@ class LendingList: BookListActivity(){
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState?.apply {
+        outState.apply {
             putString("filterActually", filterActually)
             putBoolean("filterIsMultiLine", filterIsMultiLine)
         }
@@ -275,7 +275,7 @@ class LendingList: BookListActivity(){
                 showMessageYesNo(getString(R.string.delete_book_confirmS, book.title)) {
                     Bridge.VLChangeBook(book, null)
                     showToast(R.string.delete_book_confirmed)
-                    LendingList.refreshDisplayedLendBooks()
+                    refreshDisplayedLendBooks()
                 }
             }
             else -> return super.onOptionsItemIdSelected(id)
@@ -303,7 +303,7 @@ class LendingList: BookListActivity(){
             Bridge.Book.StatusEnum.Ordered, Bridge.Book.StatusEnum.Provided -> showMessageYesNo(R.string.main_cancelconfirm){
                 Bridge.VLBookOperation(arrayOf(book), Bridge.BOOK_OPERATION_CANCEL) //cancel
                 withActivity<LendingList> {
-                    beginLoading(VideLibriBaseActivityOld.LOADING_ACCOUNT_UPDATE)
+                    beginLoading(LOADING_ACCOUNT_UPDATE)
                     showList()
                 }
             }
@@ -339,7 +339,7 @@ class LendingList: BookListActivity(){
                 override fun onClick(v: View) {
                     val acc = v.tag as Bridge.Account?
                     if (acc == null) accounts.showAll()
-                    else acc.showAlone();
+                    else acc.showAlone()
                     val dialog = this@ViewOptionsDialog.dialog ?: return
                     dialog.findViewById<CompoundButton>(R.id.viewHistory).isChecked = v.id == R.id.buttonforhistory
                     dialog.cancel()

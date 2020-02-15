@@ -7,17 +7,10 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Spinner
-
-import java.io.BufferedReader
-import java.io.IOException
-import java.io.InputStreamReader
-import java.util.ArrayList
-import java.util.Collections
-import java.util.regex.Matcher
-import java.util.regex.Pattern
-
 import de.benibela.videlibri.jni.Bridge
-import java.lang.StringBuilder
+import java.io.IOException
+import java.util.*
+import java.util.regex.Pattern
 
 private class DebugLog{
     private val list = ArrayList<BookDetails.Details>()
@@ -30,7 +23,7 @@ private class DebugLog{
     fun appendToLastEntry(data: String, alwaysShow: Boolean) {
         if (lastDetails == null) {
             if (alwaysShow)
-                appendNewEntry("", data);
+                appendNewEntry("", data)
         } else {
             if (builder.isEmpty())
                 builder.append(lastDetails?.data)
@@ -79,10 +72,11 @@ class DebugLogViewer : VideLibriBaseActivity(), AdapterView.OnItemSelectedListen
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState?.putInt("pos", filterSpinner.selectedItemPosition)
+        outState.putInt("pos", filterSpinner.selectedItemPosition)
     }
 
-    protected fun displayLog(mode: Int, reverse: Boolean) {
+    @Suppress("LocalVariableName")
+    private fun displayLog(mode: Int, reverse: Boolean) {
         val MODE_HTTP = 0
         val MODE_VIDELIBRI = 1
         val MODE_ALL = 2
@@ -127,7 +121,7 @@ class DebugLogViewer : VideLibriBaseActivity(), AdapterView.OnItemSelectedListen
 
         val details = log.toArrayList()
         if (reverse)
-            Collections.reverse(details)
+            details.reverse()
 
         findViewById<ListView>(R.id.bookdetailsview).adapter = BookDetails.BookDetailsAdapter(this, details, Bridge.Book())
     }

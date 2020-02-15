@@ -107,7 +107,7 @@ fun showDialog(
         more: Bundle? = null,
         init: DialogInitEvent? = null
 ) {
-    val args = android.os.Bundle()
+    val args = Bundle()
     args.putInt("id", dialogId)
     val instanceId = ++totalDialogInstances
     args.putInt("instanceId", instanceId)
@@ -336,10 +336,8 @@ inline fun InputStream.useLines(f: (String) -> Unit) {
 fun AssetManager.exists(fileName: String): Boolean {
     try {
         val stream = open(fileName)
-        if (stream != null) {
-            stream.close()
-            return true
-        }
+        stream.close()
+        return true
     } catch (ignored: IOException) {
 
     }
