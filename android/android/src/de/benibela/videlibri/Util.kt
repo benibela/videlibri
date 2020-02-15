@@ -9,9 +9,9 @@ import android.content.SharedPreferences
 import android.content.res.AssetManager
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.support.annotation.StringRes
-import android.support.v4.app.DialogFragment
-import android.support.v7.app.AppCompatActivity
+import androidx.annotation.StringRes
+import androidx.fragment.app.DialogFragment
+import androidx.appcompat.app.AppCompatActivity
 import android.util.SparseBooleanArray
 import android.view.Menu
 import android.view.MenuItem

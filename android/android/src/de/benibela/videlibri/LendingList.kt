@@ -11,14 +11,15 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.preference.PreferenceManager
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import android.text.Editable
 import android.view.*
 import android.widget.Button
 import android.widget.CompoundButton
 import android.widget.EditText
 import android.widget.LinearLayout
+import androidx.fragment.app.DialogFragment
 import de.benibela.videlibri.jni.Bridge
 import org.json.JSONArray
 import org.json.JSONException
@@ -313,7 +314,7 @@ class LendingList: BookListActivity(){
     internal var displayForcedCounterActually: Int = 0
 
 
-    class ViewOptionsDialog : android.support.v4.app.DialogFragment(), DialogInterface.OnCancelListener {
+    class ViewOptionsDialog : DialogFragment(), DialogInterface.OnCancelListener {
         internal lateinit var view: View
         override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
             val activity = activity ?: return Dialog(VideLibriApp.currentContext())

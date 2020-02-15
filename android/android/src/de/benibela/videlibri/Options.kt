@@ -4,9 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.support.v7.preference.Preference
-import android.support.v7.preference.PreferenceCategory
-import android.support.v7.view.ContextThemeWrapper
+import androidx.preference.Preference
+import androidx.preference.PreferenceCategory
+import androidx.appcompat.view.ContextThemeWrapper
 import android.util.TypedValue
 import android.view.View
 import android.widget.CompoundButton
@@ -32,7 +32,7 @@ class Options : VideLibriBaseActivity() {
         supportFragmentManager.beginTransaction().replace(R.id.content_holder, SettingsFragment()).commit()
     }
 
-    class SettingsFragment : android.support.v7.preference.PreferenceFragmentCompat() {
+    class SettingsFragment : androidx.preference.PreferenceFragmentCompat() {
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)

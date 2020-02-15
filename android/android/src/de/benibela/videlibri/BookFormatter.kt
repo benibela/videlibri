@@ -3,7 +3,7 @@ package de.benibela.videlibri
 
 import android.content.Context
 import android.graphics.Color
-import android.support.annotation.StringRes
+import androidx.annotation.StringRes
 
 import de.benibela.videlibri.jni.Bridge
 

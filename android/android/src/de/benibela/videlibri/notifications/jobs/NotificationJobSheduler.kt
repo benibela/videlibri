@@ -8,7 +8,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.os.Build
 import android.os.Handler
-import android.support.annotation.RequiresApi
+import androidx.annotation.RequiresApi
 import android.util.Log
 import de.benibela.videlibri.Accounts
 import de.benibela.videlibri.VideLibriApp

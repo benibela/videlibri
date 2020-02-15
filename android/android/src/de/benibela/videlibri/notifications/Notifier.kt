@@ -7,7 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.preference.PreferenceManager
-import android.support.v4.app.NotificationCompat
+import androidx.core.app.NotificationCompat
 import de.benibela.videlibri.*
 import de.benibela.videlibri.jni.Bridge
 import java.lang.Math.min

@@ -7,8 +7,8 @@ import android.graphics.Point
 import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Parcelable
-import android.support.v4.view.ViewCompat
-import android.support.v7.app.ActionBar
+import androidx.core.view.ViewCompat
+import androidx.appcompat.app.ActionBar
 import android.text.InputType
 import android.util.Log
 import android.view.Gravity

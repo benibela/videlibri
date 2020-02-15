@@ -3,8 +3,8 @@ package de.benibela.multilevellistview
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.StateListDrawable
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.ViewGroup
@@ -129,7 +129,8 @@ open class ExpandableMultiLevelListView @JvmOverloads constructor(context: Conte
                     if (expand(ea.childId(ea.bitsPerLevel, id, 0)) > 0)
                         return descendants
                 if (autoScrollOnExpansion) {
-                    val lm = layoutManager as? LinearLayoutManager ?: return descendants
+                    val lm = layoutManager as? LinearLayoutManager
+                            ?: return descendants
                     val linearPosition = ea.idToLinearPosition(id)
                     val lastPosition = lm.findLastCompletelyVisibleItemPosition()
                     val firstPosition = lm.findFirstCompletelyVisibleItemPosition()

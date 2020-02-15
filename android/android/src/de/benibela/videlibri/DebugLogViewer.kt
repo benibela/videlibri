@@ -70,7 +70,7 @@ class DebugLogViewer : VideLibriBaseActivity(), AdapterView.OnItemSelectedListen
         }
 
 
-        findViewById<android.support.v7.widget.Toolbar>(R.id.actionbar).addView(filterSpinner, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        findViewById<androidx.appcompat.widget.Toolbar>(R.id.actionbar).addView(filterSpinner, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT)
 
         val pos = savedInstanceState?.getInt("pos", 0) ?: 0
         filterSpinner.setSelection(pos)

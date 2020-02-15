@@ -3,13 +3,13 @@ package de.benibela.videlibri
 
 import android.content.Context
 import android.graphics.Color
-import android.support.v7.preference.PreferenceViewHolder
-import android.support.v7.preference.SeekBarPreference
+import androidx.preference.PreferenceViewHolder
+import androidx.preference.SeekBarPreference
 import android.util.AttributeSet
 import android.widget.TextView
 import android.widget.SeekBar
 
-class PreferenceSeekBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = android.support.v7.preference.R.attr.seekBarPreferenceStyle, defStyleRes: Int = 0) : SeekBarPreference(context, attrs, defStyleAttr, defStyleRes) {
+class PreferenceSeekBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = androidx.preference.R.attr.seekBarPreferenceStyle, defStyleRes: Int = 0) : SeekBarPreference(context, attrs, defStyleAttr, defStyleRes) {
     private val dynamicSummary: String?
     private var seekbarView: SeekBar? = null
     private var editable: Boolean = false
@@ -42,7 +42,7 @@ class PreferenceSeekBar @JvmOverloads constructor(context: Context, attrs: Attri
         super.onBindViewHolder(view)
         //workaround  for https://issuetracker.google.com/issues/37130859
         (view.findViewById(android.R.id.title) as TextView?)?.setTextColor(Color.WHITE)
-        seekbarView = view.findViewById(android.support.v7.preference.R.id.seekbar) as SeekBar?
+        seekbarView = view.findViewById(androidx.preference.R.id.seekbar) as SeekBar?
         seekbarView?.isEnabled = editable
     }
 

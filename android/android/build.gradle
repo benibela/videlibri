@@ -69,9 +69,9 @@ repositories {
 
 
 dependencies {
-    implementation 'com.android.support:appcompat-v7:28.+'
-    implementation 'com.android.support:design:28.+'
-    implementation 'com.android.support:preference-v7:28.+'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.preference:preference:1.0.0'
 /*  compile 'com.android.support:support-v13:+'*/
     implementation "ch.acra:acra-http:$acraVersion"
     implementation "ch.acra:acra-dialog:$acraVersion"
