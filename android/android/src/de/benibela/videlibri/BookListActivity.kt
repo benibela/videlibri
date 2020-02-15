@@ -5,12 +5,14 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import android.view.*
 import android.widget.AdapterView
 import android.widget.Button
 import android.widget.ListView
 import de.benibela.videlibri.jni.Bridge
+import kotlinx.android.parcel.Parcelize
 import java.util.*
 
 data class BookListDisplayOptions(
@@ -40,25 +42,24 @@ open class BookListActivity: VideLibriBaseActivity(){
     private var detailsPortHolder: View? = null
     private var listPortHolder: View? = null
 
-    internal var portInDetailMode: Boolean = false
-    internal var currentBookPos: Int = 0
-    internal var listFirstItem: Int = 0
-    internal var selectedBooksIndices: ArrayList<Int>? = null
+    @Parcelize
+    class State(
+            var portInDetailMode: Boolean = false,
+            var currentBookPos: Int = 0,
+            var listFirstItem: Int = 0,
+            var selectedBooksIndices: ArrayList<Int>? = null
+    ): Parcelable
+    var state = State()
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("VL", "onCreate: $port_mode")
         setVideLibriView(R.layout.booklistactivity)
+        registerState(::state)
         port_mode = resources.getBoolean(R.bool.port_mode)
         list = BookListFragment(this)
         details = BookDetails(this)
 
-        savedInstanceState?.let {
-            portInDetailMode = it.getBoolean("portInDetailMode")
-            currentBookPos = it.getInt("currentBookPos")
-            listFirstItem = it.getInt("listFirstItem")
-            selectedBooksIndices = it.getIntegerArrayList("selectedBooksIndices")
-        }
 
         if (port_mode) {
             detailsPortHolder = findViewById(R.id.bookdetailslayout)
@@ -72,17 +73,12 @@ open class BookListActivity: VideLibriBaseActivity(){
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-
-        outState.putBoolean("portInDetailMode", portInDetailMode)
-        outState.putInt("currentBookPos", currentBookPos)
-        if (listFirstItem == 0) {
+        if (state.listFirstItem == 0) {
             //only use new position, if there is no old position.
             //when the device rotates too fast, the activity is recreated (here), before the listview is initialized
-            listFirstItem = findViewById<ListView>(R.id.booklistview)?.firstVisiblePosition ?: 0
+            state.listFirstItem = findViewById<ListView>(R.id.booklistview)?.firstVisiblePosition ?: 0
+            //perhaps better use the list view save/restore state function??
         }
-        outState.putInt("listFirstItem", listFirstItem) //perhaps better use the list view save/restore state function??
-
         selectedBooks?.let {
             val selindices = ArrayList<Int>(it.size)
             for (j in bookCache.indices)
@@ -91,8 +87,9 @@ open class BookListActivity: VideLibriBaseActivity(){
                         selindices.add(j)
                         break
                     }
-            outState.putIntegerArrayList("selectedBooksIndices", selindices)
+            state.selectedBooksIndices = selindices
         }
+        super.onSaveInstanceState(outState)
     }
 
     override fun onCreateOptionsMenuOverflow(menu: Menu, inflater: MenuInflater) {
@@ -102,7 +99,7 @@ open class BookListActivity: VideLibriBaseActivity(){
 
     fun currentBook(): Bridge.Book? =
         if (detailsVisible() && details.book != null) details.book
-        else bookCache.getOrNull(currentBookPos)
+        else bookCache.getOrNull(state.currentBookPos)
 
 
     override fun onOptionsItemIdSelected(id: Int): Boolean {
@@ -172,11 +169,11 @@ open class BookListActivity: VideLibriBaseActivity(){
             bookpos++
             if (bookpos >= bookCache.size) return
         }
-        currentBookPos = bookpos
+        state.currentBookPos = bookpos
         if (port_mode) {
             detailsPortHolder?.visibility = View.VISIBLE
             listPortHolder?.visibility = View.INVISIBLE
-            portInDetailMode = true
+            state.portInDetailMode = true
         }
         details.setBook(bookCache[bookpos])
         invalidateOptionsMenu()
@@ -185,23 +182,23 @@ open class BookListActivity: VideLibriBaseActivity(){
 
     open fun onBookCacheAvailable() {
         //Log.d("VideLIBRI", "onBookCacheAvailable" + currentBookPos + " / " + listFirstItem + " / " + bookCache.size() );
-        selectedBooksIndices?.let {
+        state.selectedBooksIndices?.let {
             val sb = selectedBooks ?:  ArrayList<Bridge.Book>()
             for (i in it)
                 bookCache.getOrNull(i)?.let { book -> sb.add(book) }
             selectedBooks = sb
-            selectedBooksIndices = null
+            state.selectedBooksIndices = null
             (findViewById<ListView>(R.id.booklistview).adapter as BookOverviewAdapter).notifyDataSetChanged()
         }
-        if (!port_mode || ( portInDetailMode && currentBookPos in bookCache.indices ) )
-            showDetails(currentBookPos)
+        if (!port_mode || ( state.portInDetailMode && state.currentBookPos in bookCache.indices ) )
+            showDetails(state.currentBookPos)
         else
             showList()
         val bookListView = findViewById<ListView>(R.id.booklistview)
         bookListView.post {
-            if (listFirstItem > 0)
-                bookListView.setSelectionFromTop(listFirstItem, 0)
-            listFirstItem = 0
+            if (state.listFirstItem > 0)
+                bookListView.setSelectionFromTop(state.listFirstItem, 0)
+            state.listFirstItem = 0
         }
     }
 
@@ -227,7 +224,7 @@ open class BookListActivity: VideLibriBaseActivity(){
         if (detailsVisible()) {
             listPortHolder?.visibility = View.VISIBLE
             detailsPortHolder?.visibility = View.INVISIBLE
-            portInDetailMode = false
+            state.portInDetailMode = false
             invalidateOptionsMenu()
             return false
         } else

@@ -7,6 +7,7 @@ import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
 import androidx.annotation.LayoutRes
 import com.google.android.material.navigation.NavigationView
 import androidx.core.view.GravityCompat
@@ -111,8 +112,7 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
     }
 
     private val registeredStates = mutableMapOf<String, () -> Parcelable>()
-    fun <T: Parcelable> registerState(property: KMutableProperty0<T>){
-        val name = property.name
+    fun <T: Parcelable> registerState(name: String, property: KMutableProperty0<T>){
         if (!registeredStates.containsKey(name))
             registeredStates[name] = property::get
         if (savedInstanceState?.containsKey(name) == true) {
@@ -123,7 +123,14 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
             }
         }
     }
-
+    inline fun <reified T: Parcelable> registerState(property: KMutableProperty0<T>){
+        //combine property name and class name, so the name is unique
+        //(although the class name is not necessarily necessary, since subclasses cannot add a property of the same name)
+        //this works without the kotlin reflect library, although it looks like reflection (kotlin class name was reflection)
+        val name = "${property.name}:${T::class.java.name}"
+        //Log.i("STATE", name)
+        registerState(name, property)
+    }
 
     protected fun createDrawerToggle() {
         val layout = mDrawerLayout ?: return

@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.os.Parcelable
 import android.preference.PreferenceManager
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -21,25 +22,30 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.fragment.app.DialogFragment
 import de.benibela.videlibri.jni.Bridge
+import kotlinx.android.parcel.Parcelize
 import org.json.JSONArray
 import org.json.JSONException
 import java.util.*
 
 
 class LendingList: BookListActivity(){
+    @Parcelize
+    class FilterState(
+            var actually: String = "",
+            var isMultiLine: Boolean = false
+    ): Parcelable
+    var filter = FilterState()
 
     private var searchPanel: View? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        registerState(::filter)
         createDrawerToggle()
 
         searchPanel = findViewById<View>(R.id.searchFilterPanel)
 
-        savedInstanceState?.apply{
-            filterActually = getString("filterActually") ?: ""
-            setFilterMultiLine(getBoolean("filterIsMultiLine", false))
-        }
+        updateFilterMultiLine()
         updateViewFilters()
 
 
@@ -62,9 +68,9 @@ class LendingList: BookListActivity(){
     }
 
     internal fun setFilter(s: String) {
-        val oldFilterActually = filterActually
-        filterActually = s
-        if (alwaysFilterOnHistory && oldFilterActually.isEmpty() != filterActually.isEmpty()) {
+        val oldFilterActually = filter.actually
+        filter.actually = s
+        if (alwaysFilterOnHistory && oldFilterActually.isEmpty() != filter.actually.isEmpty()) {
             displayAccounts()
         } else
             refreshBookCache()
@@ -97,16 +103,6 @@ class LendingList: BookListActivity(){
             }, 200) //without delay it has crashed on old android (android 3 or something) in onresume
     }
 
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.apply {
-            putString("filterActually", filterActually)
-            putBoolean("filterIsMultiLine", filterIsMultiLine)
-        }
-    }
-
-
     private fun updateViewFilters() {
         val sp = PreferenceManager.getDefaultSharedPreferences(this)
         displayOptions.readFromPreferences(sp)
@@ -117,7 +113,7 @@ class LendingList: BookListActivity(){
 
     private fun updateAccountView() {
         updateViewFilters()
-        if (displayHistoryActually != (displayHistory || alwaysFilterOnHistory && filterActually.isNotEmpty())
+        if (displayHistoryActually != (displayHistory || alwaysFilterOnHistory && filter.actually.isNotEmpty())
                 || displayOptions != displayOptionsActually
                 || displayForcedCounterActually != displayForcedCounter
         ) {
@@ -128,7 +124,7 @@ class LendingList: BookListActivity(){
 
     var primaryBookCache = ArrayList<Bridge.Book>()
     fun displayAccounts() {
-        displayHistoryActually = displayHistory || alwaysFilterOnHistory && filterActually.isNotEmpty()
+        displayHistoryActually = displayHistory || alwaysFilterOnHistory && filter.actually.isNotEmpty()
         displayOptionsActually = displayOptions.copy()
         displayForcedCounterActually = displayForcedCounter
 
@@ -145,6 +141,7 @@ class LendingList: BookListActivity(){
 
 
     fun refreshBookCache() {
+        val filterActually = filter.actually
         var xquery = (filterActually.startsWith("xquery version") || filterActually.startsWith("for $") || filterActually.contains("\$book"))
         if (!xquery) {
             var controlchars = 0
@@ -287,8 +284,6 @@ class LendingList: BookListActivity(){
 
     var alwaysFilterOnHistory = true
     private var displayHistoryActually = false
-    private var filterActually: String = ""
-    private var filterIsMultiLine: Boolean = false
 
     override fun onBookActionButtonClicked(book: Bridge.Book) {
         when (book.status) {
@@ -389,8 +384,8 @@ class LendingList: BookListActivity(){
     override fun onCreateContextMenu(menu: ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
         if (v?.id == R.id.searchFilter) {
             menuInflater.inflate(R.menu.searchfiltercontextmenu, menu)
-            menu?.findItem(R.id.toggle_singleline)?.setTitle(if (filterIsMultiLine) R.string.menu_context_filter_singleline else R.string.menu_context_filter_multiline)
-            contextMenuSelectedItem = filterActually
+            menu?.findItem(R.id.toggle_singleline)?.setTitle(if (filter.isMultiLine) R.string.menu_context_filter_singleline else R.string.menu_context_filter_multiline)
+            contextMenuSelectedItem = filter.actually
         } else
             super.onCreateContextMenu(menu, v, menuInfo)
     }
@@ -416,8 +411,8 @@ class LendingList: BookListActivity(){
             }
             R.id.save_filter -> {
                 val filters = getFilterHistory()
-                if (filters.contains(filterActually)) filters.remove(filterActually)
-                filters.add(0, filterActually)
+                if (filters.contains(filter.actually)) filters.remove(filter.actually)
+                filters.add(0, filter.actually)
                 val filtersJson = JSONArray()
                 for (s in filters) filtersJson.put(s)
                 PreferenceManager.getDefaultSharedPreferences(this).edit().let {
@@ -431,12 +426,15 @@ class LendingList: BookListActivity(){
             R.id.paste, R.id.pastereplace -> {
                 Util.Clipboard.getText(this)?.let {
                     findViewById<EditText>(R.id.searchFilter).setText(
-                            (if (item.itemId == R.id.pastereplace) "" else filterActually) + it
+                            (if (item.itemId == R.id.pastereplace) "" else filter.actually) + it
                     )
                 }
             }
             R.id.toggle_singleline -> {
-                setFilterMultiLine(!filterIsMultiLine)
+                filter.apply {
+                    isMultiLine = !isMultiLine
+                    updateFilterMultiLine()
+                }
             }
             else -> return super.onContextItemSelected(item)
         }
@@ -445,15 +443,13 @@ class LendingList: BookListActivity(){
     }
 
     override fun onBackPressed() {
-        if (listVisible() && filterActually != "") findViewById<EditText>(R.id.searchFilter).setText("")
+        if (listVisible() && filter.actually != "") findViewById<EditText>(R.id.searchFilter).setText("")
         else super.onBackPressed()
     }
 
-    internal fun setFilterMultiLine(ml: Boolean) {
-        if (ml == filterIsMultiLine) return
-        filterIsMultiLine = ml
+    internal fun updateFilterMultiLine() {
         findViewById<EditText>(R.id.searchFilter).apply {
-            if (filterIsMultiLine) {
+            if (filter.isMultiLine) {
                 setSingleLine(false)
                 maxLines = 10
             } else {
