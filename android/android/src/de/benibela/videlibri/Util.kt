@@ -201,28 +201,29 @@ class DialogFragmentUtil : DialogFragment(), DialogInterface.OnClickListener, Di
     internal var instance: DialogInstance? = null
     internal var edit: EditText? = null
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val args = arguments ?: return Dialog(activity)
         val builder = AlertDialog.Builder(activity)
         builder.setOnCancelListener(this)
-        args.getInt("instanceId", -1).takeIf { it >= 0 }?.let {
-            instance = dialogInstances.get(it)
-        }
-
-        args.getString("title")?.let { builder.setTitle(it) }
-        args.getString("message")?.let { builder.setMessage(it) }
-        args.getStringArray("items")?.let { builder.setItems(it, this) }
-
-        args.getString("negativeButton")?.let { builder.setNegativeButton(it, this) }
-        args.getString("neutralButton")?.let { builder.setNeutralButton(it, this) }
-        args.getString("positiveButton")?.let { builder.setPositiveButton(it, this) }
-
-        instance?.apply {
-            if (flags and DialogInstance.FLAG_INPUT_DIALOG != 0) {
-                edit = EditText(activity)
-                args.getString("editTextDefault")?.let(edit!!::setText)
-                builder.setView(edit)
+        arguments?.let { args ->
+            args.getInt("instanceId", -1).takeIf { it >= 0 }?.let {
+                instance = dialogInstances.get(it)
             }
-            onCreate?.invoke(this@DialogFragmentUtil, builder)
+
+            args.getString("title")?.let { builder.setTitle(it) }
+            args.getString("message")?.let { builder.setMessage(it) }
+            args.getStringArray("items")?.let { builder.setItems(it, this) }
+
+            args.getString("negativeButton")?.let { builder.setNegativeButton(it, this) }
+            args.getString("neutralButton")?.let { builder.setNeutralButton(it, this) }
+            args.getString("positiveButton")?.let { builder.setPositiveButton(it, this) }
+
+            instance?.apply {
+                if (flags and DialogInstance.FLAG_INPUT_DIALOG != 0) {
+                    edit = EditText(activity)
+                    args.getString("editTextDefault")?.let(edit!!::setText)
+                    builder.setView(edit)
+                }
+                onCreate?.invoke(this@DialogFragmentUtil, builder)
+            }
         }
 
         return builder.create()

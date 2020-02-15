@@ -317,59 +317,61 @@ class LendingList: BookListActivity(){
     class ViewOptionsDialog : DialogFragment(), DialogInterface.OnCancelListener {
         internal lateinit var view: View
         override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-            val activity = activity ?: return Dialog(VideLibriApp.currentContext())
             val builder = AlertDialog.Builder(activity)
-            val inflater = activity.layoutInflater
-            view = inflater.inflate(R.layout.options_lendings, null)
-            Options.showLendingOptionsInView(activity, view)
-
-            val linearLayout = view.findViewById<LinearLayout>(R.id.viewaccounts)
-            linearLayout.removeAllViews()
-            val switchboxes = ArrayList<CompoundButton>()
-            val accountCheckListener = View.OnClickListener { v ->
-                val acc = v.tag as Bridge.Account?
-                val b = (v as? CompoundButton)?.isChecked ?: return@OnClickListener
-                if (acc == null) {
-                    if (b) accounts.showAll()
-                    else accounts.hideAll()
-                    for (cb in switchboxes) cb.isChecked = b
-                } else acc.isHidden = !b
-            }
-            val accountClickListener = object : View.OnClickListener {
-                override fun onClick(v: View) {
-                    val acc = v.tag as Bridge.Account?
-                    if (acc == null) accounts.showAll()
-                    else acc.showAlone()
-                    val dialog = this@ViewOptionsDialog.dialog ?: return
-                    dialog.findViewById<CompoundButton>(R.id.viewHistory).isChecked = v.id == R.id.buttonforhistory
-                    dialog.cancel()
-                }
-            }
-
-            for (i in -1 until accounts.size) {
-                val acc = if (i == -1) null else accounts[i]
-                val group = inflater.inflate(R.layout.options_lendings_accountrow, null)
-                val sb: CompoundButton = group.findViewById<CompoundButton>(R.id.switchbox).apply {
-                    isChecked = if (acc == null) accounts.filterHidden().size <= accounts.size / 2 else !acc.isHidden
-                    tag = acc
-                    isSaveEnabled = false
-                    setOnClickListener(accountCheckListener)
-                }
-                if (acc != null) switchboxes.add(sb)
-                group.findViewById<Button>(R.id.button).apply {
-                    text = acc?.prettyName ?: getText(R.string.main_allaccounts)
-                    tag = acc
-                    setOnClickListener(accountClickListener)
-                }
-                group.findViewById<Button>(R.id.buttonforhistory).apply {
-                    tag = acc
-                    setOnClickListener(accountClickListener)
-                }
-                linearLayout.addView(group)
-            }
-
-            builder.setView(view)
             builder.setOnCancelListener(this)
+            activity?.let { activity ->
+                val inflater = activity.layoutInflater
+                view = inflater.inflate(R.layout.options_lendings, null)
+                Options.showLendingOptionsInView(activity, view)
+
+
+                val linearLayout = view.findViewById<LinearLayout>(R.id.viewaccounts)
+                linearLayout.removeAllViews()
+                val switchboxes = ArrayList<CompoundButton>()
+                val accountCheckListener = View.OnClickListener { v ->
+                    val acc = v.tag as Bridge.Account?
+                    val b = (v as? CompoundButton)?.isChecked ?: return@OnClickListener
+                    if (acc == null) {
+                        if (b) accounts.showAll()
+                        else accounts.hideAll()
+                        for (cb in switchboxes) cb.isChecked = b
+                    } else acc.isHidden = !b
+                }
+                val accountClickListener = object : View.OnClickListener {
+                    override fun onClick(v: View) {
+                        val acc = v.tag as Bridge.Account?
+                        if (acc == null) accounts.showAll()
+                        else acc.showAlone()
+                        val dialog = this@ViewOptionsDialog.dialog ?: return
+                        dialog.findViewById<CompoundButton>(R.id.viewHistory).isChecked = v.id == R.id.buttonforhistory
+                        dialog.cancel()
+                    }
+                }
+
+                for (i in -1 until accounts.size) {
+                    val acc = if (i == -1) null else accounts[i]
+                    val group = inflater.inflate(R.layout.options_lendings_accountrow, null)
+                    val sb: CompoundButton = group.findViewById<CompoundButton>(R.id.switchbox).apply {
+                        isChecked = if (acc == null) accounts.filterHidden().size <= accounts.size / 2 else !acc.isHidden
+                        tag = acc
+                        isSaveEnabled = false
+                        setOnClickListener(accountCheckListener)
+                    }
+                    if (acc != null) switchboxes.add(sb)
+                    group.findViewById<Button>(R.id.button).apply {
+                        text = acc?.prettyName ?: getText(R.string.main_allaccounts)
+                        tag = acc
+                        setOnClickListener(accountClickListener)
+                    }
+                    group.findViewById<Button>(R.id.buttonforhistory).apply {
+                        tag = acc
+                        setOnClickListener(accountClickListener)
+                    }
+                    linearLayout.addView(group)
+                }
+
+                builder.setView(view)
+            }
             return builder.create().apply {
                 window?.setGravity(Gravity.END or Gravity.TOP)
             }

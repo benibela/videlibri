@@ -12,7 +12,6 @@ import android.preference.PreferenceManager
 import android.util.Log
 import de.benibela.internettools.Config
 import de.benibela.internettools.X509TrustManagerWithAdditionalKeystores
-import de.benibela.internettools.X509TrustManagerWrapper
 import de.benibela.videlibri.internet.UserKeyStore
 import de.benibela.videlibri.internet.VideLibriKeyStore
 import de.benibela.videlibri.jni.Bridge
@@ -49,7 +48,7 @@ class VideLibriApp : Application() {
         staticApplicationContext = applicationContext
 
         val builder = org.acra.config.CoreConfigurationBuilder(this)
-        builder.getPluginConfigurationBuilder(HttpSenderConfigurationBuilder::class.java).setUri("http://www.benibela.de/autoFeedback.php?app=VideLibriA"+android.os.Build.VERSION.SDK_INT)
+        builder.getPluginConfigurationBuilder(HttpSenderConfigurationBuilder::class.java).setUri("http://www.benibela.de/autoFeedback.php?app=VideLibriA"+ Build.VERSION.SDK_INT)
         ACRA.init(this, builder)
 
         initializeAll(null)
@@ -140,7 +139,7 @@ class VideLibriApp : Application() {
                 intent.putExtra("libId", libId)
                 val tempLib = Bridge.VLGetLibraryDetails(libId)
                 intent.putExtra("libName", tempLib?.prettyName)
-                if (accounts.any { it -> libId != it.libId})
+                if (accounts.any { libId != it.libId})
                     intent.putExtra("showLibList", true)
             }
             staticApplicationContext?.startActivity(intent)
@@ -149,12 +148,12 @@ class VideLibriApp : Application() {
 
         @JvmStatic fun showPendingExceptions() {
             val exceptions = Bridge.VLTakePendingExceptions() ?: return
-            if (VideLibriApp.errors.size > 3) { //errors eat a lot of memory
-                while (VideLibriApp.errors.size > 3)
-                    VideLibriApp.errors.removeAt(0)
+            if (errors.size > 3) { //errors eat a lot of memory
+                while (errors.size > 3)
+                    errors.removeAt(0)
                 System.gc()
             }
-            VideLibriApp.errors.addAll(Arrays.asList<Bridge.PendingException>(*exceptions))
+            errors.addAll(Arrays.asList<Bridge.PendingException>(*exceptions))
 
             for (i in exceptions.indices) {
                 val ex = exceptions[i]
@@ -163,7 +162,7 @@ class VideLibriApp : Application() {
                 else showDialog {
                     val msg = ex.accountPrettyNames + ": " + ex.error
                     val sendErrorReport: DialogEvent = {
-                        val queries = VideLibriApp.errors.map { it.searchQuery }.filterNot { it.isNullOrEmpty() }.joinToString (separator = "\n") {
+                        val queries = errors.map { it.searchQuery }.filterNot { it.isNullOrEmpty() }.joinToString (separator = "\n") {
                             q -> getString(R.string.app_error_searchedfor) + q
                         }
                         startActivity<Feedback>(
@@ -203,9 +202,9 @@ class VideLibriApp : Application() {
         }
 
 
-        internal var defaultLocale: Locale? = null
-        internal var languageOverride: String? = null
-        internal fun getCurrentLocale(context: Context): Locale =
+        private var defaultLocale: Locale? = null
+        private var languageOverride: String? = null
+        private fun getCurrentLocale(context: Context): Locale =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
                 context.resources.configuration.locales.get(0)
             else @Suppress("DEPRECATION")
