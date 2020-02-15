@@ -37,7 +37,7 @@ class Options : VideLibriBaseActivity() {
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             addPreferencesFromResource(R.xml.preferences)
-            val prefs = arrayOf(findPreference("bridge_logging"), findPreference("bridge_nearTime"), findPreference("bridge_refreshInterval"))
+            val prefs = arrayOf<Preference?>(findPreference("bridge_logging"), findPreference("bridge_nearTime"), findPreference("bridge_refreshInterval"))
             val listener = Preference.OnPreferenceChangeListener { preference, newValue ->
                 Bridge.globalOptions = Bridge.VLGetOptions()
                 val options = Bridge.globalOptions
@@ -52,7 +52,7 @@ class Options : VideLibriBaseActivity() {
                 Bridge.VLSetOptions(options)
                 true
             }
-            for (p in prefs) p.onPreferenceChangeListener = listener
+            for (p in prefs) p?.onPreferenceChangeListener = listener
         }
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -62,11 +62,11 @@ class Options : VideLibriBaseActivity() {
         private inner class CustomPreferenceMaker internal constructor(
                 internal var contextThemeWrapper: ContextThemeWrapper
         ) {
-            internal lateinit var cat: PreferenceCategory
+            internal var cat: PreferenceCategory? = null
 
             internal fun beginCat(key: String) {
-                cat = preferenceScreen.findPreference(key) as PreferenceCategory
-                cat.removeAll()
+                cat = preferenceScreen.findPreference(key)
+                cat?.removeAll()
             }
 
             internal fun makePreference(title: String, onClick: Preference.OnPreferenceClickListener): Preference {
@@ -78,7 +78,7 @@ class Options : VideLibriBaseActivity() {
                     it.title = title
                     if (summary != null) it.summary = summary
                     it.onPreferenceClickListener = onClick
-                    cat.addPreference(it)
+                    cat?.addPreference(it)
                 }
             }
         }

@@ -146,9 +146,9 @@ class AccountInfo : VideLibriBaseActivity() {
         libdetails ?: setActiveLibrary(LibraryList.lastSelectedFallbackLibraryId()) ?: updateLibrary()
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState?.putString("libId", libdetails?.id)
+        outState.putString("libId", libdetails?.id)
     }
 
     private fun updateLibrary() {
@@ -229,7 +229,7 @@ class AccountInfo : VideLibriBaseActivity() {
                 }//    updateLibrary();
                 else
                     finish()
-        }
+        } else super.onActivityResult(requestCode, resultCode, data)
     }
 
     private fun addAccountNow() {

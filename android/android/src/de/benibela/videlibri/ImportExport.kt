@@ -221,10 +221,9 @@ class ImportExport : VideLibriBaseActivity() {
         hideKeyboard(this)
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         if (mode == MODE_IMPORT && data != null) {
-            outState ?: return
             outState.putString("activeImportFileName", findViewById<EditText>(R.id.edit).text.toString())
             outState.putSparseBooleanArray("listViewChecked", findViewById<ListView>(R.id.listView).checkedItemPositions)
             outState.putSparseBooleanArray("listView1Checked", findViewById<ListView>(R.id.listView1).checkedItemPositions)

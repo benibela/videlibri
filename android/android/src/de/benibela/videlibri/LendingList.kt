@@ -98,7 +98,7 @@ class LendingList: BookListActivity(){
     }
 
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState?.apply {
             putString("filterActually", filterActually)
@@ -340,6 +340,7 @@ class LendingList: BookListActivity(){
                     val acc = v.tag as Bridge.Account?
                     if (acc == null) accounts.showAll()
                     else acc.showAlone();
+                    val dialog = this@ViewOptionsDialog.dialog ?: return
                     dialog.findViewById<CompoundButton>(R.id.viewHistory).isChecked = v.id == R.id.buttonforhistory
                     dialog.cancel()
                 }
@@ -374,7 +375,7 @@ class LendingList: BookListActivity(){
             }
         }
 
-        override fun onCancel(dialog: DialogInterface?) {
+        override fun onCancel(dialog: DialogInterface) {
             super.onCancel(dialog)
             val activity = activity ?: return
             Options.putLendingOptionsFromView(activity, view)

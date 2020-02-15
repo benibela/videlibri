@@ -246,7 +246,7 @@ class DialogFragmentUtil : DialogFragment(), DialogInterface.OnClickListener, Di
         onFinished(i)
     }
 
-    override fun onCancel(dialog: DialogInterface?) {
+    override fun onCancel(dialog: DialogInterface) {
         onFinished(MessageHandlerCanceled)
     }
 }

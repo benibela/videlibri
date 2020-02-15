@@ -77,7 +77,7 @@ class DebugLogViewer : VideLibriBaseActivity(), AdapterView.OnItemSelectedListen
         displayLog(pos / 2, pos % 2 == 0)
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState?.putInt("pos", filterSpinner.selectedItemPosition)
     }

@@ -71,7 +71,7 @@ open class BookListActivity: VideLibriBaseActivity(){
         port_mode = resources.getBoolean(R.bool.port_mode) //should not have changed
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState ?: return
 

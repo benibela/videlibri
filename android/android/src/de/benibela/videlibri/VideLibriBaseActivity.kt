@@ -37,7 +37,7 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
         VideLibriApp.initializeAll(this)
         if (savedInstanceState != null) {
             loadingTasks.clear()
-            loadingTasks += savedInstanceState.getIntegerArrayList("activeLoadingTasks")
+            savedInstanceState.getIntegerArrayList("activeLoadingTasks")?.let { loadingTasks += it }
         }
     }
 
@@ -66,10 +66,10 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
         super.onPause()
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState?.putIntegerArrayList("activeLoadingTasks", loadingTasks)
-        registeredStates.forEach { outState?.putParcelable(it.key, it.value()) }
+        outState.putIntegerArrayList("activeLoadingTasks", loadingTasks)
+        registeredStates.forEach { outState.putParcelable(it.key, it.value()) }
         if (VideLibriApp.currentActivity === this) VideLibriApp.currentActivity = null
     }
 
@@ -143,7 +143,7 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
         mDrawerToggle?.syncState()
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration?) {
+    override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         mDrawerToggle?.onConfigurationChanged(newConfig)
     }

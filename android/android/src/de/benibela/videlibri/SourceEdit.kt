@@ -210,7 +210,7 @@ class SourceEdit : VideLibriBaseActivity() {
         showFileName(bundle.getBoolean("userdefined"))
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState ?: return
         outState.putInt("base", spinner.selectedItemPosition)
