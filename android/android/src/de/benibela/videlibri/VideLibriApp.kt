@@ -203,6 +203,7 @@ class VideLibriApp : Application() {
 
 
         private var defaultLocale: Locale? = null
+        private var overrideLocale: Locale? = null
         private var languageOverride: String? = null
         private fun getCurrentLocale(context: Context): Locale =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
@@ -215,19 +216,33 @@ class VideLibriApp : Application() {
             languageOverride = langOverride
             //Log.i("VIDELIBRI LANG", langOverride);
             if (defaultLocale == null) defaultLocale = getCurrentLocale(context)
-            val locale = if (langOverride.isEmpty()) defaultLocale else Locale(langOverride)
-            Locale.setDefault(locale)
-            @Suppress("DEPRECATION") Configuration().let {
-                it.locale = locale
-                context.applicationContext.resources.updateConfiguration(it, null)
-            }
+            overrideLocale = if (langOverride.isEmpty()) defaultLocale else Locale(langOverride)
+            Locale.setDefault(overrideLocale)
+            overrideResourcesLocale(context)
         }
 
         fun checkLanguageOverride(context: Context) {
-            languageOverride?.takeIf { it.isNotEmpty() }?.run {
-                setLanguageOverride(context, this)
+            languageOverride?.takeNonEmpty()?.let {
+                setLanguageOverride(context, it)
             }
         }
+
+        fun overrideResourcesLocale(context: Context): Context =
+                when {
+                    overrideLocale == null -> context
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.N -> {
+                        val configuration = context.resources.configuration
+                        configuration.setLocale(overrideLocale)
+                        context.createConfigurationContext(configuration)
+                    }
+                    else -> @Suppress("DEPRECATION") {
+                        val resources = context.resources
+                        val configuration = context.resources.configuration
+                        configuration.locale = overrideLocale
+                        resources.updateConfiguration(configuration, resources.getDisplayMetrics())
+                        context
+                    }
+                }
 
 
         @JvmStatic fun initializeAll(alternativeContext: Context?) {
@@ -247,7 +262,7 @@ class VideLibriApp : Application() {
             Config.defaultKeystoreFactory = X509TrustManagerWithAdditionalKeystores.LazyLoadKeyStoreFactory { VideLibriKeyStore() }
             Config.invalidCerticateMessage = context.getString(R.string.internet_invalid_certificateS)
 
-            languageOverride = prefs.getString("languageOverride", null)?.takeIf { it.isNotEmpty() }
+            languageOverride = prefs.getString("languageOverride", null)?.takeNonEmpty()
             checkLanguageOverride(context)
 
             if (instance != null && ACRA.isACRASenderServiceProcess()) {

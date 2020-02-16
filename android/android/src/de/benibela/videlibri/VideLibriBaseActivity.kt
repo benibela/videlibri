@@ -2,9 +2,11 @@ package de.benibela.videlibri
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.Log
@@ -40,6 +42,12 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
             loadingTasks.clear()
             savedInstanceState.getIntegerArrayList("activeLoadingTasks")?.let { loadingTasks += it }
         }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) VideLibriApp.overrideResourcesLocale(this)
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        val newBase = base?.let { VideLibriApp.overrideResourcesLocale(it) } ?: base
+        super.attachBaseContext(newBase)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
