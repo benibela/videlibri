@@ -132,6 +132,7 @@
         <receiver android:name=".notifications.service.NotificationShowNow" >
         </receiver>
 
+        <meta-data android:name="de.benibela.videlibri.BookCoverGlideModule" android:value="GlideModule" />
     </application>
 
 

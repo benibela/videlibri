@@ -2,16 +2,11 @@ package de.benibela.videlibri;
 
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.LeadingMarginSpan;
@@ -22,10 +17,17 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
 
-import java.io.InputStream;
-import java.util.*;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import de.benibela.videlibri.jni.Bridge;
 
@@ -66,7 +68,8 @@ public class BookDetails extends VideLibriFakeFragment {
         }
     }
 
-    static private DisplayMetrics displayMetrics;
+    static public DisplayMetrics displayMetrics;
+    int coverTargetWidth, coverTargetHeight;
 
     static class BookDetailsAdapter extends BaseAdapter{
         private final Activity context;
@@ -79,6 +82,7 @@ public class BookDetails extends VideLibriFakeFragment {
         final float scale;
         int toPx(float sp) { return (int) (sp * scale + 0.5f); }
 
+
         boolean holdingOrderClickable = true;
 
 
@@ -90,8 +94,9 @@ public class BookDetails extends VideLibriFakeFragment {
             if (book.image != null) image = new BitmapDrawable(book.image);
 
             this.defaultColor = context.getResources().getColor(android.R.color.primary_text_dark);
-            displayMetrics = context.getResources().getDisplayMetrics();
             this.scale = displayMetrics.scaledDensity;
+
+
 
             int hs = details.size();
             while (hs > 0 && details.get(hs-1) instanceof DetailsHolding) hs--;
@@ -243,6 +248,14 @@ public class BookDetails extends VideLibriFakeFragment {
         super(activity);
         View lv = findViewById(R.id.bookdetailsview);
         if (lv != null) activity.registerForContextMenu(lv);
+
+        displayMetrics = activity.getResources().getDisplayMetrics();
+        int longSide = Math.max(displayMetrics.widthPixels, displayMetrics.heightPixels);
+        int shortSide = Math.min(displayMetrics.widthPixels, displayMetrics.heightPixels);
+        //portrait: maxWidth = shortSide, maxHeight = longSide * factor
+        //landscape: maxWidth = longSide / 2, maxHeight = shortSide * factor
+        this.coverTargetWidth =  Math.max(3, Math.min(shortSide, longSide / 2) );
+        this.coverTargetHeight = Math.max(3,shortSide / 2 );
     }
 
     void setBook(Bridge.Book newBook){
@@ -317,11 +330,12 @@ public class BookDetails extends VideLibriFakeFragment {
 
         addHoldings(book.holdings);
 
+
         lv.setAdapter(new BookDetailsAdapter(activity, details, book));
 
         boolean needToLoadImage = (book.hasProperty("image-url") || book.hasProperty("isbn")) && book.image == null;
         if (needToLoadImage) {
-            new DownloadImageTask(this, book).execute(book.getProperty("image-url"));
+            CoverLoader.loadBookCover(this, book);
             beginLoading(VideLibriBaseActivity.LOADING_COVER_IMAGE);
         }
 
@@ -484,91 +498,4 @@ public class BookDetails extends VideLibriFakeFragment {
     }
 
 
-    //from http://stackoverflow.com/questions/5776851/load-image-from-url
-    static class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        Bridge.Book book;
-        BookDetails fragment;
-
-
-        public DownloadImageTask(BookDetails fragment, Bridge.Book book) {
-            this.book = book;
-            this.fragment = fragment;
-        }
-
-        protected Bitmap doInBackground(String... imageUrlProp) {
-            String[] urls = imageUrlProp[0].split("[\r\n]");
-            Bitmap cover = null;
-            BitmapFactory.Options bitmapOpts = new BitmapFactory.Options();
-            bitmapOpts.inDensity = DisplayMetrics.DENSITY_DEFAULT;
-            bitmapOpts.inTargetDensity = displayMetrics.densityDpi;
-            bitmapOpts.inScreenDensity = displayMetrics.densityDpi;
-            bitmapOpts.inScaled = true;
-            String normalizedISBN10 = "";
-
-            for (int i=0;i<urls.length + 1 + 1 /*+1 disabled*/;i++) {
-                try {
-                    String url;
-                    if (i < urls.length) {
-                        url = urls[i].trim();
-                        if ("".equals(url)) continue;
-                    } else {
-                        if (i == urls.length) {
-                            normalizedISBN10 = book.getNormalizedISBN(true,Bridge.Book.ISBNNormalization.ISBN_CONVERT_TO_10);
-                            if ("".equals(normalizedISBN10)) continue;
-                            url = "http://covers.openlibrary.org/b/isbn/"+normalizedISBN10+"-M.jpg?default=false";
-                        } else if (i == urls.length + 1) {
-                            if ("".equals(normalizedISBN10)) continue;
-                            url = "http://images-eu.amazon.com/images/P/" + normalizedISBN10 + ".03.L.jpg";
-                        } else {
-                            String isbn = book.getNormalizedISBN(true,Bridge.Book.ISBNNormalization.ISBN_CONVERT_TO_13);
-                            if ("".equals(isbn)) continue;
-                            url = "https://www.buchhandel.de/cover/"+isbn+"/"+isbn+"-cover-m.jpg";
-                        }
-                    }
-
-
-                    InputStream in = new java.net.URL(url).openStream();
-                    cover = BitmapFactory.decodeStream(in, null, bitmapOpts);
-                    if (cover != null && cover.getWidth() > 3 && cover.getHeight() > 3) {
-                        int longSide = Math.max(displayMetrics.widthPixels, displayMetrics.heightPixels);
-                        int shortSide = Math.min(displayMetrics.widthPixels, displayMetrics.heightPixels);
-                        //portrait: maxWidth = shortSide, maxHeight = longSide * factor
-                        //landscape: maxWidth = longSide / 2, maxHeight = shortSide * factor
-                        int maxWidth =  Math.max(3, Math.min(shortSide, longSide / 2) );
-                        int maxHeight = Math.max(3,shortSide / 2 );
-                        int minWidth = maxWidth / 4;
-                        int minHeight = maxHeight / 4;
-                        double scale = 1;
-                        if (cover.getWidth() < minWidth || cover.getHeight() < minHeight) {
-                            scale = Math.max(minWidth * 1.0 / cover.getWidth(), minHeight * 1.0 / cover.getHeight());
-                        }
-                        if (cover.getWidth() * scale > maxWidth || cover.getHeight() * scale > maxHeight) {
-                            scale = Math.min(maxWidth * 1.0 / cover.getWidth(), maxHeight * 1.0 / cover.getHeight());
-                        }
-                        if (scale != 1) {
-                            Bitmap oldCover = cover;
-                            cover = Bitmap.createScaledBitmap(cover, (int)(cover.getWidth() * scale), (int)(cover.getHeight()  * scale), true);
-                            oldCover.recycle();
-                        }
-                        return cover;
-
-                    }
-                } catch (Throwable e) { //need to catch OutOfMemoryError and broken images exceptions
-                    //Log.e("Error", e.getMessage());
-                    e.printStackTrace();
-                }
-            }
-            return cover;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            if (VideLibriApp.currentActivity != null
-                    && VideLibriApp.currentActivity instanceof BookListActivity
-                    ) {
-                ((BookListActivity)VideLibriApp.currentActivity).endLoading(VideLibriBaseActivity.LOADING_COVER_IMAGE);
-                book.image = result;
-                if (VideLibriApp.currentActivity == fragment.activity && book == fragment.book) fragment.updateImage();
-            }
-        }
-    }
 }

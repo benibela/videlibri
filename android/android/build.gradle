@@ -72,10 +72,12 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'androidx.preference:preference:1.1.0'
-/*  compile 'com.android.support:support-v13:+'*/
     implementation "ch.acra:acra-http:$acraVersion"
     implementation "ch.acra:acra-dialog:$acraVersion"
     implementation 'com.squareup.okhttp3:okhttp:3.12.8'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "com.getkeepsafe.relinker:relinker:1.3.0"
+    implementation "com.github.bumptech.glide:glide:3.8.0"
+    implementation 'com.github.bumptech.glide:okhttp3-integration:1.5.0@jar'
+    implementation 'androidx.annotation:annotation:1.1.0'
 }
