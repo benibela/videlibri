@@ -239,7 +239,7 @@ class VideLibriApp : Application() {
                         val resources = context.resources
                         val configuration = context.resources.configuration
                         configuration.locale = overrideLocale
-                        resources.updateConfiguration(configuration, resources.getDisplayMetrics())
+                        resources.updateConfiguration(configuration, resources.displayMetrics)
                         context
                     }
                 }
