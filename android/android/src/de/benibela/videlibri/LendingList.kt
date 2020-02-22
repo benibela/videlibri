@@ -63,8 +63,6 @@ class LendingList: BookListActivity(){
             VideLibriApp.updateAccount(null, true, false)
         }
 
-
-        endLoadingAll(LOADING_COVER_IMAGE)
     }
 
     internal fun setFilter(s: String) {

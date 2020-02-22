@@ -9,17 +9,16 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
-import android.util.Log
-import androidx.annotation.LayoutRes
-import com.google.android.material.navigation.NavigationView
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
+import androidx.annotation.LayoutRes
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
 import de.benibela.videlibri.jni.Bridge
 import kotlin.reflect.KMutableProperty0
 
@@ -214,8 +213,8 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
     }
 
 
-    private fun refreshLoadingIcon(){
-        loadingItem?.isVisible = loadingTasks.size > 0
+    internal fun refreshLoadingIcon(){
+        loadingItem?.isVisible = loadingTasks.size > 0 || CoverLoader.isActive()
     }
     fun beginLoading(loadingId: Int) {
         loadingTasks += loadingId
@@ -242,10 +241,9 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
     }
 
     private fun showLoadingInfo() {
-        showMessage(loadingTasks.joinToString(separator = "\n") {
-            getString(when (it) {
+        val tasks = loadingTasks.map {
+            when (it) {
                 LOADING_ACCOUNT_UPDATE -> R.string.loading_account_update
-                LOADING_COVER_IMAGE -> R.string.loading_cover
                 LOADING_SEARCH_CONNECTING -> R.string.loading_search_connecting
                 LOADING_SEARCH_SEARCHING -> R.string.loading_search_searching
                 LOADING_SEARCH_DETAILS -> R.string.loading_search_details
@@ -253,9 +251,12 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
                 LOADING_SEARCH_ORDER_HOLDING -> R.string.loading_search_order_holding
                 LOADING_SEARCH_MESSAGE -> R.string.loading_search_message
                 LOADING_INSTALL_LIBRARY -> R.string.loading_search_install_library
-                else -> return@joinToString ""
-            })
-        })
+                else -> 0
+            }
+        }.filter { it != 0 }.toMutableList()
+        if (CoverLoader.isActive()) tasks += R.string.loading_cover
+
+        showMessage(tasks.joinToString("\n") { getString(it) })
     }
 
     private val REQUESTED_LIBRARY_HOMEPAGE = 29324

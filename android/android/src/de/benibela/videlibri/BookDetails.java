@@ -336,7 +336,6 @@ public class BookDetails extends VideLibriFakeFragment {
         boolean needToLoadImage = (book.hasProperty("image-url") || book.hasProperty("isbn")) && book.image == null;
         if (needToLoadImage) {
             CoverLoader.loadBookCover(this, book);
-            beginLoading(VideLibriBaseActivity.LOADING_COVER_IMAGE);
         }
 
         String action = null;

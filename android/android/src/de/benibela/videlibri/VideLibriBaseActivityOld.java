@@ -20,7 +20,6 @@ public class VideLibriBaseActivityOld extends AppCompatActivity{
     protected static final int RETURNED_FROM_NEW_LIBRARY = 29326;
 
     static final int LOADING_ACCOUNT_UPDATE = 1;
-    static final int LOADING_COVER_IMAGE = 100;
     static final int LOADING_SEARCH_CONNECTING = 200;
     static final int LOADING_SEARCH_SEARCHING = 201;
     static final int LOADING_SEARCH_DETAILS = 202;

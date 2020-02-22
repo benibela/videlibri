@@ -9,6 +9,7 @@ import android.util.Log
 import de.benibela.videlibri.jni.Bridge
 import java.net.URL
 import java.util.concurrent.Executors
+import java.util.concurrent.atomic.AtomicInteger
 import kotlin.math.max
 import kotlin.math.min
 
@@ -42,28 +43,45 @@ class CoverLoadingTask(val book: Bridge.Book, val size: CoverLoadingSize){
 }
 
 
+class PriorityTaskExecutor<T>(val runnable: (T) -> Unit){
+    private val executor = Executors.newSingleThreadExecutor()
+    private var currentTask: T? = null
+    private val activeThreads = AtomicInteger()
+    var onTaskComplete: (() -> Unit)? = null
+    private fun nextTask(){
+        takeTask()?.let {
+            activeThreads.incrementAndGet()
+            runnable(it)
+            activeThreads.decrementAndGet()
+            onTaskComplete?.invoke()
+        }
+    }
+    @Synchronized fun execute(task: T){
+        currentTask = task
+        executor.execute(::nextTask)
+    }
+    @Synchronized fun takeTask(): T? = currentTask.also {currentTask = null }
+    @Synchronized fun isActive() = currentTask != null || activeThreads.get() > 0
+}
+
 class CoverLoader {
     companion object {
-        private val executor by lazy { Executors.newSingleThreadExecutor() }
+        private var executor: PriorityTaskExecutor<CoverLoadingTask>? = null
         private var handler: Handler? = null
-        private var currentTask: CoverLoadingTask? = null
         @JvmStatic fun loadBookCover(bookDetails: BookDetails, book: Bridge.Book) {
+            if (executor == null) executor = PriorityTaskExecutor<CoverLoadingTask> { loadBookCover(it) }.also{
+                it.onTaskComplete = { handler?.post { currentActivity<VideLibriBaseActivity>()?.refreshLoadingIcon() } }
+            }
             if (handler == null) handler = Handler(Looper.getMainLooper())
             val task = CoverLoadingTask(book, CoverLoadingSize((bookDetails)))
             if (task.hasCoverUrl) {
-                synchronized(CoverLoader) {
-                    currentTask = task
-                }
-                executor.execute {
-                    val task: CoverLoadingTask?
-                    synchronized(CoverLoader) {
-                        task = currentTask
-                        currentTask = null
-                    }
-                    loadBookCover(task ?: return@execute)
-                }
+                executor?.execute(task)
+                currentActivity<VideLibriBaseActivity>()?.refreshLoadingIcon()
             }
         }
+        fun isActive() = executor?.isActive() ?: false
+
+
         @JvmStatic private fun loadBookCover(task: CoverLoadingTask) {
             val bitmapOptions = BitmapFactory.Options().apply {
                 inDensity = DisplayMetrics.DENSITY_DEFAULT
@@ -76,6 +94,7 @@ class CoverLoader {
             var bestCover: Bitmap? = null
             task.forEachCoverUrl { url ->
                 try {
+                    Log.i("URL", url)
                     val stream = URL(url).openStream()
                     val cover = BitmapFactory.decodeStream(stream, null, bitmapOptions) ?: return@forEachCoverUrl null
                     val oldCover = bestCover
@@ -111,14 +130,13 @@ class CoverLoader {
             //cache cover
 
             //show cover
-            val bla = currentActivity<BookListActivity>()
-            bestCover?.let { cover ->
-                handler?.post {
+            handler?.post {
+                val bla = currentActivity<BookListActivity>()
+                bestCover?.let { cover ->
                     task.book.image = cover
                     if (bla?.currentBook()  === task.book) bla.details.updateImage()
                 }
             }
-            bla?.endLoadingAll(VideLibriBaseActivityOld.LOADING_COVER_IMAGE)
         }
 
     }
