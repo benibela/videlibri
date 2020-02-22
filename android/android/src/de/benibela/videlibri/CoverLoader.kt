@@ -2,9 +2,6 @@ package de.benibela.videlibri
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.os.Handler
-import android.os.Looper
-import android.util.DisplayMetrics
 import android.util.Log
 import de.benibela.videlibri.jni.Bridge
 import java.net.URL
@@ -24,6 +21,7 @@ class CoverLoadingSize(val maxWidth: Int, val maxHeight: Int){
 class CoverLoadingTask(val book: Bridge.Book, val size: CoverLoadingSize){
     val isbn = book.getProperty("isbn").trim()
     private val imageUrl = book.getProperty("image-url").split("[\r\n]").map { it.trim() }.filter { it.isNotEmpty() }
+    val id = isbn.takeNonEmpty() ?: imageUrl.getOrElse(0) {""}
     val hasCoverUrl get() = isbn.isNotEmpty() || imageUrl.isNotEmpty()
     fun<T> forEachCoverUrl(load: (String) -> T?): T?{
         imageUrl.forEach { url ->
@@ -49,11 +47,11 @@ class PriorityTaskExecutor<T>(val runnable: (T) -> Unit){
     private val activeThreads = AtomicInteger()
     var onTaskComplete: (() -> Unit)? = null
     private fun nextTask(){
-        takeTask()?.let {
+        takeTask()?.let { task ->
             activeThreads.incrementAndGet()
-            runnable(it)
+            runnable(task)
             activeThreads.decrementAndGet()
-            onTaskComplete?.invoke()
+            onTaskComplete?.let { runOnUiThread(it) }
         }
     }
     @Synchronized fun execute(task: T){
@@ -64,81 +62,78 @@ class PriorityTaskExecutor<T>(val runnable: (T) -> Unit){
     @Synchronized fun isActive() = currentTask != null || activeThreads.get() > 0
 }
 
-class CoverLoader {
-    companion object {
-        private var executor: PriorityTaskExecutor<CoverLoadingTask>? = null
-        private var handler: Handler? = null
-        @JvmStatic fun loadBookCover(bookDetails: BookDetails, book: Bridge.Book) {
-            if (executor == null) executor = PriorityTaskExecutor<CoverLoadingTask> { loadBookCover(it) }.also{
-                it.onTaskComplete = { handler?.post { currentActivity<VideLibriBaseActivity>()?.refreshLoadingIcon() } }
+object CoverLoader {
+    private var executor = PriorityTaskExecutor<CoverLoadingTask> {
+        loadBookCover(it)
+    }.also{
+        it.onTaskComplete = { currentActivity<VideLibriBaseActivity>()?.refreshLoadingIcon() }
+    }
+    @JvmStatic fun loadBookCover(bookDetails: BookDetails, book: Bridge.Book) {
+        val task = CoverLoadingTask(book, CoverLoadingSize((bookDetails)))
+        if (task.hasCoverUrl) {
+            executor.execute(task)
+            currentActivity<VideLibriBaseActivity>()?.refreshLoadingIcon()
+        }
+    }
+    fun isActive() = executor.isActive()
+
+
+    @JvmStatic private fun loadBookCover(task: CoverLoadingTask) {
+        val bitmapOptions = BitmapFactory.Options().apply {
+            /*inDensity = DisplayMetrics.DENSITY_DEFAULT
+            inTargetDensity = BookDetails.displayMetrics.densityDpi
+            inScreenDensity = BookDetails.displayMetrics.densityDpi*/
+            inScaled = false
+        }
+
+        //load cover
+        var bestCover: Bitmap? = null
+        task.forEachCoverUrl { url ->
+            try {
+                Log.i("URL", url)
+                val stream = URL(url).openStream()
+                val cover = BitmapFactory.decodeStream(stream, null, bitmapOptions) ?: return@forEachCoverUrl null
+                val oldCover = bestCover
+                if (oldCover == null) bestCover = cover
+                else if ( cover.width > oldCover.width && cover.height > oldCover.height ) {
+                    oldCover.recycle()
+                    bestCover = cover
+                } else cover.recycle()
+            } catch (e: Throwable) {
             }
-            if (handler == null) handler = Handler(Looper.getMainLooper())
-            val task = CoverLoadingTask(book, CoverLoadingSize((bookDetails)))
-            if (task.hasCoverUrl) {
-                executor?.execute(task)
-                currentActivity<VideLibriBaseActivity>()?.refreshLoadingIcon()
+            bestCover?.takeIf { it.width >= task.size.minWidth && it.height >= task.size.minHeight }
+        }
+
+        //improve cover
+        bestCover?.let { cover ->
+            task.size.apply {
+                var scale = 1.0
+                if (cover.width < minWidth || cover.height < minHeight) {
+                    scale = max(minWidth * 1.0 / cover.width, minHeight * 1.0 / cover.height)
+                }
+                if (cover.width * scale > maxWidth || cover.height * scale > maxHeight) {
+                    scale = min(maxWidth * 1.0 / cover.width, maxHeight * 1.0 / cover.height)
+                }
+                Log.i("IMAGE SIZING", "${cover.width}x${cover.height}    ---  ${maxWidth}x${maxHeight}     ${minWidth}x${minHeight}  --- $scale")
+                if (scale != 1.0) {
+                    bestCover = Bitmap.createScaledBitmap(cover, (cover.width * scale).toInt(), (cover.height * scale).toInt(), true)
+                    cover.recycle()
+                }
+                Log.i("IMAGE SIZING", "Final size: ${bestCover?.width}x${bestCover?.height}  ${bestCover?.density}")
+                bestCover?.density = Bitmap.DENSITY_NONE
             }
         }
-        fun isActive() = executor?.isActive() ?: false
 
+        //cache cover
 
-        @JvmStatic private fun loadBookCover(task: CoverLoadingTask) {
-            val bitmapOptions = BitmapFactory.Options().apply {
-                inDensity = DisplayMetrics.DENSITY_DEFAULT
-                inTargetDensity = BookDetails.displayMetrics.densityDpi
-                inScreenDensity = BookDetails.displayMetrics.densityDpi
-                inScaled = true
-            }
-
-            //load cover
-            var bestCover: Bitmap? = null
-            task.forEachCoverUrl { url ->
-                try {
-                    Log.i("URL", url)
-                    val stream = URL(url).openStream()
-                    val cover = BitmapFactory.decodeStream(stream, null, bitmapOptions) ?: return@forEachCoverUrl null
-                    val oldCover = bestCover
-                    if (oldCover == null) bestCover = cover
-                    else if ( cover.width > oldCover.width && cover.height > oldCover.height ) {
-                        oldCover.recycle()
-                        bestCover = cover
-                    } else cover.recycle()
-                } catch (e: Throwable) {
-                }
-                bestCover?.takeIf { it.width >= task.size.minWidth && it.height >= task.size.minHeight }
-            }
-
-            //improve cover
+        //show cover
+        runOnUiThread {
+            val bla = currentActivity<BookListActivity>()
             bestCover?.let { cover ->
-                task.size.apply {
-                    var scale = 1.0
-                    if (cover.width < minWidth || cover.height < minHeight) {
-                        scale = max(minWidth * 1.0 / cover.width, minHeight * 1.0 / cover.height)
-                    }
-                    if (cover.width * scale > maxWidth || cover.height * scale > maxHeight) {
-                        scale = min(maxWidth * 1.0 / cover.width, maxHeight * 1.0 / cover.height)
-                    }
-                    Log.i("IMAGE SIZING", "${cover.width}x${cover.height}    ---  ${maxWidth}x${maxHeight}     ${minWidth}x${minHeight}  --- $scale")
-                    if (scale != 1.0) {
-                        bestCover = Bitmap.createScaledBitmap(cover, (cover.width * scale).toInt(), (cover.height * scale).toInt(), true)
-                        cover.recycle()
-                    }
-                    Log.i("IMAGE SIZING", "Final size: ${bestCover?.width}x${bestCover?.height}  ${bestCover?.density}")
-                }
-            }
-
-            //cache cover
-
-            //show cover
-            handler?.post {
-                val bla = currentActivity<BookListActivity>()
-                bestCover?.let { cover ->
-                    task.book.image = cover
-                    if (bla?.currentBook()  === task.book) bla.details.updateImage()
-                }
+                task.book.image = cover
+                if (bla?.currentBook()  === task.book) bla.details.updateImage()
             }
         }
-
     }
 
 

@@ -95,6 +95,8 @@ class VideLibriApp : Application() {
         }
 
 
+        var uiHandler: Handler? = null
+
 
         @JvmField var errors = ArrayList<Bridge.PendingException>()
 
@@ -252,6 +254,7 @@ class VideLibriApp : Application() {
                 //Class.forName("android.app.ActivityThread")
                 //            .getMethod("currentApplication").invoke(null, (Object[]) null); ??
             }
+            uiHandler = Handler(Looper.getMainLooper())
 
             val context = staticApplicationContext ?: instance?.applicationContext ?: alternativeContext?.applicationContext  ?: alternativeContext ?: return
 

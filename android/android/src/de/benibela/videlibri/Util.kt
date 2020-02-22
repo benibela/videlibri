@@ -8,6 +8,8 @@ import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.content.res.AssetManager
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.preference.PreferenceManager
 import androidx.annotation.StringRes
 import androidx.fragment.app.DialogFragment
@@ -28,6 +30,8 @@ fun <T: CharSequence> T.takeNonEmpty(): T? = takeIf(CharSequence::isNotEmpty)
 
 inline fun <reified T> currentActivity(): T? = (VideLibriApp.currentActivity as? T)
 inline fun <reified T: Activity> withActivity(f: T.() -> Unit) = currentActivity<T>()?.run(f)
+
+fun runOnUiThread(runnable: () -> Unit) = (VideLibriApp.uiHandler ?: Handler(Looper.getMainLooper())).post(runnable)
 
 fun showToast(message: CharSequence) =
         Toast.makeText(VideLibriApp.currentContext(), message, Toast.LENGTH_SHORT).show()
