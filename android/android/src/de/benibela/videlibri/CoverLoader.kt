@@ -26,7 +26,7 @@ class CoverLoadingSize(val maxWidth: Int, val maxHeight: Int){
 
 class CoverLoadingTask(val book: Bridge.Book, val size: CoverLoadingSize){
     val isbn = book.getProperty("isbn").trim()
-    private val imageUrl = book.getProperty("image-url").split("[\r\n]").map { it.trim() }.filter { it.isNotEmpty() }
+    private val imageUrl = book.getProperty("image-url").split("\r", "\n").map { it.trim() }.filter { it.isNotEmpty() }
     val id = (isbn.takeNonEmpty() ?: imageUrl.getOrElse(0) {""}).replace(replaceRegex, "")
 
     val cacheInMemory get() = true
@@ -35,7 +35,7 @@ class CoverLoadingTask(val book: Bridge.Book, val size: CoverLoadingSize){
     val hasCoverUrl get() = isbn.isNotEmpty() || imageUrl.isNotEmpty()
 
     fun<T> forEachCoverUrl(load: (String) -> T?): T?{
-        imageUrl.forEach { url ->
+        imageUrl.toSet().forEach { url ->
             load(url)?.let { return it }
         }
 
