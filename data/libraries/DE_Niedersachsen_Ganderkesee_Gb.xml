@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Gemeindebücherei Ganderkesee"/>
+    
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://ganderkesee.bibliotheca-open.de/Mein-Konto"/>
+  <variable name="urlsearch" value="https://ganderkesee.bibliotheca-open.de/Mediensuche/Erweiterte-Suche"/>
+  
+  <homepage value="https://ganderkesee.bibliotheca-open.de/"/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+</library>
