@@ -5,8 +5,8 @@
   <longName value="Bibliothek der Universität der Bundeswehr München"/>
   
   <template value="sisis"/>  
-  <variable name="server" value="https://opac.unibw.de/InfoGuideClient.ubysis/"/>
-  <variable name="startparams" value="?Login=iguby"/>
+  <variable name="server" value="https://opac.unibw.de/TouchPoint/"/>
+  <variable name="startparams" value="?View=uby"/>
   
   <homepage value="https://www.unibw.de/ub"/>
   <testing-search value="yes"/>

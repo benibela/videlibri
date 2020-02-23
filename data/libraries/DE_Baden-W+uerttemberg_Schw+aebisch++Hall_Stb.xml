@@ -2,11 +2,11 @@
 <library>
   <longName value="Stadtbibliothek Schwäbisch Hall"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/schwaebisch-hall"/>	
-  <variable name="DB" value="Schwaebisch-Hall"/>	
-  
-  <homepage value="https://web-opac.kivbf.de/schwaebisch-hall/index.asp?DB=Schwaebisch-Hall"/>
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.kivbf.de/schwaebisch-hall/Mein-Konto"/>	
+  <variable name="urlsearch" value="https://bibliotheken.kivbf.de/schwaebisch-hall/Mediensuche/Erweiterte-Suche"/>
+
+  <homepage value="https://web-opac.kivbf.de/schwaebisch-hall/"/>
   <testing-search value="unknown"/>
   <testing-account value="unknown"/>
 </library>

@@ -2,11 +2,11 @@
 <library>
   <longName value="Stadtbücherei Weinsberg"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/weinsberg"/>	
-  <variable name="DB" value="Weinsberg"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.kivbf.de/weinsberg/Mein-Konto"/>	
+  <variable name="urlsearch" value="https://bibliotheken.kivbf.de/weinsberg/Mediensuche/Erweiterte-Suche"/>
   
-  <homepage value="https://web-opac.kivbf.de/weinsberg/index.asp?DB=Weinsberg"/>
+  <homepage value="https://web-opac.kivbf.de/weinsberg/"/>
   <testing-search value="unknown"/>
   <testing-account value="unknown"/>
 </library>
