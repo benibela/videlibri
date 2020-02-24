@@ -41,7 +41,8 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
             loadingTasks.clear()
             savedInstanceState.getIntegerArrayList("activeLoadingTasks")?.let { loadingTasks += it }
         }
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) VideLibriApp.overrideResourcesLocale(this)
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N)
+            VideLibriApp.overrideResourcesLocale(this)
     }
 
     override fun attachBaseContext(base: Context?) {

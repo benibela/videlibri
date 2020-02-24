@@ -84,14 +84,14 @@ class VideLibriApp : Application() {
 
 
         @SuppressLint("StaticFieldLeak")
-        @JvmStatic var instance: VideLibriApp? = null
+        @JvmStatic private var instance: VideLibriApp? = null
         @SuppressLint("StaticFieldLeak")
         @JvmStatic var staticApplicationContext: Context? = null
         @SuppressLint("StaticFieldLeak")
         @JvmField var currentActivity: Activity? = null
 
         @JvmStatic fun currentContext(): Context? {
-            return currentActivity ?: instance?.applicationContext
+            return currentActivity ?: staticApplicationContext ?: instance?.applicationContext
         }
 
 
@@ -221,6 +221,7 @@ class VideLibriApp : Application() {
             overrideLocale = if (langOverride.isEmpty()) defaultLocale else Locale(langOverride)
             Locale.setDefault(overrideLocale)
             overrideResourcesLocale(context)
+            staticApplicationContext = staticApplicationContext?.let { overrideResourcesLocale(it) }
         }
 
         fun checkLanguageOverride(context: Context) {
