@@ -26,31 +26,6 @@ internal object BookFormatter {
         }
     }
 
-    @JvmStatic fun getStatusColor(book: Bridge.Book): Int =
-        if (book.history)
-            -1
-        else if ((book.account != null || book.isGroupingHeader)
-                && book.dueDate != 0
-                && book.dueDate - Bridge.currentPascalDate <= Bridge.globalOptions.nearTime)
-            Color.RED
-        else
-            when (book.status) {
-                //lend
-                Bridge.Book.StatusEnum.Normal -> Color.GREEN
-                Bridge.Book.StatusEnum.Problematic -> Color.YELLOW
-                Bridge.Book.StatusEnum.Ordered -> Color.CYAN
-                Bridge.Book.StatusEnum.Provided -> Color.MAGENTA
-                //search
-                Bridge.Book.StatusEnum.Available -> Color.GREEN
-                Bridge.Book.StatusEnum.Lend -> Color.RED
-                Bridge.Book.StatusEnum.Virtual -> Color.CYAN
-                Bridge.Book.StatusEnum.Presentation -> Color.RED
-                Bridge.Book.StatusEnum.InterLoan -> Color.RED
-
-
-                else -> Color.YELLOW //Template did not set status. Assume not renewable
-            }
-
 
     @JvmStatic fun isGroupingHeaderFakeBook(book: Bridge.Book): Boolean {
         return book.isGroupingHeader
@@ -89,14 +64,7 @@ internal object BookFormatter {
                 else -> ""
             }
 
-    @JvmStatic fun getStatusText(book: Bridge.Book): String =
-        book.getProperty("status").takeNonEmpty() ?:
-            when (book.status) {
-                Bridge.Book.StatusEnum.Problematic -> tr.bookStatus.problematic
-                Bridge.Book.StatusEnum.Ordered -> tr.bookStatus.ordered
-                Bridge.Book.StatusEnum.Provided -> tr.bookStatus.provided
-                else -> ""
-            }
+    @JvmStatic fun getStatusColor(book: Bridge.Book) = book.getStatusColor()
 
     @JvmStatic
     private fun formatDate(pascalDate: Int, full: Boolean): String {
@@ -117,3 +85,50 @@ internal object BookFormatter {
     @JvmStatic fun formatDate(pascalDate: Int): String = formatDate(pascalDate, false)
     @JvmStatic fun formatDateFull(pascalDate: Int): String = formatDate(pascalDate, true)
 }
+
+fun Bridge.Book.getStatusColor(): Int =
+        if (history)
+            -1
+        else if ((account != null || isGroupingHeader)
+                && dueDate != 0
+                && dueDate - Bridge.currentPascalDate <= Bridge.globalOptions.nearTime)
+            Color.RED
+        else
+            when (status) {
+                //lend
+                Bridge.Book.StatusEnum.Normal -> Color.GREEN
+                Bridge.Book.StatusEnum.Problematic -> Color.YELLOW
+                Bridge.Book.StatusEnum.Ordered -> Color.CYAN
+                Bridge.Book.StatusEnum.Provided -> Color.MAGENTA
+                //search
+                Bridge.Book.StatusEnum.Available -> Color.GREEN
+                Bridge.Book.StatusEnum.Lend -> Color.RED
+                Bridge.Book.StatusEnum.Virtual -> Color.CYAN
+                Bridge.Book.StatusEnum.Presentation -> Color.RED
+                Bridge.Book.StatusEnum.InterLoan -> Color.RED
+
+
+                else -> Color.YELLOW //Template did not set status. Assume not renewable
+            }
+
+fun Bridge.Book.getStatusText(): String =
+        getProperty("status").takeNonEmpty() ?:
+        when (status) {
+            Bridge.Book.StatusEnum.Problematic -> BookFormatter.tr.bookStatus.problematic
+            Bridge.Book.StatusEnum.Ordered -> BookFormatter.tr.bookStatus.ordered
+            Bridge.Book.StatusEnum.Provided -> BookFormatter.tr.bookStatus.provided
+            else -> ""
+        }
+
+operator fun Bridge.Book.get(key: String) = this.getProperty(key)
+
+inline fun Bridge.Book.forEachAdditionalProperty(f: (key: String, value: String) -> Unit) {
+    var i = 0
+    while (i < additionalProperties.size) {
+        val key = additionalProperties[i]
+        val value = additionalProperties[i + 1]
+        f(key, value)
+        i += 2
+    }
+}
+

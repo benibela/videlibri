@@ -25,6 +25,12 @@ import java.io.IOException
 import java.io.InputStream
 
 fun <T: CharSequence> T.takeNonEmpty(): T? = takeIf(CharSequence::isNotEmpty)
+fun CharSequence.ensureSuffix(suffix: CharSequence) =
+        if (endsWith(suffix)) this
+        else "$this$suffix"
+ fun CharSequence.escapeForHtml(): CharSequence =
+         if (!this.contains("<") && !this.contains("&")) this
+         else this.toString().replace(Regex("&"), "&amp;").replace(Regex("<"), "&lt;")
 
 
 

@@ -211,7 +211,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
                     return
                 }
 
-                details.setBook(book)
+                details.book = book
             }
         }
 

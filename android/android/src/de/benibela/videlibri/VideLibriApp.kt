@@ -72,7 +72,7 @@ class VideLibriApp : Application() {
                 mainIconCache = R.drawable.icong
                 if (book != null) {
                     //Log.i("VIDELIBRI MAINICON", "Critical book: " + book.title);
-                    when (BookFormatter.getStatusColor(book)) {
+                    when (book.getStatusColor()) {
                         Color.RED -> mainIconCache = R.drawable.iconr
                         Color.YELLOW -> mainIconCache = R.drawable.icon
                     }

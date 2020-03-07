@@ -98,7 +98,7 @@ open class BookListActivity: VideLibriBaseActivity(){
     }
 
     fun currentBook(): Bridge.Book? =
-        if (detailsVisible() && details.book != null) details.book
+        if (detailsVisible()) details.book
         else bookCache.getOrNull(state.currentBookPos)
 
 
@@ -175,7 +175,7 @@ open class BookListActivity: VideLibriBaseActivity(){
             listPortHolder?.visibility = View.INVISIBLE
             state.portInDetailMode = true
         }
-        details.setBook(bookCache[bookpos])
+        details.book = bookCache[bookpos]
         invalidateOptionsMenu()
     }
 

@@ -26,7 +26,6 @@
     </string>
     <string name="account_create">Wählen Sie Ihre Bibliothek, um ein neues Konto zu registrieren:</string>
     <string name="book_titleauthor">Titeldaten</string>
-    <string name="book_from"></string>
     <string name="book_duedate">Abgabefrist</string>
     <string name="book_duedate_order">Frist</string>
     <string name="book_status_unknown">unbekannter Status</string>

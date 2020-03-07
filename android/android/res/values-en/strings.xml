@@ -22,7 +22,6 @@
     <string name="account_createinitial">Choose your library to search their OPAC or access your lending account:</string>
     <string name="account_create">Choose your library to register your library card:</string>
     <string name="book_titleauthor">Title/Author</string>
-    <string name="book_from">from</string>
     <string name="book_duedate">Due Date</string>
     <string name="book_duedate_order">Limit Date</string>
     <string name="book_status_unknown">status unknown</string>
