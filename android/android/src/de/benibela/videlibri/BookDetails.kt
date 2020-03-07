@@ -256,7 +256,7 @@ class BookDetails internal constructor(activity: BookListActivity) : VideLibriFa
         var padding = 0
         var holding: Bridge.Book? = null
         fun addPair(name: String?, value: String?) {
-            if (Util.isEmptyString(value)) return
+            if (value.isNullOrEmpty()) return
             val len = builder.length
             builder.append(" ")
             builder.setSpan(object : ReplacementSpan() {
@@ -314,7 +314,7 @@ class BookDetails internal constructor(activity: BookListActivity) : VideLibriFa
         val lv = activity.findViewById<ListView>(R.id.bookdetailsview) ?: return
         val clickable = !activity.isLoading(VideLibriBaseActivityOld.LOADING_SEARCH_ORDER_HOLDING)
         getAdapter(lv)?.holdingOrderClickable = clickable
-        Util.iterateChildViews(lv) { v -> (v as? Button)?.isClickable = clickable }
+        lv.forEachDescendantView { v -> (v as? Button)?.isClickable = clickable }
     }
 
     fun exportShare(html: Boolean): String =

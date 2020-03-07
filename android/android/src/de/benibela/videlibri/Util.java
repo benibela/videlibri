@@ -63,27 +63,7 @@ public class Util {
             res[i] = tr(context, ids[i]);
         return res;
     }
-    static public String[] trs(Object ids){
-        if (ids == null) return null;
-        if (ids instanceof String[]) return (String[]) ids;
-        else {
-            Context context = VideLibriApp.currentContext();
-            if (context != null && ids instanceof int[]) return tr(context, (int[])ids);
-        }
-        return new String[]{};
-    }
 
-    public interface ViewIterator{
-        void visit(View v);
-    }
-    static public void iterateChildViews(View view, ViewIterator iterator){
-        iterator.visit(view);
-        if (view instanceof ViewGroup) {
-            ViewGroup g = (ViewGroup)view;
-            for (int i=0;i<g.getChildCount();i++)
-                iterateChildViews(g.getChildAt(i), iterator);
-        }
-    }
 
     static public boolean equalStrings(String s, String t) {
         return s == null ? t == null : s.equals(t);
@@ -94,15 +74,6 @@ public class Util {
     }
 
 
-
-    public static int strToIntDef(String s, int i) {
-        if (s == null) return i;
-        try {
-            return Integer.parseInt(s);
-        } catch (NumberFormatException e) {
-            return i;
-        }
-    }
 
 
     private static DateFormat dateFormatShort;

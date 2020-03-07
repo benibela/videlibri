@@ -11,14 +11,15 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.preference.PreferenceManager
-import androidx.annotation.StringRes
-import androidx.fragment.app.DialogFragment
-import androidx.appcompat.app.AppCompatActivity
 import android.util.SparseBooleanArray
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 import de.benibela.videlibri.Util.MessageHandlerCanceled
 import de.benibela.videlibri.Util.tr
 import java.io.IOException
@@ -34,6 +35,8 @@ fun CharSequence.ensureSuffix(suffix: CharSequence) =
 
 
 
+
+
 inline fun <reified T> currentActivity(): T? = (VideLibriApp.currentActivity as? T)
 inline fun <reified T: Activity> withActivity(f: T.() -> Unit) = currentActivity<T>()?.run(f)
 
@@ -45,6 +48,10 @@ fun showToast(@StringRes message: Int) =
         Toast.makeText(VideLibriApp.currentContext(), message, Toast.LENGTH_SHORT).show()
 
 fun getString(@StringRes message: Int): String? = Util.tr(message)
+
+
+
+
 
 internal typealias DialogInitEvent = (DialogInstance.() -> Unit)
 internal typealias DialogEvent = (DialogFragmentUtil.() -> Unit)
@@ -297,6 +304,14 @@ fun Bundle.getSparseBooleanArray(key: String): SparseBooleanArray? {
 
 inline fun <reified T: View> Activity.forEachView(vararg ids: Int, f: (T) -> Unit ) {
     ids.forEach { f.invoke(findViewById(it)) }
+}
+
+fun View.forEachDescendantView(f: (View) -> Unit) {
+    f(this)
+    if (this is ViewGroup) {
+        for (i in 0 until childCount)
+            getChildAt(i).forEachDescendantView(f)
+    }
 }
 
 inline val Context.notificationManager: NotificationManager?
