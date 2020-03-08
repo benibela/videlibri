@@ -6,10 +6,10 @@
               android:layout_height="match_parent"
               android:id="@+id/bookdetailslayout">
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/bookdetailsview" android:layout_gravity="right|center_vertical" android:choiceMode="none"
+            android:id="@+id/bookDetailsRecyclerView" android:layout_gravity="right|center_vertical" android:choiceMode="none"
             android:cacheColorHint="@android:color/transparent" android:listSelector="@android:color/transparent"
             android:layout_weight="1"/>
     <Button

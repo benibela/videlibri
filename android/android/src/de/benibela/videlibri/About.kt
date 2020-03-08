@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Xml
 import android.view.View
 import android.widget.ListView
+import androidx.recyclerview.widget.RecyclerView
 import de.benibela.videlibri.BookDetails.BookDetailsAdapter
 import de.benibela.videlibri.jni.Bridge
 import org.xmlpull.v1.XmlPullParser
@@ -86,7 +87,6 @@ class About : VideLibriBaseActivity() {
         super.onCreate(savedInstanceState) //To change body of overridden methods use File | Settings | File Templates.
         setVideLibriView(R.layout.bookdetails)
         val changelog = ChangeLogParser(this.assets.open("changelog.xml"))
-        val lv = findViewById<View>(R.id.bookdetailsview) as ListView
         details.clear()
         try {
             details.add(0, BookDetails.Details(getString(R.string.version), "VideLibri " + packageManager.getPackageInfo("de.benibela.videlibri", 0).versionName))
@@ -104,6 +104,6 @@ class About : VideLibriBaseActivity() {
         }
 
 
-        lv.adapter = BookDetailsAdapter(this, details, Bridge.Book())
+        findViewById<RecyclerView>(R.id.bookDetailsRecyclerView).adapter = BookDetailsAdapter(this, details, Bridge.Book())
     }
 }

@@ -224,7 +224,7 @@ class LendingList: BookListActivity(){
                 R.id.refresh -> accounts.filterWithRunningUpdate().isEmpty()
                 R.id.filter, R.id.renew, R.id.renewlist -> hasAccounts
                 R.id.research_menu -> hasAccounts && detailsVisible()
-                R.id.delete -> hasAccounts && detailsVisible() && details.book?.history == true
+                R.id.delete -> hasAccounts && detailsVisible() && details.book.history == true
                 else -> return@forItems
             }
         }
@@ -266,7 +266,7 @@ class LendingList: BookListActivity(){
                 ViewOptionsDialog().show(supportFragmentManager, null)
             }
             R.id.delete -> {
-                val book = details.book ?: return false
+                val book = details.book
                 showMessageYesNo(getString(R.string.delete_book_confirmS, book.title)) {
                     Bridge.VLChangeBook(book, null)
                     showToast(R.string.delete_book_confirmed)

@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.ListView
 import android.widget.Spinner
+import androidx.recyclerview.widget.RecyclerView
 import de.benibela.videlibri.jni.Bridge
 import java.io.IOException
 import java.util.*
@@ -123,7 +123,7 @@ class DebugLogViewer : VideLibriBaseActivity(), AdapterView.OnItemSelectedListen
         if (reverse)
             details.reverse()
 
-        findViewById<ListView>(R.id.bookdetailsview).adapter = BookDetails.BookDetailsAdapter(this, details, Bridge.Book())
+        findViewById<RecyclerView>(R.id.bookDetailsRecyclerView).adapter = BookDetails.BookDetailsAdapter(this, details, Bridge.Book())
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {

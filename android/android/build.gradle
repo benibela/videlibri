@@ -9,6 +9,8 @@ android
 {
   compileSdkVersion 28
   buildToolsVersion "28.0.3"
+  viewBinding.enabled = true
+
 
   defaultConfig
   {

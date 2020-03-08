@@ -5,24 +5,26 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Paint.FontMetricsInt
 import android.graphics.Typeface
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.LeadingMarginSpan
 import android.text.style.ReplacementSpan
 import android.text.style.StyleSpan
-import android.text.util.Linkify
 import android.util.DisplayMetrics
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
 import android.widget.Button
-import android.widget.ListView
-import android.widget.TextView
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 import de.benibela.videlibri.BookFormatter.formatDate
 import de.benibela.videlibri.BookFormatter.formatDateFull
 import de.benibela.videlibri.CoverLoader.loadBookCover
+import de.benibela.videlibri.databinding.BookDetailsCoverBinding
+import de.benibela.videlibri.databinding.BookDetailsHoldingBinding
+import de.benibela.videlibri.databinding.BookDetailsPropertyBinding
 import de.benibela.videlibri.jni.Bridge
 import de.benibela.videlibri.jni.Bridge.Book.StatusEnum
 import java.util.*
@@ -30,6 +32,9 @@ import kotlin.math.max
 import kotlin.math.min
 
 class BookDetails internal constructor(activity: BookListActivity) : VideLibriFakeFragment(activity) {
+    val listview: RecyclerView = activity.findViewById(R.id.bookDetailsRecyclerView)
+    val adapter get() = listview.adapter as? BookDetailsAdapter
+
     open class Details(name: String, data: CharSequence?) {
         val name: String = if (isAdditionalDisplayProperty(name)) name.substring(0, name.length - 1) else name
         @JvmField var data: CharSequence = data ?: ""
@@ -42,135 +47,73 @@ class BookDetails internal constructor(activity: BookListActivity) : VideLibriFa
         val orderable: Boolean = holding.isOrderableHolding
     }
 
-    var coverTargetWidth: Int
-    var coverTargetHeight: Int
+    open class ViewHolderWithBinding<B: ViewBinding>(val binding: B): RecyclerView.ViewHolder(binding.root){
+        constructor(parent: ViewGroup, inflate: (inflater: LayoutInflater, root: ViewGroup?, attachToRoot: Boolean) -> B): this(
+                inflate(LayoutInflater.from(parent.context), parent, false)
+        )
+    }
 
-    class BookDetailsAdapter(private val context: Activity, private val details: ArrayList<Details>, private val book: Bridge.Book) : BaseAdapter() {
+    class BookDetailsAdapter(private val context: Activity, private val details: ArrayList<Details>, private val book: Bridge.Book) : RecyclerView.Adapter<ViewHolderWithBinding<*>>() {
+        override fun getItemCount(): Int = 1 + details.size
+        override fun getItemViewType(position: Int) =
+                when {
+                    position == 0 -> R.layout.book_details_cover
+                    position >= holdingStartPosition -> R.layout.book_details_holding
+                    else -> R.layout.book_details_property
+                }
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderWithBinding<*> =
+                    when (viewType) {
+                        R.layout.book_details_holding -> ViewHolderWithBinding(parent, BookDetailsHoldingBinding::inflate)
+                        R.layout.book_details_cover -> ViewHolderWithBinding(parent, BookDetailsCoverBinding::inflate)
+                        else -> ViewHolderWithBinding(parent, BookDetailsPropertyBinding::inflate)
+                    }
+
+        override fun onBindViewHolder(holder: ViewHolderWithBinding<*>, position: Int){
+            when (val binding = holder.binding) {
+                is BookDetailsCoverBinding -> {
+                    binding.imageview.setImageBitmap(book.image)
+                }
+                is BookDetailsPropertyBinding -> {
+                    val d = details[position - 1]
+                    binding.label.text = d.name
+                    binding.data.text = d.data
+                    var c = defaultColor
+                    if (trStatus == d.name || trDueDate == d.name) {
+                        c = book.getStatusColor()
+                        if (c == -1) c = defaultColor
+                    }
+                    binding.data.setTextColor(c)
+                }
+                is BookDetailsHoldingBinding -> {
+                    val d = details[position - 1]
+                    binding.label.text = d.name
+                    binding.simpletextview.text = d.data
+                    binding.simpletextview.setTextColor(defaultColor)
+                    if (d is DetailsHolding
+                            && d.orderable
+                            && book.account == null
+                            && context is SearchResult) {
+                        binding.button.text = d.orderLabel
+                        binding.button.visibility = View.VISIBLE
+                        binding.button.isClickable = holdingOrderClickable
+                        binding.button.setOnClickListener { context.orderBookHolding(book, d.holdingId) }
+                    } else  binding.button.visibility = View.GONE
+                }
+            }
+        }
+
         private val holdingStartPosition: Int
         private val defaultColor: Int
-        private val scale: Float
-        private fun toPx(sp: Float): Int {
-            return (sp * scale + 0.5f).toInt()
-        }
 
         var holdingOrderClickable = true
 
-        internal open class ViewHolder(var text: TextView)
-        internal class ViewHolderHolding(text: TextView, var button: Button): ViewHolder(text)
-
-        override fun getCount(): Int {
-            return 2 * details.size + 1
-        }
-
-        override fun getItem(i: Int): Any {
-            return details[(i - 1) / 2]
-        }
-
-        override fun getItemId(i: Int): Long {
-            return i.toLong()
-        }
-
-        override fun getViewTypeCount(): Int {
-            return 3
-        }
-
-        override fun getItemViewType(position: Int): Int {
-            if (position == 0) return VIEW_VALUE
-            if (position and 1 == 1) return VIEW_HEADER
-            return if (position < holdingStartPosition) VIEW_VALUE else VIEW_HOLDING_VALUE
-        }
-
-        override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-            val type = getItemViewType(position)
-            var view = convertView
-            if (view == null) {
-                val viewHolder: ViewHolder
-                val inflater = context.layoutInflater
-                when (type) {
-                    VIEW_HOLDING_VALUE -> {
-                        view = inflater.inflate(R.layout.holdingrow, null)
-                        viewHolder = ViewHolderHolding(view.findViewById(R.id.simpletextview), view.findViewById(R.id.holdingbutton))
-                    }
-                    //VIEW_HEADER, VIEW_VALUE,
-                    else -> {
-                        view = inflater.inflate(R.layout.simpletextview, null) //not setting a root makes the image centered. with root it is left aligned
-                        viewHolder = ViewHolder(view.findViewById(R.id.simpletextview))
-                    }
-                }
-                viewHolder.text.autoLinkMask = Linkify.WEB_URLS
-                view.tag = viewHolder
-                when (type) {
-                    VIEW_HEADER -> {
-                        viewHolder.text.typeface = Typeface.DEFAULT_BOLD
-                        viewHolder.text.setPadding(toPx(10f), toPx(1f), toPx(10f), toPx(1f))
-                    }
-                    VIEW_VALUE -> {
-                        viewHolder.text.typeface = Typeface.DEFAULT
-                        viewHolder.text.setPadding(toPx(30f), toPx(1f), toPx(10f), toPx(2f))
-                    }
-                    VIEW_HOLDING_VALUE -> {
-                        viewHolder.text.typeface = Typeface.DEFAULT
-                        viewHolder.text.setPadding(toPx(30f), toPx(1f), toPx(10f), toPx(2f))
-                    }
-                }
-            }
-
-            val holder = view?.tag as ViewHolder
-            if (position > 0) {
-                val d = details[(position - 1) / 2]
-                when (type) {
-                    VIEW_HEADER -> holder.text.text = d.name
-                    VIEW_VALUE -> {
-                        holder.text.text = d.data
-                        var c = defaultColor
-                        if (trStatus == d.name || trDueDate == d.name) {
-                            c = book.getStatusColor()
-                            if (c == -1) c = defaultColor
-                        }
-                        holder.text.setTextColor(c)
-                        holder.text.setCompoundDrawables(null, null, null, null)
-                    }
-                    VIEW_HOLDING_VALUE -> {
-                        holder.text.text = d.data
-                        holder.text.setTextColor(defaultColor)
-                        if (d is DetailsHolding
-                                && d.orderable
-                                && book.account == null && context is SearchResult) {
-                            (holder as ViewHolderHolding).button.text = d.orderLabel
-                            holder.button.visibility = View.VISIBLE
-                            holder.button.isClickable = holdingOrderClickable
-                            holder.button.setOnClickListener { context.orderBookHolding(book, d.holdingId) }
-                        } else (holder as? ViewHolderHolding)?.button?.visibility = View.GONE
-                    }
-                }
-            } else {
-                holder.text.text = ""
-                holder.text.setCompoundDrawablesWithIntrinsicBounds(null, null, null, image)
-            }
-            return view
-        }
-
-        var image: Drawable? = null
-        fun updateImage() {
-            image = BitmapDrawable(context.resources, book.image)
-            notifyDataSetChanged()
-        }
-
-        companion object {
-            private const val VIEW_HEADER = 0
-            private const val VIEW_VALUE = 1
-            private const val VIEW_HOLDING_VALUE = 2
-        }
+        fun updateImage() = notifyItemChanged(0)
 
         init {
             val resources = context.resources
-            if (book.image != null) image = BitmapDrawable(resources, book.image)
             @Suppress("DEPRECATION")
             defaultColor = resources.getColor(android.R.color.primary_text_dark)
-            scale = displayMetrics?.scaledDensity ?: 1.0f
-            var hs = details.size
-            while (hs > 0 && details[hs - 1] is DetailsHolding) hs--
-            holdingStartPosition = hs * 2 + 1
+            holdingStartPosition = details.indexOfFirst { it is DetailsHolding }.let { if (it == -1) details.size else it } + 1
         }
     }
 
@@ -196,7 +139,6 @@ class BookDetails internal constructor(activity: BookListActivity) : VideLibriFa
         Log.i("VL", ""+getView());       */
 
         val isSearchedBook = book.account == null
-        val lv = activity.findViewById<ListView>(R.id.bookdetailsview) ?: return
         details.clear()
 
         addDetails(R.string.book_titleauthor, arrayOf(book.title, " ", book.author, book.year, book.id).filter { it.isNotEmpty() }.joinToString("\n").takeNonEmpty())
@@ -223,7 +165,7 @@ class BookDetails internal constructor(activity: BookListActivity) : VideLibriFa
         }
         addHoldings(book.holdings)
 
-        lv.adapter = BookDetailsAdapter(activity, details, book)
+        listview.adapter = BookDetailsAdapter(activity, details, book)
 
         val needToLoadImage = book.image == null && (book.hasProperty("image-url") || book.hasProperty("isbn"))
         if (needToLoadImage) {
@@ -284,7 +226,7 @@ class BookDetails internal constructor(activity: BookListActivity) : VideLibriFa
         if (holdings == null || holdings.isEmpty()) return
         val builder = HoldingDetailMaker()
         builder.padding = (activity.resources.displayMetrics.scaledDensity * 40 + 0.5).toInt()
-        val defaultOrderTitle = book["orderTitle"].takeNonEmpty() ?: getString(R.string.book_order) ?: ""
+        val defaultOrderTitle = book["orderTitle"].takeNonEmpty() ?: getString(R.string.book_order)
         for (i in holdings.indices) {
             val holding = holdings[i]
             builder.clear()
@@ -303,18 +245,12 @@ class BookDetails internal constructor(activity: BookListActivity) : VideLibriFa
         }
     }
 
-    private fun getAdapter(v: View?): BookDetailsAdapter? = (v as? ListView)?.adapter as? BookDetailsAdapter
-
-    private val adapter: BookDetailsAdapter?
-        get() = getAdapter(findViewById(R.id.bookdetailsview))
-
     fun updateImage() = adapter?.updateImage()
 
     fun setOrderButtonsClickable() {
-        val lv = activity.findViewById<ListView>(R.id.bookdetailsview) ?: return
         val clickable = !activity.isLoading(VideLibriBaseActivityOld.LOADING_SEARCH_ORDER_HOLDING)
-        getAdapter(lv)?.holdingOrderClickable = clickable
-        lv.forEachDescendantView { v -> (v as? Button)?.isClickable = clickable }
+        adapter?.holdingOrderClickable = clickable
+        listview.forEachDescendantView { v -> (v as? Button)?.isClickable = clickable }
     }
 
     fun exportShare(html: Boolean): String =
@@ -358,8 +294,12 @@ class BookDetails internal constructor(activity: BookListActivity) : VideLibriFa
     }
 
 
+    var coverTargetWidth: Int
+    var coverTargetHeight: Int
     init {
-        activity.registerForContextMenu(findViewById(R.id.bookdetailsview))
+        activity.registerForContextMenu(listview)
+        listview.layoutManager = LinearLayoutManager(activity)
+        listview.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         displayMetrics = activity.resources.displayMetrics.also { dm ->
             val longSide = max(dm.widthPixels, dm.heightPixels)
             val shortSide = min(dm.widthPixels, dm.heightPixels)
