@@ -6,7 +6,7 @@
               android:layout_height="match_parent"
               android:id="@+id/bookdetailslayout">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <de.benibela.multilevellistview.ClickableRecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/bookDetailsRecyclerView" android:layout_gravity="right|center_vertical" android:choiceMode="none"

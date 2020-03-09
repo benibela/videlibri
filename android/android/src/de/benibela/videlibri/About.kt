@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Xml
 import android.view.View
 import android.widget.ListView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import de.benibela.videlibri.BookDetails.BookDetailsAdapter
 import de.benibela.videlibri.jni.Bridge
@@ -103,7 +104,8 @@ class About : VideLibriBaseActivity() {
             details.add(BookDetails.Details(getString(R.string.about_version_date, version, date), changes.joinToString ("\n")))
         }
 
-
-        findViewById<RecyclerView>(R.id.bookDetailsRecyclerView).adapter = BookDetailsAdapter(this, details, Bridge.Book())
+        val lv = findViewById<RecyclerView>(R.id.bookDetailsRecyclerView)
+        lv.layoutManager = LinearLayoutManager(this)
+        lv.adapter = BookDetailsAdapter(this, details, Bridge.Book())
     }
 }

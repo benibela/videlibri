@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import de.benibela.multilevellistview.ClickableRecyclerView
 import de.benibela.videlibri.BookFormatter.formatDate
 import de.benibela.videlibri.BookFormatter.formatDateFull
 import de.benibela.videlibri.CoverLoader.loadBookCover
@@ -32,7 +33,7 @@ import kotlin.math.max
 import kotlin.math.min
 
 class BookDetails internal constructor(activity: BookListActivity) : VideLibriFakeFragment(activity) {
-    val listview: RecyclerView = activity.findViewById(R.id.bookDetailsRecyclerView)
+    val listview: ClickableRecyclerView = activity.findViewById(R.id.bookDetailsRecyclerView)
     val adapter get() = listview.adapter as? BookDetailsAdapter
 
     open class Details(name: String, data: CharSequence?) {
@@ -53,7 +54,7 @@ class BookDetails internal constructor(activity: BookListActivity) : VideLibriFa
         )
     }
 
-    class BookDetailsAdapter(private val context: Activity, private val details: ArrayList<Details>, private val book: Bridge.Book) : RecyclerView.Adapter<ViewHolderWithBinding<*>>() {
+    class BookDetailsAdapter(private val context: Activity, val details: ArrayList<Details>, private val book: Bridge.Book) : ClickableRecyclerView.Adapter<ViewHolderWithBinding<*>>() {
         override fun getItemCount(): Int = 1 + details.size
         override fun getItemViewType(position: Int) =
                 when {
@@ -61,12 +62,15 @@ class BookDetails internal constructor(activity: BookListActivity) : VideLibriFa
                     position >= holdingStartPosition -> R.layout.book_details_holding
                     else -> R.layout.book_details_property
                 }
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderWithBinding<*> =
-                    when (viewType) {
-                        R.layout.book_details_holding -> ViewHolderWithBinding(parent, BookDetailsHoldingBinding::inflate)
-                        R.layout.book_details_cover -> ViewHolderWithBinding(parent, BookDetailsCoverBinding::inflate)
-                        else -> ViewHolderWithBinding(parent, BookDetailsPropertyBinding::inflate)
-                    }
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderWithBinding<*> {
+            val vh = when (viewType) {
+                R.layout.book_details_holding -> ViewHolderWithBinding(parent, BookDetailsHoldingBinding::inflate)
+                R.layout.book_details_cover -> ViewHolderWithBinding(parent, BookDetailsCoverBinding::inflate)
+                else -> ViewHolderWithBinding(parent, BookDetailsPropertyBinding::inflate)
+            }
+            registerClickHandler(vh)
+            return vh
+        }
 
         override fun onBindViewHolder(holder: ViewHolderWithBinding<*>, position: Int){
             when (val binding = holder.binding) {
@@ -298,6 +302,10 @@ class BookDetails internal constructor(activity: BookListActivity) : VideLibriFa
     var coverTargetHeight: Int
     init {
         activity.registerForContextMenu(listview)
+        listview.addOnItemLongClickListener { _, vh ->
+            (activity as? BookListActivity)?.contextMenuSelectedItem = adapter?.details?.getOrNull(vh.adapterPosition - 1)
+            false
+        }
         listview.layoutManager = LinearLayoutManager(activity)
         listview.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         displayMetrics = activity.resources.displayMetrics.also { dm ->
