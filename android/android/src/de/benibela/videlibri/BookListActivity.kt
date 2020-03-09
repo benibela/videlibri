@@ -11,6 +11,8 @@ import android.view.*
 import android.widget.AdapterView
 import android.widget.Button
 import android.widget.ListView
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import de.benibela.videlibri.jni.Bridge
 import kotlinx.android.parcel.Parcelize
 import java.util.*
@@ -47,7 +49,7 @@ open class BookListActivity: VideLibriBaseActivity(){
             var portInDetailMode: Boolean = false,
             var currentBookPos: Int = 0,
             var listFirstItem: Int = 0,
-            var selectedBooksIndices: ArrayList<Int>? = null
+            var selectedBooksIndices: List<Int>? = null
     ): Parcelable
     var state = State()
 
@@ -60,10 +62,28 @@ open class BookListActivity: VideLibriBaseActivity(){
         list = BookListFragment(this)
         details = BookDetails(this)
 
+        for (listview in listOf(list.listview, details.listview)) {
+            registerForContextMenu(listview)
+            listview.layoutManager = LinearLayoutManager(this)
+            listview.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+            listview.addOnItemLongClickListener { _, vh ->
+                if (listview == details.listview)
+                    contextMenuSelectedItem = details.adapter?.details?.getOrNull(vh.adapterPosition - 1)
+                else
+                    contextMenuSelectedItem = list.adapter?.books?.getOrNull(vh.adapterPosition)
+                false
+            }
+        }
 
         if (port_mode) {
             detailsPortHolder = findViewById(R.id.bookdetailslayout)
             listPortHolder = findViewById(R.id.booklistlayout)
+        }
+
+        list.listview.addOnItemClickListener { _, vh ->
+            val i = vh.adapterPosition
+            if (bookCache.getOrNull(i)?.isGroupingHeader == false)
+                viewDetails(i)
         }
     }
 
@@ -76,18 +96,11 @@ open class BookListActivity: VideLibriBaseActivity(){
         if (state.listFirstItem == 0) {
             //only use new position, if there is no old position.
             //when the device rotates too fast, the activity is recreated (here), before the listview is initialized
-            state.listFirstItem = findViewById<ListView>(R.id.booklistview)?.firstVisiblePosition ?: 0
+            state.listFirstItem = (list.listview.layoutManager as? LinearLayoutManager)?.findFirstCompletelyVisibleItemPosition() ?: 0
             //perhaps better use the list view save/restore state function??
         }
-        selectedBooks?.let {
-            val selindices = ArrayList<Int>(it.size)
-            for (j in bookCache.indices)
-                for (i in it)
-                    if (i === bookCache[j]) {
-                        selindices.add(j)
-                        break
-                    }
-            state.selectedBooksIndices = selindices
+        selectedBooks?.let { sb ->
+            state.selectedBooksIndices = bookCache.mapIndexedNotNull { i, book -> i.takeIf { sb.contains(book) } }
         }
         super.onSaveInstanceState(outState)
     }
@@ -126,18 +139,9 @@ open class BookListActivity: VideLibriBaseActivity(){
         return super.onOptionsItemIdSelected(id)
     }
 
-    fun displayBookCache(partialSize: Int) {
+    fun displayBookCache(expectedCount: Int) {
         //Log.i("VL","Book count: "+partialSize);
-        val sa = BookOverviewAdapter(this, bookCache, partialSize, displayOptions)
-        val bookListView = findViewById<ListView>(R.id.booklistview)
-        bookListView.onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ ->
-            bookCache.getOrNull(i)?.let {
-                if ("" != displayOptions.groupingKey && BookFormatter.isGroupingHeaderFakeBook(it))
-                    return@OnItemClickListener
-                viewDetails(i)
-            }
-        }
-        bookListView.adapter = sa
+        list.adapter = BookOverviewAdapter(this, bookCache, expectedCount, displayOptions)
         if (!cacheShown) {
             cacheShown = true
             onBookCacheAvailable()
@@ -148,12 +152,6 @@ open class BookListActivity: VideLibriBaseActivity(){
         displayBookCache(bookCache.size)
     }
 
-    fun updateDisplayBookCache() {
-        val bookListView = findViewById<ListView>(R.id.booklistview)
-        val sa = bookListView.adapter as BookOverviewAdapter
-        sa.setBooks(bookCache)
-    }
-
     open fun onPlaceHolderShown(position: Int) {}
 
     //called when the user touches a book
@@ -162,42 +160,33 @@ open class BookListActivity: VideLibriBaseActivity(){
     }
 
     //shows the detail view
-    fun showDetails(startbookpos: Int) {
-        var bookpos = startbookpos
-        if (bookpos !in bookCache.indices) return
-        while (BookFormatter.isGroupingHeaderFakeBook(bookCache[bookpos])) {
-            bookpos++
-            if (bookpos >= bookCache.size) return
-        }
-        state.currentBookPos = bookpos
+    fun showDetails(startBookPos: Int) {
+        val bookPos = (startBookPos until bookCache.size).find { !bookCache[it].isGroupingHeader } ?: return
+        state.currentBookPos = bookPos
         if (port_mode) {
             detailsPortHolder?.visibility = View.VISIBLE
             listPortHolder?.visibility = View.INVISIBLE
             state.portInDetailMode = true
         }
-        details.book = bookCache[bookpos]
+        details.book = bookCache[bookPos]
         invalidateOptionsMenu()
     }
 
 
     open fun onBookCacheAvailable() {
         //Log.d("VideLIBRI", "onBookCacheAvailable" + currentBookPos + " / " + listFirstItem + " / " + bookCache.size() );
-        state.selectedBooksIndices?.let {
-            val sb = selectedBooks ?:  ArrayList<Bridge.Book>()
-            for (i in it)
-                bookCache.getOrNull(i)?.let { book -> sb.add(book) }
-            selectedBooks = sb
+        state.selectedBooksIndices?.let {sbi ->
+            selectedBooks = sbi.mapNotNull { bookCache.getOrNull(it) }.union(selectedBooks ?: setOf()).toMutableSet()
             state.selectedBooksIndices = null
-            (findViewById<ListView>(R.id.booklistview).adapter as BookOverviewAdapter).notifyDataSetChanged()
+            list.adapter?.notifyDataSetChanged()
         }
         if (!port_mode || ( state.portInDetailMode && state.currentBookPos in bookCache.indices ) )
             showDetails(state.currentBookPos)
         else
             showList()
-        val bookListView = findViewById<ListView>(R.id.booklistview)
-        bookListView.post {
+        de.benibela.videlibri.runOnUiThread {
             if (state.listFirstItem > 0)
-                bookListView.setSelectionFromTop(state.listFirstItem, 0)
+                list.listview.smoothScrollToPosition(state.listFirstItem)
             state.listFirstItem = 0
         }
     }
@@ -236,19 +225,18 @@ open class BookListActivity: VideLibriBaseActivity(){
             super.onBackPressed()
     }
 
-    fun detailsVisible(): Boolean {
-        return if (!port_mode) true else detailsPortHolder?.visibility == View.VISIBLE
-    }
+    fun detailsVisible(): Boolean =
+            if (!port_mode) true else detailsPortHolder?.visibility == View.VISIBLE
 
-    fun listVisible(): Boolean {
-        return if (!port_mode) true else !detailsVisible()
-    }
+
+    fun listVisible(): Boolean =
+            if (!port_mode) true else !detailsVisible()
 
 
     @JvmField var bookCache = ArrayList<Bridge.Book>()
     val displayOptions = BookListDisplayOptions()
 
-    protected var selectedBooks: ArrayList<Bridge.Book>? = null
+    var selectedBooks: MutableSet<Bridge.Book>? = null
 
     @JvmField var bookActionButton: Button? = null //set from detail fragment
 

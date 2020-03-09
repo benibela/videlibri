@@ -184,7 +184,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
             searcher.bookCache.addAll(books)
             bookCache = searcher.bookCache
         }
-        updateDisplayBookCache()
+        list.adapter?.books = bookCache
         setTitle()
     }
 

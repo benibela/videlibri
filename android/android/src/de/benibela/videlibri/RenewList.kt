@@ -4,20 +4,17 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.view.View
 import android.widget.Button
-import android.widget.ListView
-import de.benibela.videlibri.jni.Bridge
-import java.util.ArrayList
 
 class RenewList : BookListActivity() {
     lateinit var button: Button
 
-    private var truecount: Int = 0
+    private var trueCount: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         title = tr(R.string.renew_title_start)
-        selectedBooks = ArrayList()
+        selectedBooks = mutableSetOf()
         updateViewFilters()
 
 
@@ -50,26 +47,20 @@ class RenewList : BookListActivity() {
         displayOptions.filterKey = ""
         val oldSelection = selectedBooks
         bookCache = makePrimaryBookCache(false, true)
-        truecount = bookCache.size
+        trueCount = bookCache.size
         bookCache = displayOptions.let { filterToSecondaryBookCache(bookCache, it.groupingKey, it.sortingKey, "", "") }
-        val newSelection = ArrayList<Bridge.Book>(selectedBooks?.size?:0)
-        oldSelection?.forEach {selbook ->
-            for (book in bookCache)
-                if (selbook.equalsBook(book)) {
-                    newSelection.add(book)
-                    break
-                }
-        }
-        selectedBooks = newSelection
+
+        selectedBooks = oldSelection?.mapNotNull { selBook -> bookCache.find { book -> selBook.equalsBook(book) } }?.toMutableSet() ?: mutableSetOf()
     }
 
     override fun viewDetails(bookpos: Int) {
         val book = bookCache[bookpos]
-        val deleteIndex = selectedBooks?.indexOfFirst{ it === book} ?: -1
-        if (deleteIndex == -1) selectedBooks?.add(book)
-        else selectedBooks?.removeAt(deleteIndex)
+        selectedBooks?.let { sb ->
+            if (sb.contains(book)) sb.remove(book)
+            else sb.add(book)
+        }
         updateRenewButton()
-        (findViewById<ListView>(R.id.booklistview).adapter as BookOverviewAdapter).notifyDataSetChanged()
+        list.adapter?.notifyDataSetChanged()
         if (!port_mode) super.viewDetails(bookpos)
     }
 
@@ -80,7 +71,7 @@ class RenewList : BookListActivity() {
             button.isEnabled = false
             button.text = tr(R.string.renew_noselection)
         } else {
-            title = tr(R.string.renew_title_selectionDD, selectedBooks?.size, truecount)
+            title = tr(R.string.renew_title_selectionDD, selectedBooks?.size, trueCount)
             button.isEnabled = true
             button.text = tr(R.string.renew_renewD, selectedBooks?.size)
         }

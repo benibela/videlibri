@@ -6,10 +6,10 @@
               android:layout_height="match_parent"
               android:id="@+id/booklistlayout">
 
-    <ListView
+    <de.benibela.multilevellistview.ClickableRecyclerView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/booklistview"  android:layout_weight="1" />
+            android:id="@+id/bookOverviewRecyclerView"  android:layout_weight="1" />
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"

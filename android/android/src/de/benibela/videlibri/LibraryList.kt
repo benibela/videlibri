@@ -3,18 +3,19 @@ package de.benibela.videlibri
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
-import androidx.annotation.LayoutRes
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.ListView
 import android.widget.TextView
+import androidx.annotation.LayoutRes
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import de.benibela.multilevellistview.ExpandableMultiLevelListView
 import de.benibela.multilevellistview.MultiColumnListView
 import de.benibela.multilevellistview.MultiLevelListView
 import de.benibela.multilevellistview.PartialMultiLevelListView
+import de.benibela.videlibri.databinding.BookOverviewRowBinding
+import de.benibela.videlibri.databinding.DialogBookListLikeBinding
 import de.benibela.videlibri.jni.Bridge
 import kotlinx.android.parcel.Parcelize
 import java.util.*
@@ -204,25 +205,25 @@ class LibraryList: VideLibriBaseActivity() {
             onCreate =  onCreate@ {  builder ->
                 val activity = activity ?: return@onCreate
                 val inflater = activity.layoutInflater
-                val v = inflater.inflate(R.layout.dialogbooklistlike, null)
+                val dialogBinding = DialogBookListLikeBinding.inflate(inflater)
 
                 val items = intArrayOf(R.string.foreignlibrariesnotinthelist_easy, R.string.foreignlibrariesnotinthelist_meta, R.string.foreignlibrariesnotinthelist_install, R.string.foreignlibrariesnotinthelist_diy, R.string.foreignlibrariesnotinthelist_mail).map { getString(it) }
                 val itemsSubCaption = intArrayOf(R.string.foreignlibrariesnotinthelist, R.string.foreignlibrariesnotinthelist_easy_req, R.string.foreignlibrariesnotinthelist_meta_req, R.string.foreignlibrariesnotinthelist_install_req, R.string.foreignlibrariesnotinthelist_diy_req, R.string.foreignlibrariesnotinthelist_mail_req).map { getString(it) }
 
-                val lv = v.findViewById<ListView>(R.id.listView)
-                lv.adapter = object : ArrayAdapter<String>(activity, R.layout.bookoverview, R.id.bookoverviewCaption, itemsSubCaption) {
+                dialogBinding.listView.adapter = object : ArrayAdapter<String>(activity, R.layout.book_overview_row, R.id.caption, itemsSubCaption) {
                     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View? {
-                        return super.getView(position, convertView, parent).apply {
-                            findViewById<View>(R.id.bookoverviewDate).visibility = View.GONE
-                            findViewById<TextView>(R.id.bookoverviewMore).text = itemsSubCaption.getOrElse(position, {""})
-                            findViewById<TextView>(R.id.bookoverviewCaption).apply {
+                        return super.getView(position, convertView, parent).also {
+                            val binding = BookOverviewRowBinding.bind(it)
+                            binding.date.visibility = View.GONE
+                            binding.more.text = itemsSubCaption.getOrElse(position) {""}
+                            binding.caption.apply {
                                 text = items.getOrElse(position - 1) {""}
                                 isVisibleNotGone = position > 0
                             }
                         }
                     }
                 }
-                lv.onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ ->
+                dialogBinding.listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ ->
                     withActivity<LibraryList> {
                         when (i) {
                             1, 3 -> startActivity<NewLibrary>(
@@ -246,7 +247,7 @@ class LibraryList: VideLibriBaseActivity() {
                     }
                     dismiss()
                 }
-                builder.setView(v)
+                builder.setView(dialogBinding.root)
             }
         }
     }

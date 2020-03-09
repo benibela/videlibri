@@ -32,6 +32,12 @@ import java.util.*
 import kotlin.math.max
 import kotlin.math.min
 
+open class ViewHolderWithBinding<B: ViewBinding>(val binding: B): RecyclerView.ViewHolder(binding.root){
+    constructor(parent: ViewGroup, inflate: (inflater: LayoutInflater, root: ViewGroup?, attachToRoot: Boolean) -> B): this(
+            inflate(LayoutInflater.from(parent.context), parent, false)
+    )
+}
+
 class BookDetails internal constructor(activity: BookListActivity) : VideLibriFakeFragment(activity) {
     val listview: ClickableRecyclerView = activity.findViewById(R.id.bookDetailsRecyclerView)
     val adapter get() = listview.adapter as? BookDetailsAdapter
@@ -48,12 +54,6 @@ class BookDetails internal constructor(activity: BookListActivity) : VideLibriFa
         val orderable: Boolean = holding.isOrderableHolding
     }
 
-    open class ViewHolderWithBinding<B: ViewBinding>(val binding: B): RecyclerView.ViewHolder(binding.root){
-        constructor(parent: ViewGroup, inflate: (inflater: LayoutInflater, root: ViewGroup?, attachToRoot: Boolean) -> B): this(
-                inflate(LayoutInflater.from(parent.context), parent, false)
-        )
-    }
-
     class BookDetailsAdapter(private val context: Activity, val details: ArrayList<Details>, private val book: Bridge.Book) : ClickableRecyclerView.Adapter<ViewHolderWithBinding<*>>() {
         override fun getItemCount(): Int = 1 + details.size
         override fun getItemViewType(position: Int) =
@@ -62,15 +62,14 @@ class BookDetails internal constructor(activity: BookListActivity) : VideLibriFa
                     position >= holdingStartPosition -> R.layout.book_details_holding
                     else -> R.layout.book_details_property
                 }
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderWithBinding<*> {
-            val vh = when (viewType) {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderWithBinding<*> =
+            when (viewType) {
                 R.layout.book_details_holding -> ViewHolderWithBinding(parent, BookDetailsHoldingBinding::inflate)
                 R.layout.book_details_cover -> ViewHolderWithBinding(parent, BookDetailsCoverBinding::inflate)
                 else -> ViewHolderWithBinding(parent, BookDetailsPropertyBinding::inflate)
+            }.also {
+                registerClickHandler(it)
             }
-            registerClickHandler(vh)
-            return vh
-        }
 
         override fun onBindViewHolder(holder: ViewHolderWithBinding<*>, position: Int){
             when (val binding = holder.binding) {
@@ -212,7 +211,7 @@ class BookDetails internal constructor(activity: BookListActivity) : VideLibriFa
 
                 override fun draw(canvas: Canvas, text: CharSequence?, start: Int, end: Int, x: Float, top: Int, y: Int, bottom: Int, paint: Paint) {}
             }, len, len + 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
-            builder.append(name).append(":")
+            builder.append(name).append(": ")
             builder.setSpan(StyleSpan(Typeface.BOLD), len, builder.length, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
             builder.append(value).append("\n")
             builder.setSpan(LeadingMarginSpan.Standard(padding, padding), len, builder.length, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
@@ -301,13 +300,6 @@ class BookDetails internal constructor(activity: BookListActivity) : VideLibriFa
     var coverTargetWidth: Int
     var coverTargetHeight: Int
     init {
-        activity.registerForContextMenu(listview)
-        listview.addOnItemLongClickListener { _, vh ->
-            (activity as? BookListActivity)?.contextMenuSelectedItem = adapter?.details?.getOrNull(vh.adapterPosition - 1)
-            false
-        }
-        listview.layoutManager = LinearLayoutManager(activity)
-        listview.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         displayMetrics = activity.resources.displayMetrics.also { dm ->
             val longSide = max(dm.widthPixels, dm.heightPixels)
             val shortSide = min(dm.widthPixels, dm.heightPixels)
