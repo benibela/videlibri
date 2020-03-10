@@ -35,7 +35,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_width="fill_parent"
-            android:minLines="4" />
+            android:minLines="4"
+            android:autofillHints="text" />
 
         <CheckBox
             android:checked="false"
@@ -78,7 +79,8 @@
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
             android:minHeight="48dp"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:autofillHints="personName" />
 
         <TextView
             android:id="@+id/textView5"
@@ -94,7 +96,8 @@
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
             android:minHeight="48dp"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:autofillHints="emailAddress" />
 
         <Button
             android:id="@+id/button"

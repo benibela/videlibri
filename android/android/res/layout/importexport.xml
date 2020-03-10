@@ -68,7 +68,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="New EditText" />
+                    android:text="New EditText"
+                    android:autofillHints="" />
 
                 <Button
                     android:id="@+id/buttonChoose"

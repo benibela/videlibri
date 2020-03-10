@@ -53,7 +53,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/edit" android:layout_weight="1"
             android:inputType="textMultiLine|textNoSuggestions"
-            tools:ignore="LabelFor" />
+            tools:ignore="LabelFor"
+            android:autofillHints="" />
 
 
     </LinearLayout>

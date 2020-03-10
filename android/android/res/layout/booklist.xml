@@ -19,7 +19,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/searchFilter" android:inputType="textNoSuggestions" android:singleLine="true"
                 android:hint="@string/lay_booklist_searchfilter_hint" android:maxLines="1" android:ellipsize="end"
-                />
+            android:autofillHints="" />
     </LinearLayout>
     <Button
             android:layout_width="fill_parent"

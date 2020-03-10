@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
 
     <ScrollView
@@ -62,7 +63,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="48dp"
-                    android:id="@+id/accountId" android:singleLine="true" android:inputType="textNoSuggestions"/>
+                    android:id="@+id/accountId" android:singleLine="true" android:inputType="textNoSuggestions"
+                android:autofillHints="username" />
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -73,7 +75,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="48dp"
-                    android:id="@+id/accountPassword" android:password="true" android:singleLine="true"/>
+                    android:id="@+id/accountPassword" android:password="true" android:singleLine="true"
+                android:autofillHints="password" />
             <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="fill_parent"
@@ -106,7 +109,8 @@
                         android:layout_height="40sp"
                         android:text="7"
                         android:minHeight="48dp"
-                        android:id="@+id/autoExtendDaysEdit" android:numeric="integer"/>
+                        android:id="@+id/autoExtendDaysEdit" android:numeric="integer"
+                    android:autofillHints="" />
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -144,7 +148,10 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="48dp"
-                    android:id="@+id/accountPrettyName" android:singleLine="true"/>
+                    android:id="@+id/accountPrettyName" android:singleLine="true"
+                android:autofillHints=""
+                android:importantForAutofill="no"
+                />
         </LinearLayout>
     </ScrollView>
     <LinearLayout

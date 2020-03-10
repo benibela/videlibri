@@ -15,5 +15,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="New EditText"
-            android:id="@+id/edit" android:singleLine="true"/>
+            android:id="@+id/edit" android:singleLine="true"
+        android:autofillHints="" />
 </LinearLayout>
