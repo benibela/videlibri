@@ -202,7 +202,7 @@ open class BookListActivity: VideLibriBaseActivity(){
                 list.exportShare(false) + "\n\n" + details.exportShare(false) //this case should not happen
             else -> null
         }
-        toCopy?.let { Util.Clipboard.setText(this, it) }
+        toCopy?.let { Clipboard.text = it }
         contextMenuSelectedItem = null
         return super.onContextItemSelected(item)
     }

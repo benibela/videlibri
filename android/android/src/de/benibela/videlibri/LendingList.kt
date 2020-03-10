@@ -422,7 +422,7 @@ class LendingList: BookListActivity(){
                 findViewById<EditText>(R.id.searchFilter).setText("")
             }
             R.id.paste, R.id.pastereplace -> {
-                Util.Clipboard.getText(this)?.let {
+                Clipboard.text?.let {
                     findViewById<EditText>(R.id.searchFilter).setText(
                             (if (item.itemId == R.id.pastereplace) "" else filter.actually) + it
                     )

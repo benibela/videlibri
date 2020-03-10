@@ -45,7 +45,7 @@ internal object BookFormatter {
             }
         }
         val date = Bridge.pascalDateToDate(pascalDate)
-        return if (full) Util.formatDateFull(date) else Util.formatDate(date)
+        return if (full) date.formatFull() else date.formatShort()
     }
 
     @JvmStatic fun formatDate(pascalDate: Int): String = formatDate(pascalDate, false)

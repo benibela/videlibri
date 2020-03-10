@@ -76,69 +76,11 @@ public class Util {
 
 
 
-    private static DateFormat dateFormatShort;
-    private static DateFormat dateFormatFull;
-    public static String formatDate(Date date){
-        if (date == null) return "";
-        if (dateFormatShort == null){
-            if (VideLibriApp.currentContext() != null)
-                dateFormatShort = android.text.format.DateFormat.getDateFormat(VideLibriApp.currentContext());
-            else
-                dateFormatShort = java.text.DateFormat.getDateInstance(DateFormat.SHORT);
-        }
-        if (dateFormatShort != null) return dateFormatShort.format(date);
-        return date.getYear()+"-"+date.getMonth()+"-"+date.getDay();
-    }
-
-    public static String formatDateFull(Date date){
-        if (date == null) return "";
-        if (dateFormatFull == null) {
-            dateFormatFull = java.text.DateFormat.getDateInstance(java.text.DateFormat.FULL);
-            if (dateFormatFull == null && VideLibriApp.currentContext() != null)
-                dateFormatFull = android.text.format.DateFormat.getLongDateFormat(VideLibriApp.currentContext());
-        }
-        if (dateFormatFull != null) return dateFormatFull.format(date);
-        return formatDate(date);
-    }
-
-
-    public static int compare(int a, int b) {
-        if (a < b) return -1;
-        else if (b < a) return 1;
-        else return 0;
-    }
-    public static int compare(boolean a, boolean b) {
-        if (a == b) return 0;
-        if (a) return 1;
-        return -1;
-    }
-    public static int   compareNullFirst(Object a, Object b) {
-        return compare(a != null, b != null);
-    }
 
 
 
 
-    static class Clipboard{
-        static CharSequence getText(Context context){
-            android.content.ClipboardManager cm = ((android.content.ClipboardManager)context.getSystemService(CLIPBOARD_SERVICE));
-            if (cm == null) return null;
-            ClipData data = cm.getPrimaryClip();
-            if (data == null) return null;
-            ClipData.Item i = data.getItemAt(0);
-            if (i == null) return null;
-            return i.coerceToText(context);
-        }
-        static void setText(Context context, CharSequence toCopy){
-            android.content.ClipboardManager clipboard = (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-            if (clipboard == null) return;
-            android.content.ClipData clip = android.content.ClipData.newPlainText("Book details", toCopy);
-            if (clip == null) return;
-            clipboard.setPrimaryClip(clip);
-            Toast.makeText(context, tr(R.string.clipboard_copiedS, toCopy), Toast.LENGTH_SHORT).show();
 
-        }
-    }
 
 
 

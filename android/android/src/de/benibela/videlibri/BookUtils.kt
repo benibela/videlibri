@@ -19,8 +19,8 @@ private fun getWeekString(pascalDate: Int): String {
         }
     val delta = pascalDate - 2 - week * 7
     return String.format(Util.tr(R.string.week_from_to),
-            Util.formatDate(Bridge.pascalDateToDate(pascalDate - delta)),
-            Util.formatDate(Bridge.pascalDateToDate(pascalDate - delta + 6)))
+            Bridge.pascalDateToDate(pascalDate - delta).formatShort(),
+            Bridge.pascalDateToDate(pascalDate - delta + 6).formatShort())
 }
 
 private fun Bridge.Book?.getExtendedProperty(key: String): String = this?.run{
@@ -48,6 +48,18 @@ private fun Bridge.Book?.getExtendedProperty(key: String): String = this?.run{
     }
 } ?: ""
 
+private fun compare(a: Int, b: Int): Int {
+    return if (a < b) -1 else if (b < a) 1 else 0
+}
+
+private fun compare(a: Boolean, b: Boolean): Int {
+    if (a == b) return 0
+    return if (a) 1 else -1
+}
+
+private fun compareNullFirst(a: Any?, b: Any?): Int {
+    return compare(a != null, b != null)
+}
 
 fun compareForStateMismatch(book: Bridge.Book, book2: Bridge.Book): Int =
     if (book.history != book2.history) {
@@ -61,8 +73,7 @@ fun compareForStateMismatch(book: Bridge.Book, book2: Bridge.Book): Int =
             1
         else
             -1
-    } else Util.compare(book.dueDate != 0, book2.dueDate != 0)
-
+    } else compare(book.dueDate != 0, book2.dueDate != 0)
 
 //order: ordered normal provided problematic
 private fun compareStatus(s1: Bridge.Book.StatusEnum, s2: Bridge.Book.StatusEnum): Int =
@@ -81,28 +92,29 @@ private fun compareStatus(s1: Bridge.Book.StatusEnum, s2: Bridge.Book.StatusEnum
     }
 
 
+
 private fun compareForKey(book: Bridge.Book?, book2: Bridge.Book?, key: String): Int =
     if (book == null || book2 == null) 0
     else when (key) {
         "_dueWeek" -> {
             val temp = compareForStateMismatch(book, book2)
             if (temp != 0 || book.dueDate == 0) temp
-            else Util.compare(dateToWeek(book.dueDate), dateToWeek(book2.dueDate))
+            else compare(dateToWeek(book.dueDate), dateToWeek(book2.dueDate))
         }
         "_account" -> {
             val a = book.account
             val a2 = book2.account
-            var temp = Util.compareNullFirst(a, a2)
+            var temp = compareNullFirst(a, a2)
             if (temp != 0 || a == null || a2 == null ) 0
             else {
-                temp = Util.compareNullFirst(a.prettyName, a2.prettyName)
+                temp = compareNullFirst(a.prettyName, a2.prettyName)
                 if (temp != 0) 0
                 else a.prettyName.compareTo(a2.prettyName)
             }
         }
         "dueDate" -> {
             val temp = compareForStateMismatch(book, book2)
-            if (temp != 0 || book.dueDate == 0) temp else Util.compare(book.dueDate, book2.dueDate)
+            if (temp != 0 || book.dueDate == 0) temp else compare(book.dueDate, book2.dueDate)
         }
         "_status" -> {
             val temp = compareForStateMismatch(book, book2)
@@ -114,14 +126,14 @@ private fun compareForKey(book: Bridge.Book?, book2: Bridge.Book?, key: String):
             else {
                 var d1 = if (book.issueDate != 0) book.issueDate else book.firstExistsDate
                 var d2 = if (book2.issueDate != 0) book2.issueDate else book2.firstExistsDate
-                temp = Util.compare(d1 != 0, d2 != 0)
+                temp = compare(d1 != 0, d2 != 0)
                 if (temp != 0 || d1 == 0) temp
                 else {
                     if ("_issueWeek" == key) {
                         d1 = dateToWeek(d1)
                         d2 = dateToWeek(d2)
                     }
-                    Util.compare(d1, d2)
+                    compare(d1, d2)
                 }
             }
         }

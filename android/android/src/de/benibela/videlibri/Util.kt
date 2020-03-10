@@ -1,11 +1,10 @@
+
 package de.benibela.videlibri
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.app.NotificationManager
-import android.content.Context
-import android.content.DialogInterface
-import android.content.SharedPreferences
+import android.content.*
 import android.content.res.AssetManager
 import android.os.Bundle
 import android.os.Handler
@@ -24,6 +23,8 @@ import de.benibela.videlibri.Util.MessageHandlerCanceled
 import de.benibela.videlibri.Util.tr
 import java.io.IOException
 import java.io.InputStream
+import java.text.DateFormat
+import java.util.*
 
 fun <T: CharSequence> T.takeNonEmpty(): T? = takeIf(CharSequence::isNotEmpty)
 fun CharSequence.ensureSuffix(suffix: CharSequence) =
@@ -36,21 +37,30 @@ fun CharSequence.escapeForHtml(): CharSequence =
 
 
 
-
+@Suppress("NOTHING_TO_INLINE")
+inline val currentContext get() = VideLibriApp.currentContext()
 inline fun <reified T> currentActivity(): T? = (VideLibriApp.currentActivity as? T)
 inline fun <reified T: Activity> withActivity(f: T.() -> Unit) = currentActivity<T>()?.run(f)
 
 fun runOnUiThread(runnable: () -> Unit) = (VideLibriApp.uiHandler ?: Handler(Looper.getMainLooper())).post(runnable)
 
 fun showToast(message: CharSequence) =
-        Toast.makeText(VideLibriApp.currentContext(), message, Toast.LENGTH_SHORT).show()
+        Toast.makeText(currentContext, message, Toast.LENGTH_SHORT).show()
 fun showToast(@StringRes message: Int) =
-        Toast.makeText(VideLibriApp.currentContext(), message, Toast.LENGTH_SHORT).show()
+        Toast.makeText(currentContext, message, Toast.LENGTH_SHORT).show()
 
 fun getString(@StringRes message: Int): String? = Util.tr(message)
 
 
-
+private val dateFormatShort: DateFormat? by lazy {
+    currentContext?.let { android.text.format.DateFormat.getDateFormat(it) } ?: DateFormat.getDateInstance(DateFormat.SHORT)
+}
+private val dateFormatFull: DateFormat? by lazy {
+    DateFormat.getDateInstance(DateFormat.FULL) ?: currentContext?.let { android.text.format.DateFormat.getLongDateFormat(it) }
+}
+@Suppress("DEPRECATION")
+fun Date.formatShort() = dateFormatShort?.format(this) ?: "${year+1900}-$month-$day"
+fun Date.formatFull() = dateFormatFull?.format(this) ?: this.formatShort()
 
 
 internal typealias DialogInitEvent = (DialogInstance.() -> Unit)
@@ -370,3 +380,14 @@ fun AssetManager.exists(fileName: String): Boolean {
     return false
 }
 
+
+internal object Clipboard {
+    val manager = currentContext?.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
+    var text: CharSequence?
+        get() = manager?.primaryClip?.getItemAt(0)?.coerceToText(currentContext)
+        set(toCopy) {
+            val clip = ClipData.newPlainText("Book details", toCopy) ?: return
+            manager?.primaryClip = clip
+            showToast(tr(R.string.clipboard_copiedS, toCopy))
+        }
+}
