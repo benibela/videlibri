@@ -156,7 +156,7 @@ class LibraryList: VideLibriBaseActivity() {
         createListAdapter()
 
         findViewById<View>(R.id.textViewLibWhyNot).apply {
-            if (false && accounts.isNotEmpty())
+            if (accounts.isNotEmpty())
                 visibility = View.GONE
             else
                 setOnClickListener { showHowToAddLibraryDialog() }
