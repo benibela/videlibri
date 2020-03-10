@@ -1,9 +1,11 @@
-package de.benibela.videlibri
+package de.benibela.videlibri.utils
 
 
 import android.content.Context
 import android.graphics.Color
 import androidx.annotation.StringRes
+import de.benibela.videlibri.*
+import de.benibela.videlibri.activities.BookListDisplayOptions
 
 import de.benibela.videlibri.jni.Bridge
 
@@ -19,7 +21,8 @@ internal object BookFormatter {
         operator fun invoke(@StringRes id: Int): String = Util.tr(id)
         @JvmStatic fun init(context: Context? = null){
             //if (bookStatus::provided.isInitialized) return
-            val c = context ?: VideLibriApp.currentContext() ?: return
+            val c = context ?: VideLibriApp.currentContext()
+            ?: return
             bookStatus.provided = c.getString(R.string.book_status_provided)
             bookStatus.ordered = c.getString(R.string.book_status_ordered)
             bookStatus.problematic = c.getString(R.string.book_status_problematic)

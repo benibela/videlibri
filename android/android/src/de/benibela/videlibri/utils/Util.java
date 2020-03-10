@@ -1,4 +1,4 @@
-package de.benibela.videlibri;
+package de.benibela.videlibri.utils;
 
 import android.content.ClipData;
 import android.content.ContentUris;
@@ -20,6 +20,8 @@ import android.widget.Toast;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.IllegalFormatException;
+
+import de.benibela.videlibri.VideLibriApp;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 
@@ -86,7 +88,7 @@ public class Util {
 
     static public class UriToPath {
         //https://stackoverflow.com/a/36129285
-        static String getPath(Context context, Uri uri) {
+        static public String getPath(Context context, Uri uri) {
             if (uri == null) return null;
             try {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

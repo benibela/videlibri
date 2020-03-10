@@ -1,4 +1,4 @@
-package de.benibela.videlibri
+package de.benibela.videlibri.components
 
 import android.app.Activity
 import android.graphics.Canvas
@@ -18,14 +18,20 @@ import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import de.benibela.multilevellistview.ClickableRecyclerView
-import de.benibela.videlibri.BookFormatter.formatDate
-import de.benibela.videlibri.BookFormatter.formatDateFull
+import de.benibela.videlibri.*
+import de.benibela.videlibri.utils.BookFormatter.formatDate
+import de.benibela.videlibri.utils.BookFormatter.formatDateFull
 import de.benibela.videlibri.CoverLoader.loadBookCover
+import de.benibela.videlibri.activities.BookListActivity
+import de.benibela.videlibri.activities.RenewList
+import de.benibela.videlibri.activities.SearchResult
+import de.benibela.videlibri.activities.VideLibriBaseActivityOld
 import de.benibela.videlibri.databinding.BookDetailsCoverBinding
 import de.benibela.videlibri.databinding.BookDetailsHoldingBinding
 import de.benibela.videlibri.databinding.BookDetailsPropertyBinding
 import de.benibela.videlibri.jni.Bridge
 import de.benibela.videlibri.jni.Bridge.Book.StatusEnum
+import de.benibela.videlibri.utils.*
 import java.util.*
 import kotlin.math.max
 import kotlin.math.min
@@ -121,7 +127,7 @@ class BookDetails internal constructor(activity: BookListActivity) : VideLibriFa
     val details = ArrayList<Details>()
     private fun addDetails(label: Int, data: String?){
         data ?: return
-        details.add(Details(getString(label) , data))
+        details.add(Details(getString(label), data))
     }
     private fun addDetails(label: String, data: String?){
         data ?: return

@@ -1,4 +1,4 @@
-package de.benibela.videlibri
+package de.benibela.videlibri.activities
 
 import android.app.Activity
 import android.content.Intent
@@ -18,10 +18,12 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
+import de.benibela.videlibri.*
 import de.benibela.videlibri.jni.Bridge
 import de.benibela.videlibri.jni.FormInput
 import de.benibela.videlibri.jni.FormParams
 import de.benibela.videlibri.jni.FormSelect
+import de.benibela.videlibri.utils.*
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 import kotlin.math.roundToInt
@@ -38,7 +40,7 @@ private class SearchParamHolder(
     val edit get() = view as? EditText
     val spinner get() = view as? Spinner
 }
-class Search: VideLibriBaseActivity(), SearchEventHandler{
+class Search: VideLibriBaseActivity(), SearchEventHandler {
     @Parcelize
     class State(var libId: String = "",
                 var libName: String = ""

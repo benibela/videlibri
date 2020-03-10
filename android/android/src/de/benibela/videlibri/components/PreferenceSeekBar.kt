@@ -1,4 +1,4 @@
-package de.benibela.videlibri
+package de.benibela.videlibri.components
 
 
 import android.content.Context
@@ -8,6 +8,8 @@ import androidx.preference.SeekBarPreference
 import android.util.AttributeSet
 import android.widget.TextView
 import android.widget.SeekBar
+import de.benibela.videlibri.R
+import de.benibela.videlibri.utils.*
 
 class PreferenceSeekBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = androidx.preference.R.attr.seekBarPreferenceStyle, defStyleRes: Int = 0) : SeekBarPreference(context, attrs, defStyleAttr, defStyleRes) {
     private val dynamicSummary: String?
@@ -57,6 +59,6 @@ class PreferenceSeekBar @JvmOverloads constructor(context: Context, attrs: Attri
         val s = dynamicSummary?.let { String.format(it, value) } ?: ""
         //todo: plural https://stackoverflow.com/a/25648349
         summary = if (editable) s
-                  else s + "   " +getString(R.string.lay_options_seekbar_tap_to_change)
+                  else s + "   " + getString(R.string.lay_options_seekbar_tap_to_change)
     }
 }

@@ -12,7 +12,7 @@ import java.util.Arrays;
 import javax.net.ssl.X509TrustManager;
 
 import de.benibela.internettools.X509TrustManagerWrapper;
-import de.benibela.videlibri.Util;
+import de.benibela.videlibri.utils.Util;
 
 
 @SuppressWarnings("WeakerAccess")

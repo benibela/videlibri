@@ -8,8 +8,10 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import de.benibela.videlibri.*
+import de.benibela.videlibri.activities.LendingList
 import de.benibela.videlibri.jni.Bridge
-import java.lang.Math.min
+import de.benibela.videlibri.utils.notificationManager
+import de.benibela.videlibri.utils.preferences
 
 object Notifier {
     private const val DUEDATE_CHANNEL = "duedate"

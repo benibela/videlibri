@@ -1,4 +1,4 @@
-package de.benibela.videlibri
+package de.benibela.videlibri.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -14,9 +14,14 @@ import de.benibela.multilevellistview.ExpandableMultiLevelListView
 import de.benibela.multilevellistview.MultiColumnListView
 import de.benibela.multilevellistview.MultiLevelListView
 import de.benibela.multilevellistview.PartialMultiLevelListView
+import de.benibela.videlibri.*
 import de.benibela.videlibri.databinding.BookOverviewRowBinding
 import de.benibela.videlibri.databinding.DialogBookListLikeBinding
 import de.benibela.videlibri.jni.Bridge
+import de.benibela.videlibri.utils.getString
+import de.benibela.videlibri.utils.isVisibleNotGone
+import de.benibela.videlibri.utils.takeNonEmpty
+import de.benibela.videlibri.utils.withActivity
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
@@ -38,7 +43,7 @@ class LibraryListAdapter: MultiLevelListView.Adapter<LibraryListAdapter.Holder>(
             else -> 0
         }
     override fun getItemViewType(position: IntArray): Int = position.size
-    private fun holder(parent: ViewGroup, @LayoutRes view: Int): Holder{
+    private fun holder(parent: ViewGroup, @LayoutRes view: Int): Holder {
         val v = LayoutInflater.from(parent.context).inflate(view, parent, false)
         return Holder(v)
     }
@@ -80,8 +85,8 @@ class LibraryListAdapter: MultiLevelListView.Adapter<LibraryListAdapter.Holder>(
 
         if (Accounts.size > 0) {
             localAutoExpand = 1
-            states.add(getString(R.string.liblist_withaccounts)?:"")
-            cities.add(mutableListOf(getString(R.string.liblist_withaccounts)?:""))
+            states.add(getString(R.string.liblist_withaccounts))
+            cities.add(mutableListOf(getString(R.string.liblist_withaccounts)))
             localLibs.add(mutableListOf(Accounts.toArray.map { it.libId }.toSet().toMutableList()))
         }
 
@@ -201,8 +206,8 @@ class LibraryList: VideLibriBaseActivity() {
 
 
     private fun showHowToAddLibraryDialog(){
-        showDialog {
-            onCreate =  onCreate@ {  builder ->
+        de.benibela.videlibri.utils.showDialog {
+            onCreate = onCreate@{ builder ->
                 val activity = activity ?: return@onCreate
                 val inflater = activity.layoutInflater
                 val dialogBinding = DialogBookListLikeBinding.inflate(inflater)
@@ -215,9 +220,9 @@ class LibraryList: VideLibriBaseActivity() {
                         return super.getView(position, convertView, parent).also {
                             val binding = BookOverviewRowBinding.bind(it)
                             binding.date.visibility = View.GONE
-                            binding.more.text = itemsSubCaption.getOrElse(position) {""}
+                            binding.more.text = itemsSubCaption.getOrElse(position) { "" }
                             binding.caption.apply {
-                                text = items.getOrElse(position - 1) {""}
+                                text = items.getOrElse(position - 1) { "" }
                                 isVisibleNotGone = position > 0
                             }
                         }
@@ -226,7 +231,7 @@ class LibraryList: VideLibriBaseActivity() {
                 dialogBinding.listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ ->
                     withActivity<LibraryList> {
                         when (i) {
-                            1, 3 -> startActivity<NewLibrary>(
+                            1, 3 -> de.benibela.videlibri.utils.startActivity<NewLibrary>(
                                     "mode" to if (i == 3) 0 else NewLibrary.MODE_LIBRARY_ENTER_NEW_DATA
                             )
                             2 -> if (adapter.metaCatalogs >= 0) {
@@ -241,8 +246,8 @@ class LibraryList: VideLibriBaseActivity() {
                                 listView?.expand(id)
                                 columnView?.expand(id)
                             }
-                            4 -> startActivity<SourceEdit>() //showUriInBrowser("http://www.videlibri.de/help/neuebibliothek.html")
-                            5 -> startActivity<Feedback> ()
+                            4 -> de.benibela.videlibri.utils.startActivity<SourceEdit>() //showUriInBrowser("http://www.videlibri.de/help/neuebibliothek.html")
+                            5 -> de.benibela.videlibri.utils.startActivity<Feedback>()
                         }
                     }
                     dismiss()

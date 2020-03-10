@@ -6,7 +6,13 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Log
 import android.util.LruCache
+import de.benibela.videlibri.activities.BookListActivity
+import de.benibela.videlibri.activities.VideLibriBaseActivity
+import de.benibela.videlibri.components.BookDetails
 import de.benibela.videlibri.jni.Bridge
+import de.benibela.videlibri.utils.currentActivity
+import de.benibela.videlibri.utils.runOnUiThread
+import de.benibela.videlibri.utils.takeNonEmpty
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -229,7 +235,7 @@ object CoverLoader {
             val bla = currentActivity<BookListActivity>()
             bestCover?.let { cover ->
                 task.book.image = cover
-                if (bla?.currentBook()  === task.book) bla.details.updateImage()
+                if (bla?.currentBook() === task.book) bla.details.updateImage()
             }
         }
     }

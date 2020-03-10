@@ -1,4 +1,4 @@
-package de.benibela.videlibri
+package de.benibela.videlibri.activities
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -19,8 +19,11 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
+import de.benibela.videlibri.*
 import de.benibela.videlibri.jni.Bridge
+import de.benibela.videlibri.utils.startActivityForResult
 import kotlin.reflect.KMutableProperty0
+import de.benibela.videlibri.utils.*
 
 @SuppressLint("Registered")
 open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
@@ -267,22 +270,22 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
         when (id) {
             android.R.id.home -> onBackPressed()
             R.id.search -> VideLibriApp.newSearchActivity()
-            R.id.accounts -> startActivity<LendingList>()
-            R.id.options -> startActivity<Options>()
+            R.id.accounts -> de.benibela.videlibri.utils.startActivity<LendingList>()
+            R.id.options -> de.benibela.videlibri.utils.startActivity<Options>()
             R.id.refresh -> VideLibriApp.updateAccount(null, false, false)
             R.id.renew -> showMessageYesNo(R.string.base_renewallconfirm) {
                 VideLibriApp.updateAccount(null, false, true)
                 withActivity<RenewList> { onBackPressed() }
             }
-            R.id.renewlist -> startActivity<RenewList>()
-            R.id.import_ -> startActivity<ImportExport>("mode" to ImportExport.MODE_IMPORT)
-            R.id.export -> startActivity<ImportExport>("mode" to ImportExport.MODE_EXPORT)
+            R.id.renewlist -> de.benibela.videlibri.utils.startActivity<RenewList>()
+            R.id.import_ -> de.benibela.videlibri.utils.startActivity<ImportExport>("mode" to ImportExport.MODE_IMPORT)
+            R.id.export -> de.benibela.videlibri.utils.startActivity<ImportExport>("mode" to ImportExport.MODE_EXPORT)
             R.id.libinfo -> startActivityForResult<LibraryList>(REQUESTED_LIBRARY_CATALOGUE,"reason" to getString(R.string.base_chooselibhomepage), "search" to true)
             R.id.libcatalogue -> startActivityForResult<LibraryList>(REQUESTED_LIBRARY_CATALOGUE,"reason" to getString(R.string.base_chooselibcat), "search" to true)
             R.id.newlib -> startActivityForResult<NewLibrary>(RETURNED_FROM_NEW_LIBRARY)
-            R.id.feedback -> startActivity<Feedback>()
-            R.id.debuglog -> startActivity<DebugLogViewer>()
-            R.id.about -> startActivity<About>()
+            R.id.feedback -> de.benibela.videlibri.utils.startActivity<Feedback>()
+            R.id.debuglog -> de.benibela.videlibri.utils.startActivity<DebugLogViewer>()
+            R.id.about -> de.benibela.videlibri.utils.startActivity<About>()
             else -> return false
         }
         return true

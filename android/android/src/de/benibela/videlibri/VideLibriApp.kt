@@ -9,14 +9,19 @@ import android.content.res.Configuration
 import android.graphics.Color
 import android.os.*
 import android.preference.PreferenceManager
+import android.provider.Settings
 import android.util.Log
 import de.benibela.internettools.Config
 import de.benibela.internettools.X509TrustManagerWithAdditionalKeystores
+import de.benibela.videlibri.activities.*
+import de.benibela.videlibri.activities.SearchEventHandler
 import de.benibela.videlibri.internet.UserKeyStore
 import de.benibela.videlibri.internet.VideLibriKeyStore
 import de.benibela.videlibri.jni.Bridge
 import de.benibela.videlibri.notifications.NotificationScheduling
 import de.benibela.videlibri.notifications.Notifier
+import de.benibela.videlibri.utils.*
+import de.benibela.videlibri.utils.DialogEvent
 import org.acra.ACRA
 import org.acra.BuildConfig
 import org.acra.annotation.AcraCore
@@ -164,8 +169,8 @@ class VideLibriApp : Application() {
                 else showDialog {
                     val msg = ex.accountPrettyNames + ": " + ex.error
                     val sendErrorReport: DialogEvent = {
-                        val queries = errors.map { it.searchQuery }.filterNot { it.isNullOrEmpty() }.joinToString (separator = "\n") {
-                            q -> getString(R.string.app_error_searchedfor) + q
+                        val queries = errors.map { it.searchQuery }.filterNot { it.isNullOrEmpty() }.joinToString(separator = "\n") { q ->
+                            getString(R.string.app_error_searchedfor) + q
                         }
                         startActivity<Feedback>(
                                 "message" to getString(R.string.app_error_anerror) + "\n" + queries + getString(R.string.app_error_needcontact)
@@ -188,7 +193,7 @@ class VideLibriApp : Application() {
                                 }
                                 Bridge.PendingException.KIND_INTERNET -> {
                                     positiveButton(R.string.app_error_check_internet_btn) {
-                                        currentContext()?.startActivity(Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS))
+                                        currentContext()?.startActivity(Intent(Settings.ACTION_WIRELESS_SETTINGS))
                                     }
                                 }
                             }
@@ -283,7 +288,7 @@ class VideLibriApp : Application() {
                     accounts.allUpdatesComplete()
                     NotificationScheduling.onUpdateComplete()
 
-                    withActivity<LendingList> {endLoadingAll(VideLibriBaseActivityOld.LOADING_ACCOUNT_UPDATE)}
+                    withActivity<LendingList> { endLoadingAll(VideLibriBaseActivityOld.LOADING_ACCOUNT_UPDATE) }
 
                     LendingList.refreshDisplayedLendBooks()
 

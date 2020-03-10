@@ -1,6 +1,8 @@
-package de.benibela.videlibri
+package de.benibela.videlibri.components
 
 import de.benibela.multilevellistview.ClickableRecyclerView
+import de.benibela.videlibri.R
+import de.benibela.videlibri.activities.BookListActivity
 
 class BookListFragment internal constructor(activity: BookListActivity) : VideLibriFakeFragment(activity) {
     val listview: ClickableRecyclerView = activity.findViewById(R.id.bookOverviewRecyclerView)

@@ -1,4 +1,4 @@
-package de.benibela.videlibri
+package de.benibela.videlibri.activities
 
 import android.Manifest
 import android.app.ActivityManager
@@ -21,7 +21,11 @@ import android.widget.CompoundButton
 import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.fragment.app.DialogFragment
+import de.benibela.videlibri.*
 import de.benibela.videlibri.jni.Bridge
+import de.benibela.videlibri.utils.*
+import de.benibela.videlibri.utils.BookFormatter
+import de.benibela.videlibri.utils.Clipboard
 import kotlinx.android.parcel.Parcelize
 import org.json.JSONArray
 import org.json.JSONException
@@ -82,7 +86,7 @@ class LendingList: BookListActivity(){
 
         //setTitle("Ausleihen");  //does not work in onCreate (why? makes the title invisible) No. it just works sometimes?
 
-        if (accounts.filterWithRunningUpdate().isNotEmpty()) beginLoading(LOADING_ACCOUNT_UPDATE)
+        if (Accounts.filterWithRunningUpdate().isNotEmpty()) beginLoading(LOADING_ACCOUNT_UPDATE)
         if (!cacheShown)
             displayBookCache()
 
@@ -94,7 +98,7 @@ class LendingList: BookListActivity(){
     override fun onPostResume() {
         super.onPostResume()
 
-        if (accounts.isEmpty())
+        if (Accounts.isEmpty())
             Handler().postDelayed({
                 if (VideLibriApp.currentActivity is LendingList) //do not open the list, if the user navigated away
                     startActivity<AccountInfo>("mode" to AccountInfo.MODE_ACCOUNT_CREATION_INITIAL)
@@ -188,9 +192,9 @@ class LendingList: BookListActivity(){
                 else
                     resources.getQuantityString(R.plurals.main_bookcountPluralD, bookCount, bookCount)
             }
-        val hiddenCount = accounts.filterHidden().size
+        val hiddenCount = Accounts.filterHidden().size
         if (hiddenCount > 0) {
-            val shownAccounts = accounts.size - hiddenCount
+            val shownAccounts = Accounts.size - hiddenCount
             if (shownAccounts == 1) {
                 for (account in accounts)
                     if (account.isShown) {
@@ -198,7 +202,7 @@ class LendingList: BookListActivity(){
                         break
                     }
             } else {
-                title += ", " + tr(R.string.main_accountcountDD, shownAccounts, accounts.size)
+                title += ", " + tr(R.string.main_accountcountDD, shownAccounts, Accounts.size)
             }
         }
         setTitle(title)
@@ -221,7 +225,7 @@ class LendingList: BookListActivity(){
 
         menu?.forItems {
             it.isVisible = when (it.itemId) {
-                R.id.refresh -> accounts.filterWithRunningUpdate().isEmpty()
+                R.id.refresh -> Accounts.filterWithRunningUpdate().isEmpty()
                 R.id.filter, R.id.renew, R.id.renewlist -> hasAccounts
                 R.id.research_menu -> hasAccounts && detailsVisible()
                 R.id.delete -> hasAccounts && detailsVisible() && details.book.history
@@ -233,8 +237,8 @@ class LendingList: BookListActivity(){
     override fun onOptionsItemIdSelected(id: Int): Boolean {
         when (id) {
             R.id.account_information -> {
-                accounts.refreshAccounts()
-                val info = if (accounts.isEmpty()) getString(R.string.main_no_accounts)
+                Accounts.refreshAccounts()
+                val info = if (Accounts.isEmpty()) getString(R.string.main_no_accounts)
                            else accounts.joinToString (
                               separator = "\n\n",
                               transform = { "${it.prettyName}:\n${
@@ -285,7 +289,7 @@ class LendingList: BookListActivity(){
 
     override fun onBookActionButtonClicked(book: Bridge.Book) {
         when (book.status) {
-            Bridge.Book.StatusEnum.Normal -> showDialog{
+            Bridge.Book.StatusEnum.Normal -> showDialog {
                 message(R.string.renew_single_confirm)
                 negativeButton(R.string.cancel)
                 positiveButton(R.string.renew) {
@@ -293,7 +297,7 @@ class LendingList: BookListActivity(){
                     withActivity<LendingList> { showList() }
                 }
             }
-            Bridge.Book.StatusEnum.Ordered, Bridge.Book.StatusEnum.Provided -> showMessageYesNo(R.string.main_cancelconfirm){
+            Bridge.Book.StatusEnum.Ordered, Bridge.Book.StatusEnum.Provided -> showMessageYesNo(R.string.main_cancelconfirm) {
                 Bridge.VLBookOperation(arrayOf(book), Bridge.BOOK_OPERATION_CANCEL) //cancel
                 withActivity<LendingList> {
                     beginLoading(LOADING_ACCOUNT_UPDATE)
@@ -325,15 +329,15 @@ class LendingList: BookListActivity(){
                     val acc = v.tag as Bridge.Account?
                     val b = (v as? CompoundButton)?.isChecked ?: return@OnClickListener
                     if (acc == null) {
-                        if (b) accounts.showAll()
-                        else accounts.hideAll()
+                        if (b) Accounts.showAll()
+                        else Accounts.hideAll()
                         for (cb in switchboxes) cb.isChecked = b
                     } else acc.isHidden = !b
                 }
                 val accountClickListener = object : View.OnClickListener {
                     override fun onClick(v: View) {
                         val acc = v.tag as Bridge.Account?
-                        if (acc == null) accounts.showAll()
+                        if (acc == null) Accounts.showAll()
                         else acc.showAlone()
                         val dialog = this@ViewOptionsDialog.dialog ?: return
                         dialog.findViewById<CompoundButton>(R.id.viewHistory).isChecked = v.id == R.id.buttonforhistory
@@ -341,11 +345,11 @@ class LendingList: BookListActivity(){
                     }
                 }
 
-                for (i in -1 until accounts.size) {
+                for (i in -1 until Accounts.size) {
                     val acc = if (i == -1) null else accounts[i]
                     val group = inflater.inflate(R.layout.options_lendings_accountrow, null)
                     val sb: CompoundButton = group.findViewById<CompoundButton>(R.id.switchbox).apply {
-                        isChecked = if (acc == null) accounts.filterHidden().size <= accounts.size / 2 else !acc.isHidden
+                        isChecked = if (acc == null) Accounts.filterHidden().size <= Accounts.size / 2 else !acc.isHidden
                         tag = acc
                         isSaveEnabled = false
                         setOnClickListener(accountCheckListener)

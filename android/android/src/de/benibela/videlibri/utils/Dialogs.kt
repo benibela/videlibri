@@ -1,66 +1,14 @@
-
-package de.benibela.videlibri
-import android.app.Activity
+package de.benibela.videlibri.utils
 import android.app.AlertDialog
 import android.app.Dialog
-import android.app.NotificationManager
-import android.content.*
-import android.content.res.AssetManager
+import android.content.DialogInterface
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.preference.PreferenceManager
-import android.util.SparseBooleanArray
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
-import android.widget.*
+import android.widget.EditText
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
-import de.benibela.videlibri.Util.MessageHandlerCanceled
-import de.benibela.videlibri.Util.tr
-import java.io.IOException
-import java.io.InputStream
-import java.text.DateFormat
-import java.util.*
-
-fun <T: CharSequence> T.takeNonEmpty(): T? = takeIf(CharSequence::isNotEmpty)
-fun CharSequence.ensureSuffix(suffix: CharSequence) =
-        if (endsWith(suffix)) this
-        else "$this$suffix"
-fun CharSequence.escapeForHtml(): CharSequence =
-         if (!this.contains("<") && !this.contains("&")) this
-         else this.toString().replace(Regex("&"), "&amp;").replace(Regex("<"), "&lt;")
-
-
-
-
-@Suppress("NOTHING_TO_INLINE")
-inline val currentContext get() = VideLibriApp.currentContext()
-inline fun <reified T> currentActivity(): T? = (VideLibriApp.currentActivity as? T)
-inline fun <reified T: Activity> withActivity(f: T.() -> Unit) = currentActivity<T>()?.run(f)
-
-fun runOnUiThread(runnable: () -> Unit) = (VideLibriApp.uiHandler ?: Handler(Looper.getMainLooper())).post(runnable)
-
-fun showToast(message: CharSequence) =
-        Toast.makeText(currentContext, message, Toast.LENGTH_SHORT).show()
-fun showToast(@StringRes message: Int) =
-        Toast.makeText(currentContext, message, Toast.LENGTH_SHORT).show()
-
-fun getString(@StringRes message: Int): String? = Util.tr(message)
-
-
-private val dateFormatShort: DateFormat? by lazy {
-    currentContext?.let { android.text.format.DateFormat.getDateFormat(it) } ?: DateFormat.getDateInstance(DateFormat.SHORT)
-}
-private val dateFormatFull: DateFormat? by lazy {
-    DateFormat.getDateInstance(DateFormat.FULL) ?: currentContext?.let { android.text.format.DateFormat.getLongDateFormat(it) }
-}
-@Suppress("DEPRECATION")
-fun Date.formatShort() = dateFormatShort?.format(this) ?: "${year+1900}-$month-$day"
-fun Date.formatFull() = dateFormatFull?.format(this) ?: this.formatShort()
+import de.benibela.videlibri.R
+import de.benibela.videlibri.VideLibriApp
 
 
 internal typealias DialogInitEvent = (DialogInstance.() -> Unit)
@@ -175,7 +123,7 @@ data class DialogInstance (
     var onCreate: DialogFragmentInitEvent? = null
 
     fun message(caption: String) = args.putString("message", caption)
-    fun message(@StringRes caption: Int,  vararg a: Any?) = message(tr(caption, *a))
+    fun message(@StringRes caption: Int,  vararg a: Any?) = message(Util.tr(caption, *a))
 
     fun items(items: List<String>, onItem: ChooseDialogEvent? = null) {
         args.putStringArray("items", items.toTypedArray())
@@ -196,7 +144,7 @@ data class DialogInstance (
         onNegativeButton = onClicked
     }
     fun negativeButton(@StringRes caption: Int, onClicked: DialogEvent? = null) =
-        negativeButton(tr(caption), onClicked)
+            negativeButton(getString(caption), onClicked)
 
 
     fun neutralButton(caption: String, onClicked: DialogEvent? = null){
@@ -204,7 +152,7 @@ data class DialogInstance (
         onNeutralButton = onClicked
     }
     fun neutralButton(@StringRes caption: Int, onClicked: DialogEvent? = null) =
-        neutralButton(tr(caption), onClicked)
+            neutralButton(getString(caption), onClicked)
 
 
     fun positiveButton(caption: String, onClicked: DialogEvent? = null){
@@ -212,7 +160,7 @@ data class DialogInstance (
         onPositiveButton = onClicked
     }
     fun positiveButton(@StringRes caption: Int, onClicked: DialogEvent? = null) =
-        positiveButton(tr(caption), onClicked)
+            positiveButton(getString(caption), onClicked)
 
 
     fun noButton(onClicked: DialogEvent? = null) = negativeButton(R.string.no, onClicked)
@@ -262,7 +210,7 @@ class DialogFragmentUtil : DialogFragment(), DialogInterface.OnClickListener, Di
                 DialogInterface.BUTTON_NEGATIVE -> onNegativeButton?.invoke(this@DialogFragmentUtil)
                 DialogInterface.BUTTON_NEUTRAL -> onNeutralButton?.invoke(this@DialogFragmentUtil)
                 DialogInterface.BUTTON_POSITIVE -> onPositiveButton?.invoke(this@DialogFragmentUtil)
-                MessageHandlerCanceled -> onCancel?.invoke(this@DialogFragmentUtil)
+                Util.MessageHandlerCanceled -> onCancel?.invoke(this@DialogFragmentUtil)
             }
             if (button >= 0 && onItem != null) onItem?.invoke(this@DialogFragmentUtil, button)
             onDismiss?.invoke(this@DialogFragmentUtil)
@@ -275,7 +223,7 @@ class DialogFragmentUtil : DialogFragment(), DialogInterface.OnClickListener, Di
     }
 
     override fun onCancel(dialog: DialogInterface) {
-        onFinished(MessageHandlerCanceled)
+        onFinished(Util.MessageHandlerCanceled)
     }
 }
 
@@ -290,104 +238,4 @@ fun showPreparedDialog(activity: AppCompatActivity, args: Bundle) {
     val frag = DialogFragmentUtil()
     frag.arguments = args
     frag.show(activity.supportFragmentManager, null)
-}
-
-
-fun Bundle.putSparseBooleanArray(key: String, value: SparseBooleanArray) {
-    putIntArray(key, IntArray(value.size() * 2) { i ->
-        when (i and 1) {
-            0 -> value.keyAt(i / 2)
-            1 -> if (value.valueAt(i / 2)) 1 else 0
-            else -> 0
-        }
-    })
-}
-fun Bundle.getSparseBooleanArray(key: String): SparseBooleanArray? {
-    val a = getIntArray(key) ?: return null
-    if (a.size and 1 == 1) return null
-    val res = SparseBooleanArray()
-    for (i in a.indices step 2)
-        res.put(a[i], a[i + 1] == 1)
-    return res
-}
-
-
-inline fun <reified T: View> Activity.forEachView(vararg ids: Int, f: (T) -> Unit ) {
-    ids.forEach { f.invoke(findViewById(it)) }
-}
-
-fun View.forEachDescendantView(f: (View) -> Unit) {
-    f(this)
-    if (this is ViewGroup) {
-        for (i in 0 until childCount)
-            getChildAt(i).forEachDescendantView(f)
-    }
-}
-
-inline val Context.notificationManager: NotificationManager?
-    get() = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager?
-
-inline val Context.preferences: SharedPreferences
-    get() = PreferenceManager.getDefaultSharedPreferences(this)
-
-
-fun Spinner.setItems(items: Array<String>) {
-    val adapter = ArrayAdapter(this.context, android.R.layout.simple_spinner_item, items)
-    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-    this.adapter = adapter
-}
-
-fun<T> Spinner.setSelection(item: T?, items: Array<T>) {
-    val i = items.indexOf(item)
-    if (i > 0) this.setSelection(i)
-}
-
-fun ListView.setCheckedItemPositions(positions: SparseBooleanArray) {
-    for (i in 0 until count)
-        setItemChecked(i, positions.get(i, false))
-}
-
-inline fun Menu.forItems(f: (MenuItem) -> Unit){
-    for (i in 0 until size())
-        f(getItem(i))
-}
-
-var View.isVisibleNotGone: Boolean
-    get() = this.visibility == View.VISIBLE
-    set(visible) {
-        this.visibility = if (visible) View.VISIBLE else View.GONE
-    }
-
-fun InputStream.readAllText(): String = bufferedReader().use { it.readText() }
-inline fun InputStream.useLines(f: (String) -> Unit) {
-    bufferedReader().use {r ->
-        var line = r.readLine()
-        while (line != null) {
-            f(line)
-            line = r.readLine()
-        }
-    }
-}
-
-fun AssetManager.exists(fileName: String): Boolean {
-    try {
-        val stream = open(fileName)
-        stream.close()
-        return true
-    } catch (ignored: IOException) {
-
-    }
-    return false
-}
-
-
-internal object Clipboard {
-    val manager = currentContext?.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
-    var text: CharSequence?
-        get() = manager?.primaryClip?.getItemAt(0)?.coerceToText(currentContext)
-        set(toCopy) {
-            val clip = ClipData.newPlainText("Book details", toCopy) ?: return
-            manager?.primaryClip = clip
-            showToast(tr(R.string.clipboard_copiedS, toCopy))
-        }
 }

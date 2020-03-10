@@ -1,4 +1,4 @@
-package de.benibela.videlibri
+package de.benibela.videlibri.activities
 
 import android.Manifest
 import android.app.Activity
@@ -17,7 +17,10 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import de.benibela.videlibri.*
 import de.benibela.videlibri.jni.Bridge
+import de.benibela.videlibri.utils.*
+import de.benibela.videlibri.utils.Util.UriToPath.getPath
 import java.io.File
 import java.util.*
 import kotlin.math.abs
@@ -65,13 +68,13 @@ class ImportExport : VideLibriBaseActivity() {
     private fun setButtonText() {
         findViewById<Button>(R.id.button).setText(when (mode) {
             MODE_IMPORT -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-                                R.string.import_export_need_permission
+                R.string.import_export_need_permission
                            else
-                                R.string.import_load
+                R.string.import_load
             else -> if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-                        R.string.import_export_need_permission
+                R.string.import_export_need_permission
                     else
-                        R.string.export
+                R.string.export
         })
     }
 
@@ -254,7 +257,7 @@ class ImportExport : VideLibriBaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == 30017 && resultCode != Activity.RESULT_CANCELED && data != null && data.data != null) {
-            Util.UriToPath.getPath(this, data.data)?.let {
+            getPath(this, data.data)?.let {
                 findViewById<EditText>(R.id.edit).setText(it)
             }
             return

@@ -1,4 +1,4 @@
-package de.benibela.videlibri
+package de.benibela.videlibri.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -13,6 +13,11 @@ import android.widget.Button
 import android.widget.ListView
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import de.benibela.videlibri.*
+import de.benibela.videlibri.components.BookOverviewAdapter
+import de.benibela.videlibri.utils.Clipboard
+import de.benibela.videlibri.components.BookDetails
+import de.benibela.videlibri.components.BookListFragment
 import de.benibela.videlibri.jni.Bridge
 import kotlinx.android.parcel.Parcelize
 import java.util.*
@@ -184,7 +189,7 @@ open class BookListActivity: VideLibriBaseActivity(){
             showDetails(state.currentBookPos)
         else
             showList()
-        de.benibela.videlibri.runOnUiThread {
+        de.benibela.videlibri.utils.runOnUiThread {
             if (state.listFirstItem > 0)
                 list.listview.smoothScrollToPosition(state.listFirstItem)
             state.listFirstItem = 0

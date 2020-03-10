@@ -1,4 +1,4 @@
-package de.benibela.videlibri
+package de.benibela.videlibri.utils
 
 import android.app.Activity
 import android.content.Context
@@ -6,10 +6,11 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
+import de.benibela.videlibri.VideLibriApp
 import java.io.Serializable
 
 inline fun <reified T: Activity> startActivity(vararg params: Pair<String, Any?>) =
-        VideLibriApp.currentContext()?.let{internalStartActivity(it, T::class.java, params)}
+        VideLibriApp.currentContext()?.let{ internalStartActivity(it, T::class.java, params) }
 
 //taken from Anko
 //(cannot use Anko, since Anko has minSdk 15, while VideLibri has minSdk 14 atm)

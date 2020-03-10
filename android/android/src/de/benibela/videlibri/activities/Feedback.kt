@@ -1,4 +1,4 @@
-package de.benibela.videlibri
+package de.benibela.videlibri.activities
 
 
 import android.content.ActivityNotFoundException
@@ -13,10 +13,14 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
 import de.benibela.internettools.okhttp.ClientBuilderCustomizer
+import de.benibela.videlibri.*
+import de.benibela.videlibri.utils.currentActivity
+import de.benibela.videlibri.utils.useLines
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.acra.ACRA
+import de.benibela.videlibri.utils.*
 import java.io.File
 import java.io.FileInputStream
 import java.io.IOException

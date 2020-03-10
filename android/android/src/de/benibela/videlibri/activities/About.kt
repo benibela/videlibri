@@ -1,11 +1,13 @@
-package de.benibela.videlibri
+package de.benibela.videlibri.activities
 
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Xml
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import de.benibela.videlibri.BookDetails.BookDetailsAdapter
+import de.benibela.videlibri.components.BookDetails
+import de.benibela.videlibri.components.BookDetails.BookDetailsAdapter
+import de.benibela.videlibri.R
 import de.benibela.videlibri.jni.Bridge
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
@@ -89,7 +91,8 @@ class About : VideLibriBaseActivity() {
         try {
             details.add(0, BookDetails.Details(getString(R.string.version), "VideLibri " + packageManager.getPackageInfo("de.benibela.videlibri", 0).versionName))
         } catch (e: PackageManager.NameNotFoundException) {
-            details.add(0, BookDetails.Details(getString(R.string.version), "VideLibri " + (changelog.firstVersion.toIntOrNull() ?: 0) / 1000.0 + " ??"))
+            details.add(0, BookDetails.Details(getString(R.string.version), "VideLibri " + (changelog.firstVersion.toIntOrNull()
+                    ?: 0) / 1000.0 + " ??"))
         }
         details.add(1, BookDetails.Details(getString(R.string.homepage), "http://www.videlibri.de"))
         details.add(2, BookDetails.Details(getString(R.string.about_manual), "http://www.videlibri.de/help"))
@@ -98,7 +101,7 @@ class About : VideLibriBaseActivity() {
         details.add(5, BookDetails.Details("Covers", "http://www.openlibrary.org ; http://amazon.com ; http://www.buchhandel.de"))
 
         changelog.versions.forEach { (version, date, changes) ->
-            details.add(BookDetails.Details(getString(R.string.about_version_date, version, date), changes.joinToString ("\n")))
+            details.add(BookDetails.Details(getString(R.string.about_version_date, version, date), changes.joinToString("\n")))
         }
 
         val lv = findViewById<RecyclerView>(R.id.bookDetailsRecyclerView)

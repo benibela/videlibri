@@ -1,5 +1,6 @@
 package de.benibela.videlibri
 
+import de.benibela.videlibri.activities.LendingList
 import de.benibela.videlibri.jni.Bridge
 import java.util.*
 

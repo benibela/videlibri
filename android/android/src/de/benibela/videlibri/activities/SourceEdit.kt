@@ -1,11 +1,13 @@
-package de.benibela.videlibri
+package de.benibela.videlibri.activities
 
 import android.os.Bundle
 import android.view.View
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
+import de.benibela.videlibri.*
 import de.benibela.videlibri.jni.Bridge
 import java.io.*
+import de.benibela.videlibri.utils.*
 
 class SourceEdit : VideLibriBaseActivity() {
     private val BASEDIR_TEMPLATES = "libraries/templates/"
@@ -49,9 +51,9 @@ class SourceEdit : VideLibriBaseActivity() {
             }
             selection1.size - 1 -> {
                 showDialog {
-                    message( R.string.source_edit_new_dialog_filename)
+                    message(R.string.source_edit_new_dialog_filename)
                     onCancel = { currentActivity<SourceEdit>()?.spinner?.setSelection(0) }
-                    editWithOkButton {text ->
+                    editWithOkButton { text ->
                         withActivity<SourceEdit> {
                             val emptyDefaultSystem = """<?xml version="1.0" encoding="UTF-8"?>
 <actions>
@@ -137,8 +139,8 @@ class SourceEdit : VideLibriBaseActivity() {
                 if (position == selection2.size - 1) {
                     showDialog {
                         message(R.string.source_edit_new_dialog_filename)
-                         onCancel = { currentActivity<SourceEdit>()?.fileSpinner?.setSelection(0) }
-                        editWithOkButton {text ->
+                        onCancel = { currentActivity<SourceEdit>()?.fileSpinner?.setSelection(0) }
+                        editWithOkButton { text ->
                             withActivity<SourceEdit> {
                                 if (spinner.selectedItemPosition == 0) {
                                     //new library
@@ -147,7 +149,7 @@ class SourceEdit : VideLibriBaseActivity() {
                                         instance?.onCancel?.invoke(this@editWithOkButton)
                                     } else {
                                         val libid = text.replace(".xml", "")
-                                        Bridge.VLSetLibraryDetails(libid, Bridge.LibraryDetails().apply{
+                                        Bridge.VLSetLibraryDetails(libid, Bridge.LibraryDetails().apply {
                                             prettyName = tr(R.string.source_edit_new_library_default_name)
                                             templateId = "sru"
                                         })

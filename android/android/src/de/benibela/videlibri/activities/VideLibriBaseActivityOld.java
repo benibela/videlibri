@@ -1,32 +1,27 @@
-package de.benibela.videlibri;
+package de.benibela.videlibri.activities;
 import android.annotation.SuppressLint;
 
-import androidx.annotation.LayoutRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.view.GravityCompat;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+
+import de.benibela.videlibri.utils.Util;
 
 
 @SuppressLint("Registered")
 public class VideLibriBaseActivityOld extends AppCompatActivity{
     protected static final int RETURNED_FROM_NEW_LIBRARY = 29326;
 
-    static final int LOADING_ACCOUNT_UPDATE = 1;
-    static final int LOADING_SEARCH_CONNECTING = 200;
-    static final int LOADING_SEARCH_SEARCHING = 201;
-    static final int LOADING_SEARCH_DETAILS = 202;
-    static final int LOADING_SEARCH_ORDER = 203;
-    static final int LOADING_SEARCH_ORDER_HOLDING = 204;
-    static final int LOADING_SEARCH_MESSAGE = 205;
-    static final int LOADING_INSTALL_LIBRARY = 600;
+    static final public int LOADING_ACCOUNT_UPDATE = 1;
+    static final public int LOADING_SEARCH_CONNECTING = 200;
+    static final public int LOADING_SEARCH_SEARCHING = 201;
+    static final public int LOADING_SEARCH_DETAILS = 202;
+    static final public int LOADING_SEARCH_ORDER = 203;
+    static final public int LOADING_SEARCH_ORDER_HOLDING = 204;
+    static final public int LOADING_SEARCH_MESSAGE = 205;
+    static final public int LOADING_INSTALL_LIBRARY = 600;
 
 
 

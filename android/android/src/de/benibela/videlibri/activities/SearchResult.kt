@@ -1,11 +1,13 @@
-package de.benibela.videlibri
+package de.benibela.videlibri.activities
 
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
+import de.benibela.videlibri.*
 import de.benibela.videlibri.jni.Bridge
 import de.benibela.videlibri.jni.FormParams
+import de.benibela.videlibri.utils.*
 import kotlin.math.max
 
 class SearchResult : BookListActivity(), SearchEventHandler {
@@ -89,7 +91,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
                 currentBook()?.let { book ->
                     var matchingAccounts = accounts.filter { it.libId == libId  }
                     if (matchingAccounts.isEmpty())
-                        matchingAccounts = accounts.toArray.toList()
+                        matchingAccounts = Accounts.toArray.toList()
                     if (matchingAccounts.isEmpty())
                         showMessage(tr(R.string.search_needaccount_for_wishlist))
                     else
@@ -99,7 +101,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
                             Bridge.VLChangeBook(null, book)
                             LendingList.refreshDisplayedLendBooks()
                             book.account = null
-			    showToast(R.string.search_copied_to_wishlist)
+                            showToast(R.string.search_copied_to_wishlist)
                         }
 		    return true
                 }
@@ -271,7 +273,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
             showMessage(tr(R.string.search_needaccount))
             return
         }
-        showChooseAccountDialog(getString(R.string.search_orderTargetAccount, book.title), matchingAccounts) {account ->
+        showChooseAccountDialog(getString(R.string.search_orderTargetAccount, book.title), matchingAccounts) { account ->
             book.account = account
             currentlyOrderedBook = book
             withActivity<SearchResult> {
@@ -308,7 +310,8 @@ class SearchResult : BookListActivity(), SearchEventHandler {
         //if the book has an account, but is not ordered, it will be shown as lend, which is completely wrong
 
         //unfortunately we do not know which book was supposed to be ordered
-        val book = currentlyOrderedBook ?: details.book
+        val book = currentlyOrderedBook
+                ?: details.book
         if (!book.hasOrderedStatus())
             book.account = null
     }

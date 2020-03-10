@@ -1,9 +1,13 @@
-package de.benibela.videlibri
+package de.benibela.videlibri.activities
 
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.view.View
 import android.widget.Button
+import de.benibela.videlibri.R
+import de.benibela.videlibri.VideLibriApp
+import de.benibela.videlibri.utils.filterToSecondaryBookCache
+import de.benibela.videlibri.utils.makePrimaryBookCache
 
 class RenewList : BookListActivity() {
     lateinit var button: Button
@@ -24,7 +28,8 @@ class RenewList : BookListActivity() {
             isEnabled = false
             text = tr(R.string.booklist_noselection)
             setOnClickListener {
-                VideLibriApp.renewBooks(selectedBooks?.toTypedArray() ?: return@setOnClickListener)
+                VideLibriApp.renewBooks(selectedBooks?.toTypedArray()
+                        ?: return@setOnClickListener)
                 finish()
             }
         }

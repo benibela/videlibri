@@ -39,7 +39,7 @@
             android:key="notifications"
             android:title="@string/lay_options_option_warn"
             android:summaryOn="@string/lay_options_option_warn_summary_on"/>
-        <de.benibela.videlibri.PreferenceSeekBar
+        <de.benibela.videlibri.components.PreferenceSeekBar
             android:defaultValue="15"
             android:max="1440"
             android:dependency="notifications"
@@ -49,7 +49,7 @@
             app:safeMax="120"
             app:unsafeWarning="@string/lay_options_label_autocheckdelay_too_large"
             />
-        <de.benibela.videlibri.PreferenceSeekBar
+        <de.benibela.videlibri.components.PreferenceSeekBar
             android:defaultValue="3"
             android:max="31"
             android:key="bridge_nearTime"
@@ -57,7 +57,7 @@
             app:dynamicSummary="@string/lay_options_warningtimedelay_summary"
             app:safeMin="3"
             app:unsafeWarning="@string/lay_options_warningtimedelay_too_small"
-            ></de.benibela.videlibri.PreferenceSeekBar>
+            ></de.benibela.videlibri.components.PreferenceSeekBar>
 
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/lay_options_caption_ownlibs" android:key="ownlibraries">
@@ -65,7 +65,7 @@
     <PreferenceCategory android:title="@string/lay_options_caption_owncertificates" android:key="owncertificates">
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/lay_options_caption_misc">
-        <de.benibela.videlibri.PreferenceSeekBar
+        <de.benibela.videlibri.components.PreferenceSeekBar
             android:defaultValue="3"
             android:max="14"
             android:key="bridge_refreshInterval"
@@ -73,7 +73,7 @@
             app:dynamicSummary="@string/lay_options_check_summary"
             app:safeMax="5"
             app:unsafeWarning="@string/lay_options_check_summary_too_large"
-            ></de.benibela.videlibri.PreferenceSeekBar>
+            ></de.benibela.videlibri.components.PreferenceSeekBar>
 
         <ListPreference
             android:defaultValue=""

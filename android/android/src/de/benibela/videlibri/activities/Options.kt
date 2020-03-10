@@ -1,4 +1,4 @@
-package de.benibela.videlibri
+package de.benibela.videlibri.activities
 
 import android.app.Activity
 import android.content.Intent
@@ -11,10 +11,12 @@ import android.util.TypedValue
 import android.view.View
 import android.widget.CompoundButton
 import android.widget.Spinner
+import de.benibela.videlibri.*
 import de.benibela.videlibri.internet.DownloadCertificate
 import de.benibela.videlibri.internet.UserKeyStore
 import de.benibela.videlibri.jni.Bridge
 import de.benibela.videlibri.notifications.NotificationScheduling
+import de.benibela.videlibri.utils.*
 import java.util.regex.Pattern
 
 
@@ -98,9 +100,9 @@ class Options : VideLibriBaseActivity() {
             cpm.beginCat("accounts")
 
             var summary = getString(R.string.lay_options_label_accounts_summary)
-            accounts.forEach {acc ->
+            accounts.forEach { acc ->
                 cpm.makePreference(acc.prettyName, summary, Preference.OnPreferenceClickListener {
-                    startActivity<AccountInfo>(
+                    de.benibela.videlibri.utils.startActivity<AccountInfo>(
                             "mode" to AccountInfo.MODE_ACCOUNT_MODIFY,
                             "account" to acc
                     )
@@ -109,7 +111,7 @@ class Options : VideLibriBaseActivity() {
             }
 
             cpm.makePreference(getString(R.string.lay_options_btn_newaccount), Preference.OnPreferenceClickListener {
-                startActivity<AccountInfo>(
+                de.benibela.videlibri.utils.startActivity<AccountInfo>(
                         "mode" to AccountInfo.MODE_ACCOUNT_CREATION
                 )
                 true
@@ -124,7 +126,7 @@ class Options : VideLibriBaseActivity() {
             options.roUserLibIds.filterNotNull().forEach { userLibId ->
                 val details = Bridge.VLGetLibraryDetails(userLibId) ?: return@forEach
                 cpm.makePreference(details.prettyName, summary, Preference.OnPreferenceClickListener {
-                    startActivity<NewLibrary>(
+                    de.benibela.videlibri.utils.startActivity<NewLibrary>(
                             "mode" to NewLibrary.MODE_LIBRARY_MODIFY,
                             "libId" to userLibId
                     )
@@ -133,11 +135,11 @@ class Options : VideLibriBaseActivity() {
             }
 
             cpm.makePreference(getString(R.string.lay_options_btn_newlib), Preference.OnPreferenceClickListener {
-                startActivity<NewLibrary>()
+                de.benibela.videlibri.utils.startActivity<NewLibrary>()
                 true
             })
             cpm.makePreference(getString(R.string.lay_options_btn_editsource), Preference.OnPreferenceClickListener {
-                startActivity<SourceEdit>()
+                de.benibela.videlibri.utils.startActivity<SourceEdit>()
                 true
             })
 

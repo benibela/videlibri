@@ -1,4 +1,4 @@
-package de.benibela.videlibri
+package de.benibela.videlibri.activities
 
 import android.os.Bundle
 import android.view.View
@@ -8,7 +8,10 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import de.benibela.videlibri.R
+import de.benibela.videlibri.components.BookDetails
 import de.benibela.videlibri.jni.Bridge
+import de.benibela.videlibri.utils.useLines
 import java.io.IOException
 import java.util.*
 import java.util.regex.Pattern

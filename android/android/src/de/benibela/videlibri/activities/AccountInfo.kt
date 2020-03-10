@@ -1,4 +1,4 @@
-package de.benibela.videlibri
+package de.benibela.videlibri.activities
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -9,7 +9,9 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.*
+import de.benibela.videlibri.*
 import de.benibela.videlibri.jni.Bridge
+import de.benibela.videlibri.utils.*
 
 internal open class EmptyTextWatcher : TextWatcher {
     override fun beforeTextChanged(charSequence: CharSequence, i: Int, i2: Int, i3: Int) {}
@@ -83,7 +85,7 @@ class AccountInfo : VideLibriBaseActivity() {
 
             findViewById<View>(R.id.deleteButton).setOnClickListener {
                 showMessageYesNo(R.string.account_delete) {
-                    withActivity<AccountInfo> {deleteAccountNow()}
+                    withActivity<AccountInfo> { deleteAccountNow() }
                 }
             }
             findViewById<Button>(R.id.completeAccountButton).text = tr(R.string.change)
@@ -100,13 +102,14 @@ class AccountInfo : VideLibriBaseActivity() {
             lib.setOnClickListener { updateLibrary() }
 
             findViewById<View>(R.id.deleteButton).visibility = View.GONE
-            findViewById<View>(R.id.completeAccountButton).setOnClickListener(View.OnClickListener {_ ->
+            findViewById<View>(R.id.completeAccountButton).setOnClickListener(View.OnClickListener { _ ->
                 if (!checkInputConstraints())
                     return@OnClickListener
                 if (accountId.text.isEmpty())
                     addAccountNow()
                 else {
-                    if (accounts.get(libdetails?.id?:"", accountId.text.toString()) != null) {
+                    if (Accounts.get(libdetails?.id
+                                    ?: "", accountId.text.toString()) != null) {
                         showMessage(getString(R.string.R_string_warning_duplicate_account))
                         return@OnClickListener
                     }
@@ -155,7 +158,7 @@ class AccountInfo : VideLibriBaseActivity() {
         findViewById<View>(R.id.libraryTextView).postDelayed({
             startActivityForResult<LibraryList>(
                     REQUEST_LIBRARY_FOR_ACCOUNT_CREATION,
-                    "reason" to getString( if (mode == MODE_ACCOUNT_CREATION_INITIAL) R.string.account_createinitial else R.string.account_create )
+                    "reason" to getString( if (mode == MODE_ACCOUNT_CREATION_INITIAL) R.string.account_createinitial else R.string.account_create)
             )
         }, 300)
     }
@@ -234,18 +237,18 @@ class AccountInfo : VideLibriBaseActivity() {
 
     private fun addAccountNow() {
         inputToAccount()?.let {
-            accounts.add(it)
+            Accounts.add(it)
             finishWithResult()
         }
     }
     private fun changeAccountNow() {
         inputToAccount()?.let {
-            accounts.change(oldAccount, it)
+            Accounts.change(oldAccount, it)
             finishWithResult()
         }
     }
     private fun deleteAccountNow() {
-        accounts.delete(oldAccount)
+        Accounts.delete(oldAccount)
         finishWithResult()
     }
 

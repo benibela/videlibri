@@ -1,5 +1,6 @@
-package de.benibela.videlibri
+package de.benibela.videlibri.utils
 
+import de.benibela.videlibri.*
 import de.benibela.videlibri.jni.Bridge
 import java.util.*
 

@@ -1,4 +1,4 @@
-package de.benibela.videlibri;
+package de.benibela.videlibri.activities;
 
 
 import android.os.Bundle;
@@ -10,9 +10,13 @@ import android.widget.*;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.benibela.videlibri.R;
+import de.benibela.videlibri.utils.Util;
 import de.benibela.videlibri.jni.Bridge;
 
-public class NewLibrary extends VideLibriBaseActivity{
+import static de.benibela.videlibri.utils.DialogsKt.showMessage;
+
+public class NewLibrary extends VideLibriBaseActivity {
 
 
     static final int MODE_LIBRARY_MODIFY = 1237;
@@ -165,7 +169,7 @@ spinner.setAdapter(adapter);*/
         try {
             details = Bridge.VLGetTemplateDetails(template);
         } catch (Bridge.InternalError e) {
-            UtilKt.showMessage(e.getLocalizedMessage());
+            showMessage(e.getLocalizedMessage());
         }
         if (details == null) return;
 

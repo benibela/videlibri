@@ -19,7 +19,7 @@
 	    android:networkSecurityConfig="@xml/network_security_config"
     >
 <!--        <uses-library android:name="org.apache.http.legacy" android:required="false" /> < !- - reactivated httpclient removed with 23 -->
-        <activity android:name=".LendingList"
+        <activity android:name=".activities.LendingList"
                   android:configChanges="keyboardHidden"
                   android:label="@string/app_name"
                   android:launchMode="singleTop">
@@ -29,7 +29,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".LibraryList"
+        <activity android:name=".activities.LibraryList"
             android:configChanges="keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop">
@@ -37,7 +37,7 @@
         </activity>
 
 
-        <activity android:name=".AccountInfo"
+        <activity android:name=".activities.AccountInfo"
                   android:configChanges="keyboardHidden"
                   android:label="@string/app_name"
                   android:launchMode="singleTop">
@@ -45,56 +45,56 @@
         </activity>
 
 
-        <activity android:name=".Search"
+        <activity android:name=".activities.Search"
                   android:configChanges="keyboardHidden"
                   android:label="@string/app_name"
                   android:launchMode="singleTop">
 
         </activity>
 
-        <activity android:name=".SearchResult"
+        <activity android:name=".activities.SearchResult"
                   android:configChanges="keyboardHidden"
                   android:label="@string/app_name"
                   android:launchMode="singleTop">
 
         </activity>
 
-        <activity android:name=".Options"
+        <activity android:name=".activities.Options"
             android:configChanges="keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop">
 
         </activity>
 
-        <activity android:name=".About"
+        <activity android:name=".activities.About"
                   android:configChanges="keyboardHidden"
                   android:label="@string/app_name"
                   android:launchMode="singleTop">
 
         </activity>
 
-        <activity android:name=".DebugLogViewer"
+        <activity android:name=".activities.DebugLogViewer"
                   android:configChanges="keyboardHidden"
                   android:label="@string/menu_debuglog"
                   android:launchMode="singleTop">
 
         </activity>
 
-        <activity android:name=".Feedback"
+        <activity android:name=".activities.Feedback"
                   android:configChanges="keyboardHidden"
                   android:label="@string/app_name"
                   android:launchMode="singleTop">
 
         </activity>
 
-        <activity android:name=".NewLibrary"
+        <activity android:name=".activities.NewLibrary"
                   android:configChanges="keyboardHidden"
                   android:label="@string/app_name"
                   android:launchMode="singleTop">
 
         </activity>
 
-        <activity android:name=".SourceEdit"
+        <activity android:name=".activities.SourceEdit"
             android:configChanges="keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
@@ -102,14 +102,14 @@
 
         </activity>
 
-        <activity android:name=".RenewList"
+        <activity android:name=".activities.RenewList"
                   android:configChanges="keyboardHidden"
                   android:label="@string/app_name"
                   android:launchMode="singleTop">
 
         </activity>
 
-        <activity android:name=".ImportExport"
+        <activity android:name=".activities.ImportExport"
                   android:configChanges="keyboardHidden"
                   android:label="@string/app_name"
             >

@@ -7,7 +7,7 @@ import android.os.Build
 import de.benibela.videlibri.notifications.jobs.NotificationJobService
 import de.benibela.videlibri.notifications.jobs.rescheduleDailyIfNecessaryAsJob
 import de.benibela.videlibri.notifications.service.NotificationService
-import de.benibela.videlibri.preferences
+import de.benibela.videlibri.utils.preferences
 
 class NotificationOnBootCompleted : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent?) {

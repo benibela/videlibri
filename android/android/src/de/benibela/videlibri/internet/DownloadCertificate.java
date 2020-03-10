@@ -9,10 +9,10 @@ import java.security.GeneralSecurityException;
 import java.security.cert.X509Certificate;
 
 import de.benibela.internettools.okhttp.ClientBuilderCustomizer;
-import de.benibela.videlibri.Options;
+import de.benibela.videlibri.activities.Options;
 import de.benibela.videlibri.R;
-import de.benibela.videlibri.Util;
-import de.benibela.videlibri.UtilKt;
+import de.benibela.videlibri.utils.DialogsKt;
+import de.benibela.videlibri.utils.Util;
 import de.benibela.videlibri.VideLibriApp;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -75,7 +75,7 @@ public class DownloadCertificate implements Runnable {
                 @Override
                 public void run() {
                     UserKeyStore.storeUserCertificates(PreferenceManager.getDefaultSharedPreferences(context));
-                    UtilKt.showMessage(fmessage);
+                    DialogsKt.showMessage(fmessage);
                     if (context instanceof Options)
                         ((Options) (context)).updatePreferences();
                 }

@@ -1,4 +1,4 @@
-package de.benibela.videlibri
+package de.benibela.videlibri.components
 
 import android.graphics.Color
 import android.graphics.Typeface
@@ -6,9 +6,16 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import de.benibela.multilevellistview.ClickableRecyclerView
-import de.benibela.videlibri.BookFormatter.shortened
+import de.benibela.videlibri.R
+import de.benibela.videlibri.activities.BookListActivity
+import de.benibela.videlibri.activities.BookListDisplayOptions
+import de.benibela.videlibri.utils.BookFormatter.shortened
 import de.benibela.videlibri.databinding.BookOverviewRowBinding
 import de.benibela.videlibri.jni.Bridge
+import de.benibela.videlibri.utils.BookFormatter
+import de.benibela.videlibri.utils.getDateText
+import de.benibela.videlibri.utils.getMoreText
+import de.benibela.videlibri.utils.getStatusColor
 import java.util.*
 
 private const val VIEW_TYPE_DEFAULT = 0
