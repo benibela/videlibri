@@ -43,7 +43,7 @@ class LendingList: BookListActivity(){
         registerState(::filter)
         createDrawerToggle()
 
-        searchPanel = findViewById<View>(R.id.searchFilterPanel)
+        searchPanel = findViewById(R.id.searchFilterPanel)
 
         updateFilterMultiLine()
         updateViewFilters()
@@ -104,7 +104,7 @@ class LendingList: BookListActivity(){
     private fun updateViewFilters() {
         val sp = PreferenceManager.getDefaultSharedPreferences(this)
         displayOptions.readFromPreferences(sp)
-        searchPanel?.isVisibleNotGone = !("__disabled" == displayOptions.filterKey)
+        searchPanel?.isVisibleNotGone = "__disabled" != displayOptions.filterKey
         displayHistory = sp.getBoolean("displayHistory", false)
         alwaysFilterOnHistory = sp.getBoolean("alwaysFilterOnHistory", true)
     }
@@ -224,7 +224,7 @@ class LendingList: BookListActivity(){
                 R.id.refresh -> accounts.filterWithRunningUpdate().isEmpty()
                 R.id.filter, R.id.renew, R.id.renewlist -> hasAccounts
                 R.id.research_menu -> hasAccounts && detailsVisible()
-                R.id.delete -> hasAccounts && detailsVisible() && details.book.history == true
+                R.id.delete -> hasAccounts && detailsVisible() && details.book.history
                 else -> return@forItems
             }
         }

@@ -6,10 +6,6 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import de.benibela.multilevellistview.ClickableRecyclerView
-import de.benibela.videlibri.BookFormatter.getBookDateText
-import de.benibela.videlibri.BookFormatter.getBookMoreText
-import de.benibela.videlibri.BookFormatter.getStatusColor
-import de.benibela.videlibri.BookFormatter.isGroupingHeaderFakeBook
 import de.benibela.videlibri.BookFormatter.shortened
 import de.benibela.videlibri.databinding.BookOverviewRowBinding
 import de.benibela.videlibri.jni.Bridge
@@ -37,7 +33,7 @@ internal class BookOverviewAdapter(private val context: BookListActivity, books:
     override fun getItemCount(): Int = completeCount
 
     override fun getItemViewType(position: Int): Int = get(position).let { book ->
-        if (options.isGrouped() && isGroupingHeaderFakeBook(book)) VIEW_TYPE_GROUPING
+        if (options.isGrouped() && book.isGroupingHeader) VIEW_TYPE_GROUPING
         else if (options.noDetailsInOverview) VIEW_TYPE_NODETAILS
         else VIEW_TYPE_DEFAULT
     }
@@ -64,7 +60,7 @@ internal class BookOverviewAdapter(private val context: BookListActivity, books:
         val binding = holder.binding as BookOverviewRowBinding
         binding.caption.text = shortened(book.title)
 
-        val isGroupingHeader = options.isGrouped() && isGroupingHeaderFakeBook(book)
+        val isGroupingHeader = options.isGrouped() && book.isGroupingHeader
         if (options.isGrouped()) {
             if (isGroupingHeader) {
                 binding.caption.setTextColor(book.getStatusColor())
@@ -76,7 +72,7 @@ internal class BookOverviewAdapter(private val context: BookListActivity, books:
             context.onPlaceHolderShown(position)
             binding.more.text = book.author //not an author
         } else if (!isGroupingHeader) {
-            binding.more.text = getBookMoreText(book)
+            binding.more.text = book.getMoreText()
         }
         val sb = context.selectedBooks
         if (sb != null) {
@@ -84,8 +80,8 @@ internal class BookOverviewAdapter(private val context: BookListActivity, books:
             if (isSelected) holder.itemView.setBackgroundColor(Color.rgb(0, 0, 96))
             else holder.itemView.setBackgroundColor(defaultBackgroundColor)
         }
-        binding.date.text = getBookDateText(book, options)
-        var c = getStatusColor(book)
+        binding.date.text = book.getDateText(options)
+        var c = book.getStatusColor()
         if (c == -1) c = defaultColor
         binding.date.setTextColor(c)
     }
@@ -100,13 +96,13 @@ internal class BookOverviewAdapter(private val context: BookListActivity, books:
 
         return books.indices.joinToString(paragraph) { pos ->
             val book = books[pos]
-            val isGroupingHeader = options.isGrouped() && isGroupingHeaderFakeBook(book)
+            val isGroupingHeader = options.isGrouped() && book.isGroupingHeader
             if (isGroupingHeader) {
                 if (pos == 0) book.title
                 else "$paragraph${book.title}"
             } else  {
-                val more = if (!options.noDetailsInOverview) getBookMoreText(book) else ""
-                val date = if (!book.history) ": ${getBookDateText(book, options)}" else ""
+                val more = if (!options.noDetailsInOverview) book.getMoreText() else ""
+                val date = if (!book.history) ": ${book.getDateText(options)}" else ""
                 "${book.title} $more$date"
             }
         }

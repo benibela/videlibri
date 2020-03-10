@@ -3,7 +3,7 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.SwitchCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.appcompat.widget.SwitchCompat
         android:textOn=""
         android:textOff=""
         android:showText="false"

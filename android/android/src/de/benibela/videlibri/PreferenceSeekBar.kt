@@ -57,6 +57,6 @@ class PreferenceSeekBar @JvmOverloads constructor(context: Context, attrs: Attri
         val s = dynamicSummary?.let { String.format(it, value) } ?: ""
         //todo: plural https://stackoverflow.com/a/25648349
         summary = if (editable) s
-                  else s + "   " +getString(R.string.lay_options_seekbar_tap_to_change);
+                  else s + "   " +getString(R.string.lay_options_seekbar_tap_to_change)
     }
 }

@@ -73,7 +73,7 @@
             android:padding="@dimen/optionheaderpadding"
             android:labelFor="@id/viewHistory"
             android:text="@string/lay_options_label_view_history" />
-        <androidx.appcompat.widget.SwitchCompat xmlns:android="http://schemas.android.com/apk/res/android"
+        <androidx.appcompat.widget.SwitchCompat
             android:textOn=""
             android:textOff=""
             android:showText="false"

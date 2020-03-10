@@ -9,7 +9,6 @@ import android.content.Context
 import android.os.Build
 import android.os.Handler
 import androidx.annotation.RequiresApi
-import android.util.Log
 import de.benibela.videlibri.Accounts
 import de.benibela.videlibri.VideLibriApp
 import de.benibela.videlibri.notifications.NotificationScheduling
@@ -89,11 +88,11 @@ class NotificationJobServiceNoUpdate: JobService() {
         if (!NotificationScheduling.preferenceNotificationsEnabled(this))
             return false
         Notifier.updateNotification(this)
-        return false;
+        return false
     }
 
     override fun onStopJob(params: JobParameters?): Boolean {
-        return false;
+        return false
     }
 }
 

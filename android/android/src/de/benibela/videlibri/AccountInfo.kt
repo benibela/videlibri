@@ -90,7 +90,7 @@ class AccountInfo : VideLibriBaseActivity() {
             findViewById<View>(R.id.completeAccountButton).setOnClickListener {
                 if (!checkInputConstraints())
                     return@setOnClickListener
-                possiblyWarnAboutShortExtendDays() {
+                possiblyWarnAboutShortExtendDays {
                     withActivity<AccountInfo> { changeAccountNow() }
                 }
 
@@ -112,7 +112,7 @@ class AccountInfo : VideLibriBaseActivity() {
                     }
                     warnAboutAutoExtend {
                         withActivity<AccountInfo> {
-                            possiblyWarnAboutShortExtendDays() {
+                            possiblyWarnAboutShortExtendDays {
                                 libdetails?.let {
                                     if (it.prettyName.contains("(nur Suche getestet)"))
                                         showDialog {
@@ -179,7 +179,7 @@ class AccountInfo : VideLibriBaseActivity() {
             if (libdetails == null)
                 R.string.error_nolibselected
             else if (accountId.text.isEmpty()) {
-                if (!accountPassword.text.isEmpty())
+                if (accountPassword.text.isNotEmpty())
                     R.string.warning_unnecessary_password
                 else if (!libdetails.searchMightWork)
                     R.string.warning_search_is_broken

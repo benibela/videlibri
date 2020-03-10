@@ -45,12 +45,12 @@ public class VideLibriBaseActivityOld extends AppCompatActivity{
 
 
     public void setTextViewText(int id, CharSequence text){
-        TextView tv = (TextView) findViewById(id);
+        TextView tv = findViewById(id);
         tv.setText(text);
     }
 
     public String getTextViewText(int id){
-        TextView tv = (TextView) findViewById(id);
+        TextView tv = findViewById(id);
         return tv.getText().toString();
     }
 

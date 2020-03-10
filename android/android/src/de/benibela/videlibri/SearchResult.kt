@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import de.benibela.videlibri.jni.Bridge
 import de.benibela.videlibri.jni.FormParams
+import kotlin.math.max
 
 class SearchResult : BookListActivity(), SearchEventHandler {
 
@@ -47,7 +48,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
 
     private fun setTitle() {
         when (searcher?.state) {
-            Search.SEARCHER_STATE_SEARCHING -> title = tr(R.string.search_resultcountD, Math.max(bookCache.size, searcher!!.totalResultCount))
+            Search.SEARCHER_STATE_SEARCHING -> title = tr(R.string.search_resultcountD, max(bookCache.size, searcher!!.totalResultCount))
             Search.SEARCHER_STATE_INIT, Search.SEARCHER_STATE_CONNECTED -> setTitle(R.string.search_loading)
             Search.SEARCHER_STATE_FAILED -> setTitle(R.string.search_failed)
             null -> setTitle(R.string.search_lost)
@@ -59,7 +60,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
         searcher?.let {searcher ->
             if (searcher.nativePtr != 0L) {
                 if (!cacheShown)
-                    displayBookCache(Math.max(bookCache.size, searcher.totalResultCount))
+                    displayBookCache(max(bookCache.size, searcher.totalResultCount))
                 for (event in searcher.pendingEvents)
                     onSearchEvent(event)
             }
@@ -173,7 +174,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
             searcher.bookCache.clear()
             searcher.bookCache.addAll(books)
             bookCache = searcher.bookCache
-            val realCount = Math.max(searcher.totalResultCount, bookCache.size)
+            val realCount = max(searcher.totalResultCount, bookCache.size)
             displayBookCache(realCount)
         }
         setTitle()
@@ -307,7 +308,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
         //if the book has an account, but is not ordered, it will be shown as lend, which is completely wrong
 
         //unfortunately we do not know which book was supposed to be ordered
-        val book = currentlyOrderedBook ?: details.book ?: return
+        val book = currentlyOrderedBook ?: details.book
         if (!book.hasOrderedStatus())
             book.account = null
     }

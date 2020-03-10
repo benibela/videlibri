@@ -27,44 +27,10 @@ internal object BookFormatter {
     }
 
 
-    @JvmStatic fun isGroupingHeaderFakeBook(book: Bridge.Book): Boolean {
-        return book.isGroupingHeader
-    }
-
-
     @JvmStatic fun shortened(s: String): String =
             if (s.length < 300) s
             else s.substring(0, 300) + "..."
 
-    @JvmStatic fun getBookMoreText(book: Bridge.Book): String =
-        listOf(shortened(book.author.trim { it <= ' ' }),
-                book.year,
-                book.id).filter { it.isNotBlank() }.joinToString(" ; ") 
-
-    @JvmStatic fun getBookDateText(book: Bridge.Book, options: BookListDisplayOptions): String =
-        if (book.account != null && !book.history) { //lend book
-            when (book.status) {
-                Bridge.Book.StatusEnum.Provided -> tr.bookStatus.provided
-                Bridge.Book.StatusEnum.Ordered -> tr.bookStatus.ordered
-                else -> {
-                    val fd = formatDate(book.dueDate)
-                    if (options.showRenewCount) {
-                        val renewCount = book.getProperty("renewCount")
-                        if ("" != renewCount && "0" != renewCount) "${renewCount}V $fd"
-                        else fd
-                    } else fd
-                }
-            }
-        } else when (book.status) {
-                Bridge.Book.StatusEnum.Available ->  "\u2713"
-                Bridge.Book.StatusEnum.Lend -> "\u2717"
-                Bridge.Book.StatusEnum.Virtual ->  "?"
-                Bridge.Book.StatusEnum.Presentation -> "\u2717"
-                Bridge.Book.StatusEnum.InterLoan ->  "\u2717"
-                else -> ""
-            }
-
-    @JvmStatic fun getStatusColor(book: Bridge.Book) = book.getStatusColor()
 
     @JvmStatic
     private fun formatDate(pascalDate: Int, full: Boolean): String {
@@ -85,6 +51,34 @@ internal object BookFormatter {
     @JvmStatic fun formatDate(pascalDate: Int): String = formatDate(pascalDate, false)
     @JvmStatic fun formatDateFull(pascalDate: Int): String = formatDate(pascalDate, true)
 }
+
+fun Bridge.Book.getMoreText(): String =
+        listOf(BookFormatter.shortened(author.trim { it <= ' ' }),
+                year,
+                id).filter { it.isNotBlank() }.joinToString(" ; ")
+
+fun Bridge.Book.getDateText(options: BookListDisplayOptions): String =
+        if (account != null && !history) { //lend book
+            when (status) {
+                Bridge.Book.StatusEnum.Provided -> BookFormatter.tr.bookStatus.provided
+                Bridge.Book.StatusEnum.Ordered -> BookFormatter.tr.bookStatus.ordered
+                else -> {
+                    val fd = BookFormatter.formatDate(dueDate)
+                    if (options.showRenewCount) {
+                        val renewCount = this["renewCount"]
+                        if ("" != renewCount && "0" != renewCount) "${renewCount}V $fd"
+                        else fd
+                    } else fd
+                }
+            }
+        } else when (status) {
+            Bridge.Book.StatusEnum.Available ->  "\u2713"
+            Bridge.Book.StatusEnum.Lend -> "\u2717"
+            Bridge.Book.StatusEnum.Virtual ->  "?"
+            Bridge.Book.StatusEnum.Presentation -> "\u2717"
+            Bridge.Book.StatusEnum.InterLoan ->  "\u2717"
+            else -> ""
+        }
 
 fun Bridge.Book.getStatusColor(): Int =
         if (history)

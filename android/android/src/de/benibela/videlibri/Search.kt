@@ -62,7 +62,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
                 libName = Bridge.VLGetLibraryDetails(libId)?.prettyName ?: ""
 
             val lib = findViewById<TextView>(R.id.library)
-            lib.setText("$libName (${getString(R.string.change)})")
+            lib.text = "$libName (${getString(R.string.change)})"
             lib.paintFlags = lib.paintFlags or Paint.UNDERLINE_TEXT_FLAG
             if (libId.isEmpty() || (intent?.getBooleanExtra("showLibList", false) == true) && savedInstanceState == null) {
                 libId = LibraryList.lastSelectedFallbackLibraryId() ?: ""
@@ -71,7 +71,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
             }
         }
 
-        findViewById<View>(R.id.library).setOnClickListener( { changeSearchLib() })
+        findViewById<View>(R.id.library).setOnClickListener { changeSearchLib() }
 
         val searchStartClickListener = View.OnClickListener {
             obtainSearcher()
@@ -84,8 +84,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
             val intent = Intent(this@Search, SearchResult::class.java)
             val book = Bridge.Book()
             for (e in searchParamHolders.entries) {
-                val view = e.value.view
-                val value = when (view) {
+                val value = when (val view = e.value.view) {
                     is EditText -> view.text.toString()
                     is Spinner -> (e.value.input as? FormSelect)?.optionValues?.getOrNull(view.selectedItemPosition)
                     else -> null
@@ -103,11 +102,11 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
         }
         findViewById<View>(R.id.button).setOnClickListener(searchStartClickListener)
 
-        setTitle("")
+        title = ""
         supportActionBar?.let {
             it.setDisplayShowTitleEnabled(false)
             it.setDisplayShowCustomEnabled(true)
-            it.setCustomView(getLayoutInflater().inflate(R.layout.searchlayout_bar, null),
+            it.setCustomView(layoutInflater.inflate(R.layout.searchlayout_bar, null),
                     ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT, Gravity.CENTER
             ))
             it.customView.findViewById<View>(R.id.button).setOnClickListener(searchStartClickListener)
@@ -121,7 +120,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
         val defaultQuery = intent?.getSerializableExtra("query")
         if (defaultQuery is Map<*, *>) {
             for (key in arrayOf("title", "author"))
-                searchParamHolders[key]?.edit?.setText(defaultQuery.get(key).toString())
+                searchParamHolders[key]?.edit?.setText(defaultQuery[key].toString())
         }
     }
 
@@ -183,7 +182,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         val x = super.onPrepareOptionsMenu(menu)
-        menu?.findItem(R.id.search)?.setVisible(false)
+        menu?.findItem(R.id.search)?.isVisible = false
         return x
     }
 
@@ -270,7 +269,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
             }
         }
         if (!portMode) {
-            minimumWidth = minimumWidth + 10 // some border
+            minimumWidth += 10 // some border
             for (h in searchParamHolders.values)
                 h.caption.minimumWidth = minimumWidth + 10
         }
@@ -282,7 +281,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
             if (resultCode == Activity.RESULT_OK) {
                 state.libId = LibraryList.lastSelectedLibId ?: ""
                 state.libName = LibraryList.lastSelectedLibName ?: ""
-                findViewById<TextView>(R.id.library).setText(state.libName)
+                findViewById<TextView>(R.id.library).text = state.libName
 
                 obtainSearcher()
                 updateSearchParamsViews()
@@ -292,7 +291,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
     }
 
     override fun onSearchEvent(event: Bridge.SearchEvent): Boolean {
-        if (debugTester?.onSearchEvent(event) ?: false) return true
+        if (debugTester?.onSearchEvent(event) == true) return true
         if (event.searcherAccess !== searcher) return false
         event.searcherAccess?.let { s ->
             when (event.kind) {
@@ -353,12 +352,11 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
 
 
 internal class SearchDebugTester(var query: Bridge.Book, startId: String) {
-    var libs: Array<String>
+    var libs: Array<String> = Bridge.VLGetLibraryIds()
     var pos: Int = 0
     var searcher: Bridge.SearcherAccess? = null
 
     init {
-        libs = Bridge.VLGetLibraryIds()
         pos = 0
         while (pos < libs.size && startId != libs[pos]) pos++
         start()
@@ -367,7 +365,7 @@ internal class SearchDebugTester(var query: Bridge.Book, startId: String) {
     private fun start() {
         while (true) {
             val lib = Bridge.VLGetLibraryDetails(libs[pos])
-            if (lib?.searchMightWork ?: false) break
+            if (lib?.searchMightWork == true) break
             pos++
             if (pos >= libs.size) return
         }
@@ -379,7 +377,7 @@ internal class SearchDebugTester(var query: Bridge.Book, startId: String) {
         withActivity<Search> {
             state.libId = libs[pos]
             state.libName = libs[pos]
-            findViewById<TextView>(R.id.library).setText(state.libName)
+            findViewById<TextView>(R.id.library).text = state.libName
             beginLoading(VideLibriBaseActivityOld.LOADING_SEARCH_SEARCHING)
         }
     }

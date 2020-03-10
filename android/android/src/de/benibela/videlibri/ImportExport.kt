@@ -20,6 +20,7 @@ import android.widget.*
 import de.benibela.videlibri.jni.Bridge
 import java.io.File
 import java.util.*
+import kotlin.math.abs
 
 class ImportExport : VideLibriBaseActivity() {
 
@@ -46,7 +47,7 @@ class ImportExport : VideLibriBaseActivity() {
         override fun onInterceptTouchEvent(e: MotionEvent): Boolean {
             onTouchEvent(e)
             if (e.action == MotionEvent.ACTION_DOWN) startY = e.y
-            return e.action == MotionEvent.ACTION_MOVE && Math.abs(startY - e.y) > 50
+            return e.action == MotionEvent.ACTION_MOVE && abs(startY - e.y) > 50
         }
     }
 
@@ -107,7 +108,7 @@ class ImportExport : VideLibriBaseActivity() {
             val accounts = Bridge.VLGetAccounts()
             val accountNames = accounts.map { it.prettyName }
             findViewById<ListView>(R.id.listView).let {
-                it.adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, accountNames)
+                it.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, accountNames)
                 checkAll(it)
             }
         }

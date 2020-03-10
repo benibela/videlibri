@@ -137,7 +137,7 @@ fun showDialog(
         args.putBundle("more", more)
 
     val instance = DialogInstance(args)
-    dialogInstances.put(instanceId, instance)
+    dialogInstances[instanceId] = instance
     init?.invoke(instance)
     if ((args.get("negativeButton")
                     ?: args.get("neutralButton")
@@ -222,7 +222,7 @@ class DialogFragmentUtil : DialogFragment(), DialogInterface.OnClickListener, Di
         builder.setOnCancelListener(this)
         arguments?.let { args ->
             args.getInt("instanceId", -1).takeIf { it >= 0 }?.let {
-                instance = dialogInstances.get(it)
+                instance = dialogInstances[it]
             }
 
             args.getString("title")?.let { builder.setTitle(it) }
@@ -296,7 +296,7 @@ fun Bundle.getSparseBooleanArray(key: String): SparseBooleanArray? {
     val a = getIntArray(key) ?: return null
     if (a.size and 1 == 1) return null
     val res = SparseBooleanArray()
-    for (i in 0 until a.size step 2)
+    for (i in a.indices step 2)
         res.put(a[i], a[i + 1] == 1)
     return res
 }

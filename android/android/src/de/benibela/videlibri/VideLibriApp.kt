@@ -155,7 +155,7 @@ class VideLibriApp : Application() {
                     errors.removeAt(0)
                 System.gc()
             }
-            errors.addAll(Arrays.asList<Bridge.PendingException>(*exceptions))
+            errors.addAll(Arrays.asList(*exceptions))
 
             for (i in exceptions.indices) {
                 val ex = exceptions[i]

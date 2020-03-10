@@ -67,10 +67,10 @@ open class BookListActivity: VideLibriBaseActivity(){
             listview.layoutManager = LinearLayoutManager(this)
             listview.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
             listview.addOnItemLongClickListener { _, vh ->
-                if (listview == details.listview)
-                    contextMenuSelectedItem = details.adapter?.details?.getOrNull(vh.adapterPosition - 1)
+                contextMenuSelectedItem = if (listview == details.listview)
+                    details.adapter?.details?.getOrNull(vh.adapterPosition - 1)
                 else
-                    contextMenuSelectedItem = list.adapter?.books?.getOrNull(vh.adapterPosition)
+                    list.adapter?.books?.getOrNull(vh.adapterPosition)
                 false
             }
         }
@@ -208,17 +208,17 @@ open class BookListActivity: VideLibriBaseActivity(){
     }
 
     //shows the list. returns if the list was already visible
-    fun showList(): Boolean {
-        if (!port_mode) return true
-        if (detailsVisible()) {
+    fun showList(): Boolean =
+        if (!port_mode) true
+        else if (detailsVisible()) {
             listPortHolder?.visibility = View.VISIBLE
             detailsPortHolder?.visibility = View.INVISIBLE
             state.portInDetailMode = false
             invalidateOptionsMenu()
-            return false
+            false
         } else
-            return true
-    }
+            true
+
 
     override fun onBackPressed() {
         if (showList())

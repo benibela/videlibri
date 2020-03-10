@@ -3,8 +3,6 @@ package de.benibela.videlibri
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Xml
-import android.view.View
-import android.widget.ListView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import de.benibela.videlibri.BookDetails.BookDetailsAdapter
@@ -13,7 +11,6 @@ import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
 import java.io.IOException
 import java.io.InputStream
-import kotlin.collections.ArrayList
 
 
 class ChangeLogParser(input: InputStream) {

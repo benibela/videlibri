@@ -34,7 +34,7 @@ public class Bridge {
         private int testingStateSearch, testingStateAccount;
 
         public LibraryDetails(){
-            homepageBase = homepageCatalogue = prettyName = prettyNameShort = id = templateId = tableComment = "";
+            homepageBase = homepageCatalogue = prettyName = prettyNameShort = id = templateId = tableComment = accountComment = "";
             variableNames = variableValues = new String[0];
         }
         public LibraryDetails(@NotNull String homepageBase, @NotNull String homepageCatalogue,
@@ -55,7 +55,6 @@ public class Bridge {
             this.templateId = templateId;
             this.variableNames = variableNames;
             this.variableValues = variableValues;
-            this.segregatedAccounts = segregatedAccounts;
             this.tableComment = tableComment;
             this.accountComment = accountComment;
             this.segregatedAccounts = (flags & 1) != 0;
@@ -89,7 +88,7 @@ public class Bridge {
         public int lastCheckDate;
         public @NotNull String expiration;
         public Account () {
-            libId = name = pass = prettyName = "";
+            libId = name = pass = prettyName = expiration = "";
         }
         public Account (@NotNull String libId, @NotNull String name, @NotNull String pass, @NotNull String prettyName,
                  int type, boolean extend,
@@ -542,7 +541,7 @@ public class Bridge {
             System.loadLibrary("lclapp");
         } catch (UnsatisfiedLinkError e) {
             Log.i("Videlibri", "Android is broken, trying Relinker.");
-            if (context != null) ReLinker.loadLibrary((Context) context, "lclapp");
+            if (context != null) ReLinker.loadLibrary(context, "lclapp");
             else throw e;
         }
         Log.i("Videlibri", "Initializing Windows VM and Pascal layer");

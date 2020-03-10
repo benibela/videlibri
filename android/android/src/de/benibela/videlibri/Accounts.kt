@@ -65,7 +65,7 @@ object Accounts: Collection<Bridge.Account> {
         val oldHidden = hiddenAccounts.keys.toTypedArray()
         this.accounts = Bridge.VLGetAccounts()
         hiddenAccounts.clear()
-        oldHidden.forEach { acc -> get(acc.libId, acc.name)?.let { hiddenAccounts.put(acc, true) } }
+        oldHidden.forEach { acc -> get(acc.libId, acc.name)?.let { hiddenAccounts[acc] = true } }
     }
 
     @JvmStatic fun refreshDisplay() {

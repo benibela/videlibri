@@ -6,7 +6,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.preference.PreferenceManager
 import androidx.core.app.NotificationCompat
 import de.benibela.videlibri.*
 import de.benibela.videlibri.jni.Bridge
@@ -18,7 +17,7 @@ object Notifier {
     private const val OUTDATED_DATA_PERIOD_DAYS: Long = 7
 
     private fun skipableNotification(context: Context, title: String, text: String): Boolean {
-        val checkSkipPeriodic: Long = min(1000L * 60 * 60 * 23, NotificationScheduling.DAILY_CHECK_PERIOD)
+        val checkSkipPeriodic: Long = kotlin.math.min(1000L * 60 * 60 * 23, NotificationScheduling.DAILY_CHECK_PERIOD)
         val now = System.currentTimeMillis()
         val sp = context.preferences
         val lastTime = sp.getLong("lastNotificationTime", 0)

@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.preference.PreferenceManager
 import de.benibela.videlibri.notifications.jobs.NotificationJobService
 import de.benibela.videlibri.notifications.jobs.rescheduleDailyIfNecessaryAsJob
 import de.benibela.videlibri.notifications.service.NotificationService
@@ -33,8 +32,8 @@ object NotificationScheduling{
     }
     @JvmStatic fun onUpdateComplete(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            NotificationJobService.finishAll();
+            NotificationJobService.finishAll()
     }
-    //const val DAILY_CHECK_PERIOD: Long = 1000 * 60 * 16;
-    const val DAILY_CHECK_PERIOD: Long = 1000 * 60 * 60 * 24;
+    //const val DAILY_CHECK_PERIOD: Long = 1000 * 60 * 16
+    const val DAILY_CHECK_PERIOD: Long = 1000 * 60 * 60 * 24
 }

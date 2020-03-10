@@ -79,7 +79,7 @@ public class ModernSSLSocketFactory extends SSLSocketFactory {
 
     //https://stackoverflow.com/questions/29249630/android-enable-tlsv1-2-in-okhttp
     private Socket modernize(Socket somesocket) {
-        if(somesocket != null && (somesocket instanceof SSLSocket)) {
+        if(somesocket instanceof SSLSocket) {
             //Activate all protocols
             //todo: disable SSL? but need to make sure no library uses that
             SSLSocket socket = (SSLSocket)somesocket;

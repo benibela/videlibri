@@ -232,7 +232,7 @@ class LibraryList: VideLibriBaseActivity() {
                             2 -> if (adapter.metaCatalogs >= 0) {
                                 val id = adapter.childId(adapter.bitsPerLevel, 0, adapter.metaCatalogs)
                                 listView?.expandableAdapter?.let { ea ->
-                                    if (ea.isExpanded(id) == true) {
+                                    if (ea.isExpanded(id)) {
                                         val pos = ea.idToLinearPosition(id)
                                         val d = ea.countDescendants(id)
                                         listView?.smoothScrollToPosition(pos + d)
