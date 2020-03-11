@@ -225,7 +225,8 @@
   <if test="$book._orderCount > 1">
     <s>vl:choose("internal-order-choose-document", 
                   "Welches Exemplar soll bestellt werden?", 
-                  (1 to integer($book._orderCount))!$book("_orderTitle" || .)) </s>
+                  (1 to integer($book._orderCount))!$book("_orderTitle" || .),
+                  ()) </s>
   </if>
   <else>
     <s>choose-result := 1</s>
