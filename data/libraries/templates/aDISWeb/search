@@ -15,7 +15,7 @@
         ( let $temp := extract(., '(([0-9]+)[^0-9.:"]+([0-9]+)[^0-9.:"]+)?([0-9]+)', (2,4)) return ( 
              $firstIndex := number($temp[1]),
              (:$lastIndex := number($temp[2]),:)
-             $search-result-count := xs:integer($temp[2]))
+             $search-result-count := xs:integer($temp[2][.]))
         ),
       lastSearchedIndex := get("lastSearchedIndex", 0) (: for unittests :)
     } 
@@ -26,7 +26,7 @@
           <span>Vorwärts</span>
           {./input!(search-next-page-available := not(@disabled),          
            form := form(//form),
-           toolbarForward := xs:integer(substring-after(@name, "_"))
+           toolbarForward := xs:integer(substring-after(@name, "_")[.])
            )           
           }
         </li>
@@ -34,7 +34,7 @@
         <input t:condition="matches(@title, 'nächster|Vorwärts')">
           {search-next-page-available := not(@disabled),
            form := form(//form),
-           toolbarForward := xs:integer(substring-after(@name, "_"))           
+           toolbarForward := xs:integer(substring-after(@name, "_")[.])
           }</input>
      </t:switch>
      </ul></div>
