@@ -1,5 +1,6 @@
 package de.benibela.videlibri.activities
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
@@ -23,6 +24,7 @@ import de.benibela.videlibri.utils.isVisibleNotGone
 import de.benibela.videlibri.utils.takeNonEmpty
 import de.benibela.videlibri.utils.withActivity
 import kotlinx.android.parcel.Parcelize
+import java.lang.IndexOutOfBoundsException
 import java.util.*
 
 class LibraryListAdapter: MultiLevelListView.Adapter<LibraryListAdapter.Holder>(){
@@ -35,13 +37,16 @@ class LibraryListAdapter: MultiLevelListView.Adapter<LibraryListAdapter.Holder>(
     }
 
     override fun getLevels(): Int = 3
-    override fun getChildCount(position: IntArray): Int =
+    override fun getChildCount(position: IntArray): Int = try {
         when (position.size) {
             0 -> states.size
             1 -> cities[position[0]].size
             2 -> localLibs[position[0]][position[1]].size
             else -> 0
         }
+    } catch (e: IndexOutOfBoundsException) {
+        0
+    }
     override fun getItemViewType(position: IntArray): Int = position.size
     private fun holder(parent: ViewGroup, @LayoutRes view: Int): Holder {
         val v = LayoutInflater.from(parent.context).inflate(view, parent, false)
@@ -56,12 +61,17 @@ class LibraryListAdapter: MultiLevelListView.Adapter<LibraryListAdapter.Holder>(
             3 -> holder(parent, R.layout.libraryinlistview)
             else -> Holder(TextView(parent.context))
         }
-    override fun onBindViewHolder(holder: Holder, position: IntArray){
+
+    override fun onBindViewHolder(holder: Holder, position: IntArray) = try {
         when (position.size) {
             1 -> holder.text.text = states[position[0]]
             2 -> holder.text.text = cities[position[0]][position[1]]
             3 -> holder.text.text = getLibraryText(getLibraryId(position))
+            else -> {}
         }
+    } catch (e: IndexOutOfBoundsException) {
+        @SuppressLint("SetTextI18n")
+        holder.text.text = "MISSING"
     }
     val detailCache = mutableMapOf<String, Bridge.LibraryDetails>()
     internal fun getLibraryDetails(id: String): Bridge.LibraryDetails =
