@@ -43,7 +43,7 @@ install:
     ln -s $PWD/import/flre components/pascal/import/flre > /dev/null
   - |
     if [[ $android = true ]]; then 
-      yes | sdkmanager ndk-bundle "build-tools;28.0.3"  "platforms;android-28";
+      yes | sdkmanager ndk-bundle;20.0.5594570 "build-tools;28.0.3"  "platforms;android-28";
       sudo apt-get install -y gcc-arm-linux-androideabi libstdc++6:i386 libgcc1:i386 zlib1g:i386 libncurses5:i386;
       oldpath=$PWD;
       cd ..
