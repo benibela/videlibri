@@ -256,7 +256,7 @@ setupbinutils)
     ln -srv $path/*-addr2line $targetdir
   }
   singleplatform arm
-  singleplatform x86-
+  singleplatform i686-
   singleplatform aarch64
   singleplatform x86_64
 ;;
