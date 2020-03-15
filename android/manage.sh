@@ -298,6 +298,7 @@ setupfpccrosscfg)
     echo -k-znorelro
     for l in "$@"; do 
       echo -Fl$l 
+      if [[ ! -e $l ]]; then echo WARNING MISSING LIBRARY PATH: $l >&2; fi
     done;
     echo "#ENDIF"
   }
@@ -306,7 +307,7 @@ setupfpccrosscfg)
   else if [[ -e $ANDROID_HOME/ndk ]]; then androidpaths=($ANDROID_HOME/ndk/*/platforms/android-*)
   else echo FAILED TO FIND ANDROID NDK;
   fi fi
-  androidpath=${androidpaths[0]}
+  androidpath=${androidpaths[-1]}
   
   singleplatform CPUARM arm-linux-androideabi-     $androidpath/arch-arm/usr/lib /usr/lib/gcc/arm-linux-androideabi/* /usr/arm-linux-androideabi/lib
   singleplatform CPUI386    i686-linux-android-    $androidpath/arch-x86/usr/lib/ /usr/lib/gcc/i686-linux-gnu/* /usr/lib/gcc/i586-mingw32msvc/*
