@@ -10,9 +10,15 @@
   search-form := form(.),  
   let $homeBranchView := (id("selectedViewBranchlib"), id("selectedBranchView"))[1]
   let $selects := //select
-  let $searchBranchView := ($selects[@id=("selectedSearchBranchlib", "Suche in Zweigstelle", "searchRestrictionValue1_0")])[1]
-  let $mediaTypeView := id("Medienart")
-  let $languageView := id("Sprache")
+  let $labeledSelects := map:merge(
+                           for $select in //select 
+                           let $id := $select/@id
+                           let $label := $select/preceding-sibling::label[1][@for = $select/@id]
+                           where $label
+                           return {$label: $select})
+  let $searchBranchView := ($selects[@id=("selectedSearchBranchlib", "Suche in Zweigstelle")], $labeledSelects?("Suche nach Standort", "Suche in Zweigstelle","Sammlungen"))[1]
+  let $mediaTypeView := (id("Medienart"), $labeledSelects?Erscheinungsform)[1]
+  let $languageView := (id("Sprache"), $labeledSelects?Sprache)[1]
   return (
     search-params := ("title", "author", "free", "keywords", "year", "isbn", 
       $homeBranchView !   {"name": "libraryHomeBranch", "options": .//option, "caption": "Zweigstelle (für Bestellungen)" },
