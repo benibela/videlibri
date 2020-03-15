@@ -248,7 +248,10 @@ setupbinutils)
   if [[ -z "$targetdir" ]]; then targetdir=~/bin; fi
   function singleplatform(){
     platform=$1
-    path=$ANDROID_HOME/ndk-bundle/toolchains/$platform*/prebuilt/linux-x86_64/bin/
+    if [[ -e $ANDROID_HOME/ndk-bundle/toolchains ]]; then path=$ANDROID_HOME/ndk-bundle/toolchains/$platform*/prebuilt/linux-x86_64/bin/
+    else if [[ -e $ANDROID_HOME/ndk ]]; then path=$ANDROID_HOME/ndk/*/toolchains/$platform*/prebuilt/linux-x86_64/bin/
+    else echo FAILED TO FIND NDK; exit 1;
+    fi fi
     ln -srv $path/*-ld $targetdir
     ln -srv $path/*-ld.bfd $targetdir
     ln -srv $path/*-as $targetdir
@@ -256,7 +259,7 @@ setupbinutils)
     ln -srv $path/*-addr2line $targetdir
   }
   singleplatform arm
-  singleplatform i686-
+  singleplatform x86-
   singleplatform aarch64
   singleplatform x86_64
 ;;
@@ -299,9 +302,13 @@ setupfpccrosscfg)
     echo "#ENDIF"
   }
 
-  androidpath=$ANDROID_HOME/ndk-bundle/platforms/android-24
+  if [[ -e $ANDROID_HOME/ndk-bundle/platforms ]]; then androidpaths=($ANDROID_HOME/ndk-bundle/platforms/android-*)
+  else if [[ -e $ANDROID_HOME/ndk ]]; then androidpaths=($ANDROID_HOME/ndk/*/platforms/android-*)
+  else echo FAILED TO FIND ANDROID NDK;
+  fi fi
+  androidpath=${androidpaths[0]}
   
-  singleplatform CPUARM arm-linux-androideabi- $androidpath/arch-arm/usr/lib /usr/lib/gcc/arm-linux-androideabi/* /usr/arm-linux-androideabi/lib
+  singleplatform CPUARM arm-linux-androideabi-     $androidpath/arch-arm/usr/lib /usr/lib/gcc/arm-linux-androideabi/* /usr/arm-linux-androideabi/lib
   singleplatform CPUI386    i686-linux-android-    $androidpath/arch-x86/usr/lib/ /usr/lib/gcc/i686-linux-gnu/* /usr/lib/gcc/i586-mingw32msvc/*
   singleplatform CPUAARCH64 aarch64-linux-android- $androidpath/arch-arm64/usr/lib/
   singleplatform CPUX64     x86_64-linux-android-  $androidpath/arch-x86_64/usr/lib64/
