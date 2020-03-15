@@ -1,9 +1,12 @@
 <html>
+<t:switch prioritized="true">
 <body>
   <a template:condition="contains(@href, 'userAccount.do')">{jsession:=extract(@href,"jsessionid=[0-9a-zA-Z_-]*"), user-account-page:=resolve-html()}</a> <!-- jsession can be empty?-->
   <form>
   <input type="hidden" name="CSId">{$CSId:=@value}</input>
   </form>
 </body>
+<body t:condition="contains(., 'Wartung')">{vl:raise(.)}</body>
+</t:switch>
 </html>
   
