@@ -73,7 +73,7 @@ class LibraryListAdapter: MultiLevelListView.Adapter<LibraryListAdapter.Holder>(
         @SuppressLint("SetTextI18n")
         holder.text.text = "MISSING"
     }
-    val detailCache = mutableMapOf<String, Bridge.LibraryDetails>()
+    private val detailCache = mutableMapOf<String, Bridge.LibraryDetails>()
     internal fun getLibraryDetails(id: String): Bridge.LibraryDetails =
             detailCache.getOrPut(id) { Bridge.VLGetLibraryDetails(id) ?: Bridge.LibraryDetails() }
     internal fun getLibraryId(position: IntArray) =
@@ -130,8 +130,8 @@ class LibraryList: VideLibriBaseActivity() {
     private var state = State()
 
     internal lateinit var adapter: LibraryListAdapter
-    var listView: ExpandableMultiLevelListView? = null
-    var columnView: MultiColumnListView? = null
+    private var listView: ExpandableMultiLevelListView? = null
+    private var columnView: MultiColumnListView? = null
 
 
     override fun onCreateOptionsMenuOverflow(menu: Menu, inflater: MenuInflater) {

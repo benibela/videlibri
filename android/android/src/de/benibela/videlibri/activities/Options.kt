@@ -102,7 +102,7 @@ class Options : VideLibriBaseActivity() {
             var summary = getString(R.string.lay_options_label_accounts_summary)
             accounts.forEach { acc ->
                 cpm.makePreference(acc.prettyName, summary, Preference.OnPreferenceClickListener {
-                    de.benibela.videlibri.utils.startActivity<AccountInfo>(
+                    startActivity<AccountInfo>(
                             "mode" to AccountInfo.MODE_ACCOUNT_MODIFY,
                             "account" to acc
                     )
@@ -111,7 +111,7 @@ class Options : VideLibriBaseActivity() {
             }
 
             cpm.makePreference(getString(R.string.lay_options_btn_newaccount), Preference.OnPreferenceClickListener {
-                de.benibela.videlibri.utils.startActivity<AccountInfo>(
+                startActivity<AccountInfo>(
                         "mode" to AccountInfo.MODE_ACCOUNT_CREATION
                 )
                 true
@@ -126,7 +126,7 @@ class Options : VideLibriBaseActivity() {
             options.roUserLibIds.filterNotNull().forEach { userLibId ->
                 val details = Bridge.VLGetLibraryDetails(userLibId) ?: return@forEach
                 cpm.makePreference(details.prettyName, summary, Preference.OnPreferenceClickListener {
-                    de.benibela.videlibri.utils.startActivity<NewLibrary>(
+                    startActivity<NewLibrary>(
                             "mode" to NewLibrary.MODE_LIBRARY_MODIFY,
                             "libId" to userLibId
                     )
@@ -135,11 +135,11 @@ class Options : VideLibriBaseActivity() {
             }
 
             cpm.makePreference(getString(R.string.lay_options_btn_newlib), Preference.OnPreferenceClickListener {
-                de.benibela.videlibri.utils.startActivity<NewLibrary>()
+                startActivity<NewLibrary>()
                 true
             })
             cpm.makePreference(getString(R.string.lay_options_btn_editsource), Preference.OnPreferenceClickListener {
-                de.benibela.videlibri.utils.startActivity<SourceEdit>()
+                startActivity<SourceEdit>()
                 true
             })
 
