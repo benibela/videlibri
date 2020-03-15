@@ -45,7 +45,7 @@ function nativeBuild(){
   if $flag ; then
     which $compiler > /dev/null || { echo >&2 "Failed to find fpc $compiler. Install FreePascal cross compiler."; exit 1; }
     if [[ ! -f $path/liblclapp.so ]]; then FORCE=-B; fi
-    if $LAZBUILD $FORCE --os=android --ws=nogui --compiler="$(which $compiler)" --cpu=$cpu videlibriandroid.lpi; then echo; else echo "FAILED!"; cat /home/travis/build/benibela/sf/programs/internet/VideLibri/android/lib/arm-android/xquery__functions.s; exit 1; fi
+    if $LAZBUILD $FORCE --os=android --ws=nogui --compiler="$(which $compiler)" --cpu=$cpu videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
   fi
 
   STRIP=true
@@ -283,8 +283,6 @@ setupfpccrosscfg)
   -Fu/usr/local/lib/fpc/$fpcversion/units/$fpctarget
   -Fu/usr/local/lib/fpc/$fpcversion/units/$fpctarget/*
   -Fu/usr/local/lib/fpc/$fpcversion/units/$fpctarget/rtl  
-  -a
-  -al
   
   #ifdef android
   '
