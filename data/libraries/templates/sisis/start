@@ -6,7 +6,7 @@
   <input type="hidden" name="CSId">{$CSId:=@value}</input>
   </form>
 </body>
-<body t:condition="contains(., 'Wartung')">{vl:raise(.)}</body>
+<body t:condition="matches(., 'Wartung|Fehler|Sitzung')">{vl:raise(.)}</body>
 </t:switch>
 </html>
   
