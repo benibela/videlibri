@@ -3,7 +3,7 @@
 
 <library>
   <deprecatedName value="DE_Baden-W+uertenberg_Stuttgart_Ub"/>
-  <longName value="Universitätsbibliothek Hohenheim"/>
+  <longName value="Universitätsbibliothek Stuttgart"/>
 
   <template value="aDISWeb"/>
   <variable name="server" value="hoh.ibs-bw.de"/>
