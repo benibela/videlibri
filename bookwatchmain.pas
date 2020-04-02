@@ -838,9 +838,15 @@ end;
 procedure TmainForm.MenuItem16Click(Sender: TObject);
 var invalid: SizeInt;
 begin
-  strLengthUtf8(oldErrorMessageString, invalid);
-  if invalid > 0 then UTF8FixBroken(oldErrorMessageString);
-  TsendBackErrorForm.openErrorWindow(oldErrorMessageString,IntToStr(versionNumber),'Videlibri');
+  with errorMessages do begin
+    strLengthUtf8(common, invalid);
+    if invalid > 0 then UTF8FixBroken(common);
+    strLengthUtf8(details, invalid);
+    if invalid > 0 then UTF8FixBroken(details);
+    strLengthUtf8(anonymousDetails, invalid);
+    if invalid > 0 then UTF8FixBroken(anonymousDetails);
+    TsendBackErrorForm.openErrorWindow(common, details, anonymousDetails,IntToStr(versionNumber), 'Videlibri');
+  end;
 end;
 
 procedure TmainForm.MenuItem17Click(Sender: TObject);

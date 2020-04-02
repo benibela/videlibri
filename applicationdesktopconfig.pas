@@ -27,6 +27,9 @@ type TCallbackHolderDesktop = class (TCallbackHolder)
   class procedure postInitApplication(); override;
 end;
 
+  var errorMessages: record
+    common, details, anonymousDetails: string;
+  end;
   procedure showErrorMessages();
 
 resourcestring
@@ -135,7 +138,7 @@ end;
 
 procedure showErrorMessages();
 var i,j:integer;
-    title,mes,mesDetails: string;
+    title,mes,mesDetails,mesDetailsAnon: string;
     accountException: boolean;
     sl_title, sl_message, sl_messagedetails: tstringlist;
     //met: TMethod;
@@ -146,8 +149,8 @@ begin
   sl_messagedetails.OwnsObjects := false;
   try
     for i:=0 to high(errorMessageList) do begin
-      if oldErrorMessageString='' then
-        oldErrorMessageString:=#13#10#13#10#13#10'====' +  rsErrorHeader + '===='#13#10;
+      if errorMessages.common='' then
+        errorMessages.common := '==' + rsErrorHeader + '=='#13#10;
       with errorMessageList[i] do begin
         accountException:=true;
         for j:=0 to high(details) do
@@ -174,11 +177,15 @@ begin
             mesDetails:=Format(rsErrorDetailsAccount, [mesDetails, details[j].account.prettyname, details[j].libraryId]) + LineEnding
            else
             mesDetails:=Format(rsErrorDetailsSearch, [mesDetails, details[j].searchQuery, details[j].libraryId]) + LineEnding;
-          mesDetails+=details[j].details+#13#10#13#10;
+          mesDetailsAnon:=mesDetails;
+          mesDetails += details[j].details+#13#10#13#10;
+          mesDetailsAnon += details[j].anonymouseDetails;
         end;
         if accountException then  title:=rsErrorAccountTitle
-        else title:=rsError;;
-        oldErrorMessageString:=oldErrorMessageString+'---'+title+'---'#13#10+mes+#13#10+rsDetails+':'#13#10+mesdetails;
+        else title:=rsError;
+        errorMessages.common += '---'+title+'---'#13#10+mes+#13#10+rsDetails+':'#13#10;
+        errorMessages.details += mesDetails;
+        errorMessages.anonymousDetails += mesDetailsAnon;
         sl_title.Add(title);
         sl_message.AddObject(mes, UIntToObj(ord(kind)));
         sl_messagedetails.Add(mesDetails);

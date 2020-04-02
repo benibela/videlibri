@@ -94,7 +94,7 @@ var programPath,userPath:string;
 
     errorMessageList:TErrorArray = nil;
     //oldErrorMessageList:TErrorArray = nil;
-    oldErrorMessageString:string;
+    //oldErrorMessageString:string;
 
     callbacks: TCallbackHolderClass = TCallbackHolder;
 
