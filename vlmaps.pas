@@ -8,8 +8,8 @@ uses
   simplehtmltreeparser,xquery,xquery.internals.common;
 
 type
-  generic THashmapStrOwningGenericObject<TValue> = class(specialize TXQHashmapStrOwningGenericObject<TValue>);
-  THashmapStrOwningObject = xquery.internals.common.TXQHashmapStrOwningObject;
+  //generic THashmapStrOwningGenericObject<TValue> = class(specialize TXQHashmapStrOwningGenericObject<TValue>);
+  //THashmapStrOwningObject = xquery.internals.common.TXQHashmapStrOwningObject;
   TMapStringOwningObject = xquery.TXQMapStringOwningObject;
   //TMapStringObject = TXQMapStringObject;
 
