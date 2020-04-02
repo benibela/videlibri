@@ -98,7 +98,7 @@ class NotificationJobServiceNoUpdate: JobService() {
 
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 fun rescheduleDailyIfNecessaryAsJob(context: Context, afterDeviceBoot: Boolean){
-    val scheduler  = context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
+    val scheduler  = context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as? JobScheduler ?: return
     if (afterDeviceBoot) {
         val delay = NotificationScheduling.preferenceNotificationsBootDelayInMilliseconds(context)
         val b = JobInfo.Builder(JOB_ID_AFTER_BOOT, ComponentName(context, NotificationJobService::class.java))
