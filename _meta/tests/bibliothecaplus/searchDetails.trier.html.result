@@ -4,5 +4,5 @@ reserve-request := ()
 result := ()
 holding := {"orderable": false, "Ausleihhinweis!": " ", "pendingOrders": "0", "statusStr": "Digitales Medium", "libraryLocation": "Onleihe", "libraryBranch": "Onleihe"}
 result := ()
-book := {"Mediengruppe:!": " eBook ", "Sprache:!": " ger ", "Schlagwörter:!": " Digitale Fotografie , Farbgestaltung ", "Beschreibung:!": " 19 S. graph. Darst. ", "Systematik:!": " Wcr 7 ", "E-Medium:!": " Titel nur digital verfügbar; zum Downloaden bitte hier klicken! ( http://www.onleihe-rlp.de/rlp/frontend/mediaInfo,0-0-352829424-100-0-0-0-0-0-0-0.html ) ", "Jahr:!": " 2009 ", "holdings": {"orderable": false, "Ausleihhinweis!": " ", "pendingOrders": "0", "statusStr": "Digitales Medium", "libraryLocation": "Onleihe", "libraryBranch": "Onleihe"}, "image-url": []}
+book := {"Mediengruppe:!": " eBook ", "Sprache:!": " ger ", "Schlagwörter:!": " Digitale Fotografie , Farbgestaltung ", "Beschreibung:!": " 19 S. graph. Darst. ", "Systematik:!": " Wcr 7 ", "E-Medium:!": " Titel nur digital verfügbar; zum Downloaden bitte hier klicken! ( http://www.onleihe-rlp.de/rlp/frontend/mediaInfo,0-0-352829424-100-0-0-0-0-0-0-0.html ) ", "Jahr:!": " 2009 ", "holdings": {"orderable": false, "Ausleihhinweis!": " ", "pendingOrders": "0", "statusStr": "Digitales Medium", "libraryLocation": "Onleihe", "libraryBranch": "Onleihe"}, "image-url": null}
 result := ()
