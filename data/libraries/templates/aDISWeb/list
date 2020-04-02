@@ -26,34 +26,32 @@
  
     <DIV class="rTable_div">
     <TABLE class="rTable_table">
-    {hasTill := false()}
-    <thead> 
-      <th/>
-      <th>Bis<t:s>hasTill := true()</t:s></th>?
-      <th/>
-      <th/>
-    </thead>
-      
+    
+    <thead><tr>
+      <t:siblings-header>
+        <th>Fällig am</th>?
+        <th>Bis</th>?
+        <th>Bibliothek|Ausgabeort</th>?
+        <th>Titel</th>
+        <th>Hinweis</th>?
+        <th>vorgemerkt am</th>?
+        <th/>*
+      </t:siblings-header>
+    </tr></thead>
   
     
     <t:loop>
     <TR>
+    {book := {"_mode": $mode}}
+    <t:siblings>
     <TD>{
-      book := {"_mode": $mode},
-      if ($mode = "lend") then (book.extendid := encode-for-uri(input/@name), book._splitIndex := $splitIndex )
-      else if ($mode = ("ordered", "requested", "provided","orderedMagazine")) then book.cancelid := encode-for-uri(input/@name)
-      else (),
-      if ($mode = "provided") then book.statusId := "provided"
-      else ()      
-    }</TD>
-    <t:if test="$mode='lend'"> <TD>{
       if (contains(., "-")) then (book.issuedate := parse-date(substring-before(., "-"), "dd.mm.yyyy"), book.duedate := parse-date(substring-after(., "-"), "dd.mm.yyyy"))
       else book.duedate := parse-date(., "dd.mm.yyyy")
-    }</TD> </t:if>
-    <t:if test="$hasTill"> <TD>{
+    }</TD>
+    <TD>{
       if (contains(., ".")) then book.duedate := parse-date(., "dd.mm.yyyy") 
       else ()}
-      <!-- vormerkungs verfall --></TD> </t:if>
+      <!-- vormerkungs verfall --></TD>
     <TD>{book.libraryBranch := .}</TD>
     <TD>{let
             $brs := .//br,
@@ -69,7 +67,6 @@
          )
          }
     </TD>
-    <t:if test="$mode != 'provided'">
     <TD>{book.status := inner-text(),
          book.renewCount := extract($book.status, "([0-9]+) *Verlängerung", 1)
         }
@@ -77,9 +74,18 @@
           {book.statusId := "critical"}
         </t:if>
         <t:if test="$mode=('ordered', 'orderedMagazine')">{book.statusId := "ordered"}</t:if>
-        <t:if test="$mode='requested'">{book.status := concat("vorgemerkt am ", $book.status), book.statusId := "ordered"}</t:if>
     </TD>
-    </t:if>
+    <td>
+      {book.status := concat("vorgemerkt am ", inner-text()), book.statusId := "ordered"}
+    </td>
+    <TD>{
+      if ($mode = "lend") then (.//input!(book.extendid := encode-for-uri(@name)), book._splitIndex := $splitIndex )
+      else if ($mode = ("ordered", "requested", "provided","orderedMagazine")) then .//input!(book.cancelid := encode-for-uri(@name))
+      else (),
+      if ($mode = "provided") then book.statusId := "provided"
+      else ()
+    }</TD>
+    </t:siblings>
     
     </TR>
     </t:loop>
