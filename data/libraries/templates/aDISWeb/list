@@ -20,9 +20,16 @@
        if ($accountPage) then
          $goBackPage := resolve-html($accountPage)
      else vl:raise-internal("Kein Link von der Ausleihentabelle zurück zur vorherigen Seite gefunden")
-   )     
+   ),
+   $default-book := map:merge(({"_mode": $mode},
+     switch ($mode)
+       case "lend" return {"_splitIndex": $splitIndex}
+       case 'ordered' case 'orderedMagazine' return {"statusId": "ordered"}
+       case "provided" return {"statusId": "provided"}
+       default return ()
+   ))
   }
-  
+
  
     <DIV class="rTable_div">
     <TABLE class="rTable_table">
@@ -31,9 +38,9 @@
       <t:siblings-header>
         <th>Fällig am</th>?
         <th>Bis</th>?
-        <th>Bibliothek|Ausgabeort</th>?
+        <th>Bibliothek|Ausgabeort|Zweigstelle</th>?
         <th>Titel</th>
-        <th>Hinweis</th>?
+        <th>Hinweis|Bemerkung</th>?
         <th>vorgemerkt am</th>?
         <th/>*
       </t:siblings-header>
@@ -42,7 +49,7 @@
     
     <t:loop>
     <TR>
-    {book := {"_mode": $mode}}
+    {book := $default-book}
     <t:siblings>
     <TD>{
       if (contains(., "-")) then (book.issuedate := parse-date(substring-before(., "-"), "dd.mm.yyyy"), book.duedate := parse-date(substring-after(., "-"), "dd.mm.yyyy"))
@@ -73,20 +80,16 @@
         <t:if test="matches(., x'((nicht +verl.*ngerbar|Keine Verl.*gerung +m.*glich|Vormerkungen).*Stand +{string-join(reverse(tokenize(current-date(), '-')), '[.]')})|((Max. +)?Anzahl +der +Verl.*erreicht)','i')">
           {book.statusId := "critical"}
         </t:if>
-        <t:if test="$mode=('ordered', 'orderedMagazine')">{book.statusId := "ordered"}</t:if>
     </TD>
     <td>
       {book.status := concat("vorgemerkt am ", inner-text()), book.statusId := "ordered"}
     </td>
     <TD>{
-      if ($mode = "lend") then (.//input!(book.extendid := encode-for-uri(@name)), book._splitIndex := $splitIndex )
+      if ($mode = "lend") then (.//input!(book.extendid := encode-for-uri(@name)) )
       else if ($mode = ("ordered", "requested", "provided","orderedMagazine")) then .//input!(book.cancelid := encode-for-uri(@name))
-      else (),
-      if ($mode = "provided") then book.statusId := "provided"
       else ()
     }</TD>
-    </t:siblings>
-    
+    </t:siblings>   
     </TR>
     </t:loop>
     </TABLE>
