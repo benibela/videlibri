@@ -112,7 +112,13 @@
     <s>item-statuses := (), params := join( $new-books/_recordId ! ("id%5B%5D="||.), $amp) </s>
     <page url="{$baseurl}/AJAX/JSON?method=getItemStatuses&{$params}">
       <header>Accept: application/json,*/*</header>
-      <template><t:s>let $answer := json($raw) return $item-statuses := $answer.data()</t:s></template>
+      <template><t:s>      
+      let $answer := json($raw) 
+      let $data := $answer?data
+      return $item-statuses := typeswitch($data)
+        case map(*) return $data?statuses?*
+        default return $data?*
+      </t:s></template>
     </page>
     <catch errors="*"/>
   </try>
