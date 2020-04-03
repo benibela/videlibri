@@ -76,6 +76,8 @@
         <input type="password" class="errstate">{$error-login}</input>
          
         <form><select/><select/></form> <!-- munich ordering -->
+        
+        <h1>{$error-login}</h1>
       </template:switch>
     </pattern>
   </if>
