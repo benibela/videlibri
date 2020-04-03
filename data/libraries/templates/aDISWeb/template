@@ -8,7 +8,7 @@
 </meta>
 
 
-<action id="connect"></action>
+<action id="connect"><s>$sessions-reconnects := 3</s></action>
 
 <action id="internal-login"> 
   <s>error-login := ()</s>
@@ -66,6 +66,8 @@
         <h1>Anmeldung fehlgeschlagen. Bitte überprüfen Sie Ihre Eingabe.<t:s>$error-login := .</t:s></h1>
         <h1>Die angegebene Lesernummer oder das Passwort ist falsch.<t:s>$error-login := .</t:s></h1>
         
+        <h1>Ihre Sitzung wurde beendet<t:s>$error-login := .</t:s></h1>
+        
          
         <span class="bnzeig" t:condition="contains(text(), 'Sie sind angemeldet')" /> <!-- sind schon angemeldet. (neuess, ordering!) -->
         
@@ -79,7 +81,7 @@
   </if>
 </action>
 
-<action id="update-all">
+<action id="internal-update-login">
   <variable name="connected">false()</variable>
   <try>
     <page url="https://{$server}/aDISWeb/app{get('startparams', '')}" templateFile="connected"/>
@@ -121,11 +123,19 @@
     </page>
   </loop>
   <call action="internal-login"/>
-  <s>
+  <if test="$sessions-reconnects > 0 and normalize-space($error-login) = ('Ihre Sitzung wurde beendet')">
+    <s>$sessions-reconnects := $sessions-reconnects - 1</s>
+    <call action="internal-update-login"/>
+  </if>
+  <else><s>
   if (exists($error-login)) then vl:raise-login($error-login) 
   else $first-login := true()
-  </s>
+  </s></else>
+</action>
+
  
+<action id="update-all">
+  <call action="internal-update-login"/>
   
   <page url="{$loginFormPost}" templateFile="accountOverview"/>
 
