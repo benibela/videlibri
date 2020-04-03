@@ -93,8 +93,6 @@ var programPath,userPath:string;
     debugMode: boolean;
 
     errorMessageList:TErrorArray = nil;
-    //oldErrorMessageList:TErrorArray = nil;
-    //oldErrorMessageString:string;
 
     callbacks: TCallbackHolderClass = TCallbackHolder;
 
@@ -294,7 +292,7 @@ resourcestring
     inherited create(amessage);
     if asender <> nil then begin
       partialMatches := asender.debugMatchings(80);
-      anonymousPartialMatches := asender.debugMatchings(80, false, ['class', 'id', 'style', 'abbr', 'http-equiv', 'type', 'fld']);
+      anonymousPartialMatches := asender.debugMatchings(80, false, ['th'], ['class', 'id', 'style', 'abbr', 'http-equiv', 'type', 'fld']);
     end;
   end;
 
