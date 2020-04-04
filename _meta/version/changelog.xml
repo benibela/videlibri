@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-      <build version="2164" date="2020-03-16">
+      <build version="2166" date="2020-04-04">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <change>aDIS: Berücksichtige die Tabellenspaltenüberschriften beim Auslesen der Ausleihentabellen, zum Beispiel lese das Fristdatum nur aus der Spalte mit Überschrift "fällig am" statt aus der zweiten Spalte.</change>
+        <change>Lösche nicht die Tabellenspaltenüberschriften beim Anonymisieren der Webseite für Fehlerberichte. </change>
+        <change>Linux/Windows: Option, um die Webseiten bei Fehlerberichten zu anonymisieren.</change>
+        <change>aDIS: Wenn beim Anmelden auf der Seite "Ihre Sitzung wurde beendet", versuche die Anmeldung erneut.</change>
+        <fix>Vufind/HMT Leipzig: Anpassung an geänder.</fix>
+        <fix>Stabi Berlin: Anpassung an geänderten Link zur nächsten Seite des Suchergebnis, lade die Suchergebnisse seitenweise.</fix>
+	<add>Erstellung von HTML, XML, XHTML und JSON Dokumenten mittels XQuery.</add>
+     </build>
+      <build version="2164" date="2020-03-16">
         <change>Android: Update zu Android Studio 3.6.1 und Kotlin 1.3.70.</change>
         <change>Android: Neu entwickelte Bücherliste.</change>
         <fix>sisis: Vormerkungsprobleme und Suchfelder.</fix>
