@@ -1,5 +1,5 @@
 book := {}
-base := text{"https://lhhal.gbv.de:443/DB=2/SET=3/TTL=1/"}
+base := "https://lhhal.gbv.de:443/DB=2/SET=3/TTL=1//"
 singleResult := false()
 nextPage := ""
 search-result-count := xs:double("21")
