@@ -1,6 +1,11 @@
 <html>
 <head>
-<base>{base := @href}</base>
+{
+$base := (let $base := .//base/@href
+ return if ($base) then $base
+ else let $script := .//script[matches(., "&lt;base *href", "i")]
+ return if ($script) then resolve-uri(extract($script, '"(/[^"]+=[^"'']+)', 1), base-uri())
+ else base-uri()) || "/"}
 </head>
 <body>
 {singleResult := false(), nextPage := ""}
@@ -13,7 +18,7 @@
       <table summary="Result header">
       <strong class="pages">{search-result-count := extract(., "[0-9]+$") * 1}</strong>?
       <!--<a><img alt="vorherige Seite"/>{prevPage := @href}</a>-->
-      <a><img alt="nächste Seite"/>{nextPage :=  concat($base, "/", @href)}</a>
+      <a><img alt="nächste Seite"/>{nextPage :=  $base || @href}</a>
       <t:if test="extract($nextPage, '([0-9]+)([^0-9]+)?$', 1) <= 1">{nextPage := ""}</t:if> <!-- it's looping -->
       </table>?
       
@@ -23,7 +28,7 @@
         <td></td> <!-- icon -->
         <td></td> <!-- number -->
         <td class="hit">
-          <a>{book := {"title": deep-text(), "home-url": concat($base, "/", @href)}}</a>
+          <a>{book := {"title": deep-text(), "home-url": $base || @href}}</a>
           <br/>
           {let $text-year := extract(text(),             "^(.*?)\[?((ca[.] *)?[0-9]{4}( *- *)?([0-9]{4})?)\]?$", (1,2))
           return (
