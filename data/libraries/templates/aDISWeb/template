@@ -125,7 +125,7 @@
     </page>
   </loop>
   <call action="internal-login"/>
-  <if test="$sessions-reconnects > 0 and normalize-space($error-login) = ('Ihre Sitzung wurde beendet')">
+  <if test="$sessions-reconnects > 0 and normalize-space($error-login)!starts-with(., 'Ihre Sitzung wurde beendet')">
     <s>$sessions-reconnects := $sessions-reconnects - 1</s>
     <call action="internal-update-login"/>
   </if>
