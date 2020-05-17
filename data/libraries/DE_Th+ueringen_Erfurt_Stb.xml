@@ -11,5 +11,5 @@
   <variable name="startparams" value="?Login=sisis"/>
   
   <homepage value="http://bibliothek.erfurt.de"/>
-  <testing-search value="yes"/>  <testing-account value="unknown"/></library>
+  <testing-search value="yes"/>  <testing-account value="yes"/></library>
 

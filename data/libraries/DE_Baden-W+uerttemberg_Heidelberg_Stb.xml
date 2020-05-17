@@ -12,7 +12,7 @@
 
   <homepage value="http://www.heidelberg.de/stadtbuecherei"/>
   <testing-search value="yes"/>
-  <testing-account value="unknown"/>
+  <testing-account value="yes"/>
   
 </library>
 
