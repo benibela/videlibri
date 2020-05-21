@@ -3,7 +3,7 @@
   <longName value="Ortsbücherei Nordheim"/>
   
   <template value="bibliothecaplus"/>
-  <variable name="urlaccount" value="https://bibliotheken.kivbf.de/nordheim/MeineBücherei.aspx"/>
+  <variable name="urlaccount" value="https://bibliotheken.kivbf.de/nordheim/MeinKonto.aspx"/>
   <variable name="urlsearch" value="https://bibliotheken.kivbf.de/nordheim/Mediensuche/ErweiterteSuche.aspx"/>
   
   <homepage value="https://bibliotheken.kivbf.de/nordheim/"/>

@@ -5,12 +5,13 @@
   <longName value="Bibliothek der Jadehochschule Wilhelmshaven"/>
   <shortName value="HS Wilhelmshaven"/>
   
-  <template value="pica"/>
+  <template value="lbs"/>
   <variable name="server" value="https://lhemd.gbv.de/"/>	
   <variable name="picadb" value="4"/>	
+  <variable name="borrower" value="USR=1140"/>
 
 
-  <homepage value="http://www.jade-hs.de/?id=1469"/>
+  <homepage value="https://www.jade-hs.de/unsere-hochschule/organisation/zentrale-bereiche/hochschulbibliothek/wir-ueber-uns/unsere-bibliotheken/wilhelmshaven/#c43607"/>
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
   

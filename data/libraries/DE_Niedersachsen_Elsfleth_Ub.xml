@@ -5,12 +5,13 @@
   <longName value="Bibliothek der Jadehochschule Elsfleth"/>
   <shortName value="HS Elsfleth"/>
   
-  <template value="pica"/>
+  <template value="lbs"/>
   <variable name="server" value="https://lhemd.gbv.de/"/>	
   <variable name="picadb" value="5"/>	
+  <variable name="borrower" value="USR=1264"/>
 
 
-  <homepage value="http://www.jade-hs.de/?id=1465"/>
+  <homepage value="https://www.jade-hs.de/unsere-hochschule/organisation/zentrale-bereiche/hochschulbibliothek/wir-ueber-uns/unsere-bibliotheken/elsfleth/"/>
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
   

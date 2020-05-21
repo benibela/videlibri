@@ -5,12 +5,13 @@
   <longName value="Hochschulbibliothek Emden/Leer"/>
   <shortName value="HS Emden/Leer"/>
   
-  <template value="pica"/>
+  <template value="lbs"/>
   <variable name="server" value="https://lhemd.gbv.de/"/>	
   <variable name="picadb" value="2"/>	
+  <variable name="borrower" value="USR=1160"/>
 
 
-  <homepage value="http://www.hs-emden-leer.de/einrichtungen/bibliothek.html"/>
+  <homepage value="https://www.hs-emden-leer.de/einrichtungen/bibliothek"/>
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
   

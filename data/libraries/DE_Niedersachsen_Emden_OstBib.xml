@@ -5,9 +5,10 @@
   <longName value="Landschaftsbibliothek Aurich und Johannes a Lasco Bibliothek Emden"/>
   <shortName value="Emden/Aurich Bib"/>
   
-  <template value="pica"/>
+  <template value="lbs"/>
   <variable name="server" value="https://lhemd.gbv.de/"/>	
   <variable name="picadb" value="1"/>	
+  <variable name="borrower" value="USR=1176"/>
 
 
   <homepage value="http://www.jalb.de/" name="Johannes a Lasco Bibliothek"/>
