@@ -404,6 +404,8 @@ var i: longint;
 begin
   if logging then log('updateAccountBookData started');
 
+  if trunc(now) <> currentDate then updateGlobalTimeCache;
+
   result := false;
 
   if account=nil then begin

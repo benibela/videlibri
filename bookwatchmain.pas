@@ -194,6 +194,7 @@ type
     procedure refreshShellIntegration;
     procedure setSymbolAppearance(showStatus: integer); //0: text and icons 1=only text 2=only icons
     procedure refreshAccountGUIElements();
+    procedure refreshCurrentDate();
     //procedure WndProc(var TheMessage : TLMessage); override;
     function menuItem2AssociatedAccount(mi: TMenuItem): TCustomAccountAccess;
 
@@ -652,6 +653,7 @@ begin
     accountsRefreshedDate:=0;
     repeatedCheckTimer.Enabled:=true;
   end;
+  refreshCurrentDate();
 end;
 
 procedure TmainForm.delayedCallTimer(Sender: TObject);
@@ -682,7 +684,7 @@ begin
   {$ifdef android}
   if sender <> nil then exit; //activate is not called on android. Call it from timer with nil. Check prevents double calling, when onActivate is fixed and called in possible later LCL versions
   {$endif}
-  setPanelText(StatusBar1.Panels[3],{'Datum: '+}DateToSimpleStr(currentDate));
+  refreshCurrentDate();
   if newVersionInstalled then
     ShowMessage(Format(rsUpdateComplete, [#13#10, FloatToStr(versionNumber/1000)]));
   onshow:=nil;
@@ -1386,6 +1388,7 @@ begin
       system.LeaveCriticalSection(updateThreadConfig.libraryAccessSection);
   end;
 
+  refreshCurrentDate();
   if logging then log('RefreshListView ended');
 end;
 
@@ -1493,6 +1496,11 @@ begin
       if (i = 0) or (searcherForm.orderForDefaultAccountID = accounts.Strings[i]) then temp.Checked:=true;
     end;
   end;
+end;
+
+procedure TmainForm.refreshCurrentDate();
+begin
+  setPanelText(StatusBar1.Panels[3],{'Datum: '+}DateToSimpleStr(currentDate));
 end;
 
 
