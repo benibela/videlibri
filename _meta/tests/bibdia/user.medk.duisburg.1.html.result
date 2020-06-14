@@ -1,4 +1,4 @@
 book := {}
 mode := "medkl"
-renew-form := {"method": "POST", "post": "LANG=de&FUNC=verl&BENUTZER=5678956789&PASSWORD=56789987", "url": "vltest://bibdia/bibdia/user.medk.duisburg.1.html"}
+renew-form := {"method": "POST", "post": "LANG=de&FUNC=verl&BENUTZER=5678956789&PASSWORD=56789987", "url": "vltest://bibdia/bibdia/user.medk.duisburg.1.html", "charset": "CP1252"}
 book := {"statusId": "curious", "status": " ", "_internalTitleId": "567898", "author": " Foobar, Jo", "title": "", "id": "CD ROMANE FOO ", "renewCount": "0", "libraryBranch": " ZB , Zentralbibliothek", "duedate": "2018-03-17", "_internalId": "567898695"}
