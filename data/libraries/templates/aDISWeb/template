@@ -313,9 +313,8 @@
 <action id="search-details">
   <variable name="targetIndex">$book._index * 1</variable> <call action="gotoindex"/>
 
-  <page url="{$form.url}" templateFile="searchDetails">
-    <post>{replace($form.post, "selected=", concat("selected=", $book._searchId))}</post>
-  </page>
+  <s>form := request-combine($form, "selected=" || $book._searchId)</s>
+  <page url="{$form}" templateFile="searchDetails"/>
   
   <page url="{$goback}" templateFile="searchBasicForm"/>
   
@@ -327,7 +326,7 @@
 <action id="order-single">
   <variable name="targetIndex">$book._index * 1</variable> <call action="gotoindex"/>
 
-  <s>form := form-combine($form, concat("selected=", $book._searchId))</s>
+  <s>form := request-combine($form, "selected=" || $book._searchId)</s>
   <call action="internal-order-single"/>
 </action>
 
