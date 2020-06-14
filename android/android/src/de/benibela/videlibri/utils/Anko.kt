@@ -28,7 +28,7 @@ fun internalStartActivity(
         params: Array<out Pair<String, Any?>>
 ) {
     val intent = createIntent(ctx, activity, params)
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && ctx !is Activity)
+    if (ctx !is Activity)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) //without this flag applicationContext cannot start activities
     ctx.startActivity(intent)
 }
