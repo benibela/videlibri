@@ -316,7 +316,7 @@
   <s>form := request-combine($form, "selected=" || $book._searchId)</s>
   <page url="{$form}" templateFile="searchDetails"/>
   
-  <page url="{$goback}" templateFile="searchBasicForm"/>
+  <page url="{$goback}" templateFile="searchBasicForm" test="not($search-result-count = '1')"/>
   
 </action>
 
