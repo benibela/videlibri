@@ -2,11 +2,11 @@
 <library>
   <longName value="Stadtbibliothek Mosbach"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/mosbach"/>	
-  <variable name="DB" value="Mosbach"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.kivbf.de/mosbach/Mediensuche-Mein-Konto/Konto"/>	
+  <variable name="urlsearch" value="https://bibliotheken.kivbf.de/mosbach/Mediensuche-Mein-Konto/Erweiterte-Suche"/>
   
-  <homepage value="https://web-opac.kivbf.de/mosbach/index.asp?DB=Mosbach"/>
+  <homepage value="https://web-opac.kivbf.de/mosbach/"/>
   <testing-search value="unknown"/>
   <testing-account value="unknown"/>
 </library>
