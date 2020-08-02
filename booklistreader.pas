@@ -1138,12 +1138,12 @@ end;
 
 procedure TBookListReader.parserVariableRead(variable: string; value: IXQValue);
 var
- i,j : Integer;
+ i : Integer;
  book: TXQValueObject;
  temp2: IXQValue;
  temp: TXQValue;
- s: string;
- sl: TStringList;
+ s, k: string;
+ keyset: TXQHashsetStr;
 begin
   if logging then
     log('** Read variable: '+variable+' := '+value.toXQuery);
@@ -1156,21 +1156,20 @@ begin
         currentBook := nil;
         case temp.kind of
           pvkObject: begin
-            sl := TStringList.Create;
-            sl.CaseSensitive := true;
-            (temp as TXQValueObject).enumerateKeys(sl);
+            keyset.init;
+            temp.enumeratePropertyKeys(keyset);
             for i:=0 to books.Count-1 do begin
               currentBook := books[i];
-              for j := 0 to sl.Count - 1 do begin
-                if (sl[j] = '_select') or (sl[j] = '_existing') then continue;
-                if books[i].getProperty(sl[j]) <> temp.getProperty(sl[j]).toString then begin //todo: optimize
+              for k in keyset do begin
+                if (k = '_select') or (k = '_existing') then continue;
+                if books[i].getProperty(k) <> temp.getProperty(k).toString then begin //todo: optimize
                   currentBook := nil;
                   break;
                 end;
               end;
               if currentBook <> nil then break;
             end;
-            sl.free;
+            keyset.done;
           end;
         end;
         //s := temp.toString;
