@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:viewBindingIgnore="true">
     <FrameLayout
-            android:layout_width="0dp"
+            android:layout_width="10dp"
             android:layout_weight="2"
             android:layout_height="match_parent"
             android:layout_marginRight="4dp"
             >
+        <!--non zero layout_width is necessary to keep recyclerview recycling-->
         <include layout="@layout/booklist"/>
     </FrameLayout>
 
