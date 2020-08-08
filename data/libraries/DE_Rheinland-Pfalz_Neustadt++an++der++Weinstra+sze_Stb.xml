@@ -6,9 +6,9 @@
   <longName value="Stadtbibliothek Neustadt"/>
   <shortName value="Stb Neustadt"/>
   
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="http://webopac.neustadt.eu/webopac"/>	
-  <variable name="DB" value="web_biblio"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://open.neustadt.eu/Mein-Konto"/>	
+  <variable name="urlsearch" value="https://open.neustadt.eu/Mediensuche/Erweiterte-Suche"/>
   
   <!--<template value="pica"/>-->
 
