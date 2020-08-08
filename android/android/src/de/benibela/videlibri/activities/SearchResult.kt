@@ -184,6 +184,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
 
     fun onSearchNextPageComplete(books: Array<Bridge.Book>) {
         searcher?.let { searcher ->
+            searcher.nextPageSearchPending = false
             searcher.bookCache.addAll(books)
             bookCache = searcher.bookCache
         }
@@ -236,7 +237,9 @@ class SearchResult : BookListActivity(), SearchEventHandler {
 
     override fun onPlaceHolderShown(position: Int) {
         searcher?.let { searcher ->
+            if (searcher.nextPageSearchPending) return
             searcher.nextPageAvailable = false
+            searcher.nextPageSearchPending = true
             beginLoading(LOADING_SEARCH_SEARCHING)
             searcher.nextPage()
         }

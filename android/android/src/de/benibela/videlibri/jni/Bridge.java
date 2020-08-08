@@ -408,6 +408,7 @@ public class Bridge {
         //set in (Java) activity
         public int state;
         public long heartBeat;
+        public boolean nextPageSearchPending;
         @NotNull public final ArrayList<Bridge.Book> bookCache = new ArrayList<>();
         //The detail search runs in the background, for a single book.
         //But the user might request other detail searches, before the search is complete.
