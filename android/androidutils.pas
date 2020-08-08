@@ -1733,7 +1733,7 @@ begin
   except
     on e: Exception do throwExceptionToJava(e);
   end;
-  if logging then log('Bridge_VLSearchNextPage started');
+  if logging then log('Bridge_VLSearchNextPage ended');
 end;
 
 procedure Java_de_benibela_VideLibri_Bridge_VLSearchDetails(env:PJNIEnv; this:jobject; searcher: jobject; jbook: jobject); cdecl;
