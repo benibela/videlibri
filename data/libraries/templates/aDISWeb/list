@@ -36,8 +36,8 @@
     
     <thead><tr>
       <t:siblings-header>
-        <th>Fällig am</th>?
-        <th>Bis</th>?
+    <!--    <th>Fällig am</th>?
+        <th>Bis</th>?-->
         <th>Bibliothek|Ausgabeort|Zweigstelle</th>?
         <th>Titel</th>
         <th>Hinweis|Bemerkung</th>?
@@ -51,14 +51,14 @@
     <TR>
     {book := $default-book}
     <t:siblings>
-    <TD>{
+<!--    <TD>{
       if (contains(., "-")) then (book.issuedate := parse-date(substring-before(., "-"), "dd.mm.yyyy"), book.duedate := parse-date(substring-after(., "-"), "dd.mm.yyyy"))
       else book.duedate := parse-date(., "dd.mm.yyyy")
     }</TD>
     <TD>{
       if (contains(., ".")) then book.duedate := parse-date(., "dd.mm.yyyy") 
       else ()}
-      <!-- vormerkungs verfall --></TD>
+      <!- - vormerkungs verfall - -></TD>-->
     <TD>{book.libraryBranch := .}</TD>
     <TD>{let
             $brs := .//br,
@@ -87,7 +87,13 @@
     <TD>{
       if ($mode = "lend") then (.//input!(book.extendid := encode-for-uri(@name)) )
       else if ($mode = ("ordered", "requested", "provided","orderedMagazine")) then .//input!(book.cancelid := encode-for-uri(@name))
-      else ()
+      else (),
+      let $date := extract(., "(([0-9]{1,2}\.[0-9]{1,2}\.[0-9]{4}) *- *)?([0-9]{1,2}\.[0-9]{1,2}\.[0-9]{4})", (1,3))
+      where $date[2] and not($book.duedate)
+      return (
+        $book.duedate := parse-date($date[2]),
+        if ($date[1]) then $book.issuedate := parse-date($date[1]) else ()
+      )
     }</TD>
     </t:siblings>   
     </TR>
