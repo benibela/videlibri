@@ -1,6 +1,6 @@
 book := {}
 reservations := text{"/loan/DB=1/LNG=DU/USERINFO?ACT=UI_LOR&amp;BOR_U=123&amp;BOR_PW_ENC=xxx"}
 delete-current-books() := ()
-book := {"duedate:dd-mm-yyyy": "11-07-2011", "status:curious": "ausgeliehen (0 Mahnung/en)", "id": "12/3456:X ABC", "author": "def introductio", "title": "Some Systems: a abc", "extendId": "1049957"}
-book := {"duedate:dd-mm-yyyy": "18-07-2011", "status:curious": "ausgeliehen (0 Mahnung/en)", "id": "18/123:C ABC", "author": "Sound So; Aber W", "title": "Systeme: blabla ", "extendId": "123"}
-book := {"statusId": "provided", "cancelable": false, "status": "Abholregal (Ausleihzentrum)", "id": "SUB-SM:A 1923/1234", "author": "D. Semmel", "title": "Grundriss  ", "extendId": ""}
+book := {"extendId": "1049957", "title": "Some Systems: a abc", "author": "def introductio", "id": "12/3456:X ABC", "status:curious": "ausgeliehen (0 Mahnung/en)", "duedate:dd-mm-yyyy": "11-07-2011"}
+book := {"extendId": "123", "title": "Systeme: blabla ", "author": "Sound So; Aber W", "id": "18/123:C ABC", "status:curious": "ausgeliehen (0 Mahnung/en)", "duedate:dd-mm-yyyy": "18-07-2011"}
+book := {"extendId": "", "title": "Grundriss  ", "author": "D. Semmel", "id": "SUB-SM:A 1923/1234", "status": "Abholregal (Ausleihzentrum)", "cancelable": false, "statusId": "provided"}

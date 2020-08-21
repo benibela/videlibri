@@ -1,7 +1,7 @@
 book := {}
-book := {"renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_1", "statusId": "curious", "libraryBranch": "Kinderbibliothek", "id": "id1", "duedate": "2014-07-21", "title": "Nils Olgerson", "status": "?????"}
-book := {"statusId": "critical", "libraryBranch": "Kinderbibliothek", "id": "id2", "duedate": "2014-07-21", "title": "Buchserie; 5", "status": "?????"}
-book := {"renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_7", "statusId": "curious", "libraryBranch": "Kinderbibliothek", "id": "id3", "duedate": "2014-07-21", "title": "Trullo Karacho und Lila...", "status": "?????"}
-book := {"renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_8", "statusId": "curious", "libraryBranch": "Hauptstelle", "id": "id4", "duedate": "2014-09-21", "title": "XYS", "status": "?????"}
-book := {"cancel-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=delvor_12345", "cancelable": true, "libraryBranch": "Kinderbibliothek", "statusStr": "3.3.3???", "title": "Die XXXXXXXX", "statusId": "ordered"}
-book := {"libraryBranch": "Hauptstelle", "statusStr": "3.3.3???", "title": "Dhana", "statusId": "ordered", "cancelable": false}
+book := {"status": "?????", "title": "Nils Olgerson", "duedate": "2014-07-21", "id": "id1", "libraryBranch": "Kinderbibliothek", "statusId": "curious", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_1"}
+book := {"status": "?????", "title": "Buchserie; 5", "duedate": "2014-07-21", "id": "id2", "libraryBranch": "Kinderbibliothek", "statusId": "critical"}
+book := {"status": "?????", "title": "Trullo Karacho und Lila...", "duedate": "2014-07-21", "id": "id3", "libraryBranch": "Kinderbibliothek", "statusId": "curious", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_7"}
+book := {"status": "?????", "title": "XYS", "duedate": "2014-09-21", "id": "id4", "libraryBranch": "Hauptstelle", "statusId": "curious", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_8"}
+book := {"statusId": "ordered", "cancelable": true, "title": "Die XXXXXXXX", "statusStr": "3.3.3???", "libraryBranch": "Kinderbibliothek", "cancel-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=delvor_12345"}
+book := {"statusId": "ordered", "cancelable": false, "title": "Dhana", "statusStr": "3.3.3???", "libraryBranch": "Hauptstelle"}

@@ -1,2 +1,2 @@
 book := {}
-book := {"Verfügbarkeit!!": "(1 Exemplar, 1 Verfügbar, 0 Bestellungen/Vormerkungen)", "Standort: Signatur!!": "ZN4030 27   ", "Standort!!": "2. Etage  ", "libraryBranch": "TU Zentralbibliothek  "}
+book := {"libraryBranch": "TU Zentralbibliothek  ", "Standort!!": "2. Etage  ", "Standort: Signatur!!": "ZN4030 27   ", "Verfügbarkeit!!": "(1 Exemplar, 1 Verfügbar, 0 Bestellungen/Vormerkungen)"}

@@ -1,5 +1,5 @@
 book := {}
 needOrders := true()
-holding := {"libraryBranch": "Zentralbibliothek", "status": "bestellbar", "id": "NK125-3"}
+holding := {"id": "NK125-3", "status": "bestellbar", "libraryBranch": "Zentralbibliothek"}
 result := ()
-book := {"holdings": {"libraryBranch": "Zentralbibliothek", "status": "bestellbar", "id": "NK125-3"}}
+book := {"holdings": {"id": "NK125-3", "status": "bestellbar", "libraryBranch": "Zentralbibliothek"}}

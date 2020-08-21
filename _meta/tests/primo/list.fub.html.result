@@ -5,14 +5,14 @@ result := ()
 hold := false()
 result := ()
 result := ()
-book := {"statusId": "critical", "status": "Nicht verlängerbar", "id": "123.1717/ABCD", "libraryBranch": "J.F. Kennedy-Institut Freihand", "dueDate": "2017-01-16", "author": "Ford, Robert.", "_detailUrl": "file:///primo_library/libweb/action/myAccountLoan.do?command=details&loanID=9792424170001717&type=active&pagingActivated=true&partialResult=false", "title": "Dolores", "_renewLoanId": "9792424170001717"}
+book := {"status": "Nicht verlängerbar", "_renewLoanId": "9792424170001717", "title": "Dolores", "_detailUrl": "file:///primo_library/libweb/action/myAccountLoan.do?command=details&loanID=9792424170001717&type=active&pagingActivated=true&partialResult=false", "author": "Ford, Robert.", "dueDate": "2017-01-16", "libraryBranch": "J.F. Kennedy-Institut Freihand", "id": "123.1717/ABCD", "statusId": "critical"}
 result := ()
 hold := false()
 result := ()
 result := ()
-book := {"statusId": "critical", "status": "Nicht verlängerbar", "id": "123.12/C999x", "libraryBranch": "J.F. Kennedy-Institut Freihand", "dueDate": "2017-01-16", "author": "Lowe, Bernard/td>", "_detailUrl": "file:///primo_library/libweb/action/myAccountLoan.do?command=details&loanID=9792424170001234&type=active&pagingActivated=true&partialResult=false", "title": "Maeve", "_renewLoanId": "9792424170001234"}
+book := {"status": "Nicht verlängerbar", "_renewLoanId": "9792424170001234", "title": "Maeve", "_detailUrl": "file:///primo_library/libweb/action/myAccountLoan.do?command=details&loanID=9792424170001234&type=active&pagingActivated=true&partialResult=false", "author": "Lowe, Bernard/td>", "dueDate": "2017-01-16", "libraryBranch": "J.F. Kennedy-Institut Freihand", "id": "123.12/C999x", "statusId": "critical"}
 result := ()
 hold := false()
 result := ()
 result := ()
-book := {"statusId": "critical", "status": "Nicht verlängerbar", "id": "123.1234/W123", "libraryBranch": "J.F. Kennedy-Institut Freihand", "dueDate": "2017-01-16", "author": "Counter, Mick", "_detailUrl": "file:///primo_library/libweb/action/myAccountLoan.do?command=details&loanID=9792424170008765&type=active&pagingActivated=true&partialResult=false", "title": "one two three", "_renewLoanId": "9792424170008765"}
+book := {"status": "Nicht verlängerbar", "_renewLoanId": "9792424170008765", "title": "one two three", "_detailUrl": "file:///primo_library/libweb/action/myAccountLoan.do?command=details&loanID=9792424170008765&type=active&pagingActivated=true&partialResult=false", "author": "Counter, Mick", "dueDate": "2017-01-16", "libraryBranch": "J.F. Kennedy-Institut Freihand", "id": "123.1234/W123", "statusId": "critical"}

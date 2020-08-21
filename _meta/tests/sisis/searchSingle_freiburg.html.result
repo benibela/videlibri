@@ -1,3 +1,3 @@
 book := {}
 result := ()
-book := {"location": "Vel 2 Nolt", "Seiten: Ill.:!": "159 Seiten", "Name/Autor:!": "Nolte, Anke ¬[Verfasser]", "title": "Medikamente im Test - Bluthochdruck"}
+book := {"title": "Medikamente im Test - Bluthochdruck", "Name/Autor:!": "Nolte, Anke ¬[Verfasser]", "location": "Vel 2 Nolt", "Seiten: Ill.:!": "159 Seiten"}

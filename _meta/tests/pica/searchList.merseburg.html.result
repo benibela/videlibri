@@ -4,13 +4,13 @@ singleResult := false()
 nextPage := ""
 search-result-count := xs:double("21")
 nextPage := "https://lhhal.gbv.de:443/DB=2/SET=3/TTL=1//NXT?FRST=11"
-book := {"year": "1675-1675", "author": "Georg Sommerfeld", "title": "Alter und neuer Kunst-, nutz-, lust- und lehr-reicher Feld-, Garten-, Baum- und Blumen-Calender : worinnen nicht nur (gleich wie in andern Jahr-Büchern gebräuchliche) der Planeten und Aspecten Lauff und Würckung, sambt dem Zustand deß Gewitters ... ausgeführet zu finden, sondern auch alles, was bey einem Feld-, Baum- und Blumen-Garten nützlich und nohtwendig zu beobachten, in bequemer und leß-würdiger Materi unterschieden zum ... mahl vorgestellet und erörtert wird : auff das (Schalt-)Jahr", "home-url": "https://lhhal.gbv.de:443/DB=2/SET=3/TTL=1//SHW?FRST=1"}
-book := {"year": "1707-1708", "author": "Redwitz : Bittorff, ", "title": "Leander Wundermanns astron. Garten-, Baum- und Blumen-Kalender : auffs Jahr Christi", "home-url": "https://lhhal.gbv.de:443/DB=2/SET=3/TTL=1//SHW?FRST=2"}
-book := {"year": "1993", "author": "", "title": "Enth.: Der Baum", "home-url": "https://lhhal.gbv.de:443/DB=2/SET=3/TTL=1//SHW?FRST=3"}
-book := {"year": "2005", "author": "", "title": "Mein Freund, der Baum", "home-url": "https://lhhal.gbv.de:443/DB=2/SET=3/TTL=1//SHW?FRST=4"}
-book := {"year": "", "author": "", "title": "Ein-Baum-Truhe : Restaurierung eines mittelalterlichen Aufbewahrungsmöbels", "home-url": "https://lhhal.gbv.de:443/DB=2/SET=3/TTL=1//SHW?FRST=5"}
-book := {"year": "1990", "author": "Satyajit Ray", "title": "Ein Baum und seine Zweige", "home-url": "https://lhhal.gbv.de:443/DB=2/SET=3/TTL=1//SHW?FRST=6"}
-book := {"year": "2003", "author": "Herbert Ostwald", "title": "Der Baum der Bäume : Geheimnisvolles Eichenleben", "home-url": "https://lhhal.gbv.de:443/DB=2/SET=3/TTL=1//SHW?FRST=7"}
-book := {"year": "2004", "author": "Herbert Oswald", "title": "Enth.: Der Baum der Bäume : Geheimnisvolles Eichenleben", "home-url": "https://lhhal.gbv.de:443/DB=2/SET=3/TTL=1//SHW?FRST=8"}
-book := {"year": "2010", "author": "", "title": "Enth.: Von Bob dem Baum und dem Leben", "home-url": "https://lhhal.gbv.de:443/DB=2/SET=3/TTL=1//SHW?FRST=9"}
-book := {"year": "2017", "author": "Edward Sherwood Mead", "title": "Harvey Baum : A Study of the Agricultural Revolution", "home-url": "https://lhhal.gbv.de:443/DB=2/SET=3/TTL=1//SHW?FRST=10"}
+book := {"title": "Alter und neuer Kunst-, nutz-, lust- und lehr-reicher Feld-, Garten-, Baum- und Blumen-Calender : worinnen nicht nur (gleich wie in andern Jahr-Büchern gebräuchliche) der Planeten und Aspecten Lauff und Würckung, sambt dem Zustand deß Gewitters ... ausgeführet zu finden, sondern auch alles, was bey einem Feld-, Baum- und Blumen-Garten nützlich und nohtwendig zu beobachten, in bequemer und leß-würdiger Materi unterschieden zum ... mahl vorgestellet und erörtert wird : auff das (Schalt-)Jahr", "home-url": "https://lhhal.gbv.de:443/DB=2/SET=3/TTL=1//SHW?FRST=1", "author": "Georg Sommerfeld", "year": "1675-1675"}
+book := {"title": "Leander Wundermanns astron. Garten-, Baum- und Blumen-Kalender : auffs Jahr Christi", "home-url": "https://lhhal.gbv.de:443/DB=2/SET=3/TTL=1//SHW?FRST=2", "author": "Redwitz : Bittorff, ", "year": "1707-1708"}
+book := {"title": "Enth.: Der Baum", "home-url": "https://lhhal.gbv.de:443/DB=2/SET=3/TTL=1//SHW?FRST=3", "author": "", "year": "1993"}
+book := {"title": "Mein Freund, der Baum", "home-url": "https://lhhal.gbv.de:443/DB=2/SET=3/TTL=1//SHW?FRST=4", "author": "", "year": "2005"}
+book := {"title": "Ein-Baum-Truhe : Restaurierung eines mittelalterlichen Aufbewahrungsmöbels", "home-url": "https://lhhal.gbv.de:443/DB=2/SET=3/TTL=1//SHW?FRST=5", "author": "", "year": ""}
+book := {"title": "Ein Baum und seine Zweige", "home-url": "https://lhhal.gbv.de:443/DB=2/SET=3/TTL=1//SHW?FRST=6", "author": "Satyajit Ray", "year": "1990"}
+book := {"title": "Der Baum der Bäume : Geheimnisvolles Eichenleben", "home-url": "https://lhhal.gbv.de:443/DB=2/SET=3/TTL=1//SHW?FRST=7", "author": "Herbert Ostwald", "year": "2003"}
+book := {"title": "Enth.: Der Baum der Bäume : Geheimnisvolles Eichenleben", "home-url": "https://lhhal.gbv.de:443/DB=2/SET=3/TTL=1//SHW?FRST=8", "author": "Herbert Oswald", "year": "2004"}
+book := {"title": "Enth.: Von Bob dem Baum und dem Leben", "home-url": "https://lhhal.gbv.de:443/DB=2/SET=3/TTL=1//SHW?FRST=9", "author": "", "year": "2010"}
+book := {"title": "Harvey Baum : A Study of the Agricultural Revolution", "home-url": "https://lhhal.gbv.de:443/DB=2/SET=3/TTL=1//SHW?FRST=10", "author": "Edward Sherwood Mead", "year": "2017"}

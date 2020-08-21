@@ -24,18 +24,18 @@ brs := ("",
 "2006")
 brs := ("Nance, John J.", 
 "2006")
-book := {"year": "2006", "author": "Nance, John J.", "title": "Fire Flight", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=21&identifier=-1_S_IG.12.6398", "orderable": false}
+book := {"orderable": false, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=21&identifier=-1_S_IG.12.6398", "title": "Fire Flight", "author": "Nance, John J.", "year": "2006"}
 hasZ3988 := false()
 brs := ("", 
 "Stone, Irving", 
 "Ston")
 brs := ("Stone, Irving", 
 "Ston")
-book := {"author": "Stone, Irving", "title": "Michelangelo", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=22&identifier=-1_S_IG.12.6398", "orderable": false}
+book := {"orderable": false, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=22&identifier=-1_S_IG.12.6398", "title": "Michelangelo", "author": "Stone, Irving"}
 hasZ3988 := false()
 brs := ("", 
 "Stone, Irving", 
 "1963")
 brs := ("Stone, Irving", 
 "1963")
-book := {"year": "1963", "author": "Stone, Irving", "title": "Michelangelo", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=23&identifier=-1_S_IG.12.6398", "orderable": false}
+book := {"orderable": false, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=23&identifier=-1_S_IG.12.6398", "title": "Michelangelo", "author": "Stone, Irving", "year": "1963"}

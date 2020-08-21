@@ -1,2 +1,2 @@
 book := {}
-book := {"orderable": false, "_orderCount": 0}
+book := {"_orderCount": 0, "orderable": false}

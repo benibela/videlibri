@@ -1,2 +1,2 @@
 book := {}
-book := {"extendLink": "http://ublibsprod.ub.tu-berlin.de:80/F/7HMCUQRX1MFHBXB1L8J3VJFH9IQLBPNKVRGCNVN3CL2DYSXLLC-46949?func=BOR-LOAN-RENEW&doc_number=001948802&item_sequence=000010&adm_library=TUK50&ill_unit=", "status:curious": null, "status:problematic": "Jetzt verlängern", "duedate": "2011-01-10", "issuedate": "2010-12-30"}
+book := {"issuedate": "2010-12-30", "duedate": "2011-01-10", "status:problematic": "Jetzt verlängern", "status:curious": null, "extendLink": "http://ublibsprod.ub.tu-berlin.de:80/F/7HMCUQRX1MFHBXB1L8J3VJFH9IQLBPNKVRGCNVN3CL2DYSXLLC-46949?func=BOR-LOAN-RENEW&doc_number=001948802&item_sequence=000010&adm_library=TUK50&ill_unit="}

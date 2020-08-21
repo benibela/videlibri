@@ -30,7 +30,7 @@ brs := ("Cohen-Janca, Irene .",
 "2011", 
 "", 
 "Buch")
-book := {"year": "2011", "author": "Cohen-Janca, Irene .", "title": "Annes Baum", "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=1&identifier=2_SOLR_SERVER_1027567885", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=1&identifier=2_SOLR_SERVER_1027567885", "title": "Annes Baum", "author": "Cohen-Janca, Irene .", "year": "2011"}
 hasZ3988 := false()
 brs := ("Desmond, Jenni . - 2016", 
 "", 
@@ -39,7 +39,7 @@ brs := ("Desmond, Jenni .",
 "2016", 
 "", 
 "Buch")
-book := {"year": "2016", "author": "Desmond, Jenni .", "title": "Albert und der Baum", "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=2&identifier=2_SOLR_SERVER_1027567885", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=2&identifier=2_SOLR_SERVER_1027567885", "title": "Albert und der Baum", "author": "Desmond, Jenni .", "year": "2016"}
 hasZ3988 := false()
 brs := ("Teckentrup, Britta . - 2015", 
 "", 
@@ -48,7 +48,7 @@ brs := ("Teckentrup, Britta .",
 "2015", 
 "", 
 "Buch")
-book := {"year": "2015", "author": "Teckentrup, Britta .", "title": "Der Baum der Jahreszeiten", "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=3&identifier=2_SOLR_SERVER_1027567885", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=3&identifier=2_SOLR_SERVER_1027567885", "title": "Der Baum der Jahreszeiten", "author": "Teckentrup, Britta .", "year": "2015"}
 hasZ3988 := false()
 brs := ("Teckentrup, Britta . - 2013", 
 "", 
@@ -57,7 +57,7 @@ brs := ("Teckentrup, Britta .",
 "2013", 
 "", 
 "Buch")
-book := {"year": "2013", "author": "Teckentrup, Britta .", "title": "Der Baum der Erinnerung", "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=4&identifier=2_SOLR_SERVER_1027567885", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=4&identifier=2_SOLR_SERVER_1027567885", "title": "Der Baum der Erinnerung", "author": "Teckentrup, Britta .", "year": "2013"}
 hasZ3988 := false()
 brs := ("Richter, Jutta . - 2012", 
 "", 
@@ -66,7 +66,7 @@ brs := ("Richter, Jutta .",
 "2012", 
 "", 
 "CD")
-book := {"year": "2012", "author": "Richter, Jutta .", "title": "Das Schiff im Baum", "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=5&identifier=2_SOLR_SERVER_1027567885", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=5&identifier=2_SOLR_SERVER_1027567885", "title": "Das Schiff im Baum", "author": "Richter, Jutta .", "year": "2012"}
 hasZ3988 := false()
 brs := ("Tison, Annette . - 2008", 
 "", 
@@ -75,7 +75,7 @@ brs := ("Tison, Annette .",
 "2008", 
 "", 
 "Buch")
-book := {"year": "2008", "author": "Tison, Annette .", "title": "Barbapapa und der Baum", "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=6&identifier=2_SOLR_SERVER_1027567885", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=6&identifier=2_SOLR_SERVER_1027567885", "title": "Barbapapa und der Baum", "author": "Tison, Annette .", "year": "2008"}
 hasZ3988 := false()
 brs := ("Pauli, Lorenz . - 2005", 
 "", 
@@ -84,7 +84,7 @@ brs := ("Pauli, Lorenz .",
 "2005", 
 "", 
 "Buch")
-book := {"year": "2005", "author": "Pauli, Lorenz .", "title": "Ich schmück den Baum", "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=7&identifier=2_SOLR_SERVER_1027567885", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=7&identifier=2_SOLR_SERVER_1027567885", "title": "Ich schmück den Baum", "author": "Pauli, Lorenz .", "year": "2005"}
 hasZ3988 := false()
 brs := ("Winton, Tim . - 2004", 
 "", 
@@ -93,7 +93,7 @@ brs := ("Winton, Tim .",
 "2004", 
 "", 
 "Buch")
-book := {"year": "2004", "author": "Winton, Tim .", "title": "Der singende Baum Roman", "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=8&identifier=2_SOLR_SERVER_1027567885", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=8&identifier=2_SOLR_SERVER_1027567885", "title": "Der singende Baum Roman", "author": "Winton, Tim .", "year": "2004"}
 hasZ3988 := false()
 brs := ("Oe, Kenzaburo . - 2000", 
 "", 
@@ -102,7 +102,7 @@ brs := ("Oe, Kenzaburo .",
 "2000", 
 "", 
 "Buch")
-book := {"year": "2000", "author": "Oe, Kenzaburo .", "title": "Grüner Baum in Flammen", "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=9&identifier=2_SOLR_SERVER_1027567885", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=9&identifier=2_SOLR_SERVER_1027567885", "title": "Grüner Baum in Flammen", "author": "Oe, Kenzaburo .", "year": "2000"}
 hasZ3988 := false()
 brs := ("Zavrel, Stepán . - 1991", 
 "", 
@@ -111,4 +111,4 @@ brs := ("Zavrel, Stepán .",
 "1991", 
 "", 
 "Buch")
-book := {"year": "1991", "author": "Zavrel, Stepán .", "title": "Der letzte Baum", "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=10&identifier=2_SOLR_SERVER_1027567885", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=10&identifier=2_SOLR_SERVER_1027567885", "title": "Der letzte Baum", "author": "Zavrel, Stepán .", "year": "1991"}

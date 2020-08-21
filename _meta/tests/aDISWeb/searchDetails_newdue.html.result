@@ -5,5 +5,5 @@ name := "Medienart"
 name := "Zeitschrift"
 name := "Heft"
 name := "Erscheint am"
-holding := {"status": "Verfügbar", "Ausleihtyp!": "Präsenz (nicht entleihbar)", "id": "Ybq Bergst", "libraryLocation": "......", "libraryBranch": "Zentralbibliothek", "orderable": false}
-book := {"holdings": {"status": "Verfügbar", "Ausleihtyp!": "Präsenz (nicht entleihbar)", "id": "Ybq Bergst", "libraryLocation": "......", "libraryBranch": "Zentralbibliothek", "orderable": false}, "Erscheint am!": "15.04.2016", "Heft!": "(2016), Heft 5", "Zeitschrift!": "Bergsteiger : Bergwandern, Klettersteige, Alpinismus", "Medienart!": "[Zeitschriftenheft]", "orderable": true}
+holding := {"orderable": false, "libraryBranch": "Zentralbibliothek", "libraryLocation": "......", "id": "Ybq Bergst", "Ausleihtyp!": "Präsenz (nicht entleihbar)", "status": "Verfügbar"}
+book := {"orderable": true, "Medienart!": "[Zeitschriftenheft]", "Zeitschrift!": "Bergsteiger : Bergwandern, Klettersteige, Alpinismus", "Heft!": "(2016), Heft 5", "Erscheint am!": "15.04.2016", "holdings": {"orderable": false, "libraryBranch": "Zentralbibliothek", "libraryLocation": "......", "id": "Ybq Bergst", "Ausleihtyp!": "Präsenz (nicht entleihbar)", "status": "Verfügbar"}}

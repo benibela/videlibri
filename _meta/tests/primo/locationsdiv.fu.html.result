@@ -2,4 +2,4 @@ book := {}
 i := 0
 i := 1
 i := 2
-book := {"Exemplar 2!": "Universitätsbibliothek, Außenmagazin - Magazinbestellung\n\t\t\t\t(P VIII fb 101 )\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\tVerfügbar", "Exemplar 1!": "Campusbibliothek, Verlust\n\t\t\t\t(ddddddd )\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\tVerfügbar"}
+book := {"Exemplar 1!": "Campusbibliothek, Verlust\n\t\t\t\t(ddddddd )\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\tVerfügbar", "Exemplar 2!": "Universitätsbibliothek, Außenmagazin - Magazinbestellung\n\t\t\t\t(P VIII fb 101 )\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\tVerfügbar"}

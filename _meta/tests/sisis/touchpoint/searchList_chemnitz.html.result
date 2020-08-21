@@ -22,7 +22,7 @@ brs := ("Bach, Axel .",
 "2004", 
 "Regalstandort: 1.3.2/ 26", 
 "Buch Stadtbibliothek Chemnitz")
-book := {"year": "2004", "author": "Bach, Axel .", "title": "Lebenskünstler Baum", "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=1&identifier=1578db9", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=1&identifier=1578db9", "title": "Lebenskünstler Baum", "author": "Bach, Axel .", "year": "2004"}
 hasZ3988 := false()
 brs := ("Suzuki, David T. . - 2012", 
 "Regalstandort: eBook (pub)", 
@@ -31,7 +31,7 @@ brs := ("Suzuki, David T. .",
 "2012", 
 "Regalstandort: eBook (pub)", 
 "eBook Titel digital verfügbar; zum Herunterladen bitte hier klicken.")
-book := {"year": "2012", "author": "Suzuki, David T. .", "title": "Der Baum : eine Biografie", "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=2&identifier=1578db9", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=2&identifier=1578db9", "title": "Der Baum : eine Biografie", "author": "Suzuki, David T. .", "year": "2012"}
 hasZ3988 := false()
 brs := ("Standiford, Natalie . - [2016] : © 2016", 
 "Regalstandort: Blau J 0 Sta", 
@@ -40,7 +40,7 @@ brs := ("Standiford, Natalie . - [] : ©",
 "2016", 
 "Regalstandort: Blau J 0 Sta", 
 "Kinderbuch Stadtbibliothek Chemnitz")
-book := {"year": "2016", "author": "Standiford, Natalie . - [] : ©", "title": "Ein Baum voller Geheimnisse", "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=3&identifier=1578db9", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=3&identifier=1578db9", "title": "Ein Baum voller Geheimnisse", "author": "Standiford, Natalie . - [] : ©", "year": "2016"}
 hasZ3988 := false()
 brs := ("Teckentrup, Britta . - 2015", 
 "Regalstandort: Pflanzen Garten Jahreszeiten", 
@@ -49,7 +49,7 @@ brs := ("Teckentrup, Britta .",
 "2015", 
 "Regalstandort: Pflanzen Garten Jahreszeiten", 
 "Kinderbuch Stadtbibliothek Chemnitz")
-book := {"year": "2015", "author": "Teckentrup, Britta .", "title": "Der Baum der Jahreszeiten", "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=4&identifier=1578db9", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=4&identifier=1578db9", "title": "Der Baum der Jahreszeiten", "author": "Teckentrup, Britta .", "year": "2015"}
 hasZ3988 := false()
 brs := ("Winton, Tim . - 2004", 
 "Regalstandort: R 11 Winto", 
@@ -58,7 +58,7 @@ brs := ("Winton, Tim .",
 "2004", 
 "Regalstandort: R 11 Winto", 
 "Buch Stadtbibliothek Chemnitz")
-book := {"year": "2004", "author": "Winton, Tim .", "title": "Der singende Baum : Roman", "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=5&identifier=1578db9", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=5&identifier=1578db9", "title": "Der singende Baum : Roman", "author": "Winton, Tim .", "year": "2004"}
 hasZ3988 := false()
 brs := ("Hester, Nigel . - 1991", 
 "Regalstandort: Rot N 5 Leb", 
@@ -67,7 +67,7 @@ brs := ("Hester, Nigel .",
 "1991", 
 "Regalstandort: Rot N 5 Leb", 
 "Kinderbuch Stadtbibliothek Chemnitz")
-book := {"year": "1991", "author": "Hester, Nigel .", "title": "Lebensraum Baum", "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=6&identifier=1578db9", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=6&identifier=1578db9", "title": "Lebensraum Baum", "author": "Hester, Nigel .", "year": "1991"}
 hasZ3988 := false()
 brs := ("Winton, Tim . - c 2004", 
 "Regalstandort: R 11 Winto", 
@@ -76,7 +76,7 @@ brs := ("Winton, Tim . - c",
 "2004", 
 "Regalstandort: R 11 Winto", 
 "Buch Stadtbibliothek Chemnitz")
-book := {"year": "2004", "author": "Winton, Tim . - c", "title": "Der singende Baum : Roman", "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=7&identifier=1578db9", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=7&identifier=1578db9", "title": "Der singende Baum : Roman", "author": "Winton, Tim . - c", "year": "2004"}
 hasZ3988 := false()
 brs := ("Weber, Karlheinz . - 2001", 
 "Regalstandort: 67.03 Web", 
@@ -85,7 +85,7 @@ brs := ("Weber, Karlheinz .",
 "2001", 
 "Regalstandort: 67.03 Web", 
 "Buch Stadtbibliothek Chemnitz")
-book := {"year": "2001", "author": "Weber, Karlheinz .", "title": "Taschenbuch der Holzfäulen im Baum", "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=8&identifier=1578db9", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=8&identifier=1578db9", "title": "Taschenbuch der Holzfäulen im Baum", "author": "Weber, Karlheinz .", "year": "2001"}
 hasZ3988 := false()
 brs := ("Eberhardt, Wiltrud . - 1984", 
 "Regalstandort: 9.2/ 9", 
@@ -94,7 +94,7 @@ brs := ("Eberhardt, Wiltrud .",
 "1984", 
 "Regalstandort: 9.2/ 9", 
 "Buch Stadtbibliothek Chemnitz")
-book := {"year": "1984", "author": "Eberhardt, Wiltrud .", "title": "Der Baum in der Dichtung", "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=9&identifier=1578db9", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=9&identifier=1578db9", "title": "Der Baum in der Dichtung", "author": "Eberhardt, Wiltrud .", "year": "1984"}
 hasZ3988 := false()
 brs := ("Hunt, Lynda Mullaly . - 2016", 
 "", 
@@ -103,4 +103,4 @@ brs := ("Hunt, Lynda Mullaly .",
 "2016", 
 "", 
 "eBook Titel digital verfügbar; zum Herunterladen bitte hier klicken.")
-book := {"year": "2016", "author": "Hunt, Lynda Mullaly .", "title": "Wie ein Fisch im Baum", "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=10&identifier=1578db9", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPoint_touchpoint/singleHit.do?methodToCall=showHit&curPos=10&identifier=1578db9", "title": "Wie ein Fisch im Baum", "author": "Hunt, Lynda Mullaly .", "year": "2016"}

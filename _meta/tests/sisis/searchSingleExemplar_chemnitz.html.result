@@ -1,7 +1,7 @@
 book := {}
 needOrders := true()
-holding := {"status": "ausleihbar", "libraryBranch": "Zentralbibl. / Reisen und Sprachen (IB,I,L)", "id": "210 I 211 Bol", "barcode": "B055580X"}
+holding := {"barcode": "B055580X", "id": "210 I 211 Bol", "libraryBranch": "Zentralbibl. / Reisen und Sprachen (IB,I,L)", "status": "ausleihbar"}
 result := ()
-holding := {"status": "ausleihbar", "libraryBranch": "Zentralbibl. / Reisen und Sprachen (IB,I,L)", "id": "210 I 211 Bol", "barcode": "B0555810"}
+holding := {"barcode": "B0555810", "id": "210 I 211 Bol", "libraryBranch": "Zentralbibl. / Reisen und Sprachen (IB,I,L)", "status": "ausleihbar"}
 result := ()
-book := {"holdings": [{"status": "ausleihbar", "libraryBranch": "Zentralbibl. / Reisen und Sprachen (IB,I,L)", "id": "210 I 211 Bol", "barcode": "B055580X"}, {"status": "ausleihbar", "libraryBranch": "Zentralbibl. / Reisen und Sprachen (IB,I,L)", "id": "210 I 211 Bol", "barcode": "B0555810"}]}
+book := {"holdings": [{"barcode": "B055580X", "id": "210 I 211 Bol", "libraryBranch": "Zentralbibl. / Reisen und Sprachen (IB,I,L)", "status": "ausleihbar"}, {"barcode": "B0555810", "id": "210 I 211 Bol", "libraryBranch": "Zentralbibl. / Reisen und Sprachen (IB,I,L)", "status": "ausleihbar"}]}

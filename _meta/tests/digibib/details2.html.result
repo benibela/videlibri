@@ -1,4 +1,4 @@
 book := {}
 hasBestand := false()
 hasBestand := true()
-book := {"home-url": "http://was.duesseldorf.de/WebOPAC/QueryPanelServlet?homegkz=111&Suchbegriff=idnr=E930364613&Kriterium=Titel&Medienart=alle&Bibliothek=Stadtb%C3%BCchereien%20D%C3%BCsseldorf", "ISBN:!!": "3-12-534233-3", "Umfang:!!": "335 S. : Ill.", "Ausgabe:!!": "Second ed., 3rd print.. - 2009", "Titel:!!": "*Target Score ; Student's book with test pack:", "image-url": "http://ecx.images-amazon.com/images/I/518dTv26KNL._SL160_.jpg", "amazon-url": "http://www.amazon.de/exec/obidos/ASIN/3125342333/digitalebiblio02"}
+book := {"amazon-url": "http://www.amazon.de/exec/obidos/ASIN/3125342333/digitalebiblio02", "image-url": "http://ecx.images-amazon.com/images/I/518dTv26KNL._SL160_.jpg", "Titel:!!": "*Target Score ; Student's book with test pack:", "Ausgabe:!!": "Second ed., 3rd print.. - 2009", "Umfang:!!": "335 S. : Ill.", "ISBN:!!": "3-12-534233-3", "home-url": "http://was.duesseldorf.de/WebOPAC/QueryPanelServlet?homegkz=111&Suchbegriff=idnr=E930364613&Kriterium=Titel&Medienart=alle&Bibliothek=Stadtb%C3%BCchereien%20D%C3%BCsseldorf"}

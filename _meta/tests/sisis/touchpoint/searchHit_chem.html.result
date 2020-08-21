@@ -1,3 +1,3 @@
 book := {}
 result := ()
-book := {"Umfang!": "206 S. : Ill.", "Klassifikation!": "O 310 O 710", "Regalstandort!": "O 310 Bop", "isbn": "9783937880822", "Serie/ Reihe!": "Test", "Erscheinungsjahr!": "2008", "location": "Berlin", "publisher": "Stiftung Warentest", "author": "Bopp, Annette", "title": "Medikamente bei Krebs"}
+book := {"title": "Medikamente bei Krebs", "author": "Bopp, Annette", "publisher": "Stiftung Warentest", "location": "Berlin", "Erscheinungsjahr!": "2008", "Serie/ Reihe!": "Test", "isbn": "9783937880822", "Regalstandort!": "O 310 Bop", "Klassifikation!": "O 310 O 710", "Umfang!": "206 S. : Ill."}

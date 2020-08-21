@@ -1,4 +1,4 @@
 book := {}
 base := xs:anyURI("vltest://bibdia_stabib/list_abhol.html")
 mode := "verl"
-book := {"status": "abholbereit Potsdamer Straße, Ausleihe außer Haus", "author": "", "title": "", "shortId": "3A12345", "id": "3A12345", "renewCount": " ", "duedate": "2013-05-04", "statusId": "critical", "_internalId": null}
+book := {"statusId": "critical", "_internalId": null, "duedate": "2013-05-04", "renewCount": " ", "id": "3A12345", "shortId": "3A12345", "title": "", "author": "", "status": "abholbereit Potsdamer Straße, Ausleihe außer Haus"}

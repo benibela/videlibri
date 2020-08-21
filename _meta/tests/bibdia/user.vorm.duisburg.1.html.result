@@ -1,4 +1,4 @@
 book := {}
 mode := "vorml"
 cancel-form := {"method": "POST", "post": "LANG=de&FUNC=vorl&BENUTZER=5678956789&PASSWORD=56789987", "url": "vltest://bibdia/bibdia/user.vorm.duisburg.1.html", "charset": "CP1252"}
-book := {"statusId": "ordered", "status": " Entliehen bis: 29.03.2018 Rang: 1 T", "duedate": "2019-03-04", "issuedate": "2018-03-04", "libraryBranch": "ZB, Zentralbibliothek", "_internalTitleId": "567890", "author": " Abcdef, Tork", "title": " Der", "id": "YBK 5 ABCDEF ", "_internalId": "T 567890 5678901"}
+book := {"status": " Entliehen bis: 29.03.2018 Rang: 1 T", "_internalId": "T 567890 5678901", "id": "YBK 5 ABCDEF ", "title": " Der", "author": " Abcdef, Tork", "_internalTitleId": "567890", "libraryBranch": "ZB, Zentralbibliothek", "issuedate": "2018-03-04", "duedate": "2019-03-04", "statusId": "ordered"}

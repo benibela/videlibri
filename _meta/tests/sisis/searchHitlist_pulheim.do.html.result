@@ -30,67 +30,67 @@ brs := ("",
 "Ein oder mehrere Exemplare dieses Titels sind in der aktuellen Zweigstelle im Lesesaal ausleihbar.")
 brs := ("Zeitschrift", 
 "Ein oder mehrere Exemplare dieses Titels sind in der aktuellen Zweigstelle im Lesesaal ausleihbar.")
-book := {"author": "Zeitschrift", "title": "Test/06/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=41&identifier=-1_S_IG.2463.25696", "orderable": false}
+book := {"orderable": false, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=41&identifier=-1_S_IG.2463.25696", "title": "Test/06/12", "author": "Zeitschrift"}
 hasZ3988 := false()
 brs := ("", 
 "Zeitschrift", 
 "Ein oder mehrere Exemplare dieses Titels sind in der aktuellen Zweigstelle im Lesesaal ausleihbar.")
 brs := ("Zeitschrift", 
 "Ein oder mehrere Exemplare dieses Titels sind in der aktuellen Zweigstelle im Lesesaal ausleihbar.")
-book := {"author": "Zeitschrift", "title": "Test/07/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=42&identifier=-1_S_IG.2463.25696", "orderable": false}
+book := {"orderable": false, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=42&identifier=-1_S_IG.2463.25696", "title": "Test/07/12", "author": "Zeitschrift"}
 hasZ3988 := false()
 brs := ("", 
 "Zeitschrift", 
 "Ein oder mehrere Exemplare dieses Titels sind in der aktuellen Zweigstelle im Lesesaal ausleihbar.")
 brs := ("Zeitschrift", 
 "Ein oder mehrere Exemplare dieses Titels sind in der aktuellen Zweigstelle im Lesesaal ausleihbar.")
-book := {"author": "Zeitschrift", "title": "Test/08/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=43&identifier=-1_S_IG.2463.25696", "orderable": false}
+book := {"orderable": false, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=43&identifier=-1_S_IG.2463.25696", "title": "Test/08/12", "author": "Zeitschrift"}
 hasZ3988 := false()
 brs := ("", 
 "Zeitschrift", 
 "Ein oder mehrere Exemplare dieses Titels sind in der aktuellen Zweigstelle im Lesesaal ausleihbar.")
 brs := ("Zeitschrift", 
 "Ein oder mehrere Exemplare dieses Titels sind in der aktuellen Zweigstelle im Lesesaal ausleihbar.")
-book := {"author": "Zeitschrift", "title": "Test/09/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=44&identifier=-1_S_IG.2463.25696", "orderable": false}
+book := {"orderable": false, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=44&identifier=-1_S_IG.2463.25696", "title": "Test/09/12", "author": "Zeitschrift"}
 hasZ3988 := false()
 brs := ("", 
 "Zeitschrift", 
 "Ein oder mehrere Exemplare dieses Titels sind in der aktuellen Zweigstelle im Lesesaal ausleihbar.")
 brs := ("Zeitschrift", 
 "Ein oder mehrere Exemplare dieses Titels sind in der aktuellen Zweigstelle im Lesesaal ausleihbar.")
-book := {"author": "Zeitschrift", "title": "Test/10/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=45&identifier=-1_S_IG.2463.25696", "orderable": false}
+book := {"orderable": false, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=45&identifier=-1_S_IG.2463.25696", "title": "Test/10/12", "author": "Zeitschrift"}
 hasZ3988 := false()
 brs := ("", 
 "Zeitschrift", 
 "Ein oder mehrere Exemplare dieses Titels sind in der aktuellen Zweigstelle im Lesesaal ausleihbar.")
 brs := ("Zeitschrift", 
 "Ein oder mehrere Exemplare dieses Titels sind in der aktuellen Zweigstelle im Lesesaal ausleihbar.")
-book := {"author": "Zeitschrift", "title": "Test/11/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=46&identifier=-1_S_IG.2463.25696", "orderable": false}
+book := {"orderable": false, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=46&identifier=-1_S_IG.2463.25696", "title": "Test/11/12", "author": "Zeitschrift"}
 hasZ3988 := false()
 brs := ("", 
 "Zeitschrift", 
 "ausleihbar")
 brs := ("Zeitschrift", 
 "ausleihbar")
-book := {"author": "Zeitschrift", "title": "Test/12/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=47&identifier=-1_S_IG.2463.25696", "orderable": false}
+book := {"orderable": false, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=47&identifier=-1_S_IG.2463.25696", "title": "Test/12/12", "author": "Zeitschrift"}
 hasZ3988 := false()
 brs := ("", 
 "Zeitschrift", 
 "Ein oder mehrere Exemplare dieses Titels sind in der aktuellen Zweigstelle im Lesesaal ausleihbar.")
 brs := ("Zeitschrift", 
 "Ein oder mehrere Exemplare dieses Titels sind in der aktuellen Zweigstelle im Lesesaal ausleihbar.")
-book := {"author": "Zeitschrift", "title": "Test/01/13", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=48&identifier=-1_S_IG.2463.25696", "orderable": false}
+book := {"orderable": false, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=48&identifier=-1_S_IG.2463.25696", "title": "Test/01/13", "author": "Zeitschrift"}
 hasZ3988 := false()
 brs := ("", 
 "bestellbar (Lesesaal)", 
 "")
 brs := ("bestellbar (Lesesaal)", 
 "")
-book := {"author": "", "title": "Test/02/13", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=49&identifier=-1_S_IG.2463.25696", "orderable": false}
+book := {"orderable": false, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=49&identifier=-1_S_IG.2463.25696", "title": "Test/02/13", "author": ""}
 hasZ3988 := false()
 brs := ("", 
 "bestellbar (Lesesaal)", 
 "")
 brs := ("bestellbar (Lesesaal)", 
 "")
-book := {"author": "", "title": "Test/03/13", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=50&identifier=-1_S_IG.2463.25696", "orderable": false}
+book := {"orderable": false, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=50&identifier=-1_S_IG.2463.25696", "title": "Test/03/13", "author": ""}

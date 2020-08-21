@@ -1,7 +1,7 @@
 search-reverse-keys := 
 book := {}
 reserve-request := ()
-holding := {"orderable": false, "duedate": "2014-10-06", "pendingOrders": "0", "statusStr": "Entliehen", "libraryLocation": "I J 0", "libraryBranch": "Kinderbibliothek"}
+holding := {"libraryBranch": "Kinderbibliothek", "libraryLocation": "I J 0", "statusStr": "Entliehen", "pendingOrders": "0", "duedate": "2014-10-06", "orderable": false}
 result := ()
-book := {"Originaltitel:!": " Kretek a rybka ", "Schlagwörter:!": " BILDERBUCH ", "Beschreibung:!": " 1. Aufl., 46 S. : überw. Ill. ", "ISBN:!": " 978-3-89603-407-6 ", "Signatur:!": " I J 0 ", "Verlag:!": " Leipzig, leiv ", "Jahr:!": " 2013 ", "Verfasser:!": " Miler, Zdenek; Miler, Katerina ", "Mediengruppe:!": " Kinderliteratur ", "holdings": {"orderable": false, "duedate": "2014-10-06", "pendingOrders": "0", "statusStr": "Entliehen", "libraryLocation": "I J 0", "libraryBranch": "Kinderbibliothek"}, "_orderTarget": "dnn$ctr690$MainView$UcNormalView$UcDetailView$ucCatalogueView$ucSharedCatalogueView$BtnReserve", "orderable": true, "image-url": "http://images-eu.amazon.com/images/P/3896034073.03.MZZZZZZZ.jpg"}
+book := {"image-url": "http://images-eu.amazon.com/images/P/3896034073.03.MZZZZZZZ.jpg", "orderable": true, "_orderTarget": "dnn$ctr690$MainView$UcNormalView$UcDetailView$ucCatalogueView$ucSharedCatalogueView$BtnReserve", "holdings": {"libraryBranch": "Kinderbibliothek", "libraryLocation": "I J 0", "statusStr": "Entliehen", "pendingOrders": "0", "duedate": "2014-10-06", "orderable": false}, "Mediengruppe:!": " Kinderliteratur ", "Verfasser:!": " Miler, Zdenek; Miler, Katerina ", "Jahr:!": " 2013 ", "Verlag:!": " Leipzig, leiv ", "Signatur:!": " I J 0 ", "ISBN:!": " 978-3-89603-407-6 ", "Beschreibung:!": " 1. Aufl., 46 S. : überw. Ill. ", "Schlagwörter:!": " BILDERBUCH ", "Originaltitel:!": " Kretek a rybka "}
 result := ()

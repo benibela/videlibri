@@ -1,8 +1,8 @@
 book := {}
 hasBestand := false()
 hasBestand := true()
-holding := {"id": "ZFF 30", "libraryBranch": "BB Steinfurt / Freihand_04", "status": "Verliehen (Rückgabe vorauss. 02.06.2017)"}
+holding := {"status": "Verliehen (Rückgabe vorauss. 02.06.2017)", "libraryBranch": "BB Steinfurt / Freihand_04", "id": "ZFF 30"}
 result := ()
-holding := {"id": "ZFF 30+1", "libraryBranch": "BB Steinfurt / Freihand_04", "status": "Verliehen (Rückgabe vorauss. 31.12.9999)"}
+holding := {"status": "Verliehen (Rückgabe vorauss. 31.12.9999)", "libraryBranch": "BB Steinfurt / Freihand_04", "id": "ZFF 30+1"}
 result := ()
-book := {"holdings": [{"id": "ZFF 30", "libraryBranch": "BB Steinfurt / Freihand_04", "status": "Verliehen (Rückgabe vorauss. 02.06.2017)"}, {"id": "ZFF 30+1", "libraryBranch": "BB Steinfurt / Freihand_04", "status": "Verliehen (Rückgabe vorauss. 31.12.9999)"}], "Typ:!!": "Buch", "ISBN:!!": "9783410252795; 3410252797; 9783410252801; 3410252800", "Umfang:!!": "XI, 259 Seiten. : Illustrationen. ; 170 mm x 240 mm", "Ausgabe:!!": "1. Auflage.. - Berlin, Wien, Zürich: Beuth VErlag GmbH, 2016", "Link:!!": "Inhaltstext", "Körperschaft:!!": "Deutsches Institut für Normung", "Autor(in):!!": "Bürschgens, Arnd", "Titel:!!": "Legionellen in Trinkwasser-Installationen: Gefährdungsanalyse und Sanierung / Arnd Bürschgens ; Heraugeber: DIN Deutsches Institut für Normung e.V"}
+book := {"Titel:!!": "Legionellen in Trinkwasser-Installationen: Gefährdungsanalyse und Sanierung / Arnd Bürschgens ; Heraugeber: DIN Deutsches Institut für Normung e.V", "Autor(in):!!": "Bürschgens, Arnd", "Körperschaft:!!": "Deutsches Institut für Normung", "Link:!!": "Inhaltstext", "Ausgabe:!!": "1. Auflage.. - Berlin, Wien, Zürich: Beuth VErlag GmbH, 2016", "Umfang:!!": "XI, 259 Seiten. : Illustrationen. ; 170 mm x 240 mm", "ISBN:!!": "9783410252795; 3410252797; 9783410252801; 3410252800", "Typ:!!": "Buch", "holdings": [{"status": "Verliehen (Rückgabe vorauss. 02.06.2017)", "libraryBranch": "BB Steinfurt / Freihand_04", "id": "ZFF 30"}, {"status": "Verliehen (Rückgabe vorauss. 31.12.9999)", "libraryBranch": "BB Steinfurt / Freihand_04", "id": "ZFF 30+1"}]}

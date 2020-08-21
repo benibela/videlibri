@@ -1,2 +1,2 @@
 book := {}
-book := {"year": "2017", "author": "Paier Valcic Quartet. ", "title": "Cinema scenes"}
+book := {"title": "Cinema scenes", "author": "Paier Valcic Quartet. ", "year": "2017"}

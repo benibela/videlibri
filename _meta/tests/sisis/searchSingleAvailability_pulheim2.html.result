@@ -1,2 +1,2 @@
 book := {}
-book := {"orderable": true, "orderTitle": "vorbestellen", "_order1": "file:///webOPACClient/availability.do?methodToCall=doVormerkung&katkey=158150&title=%C3%96ko-Test+-+2012-12&author=&context=hitlist", "_orderTitle1": "Lokaler Bibliotheksbestand\tentliehen (gesamte Vormerkungen: 0)\tauswählen", "_orderCount": 1}
+book := {"_orderCount": 1, "_orderTitle1": "Lokaler Bibliotheksbestand\tentliehen (gesamte Vormerkungen: 0)\tauswählen", "_order1": "file:///webOPACClient/availability.do?methodToCall=doVormerkung&katkey=158150&title=%C3%96ko-Test+-+2012-12&author=&context=hitlist", "orderTitle": "vorbestellen", "orderable": true}

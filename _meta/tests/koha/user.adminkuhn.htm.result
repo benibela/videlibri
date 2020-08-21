@@ -5,11 +5,11 @@ prestatus := "Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=468"
 prestatus := ("Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=468", 
 text{"Gebühren:
   Nein"})
-book := {"statusId": "critical", "status": "Gebühren:\n  Nein; Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=468", "id": " 830", "duedate": "2016-11-30", "author": "Dürrenmatt, Friedrich", "title": "Romulus der Große"}
+book := {"title": "Romulus der Große", "author": "Dürrenmatt, Friedrich", "duedate": "2016-11-30", "id": " 830", "status": "Gebühren:\n  Nein; Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=468", "statusId": "critical"}
 prestatus := ()
 prestatus := "Details: file:///cgi-bin/koha/opac-detail.pl?bib=468"
 prestatus := ("Details: file:///cgi-bin/koha/opac-detail.pl?bib=468", 
 text{"Gebühren:
   Nein"})
-book := {"statusId": "critical", "status": "Gebühren:\n  Nein; Details: file:///cgi-bin/koha/opac-detail.pl?bib=468", "duedate": "2016-11-30", "id": " 830", "author": " Dürrenmatt, Friedrich", "title": "Romulus der Große"}
+book := {"title": "Romulus der Große", "author": " Dürrenmatt, Friedrich", "id": " 830", "duedate": "2016-11-30", "status": "Gebühren:\n  Nein; Details: file:///cgi-bin/koha/opac-detail.pl?bib=468", "statusId": "critical"}
 renew-form := {"method": "POST", "post": "borrowernumber=1&from=opac_user", "url": "file:///cgi-bin/koha/opac-renew.pl"}

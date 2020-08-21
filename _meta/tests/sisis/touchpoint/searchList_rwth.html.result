@@ -25,132 +25,132 @@ brs := ("",
 brs := "Dauzenroth, Erich  -  1971"
 brs := ("Dauzenroth, Erich", 
 "1971")
-book := {"year": "1971", "author": "Dauzenroth, Erich", "title": "Kleine Geschichte der Mädchenbildung\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      der verbotene Baum oder die Erziehung des anderen Geschlechts", "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=51&identifier=2_SOLR_SERVER_410237878", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=51&identifier=2_SOLR_SERVER_410237878", "title": "Kleine Geschichte der Mädchenbildung\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      der verbotene Baum oder die Erziehung des anderen Geschlechts", "author": "Dauzenroth, Erich", "year": "1971"}
 hasZ3988 := false()
 brs := ("", 
 "Zundel, Rolf  -  1967")
 brs := "Zundel, Rolf  -  1967"
 brs := ("Zundel, Rolf", 
 "1967")
-book := {"year": "1967", "author": "Zundel, Rolf", "title": "Schutzpflanzungen\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      Vorschläge für die praktische Verwendung von Baum und Strauch außerhalb Waldes", "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=52&identifier=2_SOLR_SERVER_410237878", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=52&identifier=2_SOLR_SERVER_410237878", "title": "Schutzpflanzungen\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      Vorschläge für die praktische Verwendung von Baum und Strauch außerhalb Waldes", "author": "Zundel, Rolf", "year": "1967"}
 hasZ3988 := false()
 brs := ("", 
 "Siedler, Wolf Jobst  -  1964")
 brs := "Siedler, Wolf Jobst  -  1964"
 brs := ("Siedler, Wolf Jobst", 
 "1964")
-book := {"year": "1964", "author": "Siedler, Wolf Jobst", "title": "Die gemordete Stadt\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      Abgesang auf Putte und Strasse, Platz und Baum\n      \n    \n\n    \n    \n      3. Aufl", "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=53&identifier=2_SOLR_SERVER_410237878", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=53&identifier=2_SOLR_SERVER_410237878", "title": "Die gemordete Stadt\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      Abgesang auf Putte und Strasse, Platz und Baum\n      \n    \n\n    \n    \n      3. Aufl", "author": "Siedler, Wolf Jobst", "year": "1964"}
 hasZ3988 := false()
 brs := ("", 
 "Siedler, Wolf Jobst  -  1964")
 brs := "Siedler, Wolf Jobst  -  1964"
 brs := ("Siedler, Wolf Jobst", 
 "1964")
-book := {"year": "1964", "author": "Siedler, Wolf Jobst", "title": "Die gemordete Stadt\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      Abgesang auf Putte und Straße, Platz und Baum", "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=54&identifier=2_SOLR_SERVER_410237878", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=54&identifier=2_SOLR_SERVER_410237878", "title": "Die gemordete Stadt\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      Abgesang auf Putte und Straße, Platz und Baum", "author": "Siedler, Wolf Jobst", "year": "1964"}
 hasZ3988 := false()
 brs := ("", 
 "Schleiden, Matthias Jacob  -  1870")
 brs := "Schleiden, Matthias Jacob  -  1870"
 brs := ("Schleiden, Matthias Jacob", 
 "1870")
-book := {"year": "1870", "author": "Schleiden, Matthias Jacob", "title": "Für Baum und Wald\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      eine Schutzschrift an Fachmänner und Laien gerichtet", "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=55&identifier=2_SOLR_SERVER_410237878", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=55&identifier=2_SOLR_SERVER_410237878", "title": "Für Baum und Wald\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      eine Schutzschrift an Fachmänner und Laien gerichtet", "author": "Schleiden, Matthias Jacob", "year": "1870"}
 hasZ3988 := false()
 brs := ("", 
 "Böhme, Jakob  -  1654")
 brs := "Böhme, Jakob  -  1654"
 brs := ("Böhme, Jakob", 
 "1654")
-book := {"year": "1654", "author": "Böhme, Jakob", "title": "The tree of Christian faith", "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=56&identifier=2_SOLR_SERVER_410237878", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=56&identifier=2_SOLR_SERVER_410237878", "title": "The tree of Christian faith", "author": "Böhme, Jakob", "year": "1654"}
 hasZ3988 := false()
 brs := ("", 
 "Böhme, Jakob  -  1644")
 brs := "Böhme, Jakob  -  1644"
 brs := ("Böhme, Jakob", 
 "1644")
-book := {"year": "1644", "author": "Böhme, Jakob", "title": "The tree of Christian faith", "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=57&identifier=2_SOLR_SERVER_410237878", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=57&identifier=2_SOLR_SERVER_410237878", "title": "The tree of Christian faith", "author": "Böhme, Jakob", "year": "1644"}
 hasZ3988 := false()
 brs := ("", 
 "Ōe, Kenzaburō")
 brs := "Ōe, Kenzaburō"
-book := {"author": "Ōe, Kenzaburō", "title": "Grüner Baum in Flammen\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      [Romantrilogie]", "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=58&identifier=2_SOLR_SERVER_410237878", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=58&identifier=2_SOLR_SERVER_410237878", "title": "Grüner Baum in Flammen\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      [Romantrilogie]", "author": "Ōe, Kenzaburō"}
 hasZ3988 := false()
 brs := ("", 
 "Rademann, Joachim  -  1717")
 brs := "Rademann, Joachim  -  1717"
 brs := ("Rademann, Joachim", 
 "1717")
-book := {"year": "1717", "author": "Rademann, Joachim", "title": "Joachim Rademanns hamburgischer Wechsel-Baum von allerhand ein- und ausländischen Wechsel-Bluhmen", "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=59&identifier=2_SOLR_SERVER_410237878", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=59&identifier=2_SOLR_SERVER_410237878", "title": "Joachim Rademanns hamburgischer Wechsel-Baum von allerhand ein- und ausländischen Wechsel-Bluhmen", "author": "Rademann, Joachim", "year": "1717"}
 hasZ3988 := false()
 brs := ("( Kosmos basics ; Kosmos-Naturführer )", 
 "Mayer, Joachim  -  2009")
-book := {"year": "Mayer, Joachim  -  2009", "author": "( Kosmos basics ; Kosmos-Naturführer )", "title": "Welcher Baum ist das?\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      [170 Bäume einfach bestimmen]\n      \n    \n\n    \n    \n      2. Aufl.", "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=60&identifier=2_SOLR_SERVER_410237878", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=60&identifier=2_SOLR_SERVER_410237878", "title": "Welcher Baum ist das?\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      [170 Bäume einfach bestimmen]\n      \n    \n\n    \n    \n      2. Aufl.", "author": "( Kosmos basics ; Kosmos-Naturführer )", "year": "Mayer, Joachim  -  2009"}
 hasZ3988 := false()
 brs := ("( Neue europäische Erzähler )", 
 "Bontempelli, Bruno  -  1993")
-book := {"year": "Bontempelli, Bruno  -  1993", "author": "( Neue europäische Erzähler )", "title": "Der Baum des Reisenden\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      Roman\n      \n    \n\n    \n    \n      1. Aufl.", "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=61&identifier=2_SOLR_SERVER_410237878", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=61&identifier=2_SOLR_SERVER_410237878", "title": "Der Baum des Reisenden\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      Roman\n      \n    \n\n    \n    \n      1. Aufl.", "author": "( Neue europäische Erzähler )", "year": "Bontempelli, Bruno  -  1993"}
 hasZ3988 := false()
 brs := ("", 
 "Maturana, Humberto R.  -  1992")
 brs := "Maturana, Humberto R.  -  1992"
 brs := ("Maturana, Humberto R.", 
 "1992")
-book := {"year": "1992", "author": "Maturana, Humberto R.", "title": "Der Baum der Erkenntnis\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      die biologischen Wurzeln des menschlichen Erkennens\n      \n    \n\n    \n    \n      4. Aufl.", "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=62&identifier=2_SOLR_SERVER_410237878", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=62&identifier=2_SOLR_SERVER_410237878", "title": "Der Baum der Erkenntnis\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      die biologischen Wurzeln des menschlichen Erkennens\n      \n    \n\n    \n    \n      4. Aufl.", "author": "Maturana, Humberto R.", "year": "1992"}
 hasZ3988 := false()
 brs := ("", 
 "Maturana, Humberto R.  -  1987")
 brs := "Maturana, Humberto R.  -  1987"
 brs := ("Maturana, Humberto R.", 
 "1987")
-book := {"year": "1987", "author": "Maturana, Humberto R.", "title": "Der Baum der Erkenntnis\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      die biologischen Wurzeln des menschlichen Erkennens\n      \n    \n\n    \n    \n      1. Aufl.", "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=63&identifier=2_SOLR_SERVER_410237878", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=63&identifier=2_SOLR_SERVER_410237878", "title": "Der Baum der Erkenntnis\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      die biologischen Wurzeln des menschlichen Erkennens\n      \n    \n\n    \n    \n      1. Aufl.", "author": "Maturana, Humberto R.", "year": "1987"}
 hasZ3988 := false()
 brs := ("", 
 "Maturana, Humberto R.  -  1987")
 brs := "Maturana, Humberto R.  -  1987"
 brs := ("Maturana, Humberto R.", 
 "1987")
-book := {"year": "1987", "author": "Maturana, Humberto R.", "title": "Der Baum der Erkenntnis\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      die biologischen Wurzeln des menschlichen Erkennens\n      \n    \n\n    \n    \n      2. Aufl.", "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=64&identifier=2_SOLR_SERVER_410237878", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=64&identifier=2_SOLR_SERVER_410237878", "title": "Der Baum der Erkenntnis\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      die biologischen Wurzeln des menschlichen Erkennens\n      \n    \n\n    \n    \n      2. Aufl.", "author": "Maturana, Humberto R.", "year": "1987"}
 hasZ3988 := false()
 brs := ("", 
 "Maturana, Humberto R.  -  1987")
 brs := "Maturana, Humberto R.  -  1987"
 brs := ("Maturana, Humberto R.", 
 "1987")
-book := {"year": "1987", "author": "Maturana, Humberto R.", "title": "Der Baum der Erkenntnis\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      die biologischen Wurzeln des menschlichen Erkennens\n      \n    \n\n    \n    \n      1. Aufl.", "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=65&identifier=2_SOLR_SERVER_410237878", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=65&identifier=2_SOLR_SERVER_410237878", "title": "Der Baum der Erkenntnis\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      die biologischen Wurzeln des menschlichen Erkennens\n      \n    \n\n    \n    \n      1. Aufl.", "author": "Maturana, Humberto R.", "year": "1987"}
 hasZ3988 := false()
 brs := ("", 
 "Schiller-Bütow, Hans  -  1980")
 brs := "Schiller-Bütow, Hans  -  1980"
 brs := ("Schiller-Bütow, Hans", 
 "1980")
-book := {"year": "1980", "author": "Schiller-Bütow, Hans", "title": "Der Baum in der Stadt\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      einer Untersuchung über Funktion, Ästhetik und Bedeutung der Bäume in den Städten\n      \n    \n\n    \n    \n      2. Aufl.", "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=66&identifier=2_SOLR_SERVER_410237878", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=66&identifier=2_SOLR_SERVER_410237878", "title": "Der Baum in der Stadt\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      einer Untersuchung über Funktion, Ästhetik und Bedeutung der Bäume in den Städten\n      \n    \n\n    \n    \n      2. Aufl.", "author": "Schiller-Bütow, Hans", "year": "1980"}
 hasZ3988 := false()
 brs := ("", 
 "Schiller-Bütow, Hans [Hrsg.]  -  1975")
 brs := "Schiller-Bütow, Hans [Hrsg.]  -  1975"
 brs := ("Schiller-Bütow, Hans [Hrsg.]", 
 "1975")
-book := {"year": "1975", "author": "Schiller-Bütow, Hans [Hrsg.]", "title": "Der Baum in der Stadt\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      eine Untersuchung über Funktion, Ästhetik und Bedeutung der Bäume in den Städten", "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=67&identifier=2_SOLR_SERVER_410237878", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=67&identifier=2_SOLR_SERVER_410237878", "title": "Der Baum in der Stadt\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      eine Untersuchung über Funktion, Ästhetik und Bedeutung der Bäume in den Städten", "author": "Schiller-Bütow, Hans [Hrsg.]", "year": "1975"}
 hasZ3988 := false()
 brs := ("( KOSMOS-NATURFUEHRER )", 
 "Kosch, Alois  -  1962")
-book := {"year": "Kosch, Alois  -  1962", "author": "( KOSMOS-NATURFUEHRER )", "title": "Welcher Baum ist das?\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      Tabellen zum Bestimmen d. heimischen u. eingefuehrten Holzgewaechse Mitteleuropas\n      \n    \n\n    \n    \n      83. - 92. Tsd.", "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=68&identifier=2_SOLR_SERVER_410237878", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=68&identifier=2_SOLR_SERVER_410237878", "title": "Welcher Baum ist das?\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      Tabellen zum Bestimmen d. heimischen u. eingefuehrten Holzgewaechse Mitteleuropas\n      \n    \n\n    \n    \n      83. - 92. Tsd.", "author": "( KOSMOS-NATURFUEHRER )", "year": "Kosch, Alois  -  1962"}
 hasZ3988 := false()
 brs := ("( Kosmos Naturführer )", 
 "Kosch, Alois  -  1960")
-book := {"year": "Kosch, Alois  -  1960", "author": "( Kosmos Naturführer )", "title": "Welcher Baum ist das?\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      Tabellen z. Bestimmen d. heimischen u. eingeführten Holzgewächse Mitteleuropas", "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=69&identifier=2_SOLR_SERVER_410237878", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=69&identifier=2_SOLR_SERVER_410237878", "title": "Welcher Baum ist das?\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      Tabellen z. Bestimmen d. heimischen u. eingeführten Holzgewächse Mitteleuropas", "author": "( Kosmos Naturführer )", "year": "Kosch, Alois  -  1960"}
 hasZ3988 := false()
 brs := ("( Neue Beiträge zur Archäologie und Kunstgeschichte Schwabens )", 
 "Baum, Julius  -  1952")
-book := {"year": "Baum, Julius  -  1952", "author": "( Neue Beiträge zur Archäologie und Kunstgeschichte Schwabens )", "title": "Julius Baum zum 70. Geburtstag am 9. April 1952 gewidmet", "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=70&identifier=2_SOLR_SERVER_410237878", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=70&identifier=2_SOLR_SERVER_410237878", "title": "Julius Baum zum 70. Geburtstag am 9. April 1952 gewidmet", "author": "( Neue Beiträge zur Archäologie und Kunstgeschichte Schwabens )", "year": "Baum, Julius  -  1952"}
 hasZ3988 := false()
 brs := ("", 
 "Baum, Georg Friedrich  -  1905")
 brs := "Baum, Georg Friedrich  -  1905"
 brs := ("Baum, Georg Friedrich", 
 "1905")
-book := {"year": "1905", "author": "Baum, Georg Friedrich", "title": "Die neueste Entwicklung der Wasserhaltung", "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=71&identifier=2_SOLR_SERVER_410237878", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=71&identifier=2_SOLR_SERVER_410237878", "title": "Die neueste Entwicklung der Wasserhaltung", "author": "Baum, Georg Friedrich", "year": "1905"}
 hasZ3988 := false()
-book := {"author": "", "title": "BaumZeitung\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      Zeitschrift für Baumerhaltung, Natur & Umwelt", "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=72&identifier=2_SOLR_SERVER_410237878", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=72&identifier=2_SOLR_SERVER_410237878", "title": "BaumZeitung\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      Zeitschrift für Baumerhaltung, Natur & Umwelt", "author": ""}
 brs := ("", 
 "")
 brs := ""
@@ -160,18 +160,18 @@ brs := ("",
 brs := "Bandini, Ditte [Hrsg.]  -  2009"
 brs := ("Bandini, Ditte [Hrsg.]", 
 "2009")
-book := {"year": "2009", "author": "Bandini, Ditte [Hrsg.]", "title": "Früchte vom Baum des Wissens\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      eine Festschrift der wissenschaftlichen Mitarbeiter", "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=73&identifier=2_SOLR_SERVER_410237878", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=73&identifier=2_SOLR_SERVER_410237878", "title": "Früchte vom Baum des Wissens\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      eine Festschrift der wissenschaftlichen Mitarbeiter", "author": "Bandini, Ditte [Hrsg.]", "year": "2009"}
 hasZ3988 := false()
 brs := ("", 
 "Gesamtverband der Deutschen Versicherungswirtschaft  -  2005")
 brs := "Gesamtverband der Deutschen Versicherungswirtschaft  -  2005"
 brs := ("Gesamtverband der Deutschen Versicherungswirtschaft", 
 "2005")
-book := {"year": "2005", "author": "Gesamtverband der Deutschen Versicherungswirtschaft", "title": "Schutz von Mensch und Baum\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      Empfehlungen zum Schutz vor Unfällen mit Aufprall auf Bäume (ESAB)\n      \n    \n\n    \n    \n      September 2005", "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=74&identifier=2_SOLR_SERVER_410237878", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=74&identifier=2_SOLR_SERVER_410237878", "title": "Schutz von Mensch und Baum\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      Empfehlungen zum Schutz vor Unfällen mit Aufprall auf Bäume (ESAB)\n      \n    \n\n    \n    \n      September 2005", "author": "Gesamtverband der Deutschen Versicherungswirtschaft", "year": "2005"}
 hasZ3988 := false()
 brs := ("", 
 "Schmeer, Gisela  -  1997")
 brs := "Schmeer, Gisela  -  1997"
 brs := ("Schmeer, Gisela", 
 "1997")
-book := {"year": "1997", "author": "Schmeer, Gisela", "title": "Heilende Bäume\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      Baum-Bilder in der psychotherapeutischen Praxis ; Analysen - Deutungen - Prozesse - Interventionen ; die progressive therapeutische Bild-Geschichte", "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=75&identifier=2_SOLR_SERVER_410237878", "orderable": false}
+book := {"orderable": false, "_detail-url": "/TouchPointClient_touchpoint/singleHit.do?methodToCall=showHit&curPos=75&identifier=2_SOLR_SERVER_410237878", "title": "Heilende Bäume\n    \n\n    \n\n    \n\n    \n    \n      \n      : \n      Baum-Bilder in der psychotherapeutischen Praxis ; Analysen - Deutungen - Prozesse - Interventionen ; die progressive therapeutische Bild-Geschichte", "author": "Schmeer, Gisela", "year": "1997"}

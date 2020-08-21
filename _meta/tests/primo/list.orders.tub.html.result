@@ -4,16 +4,16 @@ orderPage := "file:///primo_library/libweb/action/myAccountMenu.do?activity=requ
 result := ()
 hold := true()
 result := ()
-book := {"_cancelUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=cancel&requestId=6101111430002884&request_type=holds", "statusId": "provided", "status": "Vormerkung, ZB Lesesaal Etage 3", "dueDate": "2016-12-23", "author": "Duda, Herbert", "_detailUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=details&requestId=6101111430002884&request_type=holds", "title": "Bruchmechanisches Verhalten von Beton unter monotoner und zyklischer Zugbeanspruchung /"}
+book := {"status": "Vormerkung, ZB Lesesaal Etage 3", "title": "Bruchmechanisches Verhalten von Beton unter monotoner und zyklischer Zugbeanspruchung /", "_detailUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=details&requestId=6101111430002884&request_type=holds", "author": "Duda, Herbert", "statusId": "provided", "dueDate": "2016-12-23", "_cancelUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=cancel&requestId=6101111430002884&request_type=holds"}
 result := ()
 hold := true()
 result := ()
-book := {"_cancelUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=cancel&requestId=6107265280002884&request_type=holds", "statusId": "provided", "status": "Vormerkung, ZB Lesesaal Etage 3", "dueDate": "2016-12-27", "author": "Jacobs, Jane 1916-2006", "_detailUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=details&requestId=6107265280002884&request_type=holds", "title": "Tod und Leben großer amerikanischer Städte /"}
+book := {"status": "Vormerkung, ZB Lesesaal Etage 3", "title": "Tod und Leben großer amerikanischer Städte /", "_detailUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=details&requestId=6107265280002884&request_type=holds", "author": "Jacobs, Jane 1916-2006", "statusId": "provided", "dueDate": "2016-12-27", "_cancelUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=cancel&requestId=6107265280002884&request_type=holds"}
 result := ()
 hold := true()
 result := ()
-book := {"_cancelUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=cancel&requestId=6107314000002884&request_type=holds", "statusId": "provided", "status": "Vormerkung, ZB Lesesaal Etage 3", "dueDate": "2016-12-27", "author": "Appleyard, Donald", "_detailUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=details&requestId=6107314000002884&request_type=holds", "title": "The view from the road / (Bestand vor 1985)"}
+book := {"status": "Vormerkung, ZB Lesesaal Etage 3", "title": "The view from the road / (Bestand vor 1985)", "_detailUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=details&requestId=6107314000002884&request_type=holds", "author": "Appleyard, Donald", "statusId": "provided", "dueDate": "2016-12-27", "_cancelUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=cancel&requestId=6107314000002884&request_type=holds"}
 result := ()
 hold := true()
 result := ()
-book := {"_cancelUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=cancel&requestId=6107317430002884&request_type=holds", "statusId": "provided", "status": "Vormerkung, ZB Lesesaal Etage 3", "dueDate": "2016-12-27", "author": "Appleyard, Donald", "_detailUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=details&requestId=6107317430002884&request_type=holds", "title": "Liveable urban Streets."}
+book := {"status": "Vormerkung, ZB Lesesaal Etage 3", "title": "Liveable urban Streets.", "_detailUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=details&requestId=6107317430002884&request_type=holds", "author": "Appleyard, Donald", "statusId": "provided", "dueDate": "2016-12-27", "_cancelUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=cancel&requestId=6107317430002884&request_type=holds"}

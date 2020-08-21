@@ -2,6 +2,6 @@ book := {}
 lendings := true()
 books-deleted := true()
 renew-form := {"method": "POST", "post": "show=ALL&renewAllIDS%5B%5D=2012%2F5908&renewAllIDS%5B%5D=2012%2F5637", "url": "vltest://summon/loans-renewconfirmed.html"}
-book := {"statusId": "curious", "renew-id": "2012/5908", "status": "Eine Verlängerung ist möglich", "dueDate": "2015-12-10", "issueDate": "2015-11-12", "libraryBranch": "Hauptbibliothek Adenauerallee / Leihstelle Adenauerallee", "id": "2012/5908", "author": "Ford, Richard", "title": null}
-book := {"statusId": "critical", "status": "Verlängerte Medien", "dueDate": "2016-01-18", "issueDate": "2015-11-12", "libraryBranch": "Hauptbibliothek Adenauerallee / Leihstelle Adenauerallee", "id": "2012/5637", "author": "Balbier, Uta A.", "title": null}
-book := {"statusId": "critical", "status": "Eine Verlängerung ist nicht mehr möglich", "dueDate": "2015-12-10", "issueDate": "2015-11-12", "libraryBranch": "Hauptbibliothek Adenauerallee / Leihstelle Adenauerallee", "id": "2012/5893", "author": "Traber, Habakuk", "title": null}
+book := {"title": null, "author": "Ford, Richard", "id": "2012/5908", "libraryBranch": "Hauptbibliothek Adenauerallee / Leihstelle Adenauerallee", "issueDate": "2015-11-12", "dueDate": "2015-12-10", "status": "Eine Verlängerung ist möglich", "renew-id": "2012/5908", "statusId": "curious"}
+book := {"title": null, "author": "Balbier, Uta A.", "id": "2012/5637", "libraryBranch": "Hauptbibliothek Adenauerallee / Leihstelle Adenauerallee", "issueDate": "2015-11-12", "dueDate": "2016-01-18", "status": "Verlängerte Medien", "statusId": "critical"}
+book := {"title": null, "author": "Traber, Habakuk", "id": "2012/5893", "libraryBranch": "Hauptbibliothek Adenauerallee / Leihstelle Adenauerallee", "issueDate": "2015-11-12", "dueDate": "2015-12-10", "status": "Eine Verlängerung ist nicht mehr möglich", "statusId": "critical"}

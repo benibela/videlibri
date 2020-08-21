@@ -1,5 +1,5 @@
 book := {}
 needOrders := true()
 result := ()
-holding := {"libraryLocation": "Lesesaal FH Amberg", "status": "entliehen bis 05.08.2013 (gesamte Vormerkungen: 0)", "barcode": "004000887312", "id": "10/HD 220 S532(14)\n\t\t\t\t\t\t\n\t\t\t\t\t\tBeil.: 2 Audio-CDs + 1 CD-ROM"}
-book := {"holdings": {"libraryLocation": "Lesesaal FH Amberg", "status": "entliehen bis 05.08.2013 (gesamte Vormerkungen: 0)", "barcode": "004000887312", "id": "10/HD 220 S532(14)\n\t\t\t\t\t\t\n\t\t\t\t\t\tBeil.: 2 Audio-CDs + 1 CD-ROM"}}
+holding := {"id": "10/HD 220 S532(14)\n\t\t\t\t\t\t\n\t\t\t\t\t\tBeil.: 2 Audio-CDs + 1 CD-ROM", "barcode": "004000887312", "status": "entliehen bis 05.08.2013 (gesamte Vormerkungen: 0)", "libraryLocation": "Lesesaal FH Amberg"}
+book := {"holdings": {"id": "10/HD 220 S532(14)\n\t\t\t\t\t\t\n\t\t\t\t\t\tBeil.: 2 Audio-CDs + 1 CD-ROM", "barcode": "004000887312", "status": "entliehen bis 05.08.2013 (gesamte Vormerkungen: 0)", "libraryLocation": "Lesesaal FH Amberg"}}

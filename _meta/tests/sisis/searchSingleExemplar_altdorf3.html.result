@@ -1,5 +1,5 @@
 book := {}
 needOrders := true()
-holding := {"status": "entliehen bis 30.07.2013 (gesamte Vormerkungen: 0)", "libraryBranch": "Kantonsbibliothek Uri", "id": "159.64", "barcode": "ALK1052468"}
+holding := {"barcode": "ALK1052468", "id": "159.64", "libraryBranch": "Kantonsbibliothek Uri", "status": "entliehen bis 30.07.2013 (gesamte Vormerkungen: 0)"}
 result := ()
-book := {"holdings": {"status": "entliehen bis 30.07.2013 (gesamte Vormerkungen: 0)", "libraryBranch": "Kantonsbibliothek Uri", "id": "159.64", "barcode": "ALK1052468"}}
+book := {"holdings": {"barcode": "ALK1052468", "id": "159.64", "libraryBranch": "Kantonsbibliothek Uri", "status": "entliehen bis 30.07.2013 (gesamte Vormerkungen: 0)"}}
