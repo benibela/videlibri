@@ -506,7 +506,7 @@ var
 
   procedure addBook(b: TBook);
   var
-    obj: TXQValueObject;
+    obj: TXQValueStringMap;
   begin
     obj := reader.bookToPXP(b);
     obj.setMutable('_accountPtr', xqvalue(PtrInt(b.owningAccount)));

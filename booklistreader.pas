@@ -158,12 +158,12 @@ type
     books: TBookList;
     bookListHasBeenClearedAndMightNeedSingleUpdate: boolean;
     pendingMessage: TPendingMessage;
-    cache: TXQValueObject;
+    cache: TXQValueStringMap;
     accountExpiration: string;
     constructor create(atemplate:TMultiPageTemplate);
     destructor destroy();override;
 
-    class function bookToPXP(book:TBook): TXQValueObject; static;
+    class function bookToPXP(book:TBook): TXQValueStringMap; static;
     procedure selectBook(book:TBook);
   end;
 
