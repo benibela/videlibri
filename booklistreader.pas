@@ -145,8 +145,8 @@ type
   private
     currentBook,defaultBook: TBook;
     class procedure setAllBookProperties(book:TBook; const value:IXQValue); static;
-    class procedure setBookProperty(book:TBook;variable: string; const value:IXQValue); static;
-    procedure parserVariableRead(variable: string; value: IXQValue);
+    class procedure setBookProperty(book:TBook;variable: string; const value:TXQValue); static;
+    procedure parserVariableRead(variable: string; book: IXQValue);
     procedure logall(sender: TMultipageTemplateReader; logged: string; debugLevel: integer=0);
     procedure TraceEvent(sender: TXQueryEngine; value, info: IXQValue);
   protected
@@ -1068,18 +1068,14 @@ end;
 
 class procedure TBookListReader.setAllBookProperties(book: TBook; const value: IXQValue);
 var
-  v: IXQValue;
-  obj: TXQValueObject;
-  i: Integer;
+  pp: TXQProperty;
 begin
-  v := value.clone;
-  if not (v is TXQValueObject) then raise EBookListReader.Create('Nested Buch ohne Eigenschaften');
-  obj := v as TXQValueObject;;
-  for i:=0 to obj.values.count-1 do
-    setBookProperty(book, obj.values.getName(i), obj.values.get(i));
+  if value.kind <> pvkObject then raise EBookListReader.Create('Nested Buch ohne Eigenschaften');
+  for pp in value.getPropertyEnumerator do
+    setBookProperty(book, pp^.key, pp^.value);
 end;
 
-class procedure TBookListReader.setBookProperty(book: TBook; variable: string; const value:IXQValue);
+class procedure TBookListReader.setBookProperty(book: TBook; variable: string; const value:TXQValue);
 function strconv():string;
 begin
   result:=strTrimAndNormalize(value.toString);
@@ -1136,22 +1132,20 @@ begin
   end;
 end;
 
-procedure TBookListReader.parserVariableRead(variable: string; value: IXQValue);
+procedure TBookListReader.parserVariableRead(variable: string; book: IXQValue);
 var
  i : Integer;
- book: TXQValueObject;
  temp2: IXQValue;
  temp: TXQValue;
  s, k: string;
  keyset: TXQHashsetStr;
+ pp: TXQProperty;
 begin
   if logging then
-    log('** Read variable: '+variable+' := '+value.toXQuery);
+    log('** Read variable: '+variable+' := '+book.toXQuery);
   case variable of
     'book': begin
-      if not (value is TXQValueObject) then raise EBookListReader.Create('Buch ohne Eigenschaften');
-      temp2 := value.clone;
-      book := temp2 as TXQValueObject;
+      if book.kind <> pvkObject then raise EBookListReader.Create('Buch ohne Eigenschaften');
       if book.hasProperty('_select', @temp) then begin
         currentBook := nil;
         case temp.kind of
@@ -1196,10 +1190,10 @@ begin
         currentBook := defaultBook;
         currentBook.clear;
       end;
-      for i:=0 to book.values.count-1 do begin
-        s := book.values.getName(i);
+      for pp in book.getPropertyEnumerator do begin
+        s := pp^.key;
         if (s = '_existing') or (s = 'select(id)') or (s = 'select(current)') or (s = 'select(new)') or (s = '_select') then continue;
-        setBookProperty(currentBook,s,book.values.get(i));
+        setBookProperty(currentBook,s,pp^.value);
       end;
       currentBook.firstExistsDate:=trunc(now);
       currentBook.lastExistsDate:=trunc(now);
@@ -1210,7 +1204,7 @@ begin
       end;
       temp2:=nil;
     end;
-    'account-expiration': accountExpiration := strTrimAndNormalize(value.toString);
+    'account-expiration': accountExpiration := strTrimAndNormalize(book.toString);
     else if strEndsWith(variable, ')') then case variable of
       'delete-current-books()': begin
         books.clear();
@@ -1219,24 +1213,24 @@ begin
       'message()': begin
          if pendingMessage <> nil then pendingMessage.free;
          pendingMessage := TPendingMessage.Create;
-         case value.getProperty('kind').toString of
+         case book.getProperty('kind').toString of
            'choose': pendingMessage.kind := pmkChoose;
            'confirm': pendingMessage.kind := pmkConfirm;
          end;
-         pendingMessage.callback:=value.getProperty('callback').toString;
-         pendingMessage.caption:=value.getProperty('caption').toString;
-         for temp2 in value.getProperty('options') do
+         pendingMessage.callback:=book.getProperty('callback').toString;
+         pendingMessage.caption:=book.getProperty('caption').toString;
+         for temp2 in book.getProperty('options') do
            arrayAdd(pendingMessage.options, temp2.toString);
-         for temp2 in value.getProperty('option-values') do
+         for temp2 in book.getProperty('option-values') do
            arrayAdd(pendingMessage.optionValues, temp2.toString);
       end;
-      'raise()': raise EBookListReaderFromWebpage.create(LineEnding + LineEnding + value.toString);
-      'raise-login()': raise ELoginException.create(LineEnding + LineEnding + value.toString);
-      'raise-internal()': raise EBookListReader.create(LineEnding + LineEnding + value.toString);
+      'raise()': raise EBookListReaderFromWebpage.create(LineEnding + LineEnding + book.toString);
+      'raise-login()': raise ELoginException.create(LineEnding + LineEnding + book.toString);
+      'raise-internal()': raise EBookListReader.create(LineEnding + LineEnding + book.toString);
       'cache-set()': begin
-        if not (value is TXQValueObject) then raise EBookListReader.Create('Invalid cache-set()');
-        if cache = nil then cache := TXQValueObject.create();
-        cache.setMutable(value.getProperty('name').toString, value.getProperty('value'));
+        if book.kind <> pvkObject then raise EBookListReader.Create('Invalid cache-set()');
+        if cache = nil then cache := TXQValueStringMap.create();
+        cache.setMutable(book.getProperty('name').toString, book.getProperty('value'));
       end;
     end;
   end;
@@ -1273,7 +1267,7 @@ begin
 end;
 
 type TXQueryBookSerializer = object
-  obj: TXQValueObject;
+  obj: TXQValueStringMap;
   procedure writeStr(const name, value: string);
   procedure writeDate(const name: string; date: integer);
 end;
@@ -1293,12 +1287,12 @@ begin
     obj.setMutable(name, xqvalueDate(date));
 end;
 
-class function TBookListReader.bookToPXP(book: TBook): TXQValueObject;
+class function TBookListReader.bookToPXP(book: TBook): TXQValueStringMap;
 var
   ser: TXQueryBookSerializer;
   i: Integer;
 begin
-  ser.obj := TXQValueObject.create();
+  ser.obj := TXQValueStringMap.create();
   result := ser.obj;
   book.serialize(@ser.writeStr, @ser.writeDate);
   if not book.lend then //result.setMutable('statusId', BookStatusToSerializationStr(book.status))
@@ -1365,10 +1359,10 @@ end;
 // ATTENTION: Only eq can be used to test for 0, not =. Or use value instance of xs:decimal
 function xqFunctionChoose(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
 var
-  temp: TXQValueObject;
+  temp: TXQValueStringMap;
 begin
   requiredArgCount(argc, 4, 4);
-  temp := TXQValueObject.create();
+  temp := TXQValueStringMap.create();
   temp.setMutable('kind', 'choose');
   temp.setMutable('callback', argv[0].toString);
   temp.setMutable('caption', argv[1].toString);
@@ -1383,10 +1377,10 @@ end;
 //callback action is called with confirm-result := true/false
 function xqFunctionConfirm(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
 var
-  temp: TXQValueObject;
+  temp: TXQValueStringMap;
 begin
   requiredArgCount(argc, 2, 2);
-  temp := TXQValueObject.create();
+  temp := TXQValueStringMap.create();
   temp.setMutable('kind', 'confirm');
   temp.setMutable('callback', argv[0].toString);
   temp.setMutable('caption', argv[1].toString);
@@ -1488,10 +1482,10 @@ end;
 
 function xqFunctionCache_Set(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
 var
-  temp: TXQValueObject;
+  temp: TXQValueStringMap;
 begin
   requiredArgCount(argc, 2, 2);
-  temp := TXQValueObject.create();
+  temp := TXQValueStringMap.create();
   temp.setMutable('name', argv[0].toString);
   if argv[1].hasNodes then temp.setMutable('value', argv[1].stringifyNodes)
   else temp.setMutable('value', argv[1]);

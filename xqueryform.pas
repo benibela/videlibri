@@ -1,7 +1,7 @@
 unit xqueryform;
 
 {$mode objfpc}{$H+}
-
+{$ModeSwitch autoderef}
 interface
 
 uses
@@ -63,14 +63,14 @@ begin
           book.clear;
           book.owningAccount:=nil;
           for p in b.getPropertyEnumerator do
-            case p.Name of
+            case p.key  of
               '_accountPtr': book.owningAccount := TCustomBookOwner(PtrInt(p.Value.toInt64));
               'statusId': if p.Value.toString = 'history' then book.lend := false
               else begin
                 book.lend := true;
-                book.setProperty(p.Name, p.Value.toString);
+                book.setProperty(p.key, p.Value.toString);
               end
-              else book.setProperty(p.Name, p.Value.toString);
+              else book.setProperty(p.key, p.Value.toString);
             end;
           item := listview.Items.add;
           listview.fillBookItem(item, book);
