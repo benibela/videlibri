@@ -1,0 +1,12 @@
+<form>
+  <t:switch prioritized="true">
+    <input t:condition="contains(@name, 'loansExtensionPopup$btnDefault')">{$confirm-button}</input>
+    <input value="Verlängerung durchführen">{$confirm-button}</input>
+    <input t:condition="contains(@name, 'ucLoansView')">{$confirm-button}</input>
+  </t:switch>
+{
+  let $target := $confirm-button/@name/string()
+  let $argument := if (contains($target, "ucLoansView")) then "CommitCatalogueCopiesExtensionEventArgs" else ""
+  return (
+   confirm-form := form(., {'__EVENTTARGET': $target, "__EVENTARGUMENT": $argument } )
+)}</form>

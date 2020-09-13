@@ -65,15 +65,12 @@ function __doPostBack(eventTarget, eventArgument) {
 
 
 <action id="renew-list">
-  <s>form := form-combine($user-form, ($renew-books  ! {(.)._renewid: "on"}, $renew-button) ) </s>
-  <page url="{$form}"> <!-- this returns all of update-all list again-->
-    <template><form>{
-      let $target := (.//input/@name/string()[contains(., 'ucLoansView') or contains(., 'loansExtensionPopup$btnDefault')])[1]
-      let $argument := if (contains($target, "ucLoansView")) then "CommitCatalogueCopiesExtensionEventArgs" else ""
-      return (
-       confirm-form := form(., {'__EVENTTARGET': $target, "__EVENTARGUMENT": $argument } )
-     )}</form></template>
-  </page>
+  <s>if (exists($renew-button)) then 
+      form := form-combine($user-form, ($renew-books  ! {(.)._renewid: "on"}, $renew-button) ) 
+    else 
+      vl:raise-internal("Verlängerungsbutton nicht gefunden")
+  </s>
+  <page url="{$form}" templateFile="renew"/> <!-- this returns all of update-all list again-->
   <page url="{$confirm-form}"/> <!-- this returns all of update-all list again-->
   <call action="update-all"/>
 </action>
