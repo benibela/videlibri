@@ -10,7 +10,7 @@ object xqueryfrm: Txqueryfrm
   OnCreate = FormCreate
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '1.8.1.0'
+  LCLVersion = '2.0.10.0'
   Scaled = False
   object Panel1: TPanel
     Left = 0
@@ -22,10 +22,10 @@ object xqueryfrm: Txqueryfrm
     ClientWidth = 806
     TabOrder = 0
     object Button1: TButton
-      Left = 723
-      Height = 33
-      Top = 63
-      Width = 72
+      Left = 710
+      Height = 37
+      Top = 59
+      Width = 85
       Anchors = [akRight, akBottom]
       AutoSize = True
       Cancel = True
@@ -38,7 +38,7 @@ object xqueryfrm: Txqueryfrm
       Left = 8
       Height = 88
       Top = 8
-      Width = 675
+      Width = 662
       Anchors = [akTop, akLeft, akRight, akBottom]
       BorderSpacing.Right = 40
       Lines.Strings = (
@@ -52,10 +52,10 @@ object xqueryfrm: Txqueryfrm
     object Button2: TButton
       AnchorSideLeft.Control = Button1
       AnchorSideBottom.Control = Button1
-      Left = 723
-      Height = 33
-      Top = 5
-      Width = 72
+      Left = 710
+      Height = 37
+      Top = -3
+      Width = 85
       Anchors = [akLeft, akRight, akBottom]
       AutoSize = True
       BorderSpacing.Bottom = 25

@@ -1,6 +1,8 @@
     <template:switch-prioritized>
        <a>Erweiterte Suche<t:s>searchPage:=.,connected:=true()</t:s></a>
        
+       <input type="submit" value="Erweiterte Suche" >{searchPage:=form(ancestor::form[1], .), connected:=true()}</input>
+       
        <div id="topleiste" class="block">
          <span class="invisible">Sie sind hier: </span> 
          <span class="txtinsert">Erweiterte Suche</span>

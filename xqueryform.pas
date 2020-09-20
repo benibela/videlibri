@@ -62,7 +62,7 @@ begin
         pvkObject: begin
           book.clear;
           book.owningAccount:=nil;
-          for p in b.getPropertyEnumerator do
+          for p in b.getEnumeratorStringPropertiesUnsafe do
             case p.key  of
               '_accountPtr': book.owningAccount := TCustomBookOwner(PtrInt(p.Value.toInt64));
               'statusId': if p.Value.toString = 'history' then book.lend := false

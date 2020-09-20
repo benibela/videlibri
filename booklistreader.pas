@@ -1071,8 +1071,8 @@ var
   pp: TXQProperty;
 begin
   if value.kind <> pvkObject then raise EBookListReader.Create('Nested Buch ohne Eigenschaften');
-  for pp in value.getPropertyEnumerator do
-    setBookProperty(book, pp^.key, pp^.value);
+  for pp in value.getEnumeratorStringPropertiesUnsafe do
+    setBookProperty(book, pp.key, pp.value);
 end;
 
 class procedure TBookListReader.setBookProperty(book: TBook; variable: string; const value:TXQValue);
@@ -1190,10 +1190,10 @@ begin
         currentBook := defaultBook;
         currentBook.clear;
       end;
-      for pp in book.getPropertyEnumerator do begin
-        s := pp^.key;
+      for pp in book.getEnumeratorStringPropertiesUnsafe do begin
+        s := pp.key;
         if (s = '_existing') or (s = 'select(id)') or (s = 'select(current)') or (s = 'select(new)') or (s = '_select') then continue;
-        setBookProperty(currentBook,s,pp^.value);
+        setBookProperty(currentBook,s,pp.value);
       end;
       currentBook.firstExistsDate:=trunc(now);
       currentBook.lastExistsDate:=trunc(now);
