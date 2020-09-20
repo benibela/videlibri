@@ -172,7 +172,7 @@ function getSearchableLocations: TSearchableLocations;
     result := TStringList(base.Objects[i]);
   end;
 
-var digibib: TMultiPageTemplate;
+var digibib: TMultiPageTemplate = nil;
   temp: TStringList;
   i: Integer;
   loc: String;
