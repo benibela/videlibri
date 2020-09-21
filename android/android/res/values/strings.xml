@@ -458,5 +458,6 @@
     <string name="warning_autorenewal_short">Achtung: Die \"Tage vor Fristablauf\"-Einstellung auf einen niedrigen Wert zu setzen ist riskant, denn, wenn man das Gerät ein paar Tage lang nicht einschaltet oder die Büchereiwebseite eine Weile gestört ist, wird vielleicht nichts verlängert.</string>
     <string name="internet_invalid_certificateS">Ungültiges Serverzertifikat für %s\nIn den Einstellungen unter \"Serverzertifikat herunterladen und als gültig akzeptieren\" kann hierfür eine Ausnahme gesetzt werden.</string>
     <string name="R.string.warning_duplicate_account">Dieses Ausleihkonto wurde bereits registriert. Um die Daten zu ändern, wähle das Konto in den Einstellungen aus (Die Einstellungen sind über das Seitenmenü zu erreichen).</string>
+    <string name="internalVersion">Interne Version</string>
 </resources>
 

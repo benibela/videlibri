@@ -2096,10 +2096,32 @@ begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLNormalizeISBN (ended)');
 end;
 
+function Java_de_benibela_VideLibri_Bridge_VLGetVersion(env:PJNIEnv; this:jobject ): jobject; cdecl;
+const CPU_PLATFORM = {$ifdef CPUARM}{$ifdef CPU32}'arm 32-bit'{$endif}{$endif}
+                     {$ifdef CPUAARCH64}'aarch64'{$endif}
+                     {$ifdef CPUX86}{$ifdef CPU32}'x86 32-bit'{$endif}{$endif}
+                     {$ifdef CPUX86_64}'x86_64'{$endif};
+var
+  vi: TVersionInfo;
+begin
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetVersion (started)');
+  result := nil;
+  try
+    vi := TVersionInfo.Create;
+    vi.version := FloatToStr(versionNumber / 1000);
+    vi.platform := CPU_PLATFORM;
+    result := vi.toJava;
+    vi.free;
+  except
+    on e: Exception do throwExceptionToJava(e);
+  end;
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetVersion (ended)');
+end;
 
 
 
-const nativeMethods: array[1..36] of JNINativeMethod=
+
+const nativeMethods: array[1..37] of JNINativeMethod=
   ((name:'VLInit';          signature:'(Landroid/content/Context;)V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInit)
    ,(name:'VLFinalize';      signature:'()V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLFInit)
 
@@ -2145,6 +2167,9 @@ const nativeMethods: array[1..36] of JNINativeMethod=
    ,(name:'VLXQuery'; signature: '(Ljava/lang/String;)[Lde/benibela/videlibri/jni/Bridge$Book;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLXQuery)
 
    ,(name:'VLNormalizeISBN'; signature: '(Ljava/lang/String;ZI)Ljava/lang/String;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLNormalizeISBN)
+
+   ,(name:'VLGetVersion'; signature: '()Lde/benibela/videlibri/jni/VersionInfo;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetVersion)
+
    );
 
 

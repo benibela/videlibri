@@ -1,21 +1,32 @@
 <api>
 
-<class id="FormInput">
+<class id="FormInput" serialize-json="">
   <string name="name"/>
   <string name="caption"/>
   <string name="value"/>
 </class>
 
-<class id="FormSelect" extends="FormInput">
+<class id="FormSelect" extends="FormInput" serialize-json="">
   <array name="optionCaptions"><string/></array>
   <array name="optionValues"><string/></array>
 </class>
 
-<class id="FormParams" extends="FastInterfacedObject">
+<class id="FormParams" extends="FastInterfacedObject" serialize-json="">
   <array name="inputs"><classref ref="FormInput"/></array>
 </class>
 
+<class id="VersionInfo">
+  <string name="version"/>
+  <string name="platform"/>
+</class>
+
+
+
+
+<function id="VLGetVersion">
+  <return-type><classref ref="VersionInfo"/></return-type>
+</function>
+
+
 </api>
 
-
-  <array><string>FormSelectOption" name="options"/>

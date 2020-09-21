@@ -1,5 +1,5 @@
 @file:Suppress("EqualsOrHashCode")
-package de.benibela.videlibri.jni
+package de.benibela.videlibri.jni;
 class PropertyArray(val names: Array<String>, values: Array<String>)
 
   open class FormInput( 
@@ -27,5 +27,13 @@ class PropertyArray(val names: Array<String>, values: Array<String>)
   )   {
     override fun equals(other: Any?): Boolean =
        other != null && javaClass == other.javaClass && other is FormParams && inputs.contentEquals(other.inputs)
+
+  } 
+  open class VersionInfo( 
+    val version: String,
+    val platform: String
+  )   {
+    override fun equals(other: Any?): Boolean =
+       other != null && javaClass == other.javaClass && other is VersionInfo && version == other.version && platform == other.platform
 
   } 

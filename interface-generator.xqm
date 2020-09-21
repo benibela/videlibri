@@ -22,25 +22,36 @@ declare function ig:jni-name($c){
       "de/benibela/videlibri/jni/"||$c
 };
 
+declare function ig:jni-full-name($c){
+  $c/(typeswitch(.)
+      case element(string) return "Ljava/lang/String;" 
+      case element(array) return concat("[L", ig:jni-name(*), ";")
+      case element(classref) return concat("L", ig:jni-name(.), ";")
+      default return ())
+};
 
 
 declare function ig:pascal-make-class($s){
 $s/(let $virtual := if (ig:parent(.)) then "override;" else "virtual;" return x"
 type T{@id} = class{@extends!concat("(T",.,")")}
-  {join(( if (./string) then join(./string/@name, ", ") || ": string;" else (),
-  ./array/x"{@name}: array of {(classref/@ref!concat("T",.), string!"string")};",
-  if (not(ig:parent(.))) then "procedure toJSON(var builder: TJSONXHTMLStrBuilder);
+  {join(
+    ( if (./string) then join(./string/@name, ", ") || ": string;" else (),
+      ./array/x"{@name}: array of {(classref/@ref!concat("T",.), string!"string")};",
+     
+      if (@serialize-json and not(ig:parent(.))) then "procedure toJSON(var builder: TJSONXHTMLStrBuilder);
   function toJSON(): string;" else (),
-  if (.//classref) then "destructor destroy; override;" else ()), "&#x0A;  ")
-  }
-  class function fromJSON(json: string): T{@id};
+      if (.//classref) then "destructor destroy; override;" else (),
+  if (@serialize-json) then
+  x"class function fromJSON(json: string): T{@id};
   class function fromJSON(json: TJSONScanner): T{@id};
 protected
   procedure appendToJSON(var builder: TJSONXHTMLStrBuilder); {$virtual}
   class function readTypedObject(scanner: TJSONScanner): T{@id}; //['type', {{obj}}]
   class function readObject(obj: T{@id}; scanner: TJSONScanner): T{@id};
   procedure readProperty(scanner: TJSONScanner);  {$virtual}
-  class function typeId: string; {$virtual}
+  class function typeId: string; {$virtual}" else ()
+), "&#x0A;  ")
+}
 public
   {{$ifdef android}}
   function toJava: jobject; {$virtual}
@@ -117,7 +128,7 @@ end;"}
 
 {
 $r/api/class/(
-.[not(ig:parent(.))]!
+.[@serialize-json and not(ig:parent(.))]!
 x"procedure T{@id}.toJSON(var builder: TJSONXHTMLStrBuilder);
 begin
   with builder do begin
@@ -137,7 +148,7 @@ end;
 
 ",
 
-x"procedure T{@id}.appendToJSON(var builder: TJSONXHTMLStrBuilder);{if (./array) then "&#x0A;var i: sizeint;" else ()}
+let $temp := . where @serialize-json return x"procedure T{@id}.appendToJSON(var builder: TJSONXHTMLStrBuilder);{if (./array) then "&#x0A;var i: sizeint;" else ()}
 begin{ig:parent(.)!"
   inherited;
   builder.appendJSONObjectComma;"
@@ -296,10 +307,7 @@ procedure initBridge;
 begin
   with needJ do begin {$r/api/class/x"
     {@id}Class := newGlobalRefAndDelete(getclass('{ig:jni-name(.)}'));
-    {@id}ClassInit := getmethod({@id}Class, '<init>', '({join((ig:ancestors(.),.)/*/(typeswitch(.)
-      case element(string) return "Ljava/lang/String;" 
-      case element(array) return concat("[L", ig:jni-name(*), ";")
-      default return ())
+    {@id}ClassInit := getmethod({@id}Class, '<init>', '({join((ig:ancestors(.),.)/*/ig:jni-full-name(.)
       , "")})V');"}
   end;
 end;
@@ -347,3 +355,40 @@ class PropertyArray(val names: Array<String>, values: Array<String>)
 
 
  
+ 
+ 
+declare function ig:pascal-make-function-native-declaration($f){ 
+  $f/x",(name:'{@id}'; signature: '({(* except return-type)/ig:jni-full-name(.)}){ig:jni-full-name(return-type/*)}'; fnPtr: @Java_de_benibela_VideLibri_Bridge_{@id})"
+};
+ 
+declare function ig:pascal-make-function($f){ 
+  $f/x"
+function Java_de_benibela_VideLibri_Bridge_{@id}(env:PJNIEnv; this:jobject {(:todo:)()}): jobject; cdecl;
+begin
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.{@id} (started)');
+  result := nil;
+  try
+    //todo
+  except
+    on e: Exception do throwExceptionToJava(e);
+  end;
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.{@id} (ended)');
+end;
+  "
+};
+
+declare function ig:java-make-function-native-declaration($f){ 
+  $f/x"static public native {return-type/classref/@ref} {@id}();"
+};
+ 
+ 
+declare function ig:code-to-add-manually($r){
+  let $functions := $r/api/function
+  return (
+  $functions/ig:java-make-function-native-declaration(.),
+  "","","","",
+  $functions/ig:pascal-make-function-native-declaration(.), 
+  "","","","",
+  $functions/ig:pascal-make-function(.)
+  )
+};

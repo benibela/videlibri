@@ -84,7 +84,7 @@ class ChangeLogParser(input: InputStream) {
 class About : VideLibriBaseActivity() {
     val details = arrayListOf<BookDetails.Details>()
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState) //To change body of overridden methods use File | Settings | File Templates.
+        super.onCreate(savedInstanceState)
         setVideLibriView(R.layout.bookdetails)
         val changelog = ChangeLogParser(this.assets.open("changelog.xml"))
         details.clear()
@@ -94,11 +94,13 @@ class About : VideLibriBaseActivity() {
             details.add(0, BookDetails.Details(getString(R.string.version), "VideLibri " + (changelog.firstVersion.toIntOrNull()
                     ?: 0) / 1000.0 + " ??"))
         }
-        details.add(1, BookDetails.Details(getString(R.string.homepage), "http://www.videlibri.de"))
-        details.add(2, BookDetails.Details(getString(R.string.about_manual), "http://www.videlibri.de/help"))
-        details.add(3, BookDetails.Details(getString(R.string.source), "https://sourceforge.net/p/videlibri/code/ci/trunks/tree/"))
-        details.add(4, BookDetails.Details(getString(R.string.about_bugtracker), "https://sourceforge.net/p/videlibri/tickets/"))
-        details.add(5, BookDetails.Details("Covers", "http://www.openlibrary.org ; http://amazon.com ; http://www.buchhandel.de"))
+        val vi = Bridge.VLGetVersion();
+        details.add(1, BookDetails.Details(getString(R.string.internalVersion), vi.version + " " + vi.platform))
+        details.add(2, BookDetails.Details(getString(R.string.homepage), "http://www.videlibri.de"))
+        details.add(3, BookDetails.Details(getString(R.string.about_manual), "http://www.videlibri.de/help"))
+        details.add(4, BookDetails.Details(getString(R.string.source), "https://sourceforge.net/p/videlibri/code/ci/trunks/tree/"))
+        details.add(5, BookDetails.Details(getString(R.string.about_bugtracker), "https://sourceforge.net/p/videlibri/tickets/"))
+        details.add(6, BookDetails.Details("Covers", "http://www.openlibrary.org ; http://amazon.com ; http://www.buchhandel.de"))
 
         changelog.versions.forEach { (version, date, changes) ->
             details.add(BookDetails.Details(getString(R.string.about_version_date, version, date), changes.joinToString("\n")))

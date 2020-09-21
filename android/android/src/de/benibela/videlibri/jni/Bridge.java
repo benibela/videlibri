@@ -388,6 +388,8 @@ public class Bridge {
 
     static public native @NotNull Book[] VLXQuery(@NotNull String query);
 
+    static public native VersionInfo VLGetVersion();
+
     static public native void VLFinalize();
 
 

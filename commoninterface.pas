@@ -56,6 +56,13 @@ public
   {$ifdef android}
   function toJava: jobject; virtual;
   {$endif}
+end; 
+type TVersionInfo = class
+  version, platform: string;
+public
+  {$ifdef android}
+  function toJava: jobject; virtual;
+  {$endif}
 end;
  {$ifdef android}
  procedure initBridge;
@@ -437,6 +444,9 @@ var
  
   FormParamsClass: jclass;
   FormParamsClassInit: jmethodID;
+ 
+  VersionInfoClass: jclass;
+  VersionInfoClassInit: jmethodID;
 
 
 
@@ -504,6 +514,20 @@ begin
 
  end;
 end;
+ 
+function TVersionInfo.toJava: jobject;
+var temp: array[0..1] of jvalue;
+begin
+    temp[0].l := j.stringToJString(self.version);
+    temp[1].l := j.stringToJString(self.platform);
+
+  with j do begin
+    result := newObject(VersionInfoClass, VersionInfoClassInit, @temp[0]); 
+    deleteLocalRef(temp[0].l);
+    deleteLocalRef(temp[1].l);
+
+ end;
+end;
 
 
 
@@ -515,7 +539,9 @@ begin
     FormSelectClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/FormSelect'));
     FormSelectClassInit := getmethod(FormSelectClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;)V'); 
     FormParamsClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/FormParams'));
-    FormParamsClassInit := getmethod(FormParamsClass, '<init>', '([Lde/benibela/videlibri/jni/FormInput;)V');
+    FormParamsClassInit := getmethod(FormParamsClass, '<init>', '([Lde/benibela/videlibri/jni/FormInput;)V'); 
+    VersionInfoClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/VersionInfo'));
+    VersionInfoClassInit := getmethod(VersionInfoClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;)V');
   end;
 end;
 {$endif}
