@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
   <deprecatedName value="908"/>
-  <maxRenewCount value="2"/>
 
   <longName value="Staatsbibliothek zu Berlin"/>
   <shortName value="Stabi Berlin"/>
-  <catalogue value="http://stabikat.de:8080/"/>
-  <template value="bibdia_stabib"/>
+  <catalogue value="https://stabikat.de/"/>
+  <template value="lbs"/>
+  <variable name="server" value="https://stabikat.de"/>
   
   <homepage value="http://staatsbibliothek-berlin.de/"/>
   <testing-search value="yes"/>  <testing-account value="yes"/></library>
