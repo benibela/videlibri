@@ -2033,22 +2033,22 @@ begin
             book.clear;
             book.owningAccount:=nil;
             accountId := -1;
-            for p in b.getPropertyEnumerator do
-              case p^.key of
+            for p in b.getEnumeratorStringPropertiesUnsafe do
+              case p.key of
                 '_accountPtr': begin
-                  i64 := p^.value.toInt64;
+                  i64 := p.value.toInt64;
                   for i := 0 to accounts.Count - 1 do
                     if i64 = PtrInt(accounts[i]) then begin
                       accountId := i;
                       break;
                     end;
                 end;//book.owner := tobject(p.Value.toInt64);
-                'statusId': if p^.Value.toString = 'history' then book.lend := false
+                'statusId': if p.Value.toString = 'history' then book.lend := false
                 else begin
                   book.lend := true;
-                  book.setProperty(p^.key, p^.Value.toString);
+                  book.setProperty(p.key, p.Value.toString);
                 end
-                else book.setProperty(p^.key, p^.Value.toString);
+                else book.setProperty(p.key, p.Value.toString);
               end;
             if accountId <> -1 then begin
               if accs2[accountId] = nil then accs2[accountId] := j.getObjectArrayElement(accs, accountId);
