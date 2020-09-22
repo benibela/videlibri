@@ -2180,7 +2180,7 @@ var bridgeClass: jclass;
 begin
   needJ;
   bridgeClass := j.env^^.FindClass(j.env, 'de/benibela/videlibri/jni/Bridge');
-  if (not assigned(bridgeClass)) or (j.env^^.ExceptionCheck(j.env)<>0) then begin
+  if (not assigned(bridgeClass)) or (j.ExceptionCheck()) then begin
     bbdebugtools.log('failed to find VideLibri Bridge');
     exit(JNI_ERR);
   end;
