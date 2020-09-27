@@ -10,7 +10,7 @@
   <variable name="picadb" value="40"/>
   <variable name="searchKeysOverride" value="tit;per;num;jah;slw"/>
    
-  <homepage value="http://www.khsb-berlin.de/bibliothek/"/>
+  <homepage value="https://www.khsb-berlin.de/bibliothek/"/>
   <testing-search value="yes"/>
   <testing-account value="yes"/>
   

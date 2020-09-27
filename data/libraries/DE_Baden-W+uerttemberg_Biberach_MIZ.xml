@@ -5,8 +5,8 @@
   <template value="bibdia"/>
   <variable name="baseurl" value="https://katalog.medienzentrum-biberach.de/opax/"/>
 
-  <homepage value="https://miz.biberach-riss.de/"/>
+  <homepage value="http://www.medienzentrum-biberach.de/"/>
   <testing-search value="no"/>  
-  <testing-account value="unknown"/>
+  <testing-account value="no"/>
 </library>
 

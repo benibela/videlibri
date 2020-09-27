@@ -11,6 +11,6 @@
   <variable name="server" value="https://opac.oth-aw.de/TouchPoint/"/>
   <variable name="startparams" value="?View=faw"/>
   
-  <homepage value="http://www.haw-aw.de/einrichtungen/bibliothek/"/>
+  <homepage value="https://www.oth-aw.de/informieren-und-entdecken/einrichtungen/bibliothek/ueber-uns/"/>
   <testing-search value="yes"/>  <testing-account value="yes"/></library>
 

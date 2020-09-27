@@ -7,7 +7,7 @@
   <template value="libero5"/>
   <variable name="baseurl" value="http://webopac.moerfelden-walldorf.de/libero/"/>
 
-  <homepage value="http://www.moerfelden-walldorf.de/default.asp?action=article&amp;ID=313&amp;KeyWords=stadtb%C3%BCcherei"/>
+  <homepage value="https://www.moerfelden-walldorf.de/de/freizeit/kultur/buechereien/"/>
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
   

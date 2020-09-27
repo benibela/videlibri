@@ -9,7 +9,7 @@
   <variable name="server" value="bsz.ibs-bw.de"/>
   <variable name="startparams" value="?service=direct/0/Home/$DirectLink&amp;sp=SOPAC30"/>
 
-  <homepage value="http://www.ph-karlsruhe.de/hsb"/>
+  <homepage value="https://www.ph-karlsruhe.de/campus/serviceeinrichtungen/hochschulbibliothek"/>
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
   

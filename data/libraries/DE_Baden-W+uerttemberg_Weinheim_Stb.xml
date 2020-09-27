@@ -6,7 +6,7 @@
   <variable name="urlaccount" value="https://bibliotheken.kivbf.de/weinheim/Meine-Bibliothek"/>	
   <variable name="urlsearch" value="https://bibliotheken.kivbf.de/weinheim/Mediensuche/Erweiterte-Suche"/>
   
-  <homepage value="http://www.weinheim.de/servlet/PB/menu/1075105/index.html"/>
+  <homepage value="https://www.weinheim.de/startseite/stadtthemen/stadtbibliothek.html"/>
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

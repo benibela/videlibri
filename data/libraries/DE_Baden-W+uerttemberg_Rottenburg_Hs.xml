@@ -9,7 +9,7 @@
   <variable name="server" value="bsz.ibs-bw.de"/>
   <variable name="startparams" value="?service=direct/0/Home/$DirectLink&amp;sp=SOPAC36"/>
 
-  <homepage value="https://www.hs-rottenburg.net/die-hochschule/einrichtungen-der-hfr/bibliothek/"/>
+  <homepage value="https://www.hs-rottenburg.net/hochschule/einrichtungen-der-hfr/bibliothek/"/>
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
   

@@ -7,7 +7,7 @@
   <template value="libero5"/>
   <variable name="baseurl" value="https://medienkatalog.hanau.de/libero/"/>
 
-  <homepage value="http://www.hanau.de/kultur/literatur/bibliothek/index.html"/>
+  <homepage value="https://www.hanau.de/vielfalt-leben/bildung/kulturforum/index.html"/>
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
   

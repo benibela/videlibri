@@ -11,6 +11,6 @@
     <variable name="searchid" value="SERVICEGROUP1.SERVICE.SEARCH_SBMNDN"/>
   </template>
 
-  <homepage value="https://www.minden.de/stadt_minden/Bildung,%20Kultur,%20Sport/Kultur/Bibliothek/"/>
+  <homepage value="https://www.minden.de/stadt_minden/de/Bildung,%20Kultur,%20Sport/Kultur/Bibliothek/"/>
   <testing-search value="yes"/>  <testing-account value="unknown"/></library>
 

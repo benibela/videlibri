@@ -9,7 +9,7 @@
   <variable name="server" value="bsz.ibs-bw.de"/>
   <variable name="startparams" value="?service=direct/0/Home/$DirectLink&amp;sp=SOPAC05"/>
 
-  <homepage value="http://www.hfwu.de/de/bibliothek/aktuelles.html"/>
+  <homepage value="https://www.hfwu.de/hochschule-fuer-wirtschaft-und-umwelt-nuertingen-geislingen/aktuelles/"/>
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
   

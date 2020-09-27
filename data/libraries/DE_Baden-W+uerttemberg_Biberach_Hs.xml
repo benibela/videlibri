@@ -9,7 +9,7 @@
   <variable name="server" value="bsz.ibs-bw.de"/>
   <variable name="startparams" value="?service=direct/0/Home/$DirectLink&amp;sp=SOPAC39"/>
 
-  <homepage value="http://www.hochschule-biberach.de/web/bibliothek/recherche"/>
+  <homepage value="https://www.hochschule-biberach.de/hochschule/einrichtungen/bibliothek"/>
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
   
