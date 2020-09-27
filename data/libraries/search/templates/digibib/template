@@ -25,6 +25,7 @@
       <div class="object-error" t:condition="$datasend">{vl:raise(.)}</div>
     
       <table class="datarows">{$request := (), $accountUrl := $url (:we have reached our destination:)}</table>
+      <a t:condition="contains(@href, '/intro/account') and not($datasend)">{$request}</a>
       <form>{  
         let $action := @action return
         if (contains($action, "session/logout")) then ($request := (), $accountUrl := $url)
