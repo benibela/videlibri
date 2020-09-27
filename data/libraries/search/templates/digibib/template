@@ -31,7 +31,7 @@
         else
         $request := form(.,
           if (contains($action, "selectIdp")) then 
-            let $t := if ($type ge 1) then $type else 1 return (.//button)[$t]/{@name: @value}
+            let $t := if ($type ge 1) then $type else 1 return (.//button)[$t]
           else if (contains($action, "samllogin")) then 
             ({"signin.username": $username, "signin.password": $password}, (datasend := true())[0])
           else if (contains($action, "HandleAuthorizeResponse")) then 
