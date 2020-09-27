@@ -107,7 +107,7 @@
         </form>
         <form>
           <input name="j_username"/>
-          {request := form(., {"j_username": $username, "j_password": $password, "_eventId_proceed": .//button[@name = "_eventId_proceed"]/@value} ), datasend := true()}
+          {request := form(., ({"j_username": $username, "j_password": $password}, .//button[@name = "_eventId_proceed"] )), datasend := true()}
         </form>
         <DIV class="EXLMyAccountContainer" id="exlidMyAccountContainer"> <DIV class="EXLMyAccountMainContainer"/> 
           {i := 10000}<!--logged in-->
