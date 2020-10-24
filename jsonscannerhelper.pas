@@ -61,6 +61,7 @@ begin
           tkSquaredBraceOpen: inc(nesting);
           tkSquaredBraceClose: dec(nesting);
           tkEOF: exit;
+          else ;
         end;
     end;
     else expectCurrentToken(tkString);
