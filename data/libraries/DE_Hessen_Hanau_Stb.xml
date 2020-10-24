@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
 <library>
   <longName value="Stadtbibliothek Hanau"/>
 
@@ -8,8 +6,8 @@
   <variable name="baseurl" value="https://medienkatalog.hanau.de/libero/"/>
 
   <homepage value="https://www.hanau.de/vielfalt-leben/bildung/kulturforum/index.html"/>
-  <testing-search value="yes"/>
-  <testing-account value="unknown"/>
+  <testing-search value="no"/>
+  <testing-account value="no"/>
   
 </library>
 

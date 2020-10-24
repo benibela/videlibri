@@ -5,10 +5,11 @@
   <longName value="Hochschulbibliothek Magdeburg"/>
   <shortName value="Hs Magdeburg"/>
   
-  <template value="pica"/>  
+  <template value="lbs"/>  
   <variable name="server" value="https://opac.lbs-magdeburg.gbv.de/"/>
   <variable name="picadb" value="3"/>
-
+  <variable name="borrower" value="USR=1213"/>
+  
   <homepage value="https://www.hs-magdeburg.de/hochschule/einrichtung/hochschulbibliothek"/>
   <testing-search value="yes"/>
   <testing-account value="yes"/>

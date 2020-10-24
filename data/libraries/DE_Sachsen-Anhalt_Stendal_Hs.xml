@@ -5,9 +5,10 @@
   <longName value="Hochschulbibliothek Stendal"/>
   <shortName value="Hs Stendal"/>
   
-  <template value="pica"/>  
+  <template value="lbs"/>  
   <variable name="server" value="https://opac.lbs-magdeburg.gbv.de/"/>
   <variable name="picadb" value="5"/>
+  <variable name="borrower" value="USR=1230"/>
 
   <homepage value="https://www.hs-magdeburg.de/hochschule/einrichtung/hochschulbibliothek"/>
   <testing-search value="yes"/>
