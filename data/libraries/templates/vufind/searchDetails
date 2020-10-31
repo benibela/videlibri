@@ -80,7 +80,7 @@
           else 
             vl:set-book-property($a, $a)[0]
        )
-       where $temp 
+       where exists($temp)
        return $book.holdings := $temp
   </t:s>
 </div>?
