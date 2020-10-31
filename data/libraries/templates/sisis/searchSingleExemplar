@@ -55,7 +55,7 @@
       }</t:if>
       {for $key in ("libraryBranch", "libraryLocation") return
         if (matches($holding($key), "Wegweise|Lageplan|Was heißt das")) then 
-          $holding($key) := replace($holding($key), "\s*(Wegweiser|Lageplan|-?Was heißt das.*)", "") 
+          $holding($key) := replace($holding($key), "\s*(Wegweiser|Lageplan|-? *Was heißt das.*)", "") 
         else (),
       $book.holdings[] := $holding}
     </TR>*
