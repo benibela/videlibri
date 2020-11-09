@@ -6,11 +6,12 @@
 
 <content title="Getestete OPAC-Systeme">
 
-<p>
+<!--<p>
+Ob man VideLibri out-of-the-box mit einer Bibliothek verwenden kann, ist nicht von dem Namen der Bibliothek abhängig, sondern von dem von der Bibliothek verwendeten Katalogsystem und den in VideLibri geladenen Templates. </p>-->
 
-Ob man VideLibri out-of-the-box mit einer Bibliothek verwenden kann, ist nicht von dem Namen der Bibliothek abhängig, sondern von dem von der Bibliothek verwendeten Katalogsystem und den in VideLibri geladenen Templates. </p>
+<p>Da VideLibri ein Webbrowser zum Anzeigen von Tabellen ist, funktioniert es selbstverständlich mit allen HTML-Seiten, auf denen es eine Tabelle gibt, insbesondere mit allen OPACs und Bibliothekskatalogen, außer die Bibliothek hat keine Tabellen im HTML, sondern bastelt sie irgendwie mit Javascript zusammen. Man muss lediglich in einer XML-Datei (Template) angeben, welche Webseite heruntergeladen werden soll und welche Tabellen und Tabellenspalten dort relevant sind, zum Beispiel, ob der Autor in der zweiten Tabellenspalte steht oder etwa in einer Spalte mit Überschrift "Verfasser". </p>
 
-<p>VideLibri liefert standardmäßig Templates für die folgenden Bibliothekssysteme mit: </p>
+<p>Nichtsdestotrotz liefert VideLibri standardmäßig Templates für die folgenden Bibliothekssysteme mit, bei denen die im System vorkommenden Tabellen vorkonfiguriert sind, so dass man lediglich die Adresse der Bibliothekswebseite eingeben muss: </p>
 
 <table class="systemsupport">
 <thead>
@@ -32,7 +33,7 @@ Ob man VideLibri out-of-the-box mit einer Bibliothek verwenden kann, ist nicht v
 <tr><td>PICA:</td></tr>
 <tr><td style="padding-left: 1em" id="pica">PICA Standard</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2011</td></tr>
 <tr><td style="padding-left: 1em" id="bibdia_stabib">mit Bibdia</td>  <td>ja</td><td>ja</td><td>ja</td><td>nein</td>  <td>nur für Staatsbibliothek Berlin</td><td>2011</td></tr>
-<tr><td style="padding-left: 1em" id="lbs">mit LBS</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td>bisher nur wenig getestet</td><td>2014</td></tr>
+<tr><td style="padding-left: 1em" id="lbs">mit LBS4</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2014</td></tr>
 
 <tr><td id="bibliotheca">OCLC Bibliotheca</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2014</td></tr>
 <tr><td id="bibliothecaplus">OCLC Bibliotheca+/OPEN</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2014</td></tr>
@@ -40,7 +41,7 @@ Ob man VideLibri out-of-the-box mit einer Bibliothek verwenden kann, ist nicht v
 <tr><td id="sisis">SISIS-SunRise (und Touchpoint)</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2010</td></tr>
 <tr><td id="sru">SRU</td>  <td>ja</td><td></td><td></td><td></td>  <td></td><td>2013</td></tr>
 <tr><td id="vufind">VuFind</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2018</td></tr>
-<tr><td id="was">Websphere (WAS)</td>  <td>nein</td><td>ja</td><td>ja</td><td>nein</td>  <td>nur für Stadtbüchereien Düsseldorf</td><td>2006</td></tr>
+<tr><td id="was">WebOPAC (KRZN/wasnrw)</td>  <td>nein</td><td>ja</td><td>ja</td><td>nein</td>  <td>nur für Stadtbüchereien Düsseldorf</td><td>2006</td></tr>
 <tr><td id="zones18">Zones (nur 1.8)</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2013</td></tr>
 </table>
 

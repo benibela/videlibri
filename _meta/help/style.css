@@ -8,7 +8,7 @@ h3       { font-weight: bold; font-size: 115%; font-family: Verdana, sans-serif;
 h4       { font-weight: bold; font-size: 100%; margin-top: 3pt; font-family: "Tahoma, Verdana, sans-serif"; }
 h5       { font-weight: bold; font-size: 90%; margin-top: 3pt; font-family: "Tahoma, Verdana, sans-serif"; }
 code     { font-size: 81%; font-family: "Lucida Sans Typewriter, Courier New, monospace"; }
-pre      { font-size: 81%; font-family: "Lucida Sans Typewriter, Courier New, monospace"; }
+pre      { font-size: 81%; font-family: "Lucida Sans Typewriter, Courier New, monospace";  padding-left: 3em}
 dt       { margin-top: 3pt; }
 li       { margin-top: 3pt; }
 img      { vertical-align: middle; }
@@ -20,4 +20,4 @@ img      { vertical-align: middle; }
 .pi3     { padding-left: 36pt }
 .pi4     { padding-left: 48pt }
 .pi5     { padding-left: 66pt }
-div.main { max-width: 50em; margin: auto }
+div.main { max-width: 50em; margin: auto ; line-height: 1.5}

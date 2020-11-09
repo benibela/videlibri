@@ -7,7 +7,7 @@ _publish/$outfile: $infile $depends common.xq style.xq.html global.xml
 </makecommand>
  
 <fileinfo base="index" extension="php">
-  <title>Features</title>
+  <title>Übersicht</title>
 </fileinfo>  
 <fileinfo base="libraries">
   <targetbase>bibliotheken</targetbase>

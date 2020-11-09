@@ -86,20 +86,11 @@ $matches = findMatches($accepted, $available);
 if (count($matches) == 0 || count(reset($matches)) == 0 || (reset(reset($matches)) != "de" && reset(reset($matches)) != "DE"))
   print ("<style>#navigation a.enlink { text-decoration: blink; font-weight: bold; color: #AA0000} </style>");
   //$
-?>
+??>
   
 </head>
 
 <prequel>
-<div style="float: right">
-<a href="https://play.google.com/store/apps/details?id=de.benibela.videlibri" rel="nofollow" style="vertical-align:center;display:block">
-  <img alt="Android app on Google Play"
-       src="https://developer.android.com/images/brand/de_app_rgb_wo_45.png" style="position:relative;top: -40px" width="125" height="45"/>
-
-  <img alt="Android app on Google Play" width="126" height="126" src="img/qrcode_pretty.png" />
-</a>
-</div>
-
 VideLibri schützt einen seit 2006 davor bei Ausleihen aus einer öffentlichen Bücherei oder wissenschaftlicher Bibliothek, die Abgabefrist zu verpassen. Auch Katalogsuchen sind möglich.
 </prequel>
 
@@ -124,21 +115,36 @@ Wenn man zudem in ein paar Jahren einen Fortsetzungband einer Serie lesen will o
 <li><h3>Übersicht über mehrere Ausleihkonten</h3>
 VideLibri zeigt die Ausleihdaten von mehreren Konten gleichzeitig an, so dass man, wenn man in mehreren Büchereien angemeldet ist, nicht jeden Katalog einzeln aufrufen muss. Auch wenn in einer mehrköpfigen Familie jeder eine eigene Ausleihkarte hat, wie von der Benutzerordnung vorgeschrieben, stellt es sicher, dass niemand/kein Kind vergessen hat, etwas abzugeben.
 </li>
-<li><h3>Besseres Interface</h3>
-VideLibri ist nach der Installation sehr viel einfacher zu benutzen, als die meisten Webkataloge/WebOPACs der Büchereien. Man muss nur einmal klicken, um die Ausleihliste zu öffnen, und braucht nicht jedesmal sein Passwort einzugeben. Zudem werden alle Bücher farbkodiert in einer sortierbaren Liste angezeigt und die jeweiligen Abgabezeiten nach Wochen getrennt.
+<li><h3>Verwaltung von nicht ausgeliehenen Büchern</h3>
+Zusätzlich zu ausgeliehenen und abgegebenen Büchern lassen sich niemals-ausgeliehene Bücher aus der Katalogsuche in der Bücherliste speichern. Damit lässt sich die App zur Literaturverwaltung, als Merkliste und zur Verwaltung einer persönlichen Bibliothek verwenden.
 </li>
-<li><h3>Mobile Android-Version</h3>
-VideLibri läuft nativ auf Androidsystemen und bietet so eine bessere und bequemere Integration in das System als Webkataloge. 
-</li>
-<li><h3>Lokal laufende App</h3>
-App ist die Abkürzung von Applikation und der Begriff wird hier nicht zur Unterscheidung zwischen Desktop-App oder mobiler App verwendet, sondern zur Abgrenzung von Webseiten, denn früher  standen alle größeren Bibliotheksmetakataloge nur als Webseiten zur Verfügung. Eine Unterscheidung zwischen mobil und nicht-mobil wäre bedeutungslos,  denn mit der richtigen Hardware ist jedes Programm mobil, während umgekehrt ein Smart-Fernseher nicht mobil ist, obwohl der Fernseher Android als Betriebssystem verwendet. <br/>
-Der Unterschied zwischen einer App und einer Webseite ist dagegen erheblich. Bei einer Webseite ist man dem Anbieter hilflos ausgeliefert. Die Webseite kann unangekündigt abgeschaltet werden und ist dann nicht mehr nur nicht-nutzbar, sondern auch alle früher dort gespeicherten Daten sind weg. Eine installierte App dagegen bleibt installiert und, solange man sie nicht deinstalliert, läuft sie auch in 100 Jahren noch auf dem Gerät.<br/>
-Zudem hat ein Benutzer keine Kontrolle darüber, was eine Webseite tut. Wenn zum Beispiel eine Bibliothek von einem webseitenbasierten Metakatalog nicht unterstützt wird, gibt es keine Möglichkeit über den Metakatalog auf die nicht-unterstützte Bibliothek zuzugreifen. Eine App auf dem eigenen Gerät kann man dagegen beliebig ändern und ohne Einschränkungen seine eigene Bibliothek hinzufügen. <br/> Ebenso könnte eine Webseite gehackt werden oder persönliche Daten weitergeben. Sind die Daten dagegen alle in einer lokalen App, bleiben diese auf dem lokalen Gerät und niemand Fremdes kann darauf zugreifen.
+
+<li><h3>Besseres Interface und Layout</h3>
+VideLibri ist nach der Installation sehr viel einfacher zu benutzen, als die meisten Webkataloge/WebOPACs der Büchereien. Man muss nur einmal klicken, um die Ausleihliste zu öffnen, und braucht nicht jedesmal sein Passwort einzugeben. Zudem werden alle Bücher farbkodiert in einer sortierbaren Liste angezeigt und die jeweiligen Abgabezeiten nach Wochen getrennt. Auch Autor und Titel werden getrennt angezeigt, im Gegensatz zu klassischen WebOPACs (wie lange von den <a class="popuplink" href="img/webopac-düsseldorf.png">Stadtbüchereien Düsseldorf</a> verwendet), die Autor und Titel zu einer Zeile zusammenwursteln, so dass man sie kaum unterscheiden kann.
 </li>
 
 <li><h3>Vollständige XQuery Unterstützung</h3>
-Mittels der Datenbankabfragesprache XQuery lassen sich <a href="/help/xquerysearch.html">beliebige komplizierte Suchen</a> über die eigene Ausleihhistorie ausführen, um beispielsweise folgende Frage zu beantworten: "Von allen Büchern, deren Titellänge eine Primzahl ist, welches habe ich am häufigsten ausgeliehen?"
+Mittels der Datenbankabfragesprache XQuery lassen sich <a href="/help/xquerysearch.html">beliebige komplizierte Suchen</a> über die eigene Ausleihhistorie ausführen, wie zum Beispiel:
+<ul>
+<li>Welche meiner Ausleihen hat den längsten Titel?</li>
+<li>Wer hat das Buch mit dem längsten Titel geschrieben?</li>
+<li>Welches Buch wurde am häufigsten ausgeliehen?</li>
+<li>Von welchem Autor/in habe ich am meisten Bücher ausgeliehen?</li>
+<li>Welche Ausleihe hat das längste Wort im Titel, wenn es mehr als ein Wort im Titel gibt?</li>
+<li>Welche ausgeliehenen Bücher haben denselben Autor/in, wie das Buch mit dem längsten Titel?</li>
+<li>Von allen Büchern, deren Titellänge eine Primzahl ist, welches habe ich am häufigsten ausgeliehen?</li>
+</ul>
 </li>
+
+
+<!--<li><h3>Mobile Android-Version</h3>
+VideLibri läuft nativ auf Androidsystemen und bietet so eine bessere und bequemere Integration in das System als Webkataloge. 
+</li>-->
+<li><h3>Lokal laufende App</h3>
+Im Gegensatz zu einer Webseite wie einem Bücherei-OPAC, bei dem man irgendeinem Anbieter hilflos ausgeliefert ist, kann man bei einer App wie VideLibri alles selbst entscheiden. Die Webseite kann unangekündigt abgeschaltet werden und ist dann nicht mehr nur nicht-nutzbar, sondern auch alle dort gespeicherten Daten sind weg. Eine installierte App dagegen bleibt installiert und, solange man sie nicht deinstalliert, läuft sie auch in 100 Jahren noch auf dem Gerät.<br/>
+Zudem hat ein Benutzer keine Kontrolle darüber, was eine Webseite tut. Wenn zum Beispiel eine Bibliothek von einem webseitenbasierten Metakatalog nicht unterstützt wird, gibt es keine Möglichkeit über den Metakatalog auf die nicht-unterstützte Bibliothek zuzugreifen. Eine App auf dem eigenen Gerät kann man dagegen beliebig ändern und ohne Einschränkungen seine eigene Bibliothek hinzufügen. <br/> Ebenso könnte eine Webseite gehackt werden oder persönliche Daten weitergeben. Sind die Daten dagegen alle in einer lokalen App, bleiben diese auf dem lokalen Gerät und niemand Fremdes kann darauf zugreifen.
+</li>
+
  
 
 <li><h3>E-Mailbenachrichtigung<sup class="desktop">D</sup></h3> 
@@ -153,14 +159,13 @@ Jeder kann VideLibri genauso ändern, wie er es haben will, und beliebige Featur
 Einige andere Features sind:
 <ul>
 <li>Abgabezeiten in unterschiedlichen Wochen werden markiert.</li>
-<li>Es kann nach beliebigen Medien gesucht werden.</li>
+<li>Es kann nach beliebigen Medien gesucht werden, sowohl im OPAC einer Bibliothek als auch in Verbundkatalogen mit über 1000 Bibliotheken. </li>
 <li>Vormerkungen und Bestellungen im Katalog.</li>
 <li>VideLibri wird (je nach Einstellung) bei jedem Systemstart minimiert in der Symbolleiste gestartet.</li>
 <li>Es gibt eine Statistik über alle ausgeliehenen Medien<sup class="desktop">D</sup>.</li>
 <li>BibTeX-Export für die Erstellung von Literaturverzeichnissen<sup class="desktop">D</sup>.</li>
-<li>XML-Import/Export zur Synchronisation von mehreren Geräten.</li>
+<li>XML-Import/Export zur Synchronisation von mehreren Geräten und automatisierter .</li>
 <li>Automatisches Update<sup class="desktop">D</sup>.</li>
-<li>Speicherung von gesuchten Medien in der Kontohistorie, was zur Literaturverwaltung oder als Merkliste verwendet werden kann.<sup class="desktop">D</sup>.</li>
 <li>Nahezu bugfrei: Innerhalb von zehn Jahren gab es lediglich 2 Bug-Meldungen <a href="https://sourceforge.net/p/videlibri/tickets/">im Bugtracker</a>.</li>
 </ul>
 
@@ -175,7 +180,7 @@ Es gibt natürlich auch ein paar Nachteile im Vergleich zu den online Web-Katalo
 Auf der nächsten Seite kann man sehen, mit welchen <a href="bibliotheken.html">Bibliotheken</a> VideLibri bisher getestet wurde, und auf der Seite danach für welche <a href="opac.html">OPAC-Systeme</a> ein Zugriffs-Template in VideLibri integriert ist, so dass man VideLibri nach Eingabe der Web-Adresse der Bibliothek mit der Bibliothek verwenden kann, auch wenn die Bibliothek bisher noch nicht getestet worden ist. Für eine unbekannte Bibliothek mit einem unbekannten OPAC, kann jeder selbst ein <a href="help/neuebibliothek.html">Zugriffs-Template</a> schreiben.
 </content>
     
-<content title="Screenshots">
+<content title="Screenshots" id="screenshots">
 <center>
 <img src="http://sourceforge.net/dbimage.php?id=280463" title="Allgemeine Übersicht über ausgeliehene Bücher (von den Büchereien in Düsseldorf und Aachen)" alt="Allgemeine Übersicht über ausgeliehene Bücher (von den Büchereien in Düsseldorf und Aachen)"/>
 
