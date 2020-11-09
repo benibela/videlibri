@@ -1,0 +1,1395 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<!-- TEMPLATE FILE: opac-user.tt -->
+
+
+
+
+
+<html lang="de-DE" class="no-js">
+<head>
+
+<title>Koha  - Katalog &rsaquo; Ihre Heimatbibliothek</title>
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Koha 20.0500000" /> <!-- leave this for stats -->
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="shortcut icon" href="/opac-tmpl/bootstrap/images/favicon.ico" type="image/x-icon" />
+
+ <link rel="stylesheet" type="text/css" href="/opac-tmpl/bootstrap/lib/bootstrap/css/bootstrap.min_20.0500000.css">
+ <link type="text/css" href="/opac-tmpl/bootstrap/lib/jquery/jquery-ui-1.12.1.min_20.0500000.css" rel="stylesheet">
+
+
+ 
+
+
+ <link rel="stylesheet" type="text/css" href="/opac-tmpl/bootstrap/css/opac_20.0500000.css">
+
+
+
+<link media="print" rel="stylesheet" type="text/css" href="/opac-tmpl/bootstrap/css/print_20.0500000.css">
+
+
+
+
+<!-- Respond.js brings responsive layout behavior to IE < v.9 -->
+<!--[if lt IE 9]>
+ <script src="/opac-tmpl/bootstrap/lib/respond.min.js"></script>
+<![endif]-->
+<script>
+    function _(s) { return s } // dummy function for gettext
+</script>
+<script src="/opac-tmpl/bootstrap/lib/modernizr.min_20.0500000.js"></script>
+<link rel="stylesheet" type="text/css" href="/opac-tmpl/bootstrap/lib/font-awesome/css/font-awesome.min_20.0500000.css">
+
+
+
+
+
+
+
+</head>
+
+
+
+ 
+
+
+ 
+
+
+
+
+ 
+
+<body ID="opac-user" class="branch-GBA scrollto" >
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="wrap">
+ <div id="header-region" class="noprint">
+ <div class="navbar navbar-inverse navbar-static-top">
+ <div class="navbar-inner">
+ <div class="container-fluid">
+ <h1 id="logo">
+ <a class="brand" href="/cgi-bin/koha/opac-main.pl">
+  Koha  </a>
+ </h1>
+ 
+ <div id="cartDetails" class="cart-message">Ihr Korb ist leer.</div>
+ 
+ <ul class="nav">
+ 
+ <li>
+ <a href="#" id="cartmenulink" role="button" title="Stellen Sie Titel zusammen, an denen Sie interessiert sind">
+ <i id="carticon" class="fa fa-shopping-cart fa-icon-white" aria-hidden="true"></i> <span class="cartlabel">Korb</span> <span id="basketcount"></span>
+ </a>
+ </li>
+ 
+ 
+ <li class="divider-vertical"></li>
+ 
+ 
+ <li class="dropdown">
+ <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="listsmenu" role="button" title="Zeige Listen"><i class="fa fa-list fa-icon-white" aria-hidden="true"></i> <span class="listslabel">Listen</span> <b class="caret"></b></a>
+ <ul aria-labelledby="listsmenu" role="menu" class="dropdown-menu">
+ 
+ 
+ 
+ <li role="presentation"><a href="/cgi-bin/koha/opac-shelves.pl?op=list&amp;category=1" tabindex="-1" role="menuitem"><strong>Ihre Listen</strong></a></li>
+ 
+ 
+ <li role="presentation"><a href="#" tabindex="-1" class="menu-inactive" role="menuitem">Keine privaten Listen.</a></li>
+ 
+ <li role="presentation"><a href="/cgi-bin/koha/opac-shelves.pl?op=add_form" tabindex="-1" role="menuitem" class="listmenulink">Neue Liste</a></li>
+ 
+ 
+ </ul> <!-- / .dropdown-menu -->
+ </li> <!-- / .dropdown -->
+ 
+ </ul> <!-- / .nav -->
+
+ 
+
+ <div id="members" class="pull-right">
+ 
+ 
+
+ <div id="header_langmenu" class="pull-left">
+ <ul class="nav">
+ <li class="dropdown">
+ <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="langmenu" role="button" title="Sprache wechseln"><i class="fa fa-flag fa-icon-white" aria-hidden="true"></i> <span class="langlabel">Sprachen</span> <b class="caret"></b></a>
+ <ul aria-labelledby="langmenu" role="menu" class="dropdown-menu dropdown-menu-right">
+ 
+ 
+ 
+ 
+ 
+ <li role="presentation"><a href="/cgi-bin/koha/opac-changelanguage.pl?language=en"  tabindex="-1" role="menuitem">English</a></li>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <li role="presentation"><a href="/cgi-bin/koha/opac-changelanguage.pl?language=fr-FR"  tabindex="-1" role="menuitem">Français</a></li>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <li role="presentation"><a href="/cgi-bin/koha/opac-changelanguage.pl?language=de-CH"  tabindex="-1" role="menuitem"> Deutsch  Schweiz </a></li>
+ 
+ 
+ 
+ 
+ 
+ <li role="presentation"> <a href="#" tabindex="-1" role="menuitem">Deutsch  Deutschland &nbsp;<i class="fa fa-check" aria-hidden="true"></i></a></li>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <li role="presentation"><a href="/cgi-bin/koha/opac-changelanguage.pl?language=it-IT"  tabindex="-1" role="menuitem">Italiano</a></li>
+ 
+ 
+ 
+ 
+ 
+ </ul> <!-- /# .dropdown-menu -->
+ </li> <!-- / .dropdown -->
+ </ul> <!-- /.nav.pull-right -->
+ </div> <!-- /#header_langmenu -->
+
+
+ 
+ <ul class="nav">
+ <li class="dropdown">
+ 
+ 
+ <a href="#" class="dropdown-toggle" id="user-menu" data-toggle="dropdown" role="button">
+ <i class="fa fa-user fa-icon-white fa-fw" aria-hidden="true"></i>
+ <span class="userlabel">Willkommen,  <span class="patron-title">Herr</span> Demokrit Morlock</span>
+ <b class="caret"></b>
+ </a>
+ 
+ 
+
+ 
+ <ul aria-labelledby="user-menu" role="menu" class="dropdown-menu dropdown-menu-right">
+ <li role="presentation">
+ <div id="loggedinuser-menu">
+ <p>
+ <a class="login-link" href="/cgi-bin/koha/opac-user.pl"><span class="loggedinusername" data-borrowernumber="1" data-branchcode="GBA" >Benutzerkonto</span></a>
+ </p>
+ 
+ <p class="search_history">
+ <a class="login-link" href="/cgi-bin/koha/opac-search-history.pl" role="menuitem" tabindex="-1" title="Suchhistorie anzeigen">Suchhistorie</a>
+ <span class="divider-vertical"></span>
+ <a class="logout clearsh" href="/cgi-bin/koha/opac-search-history.pl?action=delete" title="Suchhistorie löschen"><i class="fa fa-trash" aria-hidden="true"></i> Löschen</a>
+ </p>
+ 
+ <p>
+ <a tabindex="-1" role="menuitem" class="logout" id="logout" href="/cgi-bin/koha/opac-main.pl?logout.x=1">
+ Abmelden</a>
+ </p>
+ </div>
+ </li>
+ </ul>
+ 
+ </li>
+ 
+ </ul>
+ </div> <!-- /members -->
+ 
+
+ </div> <!-- /container-fluid -->
+ </div> <!-- /navbar-inner -->
+ </div> <!-- /navbar -->
+
+ 
+
+ </div> <!-- / header-region -->
+
+ <div class="container-fluid">
+ <div class="row-fluid">
+ <div id="opac-main-search">
+ <div class="span12">
+ 
+ 
+ 
+ <div class="mastheadsearch">
+ 
+ 
+ <form name="searchform" method="get" action="/cgi-bin/koha/opac-search.pl" id="searchform" class="form-inline">
+ <label for="masthead_search"> Suche    </label>
+
+ <select name="idx" id="masthead_search">
+ 
+ <option value="">Bibliothekskatalog</option>
+ 
+ 
+ <option value="ti">Titel</option>
+ 
+ 
+ <option value="au">Verfasser</option>
+ 
+ 
+ <option value="su">Schlagwort</option>
+ 
+ 
+ <option value="nb">ISBN</option>
+ 
+ 
+ <option value="ns">ISSN</option>
+ 
+ 
+ <option value="se">Reihen</option>
+ 
+ 
+ 
+ <option value="callnum">Signatur</option>
+ 
+ 
+ </select>
+
+ 
+ <div class="input-append nolibrarypulldown">
+ 
+ 
+ <input class="transl1" id="translControl1" name="q" title="Suchbegriffe eingeben" type="text" /><span id="translControl"></span>
+ 
+
+ 
+ <button type="submit" id="searchsubmit" class="btn btn-primary">OK</button>
+ </div>
+ 
+
+ 
+ 
+ 
+ 
+ 
+
+ </form>
+ 
+ </div> <!-- / .mastheadsearch -->
+ 
+
+ <div class="row-fluid">
+ <div id="moresearches">
+ <ul>
+ <li><a href="/cgi-bin/koha/opac-search.pl">Erweiterte Suche</a></li>
+ <li><a href="/cgi-bin/koha/opac-course-reserves.pl">Semesterapparate</a></li>
+ 
+ <li><a href="/cgi-bin/koha/opac-authorities-home.pl">Suche in Normdaten</a></li>
+ 
+ <li><a href="/cgi-bin/koha/opac-tags.pl">Tag Cloud</a></li>
+ 
+ 
+ 
+ 
+ 
+ 
+ <li id="library_page"><a href="/cgi-bin/koha/opac-library.pl">
+  Bibliothek  </a></li>
+ 
+ </ul>
+ </div> <!-- /#moresearches -->
+ </div> <!-- /.row-fluid -->
+
+ 
+ </div> <!-- /.span10 -->
+ </div> <!-- /.opac-main-search -->
+ </div> <!-- / .row-fluid -->
+ </div> <!-- /.container-fluid -->
+
+ <!-- Login form hidden by default, used for modal window -->
+ <div id="loginModal" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="modalLoginLabel" aria-hidden="true">
+ <div class="modal-header">
+ <button type="button" class="closebtn" data-dismiss="modal" aria-hidden="true">×</button>
+ <h3 id="modalLoginLabel">Benutzerkonto</h3>
+ </div>
+ <form action="/cgi-bin/koha/opac-user.pl" method="post" name="auth" id="modalAuth">
+ <input type="hidden" name="has-search-query" id="has-search-query" value="" />
+ <div class="modal-body">
+ 
+ <input type="hidden" name="koha_login_context" value="opac" />
+ <fieldset class="brief">
+ <label for="muserid">Login:</label><input type="text" id="muserid" name="userid" />
+ <label for="mpassword">Passwort:</label><input type="password" id="mpassword" name="password" />
+ 
+ 
+ 
+ </fieldset>
+ </div>
+ <div class="modal-footer">
+ <input class="btn btn-primary" type="submit" value="Anmelden" />
+ </div>
+ </form> <!-- /#auth -->
+ </div> <!-- /#modalAuth -->
+
+
+
+ 
+
+
+<div class="main">
+ <ul class="breadcrumb">
+ <li><a href="/cgi-bin/koha/opac-main.pl">Start</a> <span class="divider">&rsaquo;</span></li>
+ <li><a href="/cgi-bin/koha/opac-user.pl"> <span class="patron-title">Herr</span> Demokrit Morlock</a> <span class="divider">&rsaquo;</span></li>
+ <li><a href="#">Kontoübersicht</a></li>
+ </ul>
+
+ <div class="container-fluid">
+ <div class="row-fluid">
+ <div class="span2">
+ <div id="navigation">
+ 
+<div id="opacnav"></div>
+
+ <div id="usermenu">
+
+ <div id="menu">
+ <h4><a href="#" class="menu-collapse-toggle">Benutzerkonto</a></h4>
+ <ul class="menu-collapse">
+ 
+ <li class="active">
+ 
+ <a href="/cgi-bin/koha/opac-user.pl">Kontoübersicht</a></li>
+ 
+ 
+ <li>
+ 
+ <a href="/cgi-bin/koha/opac-account.pl">Gebühren und Entgelte</a></li>
+ 
+
+ 
+ <li>
+ 
+ <a href="/cgi-bin/koha/opac-memberentry.pl">Persönliche Daten</a></li>
+
+ 
+
+ 
+ 
+ <li>
+ 
+ <a href="/cgi-bin/koha/opac-tags.pl?mine=1">Tags</a></li>
+ 
+
+ 
+ 
+ <li>
+ 
+ <a href="/cgi-bin/koha/opac-passwd.pl">Passwort ändern</a></li>
+ 
+
+ 
+
+ 
+ 
+ <li>
+ 
+ <a href="/cgi-bin/koha/opac-readingrecord.pl">Ausleihverlauf</a></li>
+ 
+ 
+
+ 
+ 
+ <li>
+ 
+ <a href="/cgi-bin/koha/opac-suggestions.pl">Anschaffungsvorschläge</a></li>
+ 
+
+ 
+
+ 
+ 
+ <li>
+ 
+ <a href="/cgi-bin/koha/opac-shelves.pl?op=list&amp;category=1">Listen</a></li>
+ 
+
+ 
+
+ 
+
+ 
+
+ </ul>
+ </div>
+
+</div>
+
+<div id="opacnavbottom"></div>
+
+ </div>
+ </div>
+ <div class="span10">
+ <div id="userdetails" class="maincontent">
+
+ 
+
+
+ <h2>Willkommen,  <span class="patron-title">Herr</span> Demokrit Morlock </h2>
+
+ <p><a href="/cgi-bin/koha/opac-main.pl?logout.x=1">Klicken Sie hier, wenn Sie nicht  <span class="patron-title">Herr</span> Demokrit Morlock sind</a></p>
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ <div class="alert alert-info" id="notesaved" style="display:none;"></div>
+
+ 
+
+ 
+
+ <div id="opac-user-views" class="toptabs">
+ <ul>
+ <li><a href="#opac-user-checkouts">Ausgeliehen (2)</a></li>
+ 
+ <li><a href="#opac-user-overdues">Überfällig (2)</a></li>
+ 
+ 
+ 
+ 
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ </ul>
+
+ <div id="opac-user-overdrive">
+ </div>
+ <div id="opac-user-recordedbooks">
+ </div>
+ <div id="opac-user-checkouts">
+ 
+ <form id="renewselected" action="/cgi-bin/koha/opac-renew.pl" method="post">
+ <input type="hidden" name="borrowernumber" value="1">
+ <input type="hidden" name="from" value="opac_user" />
+ <table id="checkoutst" class="table table-bordered table-striped">
+ <caption>2 Exemplar(e) ausgeliehen</caption>
+ <thead>
+ <tr>
+ 
+ <th class="anti-the">Titel</th>
+ <th>Verfasser</th>
+ <th class="title-string psort">Fällig</th>
+ 
+ 
+ <th>Barcode</th>
+ 
+ <th>Signatur</th>
+ 
+ 
+ <th>Gebühren</th>
+ 
+ 
+ 
+ </tr>
+ </thead>
+ <tbody>
+ 
+ <tr class="overdue">
+ 
+
+ <td class="title">
+ <a class="title" href="/cgi-bin/koha/opac-detail.pl?biblionumber=467">
+ <span class="biblio-title">Allschwil Ortsplan /</span>
+ 
+
+
+
+
+</a>
+ 
+
+ 
+
+ 
+ <div class="results_summary ratings" id="rating-1">
+
+ 
+ 
+
+ <div class="br-wrapper br-theme-fontawesome-stars js-hide">
+ <div class="br-widget br-readonly">
+ 
+ 
+ <a href="#"></a>
+ 
+ 
+ 
+ <a href="#"></a>
+ 
+ 
+ 
+ <a href="#"></a>
+ 
+ 
+ 
+ <a href="#"></a>
+ 
+ 
+ 
+ <a href="#"></a>
+ 
+ 
+ </div>
+ </div>
+
+ <select class="star_rating" id="star_rating-1" name="rating" autocomplete="off" data-biblionumber="467" data-context="rating-1">
+
+ 
+ <option value="" selected="selected"></option>
+ 
+ 
+ 
+ <option value="1">1</option>
+ 
+ 
+ 
+ <option value="2">2</option>
+ 
+ 
+ 
+ <option value="3">3</option>
+ 
+ 
+ 
+ <option value="4">4</option>
+ 
+ 
+ 
+ <option value="5">5</option>
+ 
+ 
+ </select>
+ <img id="rating-loading" style="display:none" src="/opac-tmpl/bootstrap/images/spinner-small.gif" alt="" />
+
+ <!-- define some hidden vars for ratings -->
+
+ <input type="hidden" name="biblionumber" value="467" />
+ <input type="hidden" name="rating_value" class="rating_value" value="" />
+
+ <input class="js-show" name="rate_button" type="submit" value="Bewerten" />
+
+ 
+ <span class="rating_value_text"></span>
+ <span class="cancel_rating_text" style="display:none;"><a href="#" data-context="star_rating-1"><i class="fa fa-remove" aria-hidden="true"></i> Bewertung löschen</a>.</span>
+ 
+
+ <div class="rating_text">Durchschnittliche Bewertung: 0.0 (0 Bewertungen)</div>
+</div>
+
+ 
+ </td>
+
+ <td class="author"></td>
+ 
+ <td class="date_due overdue">
+ <span title="2016-11-30 23:59:00">
+ <span class="tdlabel">Fälligkeitsdatum:</span>
+ 30/11/2016
+ </span>
+ </td>
+ 
+ 
+ 
+ <td class="barcode">
+ <span class="tdlabel">Barcode:</span>
+ 1
+ </td>
+ 
+ <td class="call_no">
+ <span class="tdlabel">Signatur:</span>
+ 
+ </td>
+ 
+ 
+ <td class="fines">
+ <span class="tdlabel">Gebühren:</span>
+  Nein  </td>
+ 
+ 
+ 
+ </tr>
+ 
+ <tr class="overdue">
+ 
+
+ <td class="title">
+ <a class="title" href="/cgi-bin/koha/opac-detail.pl?biblionumber=468">
+ <span class="biblio-title">Romulus der Große</span>
+  <span class="subtitle">eine ungeschichtliche historische Komödie in vier Akten ; Neufassung 1980</span>
+
+
+
+
+
+</a>
+ 
+
+ 
+
+ 
+ <div class="results_summary ratings" id="rating-2">
+
+ 
+ 
+
+ <div class="br-wrapper br-theme-fontawesome-stars js-hide">
+ <div class="br-widget br-readonly">
+ 
+ 
+ <a href="#"></a>
+ 
+ 
+ 
+ <a href="#"></a>
+ 
+ 
+ 
+ <a href="#"></a>
+ 
+ 
+ 
+ <a href="#"></a>
+ 
+ 
+ 
+ <a href="#"></a>
+ 
+ 
+ </div>
+ </div>
+
+ <select class="star_rating" id="star_rating-2" name="rating" autocomplete="off" data-biblionumber="468" data-context="rating-2">
+
+ 
+ <option value="" selected="selected"></option>
+ 
+ 
+ 
+ <option value="1">1</option>
+ 
+ 
+ 
+ <option value="2">2</option>
+ 
+ 
+ 
+ <option value="3">3</option>
+ 
+ 
+ 
+ <option value="4">4</option>
+ 
+ 
+ 
+ <option value="5">5</option>
+ 
+ 
+ </select>
+ <img id="rating-loading" style="display:none" src="/opac-tmpl/bootstrap/images/spinner-small.gif" alt="" />
+
+ <!-- define some hidden vars for ratings -->
+
+ <input type="hidden" name="biblionumber" value="468" />
+ <input type="hidden" name="rating_value" class="rating_value" value="" />
+
+ <input class="js-show" name="rate_button" type="submit" value="Bewerten" />
+
+ 
+ <span class="rating_value_text"></span>
+ <span class="cancel_rating_text" style="display:none;"><a href="#" data-context="star_rating-2"><i class="fa fa-remove" aria-hidden="true"></i> Bewertung löschen</a>.</span>
+ 
+
+ <div class="rating_text">Durchschnittliche Bewertung: 0.0 (0 Bewertungen)</div>
+</div>
+
+ 
+ </td>
+
+ <td class="author">Dürrenmatt, Friedrich</td>
+ 
+ <td class="date_due overdue">
+ <span title="2016-11-30 23:59:00">
+ <span class="tdlabel">Fälligkeitsdatum:</span>
+ 30/11/2016
+ </span>
+ </td>
+ 
+ 
+ 
+ <td class="barcode">
+ <span class="tdlabel">Barcode:</span>
+ 2
+ </td>
+ 
+ <td class="call_no">
+ <span class="tdlabel">Signatur:</span>
+ 830
+ </td>
+ 
+ 
+ <td class="fines">
+ <span class="tdlabel">Gebühren:</span>
+  Nein  </td>
+ 
+ 
+ 
+ </tr>
+ 
+ </tbody>
+ </table>
+ 
+ </form>
+
+ 
+ <p><a href="opac-ics.pl">Als iCal/.ics-Datei herunterladen</a></p>
+ 
+ </div> <!-- / .opac-user-checkouts -->
+
+ 
+
+ 
+ <!-- FINES BOX -->
+ 
+
+ 
+
+ 
+ 
+
+ 
+
+ 
+ <div id="opac-user-overdues">
+ <table id="overduest" class="table table-bordered table-striped">
+ <caption>Überfällige <span class="count">(2 gesamt)</span></caption>
+ <!-- OVERDUES TABLE ROWS -->
+ <thead>
+ <tr>
+ 
+ <th class="anti-the">Titel</th>
+ 
+ <th>Barcode</th>
+ <th>Signatur</th>
+ <th class="title-string psort">Fällig</th>
+ 
+ 
+ <th>Gebühren</th>
+ 
+ </tr>
+ </thead>
+ <tbody>
+ 
+ <tr>
+ 
+
+ <td>
+ <a class="title" href="/cgi-bin/koha/opac-detail.pl?bib=467">
+ <span class="biblio-title">Allschwil Ortsplan /</span>
+ 
+
+
+
+
+</a>
+ <span class="item-details"></span>
+ </td>
+
+ 
+ 
+ <td>
+ <span class="tdlabel">Barcode:</span>
+ 1
+ </td>
+ 
+ <td>
+ <span class="tdlabel">Signatur:</span>
+ 
+ </td>
+ <td>
+ <span title="2016-11-30 23:59:00">
+ <span class="tdlabel">Fälligkeitsdatum:</span>
+ 30/11/2016
+ </span>
+ </td>
+ 
+ 
+ <td>
+ <span class="tdlabel">Gebühren:</span>
+  Nein  </td>
+ 
+ </tr>
+ 
+ <tr>
+ 
+
+ <td>
+ <a class="title" href="/cgi-bin/koha/opac-detail.pl?bib=468">
+ <span class="biblio-title">Romulus der Große</span>
+  <span class="subtitle">eine ungeschichtliche historische Komödie in vier Akten ; Neufassung 1980</span>
+
+
+
+
+
+</a>
+ <span class="item-details">Dürrenmatt, Friedrich</span>
+ </td>
+
+ 
+ 
+ <td>
+ <span class="tdlabel">Barcode:</span>
+ 2
+ </td>
+ 
+ <td>
+ <span class="tdlabel">Signatur:</span>
+ 830
+ </td>
+ <td>
+ <span title="2016-11-30 23:59:00">
+ <span class="tdlabel">Fälligkeitsdatum:</span>
+ 30/11/2016
+ </span>
+ </td>
+ 
+ 
+ <td>
+ <span class="tdlabel">Gebühren:</span>
+  Nein  </td>
+ 
+ </tr>
+ 
+ </tbody>
+ </table>
+ </div> <!-- / #opac-user-overdues -->
+ 
+
+ 
+
+
+
+
+
+
+ 
+
+ </div> <!-- /#opac-user-views -->
+ </div> <!-- /#userdetails -->
+ </div> <!-- /.span10 -->
+ </div> <!-- /.row-fluid -->
+ </div> <!-- /.container-fluid -->
+</div> <!-- /#main -->
+
+
+
+
+
+
+
+ 
+ 
+
+ 
+ <div class="container-fluid">
+ <div class="row-fluid">
+ <div class="span12">
+ 
+ 
+ <div id="koha_url" class="clearfix noprint">
+ <p>Powered by 
+ <a class="koha_url" rel="nofollow" href="http://koha-community.org">Koha</a>
+ </p>
+ </div>
+ 
+ </div> <!-- /.span12 -->
+ </div> <!-- /.row-fluid -->
+ </div> <!-- /.container-fluid -->
+ 
+
+</div> <!-- / #wrap in masthead.inc -->
+
+ 
+ 
+ 
+ <div id="changelanguage" class="navbar navbar-fixed-bottom navbar-static-bottom noprint">
+ <div class="navbar-inner">
+ <ul id="i18nMenu" class="nav">
+ <li><p class="lang navbar-text"><strong>Sprachen:&nbsp;</strong></p></li>
+ 
+ 
+ 
+ 
+ 
+ <li><a href="/cgi-bin/koha/opac-changelanguage.pl?language=en">English</a></li>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <li><a href="/cgi-bin/koha/opac-changelanguage.pl?language=fr-FR">Français</a></li>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <li class="dropdown">
+ <a data-toggle="dropdown" class="dropdown-toggle sublangs" id="showde-CH" href="#">Deutsch <b class="caret"></b></a>
+ <ul id="subde-CH" class="dropdown-menu">
+ 
+ 
+ 
+ <li><a href="/cgi-bin/koha/opac-changelanguage.pl?language=de-CH"> Deutsch  Schweiz  (de-CH)</a></li>
+ 
+ 
+ 
+ 
+ 
+ <li> <p>Deutsch  Deutschland  (de-DE)</p></li>
+ 
+ 
+ 
+ </ul>
+ </li> <!-- / .more -->
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <li><a href="/cgi-bin/koha/opac-changelanguage.pl?language=it-IT">Italiano</a></li>
+ 
+ 
+ 
+ 
+ 
+ </ul> <!-- / #i18menu -->
+ </div> <!-- / .navbar-inner -->
+ </div> <!-- / #changelanguage -->
+ 
+ 
+ 
+
+
+
+
+<!-- JavaScript includes -->
+<script src="/opac-tmpl/bootstrap/lib/jquery/jquery-3.4.1.min_20.0500000.js"></script>
+<script src="/opac-tmpl/bootstrap/lib/jquery/jquery-migrate-3.1.0.min_20.0500000.js"></script>
+<script src="/opac-tmpl/bootstrap/lib/jquery/jquery-ui-1.12.1.min_20.0500000.js"></script>
+<script>
+// Resolve name collision between jQuery UI and Twitter Bootstrap
+$.widget.bridge('uitooltip', $.ui.tooltip);
+</script>
+<script src="/opac-tmpl/bootstrap/lib/bootstrap/js/bootstrap.min_20.0500000.js"></script>
+<script src="/opac-tmpl/bootstrap/lib/fontfaceobserver.min_20.0500000.js"></script>
+<script src="/opac-tmpl/bootstrap/js/global_20.0500000.js"></script>
+<script>
+    Modernizr.load([
+        // Test need for polyfill
+        {
+            test: window.matchMedia,
+            nope: "/opac-tmpl/bootstrap/lib/media.match.min_20.0500000.js"
+        },
+        // and then load enquire
+        "/opac-tmpl/bootstrap/lib/enquire.min_20.0500000.js",
+        "/opac-tmpl/bootstrap/js/script_20.0500000.js",
+    ]);
+
+    // Fix for datepicker in a modal
+    $.fn.modal.Constructor.prototype.enforceFocus = function () {};
+</script>
+
+
+<script>
+    //<![CDATA[
+    var MSG_CONFIRM_AGAIN = _("Vorsicht: Dies kann nicht rückgängig gemacht werden. Bitte bestätigen Sie nochmals")
+    var MSG_DELETE_SEARCH_HISTORY = _("Sind Sie sicher, dass Sie Ihre Suchhistorie löschen möchten?");
+    var MSG_NO_SUGGESTION_SELECTED = _("Kein Anschaffungsvorschlag ausgewählt");
+    var MSG_SEARCHING = _("Suche in %s...");
+    var MSG_ERROR_SEARCHING_COLLECTION = _("Fehler bei der Suche im %s-Bestand");
+    var MSG_NO_RESULTS_FOUND_IN_COLLECTION = _("Es wurden keine Ergebnisse im %s-Bestand der Bibliothek gefunden");
+    var MSG_RESULTS_FOUND_IN_COLLECTION = _("%s Ergebnisse im %s-Bestand der Bibliothek gefunden");
+    var MSG_BY = _("von");
+    var MSG_TYPE = _("Typ");
+    var MSG_NEXT = _("Weiter");
+    var MSG_PREVIOUS = _("Zurück");
+    var MSG_CHECKOUTS = _("Ausleihen");
+    var MSG_NO_CHECKOUTS = _("Keine Ausleihen");
+    var MSG_CHECK_OUT = _("Ausleihen");
+    var MSG_CHECK_OUT_CONFIRM = _("Sind Sie sicher, dass Sie dieses Exemplar ausleihen möchten?");
+    var MSG_CHECKED_OUT_UNTIL = _("Ausgeliehen bis %s");
+    var MSG_CHECK_IN = _("Rückgabe");
+    var MSG_CHECK_IN_CONFIRM = _("Sind Sie sicher, dass Sie dieses Exemplar zurückgeben möchten?");
+    var MSG_NO_CHECKOUTS = _("Keine Ausleihen");
+    var MSG_DOWNLOAD = _("Download");
+    var MSG_HOLDS = _("Vormerkungen");
+    var MSG_NO_HOLDS = _("Keine Vormerkungen");
+    var MSG_PLACE_HOLD = _("Vormerken");
+    var MSG_CANCEL_HOLD = _("Abbrechen");
+    var MSG_CANCEL_HOLD_CONFIRM = _("Sind Sie sicher, dass Sie diese Vormerkung stornieren möchten?");
+    var MSG_ON_HOLD = _("Vorgemerkt");
+    
+        var MSG_BASKET_EMPTY = _("Ihr Korb ist zur Zeit leer");
+        var MSG_RECORD_IN_BASKET = _("Dieser Titel ist bereits in Ihrem Korb");
+        var MSG_RECORD_ADDED = _("Dieser Titel wurde Ihrem Korb hinzugefügt");
+        var MSG_RECORD_REMOVED = _("Dieser Titel wurde aus Ihrem Korb gelöscht");
+        var MSG_NRECORDS_ADDED = _(" Titel zum Korb hinzugefügt");
+        var MSG_NRECORDS_IN_BASKET = _("bereits in Ihrem Korb");
+        var MSG_NO_RECORD_SELECTED = _("Kein Exemplar ausgewählt");
+        var MSG_NO_RECORD_ADDED = _("Es wurde kein Exemplar in den Korb gelegt.");
+        var MSG_CONFIRM_DEL_BASKET = _("Sind Sie sicher, dass Sie Ihren Korb leeren möchten?");
+        var MSG_CONFIRM_DEL_RECORDS = _("Sind Sie sicher, dass Sie die markierten Exemplare löschen möchten?");
+        var MSG_ITEM_IN_CART = _("In Ihrem Korb");
+        var MSG_ITEM_NOT_IN_CART = _("Zum Korb hinzufügen");
+    
+    
+        var MSG_TAGS_DISABLED = _("Entschuldigen Sie, aber Tags sind in diesem System nicht zugelassen.");
+        var MSG_TAG_ALL_BAD = _("Hinweis: Ihr Tag bestand nur aus Code und wurde NICHT hinzugefügt. Bitte versuchen Sie es erneut mit Klartext.");
+        var MSG_ILLEGAL_PARAMETER = _("FEHLER: unerlauber Parameter");
+        var MSG_TAG_SCRUBBED = _("Hinweis: Ihr Kommentar enthielt Code, der entfernt wurde. Das Tag wurde hinzugefügt als ");
+        var MSG_ADD_TAG_FAILED = _("Fehler! Hinzufügen von Tags fehlgeschlagen für ");
+        var MSG_ADD_TAG_FAILED_NOTE = _("Sie können einem Titel ein Tag nur einmal zuweisen. Unter 'Meine Tags' finden Sie Ihre bereits vergebenen Tags.");
+        var MSG_DELETE_TAG_FAILED = _("FEHLER: Sie können das Tag nicht löschen");
+        var MSG_DELETE_TAG_FAILED_NOTE = _("Hinweis: Sie können nur Ihre eigenen Tags löschen.")
+        var MSG_LOGIN_REQUIRED = _("Sie müssen angemeldet sein um Tags hinzuzufügen.");
+        var MSG_TAGS_ADDED = _("Hinzugefügte Tags: ");
+        var MSG_TAGS_DELETED = _("Hinzugefügte Tags: ");
+        var MSG_TAGS_ERRORS = _("Fehler: ");
+        var MSG_MULTI_ADD_TAG_FAILED = _("Es können keine weiteren Tags hinzugefügt werden.");
+        var MSG_NO_TAG_SPECIFIED = _("Es wurde kein Tag erfasst.");
+    
+    
+    
+    $(".print-large").on("click",function(){
+        window.print();
+        return false;
+    });
+    $("#ulactioncontainer > ul > li > a.addtoshelf").on("click",function(){
+        Dopop('opac-addbybiblionumber.pl?biblionumber=');
+        return false;
+    });
+    $("body").on("click", ".addtocart", function(e){
+        e.preventDefault();
+        var biblionumber = $(this).data("biblionumber");
+        addRecord( biblionumber );
+    });
+    $("body").on("click", ".cartRemove", function(e){
+        e.preventDefault();
+        var biblionumber = $(this).data("biblionumber");
+        delSingleRecord( biblionumber );
+    });
+    $(".clearsh").on("click", function(){
+        return confirmDelete(MSG_DELETE_SEARCH_HISTORY);
+    });
+    //]]>
+</script>
+
+
+ <script src="/opac-tmpl/bootstrap/js/basket_20.0500000.js"></script>
+
+
+<script src="/opac-tmpl/bootstrap/js/tags_20.0500000.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/opac-tmpl/bootstrap/lib/jquery/plugins/jquery.cookie.min_20.0500000.js"></script>
+<script>
+$(document).ready(function() {
+    if($('#searchsubmit').length) {
+        $(document).on("click", '#searchsubmit', function(e) {
+            jQuery.removeCookie("form_serialized", { path: '/'});
+            jQuery.removeCookie("form_serialized_limits", { path: '/'});
+            jQuery.removeCookie("num_paragraph", { path: '/'});
+            jQuery.removeCookie("search_path_code", { path: '/'});
+        });
+    }
+});
+</script>
+
+ 
+<script>
+    //<![CDATA[
+        var debug    = "";
+        var dformat  = "metric";
+        var sentmsg = 0;
+        if (debug > 1) {alert("dateformat: " + dformat + "\ndebug is on (level " + debug + ")");}
+
+        function Date_from_syspref(dstring) {
+                var dateX = dstring.split(/[-/.]/);
+                if (debug > 1 && sentmsg < 1) {sentmsg++; alert("Date_from_syspref(" + dstring + ") splits to:\n" + dateX.join("\n"));}
+                if (dformat === "iso") {
+                        return new Date(dateX[0], (dateX[1] - 1), dateX[2]);  // YYYY-MM-DD to (YYYY,m(0-11),d)
+                } else if (dformat === "us") {
+                        return new Date(dateX[2], (dateX[0] - 1), dateX[1]);  // MM/DD/YYYY to (YYYY,m(0-11),d)
+                } else if (dformat === "metric") {
+                        return new Date(dateX[2], (dateX[1] - 1), dateX[0]);  // DD/MM/YYYY to (YYYY,m(0-11),d)
+                } else if (dformat === "dmydot") {
+                        return new Date(dateX[2], (dateX[1] - 1), dateX[0]);  // DD.MM.YYYY to (YYYY,m(0-11),d)
+                } else {
+                        if (debug > 0) {alert("KOHA ERROR - Unrecognized date format: " +dformat);}
+                        return 0;
+                }
+        }
+
+        /* Instead of including multiple localization files as you would normally see with
+           jQueryUI we expose the localization strings in the default configuration */
+        jQuery(function($){
+            $.datepicker.regional[''] = {
+                closeText: _("Fertig"),
+                prevText: _("Zurück"),
+                nextText: _("Weiter"),
+                currentText: _("Heute"),
+                monthNames: [_("Januar"),_("Februar"),_("März"),_("April"),_("Mai"),_("Juni"),
+                _("Juli"),_("August"),_("September"),_("Oktober"),_("November"),_("Dezember")],
+                monthNamesShort: [_("Jan"), _("Feb"), _("März"), _("April"), _("Mai"), _("Jun"),
+                _("Jul"), _("Aug"), _("Sep"), _("Okt"), _("Nov"), _("Dez")],
+                dayNames: [_("Sonntag"), _("Montag"), _("Dienstag"), _("Mittwoch"), _("Donnerstag"), _("Freitag"), _("Samstag")],
+                dayNamesShort: [_("So"), _("Mo"), _("Di"), _("Mi"), _("Do"), _("Fr"), _("Sa")],
+                dayNamesMin: [_("So"),_("Mo"),_("Di"),_("Mi"),_("Do"),_("Fr"),_("Sa")],
+                weekHeader: _("Wo"),
+                dateFormat: 'dd/mm/yy',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ''};
+            $.datepicker.setDefaults($.datepicker.regional['']);
+        });
+
+        $(document).ready(function(){
+
+        $.datepicker.setDefaults({
+                showOn: "both",
+                changeMonth: true,
+                changeYear: true,
+                buttonImage: '/opac-tmpl/lib/famfamfam/calendar.png',
+                buttonImageOnly: true,
+                showButtonPanel: true,
+                showOtherMonths: true,
+                yearRange: "c-100:c+10"
+            });
+
+        $("#borrower_dateofbirth").datepicker({
+                yearRange: "c-100:c"
+            });
+
+            $( ".datepicker" ).datepicker();
+            // http://jqueryui.com/demos/datepicker/#date-range
+            var dates = $( ".datepickerfrom, .datepickerto" ).datepicker({
+                changeMonth: true,
+                numberOfMonths: 1,
+                onSelect: function( selectedDate ) {
+                    var option = this.id == "from" ? "minDate" : "maxDate",
+                        instance = $( this ).data( "datepicker" );
+                        date = $.datepicker.parseDate(
+                            instance.settings.dateFormat ||
+                            $.datepicker._defaults.dateFormat,
+                            selectedDate, instance.settings );
+                    dates.not( this ).datepicker( "option", option, date );
+                }
+            });
+        });
+    //]]>
+</script>
+
+ 
+
+<script src="/opac-tmpl/lib/jquery/plugins/jquery.dataTables.min_20.0500000.js"></script>
+<script>
+//<![CDATA[
+    var MSG_DT_FIRST = _("Erste");
+    var MSG_DT_LAST = _("Letzte");
+    var MSG_DT_NEXT = _("Weiter");
+    var MSG_DT_PREVIOUS = _("Zurück");
+    var MSG_DT_EMPTY_TABLE = _("Keine Daten verfügbar");
+    var MSG_DT_INFO = _("Zeige _START_ bis _END_ von _TOTAL_");
+    var MSG_DT_INFO_EMPTY = _("Keine Einträge anzuzeigen");
+    var MSG_DT_INFO_FILTERED = _("(Auswahl von _MAX_ Einträgen)");
+    var MSG_DT_LENGTH_MENU = _("Zeige _MENU_ Einträge");
+    var MSG_DT_LOADING_RECORDS = _("Lädt...");
+    var MSG_DT_PROCESSING = _("Lädt...");
+    var MSG_DT_SEARCH = _("Suche:");
+    var MSG_DT_ZERO_RECORDS = _("Keine übereinstimmenden Datensätze gefunden");
+    var CONFIG_EXCLUDE_ARTICLES_FROM_SORT = _("ein eine einer eines einem einen der die das");
+//]]>
+</script>
+<script src="/opac-tmpl/bootstrap/js/datatables_20.0500000.js"></script>
+
+ <script>
+
+        $(document).ready(function(){
+            $('#opac-user-views').tabs();
+            $(".modal-nojs").addClass("modal").addClass("hide").removeClass("modal-nojs");
+            $(".suspend-until").prop("readonly",1);
+
+            $(".btn-delete-hold").on("click", function(e){
+                e.preventDefault();
+                var hold_title = $(this).data("title");
+                var reserve_id = $(this).data("reserve_id");
+                confirmModal( hold_title, _("Sind Sie sicher, dass Sie diese Vormerkung stornieren möchten?"), _("Ja, Vormerkung stornieren"), _("Nein, Vormerkung nicht stornieren"), function( result ){
+                        if( result ){
+                            $("#delete_hold_" + reserve_id ).submit();
+                        }
+                    }
+                );
+            });
+
+            $(".btn-delete-article-request").on("click", function(e){
+                e.preventDefault();
+                var article_request = $(this).data("title");
+                var article_request_id = $(this).data("article-request_id");
+                confirmModal( article_request, _("Sind Sie sicher, dass Sie diese Artikelbestellung stornieren möchten?"), _("Ja, Artikelbestellung stornieren"), _("Nein, Artikelbestellung nicht stornieren"), function( result ){
+                        if( result ){
+                            $("#delete_article_request_" + article_request_id ).submit();
+                        }
+                    }
+                );
+            });
+
+            $("#suspend_all_submit").on("click", function(e){
+                e.preventDefault();
+                var title = _("Sind Sie sicher, dass Sie alle Vormerkungen aussetzen möchten?");
+                var body = _("Alle Vormerkungen werden ausgesetzt.");
+                confirmModal( body, title, _("Ja, alle Vormerkungen aussetzen"), "", function( result ){
+                        if( result ){
+                            $("#suspend_all_holds").submit();
+                        }
+                    }
+                );
+            });
+
+            $("#resume_all_submit").on("click", function(e){
+                e.preventDefault();
+                var title = _("Sind Sie sicher, dass Sie alle ausgesetzten Vormerkungen wieder aktivieren möchten?");
+                var body = _("Alle Vormerkungen werden wieder aktiviert.");
+                confirmModal( body, title, _("Ja, alle Vormerkungen reaktivieren"), _("Nein, Vormerkungen nicht reaktivieren"), function( result ){
+                        if( result ){
+                            $("#resume_all_holds").submit();
+                        }
+                    }
+                );
+            });
+
+            var dTables = $("#checkoutst,#holdst,#overduest,#opac-user-relative-issues-table");
+            dTables.each(function(){
+                var thIndex = $(this).find("th.psort").index();
+                $(this).dataTable($.extend(true, {}, dataTablesDefaults, {
+                    "sorting" : [[ thIndex, 'asc' ]],
+                    "columnDefs": [
+                        { "targets": [ "nosort" ],"sortable": false,"searchable": false },
+                        { "type": "anti-the", "targets" : [ "anti-the" ] },
+                        { "type": "title-string", "targets" : [ "title-string" ] }
+                    ]
+                }));
+            });
+
+            
+            
+
+            
+
+            $( ".suspend-until" ).datepicker({ minDate: 1 }); // Require that "until date" be in the future
+
+            if ( $('#opac-user-clubs').length ) {
+                $('#opac-user-clubs-tab-link').on('click', function() {
+                    $('#opac-user-clubs').text(_("Lädt..."));
+                    $('#opac-user-clubs').load('/cgi-bin/koha/clubs/clubs-tab.pl?borrowernumber=1');
+                });
+            }
+        });
+        //]]>
+        var borrowernumber = "1";
+        var MSG_YOUR_RATING = _("Ihre Bewertung: %s, ");
+        var MSG_AVERAGE_RATING = _("Durchschnittliche Bewertung: %s (%s Bewertungen)");
+    </script>
+ 
+ <script src="/opac-tmpl/lib/jquery/plugins/jquery.barrating.min_20.0500000.js"></script>
+ <script src="/opac-tmpl/bootstrap/js/ratings_20.0500000.js"></script>
+ 
+ 
+ 
+
+
+
+
+</body>
+</html>
+
+

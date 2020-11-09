@@ -1,0 +1,27 @@
+book := {}
+books-deleted := true()
+prestatus := ()
+prestatus := "Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=467"
+prestatus := ("Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=467", 
+text{"Gebühren:
+  Nein"})
+book := {"title": "Allschwil Ortsplan /", "author": "", "duedate": "2016-11-30", "id": " ", "status": "Gebühren:\n  Nein; Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=467", "statusId": "critical"}
+prestatus := ()
+prestatus := "Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=468"
+prestatus := ("Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=468", 
+text{"Gebühren:
+  Nein"})
+book := {"title": "Romulus der Große\n  eine ungeschichtliche historische Komödie in vier Akten ; Neufassung 1980", "author": "Dürrenmatt, Friedrich", "duedate": "2016-11-30", "id": " 830", "status": "Gebühren:\n  Nein; Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=468", "statusId": "critical"}
+prestatus := ()
+prestatus := "Details: file:///cgi-bin/koha/opac-detail.pl?bib=467"
+prestatus := ("Details: file:///cgi-bin/koha/opac-detail.pl?bib=467", 
+text{"Gebühren:
+  Nein"})
+book := {"title": "Allschwil Ortsplan /", "author": "  ", "id": " ", "duedate": "2016-11-30", "status": "Gebühren:\n  Nein; Details: file:///cgi-bin/koha/opac-detail.pl?bib=467", "statusId": "critical"}
+prestatus := ()
+prestatus := "Details: file:///cgi-bin/koha/opac-detail.pl?bib=468"
+prestatus := ("Details: file:///cgi-bin/koha/opac-detail.pl?bib=468", 
+text{"Gebühren:
+  Nein"})
+book := {"title": "Romulus der Große\n  eine ungeschichtliche historische Komödie in vier Akten ; Neufassung 1980", "author": " Dürrenmatt, Friedrich ", "id": " 830", "duedate": "2016-11-30", "status": "Gebühren:\n  Nein; Details: file:///cgi-bin/koha/opac-detail.pl?bib=468", "statusId": "critical"}
+renew-form := {"method": "POST", "post": "borrowernumber=1&from=opac_user&rating=&biblionumber=467&rating_value=&rating=&biblionumber=468&rating_value=", "url": "file:///cgi-bin/koha/opac-renew.pl"}

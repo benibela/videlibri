@@ -71,8 +71,11 @@
   </tbody>+-->
 </body>
 
+ <li><a href="#opac-user-checkouts">Ausgeliehen (0)</a><t:s>vl:delete-current-books()</t:s></li>
+ <tr><td>Sie haben nichts ausgeliehen</td><t:s>vl:delete-current-books()</t:s></tr>
+ <tr><td>You have nothing checked out</td><t:s>vl:delete-current-books()</t:s></tr>
 
- <div class="alert">
+ <div class="alert" t:condition="normalize-space()">
  {vl:raise-login(.)}
  </div>
  

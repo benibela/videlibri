@@ -202,7 +202,7 @@ test sru list opac-de-gl2.xml gvk.xml
 
 #=============KOHA==============
 mkdir -p $OUTPATH/koha
-test koha user user.2.en.pf.htm user.2.pf.htm user.adminkuhn.htm user.holds.en.pf.htm
+test koha user user.2.en.pf.htm user.2.pf.htm user.adminkuhn.htm user.holds.en.pf.htm user.0.htm user.0.adminkuhn.htm user.adminkuhn2.htm
 test koha searchDetails searchDetails.ebook.pf.htm searchDetails.2.pf.htm
 #test koha 
 #test koha reserve'{holding:={"id":123}}' reserve.pf.htm
