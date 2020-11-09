@@ -97,6 +97,7 @@ android)
     
     ./manage.sh clean
     ./manage.sh build release
+    ./manage.sh symbols
     cp android/build/outputs/apk/release/android-release.apk /tmp/videlibri_$VERSION-release.apk
     cd /tmp
 		fileUpload videlibri_$VERSION-release.apk "/VideLibri/VideLibri\ $VERSION/"
