@@ -115,10 +115,10 @@ build-gradle|build-java)
   if readelf  -l android/libs/*/*.so  | grep RELRO; then
     echo -------------------------------------- 
     echo RELRO is enabled
-    echo VideLibri cannot start with RELRO
-    echo pass -k-znorelro  to fpc
+    echo VideLibri cannot start with old fpc, new ld, and RELRO enabled on x86
+    echo pass -k-znorelro  to fpc disable RELRO
     echo --------------------------------------
-    exit 1
+#    exit 1
   fi
 
   if [[ "$TRAVIS" != true ]]; then
