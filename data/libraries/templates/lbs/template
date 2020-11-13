@@ -3,7 +3,8 @@
 <meta>
   <description>Template das PICA-System mit LBS zum Benutzerkontozugriff, üblicherweise von den GBV Bibliotheken verwendet</description>
   <variable name="server"><description>Serveraddresse, inklusive Protokoll und Parameter (z.B.: http://katalog.uni-hildesheim.de)  </description></variable>
-  <variable name="picadb" default="1"><description>Datenbanknummer, wenn mehrere Datenbanken auf demselben Server liegen</description></variable>    
+  <variable name="picadb" default="1"><description>Datenbanknummer, wenn mehrere Datenbanken auf demselben Server liegen</description></variable>
+  <variable name="borrower" default=""><description>Parameter in der URL für den Kontozugriff</description></variable>    
   <variable name="searchKeysOverride" default="tit;prs;isb;jah;slw"><description>Abkürzungen der Suchschlüssel bei Katalogsuchen</description></variable>
 </meta>
 
