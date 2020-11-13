@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<library>
+  <longName value="Medizinische Zentralbibliothek"/>
+  <shortName value="MZb Magdeburg"/>
+  
+  <template value="lbs"/>  
+  <variable name="server" value="https://opac.lbs-magdeburg.gbv.de/"/>
+  <variable name="picadb" value="2"/>
+  <variable name="borrower" value="USR=1101"/>
+
+
+  <homepage value="http://www.ub.ovgu.de/"/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
+</library>
