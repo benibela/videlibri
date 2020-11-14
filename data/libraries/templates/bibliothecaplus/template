@@ -68,7 +68,7 @@ function __doPostBack(eventTarget, eventArgument) {
   <s>if (exists($renew-button)) then 
       form := form-combine($user-form, ($renew-books  ! {(.)._renewid: "on"}, $renew-button) ) 
     else 
-      vl:raise-internal("Verlängerungsbutton nicht gefunden")
+      vl:raise-internal("Verlängerungsbutton nicht gefunden. Vielleicht ist die Karte abgelaufen.")
   </s>
   <page url="{$form}" templateFile="renew"/> <!-- this returns all of update-all list again-->
   <page url="{$confirm-form}"/> <!-- this returns all of update-all list again-->
