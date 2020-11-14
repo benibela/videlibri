@@ -847,7 +847,7 @@ begin
     if invalid > 0 then UTF8FixBroken(details);
     strLengthUtf8(anonymousDetails, invalid);
     if invalid > 0 then UTF8FixBroken(anonymousDetails);
-    TsendBackErrorForm.openErrorWindow(common, details, anonymousDetails,IntToStr(versionNumber), 'Videlibri');
+    TsendBackErrorForm.openErrorWindow(common, details, anonymousDetails, @sendFeedback);
   end;
 end;
 

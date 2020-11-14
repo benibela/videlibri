@@ -371,6 +371,8 @@ public class Bridge {
     public static final int BOOK_OPERATION_CANCEL = 2;
     static public native void VLBookOperation(@NotNull Book[] books, int operation);
     static public native @Nullable PendingException[] VLTakePendingExceptions();
+    static public native boolean VLSendFeedback(String[] feedBack);
+
 
     static public native @Nullable String[] VLGetNotifications();
 

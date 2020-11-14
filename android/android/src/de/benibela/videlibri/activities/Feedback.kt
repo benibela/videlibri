@@ -12,22 +12,16 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
-import de.benibela.internettools.okhttp.ClientBuilderCustomizer
-import de.benibela.videlibri.*
+import de.benibela.videlibri.R
+import de.benibela.videlibri.VideLibriApp
+import de.benibela.videlibri.jni.Bridge
 import de.benibela.videlibri.utils.currentActivity
+import de.benibela.videlibri.utils.showDialog
+import de.benibela.videlibri.utils.showMessage
 import de.benibela.videlibri.utils.useLines
-import okhttp3.FormBody
-import okhttp3.OkHttpClient
-import okhttp3.Request
 import org.acra.ACRA
-import de.benibela.videlibri.utils.*
 import java.io.File
 import java.io.FileInputStream
-import java.io.IOException
-import java.security.KeyManagementException
-import java.security.KeyStoreException
-import java.security.NoSuchAlgorithmException
-import java.security.UnrecoverableKeyException
 
 
 class Feedback : VideLibriBaseActivity() {
@@ -109,56 +103,37 @@ class Feedback : VideLibriBaseActivity() {
             val name = findViewById<TextView>(R.id.name).text
             val mail = findViewById<TextView>(R.id.mail).text
             val feedback = findViewById<TextView>(R.id.text).text
-            val sendData = "Name: $name\nMail: $mail\n$feedback"
-            val version = "$version (android)"
+            val commonData = "Name: $name\nMail: $mail\n$feedback"
             val includeErrors = findViewById<CheckBox>(R.id.feedbackIncludeErrors).isChecked
             val details = includeErrors && findViewById<CheckBox>(R.id.feedbackIncludeErrorDetails).isChecked
             val anonymousDetails = includeErrors && findViewById<CheckBox>(R.id.feedbackIncludeErrorAnonymousDetails).isChecked
             val errCache = VideLibriApp.errors
 
             Thread(Runnable {
-                val b = OkHttpClient.Builder()
-                try {
-                    ClientBuilderCustomizer.customize(b)
-                } catch (e: UnrecoverableKeyException) {
-                    e.printStackTrace()
-                } catch (e: NoSuchAlgorithmException) {
-                    e.printStackTrace()
-                } catch (e: KeyStoreException) {
-                    e.printStackTrace()
-                } catch (e: KeyManagementException) {
-                    e.printStackTrace()
-                }
-
-                val client = b.build()
 
                 val system = systemInfo
                 val rep = if (errCache.size == 0) 1 else errCache.size
                 var ok = 0
                 var err = ""
                 for (i in 0 until rep) { //send each error separately to avoid running out of memory
-                    val rb = Request.Builder()
-                    rb.url("http://www.benibela.de/autoFeedback.php")
-                    val fbb = FormBody.Builder()
-                    try {
-                        fbb.add("app", "VideLibri")
-                        fbb.add("ver", version)
-                        fbb.add("data", sendData)
-                        if (i < errCache.size) {
-                            val e = errCache[i]
-                            fbb.add("error$i", "Error: ${e.error} bei ${e.library}\n")
-                            if (details)
-                                fbb.add("errorDetails$i", e.details)
-                            else if (anonymousDetails) fbb.add("errorAnonDetails$i", e.anonymousDetails) //including both will cause an out of memory exception
-                        }
-                        fbb.add("system", system)
+                    val postData = mutableListOf(commonData)
+                    errCache.getOrNull(i)?.let { e ->
+                        postData.add("Error $i: ${e.error} bei ${e.library}\n")
+                        if (details) {
+                            postData.add("errorDetails$i")
+                            postData.add(e.details)
+                        } else if (anonymousDetails) { //including both often causse an out of memory exception
+                            postData.add("errorAnonDetails$i")
+                            postData.add(e.anonymousDetails)
+                        } else 0
+                    }
+                    postData.add("system: ")
+                    postData.add(system)
 
-                        val r = rb.post(fbb.build()).build()
-                        client.newCall(r).execute().use { response ->
-                            if (response.body()?.string()?.contains("PHPOK") == true)
-                                ok += 1
-                        }
-                    } catch (e: IOException) {
+                    try {
+                        if (Bridge.VLSendFeedback(postData.toTypedArray()))
+                            ok += 1
+                    } catch (e: Exception) {
                         err = e.localizedMessage
                     }
 

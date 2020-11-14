@@ -1398,6 +1398,25 @@ begin
   if logging then bbdebugtools.log('Bridge_VLGetPendingExceptions ended');
 end;
 
+function Java_de_benibela_VideLibri_Bridge_VLSendFeedback(env:PJNIEnv; this:jobject; jdata: jobject): jboolean; cdecl;
+var
+  i: Integer;
+  data: string = '';
+begin
+  if logging then log('VLSendFeedback');
+
+  try
+    with needj do
+      for i := 0 to getArrayLength(jdata) do
+        data += getStringArrayElement(jdata, i);
+    result := j.booleanToJboolean(applicationconfig.sendFeedback(data));
+  except
+    on e: Exception do throwExceptionToJava(e);
+  end;
+  if logging then log('VLSendFeedback ended');
+end;
+
+
 function Java_de_benibela_VideLibri_Bridge_VLGetNotifications(env:PJNIEnv; this:jobject): jobject;
   function plural(count: integer; sing, plur: string): string;
   begin
@@ -2121,7 +2140,7 @@ end;
 
 
 
-const nativeMethods: array[1..37] of JNINativeMethod=
+const nativeMethods: array[1..38] of JNINativeMethod=
   ((name:'VLInit';          signature:'(Landroid/content/Context;)V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInit)
    ,(name:'VLFinalize';      signature:'()V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLFInit)
 
@@ -2145,6 +2164,7 @@ const nativeMethods: array[1..37] of JNINativeMethod=
    ,(name:'VLUpdateAccount'; signature:'(Lde/benibela/videlibri/jni/Bridge$Account;ZZ)Z'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLUpdateAccounts)
    ,(name:'VLBookOperation'; signature:'([Lde/benibela/videlibri/jni/Bridge$Book;I)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLBookOperation)
    ,(name:'VLTakePendingExceptions'; signature: '()[Lde/benibela/videlibri/jni/Bridge$PendingException;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetPendingExceptions)
+   ,(name:'VLSendFeedback'; signature: '([Ljava/lang/String;)Z'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSendFeedback)
 
    ,(name:'VLGetNotifications'; signature: '()[Ljava/lang/String;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetNotifications)
 
@@ -2169,7 +2189,6 @@ const nativeMethods: array[1..37] of JNINativeMethod=
    ,(name:'VLNormalizeISBN'; signature: '(Ljava/lang/String;ZI)Ljava/lang/String;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLNormalizeISBN)
 
    ,(name:'VLGetVersion'; signature: '()Lde/benibela/videlibri/jni/VersionInfo;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetVersion)
-
    );
 
 

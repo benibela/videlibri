@@ -106,6 +106,8 @@ const localeCountry: string = 'DE'; //for sorting libraries
 
   procedure storeException(ex: exception; account:TCustomAccountAccess; libraryId, searchQuery: string); //thread safe
 
+  function sendFeedback(data: string): boolean;
+
   //get the values the tna should have not the one it actually has
   //function getTNAHint():string;
   function getTNAIconBaseFileName():string;
@@ -309,6 +311,31 @@ resourcestring
   begin
     Message:=s;
     details:=more_details;
+  end;
+
+  type TInternetAccessReact = object
+    procedure internetReact(sender: TInternetAccess; var method: string; var url: TDecodedUrl; var data: TInternetAccessDataBlock;
+      var reaction: TInternetAccessReaction);
+   end;
+  procedure TInternetAccessReact.internetReact(sender: TInternetAccess; var method: string; var url: TDecodedUrl;
+    var data: TInternetAccessDataBlock; var reaction: TInternetAccessReaction);
+  begin
+    if reaction = iarFollowRedirectGET then reaction := iarFollowRedirectKeepMethod;
+  end;
+
+  function sendFeedback(data: string): boolean;
+  var internet: TInternetAccess;
+      page:string;
+      internetReact: TInternetAccessReact;
+  begin
+    internet:=defaultInternetAccessClass.create();
+    internet.OnTransferReact:=@internetReact.internetReact;
+    page:=internet.post('http','www.benibela.de','/autoFeedback.php',
+                  'app='+internet.urlEncodeData('VideLibri')+
+                  '&ver='+inttostr(versionNumber)+
+                  '&data='+internet.urlEncodeData(data));
+    result := trim(page) = 'PHPOK';
+    internet.free;
   end;
 
   function getTNAIconBaseFileName(): string;
@@ -683,6 +710,7 @@ resourcestring
       else   result:=Format(rsDateGrammarAbsoluteDateFuture, [DateToSimpleStr(date)]); //zum
     end;
   end;
+
 
 
 class procedure TCallbackHolder.updateAutostart(enabled, askBeforeChange: boolean); begin end;
