@@ -15,12 +15,12 @@ object mainForm: TmainForm
   OnShow = FormShow
   OnWindowStateChange = FormWindowStateChange
   Position = poScreenCenter
-  LCLVersion = '2.0.6.0'
+  LCLVersion = '2.0.10.0'
   Scaled = False
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 21
-    Top = 628
+    Height = 24
+    Top = 625
     Width = 927
     Panels = <    
       item
