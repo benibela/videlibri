@@ -4,10 +4,10 @@
 <library>
   <longName value="Schleswig-Holsteinische Landesbibliothek"/>
   
-  <template value="pica"/>  
+  <template value="lbs"/>  
   <variable name="server" value="https://katalog.ub.uni-kiel.de"/>
   <variable name="picadb" value="3"/>
-  <!--<variable name="searchKeysOverride" value="tnt;per;isb;erj;swo"/>-->
+<!--  <variable name="borrower" value="USR=1050"/>-->
 
 
   <homepage value="http://www.shlb.de/"/>

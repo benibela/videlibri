@@ -5,9 +5,10 @@
   <longName value="Bibliotheken der FH Kiel"/>
   <shortName value="Fhb Kiel"/>
   
-  <template value="pica"/>  
+  <template value="lbs"/>  
   <variable name="server" value="https://katalog.ub.uni-kiel.de"/>
   <variable name="picadb" value="2"/>
+  <variable name="borrower" value="USR=1870"/>
   <variable name="searchKeysOverride" value="tit;per;num;erj;sww"/>
 
 

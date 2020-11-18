@@ -5,9 +5,10 @@
   <longName value="Universitätsbibliothek Kiel"/>
   <shortName value="Ub Kiel"/>
   
-  <template value="pica"/>  
+  <template value="lbs"/>  
   <variable name="server" value="https://katalog.ub.uni-kiel.de"/>
   <variable name="picadb" value="1"/>
+  <variable name="borrower" value="USR=1000"/>
   <variable name="searchKeysOverride" value="tit;per;num;erj;sww"/>
 
 

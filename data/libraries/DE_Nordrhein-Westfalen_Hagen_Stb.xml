@@ -7,7 +7,7 @@
   <shortName value="StB Hagen"/>
   
   <template value="bibdia"/>
-  <variable name="baseurl" value="https://www.hagen.de/opax/"/>
+  <variable name="baseurl" value="https://buecherei-katalog.hagen.de/opax/"/>
 
   <template value="digibib">
     <variable name="location" value="142"/>
@@ -15,6 +15,6 @@
     <variable name="searchid" value="SERVICEGROUP1.SERVICE.SEARCH_SBHA"/>
   </template>
 
-  <homepage value="https://www.hagen.de/web/de/fachbereiche/fb_48sb/fb_48sb_01/informationen.html"/>
+  <homepage value="https://www.hagen.de/web/de/hagen_de/03/0301/030104/030104.html"/>
   <testing-search value="yes"/>  <testing-account value="unknown"/></library>
 

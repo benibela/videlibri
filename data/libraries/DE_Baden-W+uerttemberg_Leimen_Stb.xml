@@ -2,9 +2,10 @@
 <library>
   <longName value="Stadtbücherei Leimen"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/leimen"/>	
-  <variable name="DB" value="Leimen"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.kivbf.de/leimen/Mein-Konto"/>
+  <variable name="urlsearch" value="https://bibliotheken.kivbf.de/leimen/Mediensuche/Erweiterte-Suche"/>
+	
   
   <homepage value="https://web-opac.kivbf.de/leimen/index.asp?DB=Leimen"/>
   <testing-search value="unknown"/>

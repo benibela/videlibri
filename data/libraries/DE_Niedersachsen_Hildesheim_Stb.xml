@@ -4,10 +4,10 @@
 <library>
   <longName value="Stadtbibliothek Hildesheim"/>
 
-  <template value="libero5"/>
-  <variable name="baseurl" value="https://webopac.stadt-hildesheim.de/libero/"/>
+  <template value="koha"/>
+  <variable name="baseurl" value="https://sb-hildesheim.lmscloud.net/"/>
 
-  <homepage value="http://www.hildesheim.de/staticsite/staticsite.php?menuid=435&amp;topmenu=435"/>
+  <homepage value="https://sb-hildesheim.lmscloud.net/"/>
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
   
