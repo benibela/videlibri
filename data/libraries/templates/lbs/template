@@ -40,7 +40,7 @@
       
       
       	<h2><font color="red">{
-          string() ! (if (matches(., "Benutzernummer und/oder.*Passwort ist falsch")) then vl:raise-login(.)
+          string() ! (if (matches(., "Benutzernummer und/oder.*Passwort.*(falsch|nicht korrekt)")) then vl:raise-login(.)
           else vl:raise(.))
           }</font></h2>
         </t:switch>
