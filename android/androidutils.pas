@@ -1407,7 +1407,7 @@ begin
 
   try
     with needj do
-      for i := 0 to getArrayLength(jdata) do
+      for i := 0 to getArrayLength(jdata) - 1 do
         data += getStringArrayElement(jdata, i);
     result := j.booleanToJboolean(applicationconfig.sendFeedback(data));
   except
