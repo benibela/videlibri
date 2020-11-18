@@ -77,7 +77,7 @@
          
         <form><select/><select/></form> <!-- munich ordering -->
         
-        <h1>{$error-login := , vl:raise(.)}</h1>
+        <h1>{$error-login := ., vl:raise(.)}</h1>
       </template:switch>
     </pattern>
   </if>
