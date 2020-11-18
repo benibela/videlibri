@@ -3,17 +3,16 @@
  */
 package de.benibela.videlibri.notifications.service;
 
-import android.app.*;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.os.Binder;
 import android.os.IBinder;
 
 import de.benibela.videlibri.VideLibriApp;
 import de.benibela.videlibri.internet.VideLibriNetworkInfo;
-import de.benibela.videlibri.jni.Bridge;
 import de.benibela.videlibri.notifications.NotificationScheduling;
 import de.benibela.videlibri.notifications.Notifier;
 

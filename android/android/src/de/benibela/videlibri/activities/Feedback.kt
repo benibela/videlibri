@@ -15,10 +15,7 @@ import android.widget.TextView
 import de.benibela.videlibri.R
 import de.benibela.videlibri.VideLibriApp
 import de.benibela.videlibri.jni.Bridge
-import de.benibela.videlibri.utils.currentActivity
-import de.benibela.videlibri.utils.showDialog
-import de.benibela.videlibri.utils.showMessage
-import de.benibela.videlibri.utils.useLines
+import de.benibela.videlibri.utils.*
 import org.acra.ACRA
 import java.io.File
 import java.io.FileInputStream

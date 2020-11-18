@@ -270,7 +270,7 @@ class SourceEdit : VideLibriBaseActivity() {
     @Throws(IOException::class)
     internal fun writeToFile(fileName: String?, text: String) {
         val f = userFile(fileName)
-        f.parentFile.mkdirs()
+        f.parentFile?.mkdirs()
         FileWriter(f).use { it.write(text) }
         showToast(R.string.source_edit_saved)
     }

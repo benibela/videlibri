@@ -226,7 +226,7 @@ class LibraryList: VideLibriBaseActivity() {
                 val itemsSubCaption = intArrayOf(R.string.foreignlibrariesnotinthelist, R.string.foreignlibrariesnotinthelist_easy_req, R.string.foreignlibrariesnotinthelist_meta_req, R.string.foreignlibrariesnotinthelist_install_req, R.string.foreignlibrariesnotinthelist_diy_req, R.string.foreignlibrariesnotinthelist_mail_req).map { getString(it) }
 
                 dialogBinding.listView.adapter = object : ArrayAdapter<String>(activity, R.layout.book_overview_row, R.id.caption, itemsSubCaption) {
-                    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View? {
+                    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
                         return super.getView(position, convertView, parent).also {
                             val binding = BookOverviewRowBinding.bind(it)
                             binding.date.visibility = View.GONE

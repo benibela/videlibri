@@ -99,14 +99,14 @@ class DebugLogViewer : VideLibriBaseActivity(), AdapterView.OnItemSelectedListen
                     else
                         log.closeLastEntry()
                 } else {
-                    var data = m.group(3)
+                    var data = m.group(3) ?: ""
                     if (data.length > 200000) data = data.substring(0, 200000)
                     if (m.group(2).isNullOrEmpty())
                         log.appendToLastEntry(data, mode == MODE_VIDELIBRI)
                     else if (mode == MODE_HTTP && !patternHttp.matcher(data).matches())
                         log.closeLastEntry()
                     else
-                        log.appendNewEntry(m.group(1) + m.group(2), data)
+                        log.appendNewEntry(( m.group(1) ?: "" )+ m.group(2), data)
                 }
             }
 

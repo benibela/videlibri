@@ -61,7 +61,7 @@ class VideLibriApp : Application() {
     }
 
     override fun onConfigurationChanged(newConfig: Configuration?) {
-        super.onConfigurationChanged(newConfig)
+        super.onConfigurationChanged(newConfig ?: return)
         staticApplicationContext ?.let { checkLanguageOverride(it) }
     }
 
@@ -224,7 +224,7 @@ class VideLibriApp : Application() {
             //Log.i("VIDELIBRI LANG", langOverride);
             if (defaultLocale == null) defaultLocale = getCurrentLocale(context)
             overrideLocale = if (langOverride.isEmpty()) defaultLocale else Locale(langOverride)
-            Locale.setDefault(overrideLocale)
+            Locale.setDefault(overrideLocale ?: return)
             overrideResourcesLocale(context)
             staticApplicationContext = staticApplicationContext?.let { overrideResourcesLocale(it) }
         }
