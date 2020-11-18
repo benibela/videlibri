@@ -91,7 +91,7 @@ if (count($matches) == 0 || count(reset($matches)) == 0 || (reset(reset($matches
 </head>
 
 <prequel>
-VideLibri schützt einen seit 2006 davor bei Ausleihen aus einer öffentlichen Bücherei oder wissenschaftlicher Bibliothek, die Abgabefrist zu verpassen. Auch Katalogsuchen sind möglich.
+VideLibri schützt einen seit 2006 davor bei Ausleihen aus einer öffentlichen Bücherei<!-- oder wissenschaftlicher Bibliothek-->, die Abgabefrist zu verpassen.<!-- Auch Katalogsuchen sind möglich.-->
 </prequel>
 
 <content title="Features">
@@ -110,7 +110,7 @@ Um die Webseite eines OPAC aufzurufen, muss man immer eine Internetverbindung ha
 </li>
 <li><h3>Gesamthistorie aller Ausleihen</h3>
 Es speichert alle jemals ausgeliehenen Bücher, wodurch  man jederzeit nachsehen kann, wann man, welche Bücher ausgeliehen hatte. Dies ermöglicht eine Literaturverwaltung, die ein Literaturverzeichnis über alle Ausleihen führt, ohne dass man diese manuell eintragen muss.<br/>
-Wenn man zudem in ein paar Jahren einen Fortsetzungband einer Serie lesen will oder ein gelesenes Buch weiterempfehlen will, und sich nicht mehr genau erinnert, wie der Titel des Buches lautete, kann man in der Historie nachschauen und weiß es wieder. Wer diese Funktion suspekt findet, kann sie auch deaktivieren, so dass immer nur die aktuellen Ausleihen angezeigt werden.
+Wenn man zudem in ein paar Jahren einen Fortsetzungsband einer Serie lesen will oder ein gelesenes Buch weiterempfehlen will, und sich nicht mehr genau erinnert, wie der Titel des Buches lautete, kann man in der Historie nachschauen und weiß es wieder. Wer diese Funktion suspekt findet, kann sie auch deaktivieren, so dass immer nur die aktuellen Ausleihen angezeigt werden.
 </li>
 <li><h3>Übersicht über mehrere Ausleihkonten</h3>
 VideLibri zeigt die Ausleihdaten von mehreren Konten gleichzeitig an, so dass man, wenn man in mehreren Büchereien angemeldet ist, nicht jeden Katalog einzeln aufrufen muss. Auch wenn in einer mehrköpfigen Familie jeder eine eigene Ausleihkarte hat, wie von der Benutzerordnung vorgeschrieben, stellt es sicher, dass niemand/kein Kind vergessen hat, etwas abzugeben.
@@ -120,7 +120,7 @@ Zusätzlich zu ausgeliehenen und abgegebenen Büchern lassen sich niemals-ausgel
 </li>
 
 <li><h3>Besseres Interface und Layout</h3>
-VideLibri ist nach der Installation sehr viel einfacher zu benutzen, als die meisten Webkataloge/WebOPACs der Büchereien. Man muss nur einmal klicken, um die Ausleihliste zu öffnen, und braucht nicht jedesmal sein Passwort einzugeben. Zudem werden alle Bücher farbkodiert in einer sortierbaren Liste angezeigt und die jeweiligen Abgabezeiten nach Wochen getrennt. Auch Autor und Titel werden getrennt angezeigt, im Gegensatz zu klassischen WebOPACs (wie lange von den <a class="popuplink" href="img/webopac-düsseldorf.png">Stadtbüchereien Düsseldorf</a> verwendet), die Autor und Titel zu einer Zeile zusammenwursteln, so dass man sie kaum unterscheiden kann.
+VideLibri ist nach der Installation sehr viel einfacher zu benutzen, als die meisten Webkataloge/WebOPACs der Büchereien. Man muss nur einmal klicken, um die Ausleihliste zu öffnen, und braucht nicht jedes Mal sein Passwort einzugeben. Zudem werden alle Bücher farbkodiert in einer sortierbaren Liste angezeigt und die jeweiligen Abgabezeiten nach Wochen getrennt. Auch Autor und Titel werden getrennt angezeigt, im Gegensatz zu klassischen WebOPACs (wie lange von den <a class="popuplink" href="img/webopac-düsseldorf.png">Stadtbüchereien Düsseldorf</a> verwendet), die Autor und Titel zu einer Zeile zusammenwursteln, so dass man sie kaum unterscheiden kann.
 </li>
 
 <li><h3>Vollständige XQuery Unterstützung</h3>
@@ -151,8 +151,12 @@ Zudem hat ein Benutzer keine Kontrolle darüber, was eine Webseite tut. Wenn zum
 VideLibri kann einen E-Mailbericht über alle Medien erstellen, in dem fällige und nicht fällige Bücher aufgelistet sind. Der Bericht wird nicht direkt von VideLibri versandt, sondern an ein anderes Programm übergeben. Unter Linux kann dazu das Standardprogramm <code>sendmail</code> verwendet werden, wodurch es nicht nötig ist, in VideLibri das Passwort für den Mailserver zu speichern. <br/>
 VideLibri umgeht das Problem, dass E-Mailbenachrichtigungen, die von Bibliotheken versandt werden, prinzipiell nicht funktionieren können, indem E-Mailbenachrichtigungen von VideLibri jeden Tag versandt werden, egal ob Ausleihen abzugeben sind oder nicht. Wenn man jeden Tag eine Benachrichtigung kriegt, das <i>keine</i> Bücher abzugeben sind, weiß man, wenn mal keine E-Mail ankommt, dass eventuell welche abzugeben sind. </li>
 
+<li><h3>Alle Büchereien in einer App</h3>
+Da sämtliche für einen Bibliothekszugriff nötigen Katalogaddressen und Schnittstellenparameter in XML/Textdateien anstatt im Programmcode stehen, kann jeder jede Webseite und Bibliothek zu VideLibri hinzufügen, ohne etwas im Code von VideLibri zu ändern.
+</li>
+
 <li><h3>Open-Source</h3>
-Jeder kann VideLibri genauso ändern, wie er es haben will, und beliebige Features hinzufügen. Dies darf nicht mit dem Hinzufügen neuer Bibliotheken verwechselt werden, denn dies ist orthogonal. Um eine neue Bibliothek hinzuzufügen, muss man VideLibri genauso wenig ändert, wie man Firefox umprogrammieren müsste, um eine Webseite aufzurufen. Bei vielen Systemen reicht es die richtige Webkatalog URL in der GUI einzugeben. Es gibt im kompilierten Quellcode von VideLibri keine Bibliotheksspezifischen Funktionen, sondern die Bibliothekssysteme werden mittels Pattern-Matching halbautomatisch von VideLibri gelernt und mittels XQuery-Skripten für Sonderfälle angepasst.
+Jeder kann VideLibri auch sonst genauso ändern, wie er es haben will, und beliebige Features hinzufügen.<!-- Dies darf nicht mit dem Hinzufügen neuer Bibliotheken verwechselt werden, denn dies ist orthogonal. Um eine neue Bibliothek hinzuzufügen, muss man VideLibri genauso wenig ändert, wie man Firefox umprogrammieren müsste, um eine Webseite aufzurufen. Bei vielen Systemen reicht es die richtige Webkatalog URL in der GUI einzugeben. Es gibt im kompilierten Quellcode von VideLibri keine Bibliotheksspezifischen Funktionen, sondern die Bibliothekssysteme werden mittels Pattern-Matching halbautomatisch von VideLibri gelernt und mittels XQuery-Skripten für Sonderfälle angepasst.-->
 </li>
 </ul>
 
