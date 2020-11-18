@@ -17,6 +17,7 @@
         android:theme="@style/Theme.VideLibri"
         android:name=".VideLibriApp"
 	    android:networkSecurityConfig="@xml/network_security_config"
+        android:requestLegacyExternalStorage="true"
     >
 <!--        <uses-library android:name="org.apache.http.legacy" android:required="false" /> < !- - reactivated httpclient removed with 23 -->
         <activity android:name=".activities.LendingList"

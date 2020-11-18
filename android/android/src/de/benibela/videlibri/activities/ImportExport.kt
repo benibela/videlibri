@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.TypedArray
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -205,7 +206,8 @@ class ImportExport : VideLibriBaseActivity() {
         rememberFileNameInPreferences()
 
         findViewById<ListView>(R.id.listView).let { lv ->
-            lv.adapter = ArrayAdapter(this@ImportExport, android.R.layout.simple_list_item_multiple_choice, data.accountsToImport)
+            val accounts: Array<String> = data.accountsToImport!!
+            lv.adapter = ArrayAdapter(this@ImportExport, android.R.layout.simple_list_item_multiple_choice, accounts)
             checkAll(lv)
         }
 

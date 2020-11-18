@@ -59,7 +59,7 @@ internal object Clipboard {
         get() = manager?.primaryClip?.getItemAt(0)?.coerceToText(currentContext)
         set(toCopy) {
             val clip = ClipData.newPlainText("Book details", toCopy) ?: return
-            manager?.primaryClip = clip
+            manager?.setPrimaryClip(clip)
             showToast(Util.tr(R.string.clipboard_copiedS, toCopy))
         }
 }
