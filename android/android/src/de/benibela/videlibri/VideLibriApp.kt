@@ -239,15 +239,15 @@ class VideLibriApp : Application() {
                 when {
                     overrideLocale == null -> context
                     Build.VERSION.SDK_INT >= Build.VERSION_CODES.N -> {
-                        val configuration = context.resources.configuration
+                        val configuration = Configuration() //context.resources.configuration
                         configuration.setLocale(overrideLocale)
                         context.createConfigurationContext(configuration)
                     }
                     else -> @Suppress("DEPRECATION") {
                         val resources = context.resources
-                        val configuration = context.resources.configuration
+                        val configuration = Configuration() // context.resources.configuration
                         configuration.locale = overrideLocale
-                        resources.updateConfiguration(configuration, resources.displayMetrics)
+                        resources.updateConfiguration(configuration, context.resources.displayMetrics)
                         context
                     }
                 }
