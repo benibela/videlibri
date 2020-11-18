@@ -19,6 +19,7 @@ import de.benibela.videlibri.utils.Clipboard
 import de.benibela.videlibri.components.BookDetails
 import de.benibela.videlibri.components.BookListFragment
 import de.benibela.videlibri.jni.Bridge
+import de.benibela.videlibri.utils.get
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
@@ -32,11 +33,11 @@ data class BookListDisplayOptions(
 {
     fun isGrouped() = groupingKey != ""
     fun readFromPreferences(sp: SharedPreferences){
-        noDetailsInOverview = sp.getBoolean("noLendBookDetails", false)
-        showRenewCount = sp.getBoolean("showRenewCount", true)
-        sortingKey = sp.getString("sorting", "dueDate")
-        groupingKey = sp.getString("grouping", "_dueWeek")
-        filterKey = sp.getString("filtering", "")
+        noDetailsInOverview = sp["noLendBookDetails", false]
+        showRenewCount = sp["showRenewCount", true]
+        sortingKey = sp["sorting", "dueDate"]
+        groupingKey = sp["grouping", "_dueWeek"]
+        filterKey = sp["filtering", ""]
     }
 }
 

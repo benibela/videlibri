@@ -109,8 +109,8 @@ class LendingList: BookListActivity(){
         val sp = PreferenceManager.getDefaultSharedPreferences(this)
         displayOptions.readFromPreferences(sp)
         searchPanel?.isVisibleNotGone = "__disabled" != displayOptions.filterKey
-        displayHistory = sp.getBoolean("displayHistory", false)
-        alwaysFilterOnHistory = sp.getBoolean("alwaysFilterOnHistory", true)
+        displayHistory = sp["displayHistory", false]
+        alwaysFilterOnHistory = sp["alwaysFilterOnHistory", true]
     }
 
     private fun updateAccountView() {

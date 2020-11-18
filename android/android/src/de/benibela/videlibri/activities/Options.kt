@@ -221,8 +221,8 @@ class Options : VideLibriBaseActivity() {
 
 
             val sortingKeys = activity.resources.getStringArray(R.array.sortable_properties)
-            val sorting = sp.getString("sorting", "dueDate")
-            val grouping = sp.getString("grouping", "_dueWeek")
+            val sorting = sp["sorting", "dueDate"]
+            val grouping = sp["grouping", "_dueWeek"]
             v.findViewById<Spinner>(R.id.sorting).setSelection(sorting, sortingKeys)
             v.findViewById<Spinner>(R.id.grouping).setSelection(grouping, sortingKeys)
         }

@@ -68,7 +68,7 @@ class Feedback : VideLibriBaseActivity() {
         super.onCreate(savedInstanceState)    //To change body of overridden methods use File | Settings | File Templates.
         setVideLibriView(R.layout.feedback)
         title = tr(R.string.feedback_feedbacktitle)
-        if (!PreferenceManager.getDefaultSharedPreferences(this).getBoolean(ACRA.PREF_ENABLE_SYSTEM_LOGS, true))
+        if (!PreferenceManager.getDefaultSharedPreferences(this)[ACRA.PREF_ENABLE_SYSTEM_LOGS, true])
             findViewById<TextView>(R.id.feedbackACRAHeader).text = tr(R.string.feedback_acraheader)
 
         intent.getStringExtra("message")?.let {
