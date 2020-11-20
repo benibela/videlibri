@@ -33,6 +33,7 @@ mirror)
   pushhg
   SF_PROJECT= 
   mirroredProject videlibri
+  GITLAB_PROJECT=
   syncHg $VIDELIBRIBASE/_hg.standalone.filemap
 ;;
 
