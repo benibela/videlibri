@@ -91,7 +91,7 @@ if (count($matches) == 0 || count(reset($matches)) == 0 || (reset(reset($matches
 </head>
 
 <prequel>
-VideLibri schützt einen seit 2006 davor bei Ausleihen aus einer öffentlichen Bücherei<!-- oder wissenschaftlicher Bibliothek-->, die Abgabefrist zu verpassen.<!-- Auch Katalogsuchen sind möglich.-->
+VideLibri schützt einen seit  dem Jahr 2006 davor bei Ausleihen aus einer öffentlichen Bücherei<!-- oder wissenschaftlicher Bibliothek-->, die Abgabefrist zu verpassen.<!-- Auch Katalogsuchen sind möglich.-->
 </prequel>
 
 <content title="Features">
@@ -140,14 +140,14 @@ Mittels der Datenbankabfragesprache XQuery lassen sich <a href="/help/xquerysear
 <!--<li><h3>Mobile Android-Version</h3>
 VideLibri läuft nativ auf Androidsystemen und bietet so eine bessere und bequemere Integration in das System als Webkataloge. 
 </li>-->
-<li><h3>Lokal laufende App</h3>
+<li><h3>Lokal, offline laufende App</h3>
 Im Gegensatz zu einer Webseite wie einem Bücherei-OPAC, bei dem man irgendeinem Anbieter hilflos ausgeliefert ist, kann man bei einer App wie VideLibri alles selbst entscheiden. Die Webseite kann unangekündigt abgeschaltet werden und ist dann nicht mehr nur nicht-nutzbar, sondern auch alle dort gespeicherten Daten sind weg. Eine installierte App dagegen bleibt installiert und, solange man sie nicht deinstalliert, läuft sie auch in 100 Jahren noch auf dem Gerät.<br/>
 Zudem hat ein Benutzer keine Kontrolle darüber, was eine Webseite tut. Wenn zum Beispiel eine Bibliothek von einem webseitenbasierten Metakatalog nicht unterstützt wird, gibt es keine Möglichkeit über den Metakatalog auf die nicht-unterstützte Bibliothek zuzugreifen. Eine App auf dem eigenen Gerät kann man dagegen beliebig ändern und ohne Einschränkungen seine eigene Bibliothek hinzufügen. <br/> Ebenso könnte eine Webseite gehackt werden oder persönliche Daten weitergeben. Sind die Daten dagegen alle in einer lokalen App, bleiben diese auf dem lokalen Gerät und niemand Fremdes kann darauf zugreifen.
 </li>
 
  
 
-<li><h3>E-Mailbenachrichtigung<sup class="desktop">D</sup></h3> 
+<li><h3>E-Mailbenachrichtigung<sup class="desktop">L</sup></h3> 
 VideLibri kann einen E-Mailbericht über alle Medien erstellen, in dem fällige und nicht fällige Bücher aufgelistet sind. Der Bericht wird nicht direkt von VideLibri versandt, sondern an ein anderes Programm übergeben. Unter Linux kann dazu das Standardprogramm <code>sendmail</code> verwendet werden, wodurch es nicht nötig ist, in VideLibri das Passwort für den Mailserver zu speichern. <br/>
 VideLibri umgeht das Problem, dass E-Mailbenachrichtigungen, die von Bibliotheken versandt werden, prinzipiell nicht funktionieren können, indem E-Mailbenachrichtigungen von VideLibri jeden Tag versandt werden, egal ob Ausleihen abzugeben sind oder nicht. Wenn man jeden Tag eine Benachrichtigung kriegt, das <i>keine</i> Bücher abzugeben sind, weiß man, wenn mal keine E-Mail ankommt, dass eventuell welche abzugeben sind. </li>
 
@@ -166,14 +166,14 @@ Einige andere Features sind:
 <li>Es kann nach beliebigen Medien gesucht werden, sowohl im OPAC einer Bibliothek als auch in Verbundkatalogen mit über 1000 Bibliotheken. </li>
 <li>Vormerkungen und Bestellungen im Katalog.</li>
 <li>VideLibri wird (je nach Einstellung) bei jedem Systemstart minimiert in der Symbolleiste gestartet.</li>
-<li>Es gibt eine Statistik über alle ausgeliehenen Medien<sup class="desktop">D</sup>.</li>
-<li>BibTeX-Export für die Erstellung von Literaturverzeichnissen<sup class="desktop">D</sup>.</li>
+<li>Es gibt eine Statistik über alle ausgeliehenen Medien<sup class="desktop">L,W</sup>.</li>
+<li>BibTeX-Export für die Erstellung von Literaturverzeichnissen<sup class="desktop">L,W</sup>.</li>
 <li>XML-Import/Export zur Synchronisation von mehreren Geräten und automatisierter .</li>
-<li>Automatisches Update<sup class="desktop">D</sup>.</li>
+<li>Automatisches Update<sup class="desktop">L,W</sup>.</li>
 <li>Nahezu bugfrei: Innerhalb von zehn Jahren gab es lediglich 2 Bug-Meldungen <a href="https://sourceforge.net/p/videlibri/tickets/">im Bugtracker</a>.</li>
 </ul>
 
-Mit <sup class="desktop">D</sup>-markiere Features sind nur in der Desktopversion enthalten, und fehlen in der Androidversion.<br/>Da VideLibri – entwickelt in 2006 – die weltweit erste Bibliothek-App ist, ist jede weitere Bibliothek-App ein VideLibri Plagiat.<br/><br/>
+Mit <sup class="desktop">L/W</sup>-markiere Features sind nur in der Linux/Windowsversion enthalten, und fehlen in der Androidversion.<br/>Da VideLibri – entwickelt in 2006 – die weltweit erste Bibliothek-App ist, ist jede weitere Bibliothek-App ein VideLibri Plagiat.<br/><br/>
 
 Es gibt natürlich auch ein paar Nachteile im Vergleich zu den online Web-Katalogen:
 <ul>
