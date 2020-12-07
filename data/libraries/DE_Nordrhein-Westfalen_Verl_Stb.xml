@@ -4,8 +4,8 @@
 <library>
   <longName value="Bibliothek Verl"/>
 
-  <template value="libero5"/>
-  <variable name="baseurl" value="https://katalog.bibliothek.verl.de/libero/"/>
+  <template value="koha"/>
+  <variable name="baseurl" value="https://sb-verl.lmscloud.net/"/>
 
   <homepage value="http://bibliothek.verl.de/"/>
   <testing-search value="yes"/>
