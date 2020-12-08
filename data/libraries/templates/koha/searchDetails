@@ -13,7 +13,7 @@
  <tbody>
   {$book.holdings := tr!{| for $td in td return tokenize($td/@class, " ")!(switch(.)
     case "itype" return {"Medientyp": $td}
-    case "location" return {"libraryBranch": $td}
+    case "location" return {"libraryBranch": normalize-space(join($td/node()[not(contains-token(@class, "branch-info-tooltip"))]))}
     case "collection" return {"Sammlung!": $td}
     case "call_no" return {"Regal!": string($td) ! (if (contains(., "(")) then normalize-space(substring-before(., "(")) else . )}
     case "status" return {"statusId": $td/span/tokenize(@class," ")!(switch (.) case "available" return "available" case "checkedout" return "lend" default return ())}
