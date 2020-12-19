@@ -2,20 +2,21 @@
 <template:meta default-text-matching="regex"/>  
  <t:switch prioritized="true">
   <FORM>
-  {let $form := form(.)
-   let $backButtonName := (.//input[@title = "Zurück zur vorherigen Seite"])[1]
-   let $backButtonName := if ($backButtonName) then $backButtonName else (.//input[contains(@title, 'zur vorherigen Seite')])[1] (:is this line needed?:)
+  {let $form := form()
+   let $inputs := .//input
+   let $backButtonName := ($inputs[@title = "Zurück zur vorherigen Seite"])[1]
+   let $backButtonName := if ($backButtonName) then $backButtonName else ($inputs[contains(@title, 'zur vorherigen Seite')])[1] (:is this line needed?:)
    let $bbn := $backButtonName/@name/string()
    return (
      if ($mode = 'lend') then (
-      $extendFormPost := request-combine($form, (.//input[@type = "submit" and contains(@value, "arkierte") and contains(@value, "ngern")])[1]/{string(@name): @value}),
+      $extendFormPost := request-combine($form, (($inputs[@type = "submit" and contains(@value, "arkierte") and contains(@value, "ngern")])[1])),
       $extendFormPost.post := replace($extendFormPost.post, "[a-zA-Z0-9]+=on&", "")
      ) else (
-       $cancelFormPost := request-combine($form, (.//input[@type = "submit" and contains(@value, "arkierte") and contains(@value, "schen")])[1]/{string(@name): @value}),
+       $cancelFormPost := request-combine($form, ($inputs[@type = "submit" and contains(@value, "arkierte") and contains(@value, "schen")])[1]),
        $cancelFormPost.post := replace($cancelFormPost.post, "[a-zA-Z0-9]+=on&", "")
      ),
      if ($bbn) then 
-       $goBackPage := request-combine($form, {$bbn || ".x": "0", $bbn || ".y": "0"})
+       $goBackPage := request-combine($form, {$bbn: {"x": 0, "y": 0}})
      else let $accountPage := //a[contains(., "konto")] return
        if ($accountPage) then
          $goBackPage := resolve-html($accountPage)

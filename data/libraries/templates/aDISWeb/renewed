@@ -1,11 +1,11 @@
 <FORM><!-- this is also used for canceling!-->
-  {let $form := form(.)
+  {let $form := form()
    let $backButtonName := (.//input[@title = "Zurück zur vorherigen Seite"])[1]
    let $backButtonName := if ($backButtonName) then $backButtonName else (.//input[contains(@title, 'zur vorherigen Seite')])[1] (:is this line needed?:)
    let $bbn := $backButtonName/@name/string()
    return (
      if ($bbn) then 
-       $goBackPage := request-combine($form, {$bbn || ".x": "0", $bbn || ".y": "0"})
+       $goBackPage := request-combine($form, {$bbn: {"x": 0, "y": 0}})
      else let $accountPage := //a[contains(., "konto")] return
        if ($accountPage) then
          $goBackPage := resolve-html($accountPage)
