@@ -378,6 +378,8 @@ resourcestring
     callbacks.statusChange(Format(rsLastRenewDate, [DateToPrettyStrGrammarPast(lastCheck)]));
   end;
   procedure updateActiveInternetConfig;
+  var
+    CAStore: String;
   begin
     {$IFDEF WIN32}
     defaultInternetAccessClass:=TW32InternetAccess;
@@ -426,6 +428,14 @@ resourcestring
     defaultInternetConfiguration.proxySOCKSName:=userConfig.ReadString('access','socksProxyName','');
     defaultInternetConfiguration.proxySOCKSPort:=userConfig.ReadString('access','socksProxyPort','1080');
     defaultInternetConfiguration.checkSSLCertificates:=userConfig.ReadBool('access', 'checkCertificates', true);
+    if defaultInternetAccessClass = TSynapseInternetAccess then begin
+      CAStore := userConfig.ReadString('access', 'CAPath', '');
+      defaultInternetConfiguration.CAFile := '';
+      defaultInternetConfiguration.CAPath := '';
+      if DirectoryExists(CAstore) then defaultInternetConfiguration.CAPath := CAStore
+      else if FileExists(CAStore) then defaultInternetConfiguration.CAFile := CAStore;
+      defaultInternetConfiguration.searchCertificates;
+    end;
   end;
   type EInitializationError = class(Exception);
 

@@ -18,9 +18,11 @@ type
     accountList: TListView;
     cbCopyAccountLimits: TCheckBox;
     accountType: TComboBox;
+    openSSLCAStore: TEdit;
     groupingProperty: TComboBox;
     Label34: TLabel;
     Label35: TLabel;
+    openSSLCAStoreLabel: TLabel;
     lblAccountType: TLabel;
     libNameEdit: TEdit;
     Label33: TLabel;
@@ -374,6 +376,7 @@ begin
 
   //Internetpage
   checkCertificates.Checked:=userConfig.ReadBool('access', 'checkCertificates', true);
+  openSSLCAStore.text := userConfig.ReadString('access', 'CAPath', '');
   case userConfig.readInteger('access','internet-type',0) of
     0: internetWindows.Checked:=true;
     1: internetDirect.Checked:=true;
@@ -529,8 +532,8 @@ begin
   else if homepageDefaultBrowser.Checked then userConfig.writeInteger('access','homepage-type',1);
   if autoUpdate.Checked then userConfig.WriteInteger('updates','auto-check',1)
   else userConfig.WriteInteger('updates','auto-check',0);
-  if not internetAccessSynapse.Checked then
-    userConfig.WriteBool('access', 'checkCertificates', checkCertificates.Checked);
+  userConfig.WriteBool('access', 'checkCertificates', checkCertificates.Checked);
+  userConfig.WriteString('access', 'CAPath', openSSLCAStore.text);
 
   updateActiveInternetConfig;
 
@@ -871,8 +874,9 @@ procedure ToptionForm.internetAccessChange(Sender: TObject);
 begin
   internetWindows.Enabled := internetAccessW32.Checked;
   if internetWindows.Checked and not internetWindows.Enabled then internetDirect.Checked := true;
-  checkCertificates.Enabled := internetAccessW32.Checked;
   checkCertificates.Checked := checkCertificates.Enabled; //and userConfig.ReadBool('access', 'checkCertificates', true)
+  openSSLCAStore.Enabled := internetAccessSynapse.Checked;
+  openSSLCAStoreLabel.Enabled := internetAccessSynapse.Checked;
 end;
 
 procedure ToptionForm.internetProxyChange(Sender: TObject);

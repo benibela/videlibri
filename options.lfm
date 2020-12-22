@@ -14,15 +14,15 @@ object optionForm: ToptionForm
   OnResize = FormResize
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '2.0.0.4'
+  LCLVersion = '2.0.10.0'
   Scaled = False
   object Bevel1: TBevel
     AnchorSideLeft.Control = Panel2
     AnchorSideLeft.Side = asrBottom
-    Left = 85
+    Left = 87
     Height = 509
     Top = 4
-    Width = 615
+    Width = 613
     Anchors = [akTop, akLeft, akRight, akBottom]
   end
   object Notebook1: TNotebook
@@ -32,11 +32,11 @@ object optionForm: ToptionForm
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = Bevel1
     AnchorSideBottom.Side = asrBottom
-    Left = 87
+    Left = 89
     Height = 505
     Top = 6
-    Width = 611
-    PageIndex = 4
+    Width = 609
+    PageIndex = 2
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Around = 2
     OnChangeBounds = Notebook1ChangeBounds
@@ -47,9 +47,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = edtAccountPass
         AnchorSideTop.Side = asrCenter
         Left = 8
-        Height = 19
-        Top = 351
-        Width = 104
+        Height = 15
+        Top = 350
+        Width = 109
         BorderSpacing.Around = 10
         Caption = 'Passwort:              '
         ParentColor = False
@@ -58,9 +58,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = edtAccountUser
         AnchorSideTop.Side = asrCenter
         Left = 8
-        Height = 19
-        Top = 316
-        Width = 97
+        Height = 15
+        Top = 313
+        Width = 101
         BorderSpacing.Around = 10
         BorderSpacing.InnerBorder = 10
         Caption = 'Kontonummer:'
@@ -70,9 +70,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = edtAccountPrettyName
         AnchorSideTop.Side = asrCenter
         Left = 8
-        Height = 19
-        Top = 246
-        Width = 78
+        Height = 15
+        Top = 243
+        Width = 82
         BorderSpacing.InnerBorder = 10
         Caption = 'Kontoname:'
         ParentColor = False
@@ -81,9 +81,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = cmbAccountExtend
         AnchorSideTop.Side = asrCenter
         Left = 8
-        Height = 19
-        Top = 386
-        Width = 75
+        Height = 15
+        Top = 385
+        Width = 77
         BorderSpacing.Around = 10
         Caption = 'Verlängern:'
         ParentColor = False
@@ -92,10 +92,10 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = Label4
         AnchorSideTop.Side = asrCenter
         AnchorSideRight.Control = edtAccountExtendDays
-        Left = 386
-        Height = 19
-        Top = 386
-        Width = 28
+        Left = 373
+        Height = 15
+        Top = 385
+        Width = 31
         Anchors = [akTop, akRight]
         BorderSpacing.Around = 2
         Caption = 'also '
@@ -107,10 +107,10 @@ object optionForm: ToptionForm
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = Label4
         AnchorSideTop.Side = asrCenter
-        Left = 469
-        Height = 19
-        Top = 386
-        Width = 126
+        Left = 459
+        Height = 15
+        Top = 385
+        Width = 134
         Anchors = [akTop, akRight]
         BorderSpacing.Left = 5
         Caption = 'Tage vor Fristdatum'
@@ -121,9 +121,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = lblAccountLibrary
         AnchorSideTop.Side = asrCenter
         Left = 8
-        Height = 19
-        Top = 213
-        Width = 60
+        Height = 15
+        Top = 211
+        Width = 62
         BorderSpacing.Around = 10
         Caption = 'Bücherei:'
         ParentColor = False
@@ -134,9 +134,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = Label5
         AnchorSideTop.Side = asrCenter
         AnchorSideBottom.Control = edtAccountPrettyName
-        Left = 122
-        Height = 19
-        Top = 213
+        Left = 127
+        Height = 15
+        Top = 211
         Width = 6
         Anchors = [akLeft, akBottom]
         BorderSpacing.Bottom = 4
@@ -148,9 +148,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = btnAccountChange
         AnchorSideBottom.Control = btnAccountChange
         Left = 8
-        Height = 21
-        Top = 439
-        Width = 347
+        Height = 23
+        Top = 437
+        Width = 365
         Anchors = [akLeft, akBottom]
         BorderSpacing.Bottom = 3
         Caption = 'Daten aller jemals ausgeliehenen Medien speichern'
@@ -161,10 +161,10 @@ object optionForm: ToptionForm
       object btnAccountDelete: TButton
         AnchorSideLeft.Control = btnAccountChange
         AnchorSideLeft.Side = asrBottom
-        Left = 116
+        Left = 125
         Height = 41
         Top = 463
-        Width = 107
+        Width = 119
         Anchors = [akLeft, akBottom]
         AutoSize = True
         BorderSpacing.Around = 2
@@ -178,7 +178,7 @@ object optionForm: ToptionForm
         Left = 8
         Height = 41
         Top = 463
-        Width = 106
+        Width = 115
         Anchors = [akLeft, akBottom]
         AutoSize = True
         BorderSpacing.InnerBorder = 4
@@ -190,10 +190,10 @@ object optionForm: ToptionForm
       object btnAccountCreate: TButton
         AnchorSideLeft.Control = btnAccountDelete
         AnchorSideLeft.Side = asrBottom
-        Left = 233
+        Left = 254
         Height = 41
         Top = 463
-        Width = 113
+        Width = 122
         Anchors = [akLeft, akBottom]
         AutoSize = True
         BorderSpacing.Around = 10
@@ -209,10 +209,10 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = lblAccountPass
         AnchorSideTop.Side = asrCenter
         AnchorSideBottom.Control = cmbAccountExtend
-        Left = 122
-        Height = 31
-        Top = 345
-        Width = 480
+        Left = 127
+        Height = 33
+        Top = 341
+        Width = 473
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
         BorderSpacing.Around = 4
@@ -224,10 +224,10 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = Label2
         AnchorSideTop.Side = asrCenter
         AnchorSideBottom.Control = edtAccountPass
-        Left = 122
-        Height = 31
-        Top = 310
-        Width = 479
+        Left = 127
+        Height = 33
+        Top = 304
+        Width = 472
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
         BorderSpacing.Around = 4
@@ -240,10 +240,10 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = Label1
         AnchorSideTop.Side = asrCenter
         AnchorSideBottom.Control = accountType
-        Left = 122
-        Height = 31
-        Top = 240
-        Width = 480
+        Left = 127
+        Height = 33
+        Top = 234
+        Width = 473
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
         BorderSpacing.Around = 4
@@ -252,9 +252,9 @@ object optionForm: ToptionForm
       object accountList: TListView
         AnchorSideBottom.Control = lblAccountLibrary
         Left = 0
-        Height = 204
+        Height = 202
         Top = 2
-        Width = 602
+        Width = 600
         Anchors = [akTop, akLeft, akRight, akBottom]
         BorderSpacing.Bottom = 3
         BorderSpacing.Around = 4
@@ -282,7 +282,7 @@ object optionForm: ToptionForm
           end        
           item
             Caption = 'Bücherei'
-            Width = 234
+            Width = 238
           end>
         HideSelection = False
         RowSelect = True
@@ -296,10 +296,10 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = Label4
         AnchorSideTop.Side = asrCenter
         AnchorSideBottom.Control = ckbAccountDisabled
-        Left = 122
-        Height = 31
-        Top = 380
-        Width = 479
+        Left = 127
+        Height = 29
+        Top = 378
+        Width = 472
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
         BorderSpacing.Around = 4
@@ -319,9 +319,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = lblAccountExtend2
         AnchorSideTop.Side = asrCenter
         AnchorSideRight.Control = lblAccountExtend2
-        Left = 424
-        Height = 31
-        Top = 380
+        Left = 414
+        Height = 33
+        Top = 376
         Width = 40
         Anchors = [akTop, akRight]
         BorderSpacing.Left = 5
@@ -332,10 +332,10 @@ object optionForm: ToptionForm
         Visible = False
       end
       object Button2: TButton
-        Left = 523
+        Left = 512
         Height = 41
         Top = 463
-        Width = 79
+        Width = 88
         Anchors = [akRight, akBottom]
         AutoSize = True
         BorderSpacing.InnerBorder = 4
@@ -348,9 +348,9 @@ object optionForm: ToptionForm
       object ckbAccountDisabled: TCheckBox
         AnchorSideBottom.Control = ckbAccountHistory
         Left = 8
-        Height = 21
-        Top = 415
-        Width = 168
+        Height = 23
+        Top = 411
+        Width = 183
         Anchors = [akLeft, akBottom]
         BorderSpacing.Around = 3
         Caption = 'deaktivieren (Vorsicht!)'
@@ -360,10 +360,10 @@ object optionForm: ToptionForm
         AnchorSideLeft.Control = lblAccountPass
         AnchorSideLeft.Side = asrBottom
         AnchorSideBottom.Control = edtAccountUser
-        Left = 122
-        Height = 31
-        Top = 275
-        Width = 480
+        Left = 127
+        Height = 29
+        Top = 271
+        Width = 473
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
         BorderSpacing.Around = 4
@@ -379,9 +379,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = accountType
         AnchorSideTop.Side = asrCenter
         Left = 8
-        Height = 19
-        Top = 281
-        Width = 60
+        Height = 15
+        Top = 278
+        Width = 65
         Caption = 'Kontoart:'
         ParentColor = False
       end
@@ -641,9 +641,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = proxyHTTPName
         AnchorSideTop.Side = asrCenter
         Left = 55
-        Height = 19
-        Top = 184
-        Width = 36
+        Height = 15
+        Top = 194
+        Width = 40
         Caption = 'HTTP:'
         ParentColor = False
       end
@@ -651,9 +651,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = proxyHTTPSname
         AnchorSideTop.Side = asrCenter
         Left = 54
-        Height = 19
-        Top = 219
-        Width = 43
+        Height = 15
+        Top = 231
+        Width = 48
         Caption = 'HTTPS:'
         ParentColor = False
       end
@@ -661,9 +661,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = Panel6
         AnchorSideTop.Side = asrBottom
         Left = 15
-        Height = 19
-        Top = 76
-        Width = 167
+        Height = 15
+        Top = 81
+        Width = 177
         BorderSpacing.Around = 5
         Caption = 'Verbindungseinstellungen:'
         ParentColor = False
@@ -671,23 +671,22 @@ object optionForm: ToptionForm
       object Label16: TLabel
         AnchorSideTop.Control = proxySocksName
         AnchorSideTop.Side = asrBottom
-        Left = 18
-        Height = 19
-        Top = 310
-        Width = 272
-        BorderSpacing.Top = 27
+        Left = 16
+        Height = 15
+        Top = 296
+        Width = 284
         BorderSpacing.Around = 4
         Caption = 'Zugriff auf die Homepages der Büchereien:'
         ParentColor = False
         Visible = False
       end
       object Button6: TButton
-        AnchorSideTop.Control = checkCertificates
+        AnchorSideTop.Control = openSSLCAStore
         AnchorSideTop.Side = asrBottom
-        Left = 18
+        Left = 16
         Height = 41
-        Top = 435
-        Width = 68
+        Top = 459
+        Width = 74
         AutoSize = True
         BorderSpacing.InnerBorder = 4
         Caption = '     OK     '
@@ -700,10 +699,10 @@ object optionForm: ToptionForm
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = Button6
         AnchorSideTop.Side = asrCenter
-        Left = 90
+        Left = 94
         Height = 41
-        Top = 435
-        Width = 89
+        Top = 459
+        Width = 97
         AutoSize = True
         BorderSpacing.Around = 4
         BorderSpacing.InnerBorder = 4
@@ -715,9 +714,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = Label15
         AnchorSideTop.Side = asrBottom
         Left = 28
-        Height = 21
-        Top = 100
-        Width = 291
+        Height = 23
+        Top = 101
+        Width = 305
         BorderSpacing.Around = 4
         Caption = 'Systeminterneteinstellungen übernehmen'
         Checked = True
@@ -728,9 +727,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = internetWindows
         AnchorSideTop.Side = asrBottom
         Left = 28
-        Height = 21
-        Top = 125
-        Width = 179
+        Height = 23
+        Top = 128
+        Width = 186
         BorderSpacing.Around = 4
         Caption = 'Direkter Internetzugang'
         TabOrder = 3
@@ -739,9 +738,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = internetDirect
         AnchorSideTop.Side = asrBottom
         Left = 28
-        Height = 21
-        Top = 150
-        Width = 237
+        Height = 23
+        Top = 155
+        Width = 244
         BorderSpacing.Around = 4
         Caption = 'Internetzugang über einen Proxy:'
         OnChange = internetProxyChange
@@ -753,10 +752,10 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = internetProxy
         AnchorSideTop.Side = asrBottom
         AnchorSideRight.Control = proxyHTTPPort
-        Left = 101
-        Height = 31
-        Top = 178
-        Width = 428
+        Left = 106
+        Height = 33
+        Top = 185
+        Width = 421
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Top = 3
         BorderSpacing.Around = 4
@@ -768,19 +767,19 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = proxyHTTPName
         AnchorSideTop.Side = asrBottom
         AnchorSideRight.Control = proxyHTTPSport
-        Left = 101
-        Height = 31
-        Top = 213
-        Width = 428
+        Left = 106
+        Height = 33
+        Top = 222
+        Width = 421
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Around = 4
         TabOrder = 6
       end
       object proxyHTTPPort: TEdit
         AnchorSideTop.Control = proxyHTTPName
-        Left = 533
-        Height = 31
-        Top = 178
+        Left = 531
+        Height = 33
+        Top = 185
         Width = 70
         Anchors = [akTop, akRight]
         Constraints.MinWidth = 70
@@ -789,9 +788,9 @@ object optionForm: ToptionForm
       end
       object proxyHTTPSport: TEdit
         AnchorSideTop.Control = proxyHTTPSname
-        Left = 533
-        Height = 31
-        Top = 213
+        Left = 531
+        Height = 33
+        Top = 222
         Width = 70
         Anchors = [akTop, akRight]
         Constraints.MinWidth = 70
@@ -803,7 +802,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrBottom
         Left = 28
         Height = 44
-        Top = 334
+        Top = 316
         Width = 364
         BorderSpacing.Around = 5
         BevelOuter = bvNone
@@ -812,9 +811,9 @@ object optionForm: ToptionForm
         TabOrder = 9
         object homepageSimpleBrowser: TRadioButton
           Left = 8
-          Height = 21
+          Height = 23
           Top = 1
-          Width = 245
+          Width = 258
           Caption = 'über integrierten Internet Explorer'
           Checked = True
           TabOrder = 0
@@ -823,9 +822,9 @@ object optionForm: ToptionForm
         end
         object homepageDefaultBrowser: TRadioButton
           Left = 8
-          Height = 21
+          Height = 23
           Top = 21
-          Width = 195
+          Width = 205
           Caption = 'über den Standardbrowser'
           TabOrder = 1
           Visible = False
@@ -835,9 +834,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = Panel1
         AnchorSideTop.Side = asrBottom
         Left = 16
-        Height = 21
-        Top = 383
-        Width = 259
+        Height = 23
+        Top = 365
+        Width = 276
         Caption = 'Automatisch auf Updates überprüfen'
         TabOrder = 10
       end
@@ -845,9 +844,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = autoUpdate
         AnchorSideTop.Side = asrBottom
         Left = 18
-        Height = 21
-        Top = 409
-        Width = 191
+        Height = 23
+        Top = 393
+        Width = 203
         BorderSpacing.Around = 5
         Caption = 'SSL-Zertifikate überprüfen'
         TabOrder = 11
@@ -858,10 +857,10 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrBottom
         AnchorSideRight.Control = proxyHTTPSname
         AnchorSideRight.Side = asrBottom
-        Left = 101
-        Height = 31
-        Top = 248
-        Width = 428
+        Left = 106
+        Height = 33
+        Top = 259
+        Width = 421
         Anchors = [akTop, akLeft, akRight]
         TabOrder = 12
       end
@@ -870,9 +869,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = proxySocksName
         AnchorSideRight.Control = proxyHTTPSport
         AnchorSideRight.Side = asrBottom
-        Left = 533
-        Height = 31
-        Top = 248
+        Left = 531
+        Height = 33
+        Top = 259
         Width = 70
         Anchors = [akTop, akLeft, akRight]
         Constraints.MinWidth = 70
@@ -883,17 +882,17 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = proxySocksName
         AnchorSideTop.Side = asrCenter
         Left = 54
-        Height = 19
-        Top = 254
-        Width = 34
+        Height = 15
+        Top = 268
+        Width = 39
         Caption = 'Socks'
         ParentColor = False
       end
       object Label35: TLabel
         Left = 15
-        Height = 19
+        Height = 15
         Top = 10
-        Width = 110
+        Width = 114
         Caption = 'Internetbackend:'
         ParentColor = False
       end
@@ -901,23 +900,24 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = Label35
         AnchorSideTop.Side = asrBottom
         Left = 28
-        Height = 42
-        Top = 29
-        Width = 200
+        Height = 46
+        Top = 30
+        Width = 214
         AutoSize = True
+        BorderSpacing.Around = 5
         BevelOuter = bvNone
         ChildSizing.VerticalSpacing = 4
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
-        ClientHeight = 42
-        ClientWidth = 200
+        ClientHeight = 46
+        ClientWidth = 214
         TabOrder = 14
         object internetAccessW32: TRadioButton
           AnchorSideTop.Control = internetAccessSynapse
           AnchorSideTop.Side = asrBottom
           Left = 0
-          Height = 21
-          Top = 25
-          Width = 200
+          Height = 23
+          Top = 27
+          Width = 214
           Caption = 'Windows / Internet Explorer'
           Checked = True
           OnChange = internetAccessChange
@@ -926,13 +926,37 @@ object optionForm: ToptionForm
         end
         object internetAccessSynapse: TRadioButton
           Left = 0
-          Height = 21
+          Height = 23
           Top = 0
-          Width = 142
+          Width = 153
           Caption = 'Synapse / OpenSSL'
           OnChange = internetAccessChange
           TabOrder = 1
         end
+      end
+      object openSSLCAStoreLabel: TLabel
+        AnchorSideTop.Control = openSSLCAStore
+        AnchorSideTop.Side = asrCenter
+        Left = 18
+        Height = 15
+        Top = 430
+        Width = 126
+        Caption = 'OpenSSL-CA-Datei:'
+        ParentColor = False
+      end
+      object openSSLCAStore: TEdit
+        AnchorSideLeft.Control = openSSLCAStoreLabel
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = checkCertificates
+        AnchorSideTop.Side = asrBottom
+        AnchorSideRight.Side = asrBottom
+        Left = 149
+        Height = 33
+        Top = 421
+        Width = 451
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.Around = 5
+        TabOrder = 15
       end
     end
     object pageMail: TPage
@@ -1151,25 +1175,25 @@ object optionForm: ToptionForm
     object PageBehaviour: TPage
       object Label3: TLabel
         Left = 12
-        Height = 19
+        Height = 15
         Top = 12
-        Width = 417
+        Width = 448
         Caption = 'Wie oft soll beim Programmstart automatisch aktualisiert werden?'
         ParentColor = False
       end
       object Label6: TLabel
         Left = 20
-        Height = 19
+        Height = 15
         Top = 44
-        Width = 41
+        Width = 45
         Caption = 'täglich'
         ParentColor = False
       end
       object Label7: TLabel
-        Left = 516
-        Height = 19
+        Left = 508
+        Height = 15
         Top = 42
-        Width = 74
+        Width = 80
         Anchors = [akTop, akRight]
         Caption = 'wöchentlich'
         ParentColor = False
@@ -1178,9 +1202,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = TrackBar1
         AnchorSideTop.Side = asrBottom
         Left = 96
-        Height = 38
-        Top = 78
-        Width = 187
+        Height = 30
+        Top = 80
+        Width = 201
         Caption = 'Automatische Aktualisierung: '#13#10'maximal alle 3 Tage'
         ParentColor = False
       end
@@ -1188,9 +1212,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = cbCopyAccountLimits
         AnchorSideTop.Side = asrBottom
         Left = 12
-        Height = 19
-        Top = 336
-        Width = 132
+        Height = 15
+        Top = 324
+        Width = 142
         BorderSpacing.Top = 7
         Caption = 'Automatisch starten:'
         ParentColor = False
@@ -1199,9 +1223,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = lblShowWarning
         AnchorSideTop.Side = asrBottom
         Left = 12
-        Height = 19
-        Top = 247
-        Width = 385
+        Height = 15
+        Top = 235
+        Width = 413
         BorderSpacing.Around = 8
         Caption = 'Wie oft soll eine Sicherheitskopie der History erzeugt werden?'
         ParentColor = False
@@ -1210,9 +1234,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = edtHistoryBackupInterval
         AnchorSideTop.Side = asrCenter
         Left = 44
-        Height = 19
-        Top = 280
-        Width = 80
+        Height = 15
+        Top = 267
+        Width = 84
         Caption = 'maximal alle'
         ParentColor = False
       end
@@ -1221,10 +1245,10 @@ object optionForm: ToptionForm
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = edtHistoryBackupInterval
         AnchorSideTop.Side = asrCenter
-        Left = 209
-        Height = 19
-        Top = 280
-        Width = 30
+        Left = 213
+        Height = 15
+        Top = 267
+        Width = 32
         BorderSpacing.Left = 9
         Caption = 'Tage'
         ParentColor = False
@@ -1233,9 +1257,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = Panel3
         AnchorSideTop.Side = asrBottom
         Left = 36
-        Height = 21
-        Top = 422
-        Width = 135
+        Height = 23
+        Top = 412
+        Width = 144
         BorderSpacing.Around = 4
         Caption = 'minimiert starten'
         TabOrder = 3
@@ -1246,10 +1270,10 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = Label3
         AnchorSideTop.Side = asrBottom
         AnchorSideRight.Control = Label7
-        Left = 63
-        Height = 43
-        Top = 33
-        Width = 451
+        Left = 67
+        Height = 49
+        Top = 29
+        Width = 439
         Max = 7
         Min = 1
         OnChange = TrackBar1Change
@@ -1264,10 +1288,10 @@ object optionForm: ToptionForm
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = Button3
         AnchorSideTop.Side = asrCenter
-        Left = 97
+        Left = 103
         Height = 41
-        Top = 452
-        Width = 89
+        Top = 444
+        Width = 97
         AutoSize = True
         BorderSpacing.Around = 5
         BorderSpacing.InnerBorder = 4
@@ -1281,8 +1305,8 @@ object optionForm: ToptionForm
         AnchorSideBottom.Side = asrBottom
         Left = 20
         Height = 41
-        Top = 452
-        Width = 68
+        Top = 444
+        Width = 74
         AutoSize = True
         BorderSpacing.Around = 9
         BorderSpacing.InnerBorder = 4
@@ -1295,9 +1319,9 @@ object optionForm: ToptionForm
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = Label20
         AnchorSideTop.Side = asrBottom
-        Left = 130
-        Height = 31
-        Top = 274
+        Left = 134
+        Height = 33
+        Top = 258
         Width = 70
         BorderSpacing.Left = 3
         BorderSpacing.Around = 3
@@ -1310,23 +1334,23 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrBottom
         AnchorSideBottom.Control = CheckBox1
         Left = 20
-        Height = 63
-        Top = 355
-        Width = 382
+        Height = 69
+        Top = 339
+        Width = 404
         AutoSize = True
         BevelOuter = bvNone
         ChildSizing.EnlargeVertical = crsScaleChilds
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
-        ClientHeight = 63
-        ClientWidth = 382
+        ClientHeight = 69
+        ClientWidth = 404
         TabOrder = 5
         object autostartDepends: TRadioButton
           Left = 0
-          Height = 21
+          Height = 23
           Top = 0
-          Width = 382
+          Width = 404
           Caption = 'nur, wenn dann auch aktualisiert werden soll (siehe oben)'
           Checked = True
           TabOrder = 2
@@ -1334,17 +1358,17 @@ object optionForm: ToptionForm
         end
         object autostartNever: TRadioButton
           Left = 0
-          Height = 21
-          Top = 21
-          Width = 382
+          Height = 23
+          Top = 23
+          Width = 404
           Caption = 'nie starten'
           TabOrder = 1
         end
         object autostartAlways: TRadioButton
           Left = 0
-          Height = 21
-          Top = 42
-          Width = 382
+          Height = 23
+          Top = 46
+          Width = 404
           Caption = 'immer starten'
           TabOrder = 0
         end
@@ -1353,9 +1377,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = TrackBar2
         AnchorSideTop.Side = asrBottom
         Left = 96
-        Height = 38
-        Top = 201
-        Width = 140
+        Height = 30
+        Top = 197
+        Width = 145
         Caption = 'Anzeige der Warnung:'#10'immer'
         ParentColor = False
         OnClick = lblShowWarningClick
@@ -1366,10 +1390,10 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrBottom
         AnchorSideRight.Control = TrackBar1
         AnchorSideRight.Side = asrBottom
-        Left = 65
-        Height = 43
-        Top = 156
-        Width = 447
+        Left = 69
+        Height = 49
+        Top = 146
+        Width = 435
         Max = 7
         OnChange = TrackBar2Change
         Position = 0
@@ -1383,9 +1407,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = lblRefreshTIming
         AnchorSideTop.Side = asrBottom
         Left = 12
-        Height = 19
-        Top = 135
-        Width = 389
+        Height = 15
+        Top = 129
+        Width = 409
         BorderSpacing.Top = 19
         Caption = 'Wie oft soll vor bald abzugebenden Büchern gewarnt werden?'
         ParentColor = False
@@ -1395,9 +1419,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = TrackBar2
         AnchorSideTop.Side = asrCenter
         Left = 20
-        Height = 19
-        Top = 168
-        Width = 43
+        Height = 15
+        Top = 163
+        Width = 44
         Caption = 'immer'
         ParentColor = False
       end
@@ -1405,10 +1429,10 @@ object optionForm: ToptionForm
         AnchorSideLeft.Control = Label7
         AnchorSideTop.Control = TrackBar2
         AnchorSideTop.Side = asrCenter
-        Left = 516
-        Height = 19
-        Top = 168
-        Width = 74
+        Left = 508
+        Height = 15
+        Top = 163
+        Width = 80
         Caption = 'wöchentlich'
         ParentColor = False
       end
@@ -1416,9 +1440,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = edtHistoryBackupInterval
         AnchorSideTop.Side = asrBottom
         Left = 12
-        Height = 21
-        Top = 308
-        Width = 378
+        Height = 23
+        Top = 294
+        Width = 403
         Caption = 'Konto und Fristdaten mit in die Zwischenablage kopieren'
         TabOrder = 7
       end
@@ -1428,18 +1452,18 @@ object optionForm: ToptionForm
         Left = 0
         Height = 303
         Top = 0
-        Width = 613
+        Width = 609
         Align = alClient
         ClientHeight = 303
-        ClientWidth = 613
+        ClientWidth = 609
         TabOrder = 0
         OnClick = Panel4Click
         object libList: TListView
           AnchorSideBottom.Control = libxml
           Left = 4
-          Height = 121
+          Height = 120
           Top = 2
-          Width = 604
+          Width = 600
           Anchors = [akTop, akLeft, akRight, akBottom]
           BorderSpacing.Bottom = 4
           Columns = <          
@@ -1468,8 +1492,8 @@ object optionForm: ToptionForm
           AnchorSideBottom.Control = libDelete
           Left = 6
           Height = 134
-          Top = 127
-          Width = 597
+          Top = 126
+          Width = 593
           Anchors = [akLeft, akRight, akBottom]
           BorderSpacing.Bottom = 4
           Lines.Strings = (
@@ -1498,10 +1522,10 @@ object optionForm: ToptionForm
           AnchorSideLeft.Side = asrBottom
           AnchorSideTop.Control = libNameEdit
           AnchorSideTop.Side = asrCenter
-          Left = 117
+          Left = 118
           Height = 33
-          Top = 265
-          Width = 136
+          Top = 264
+          Width = 153
           AutoSize = True
           BorderSpacing.Left = 4
           Caption = 'Bibliothek speichern'
@@ -1512,10 +1536,10 @@ object optionForm: ToptionForm
           AnchorSideLeft.Control = libChange
           AnchorSideLeft.Side = asrBottom
           AnchorSideTop.Control = libChange
-          Left = 257
-          Height = 32
-          Top = 265
-          Width = 123
+          Left = 275
+          Height = 33
+          Top = 264
+          Width = 139
           Anchors = [akTop, akLeft, akBottom]
           AutoSize = True
           BorderSpacing.Left = 4
@@ -1527,10 +1551,10 @@ object optionForm: ToptionForm
           AnchorSideLeft.Control = libDelete
           AnchorSideLeft.Side = asrBottom
           AnchorSideTop.Control = libDelete
-          Left = 395
+          Left = 429
           Height = 33
           Top = 264
-          Width = 182
+          Width = 199
           Anchors = [akLeft, akBottom]
           AutoSize = True
           BorderSpacing.Left = 15
@@ -1542,9 +1566,9 @@ object optionForm: ToptionForm
           AnchorSideTop.Control = libNameEdit
           AnchorSideTop.Side = asrCenter
           Left = 12
-          Height = 19
-          Top = 272
-          Width = 17
+          Height = 15
+          Top = 273
+          Width = 18
           Caption = 'ID:'
           ParentColor = False
         end
@@ -1552,9 +1576,9 @@ object optionForm: ToptionForm
           AnchorSideLeft.Control = Label33
           AnchorSideLeft.Side = asrBottom
           AnchorSideTop.Control = Label33
-          Left = 38
-          Height = 31
-          Top = 266
+          Left = 39
+          Height = 33
+          Top = 264
           Width = 70
           Anchors = [akLeft, akBottom]
           BorderSpacing.Around = 9
@@ -1567,11 +1591,11 @@ object optionForm: ToptionForm
         Left = 0
         Height = 195
         Top = 310
-        Width = 613
+        Width = 609
         Align = alBottom
         Caption = 'Panel5'
         ClientHeight = 195
-        ClientWidth = 613
+        ClientWidth = 609
         TabOrder = 1
         OnClick = Panel5Click
         object templatexml: TMemo
@@ -1579,7 +1603,7 @@ object optionForm: ToptionForm
           Left = 122
           Height = 153
           Top = 1
-          Width = 481
+          Width = 477
           Anchors = [akTop, akLeft, akRight, akBottom]
           BorderSpacing.Around = 3
           Lines.Strings = (
@@ -1769,10 +1793,10 @@ object optionForm: ToptionForm
         object templateDefine: TButton
           AnchorSideLeft.Control = templateName
           AnchorSideLeft.Side = asrBottom
-          Left = 158
+          Left = 159
           Height = 33
           Top = 157
-          Width = 126
+          Width = 136
           Anchors = [akLeft, akBottom]
           AutoSize = True
           BorderSpacing.Left = 58
@@ -1782,9 +1806,9 @@ object optionForm: ToptionForm
         end
         object Label32: TLabel
           Left = 12
-          Height = 19
-          Top = 166
-          Width = 17
+          Height = 15
+          Top = 170
+          Width = 18
           Anchors = [akLeft, akBottom]
           Caption = 'ID:'
           ParentColor = False
@@ -1792,9 +1816,9 @@ object optionForm: ToptionForm
         object templateName: TEdit
           AnchorSideLeft.Control = Label32
           AnchorSideLeft.Side = asrBottom
-          Left = 33
-          Height = 31
-          Top = 159
+          Left = 34
+          Height = 33
+          Top = 157
           Width = 67
           Anchors = [akLeft, akBottom]
           BorderSpacing.Around = 4
@@ -1805,10 +1829,10 @@ object optionForm: ToptionForm
           AnchorSideLeft.Control = templateDefine
           AnchorSideLeft.Side = asrBottom
           AnchorSideTop.Control = templateDefine
-          Left = 288
+          Left = 299
           Height = 33
           Top = 157
-          Width = 110
+          Width = 119
           Anchors = [akLeft, akBottom]
           AutoSize = True
           BorderSpacing.Left = 4
@@ -1819,7 +1843,7 @@ object optionForm: ToptionForm
         object templateList: TListBox
           AnchorSideBottom.Control = templateName
           Left = 6
-          Height = 154
+          Height = 152
           Top = 1
           Width = 110
           Anchors = [akTop, akLeft, akBottom]
@@ -1836,7 +1860,7 @@ object optionForm: ToptionForm
         Left = 0
         Height = 7
         Top = 303
-        Width = 613
+        Width = 609
         Align = alBottom
         ResizeAnchor = akBottom
       end
@@ -1844,9 +1868,9 @@ object optionForm: ToptionForm
   end
   object Panel2: TPanel
     Left = -1
-    Height = 389
+    Height = 365
     Top = 0
-    Width = 86
+    Width = 88
     AutoSize = True
     BevelOuter = bvNone
     ChildSizing.LeftRightSpacing = 5
@@ -1856,12 +1880,12 @@ object optionForm: ToptionForm
     ChildSizing.EnlargeVertical = crsHomogenousChildResize
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 389
-    ClientWidth = 86
+    ClientHeight = 365
+    ClientWidth = 88
     TabOrder = 1
     object SpeedButton1: TSpeedButton
       Left = 5
-      Height = 59
+      Height = 55
       Top = 5
       Width = 76
       Caption = 'Konten'
@@ -2005,9 +2029,9 @@ object optionForm: ToptionForm
     object SpeedButtonLibraryConfig: TSpeedButton
       Tag = 5
       Left = 5
-      Height = 59
-      Top = 69
-      Width = 76
+      Height = 55
+      Top = 65
+      Width = 78
       Caption = 'Büchereien'
       Glyph.Data = {
         36100000424D3610000000000000360000002800000020000000200000000100
@@ -2148,9 +2172,9 @@ object optionForm: ToptionForm
     object SpeedButton2: TSpeedButton
       Tag = 1
       Left = 5
-      Height = 59
-      Top = 133
-      Width = 76
+      Height = 55
+      Top = 125
+      Width = 78
       Caption = 'Aussehen'
       Glyph.Data = {
         36100000424D3610000000000000360000002800000020000000200000000100
@@ -2291,9 +2315,9 @@ object optionForm: ToptionForm
     object SpeedButton3: TSpeedButton
       Tag = 2
       Left = 5
-      Height = 59
-      Top = 197
-      Width = 76
+      Height = 55
+      Top = 185
+      Width = 78
       Caption = 'Internet'
       Glyph.Data = {
         36100000424D3610000000000000360000002800000020000000200000000100
@@ -2434,9 +2458,9 @@ object optionForm: ToptionForm
     object SpeedButton5: TSpeedButton
       Tag = 3
       Left = 5
-      Height = 59
-      Top = 261
-      Width = 76
+      Height = 55
+      Top = 245
+      Width = 78
       Caption = 'Mail'
       Glyph.Data = {
         36100000424D3610000000000000360000002800000020000000200000000100
