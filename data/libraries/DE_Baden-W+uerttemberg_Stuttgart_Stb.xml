@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Stuttgart"/>
+
+  <template value="aDISWeb"/>
+  <variable name="server" value="opac.sbs.stuttgart.de"/>
+
+  <homepage value="http://www1.stuttgart.de/stadtbibliothek/"/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
+</library>

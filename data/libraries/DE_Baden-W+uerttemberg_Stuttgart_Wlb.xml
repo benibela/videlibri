@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Württembergische Landesbibliothek"/>
+
+  <template value="aDISWeb"/>
+  <variable name="server" value="wlb.ibs-bw.de"/>
+
+  <homepage value="https://www.wlb-stuttgart.de/"/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
+</library>
