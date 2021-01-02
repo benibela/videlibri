@@ -421,6 +421,7 @@ resourcestring
            defaultInternetConfiguration.useProxy:=true;
          end;
     end;
+    {$IFNDEF ANDROID}
     defaultInternetConfiguration.proxyHTTPName:=userConfig.ReadString('access','httpProxyName','');
     defaultInternetConfiguration.proxyHTTPPort:=userConfig.ReadString('access','httpProxyPort','8080');
     defaultInternetConfiguration.proxyHTTPSName:=userConfig.ReadString('access','httpsProxyName','');
@@ -436,6 +437,7 @@ resourcestring
       else if FileExists(CAStore) then defaultInternetConfiguration.CAFile := CAStore;
       defaultInternetConfiguration.searchCertificates;
     end;
+    {$endif}
   end;
   type EInitializationError = class(Exception);
 
