@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-      <build version="2192" date="2020-12-08">
+      <build version="2194" date="2021-01-03">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <change>Verbesserter XML/HTML-Parser: schneller und toleranter gegenüber fehlerhaften Webseiten wie den Badenwürttemberger Hochschulbibliothekwebseiten.</change>
+        <change>Linux/OpenSSL: Überprüfe HTTPS-Zertifikate ordnungsgemäß.</change>
+        <add>Auflisten der URLs der Stuttgarter Stadtbibliothek und Landesbibliothek.</add>
+     </build>
+      <build version="2192" date="2020-12-08">
         <fix>Neue URLs für Stadtbibliothek Verl und SRH Mediothek.</fix>
      </build>
       <build version="2190" date="2020-11-20">
