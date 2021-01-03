@@ -70,6 +70,7 @@ win32)
 		strip --strip-all $VIDELIBRIBASE/videlibri.exe
 		cd $VIDELIBRIBASE  #innosetup does not understand absolute linux paths
 		sed _meta/installer/videlibri.iss -i -Ee "s/^( *AppVer(Name|sion)=[^0-9]*)[^\r]*(\r)?\$/\1$VERSION\3/"
+    if [ ! -f _meta/installer/openssl/cacert.pem ]; then curl https://curl.se/ca/cacert.pem > _meta/installer/openssl/cacert.pem; fi
 		wine ~/.wine/drive_c/programs/programming/InnoSetup/Compil32.exe _meta/installer/videlibri.iss
 
 		cd $VIDELIBRIBASE/Output

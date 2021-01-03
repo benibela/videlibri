@@ -45,6 +45,7 @@ Source: "data\videlibri.chm"; DestDir: "{app}"; Components: help
 Source: "_meta\installer\openssl\libeay32.dll"; DestDir: "{app}"; Components: openssl
 Source: "_meta\installer\openssl\ssleay32.dll"; DestDir: "{app}"; Components: openssl
 Source: "_meta\installer\openssl\ReadMe.txt"; DestDir: "{app}"; DestName: "openssl.txt"; Components: openssl
+Source: "_meta\installer\openssl\cacert.pem"; DestDir: "{app}"; Components: openssl
 
 [Icons]
 Name: "{group}\VideLibri"; Filename: "{app}\VideLibri.exe"; Tasks: menuicon
