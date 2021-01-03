@@ -1,6 +1,6 @@
 if ($fileinfo/@extension = "php") then <?php
   if ($_SERVER['HTTP_HOST'] === 'code.videlibri.de') {
-    header('Location: http://www.videlibri.de/code.html', true, 307);
+    header('Location: https://www.videlibri.de/code.html', true, 307);
     die();
   };
 ??> else (),
@@ -11,7 +11,7 @@ if ($fileinfo/@extension = "php") then <?php
 <link rel="stylesheet" type="text/css" href="all.css"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <link rel="stylesheet" media="only screen and (max-width: 480px)" href="mobile.css" />
-<link rel="canonical" href="http://www.videlibri.de/{local:file-url()}"/>
+<link rel="canonical" href="https://www.videlibri.de/{local:file-url()}"/>
 
 <title>VideLibri - {$file/title/node()}</title>
 {$file/head/node()}
