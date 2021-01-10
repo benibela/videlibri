@@ -130,7 +130,7 @@ begin
   finalPage.Scrollbars:=ssAutoHorizontal;
   finalPage.VerticalLineMode:=lmNone;
   finalPage.Visible:=true;
-  finalPage.RowHeight:=finalPage.RowHeight+10;
+  finalPage.RowHeight:=finalPage.RowHeight*2;
   finalPage.Enabled:=false;
 
 
