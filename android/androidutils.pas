@@ -701,10 +701,7 @@ begin
       templates.Add(j.getStringArrayElement(list, i));
     templates.Sorted:=true;
 
-    for i := 0 to libraryManager.templates.count - 1 do
-      if not strContains(libraryManager.templates[i], '|') and (templates.IndexOf(libraryManager.templates[i])<0)  then
-        templates.Add(libraryManager.templates[i]);
-
+    libraryManager.enumerateBuiltInTemplates(templates);
     libraryManager.enumerateUserTemplates(templates);
 
     result := j.newObjectArray(templates.Count, jCommonClasses.&String.classRef, nil);

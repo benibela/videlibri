@@ -344,6 +344,7 @@ var i:integer;
  count: LongInt;
  list: TList;
  temp: String;
+ sl: TStringList;
 begin
   //TrackBar1.Color:=clWhite;
 //  if ThemeServices.ThemesEnabled then TrackBar1.Color:=clWhite;
@@ -433,10 +434,12 @@ begin
   cbCopyAccountLimits.Checked := userConfig.ReadBool('user','copy-limit',false);
 
   //Libpage
-  for i := 0 to libraryManager.templates.Count - 1 do
-    if pos('|',libraryManager.templates[i]) = 0 then
-      templateList.Items.add(libraryManager.templates[i]);
-  libraryManager.enumerateUserTemplates(templateList.Items);
+  sl := TStringList.Create;
+  libraryManager.enumerateBuiltInTemplates(sl);
+  libraryManager.enumerateUserTemplates(sl);
+  sl.Sort();
+  templateList.Items.Assign(sl);
+  sl.Free;
   count := 1;
   for i := 0 to templateList.Items.count-1 do begin
     temp := templateList.Items[i];

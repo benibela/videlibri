@@ -101,6 +101,7 @@ type
 
     function enumerateLibraryMetaData: TLibraryMetaDataEnumerator;
 
+    procedure enumerateBuiltInTemplates(s: TStrings);
     procedure enumerateUserTemplates(s: TStrings);
 
     function get(id: string): TLibrary;
@@ -1022,11 +1023,11 @@ begin
   result.i := -1;
 end;
 
-procedure TLibraryManager.enumerateUserTemplates(s: TStrings);
+procedure enumerateTemplatesInDir(const dir: string; s: TStrings);
 var searchResult: TSearchRec;
 begin
-  if DirectoryExists(userPath+'libraries/templates') then begin
-    if FindFirst(userPath+'libraries/templates/*', faDirectory, searchResult) = 0 then begin
+  if DirectoryExists(dir) then begin
+    if FindFirst(dir + '/*', faDirectory, searchResult) = 0 then begin
       repeat
         if (searchResult.Name = '') or (searchResult.Name = '.') or (searchResult.Name = '..') then continue;
         if s.IndexOf(searchResult.Name) < 0 then
@@ -1034,6 +1035,23 @@ begin
       until FindNext(searchResult) <> 0;
     end;
   end;
+end;
+
+procedure TLibraryManager.enumerateBuiltInTemplates(s: TStrings);
+var
+  i: Integer;
+begin
+  for i := 0 to templates.count - 1 do
+    if not strContains(templates[i], '|') and (s.IndexOf(templates[i])<0)  then
+      s.Add(templates[i]);
+  {$ifndef android}
+  enumerateTemplatesInDir(assetPath+'libraries/templates', s);
+  {$endif}
+end;
+
+procedure TLibraryManager.enumerateUserTemplates(s: TStrings);
+begin
+  enumerateTemplatesInDir(userPath+'libraries/templates', s);
 end;
 
 function TLibraryManager.get(id: string): TLibrary;
