@@ -9,7 +9,7 @@
   <variable name="server" value="www.voebb.de/#"/>
  
   
-  <homepage value="http://www.voebb.de/"/>
+  <homepage value="https://www.voebb.de/"/>
   <testing-search value="yes"/>
   <testing-account value="yes"/>
   
