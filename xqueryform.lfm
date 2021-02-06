@@ -6,25 +6,26 @@ object xqueryfrm: Txqueryfrm
   Caption = 'XQuery-Abfrage'
   ClientHeight = 555
   ClientWidth = 806
+  DesignTimePPI = 98
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '2.0.10.0'
+  LCLVersion = '2.1.0.0'
   Scaled = False
   object Panel1: TPanel
     Left = 0
-    Height = 107
-    Top = 448
+    Height = 127
+    Top = 428
     Width = 806
     Align = alBottom
-    ClientHeight = 107
+    ClientHeight = 127
     ClientWidth = 806
     TabOrder = 0
     object Button1: TButton
       Left = 710
       Height = 37
-      Top = 59
+      Top = 79
       Width = 85
       Anchors = [akRight, akBottom]
       AutoSize = True
@@ -36,7 +37,7 @@ object xqueryfrm: Txqueryfrm
     object Memo1: TMemo
       AnchorSideRight.Control = Button1
       Left = 8
-      Height = 88
+      Height = 108
       Top = 8
       Width = 662
       Anchors = [akTop, akLeft, akRight, akBottom]
@@ -51,49 +52,77 @@ object xqueryfrm: Txqueryfrm
     end
     object Button2: TButton
       AnchorSideLeft.Control = Button1
-      AnchorSideBottom.Control = Button1
       Left = 710
       Height = 37
-      Top = -3
+      Top = 3
       Width = 85
-      Anchors = [akLeft, akRight, akBottom]
+      Anchors = [akTop, akLeft, akRight]
       AutoSize = True
-      BorderSpacing.Bottom = 25
+      BorderSpacing.Bottom = 2
       Caption = 'Suchen'
       Default = True
       OnClick = Button2Click
       TabOrder = 2
     end
     object Button3: TButton
-      Left = 705
-      Height = 25
-      Top = 39
-      Width = 90
-      Anchors = [akRight, akBottom]
-      Caption = '...'
+      AnchorSideLeft.Control = Button2
+      AnchorSideTop.Control = Button2
+      AnchorSideTop.Side = asrBottom
+      AnchorSideRight.Control = Button2
+      AnchorSideRight.Side = asrBottom
+      AnchorSideBottom.Control = Button1
+      Left = 710
+      Height = 35
+      Top = 42
+      Width = 85
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      BorderSpacing.Bottom = 2
+      Caption = '▼'
+      OnClick = Button3Click
       TabOrder = 3
-      Visible = False
     end
   end
   object Splitter1: TSplitter
     Cursor = crVSplit
     Left = 0
     Height = 5
-    Top = 443
+    Top = 423
     Width = 806
     Align = alBottom
     Beveled = True
     ResizeAnchor = akBottom
   end
   object PopupMenu1: TPopupMenu
-    Left = 696
-    Top = 440
+    Left = 664
+    Top = 480
     object querySave: TMenuItem
       Caption = 'Query speichern'
+      Visible = False
       OnClick = querySaveClick
     end
     object queryLoad: TMenuItem
       Caption = 'Query laden'
+      Visible = False
     end
+    object MenuItem1: TMenuItem
+      Caption = 'Ergebnis exportieren'
+      OnClick = MenuItem1Click
+      object MenuItem2: TMenuItem
+        Caption = 'als XML'
+        OnClick = MenuItem2Click
+      end
+      object MenuItem3: TMenuItem
+        Caption = 'als JSON'
+        OnClick = MenuItem3Click
+      end
+      object MenuItem4: TMenuItem
+        Caption = 'als CSV'
+        OnClick = MenuItem4Click
+      end
+    end
+  end
+  object SaveDialog1: TSaveDialog
+    Left = 608
+    Top = 488
   end
 end
