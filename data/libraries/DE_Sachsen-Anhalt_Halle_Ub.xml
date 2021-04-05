@@ -5,9 +5,10 @@
   <longName value="Universitäts- und Landesbibliothek Halle"/>
   <shortName value="Ulb Halle"/>
   
-  <template value="pica"/>
+  <template value="lbs"/>
   <variable name="server" value="https://opac.bibliothek.uni-halle.de/"/>	
   <variable name="picadb" value="1"/>
+  <variable name="borrower" value="USR=1095"/>
 
 
   <homepage value="http://www.bibliothek.uni-halle.de/"/>
@@ -15,3 +16,5 @@
   <testing-account value="unknown"/>
   
 </library>
+
+ 

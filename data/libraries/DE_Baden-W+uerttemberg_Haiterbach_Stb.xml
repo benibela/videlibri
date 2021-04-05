@@ -2,9 +2,9 @@
 <library>
   <longName value="Stadt- und Schulbücherei Haiterbach"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/haiterbach"/>	
-  <variable name="DB" value="Haiterbach"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.kivbf.de/haiterbach/Mein-Konto"/>	
+  <variable name="urlsearch" value="https://bibliotheken.kivbf.de/haiterbach/Mediensuche/Erweiterte-Suche"/>
   
   <homepage value="https://web-opac.kivbf.de/haiterbach/index.asp?DB=Haiterbach"/>
   <testing-search value="unknown"/>

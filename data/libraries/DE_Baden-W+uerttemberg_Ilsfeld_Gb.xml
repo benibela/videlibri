@@ -2,11 +2,11 @@
 <library>
   <longName value="Gemeindebücherei Ilsfeld"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/ilsfeld"/>	
-  <variable name="DB" value="Ilsfeld"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.kivbf.de/ilsfeld/Mein-Konto"/>	
+  <variable name="urlsearch" value="https://bibliotheken.kivbf.de/ilsfeld/Mediensuche/Erweiterte-Suche"/>
   
-  <homepage value="https://web-opac.kivbf.de/ilsfeld/index.asp?DB=Ilsfeld"/>
+  <homepage value="https://bibliotheken.kivbf.de/ilsfeld/Aktuelles"/>
   <testing-search value="unknown"/>
   <testing-account value="unknown"/>
 </library>

@@ -2,9 +2,9 @@
 <library>
   <longName value="Stadtbibliothek Ettlingen"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/ettlingen"/>	
-  <variable name="DB" value="Ettlingen"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.kivbf.de/ettlingen/Suche-Konto/Konto"/>	
+  <variable name="urlsearch" value="https://bibliotheken.kivbf.de/ettlingen/Suche-Konto/Erweiterte-Suche"/>
   
   <homepage value="https://web-opac.kivbf.de/ettlingen/index.asp?DB=Ettlingen"/>
   <testing-search value="unknown"/>
