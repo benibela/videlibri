@@ -19,14 +19,31 @@
          string($err) ! (if (matches(., "Anmeldung fehlgeschlagen|The login credentials are incorrect|Benutzerkonto abgelaufen oder ungültige UserID und/oder Passwort|The username you entered cannot be identified|Wrong username or password|Ungültige Ausweisnummer und/oder Passwort")) then vl:raise-login(.)
          else vl:raise(.))
        };
-   $primo-explore := contains($baseurl, '/primo-explore')
+   $use-rest-api := matches($baseurl, '/primo-explore|/discovery/')
   </s>
-  <if test="$primo-explore">
+  <if test="$use-rest-api">
     <s>
-    server := substring-before($baseurl, "/primo-explore"),
-    vid := extract($baseurl, "vid=([^"||$amp||"]+)", 1)
+    vid := extract($baseurl, "vid=([^"||$amp||"]+)", 1),
+    if (contains($baseurl, "/primo-explore")) then (
+      $api-mode := "explore",
+      $server := substring-before($baseurl, "/primo-explore"),
+      $configuration-url := x"{$server}/primo_library/libweb/webservices/rest/v1/configuration/{$vid}",
+      $search-url := x"{$server}/primo_library/libweb/webservices/rest/primo-explore/v1/pnxs",
+      $delivery-url := $search-url || "/delivery",
+      $account-url := $server || "/primo-explore/account?vid=" || uri-encode($vid),
+      $external-login-url := $server || "/primo_library/libweb/primoExploreLogin"
+    ) else (
+      $api-mode := "discovery",
+      $server := substring-before($baseurl, "/discovery/"),
+      $pub-url := $server || "/primaws/rest/pub",
+      $configuration-url := x"{$pub-url}/configuration/vid/{$vid}",
+      $search-url := $pub-url || "/pnxs",
+      $delivery-url := $pub-url || "/delivery",
+      $account-url := $server || "/discovery/account?vid=" || uri-encode($vid),
+      $external-login-url := $server || "/primaws/suprimaExtLogin"
+    )
     </s>
-    <json url="{$server}/primo_library/libweb/webservices/rest/v1/configuration/{$vid}"/>
+    <json url="{$configuration-url}"/>
     <s>
     xquery version "3.0-videlibri";
     institute := ( $json.primo-view.institution.institution-code, $json.beacon.alternative-institution-code, get("institute"), $vid )[.][1],
@@ -39,9 +56,18 @@
 
 <action id="internal-get-jwt">
   <if test="not($authentication-header)">
-    <s>temp := $server || "/primo_library/libweb/webservices/rest/v1/" || (if (contains($url, "loginId=")) then
-                 "loginJwtCache/" ||  extract($url, "loginId=([^&amp;]+)", 1) || "?vid=" || uri-encode($vid)
-               else x"guestJwt/{uri-encode($institute)}?isGuest=true&lang=de_DE&targetUrl={uri-encode($server)}%252Fprimo-explore%252Faccount%253Fvid%253D{uri-encode($vid)}&viewId={uri-encode($vid)}")
+    <s>
+    if ($api-mode = "explore") then (          
+      $guestJWT-url := x"{$server}/primo_library/libweb/webservices/rest/v1/guestJwt/{uri-encode($institute)}",
+      $loginJWT-url := $server || "/primo_library/libweb/webservices/rest/v1/" || "loginJwtCache/"
+    ) else (
+      $guestJWT-url := x"{$server}/primaws/rest/pub/institution/{uri-encode($institute)}/guestJwt",
+      $loginJWT-url := $server || "/primaws/rest/pub/" || "loginJwtCache/" (:??????:)
+    ),
+    $guestJWT-url := x"{$guestJWT-url}?isGuest=true&lang=de_DE&targetUrl={uri-encode($account-url)}&viewId={uri-encode($vid)}",
+    temp := if (contains($url, "loginId=")) then
+              $loginJWT-url ||  extract($url, "loginId=([^&amp;]+)", 1) || "?vid=" || uri-encode($vid)
+            else $guestJWT-url
     </s>
     <json url="{$temp}"/>
     <s>let $j := $json where $j return
@@ -54,13 +80,13 @@
 
 <action id="update-all">
   <s>i := 1, datasend := false()</s>
-  <if test="$primo-explore"><s>
+  <if test="$use-rest-api"><s>
     $request := let $auth := $authentication((if ($type ge 1) then $type else 1))
-                let $targeturl := x"{uri-encode($server)}/primo-explore/account?vid={uri-encode($vid)}"
-                let $preurl := $server || "/primo_library/libweb/primoExploreLogin"
+                let $targeturl := $account-url
                 return if ($auth.authentication-system = "ALMA") then
+                  (: also use "$external-login-url" for internal login. there is no internal/external login? check configuration backend_system for url? :)
                   request-combine( 
-                     {"url": $preurl, "method": "POST"},
+                     {"url": $external-login-url, "method": "POST"},
                      {"authenticationProfile": $auth.profile-name,
                       "institution": $institute,
                       "password": $password,
@@ -68,7 +94,8 @@
                       "username": $username,
                       "view": $vid}
                    )
-                 else  $preurl  || x"?institution={uri-encode($institute)}&target-url={uri-encode($targeturl)}&authenticationProfile={uri-encode($auth.profile-name)}&auth={uri-encode($auth.authentication-system)}&isSilent=false"
+                 else  $external-login-url || x"?institution={uri-encode($institute)}&target-url={uri-encode($targeturl)}&authenticationProfile={uri-encode($auth.profile-name)}&idpCode={uri-encode($auth.profile-name)}&auth={uri-encode($auth.authentication-system)}&isSilent=false"
+                 (:old primo-explore one does not have idpCode= parameter:)
   </s></if>
   <else>
     <s>$request := get("login-url-" || (if ($type ge 1) then $type else 1), ()),
@@ -84,7 +111,7 @@
       <s>vl:raise-login("Fehlercode 401 (falsches Passwort?)")</s>
       </catch>
     </try>
-    <if test="$primo-explore and starts-with($raw, '{')">
+    <if test="$use-rest-api and starts-with($raw, '{')">
       <s>let $j := json($raw) where $j("jwtData") return (
           $i := 10000,
           authentication-header := $j("jwtData")
@@ -92,7 +119,7 @@
     </if>
     <if test="$i < 10">
       <pattern><t:switch prioritized="true">
-        <html t:test="$primo-explore and $datasend" id="primoExploreRoot">{i:=10000}</html>
+        <html t:test="$use-rest-api and $datasend" id="primoExploreRoot">{i:=10000}</html>
         <div   class="EXLPRMLoginCardContentError">{local:raise(.)}</div>
         <div  t:test="$datasend" class="error">{local:raise(.)}</div>
         <span t:test="$datasend" class="login-error">{local:raise(.)}</span>
@@ -133,7 +160,7 @@
   <s>vl:raise-internal("Zuviele Weiterleitungen beim Login. Aktuelle Seite: " || base-uri() || substring(join(//body), 1, 1000))</s>
   </if>
     
-  <if test="$primo-explore">
+  <if test="$use-rest-api">
     <call action="primo-explore-update-all"/>
   </if>
   <else>  
@@ -217,7 +244,7 @@
 
 <!-- renew all: https://tu-berlin.hosted.exlibrisgroup.com/primo_library/libweb/webservices/rest/v1/myaccount/renew_all_loans -->
 <action id="renew-list">
-  <if test="$primo-explore">
+  <if test="$use-rest-api">
     <loop var="b" list="$renew-books">
       <page url="{$server}/primo_library/libweb/webservices/rest/v1/myaccount/renew_loan">
         <header>Content-Type: application/json; charset=utf-8</header>
@@ -239,7 +266,7 @@
 </action>
 
 <action id="cancel-list">
-  <if test="$primo-explore">
+  <if test="$use-rest-api">
     <loop var="b" list="$cancel-books">
       <page url="{$server}/primo_library/libweb/webservices/rest/v1/myaccount/cancel_requests">
         <header>Content-Type: application/json; charset=utf-8</header>
@@ -263,7 +290,7 @@
 
 <action id="search-connect">
   <call action="connect"/>
-  <if test="$primo-explore">
+  <if test="$use-rest-api">
   <!-- or https://tu-berlin.hosted.exlibrisgroup.com/primo_library/libweb/webservices/rest/v1/configuration/TUB/scopes -->
     <s>search-params := (  "title", "author", "free", "keywords", "year", "isbn", 
                            {"name": "libraryBranch", "options": $search-scopes ! scope-id } 
@@ -273,7 +300,7 @@
 </action>
 
 <action id="search">
-  <if test="$primo-explore">
+  <if test="$use-rest-api">
     <variable name="search-keys">{"author": "creator", "title": "title", "free": "any", "keywords": "sub", "isbn": "isbn", "year": "cdate"}</variable>
     <s>
     all-raw-docs := (),
@@ -329,11 +356,11 @@
 </action>
 
 <action id="search-next-page">
-  <if test="$primo-explore">
+  <if test="$use-rest-api">
   <!-- /primo_library/libweb/webservices/rest/primo-explore/v1/pnxs 
    or /primo_library/libweb/webservices/rest/primo-explore/v1/pnxs/delivery
   -->
-    <json url="{$server}/primo_library/libweb/webservices/rest/primo-explore/v1/pnxs?{local:encode-request($offset, 10)}">
+    <json url="{$search-url}?{local:encode-request($offset, 10)}">
       <header>Accept: application/json,*/*</header>
       <header>Authorization: Bearer {$authentication-header}</header>
     </json>
@@ -345,7 +372,9 @@
           book := $d.pnx.display ! {
             "title": join((title)()),
             "publisher": join((publisher)()),
-            "author": join((creator, creatorcontrib)[1](), "; "),
+            "author": let $a := join((creator, creatorcontrib)[1](), "; ")
+                      return if (contains($a, "$$Q")) then substring-before($a, "$$Q") 
+                      else $a,
             "year": join((creationdate)()),
             "statusId" ?: switch ((availpnx)()[1])
               case "available" return
@@ -374,13 +403,13 @@
 </action>
 
 <action id="search-details">
-  <if test="$primo-explore">
+  <if test="$use-rest-api">
   <!--  <page url="{$book('_@rta_link')}">
       <header>Accept: application/json,*/*</header>
       <header>Authorization: Bearer {$authentication-header}</header>
     </page>--> 
     <s>index := xs:integer($book._offset)</s>
-    <json url="{$server}/primo_library/libweb/webservices/rest/primo-explore/v1/pnxs/delivery?{local:encode-request($index - 1, 1)}">
+    <json url="{$delivery-url}?{local:encode-request($index - 1, 1)}">
       <header>Accept: application/json,*/*</header>
       <header>Authorization: Bearer {$authentication-header}</header>
       <header>Content-Type: application/json; charset=utf-8</header>
