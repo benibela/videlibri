@@ -35,9 +35,11 @@
                    <tr><td>Theke</td>         <td>{$book.libraryBranch}</td></tr>
                    <tr><td>Signatur</td>      <td>{$book.id}</td></tr>
                    <tr><td>Verlängerungen</td><td>{$book.renewCount}</td></tr>
-                   <tr><td>Mahnungen</td>     <td>{$book.status := x"Mahnungen: {normalize-space(.)} {$book.status} "}</td></tr>
+                   <tr><td>Mahnungen</td>     <td>{$book.status[] := x"Mahnungen: {.}"}</td></tr>
+                   <tr><td>{$temp}</td>       <td>{$book.status[] := x"{normalize-space(translate($temp, ":", ""))}: {.}"}</td></tr>
                 </t:switch></t:loop>
-                <SPAN class="error">{$book.status := x"{normalize-space(.),$line-ending,$book.status}"}</SPAN>?
+                <SPAN class="error">{$book.status := (., $book.status)}</SPAN>?
+                <t:s>$book.status := join($book.status!normalize-space()[.], " ; ")</t:s>
               </DIV>
             </TD>
           </TR>+
