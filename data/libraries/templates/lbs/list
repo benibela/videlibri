@@ -31,7 +31,7 @@
                       Abteilung : 	Staats- und Universitätsbibliothek Hamburg
                       -->
                  <t:loop><t:switch>
-                   <tr><td>Ausleihfrist</td>  <td>{book.duedate := parse-date(.)}</td></tr>
+                   <tr><td>Ausleihfrist|Leihfristende|ausgeliehen bis</td>  <td>{book.duedate := parse-date(.)}</td></tr>
                    <tr><td>Theke</td>         <td>{$book.libraryBranch}</td></tr>
                    <tr><td>Signatur</td>      <td>{$book.id}</td></tr>
                    <tr><td>Verlängerungen</td><td>{$book.renewCount}</td></tr>
