@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="Bibliothek-App VideLibri">
-      <build version="2194" date="2021-01-03">
+      <build version="2200" date="2021-04-21">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <fix>Anpassung an neue Kataloge der Mediathek Bühl, Stadtbibliothek Engen, Stadtbibliothek Ettlingen, Stadt- und Schulbücherei Haiterbach, Gemeindebücherei Ilsfeld, UB Hildesheim, Universitäts- und Landesbibliothek Halle, Hochschulbibliothek der Hochschule Merseburg, Universitäts- und Landesbibliothek Halle, und (für die Katalogsuche bei der) Universitätsbibliothek der FU-Berlin</fix>
+        <fix>lbs, Universitätsbibliothek Ilmenau: Verbesserte Ermittlung des Leihfristendes.</fix>
+        <fix>Windows/Linux: Man kann eine neue Bibliothek für ein Katalogsystem registrieren, ohne vorher eine andere Bibliothek mit dem Katalogsystem auswählen zu müssen.</fix>
+        <add>Windows/Linux: Verbesserte XQuery-Suche: Export als XML/JSON/CSV und benutzerdefinierte Tabellenspalten.</add>
+     </build>
+      <build version="2194" date="2021-01-03">
         <change>Verbesserter XML/HTML-Parser: schneller und toleranter gegenüber fehlerhaften Webseiten wie den Badenwürttemberger Hochschulbibliothekwebseiten.</change>
         <change>Linux/OpenSSL: Überprüfe HTTPS-Zertifikate ordnungsgemäß.</change>
         <add>Auflisten der URLs der Stuttgarter Stadtbibliothek und Landesbibliothek.</add>
