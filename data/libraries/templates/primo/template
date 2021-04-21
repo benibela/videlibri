@@ -31,7 +31,8 @@
       $search-url := x"{$server}/primo_library/libweb/webservices/rest/primo-explore/v1/pnxs",
       $delivery-url := $search-url || "/delivery",
       $account-url := $server || "/primo-explore/account?vid=" || uri-encode($vid),
-      $external-login-url := $server || "/primo_library/libweb/primoExploreLogin"
+      $external-login-url := $server || "/primo_library/libweb/primoExploreLogin",
+      $account-api-url := $server || "/primo_library/libweb/webservices/rest/v1/myaccount/"
     ) else (
       $api-mode := "discovery",
       $server := substring-before($baseurl, "/discovery/"),
@@ -40,7 +41,8 @@
       $search-url := $pub-url || "/pnxs",
       $delivery-url := $pub-url || "/delivery",
       $account-url := $server || "/discovery/account?vid=" || uri-encode($vid),
-      $external-login-url := $server || "/primaws/suprimaExtLogin"
+      $external-login-url := $server || "/primaws/suprimaExtLogin",
+      $account-api-url := $pub-url || "/myaccount/" (:???:)
     )
     </s>
     <json url="{$configuration-url}"/>
@@ -177,7 +179,7 @@
 <action id="primo-explore-update-all">
   <call action="internal-get-jwt"/>
   <s>videlibri:delete-current-books()</s>
-  <json url="{$server}/primo_library/libweb/webservices/rest/v1/myaccount/loans?type=active">
+  <json url="{$account-api-url}/loans?type=active">
     <header>Accept: application/json,*/*</header>
     <header>Authorization: Bearer {$authentication-header}</header>
   </json>
@@ -199,7 +201,7 @@
       "barcode": itembarcode
     }
   </s>
-  <json url="{$server}/primo_library/libweb/webservices/rest/v1/myaccount/requests?vid={$vid}">
+  <json url="{$account-api-url}/requests?vid={$vid}">
     <header>Accept: application/json,*/*</header>
     <header>Authorization: Bearer {$authentication-header}</header>
   </json>
@@ -246,7 +248,7 @@
 <action id="renew-list">
   <if test="$use-rest-api">
     <loop var="b" list="$renew-books">
-      <page url="{$server}/primo_library/libweb/webservices/rest/v1/myaccount/renew_loan">
+      <page url="{$account-api-url}/renew_loan">
         <header>Content-Type: application/json; charset=utf-8</header>
         <header>Accept: application/json,*/*</header>
         <header>Authorization: Bearer {$authentication-header}</header>
@@ -268,7 +270,7 @@
 <action id="cancel-list">
   <if test="$use-rest-api">
     <loop var="b" list="$cancel-books">
-      <page url="{$server}/primo_library/libweb/webservices/rest/v1/myaccount/cancel_requests">
+      <page url="{$account-api-url}/cancel_requests">
         <header>Content-Type: application/json; charset=utf-8</header>
         <header>Accept: application/json,*/*</header>
         <header>Authorization: Bearer {$authentication-header}</header>
