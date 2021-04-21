@@ -11,7 +11,7 @@ object xqueryfrm: Txqueryfrm
   OnCreate = FormCreate
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '2.1.0.0'
+  LCLVersion = '2.0.10.0'
   Scaled = False
   object Panel1: TPanel
     Left = 0
@@ -23,10 +23,10 @@ object xqueryfrm: Txqueryfrm
     ClientWidth = 806
     TabOrder = 0
     object Button1: TButton
-      Left = 710
-      Height = 37
-      Top = 79
-      Width = 85
+      Left = 712
+      Height = 33
+      Top = 83
+      Width = 83
       Anchors = [akRight, akBottom]
       AutoSize = True
       Cancel = True
@@ -39,7 +39,7 @@ object xqueryfrm: Txqueryfrm
       Left = 8
       Height = 108
       Top = 8
-      Width = 662
+      Width = 664
       Anchors = [akTop, akLeft, akRight, akBottom]
       BorderSpacing.Right = 40
       Lines.Strings = (
@@ -52,10 +52,10 @@ object xqueryfrm: Txqueryfrm
     end
     object Button2: TButton
       AnchorSideLeft.Control = Button1
-      Left = 710
-      Height = 37
+      Left = 712
+      Height = 33
       Top = 3
-      Width = 85
+      Width = 83
       Anchors = [akTop, akLeft, akRight]
       AutoSize = True
       BorderSpacing.Bottom = 2
@@ -71,10 +71,10 @@ object xqueryfrm: Txqueryfrm
       AnchorSideRight.Control = Button2
       AnchorSideRight.Side = asrBottom
       AnchorSideBottom.Control = Button1
-      Left = 710
-      Height = 35
-      Top = 42
-      Width = 85
+      Left = 712
+      Height = 43
+      Top = 38
+      Width = 83
       Anchors = [akTop, akLeft, akRight, akBottom]
       BorderSpacing.Bottom = 2
       Caption = '▼'
@@ -108,7 +108,7 @@ object xqueryfrm: Txqueryfrm
       Caption = 'Ergebnis exportieren'
       OnClick = MenuItem1Click
       object MenuItem2: TMenuItem
-        Caption = 'als XML'
+        Caption = 'als XML (ohne Zusatzspalten)'
         OnClick = MenuItem2Click
       end
       object MenuItem3: TMenuItem
@@ -119,6 +119,13 @@ object xqueryfrm: Txqueryfrm
         Caption = 'als CSV'
         OnClick = MenuItem4Click
       end
+    end
+    object MenuItemUserColumns: TMenuItem
+      AutoCheck = True
+      Caption = 'benutzerdefinierte Spalten anzeigen'
+      Checked = True
+      ShowAlwaysCheckable = True
+      OnClick = MenuItemUserColumnsClick
     end
   end
   object SaveDialog1: TSaveDialog

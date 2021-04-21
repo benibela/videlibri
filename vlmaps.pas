@@ -12,6 +12,7 @@ type
   //THashmapStrOwningObject = xquery.internals.common.TXQHashmapStrOwningObject;
   TMapStringOwningObject = xquery.TXQMapStringOwningObject;
   //TMapStringObject = TXQMapStringObject;
+  TSetOfString = TXQHashsetStr;
 
 implementation
 

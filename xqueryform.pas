@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls, Menus, TreeListView, booklistview,applicationformconfig,
-  xquery, booklistreader;
+  xquery, booklistreader, vlmaps;
 
 type
   TOnBookResult = procedure (const b: IXQValue; book: TBook) of object;
@@ -19,6 +19,7 @@ type
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
+    MenuItemUserColumns: TMenuItem;
     querySave: TMenuItem;
     queryLoad: TMenuItem;
     Panel1: TPanel;
@@ -35,6 +36,7 @@ type
     procedure MenuItem2Click(Sender: TObject);
     procedure MenuItem3Click(Sender: TObject);
     procedure MenuItem4Click(Sender: TObject);
+    procedure MenuItemUserColumnsClick(Sender: TObject);
     procedure querySaveClick(Sender: TObject);
   private
     { private declarations }
@@ -43,9 +45,12 @@ type
     procedure enumerateLastResults(callback: TOnBookResult);
     procedure callbackAddToListView(const b: IXQValue; book: TBook);
     procedure callbackAddToBookList(const b: IXQValue; book: TBook);
+    procedure refreshListView;
   public
     { public declarations }
     listview: TBookListView;
+    showingDefaultColumns: boolean;
+    showingUserColumns: TSetOfString;
   end;
 
 var
@@ -63,18 +68,53 @@ end;
 procedure Txqueryfrm.Button2Click(Sender: TObject);
 var r: TBookListReader;
 begin
+  r:=TBookListReader.create(nil);
+  try
+    lastResults := queryHistory(r,memo1.Lines.text);
+  finally
+    r.free
+  end;
+  refreshListView;
+end;
+
+procedure Txqueryfrm.refreshListView;
+var
+  showDefaultColumns: Boolean;
+  b: IXQValue;
+  hasNoObjectItem: boolean;
+  userColumns: TSetOfString;
+  uc: string;
+begin
+  userColumns.init;
+  showDefaultColumns := not MenuItemUserColumns.Checked;
+  if MenuItemUserColumns.Checked then begin
+    hasNoObjectItem := false;
+    for b in lastResults do
+      if (b.kind = pvkObject) and b.hasProperty('_accountPtr', nil) then
+        showDefaultColumns := true
+      else if b.kind = pvkObject then begin
+        b.enumeratePropertyKeys(userColumns);
+      end else hasNoObjectItem := true;
+    if hasNoObjectItem and not showDefaultColumns then userColumns.include('title');
+  end;
+  if (showDefaultColumns <> showingDefaultColumns) or not (userColumns.isEqual(showingUserColumns)) then begin
+    showingDefaultColumns := showDefaultColumns;
+    showingUserColumns.assign(userColumns);
+    listview.ColumnsClear;
+    if showDefaultColumns then listview.addDefaultColumns;
+    for uc in userColumns do listview.addColumn(uc);
+  end;
+
   listview.clear;
   listview.SortColumn := 100; //disable auto sorting, but allow user to reenable it
   listview.BeginUpdate;
-  r:=TBookListReader.create(nil);
   EnterCriticalsection(updateThreadConfig.libraryAccessSection);
   try
-    lastResults := queryHistory(r,memo1.Lines.text);
     enumerateLastResults(@callbackAddToListView);
   finally
     LeaveCriticalsection(updateThreadConfig.libraryAccessSection);
     listview.EndUpdate;
-    r.free;
+    userColumns.done;
   end;
 end;
 
@@ -99,6 +139,7 @@ begin
   listview.Parent := self;
   listview.Options := listview.Options + [tlvoSorted];
   button3.Constraints.MaxHeight := button1.Height;
+  showingUserColumns.init;
 end;
 
 procedure Txqueryfrm.FormShow(Sender: TObject);
@@ -180,6 +221,11 @@ begin
   strSaveToFileUTF8(fn, xqvbooksToCSV(lastResults));
 end;
 
+procedure Txqueryfrm.MenuItemUserColumnsClick(Sender: TObject);
+begin
+  refreshListView;
+end;
+
 procedure Txqueryfrm.querySaveClick(Sender: TObject);
 begin
   //todo: save and load queries
@@ -242,6 +288,7 @@ begin
     tempBookList.add(book);
   end;
 end;
+
 
 
 initialization
