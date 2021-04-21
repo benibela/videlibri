@@ -6,9 +6,8 @@
   <shortName value="Ulb Halle"/>
   
   <template value="lbs"/>
-  <variable name="server" value="https://opac.bibliothek.uni-halle.de/"/>	
-  <variable name="picadb" value="1"/>
-  <variable name="borrower" value="USR=1095"/>
+  <variable name="server" value="https://lhhal.gbv.de/"/>
+
 
 
   <homepage value="http://www.bibliothek.uni-halle.de/"/>
