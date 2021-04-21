@@ -91,24 +91,25 @@ if (count($matches) == 0 || count(reset($matches)) == 0 || (reset(reset($matches
 </head>
 
 <prequel>
-VideLibri schützt einen seit  dem Jahr 2006 davor bei Ausleihen aus einer öffentlichen Bücherei<!-- oder wissenschaftlicher Bibliothek-->, die Abgabefrist zu verpassen.<!-- Auch Katalogsuchen sind möglich.-->
+<!--VideLibri schützt einen seit  dem Jahr 2006 davor bei Ausleihen aus einer öffentlichen Bücherei<!- - oder wissenschaftlicher Bibliothek- ->  die Abgabefrist zu verpassen.<!- - Auch Katalogsuchen sind möglich.- ->-->
+VideLibri verwaltet die Bücher, die man aus einer öffentlichen Bücherei ausgeliehen hat, und schützt einen so seit dem Jahr 2006 davor die Abgabefrist zu verpassen.
 </prequel>
 
 <content title="Features">
 
 VideLibri hat folgende Vorteile gegenüber den normalen Web-Katalogen der Büchereien:
 <ul class="f1list">
-<li><h3>Automatische Verlängerung</h3>
-VideLibri verlängert alle ausgeliehenen Bücher automatisch, so dass man die Verlängerung nicht vergessen kann. 
-</li>
 <li><h3>Zuverlässige Benachrichtigung über Ausleihfristen</h3>
 VideLibri warnt vor ablaufenden Leihfristen und ist dabei zuverlässiger als die Benachrichtigungen der Bibliotheken. <br/>
 Bei  Benachrichtigungsmails von der Bibliothek gibt es mehrere Fehlerquellen, der Bibliotheksserver muss die E-Mail wirklich versenden, der eigene Mailserver muss die E-Mail empfangen ohne sie in den Spamorder zu schieben, und das Mailprogramm muss die E-Mail anzeigen. VideLibri dagegen lädt die Abgabefristen einmal herunter und zeigt sie dann immer an ohne irgendwelche Server zu involvieren. Selbst wenn der Bibliotheksserver  nicht mehr funktioniert oder wegen Wartungsarbeiten abgeschaltet ist, wird man immer noch vor den alten ablaufenden Leihfristen gewarnt. Da Leihfristen nur verlängert und nicht verkürzt werden, ist somit der schlimmste Fall, dass man mehr Warnungen als nötig angezeigt bekommt.
 </li>
+<li><h3>Automatische Verlängerung</h3>
+VideLibri verlängert alle ausgeliehenen Bücher automatisch, so dass man die Verlängerung nicht vergessen kann. 
+</li>
 <li><h3>Kein permanenter Internetzugang nötig</h3>
 Um die Webseite eines OPAC aufzurufen, muss man immer eine Internetverbindung haben. VideLibri dagegen speichert  alle ausgeliehenen Bücher auf der eigenen Festplatte, so dass man den nächsten Abgabefristtermin auch sehen kann, wenn man gerade keine Internetverbindung hat oder der OPAC wegen Wartungsarbeiten abgeschaltet ist.
 </li>
-<li><h3>Gesamthistorie aller Ausleihen</h3>
+<li><h3>Literaturverwaltung aller Ausleihen</h3>
 Es speichert alle jemals ausgeliehenen Bücher, wodurch  man jederzeit nachsehen kann, wann man, welche Bücher ausgeliehen hatte. Dies ermöglicht eine Literaturverwaltung, die ein Literaturverzeichnis über alle Ausleihen führt, ohne dass man diese manuell eintragen muss.<br/>
 Wenn man zudem in ein paar Jahren einen Fortsetzungsband einer Serie lesen will oder ein gelesenes Buch weiterempfehlen will, und sich nicht mehr genau erinnert, wie der Titel des Buches lautete, kann man in der Historie nachschauen und weiß es wieder. Wer diese Funktion suspekt findet, kann sie auch deaktivieren, so dass immer nur die aktuellen Ausleihen angezeigt werden.
 </li>
@@ -141,8 +142,8 @@ Mittels der Datenbankabfragesprache XQuery lassen sich <a href="/help/xquerysear
 VideLibri läuft nativ auf Androidsystemen und bietet so eine bessere und bequemere Integration in das System als Webkataloge. 
 </li>-->
 <li><h3>Lokal, offline laufende App</h3>
-Im Gegensatz zu einer Webseite wie einem Bücherei-OPAC, bei dem man irgendeinem Anbieter hilflos ausgeliefert ist, kann man bei einer App wie VideLibri alles selbst entscheiden. Die Webseite kann unangekündigt abgeschaltet werden und ist dann nicht mehr nur nicht-nutzbar, sondern auch alle dort gespeicherten Daten sind weg. Eine installierte App dagegen bleibt installiert und, solange man sie nicht deinstalliert, läuft sie auch in 100 Jahren noch auf dem Gerät.<br/>
-Zudem hat ein Benutzer keine Kontrolle darüber, was eine Webseite tut. Wenn zum Beispiel eine Bibliothek von einem webseitenbasierten Metakatalog nicht unterstützt wird, gibt es keine Möglichkeit über den Metakatalog auf die nicht-unterstützte Bibliothek zuzugreifen. Eine App auf dem eigenen Gerät kann man dagegen beliebig ändern und ohne Einschränkungen seine eigene Bibliothek hinzufügen. <br/> Ebenso könnte eine Webseite gehackt werden oder persönliche Daten weitergeben. Sind die Daten dagegen alle in einer lokalen App, bleiben diese auf dem lokalen Gerät und niemand Fremdes kann darauf zugreifen.
+Für den optimalen Datenschutz läuft VideLibri nach der Synchronisation mit dem Bibliothek-Server vollständig offline, ohne weiteren Webserver zu verweden. Im Gegensatz zu einer Webseite wie einem Bücherei-OPAC, bei dem man irgendeinem Anbieter hilflos ausgeliefert ist, kann man bei einer Offline-App wie VideLibri alles selbst entscheiden. Die Webseite kann unangekündigt abgeschaltet werden und ist dann nicht mehr nur nicht-nutzbar, sondern auch alle dort gespeicherten Daten sind weg. Eine installierte App dagegen bleibt installiert und, solange man sie nicht deinstalliert, läuft sie auch in 100 Jahren noch auf dem Gerät.<br/>
+Zudem hat ein Benutzer keine Kontrolle darüber, was eine Webseite tut. Wenn zum Beispiel eine Bibliothek von einem webseitenbasierten Metakatalog nicht unterstützt wird, gibt es keine Möglichkeit über den Metakatalog auf die nicht-unterstützte Bibliothek zuzugreifen. Eine App auf dem eigenen Gerät kann man dagegen beliebig ändern und ohne Einschränkungen seine eigenen Bibliotheken hinzufügen. <br/> Ebenso könnte eine Webseite gehackt werden oder persönliche Daten weitergeben. Sind die Daten dagegen alle in einer lokalen App, bleiben diese auf dem lokalen Gerät und niemand Fremdes kann darauf zugreifen. 
 </li>
 
  
@@ -153,6 +154,10 @@ VideLibri umgeht das Problem, dass E-Mailbenachrichtigungen, die von Bibliotheke
 
 <li><h3>Alle Büchereien in einer App</h3>
 Da sämtliche für einen Bibliothekszugriff nötigen Katalogaddressen und Schnittstellenparameter in XML/Textdateien anstatt im Programmcode stehen, kann jeder jede Webseite und Bibliothek zu VideLibri hinzufügen, ohne etwas im Code von VideLibri zu ändern.
+</li>
+
+<li><h3>Datei-Konvertierung</h3>
+Mittels XQuery lässt sich eine Liste von Büchern aus jedem XML/JSON/HTML-basierten Dateiformat laden und in jedem anderen XML/JSON/HTML-basierten Dateiformat abspeichern.
 </li>
 
 <li><h3>Open-Source</h3>
@@ -170,10 +175,10 @@ Einige andere Features sind:
 <li>BibTeX-Export für die Erstellung von Literaturverzeichnissen<sup class="desktop">L,W</sup>.</li>
 <li>XML-Import/Export zur Synchronisation von mehreren Geräten und automatisierter .</li>
 <li>Automatisches Update<sup class="desktop">L,W</sup>.</li>
-<li>Nahezu bugfrei: Innerhalb von zehn Jahren gab es lediglich 2 Bug-Meldungen <a href="https://sourceforge.net/p/videlibri/tickets/">im Bugtracker</a>.</li>
+<li>Nahezu bugfrei: Innerhalb von fast 15 Jahren gab es lediglich 3 Meldungen <a href="https://sourceforge.net/p/videlibri/tickets/">im Bugtracker</a> und das waren auch keine echten Bugs.</li>
 </ul>
 
-Mit <sup class="desktop">L/W</sup>-markiere Features sind nur in der Linux/Windowsversion enthalten, und fehlen in der Androidversion.<br/>Da VideLibri – entwickelt in 2006 – die weltweit erste Bibliothek-App ist, ist jede weitere Bibliothek-App ein VideLibri Plagiat.<br/><br/>
+Mit <sup class="desktop">L/W</sup>-markiere Features sind nur in der Linux/Windowsversion enthalten, und fehlen in der Androidversion.<br/>Da VideLibri – entwickelt in 2006 – die weltweit erste Bibliothek-App ist, ist jede weitere Bibliothek-App ein VideLibri-Raubmordimitat.<br/><br/>
 
 Es gibt natürlich auch ein paar Nachteile im Vergleich zu den online Web-Katalogen:
 <ul>

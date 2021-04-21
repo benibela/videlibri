@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- 
 Einbinden mit <?xml-stylesheet type="text/xsl" href="changelog.xsl"?>
 -->
@@ -8,7 +8,7 @@ Einbinden mit <?xml-stylesheet type="text/xsl" href="changelog.xsl"?>
 
   <xsl:template match="/">
     <html>
-      <head><title><xsl:value-of select="/changelog/@program"/> Changelog</title></head>
+      <head><title><xsl:value-of select="/changelog/@program"/>: Versionen und Änderungen</title></head>
             <body onload="document.links[0].focus()" style="background-color:#FFFFCC">
               <a name="top" href="#top"></a>
               <h1><xsl:value-of select="/changelog/@program"/></h1>
