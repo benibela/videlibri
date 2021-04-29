@@ -210,6 +210,7 @@ end;
 procedure TBookListView.BookListCompareItems(sender: TObject; i1,
   i2: TTreeListItem; var compare: longint);
 var book1,book2: TBook;
+  temp1, temp2: LongInt;
 begin
   if i1.SubItems.Count > 0 then i1 := i1.SubItems[0];
   book1:=TBook(i1.data.obj);
@@ -229,9 +230,14 @@ begin
   end;
   compare:=0;
   if SortColumn = ColumnIssueDateId then begin
-    if book1.issueDate<book2.issueDate then compare:=-1
-    else if book1.issueDate>book2.issueDate then compare:=1
+    temp1 := book1.issueDate;
+    if temp1 <= 0 then temp1 := book1.firstExistsDate;
+    temp2 := book2.issueDate;
+    if temp2 <= 0 then temp2 := book2.firstExistsDate;
+    if temp1 < temp2 then compare:=-1
+    else if temp1 > temp2 then compare:=1
     else compare := CompareText(book1.libraryBranch, book2.libraryBranch);
+    writeln(book1.title, ' ',book2.title, ' ', temp1, ' ', temp2, ' => ', compare);
   end else if SortColumn = ColumnDueDateId then begin
     //see later
   end else compare:=CompareText(i1.RecordItemsText[SortColumn],i2.RecordItemsText[SortColumn]);
