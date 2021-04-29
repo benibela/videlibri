@@ -237,11 +237,11 @@ begin
     if temp1 < temp2 then compare:=-1
     else if temp1 > temp2 then compare:=1
     else compare := CompareText(book1.libraryBranch, book2.libraryBranch);
-    writeln(book1.title, ' ',book2.title, ' ', temp1, ' ', temp2, ' => ', compare);
   end else if SortColumn = ColumnDueDateId then begin
     //see later
   end else compare:=CompareText(i1.RecordItemsText[SortColumn],i2.RecordItemsText[SortColumn]);
-  if (compare=0) and (book1.status in BOOK_NOT_LEND) <> (book2.status in BOOK_NOT_LEND) then
+
+  if (compare=0) and ((book1.status in BOOK_NOT_LEND) <> (book2.status in BOOK_NOT_LEND)) then
     if book1.status in BOOK_NOT_LEND then
       compare := 1
      else
