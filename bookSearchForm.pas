@@ -23,7 +23,6 @@ type
     holdingsSplitter: TSplitter;
     startAutoSearchButton: TButton;
     Label12: TLabel;
-    Label2xx: TLabel;
     LabelOrder: TLabel;
     LabelOrderFor: TLabel;
     LabelSaveTo: TLabel;
@@ -35,11 +34,6 @@ type
     displayInternalProperties: TCheckBox;
     detailPanelHolder: TPanel;
     Image1: TImage;
-    Label2: TLabel;
-    linkLabelDigibib: TLabel;
-    linkLabelBib: TLabel;
-    linkLabelAmazon: TLabel;
-    linkLabelGoogle: TLabel;
     Panel1: TPanel;
     searchLocation: TComboBox;
     searchSelectionList: TCheckListBox;
@@ -79,9 +73,6 @@ type
     procedure displayInternalPropertiesChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
-    procedure Image1Click(Sender: TObject);
-    procedure linkLabelDigibibClick(Sender: TObject);
-    procedure optionPanelClick(Sender: TObject);
     procedure searcherAccessDetailsComplete(sender: TObject; book: TBook);
     procedure searcherAccessException(Sender: TObject);
     procedure searcherAccessImageComplete(sender: TObject; book: TBook);
@@ -693,49 +684,6 @@ begin
   searchParams._ReleaseIfNonNil;
 end;
 
-procedure TbookSearchFrm.Image1Click(Sender: TObject);
-begin
-
-end;
-procedure TbookSearchFrm.linkLabelDigibibClick(Sender: TObject);
-var site: string;
-begin
-  if displayedBook=nil then begin
-    ShowMessage(rsNoSelection);
-    exit;
-  end;
-
-  site:=(sender as tlabel).Caption;
-  if pos('digibib',LowerCase(site))>0 then begin
-    site:=getProperty('digibib-url',displayedBook.additional);
-  end else if (pos('katalog',LowerCase(site))>0) or (pos('bücherei',LowerCase(site))>0) then begin
-    site:=getProperty('home-url',displayedBook.additional);
-  end else if pos('amazon',LowerCase(site))>0 then begin
-    site:=getProperty('amazon-url',displayedBook.additional);
-  end else  if pos('buchhandel',LowerCase(site))>0 then begin
-    site:=getProperty('buchhandel-url',displayedBook.additional);
-    if site = '' then
-     site:='http://www.buchhandel.de/default.aspx?strframe=titelsuche&caller=vlbPublic&func=DirectIsbnSearch&isbn='+displayedBook.getNormalizedISBN(true,13)+'&nSiteId=11';
-  end else if pos('google',LowerCase(site))>0 then begin
-    site:='http://www.google.de/search?q=%22'+displayedBook.title+'%22 %22'+displayedBook.author+'%22&ie=utf-8'
-  end else begin
-    ShowMessage('Gewünschte Seite nicht erkannt (wahrscheinlich Programmierfehler)');
-    exit;
-  end;
-  
-  if site='' then begin
-    ShowMessage(rsNoLinkKnown);
-    exit;
-  end;
-  if logging then log('Open page: '+site);
-  OpenURL(site);
-end;
-
-procedure TbookSearchFrm.optionPanelClick(Sender: TObject);
-begin
-
-end;
-
 procedure TbookSearchFrm.searcherAccessDetailsComplete(sender: TObject;
   book: TBook);
 begin
@@ -911,7 +859,7 @@ var intern, empty, normal: TTreeListItems; //item lists
 
 var i:longint;
     tempStream: TStringAsMemoryStream;
-    ext: String;
+    ext, tempStr: String;
     j, orderableHolding: Integer;
     showColumn: Boolean;
     tempBook: TBook;
@@ -975,15 +923,15 @@ begin
     else result:=2;
 
 
-    linkLabelDigibib.Enabled := getProperty('digibib-url', book.additional) <> '';
-    linkLabelBib.Enabled := getProperty('home-url', book.additional) <> '';
-    if getProperty('amazon-url', book.additional) <> '' then begin
-      linkLabelAmazon.Caption := 'amazon.de';
-      linkLabelAmazon.Enabled := true;
-    end else if (getProperty('buchhandel-url', book.additional) <> '') or (strContains(getProperty('image-real-url', book.additional), 'vlb.de')) then begin
-      linkLabelAmazon.Caption := 'buchhandel.de';
-      linkLabelAmazon.Enabled := true;
-    end else linkLabelAmazon.Enabled := false;
+    tempStr := book.getPropertyAdditional('home-url');
+    if tempstr <> '' then propAddForce('Katalog-Link', tempStr);
+    tempStr := book.getPropertyAdditional('digibib-url');
+    if tempstr <> '' then propAddForce('Digibib-Link', tempStr);
+    tempStr := book.getPropertyAdditional('amazon-url');
+    if tempstr <> '' then propAddForce('Amazon-Link', tempStr);
+    //if (getProperty('buchhandel-url', book.additional) <> '') or (strContains(getProperty('image-real-url', book.additional), 'vlb.de')) then begin
+    //site:='http://www.buchhandel.de/default.aspx?strframe=titelsuche&caller=vlbPublic&func=DirectIsbnSearch&isbn='+displayedBook.getNormalizedISBN(true,13)+'&nSiteId=11';
+    //google: site:='http://www.google.de/search?q=%22'+urlencode(displayedBook.title)+'%22 %22'+urlencode(displayedBook.author)+'%22&ie=utf-8'
 
     LabelOrder.Enabled:=bookIsOrderable(book);
     if (book.holdings = nil) or (book.holdings.Count = 0) then begin
