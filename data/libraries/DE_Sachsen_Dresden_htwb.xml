@@ -6,13 +6,7 @@
   <segregated-accounts value="true"/>
 
   <template value="primo"/>
-  <variable name="baseurl" value="https://primo.bib.htw-dresden.de/primo_library/libweb/action/"/>
-  <variable name="institute" value="49HTWINST"/>
-
-  <variable name="login-url-1" value="https://login.bib.htw-dresden.de/pds?lang=ger&amp;func=load-login&amp;institute=49HTWINST_SHIB&amp;url=http://primo.bib.htw-dresden.de/primo_library/libweb/action/login.do?targetURL=http://primo.bib.htw-dresden.de/primo_library/libweb/action/search.do?vid=49HTW_VU1"/>
-  <variable name="login-url-2" value="https://login.bib.htw-dresden.de/pds?lang=ger&amp;func=load-login&amp;institute=49HTW_INST&amp;url=http://primo.bib.htw-dresden.de/primo_library/libweb/action/login.do?targetURL=http://primo.bib.htw-dresden.de/primo_library/libweb/action/search.do?vid=49HTW_VU1"/>
-
-
+  <variable name="baseurl" value="https://primo.bib.htw-dresden.de/primo-explore/search?vid=49HTW_VU1"/>
 
 
 
