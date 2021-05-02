@@ -1,7 +1,6 @@
 unit statistik_u;
 
-{$mode objfpc}{$H+}
-
+{$I videlibrilanguageconfig.inc}
 interface
 
 uses

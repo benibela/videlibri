@@ -1,6 +1,6 @@
 unit options;
 
-{$mode objfpc}{$H+}
+{$I videlibrilanguageconfig.inc}
 {$WARN 5024 on : Parameter "$1" not used}
 interface
 

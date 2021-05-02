@@ -1,6 +1,6 @@
 unit applicationconfig;
 
-{$mode objfpc}{$H+}
+{$I videlibrilanguageconfig.inc}
 
 interface
 

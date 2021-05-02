@@ -1,5 +1,5 @@
 unit bookWatchMain;
-{$mode objfpc}{$H+}
+{$I videlibrilanguageconfig.inc}
 
 
 {$WARN 5024 off : Parameter "$1" not used}

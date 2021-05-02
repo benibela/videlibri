@@ -1,6 +1,6 @@
 unit libraryaccesstester;
 
-{$mode objfpc}{$H+}
+{$I videlibrilanguageconfig.inc}
 
 interface
 

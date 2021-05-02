@@ -1,7 +1,6 @@
 unit xqueryform;
 
-{$mode objfpc}{$H+}
-{$ModeSwitch autoderef}
+{$I videlibrilanguageconfig.inc}
 interface
 
 uses

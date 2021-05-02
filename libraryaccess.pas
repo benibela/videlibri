@@ -6,7 +6,7 @@
 
 unit libraryAccess;
 
-{$mode objfpc}{$H+}
+{$I videlibrilanguageconfig.inc}
 
 
 interface
