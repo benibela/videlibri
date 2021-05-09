@@ -5,20 +5,21 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.content.res.TypedArray
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.preference.PreferenceManager
-import androidx.annotation.StringRes
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
-import de.benibela.videlibri.*
+import androidx.annotation.StringRes
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import de.benibela.videlibri.Accounts
+import de.benibela.videlibri.R
+import de.benibela.videlibri.accounts
 import de.benibela.videlibri.jni.Bridge
 import de.benibela.videlibri.utils.*
 import de.benibela.videlibri.utils.Util.UriToPath.getPath
@@ -245,7 +246,7 @@ class ImportExport : VideLibriBaseActivity() {
             savedInstanceState.getSparseBooleanArray("listViewChecked")?.let { findViewById<ListView>(R.id.listView).setCheckedItemPositions(it) }
             savedInstanceState.getSparseBooleanArray("listView1Checked")?.let { findViewById<ListView>(R.id.listView1).setCheckedItemPositions(it) }
         } catch (e: Exception) { //this will happen when someone has removed the SD card or our permissions
-            showToast(e.localizedMessage)
+            showToast(e.localizedMessage?:"")
         }
     }
 
