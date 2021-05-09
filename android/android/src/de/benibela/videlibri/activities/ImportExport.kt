@@ -1,6 +1,7 @@
 package de.benibela.videlibri.activities
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -43,6 +44,7 @@ class MaxHeightListView : ListView {
 }
 
 
+@SuppressLint("Registered")
 open class ImportExportBase : VideLibriBaseActivity() {
 
     lateinit var OPTIONS: Array<String>
@@ -65,7 +67,7 @@ open class ImportExportBase : VideLibriBaseActivity() {
         }
     }
 
-    protected  fun checkAllSet(lv: ListView, checked: Boolean) {
+    protected  fun checkAllSet(lv: ListView, @Suppress("SameParameterValue") checked: Boolean) {
         lv.choiceMode = AbsListView.CHOICE_MODE_MULTIPLE
         val count = lv.count
         for (i in 0 until count)
@@ -182,7 +184,7 @@ class Import : ImportExportBase() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        forEachView<View>(R.id.textView, R.id.textView1, R.id.listView, R.id.listView1) { it.visibility = View.GONE }
+        listOf(binding.textView, binding.textView1, binding.listView, binding.listView1).forEach{ it.visibility = View.GONE }
         title = tr(R.string.import_)
         binding.textView.setText(R.string.import_accounts)
         binding.textView1.setText(R.string.import_properties)
@@ -245,8 +247,8 @@ class Import : ImportExportBase() {
         }
 
         binding.button.text = tr(R.string.import_)
-        forEachView<View>(R.id.textView, R.id.textView1, R.id.listView, R.id.listView1) { it.visibility = View.VISIBLE }
-        forEachView<View>(R.id.edit, R.id.buttonChoose, R.id.textView2) { it.visibility = View.GONE }
+        listOf(binding.textView, binding.textView1, binding.listView, binding.listView1).forEach { it.visibility = View.VISIBLE }
+        listOf(binding.edit, binding.buttonChoose, binding.textView2).forEach{ it.visibility = View.GONE }
         hideKeyboard(this)
     }
 

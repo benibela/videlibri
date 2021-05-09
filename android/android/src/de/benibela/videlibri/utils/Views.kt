@@ -10,9 +10,6 @@ import android.widget.ListView
 import android.widget.Spinner
 
 
-inline fun <reified T: View> Activity.forEachView(vararg ids: Int, f: (T) -> Unit ) {
-    ids.forEach { f.invoke(findViewById(it)) }
-}
 
 fun View.forEachDescendantView(f: (View) -> Unit) {
     f(this)
