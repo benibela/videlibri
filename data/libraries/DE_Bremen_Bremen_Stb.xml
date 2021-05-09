@@ -6,9 +6,9 @@
   <shortName value="Stb Bremen"/> 
   
   <template value="sisis"/>  
-  <variable name="server" value="https://opac.stadtbibliothek-bremen.de/webOPACClient/"/>
+  <variable name="server" value="https://opac.stabi-hb.de/webOPACClient/"/>
   
-  <homepage value="http://www.stadtbibliothek-bremen.de/"/>
+  <homepage value="https://www.stabi-hb.de/"/>
   <testing-search value="yes"/>
   <testing-account value="yes"/>
   
