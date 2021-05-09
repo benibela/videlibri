@@ -9,15 +9,13 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import android.widget.ImageView
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.viewbinding.ViewBinding
 import com.google.android.material.navigation.NavigationView
 import de.benibela.videlibri.*
 import de.benibela.videlibri.jni.Bridge
@@ -121,6 +119,16 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
         inflater.inflate(layoutResID, layout.findViewById(R.id.content_holder), true)
         setContentView(layout)
     }
+
+    fun <T: ViewBinding> setVideLibriView(viewBindingInflate:  (LayoutInflater, ViewGroup, Boolean) -> T): T = run {
+        val inflater = layoutInflater
+        val layout = inflater.inflate(R.layout.videlibribaselayout, null)
+        val result = viewBindingInflate(inflater, layout.findViewById(R.id.content_holder), true)
+        setContentView(layout)
+        result
+    }
+
+
 
     private val registeredStates = mutableMapOf<String, () -> Parcelable>()
     fun <T: Parcelable> registerState(name: String, property: KMutableProperty0<T>){
@@ -278,8 +286,8 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
                 withActivity<RenewList> { onBackPressed() }
             }
             R.id.renewlist -> de.benibela.videlibri.utils.startActivity<RenewList>()
-            R.id.import_ -> de.benibela.videlibri.utils.startActivity<ImportExport>("mode" to ImportExport.MODE_IMPORT)
-            R.id.export -> de.benibela.videlibri.utils.startActivity<ImportExport>("mode" to ImportExport.MODE_EXPORT)
+            R.id.import_ -> de.benibela.videlibri.utils.startActivity<Import>()
+            R.id.export -> de.benibela.videlibri.utils.startActivity<Export>()
             R.id.libinfo -> startActivityForResult<LibraryList>(REQUESTED_LIBRARY_CATALOGUE,"reason" to getString(R.string.base_chooselibhomepage), "search" to true)
             R.id.libcatalogue -> startActivityForResult<LibraryList>(REQUESTED_LIBRARY_CATALOGUE,"reason" to getString(R.string.base_chooselibcat), "search" to true)
             R.id.newlib -> startActivityForResult<NewLibrary>(RETURNED_FROM_NEW_LIBRARY)

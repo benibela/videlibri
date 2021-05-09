@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <view
-        class="de.benibela.videlibri.activities.ImportExport$ScrollViewInterceptor"
+        class="de.benibela.videlibri.activities.ImportExportBase$ScrollViewInterceptor"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
@@ -25,9 +25,8 @@
                 android:padding="@dimen/optionheaderpadding"
                 android:text="New Text" />
 
-            <view
+            <de.benibela.videlibri.activities.MaxHeightListView
                 android:id="@+id/listView"
-                class="de.benibela.videlibri.activities.ImportExport$MaxHeightListView"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
@@ -41,9 +40,8 @@
                 android:padding="@dimen/optionheaderpadding"
                 android:text="New Text" />
 
-            <view
+            <de.benibela.videlibri.activities.MaxHeightListView
                 android:id="@+id/listView1"
-                class="de.benibela.videlibri.activities.ImportExport$MaxHeightListView"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top" />
