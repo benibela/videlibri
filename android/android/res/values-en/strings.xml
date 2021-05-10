@@ -278,7 +278,6 @@
 
 
     <string name="import_">Import</string>
-    <string name="import_load">Load file</string>
     <string name="import_accounts">Import these accounts</string>
     <string name="import_properties">with these properties </string>
     <string name="import_file">Import from this file: </string>
@@ -291,6 +290,8 @@
     <string name="export_properties">with these properties</string>
     <string name="export_file">in this file </string>
     <string name="export_done">Export completed</string>
+    <string name="export_need_permission">Allow import/export</string>
+
 
     <string name="history">History</string>
     <string name="configuration">Configuration</string>
@@ -380,7 +381,6 @@
     <string name="lay_options_caption_owncertificates">Additional HTTPS certificates</string>
 
 
-    <string name="import_export_need_permission">Allow import/export</string>
     <string name="menu_context_filter_singleline">Single line </string>
     <string name="menu_context_filter_multiline">Multi line </string>
 
@@ -445,4 +445,5 @@
     <string name="internet_invalid_certificateS">Invalid certificate for %s.\nIn the options you can set an exception at \"Download the certificate of a server and register it as valid\".</string>
     <string name="R.string.warning_duplicate_account">This account has already been registered in the app. To change the account information, select the account in the options (to open the options use the drawer menu).</string>
     <string name="internalVersion">Internal Version</string>
+    <string name="needReadExternalStoragePermissionForImport">Ohne Lese-Berechtigung können keine Daten zum Importieren geladen werden.</string>
 </resources>

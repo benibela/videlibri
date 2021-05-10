@@ -291,7 +291,6 @@
 
 
     <string name="import_">Importieren</string>
-    <string name="import_load">Importdatei laden</string>
     <string name="import_accounts">Importiere diese Konten</string>
     <string name="import_properties">mit jeweils diesen Daten</string>
     <string name="import_file">Import aus dieser Datei:</string>
@@ -304,6 +303,7 @@
     <string name="export_properties">mit jeweils diesen Daten</string>
     <string name="export_file">in diese Datei</string>
     <string name="export_done">Export abgeschlossen</string>
+    <string name="export_need_permission">Dateizugriff erlauben</string>
 
     <string name="history">Ausleihenhistorie</string>
     <string name="configuration">Konfiguration</string>
@@ -389,7 +389,6 @@
     <string name="lay_options_caption_owncertificates">Zusätzliche HTTPS-Serverzertifikate</string>
 
 
-    <string name="import_export_need_permission">Import/Export erlauben</string>
     <string name="menu_context_filter_singleline">Einzelzeile</string>
     <string name="menu_context_filter_multiline">Mehrzeilig</string>
 
@@ -459,5 +458,7 @@
     <string name="internet_invalid_certificateS">Ungültiges Serverzertifikat für %s\nIn den Einstellungen unter \"Serverzertifikat herunterladen und als gültig akzeptieren\" kann hierfür eine Ausnahme gesetzt werden.</string>
     <string name="R.string.warning_duplicate_account">Dieses Ausleihkonto wurde bereits registriert. Um die Daten zu ändern, wähle das Konto in den Einstellungen aus (Die Einstellungen sind über das Seitenmenü zu erreichen).</string>
     <string name="internalVersion">Interne Version</string>
+    <string name="needReadExternalStoragePermissionForImport">Ohne Lese-Berechtigung können keine Daten zum Importieren geladen werden.</string>
+    <string name="importFileOpenFailed">Datei konnte nicht geöffnet werden</string>
 </resources>
 
