@@ -281,7 +281,7 @@ class Import : ImportExportBase() {
                 state.fileIsTemporary = true
             }
         } catch (e: java.lang.Exception) {
-            showMessage(getString(R.string.importFileOpenFailed) + ":\n" + e.message)
+            showMessage(getString(R.string.import_file_open_failed) + ":\n" + e.message)
         }
         state.phase = ImportPhase.SelectedFile
     }
@@ -292,7 +292,7 @@ class Import : ImportExportBase() {
             try {
                 data = Bridge.VLImportAccountsPrepare(filename)
             } catch (e: Bridge.InternalError){
-                showMessage(getString(R.string.importFileOpenFailed) + ":\n" + e.message)
+                showMessage(getString(R.string.import_file_open_failed) + ":\n" + e.message)
                 data = null
             }
         val data = data ?: return
@@ -425,7 +425,7 @@ class Export : ImportExportBase() {
 
 
         } catch (e: java.lang.Exception) {
-            showMessage(getString(R.string.importFileOpenFailed)+":\n"+ e.message)
+            showMessage(getString(R.string.import_file_open_failed)+":\n"+ e.message)
         }
     }
 

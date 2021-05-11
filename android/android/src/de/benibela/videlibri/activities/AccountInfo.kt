@@ -110,7 +110,7 @@ class AccountInfo : VideLibriBaseActivity() {
                 else {
                     if (Accounts.get(libdetails?.id
                                     ?: "", accountId.text.toString()) != null) {
-                        showMessage(getString(R.string.R_string_warning_duplicate_account))
+                        showMessage(getString(R.string.warning_duplicate_account))
                         return@OnClickListener
                     }
                     warnAboutAutoExtend {
