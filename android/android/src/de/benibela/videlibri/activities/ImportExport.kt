@@ -9,7 +9,10 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.os.Parcelable
+import android.preference.PreferenceManager
+import android.provider.DocumentsContract
 import android.util.AttributeSet
 import android.util.SparseBooleanArray
 import android.view.MotionEvent
@@ -54,6 +57,12 @@ class MaxHeightListView : ListView {
         checkAllSet(true)
     }
 }
+
+
+fun Context.hasPermissionReadExternalFiles() = Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN ||
+        ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+fun Context.hasPermissionWriteExternalFiles() =
+        ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
 
 
 @SuppressLint("Registered")
@@ -111,18 +120,39 @@ open class ImportExportBase : VideLibriBaseActivity() {
         }
     }
 
-    protected fun startChooseFileNameActivity(action: String){
-        val intent = Intent()
-        intent.action = action //Intent.ACTION_GET_CONTENT
-        intent.type = "*/*"
-        //intent.putExtra(Intent.CAT, true);
-
-        intent.putExtra("android.intent.extra.LOCAL_ONLY", true)
+    protected fun startChooseFileNameActivity(forWriting: Boolean){
+        val intent = Intent().apply {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+                action = Intent.ACTION_GET_CONTENT
+                putExtra(Intent.EXTRA_LOCAL_ONLY, true)
+            } else {
+                if (forWriting) {
+                    action = Intent.ACTION_CREATE_DOCUMENT
+                    flags = Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                } else {
+                    action = Intent.ACTION_OPEN_DOCUMENT
+                    flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    val initialUri = PreferenceManager.getDefaultSharedPreferences(this@ImportExportBase).
+                                            getString("importExportFileName", "")?.
+                                            takeNonEmpty() ?:
+                                            File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "videlibri.xml").absolutePath
+                    putExtra(DocumentsContract.EXTRA_INITIAL_URI, initialUri)
+                }
+                putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("text/xml", "application/xml", "*/*"));
+            }
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "*/*"
+        }
         startActivityForResult(intent, FILENAME_ACTIVITY_REQUEST_CODE)
     }
 
     open fun onFileNameChosen(uri: Uri){
-
+        PreferenceManager.getDefaultSharedPreferences(this).edit().let {
+            it.putString("importExportFileName", uri.toString())
+            it.apply()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -199,7 +229,6 @@ class Import : ImportExportBase() {
         binding.button.setOnClickListener(::importNow)
     }
 
-    fun hasReadExternalStoragePermission() = Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN || ContextCompat.checkSelfPermission(this@Import, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
 
     override fun onPostResume() {
         super.onPostResume()
@@ -208,11 +237,12 @@ class Import : ImportExportBase() {
             return
         }
         when (state.phase) {
-            ImportPhase.Init, ImportPhase.RequestedPermission ->
-                if (!hasReadExternalStoragePermission()) {
+            ImportPhase.Init ->
+                if (!hasPermissionReadExternalFiles()) {
                     state.phase = ImportPhase.RequestedPermission
                     ActivityCompat.requestPermissions(this@Import, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1)
                 } else startChooseImportFileActivity()
+            ImportPhase.RequestedPermission -> {} //for these two we wait for the on... event.  Makes the phase enum rather pointless
             ImportPhase.OpenedFileChooser -> {}
             ImportPhase.SelectedFile -> showPreparedImport(state.fileName)
             ImportPhase.Done -> {}
@@ -227,7 +257,7 @@ class Import : ImportExportBase() {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (!hasReadExternalStoragePermission())
+        if (!hasPermissionReadExternalFiles())
             showFinalMessage(R.string.needReadExternalStoragePermissionForImport)
         else
             startChooseImportFileActivity()
@@ -235,26 +265,12 @@ class Import : ImportExportBase() {
     }
 
     fun startChooseImportFileActivity(){
-        val intent = Intent().apply {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                action = Intent.ACTION_OPEN_DOCUMENT
-                intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-
-                //putExtra(DocumentsContract.EXTRA_INITIAL_URI, pickerInitialUri)
-                //intent.setType("*/*");
-                //intent.putExtra(Intent.EXTRA_MIME_TYPES, new String[]{"text/*"});
-            } else {
-                action = Intent.ACTION_GET_CONTENT
-                putExtra(Intent.EXTRA_LOCAL_ONLY, true)
-            }
-            addCategory(Intent.CATEGORY_OPENABLE)
-            type = "*/*"
-        }
-        startActivityForResult(intent, FILENAME_ACTIVITY_REQUEST_CODE)
+        startChooseFileNameActivity(forWriting = false)
         state.phase = ImportPhase.OpenedFileChooser
     }
 
     override fun onFileNameChosen(uri: Uri) {
+        super.onFileNameChosen(uri)
         try {
             contentResolver.openInputStream(uri)?.use { source ->
                 val tempFile = File(cacheDir, "tmpImport.xml")
@@ -375,36 +391,18 @@ class Export : ImportExportBase() {
         }
 
         binding.button.setOnClickListener(View.OnClickListener { _ ->
-            if (ContextCompat.checkSelfPermission(this@Export, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (!hasPermissionWriteExternalFiles()) {
                 ActivityCompat.requestPermissions(this@Export, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
                 return@OnClickListener
             }
 
-            startChooseExportFileActivity()
+            startChooseFileNameActivity(forWriting = true)
 
         })
     }
 
-    fun startChooseExportFileActivity(){
-        val intent = Intent().apply {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                action = Intent.ACTION_CREATE_DOCUMENT
-                intent.flags = Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-
-                //putExtra(DocumentsContract.EXTRA_INITIAL_URI, pickerInitialUri)
-                //intent.setType("*/*");
-                //intent.putExtra(Intent.EXTRA_MIME_TYPES, new String[]{"text/*"});
-            } else {
-                action = Intent.ACTION_GET_CONTENT
-                putExtra(Intent.EXTRA_LOCAL_ONLY, true)
-            }
-            addCategory(Intent.CATEGORY_OPENABLE)
-            type = "*/*"
-        }
-        startActivityForResult(intent, FILENAME_ACTIVITY_REQUEST_CODE)
-    }
-
     override fun onFileNameChosen(uri: Uri) {
+        super.onFileNameChosen(uri)
         val tempFile = File(cacheDir, "tmpImport.xml")
         val tempFileName = tempFile.absolutePath
 
@@ -433,7 +431,7 @@ class Export : ImportExportBase() {
 
 
     fun setButtonText() {
-        binding.button.setText(if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+        binding.button.setText(if (!hasPermissionWriteExternalFiles())
                 R.string.export_need_permission
             else
                 R.string.export
