@@ -108,7 +108,7 @@ open class ImportExportBase : VideLibriBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = setVideLibriView(ImportexportBinding::inflate)
-        OPTIONS = arrayOf(tr(R.string.lay_options_option_current), tr(R.string.history), tr(R.string.configuration), tr(R.string.passwords))
+        OPTIONS = arrayOf(getString(R.string.lay_options_option_current), getString(R.string.history), getString(R.string.configuration), getString(R.string.passwords))
 
 
 
@@ -221,8 +221,8 @@ class Import : ImportExportBase() {
         registerState(::state)
 
         listOf(binding.textView, binding.textView1, binding.listView, binding.listView1).forEach{ it.visibility = View.GONE }
-        title = tr(R.string.import_)
-        binding.button.text = tr(R.string.import_)
+        title = getString(R.string.import_)
+        binding.button.text = getString(R.string.import_)
         binding.textView.setText(R.string.import_accounts)
         binding.textView1.setText(R.string.import_properties)
 
@@ -371,7 +371,7 @@ class Export : ImportExportBase() {
         super.onCreate(savedInstanceState)
 
 
-        title = tr(R.string.export)
+        title = getString(R.string.export)
         binding.textView.setText(R.string.export_accounts)
         binding.textView1.setText(R.string.export_properties)
 
