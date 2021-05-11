@@ -6,11 +6,12 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
-import android.preference.PreferenceManager
+import android.os.Parcelable
 import android.util.AttributeSet
+import android.util.SparseBooleanArray
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -27,7 +28,7 @@ import de.benibela.videlibri.accounts
 import de.benibela.videlibri.databinding.ImportexportBinding
 import de.benibela.videlibri.jni.Bridge
 import de.benibela.videlibri.utils.*
-import de.benibela.videlibri.utils.Util.UriToPath.getPath
+import kotlinx.android.parcel.Parcelize
 import java.io.File
 import java.util.*
 import kotlin.math.abs
@@ -40,6 +41,17 @@ class MaxHeightListView : ListView {
 
     public override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE shr 2, MeasureSpec.AT_MOST))
+    }
+
+    fun checkAllSet(@Suppress("SameParameterValue") checked: Boolean) {
+        choiceMode = AbsListView.CHOICE_MODE_MULTIPLE
+        val count = count
+        for (i in 0 until count)
+            setItemChecked(i, checked)
+    }
+
+    fun checkAll() {
+        checkAllSet(true)
     }
 }
 
@@ -55,7 +67,6 @@ open class ImportExportBase : VideLibriBaseActivity() {
 
     protected lateinit var binding: ImportexportBinding
 
-
     @Suppress("unused") //used in layout
     class ScrollViewInterceptor(context: Context, attrs: AttributeSet) : ScrollView(context, attrs) {
         private var startY: Float = 0.toFloat()
@@ -67,19 +78,6 @@ open class ImportExportBase : VideLibriBaseActivity() {
         }
     }
 
-    protected  fun checkAllSet(lv: ListView, @Suppress("SameParameterValue") checked: Boolean) {
-        lv.choiceMode = AbsListView.CHOICE_MODE_MULTIPLE
-        val count = lv.count
-        for (i in 0 until count)
-            lv.setItemChecked(i, checked)
-    }
-
-    protected fun checkAll(lv: ListView) {
-        checkAllSet(lv, true)
-    }
-
-    protected open fun setButtonText() {
-    }
 
     protected fun getSelectedImportExportFlags(): Int = run {
         val flagListView = binding.listView1
@@ -103,55 +101,41 @@ open class ImportExportBase : VideLibriBaseActivity() {
         binding = setVideLibriView(ImportexportBinding::inflate)
         OPTIONS = arrayOf(tr(R.string.lay_options_option_current), tr(R.string.history), tr(R.string.configuration), tr(R.string.passwords))
 
-        var fileName = PreferenceManager.getDefaultSharedPreferences(this).getString("importExportFileName", "")
-        if (fileName.isNullOrEmpty()) {
-            val dir = Environment.getExternalStorageDirectory()
-            fileName = File(dir, "videlibri.xml").absolutePath
-        }
-        binding.edit.setText(fileName)
+
 
         flagAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, OPTIONS)
         binding.listView1.let {
             it.adapter = flagAdapter
-            checkAll(it)
+            it.checkAll()
             it.setItemChecked(flagAdapter.count - 1, false)
         }
-
-        binding.buttonChoose.setOnClickListener {
-            val intent = Intent()
-            intent.action = Intent.ACTION_GET_CONTENT
-            intent.type = "*/*"
-            //intent.putExtra(Intent.CAT, true);
-            intent.putExtra("android.intent.extra.LOCAL_ONLY", true)
-            startActivityForResult(intent, 30017)
-        }
     }
 
-    protected fun rememberFileNameInPreferences() {
-        PreferenceManager.getDefaultSharedPreferences(this).edit().let {
-            it.putString("importExportFileName", binding.edit.text.toString())
-            it.apply()
-        }
+    protected fun startChooseFileNameActivity(action: String){
+        val intent = Intent()
+        intent.action = action //Intent.ACTION_GET_CONTENT
+        intent.type = "*/*"
+        //intent.putExtra(Intent.CAT, true);
+
+        intent.putExtra("android.intent.extra.LOCAL_ONLY", true)
+        startActivityForResult(intent, FILENAME_ACTIVITY_REQUEST_CODE)
     }
 
+    open fun onFileNameChosen(uri: Uri){
 
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == 30017 && resultCode != Activity.RESULT_CANCELED && data != null && data.data != null) {
-            getPath(this, data.data)?.let {
-                binding.edit.setText(it)
-            }
+        val uri = data?.data
+        if (requestCode == FILENAME_ACTIVITY_REQUEST_CODE && resultCode != Activity.RESULT_CANCELED && uri != null) {
+            onFileNameChosen(uri)
             return
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        setButtonText()
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    }
 
-    protected fun showFinalMessage(@StringRes message: Int){
+    protected open fun showFinalMessage(@StringRes message: Int){
         showDialog {
             message(message)
             onDismiss = {
@@ -161,6 +145,7 @@ open class ImportExportBase : VideLibriBaseActivity() {
     }
 
     companion object {
+        const val FILENAME_ACTIVITY_REQUEST_CODE = 30017
         //https://stackoverflow.com/questions/1109022/close-hide-the-android-soft-keyboard
         fun hideKeyboard(activity: Activity) {
             val imm = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as? InputMethodManager ?: return
@@ -171,69 +156,135 @@ open class ImportExportBase : VideLibriBaseActivity() {
 }
 
 
+
+
+
+
+
+
+
+
+
+
 class Import : ImportExportBase() {
-    override fun setButtonText() {
-        binding.button.setText(
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-                    R.string.import_export_need_permission
-                else
-                    R.string.import_load
-        )
+    enum class ImportPhase {Init, RequestedPermission, OpenedFileChooser, SelectedFile, Done}
+    @Parcelize
+    class State(
+            var phase: ImportPhase = ImportPhase.Init,
+            var fileName: String = "",
+            var fileIsTemporary: Boolean = false,
+
+            var listViewCheckedItemPositions: SparseBooleanArray? = null,
+            var listView1CheckedItemPositions: SparseBooleanArray? = null
+    ): Parcelable
+
+    var state = State()
+
+    override fun showFinalMessage(message: Int) {
+        super.showFinalMessage(message)
+        state.phase = ImportPhase.Done
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        registerState(::state)
+
         listOf(binding.textView, binding.textView1, binding.listView, binding.listView1).forEach{ it.visibility = View.GONE }
         title = tr(R.string.import_)
+        binding.button.text = tr(R.string.import_)
         binding.textView.setText(R.string.import_accounts)
         binding.textView1.setText(R.string.import_properties)
-        binding.textView2.setText(R.string.import_file)
+
+        binding.button.setOnClickListener(::importNow)
+    }
+
+    fun hasReadExternalStoragePermission() = Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN || ContextCompat.checkSelfPermission(this@Import, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+
+    override fun onPostResume() {
+        super.onPostResume()
         if (Accounts.filterWithRunningUpdate().size > 0) {
             showFinalMessage(R.string.import_not_while_update_runs)
             return
         }
-        setButtonText()
-
-        binding.button.setOnClickListener(View.OnClickListener { _ ->
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-                if (ContextCompat.checkSelfPermission(this@Import, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+        when (state.phase) {
+            ImportPhase.Init, ImportPhase.RequestedPermission ->
+                if (!hasReadExternalStoragePermission()) {
+                    state.phase = ImportPhase.RequestedPermission
                     ActivityCompat.requestPermissions(this@Import, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1)
-                    return@OnClickListener
-                }
+                } else startChooseImportFileActivity()
+            ImportPhase.OpenedFileChooser -> {}
+            ImportPhase.SelectedFile -> showPreparedImport(state.fileName)
+            ImportPhase.Done -> {}
+        }
+    }
 
-            val accountListView = binding.listView
-            try {
-                if (data == null) {
-                    showPreparedImport(binding.edit.text.toString())
-                } else {
-                    data?.let { data ->
-                        val oldWithEmptyPass = accounts.count { it.name.isNotEmpty() && it.pass.isEmpty() }
-                        data.accountsToImport = data.accountsToImport?.filterIndexed { i, _ -> accountListView.isItemChecked(i) }?.toTypedArray()
-                        data.flags = getSelectedImportExportFlags()
-                        Bridge.VLImportAccounts(data)
-                        Accounts.refreshAll()
-                        val newWithEmptyPass = accounts.count { it.name.isNotEmpty() && it.pass.isEmpty() }
-                        showFinalMessage(if (newWithEmptyPass > oldWithEmptyPass) R.string.import_done_has_empty_pass else R.string.import_done)
-                    }
-                    data = null
-                }
-            } catch (e: Bridge.InternalError) {
-                showMessage(e.message)
-            }
-        })
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == FILENAME_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_CANCELED)
+            finish()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (!hasReadExternalStoragePermission())
+            showFinalMessage(R.string.needReadExternalStoragePermissionForImport)
+        else
+            startChooseImportFileActivity()
 
     }
 
+    fun startChooseImportFileActivity(){
+        val intent = Intent().apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                action = Intent.ACTION_OPEN_DOCUMENT
+                intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+
+                //putExtra(DocumentsContract.EXTRA_INITIAL_URI, pickerInitialUri)
+                //intent.setType("*/*");
+                //intent.putExtra(Intent.EXTRA_MIME_TYPES, new String[]{"text/*"});
+            } else {
+                action = Intent.ACTION_GET_CONTENT
+                putExtra(Intent.EXTRA_LOCAL_ONLY, true)
+            }
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "*/*"
+        }
+        startActivityForResult(intent, FILENAME_ACTIVITY_REQUEST_CODE)
+        state.phase = ImportPhase.OpenedFileChooser
+    }
+
+    override fun onFileNameChosen(uri: Uri) {
+        try {
+            contentResolver.openInputStream(uri)?.use { source ->
+                val tempFile = File(cacheDir, "tmpImport.xml")
+                tempFile.outputStream().use { sink ->
+                    source.copyTo(sink)
+                }
+                state.fileName = tempFile.absolutePath
+                state.fileIsTemporary = true
+            }
+        } catch (e: java.lang.Exception) {
+            showMessage(getString(R.string.importFileOpenFailed) + ":\n" + e.message)
+        }
+        state.phase = ImportPhase.SelectedFile
+    }
+
+
     private fun showPreparedImport(filename: String) {
-        data = Bridge.VLImportAccountsPrepare(filename)
+        if (data == null)
+            try {
+                data = Bridge.VLImportAccountsPrepare(filename)
+            } catch (e: Bridge.InternalError){
+                showMessage(getString(R.string.importFileOpenFailed) + ":\n" + e.message)
+                data = null
+            }
         val data = data ?: return
-        rememberFileNameInPreferences()
 
         binding.listView.let { lv ->
             val accounts: Array<String> = data.accountsToImport!!
             lv.adapter = ArrayAdapter(this@Import, android.R.layout.simple_list_item_multiple_choice, accounts)
-            checkAll(lv)
+            lv.checkAll()
         }
 
         val newOptions = ArrayList<String>()
@@ -243,33 +294,41 @@ class Import : ImportExportBase() {
         flagAdapter = ArrayAdapter(this@Import, android.R.layout.simple_list_item_multiple_choice, newOptions)
         binding.listView1.let { lv ->
             lv.adapter = flagAdapter
-            checkAll(lv)
+            lv.checkAll()
         }
 
-        binding.button.text = tr(R.string.import_)
         listOf(binding.textView, binding.textView1, binding.listView, binding.listView1).forEach { it.visibility = View.VISIBLE }
-        listOf(binding.edit, binding.buttonChoose, binding.textView2).forEach{ it.visibility = View.GONE }
         hideKeyboard(this)
+
+        state.listViewCheckedItemPositions?.let { binding.listView.setCheckedItemPositions(it) }
+        state.listView1CheckedItemPositions?.let { binding.listView1.setCheckedItemPositions(it) }
+
+    }
+
+    private fun importNow(v: View){
+        val accountListView = binding.listView
+        val data = data ?: return
+        try {
+            val oldWithEmptyPass = accounts.count { it.name.isNotEmpty() && it.pass.isEmpty() }
+            data.accountsToImport = data.accountsToImport?.filterIndexed { i, _ -> accountListView.isItemChecked(i) }?.toTypedArray()
+            data.flags = getSelectedImportExportFlags()
+            Bridge.VLImportAccounts(data)
+            Accounts.refreshAll()
+            val newWithEmptyPass = accounts.count { it.name.isNotEmpty() && it.pass.isEmpty() }
+            showFinalMessage(if (newWithEmptyPass > oldWithEmptyPass) R.string.import_done_has_empty_pass else R.string.import_done)
+            if (state.fileIsTemporary && state.fileName.isNotEmpty())
+                File(state.fileName).delete()
+            state.fileName = ""
+            this.data = null
+        } catch (e: Bridge.InternalError) {
+            showMessage(e.message)
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
+        state.listViewCheckedItemPositions = binding.listView.checkedItemPositions
+        state.listView1CheckedItemPositions = binding.listView1.checkedItemPositions
         super.onSaveInstanceState(outState)
-        outState.putString("activeImportFileName", binding.edit.text.toString())
-        outState.putSparseBooleanArray("listViewChecked", binding.listView.checkedItemPositions)
-        outState.putSparseBooleanArray("listView1Checked", binding.listView1.checkedItemPositions)
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
-        super.onRestoreInstanceState(savedInstanceState)
-        savedInstanceState ?: return
-        val fn = savedInstanceState.getString("activeImportFileName")?.takeNonEmpty() ?: return
-        try {
-            showPreparedImport(fn)
-            savedInstanceState.getSparseBooleanArray("listViewChecked")?.let { binding.listView.setCheckedItemPositions(it) }
-            savedInstanceState.getSparseBooleanArray("listView1Checked")?.let { binding.listView1.setCheckedItemPositions(it) }
-        } catch (e: Exception) { //this will happen when someone has removed the SD card or our permissions
-            showToast(e.localizedMessage?:"")
-        }
     }
 
     override fun onDestroy() {
@@ -281,6 +340,16 @@ class Import : ImportExportBase() {
     }
 }
 
+
+
+
+
+
+
+
+
+
+
 class Export : ImportExportBase() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -289,20 +358,19 @@ class Export : ImportExportBase() {
         title = tr(R.string.export)
         binding.textView.setText(R.string.export_accounts)
         binding.textView1.setText(R.string.export_properties)
-        binding.textView2.setText(R.string.export_file)
 
         val accounts = Bridge.VLGetAccounts()
         val accountNames = accounts.map { it.prettyName }
         binding.listView.let {
             it.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, accountNames)
-            checkAll(it)
+            it.checkAll()
         }
         setButtonText()
 
         flagAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, OPTIONS)
         binding.listView1.let {
             it.adapter = flagAdapter
-            checkAll(it)
+            it.checkAll()
             it.setItemChecked(flagAdapter.count - 1, false)
         }
 
@@ -312,25 +380,69 @@ class Export : ImportExportBase() {
                 return@OnClickListener
             }
 
-            val accountListView = binding.listView
-            try {
-                val flags = getSelectedImportExportFlags()
-                val exports = Bridge.VLGetAccounts().filterIndexed { i, _ -> accountListView.isItemChecked(i)  }.toTypedArray()
-                Bridge.VLExportAccounts(binding.edit.text.toString(), exports, flags)
-                rememberFileNameInPreferences()
-                showFinalMessage(R.string.export_done)
-            } catch (e: Bridge.InternalError) {
-                showMessage(e.message)
-            }
+            startChooseExportFileActivity()
+
         })
     }
 
-    override fun setButtonText() {
+    fun startChooseExportFileActivity(){
+        val intent = Intent().apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                action = Intent.ACTION_CREATE_DOCUMENT
+                intent.flags = Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+
+                //putExtra(DocumentsContract.EXTRA_INITIAL_URI, pickerInitialUri)
+                //intent.setType("*/*");
+                //intent.putExtra(Intent.EXTRA_MIME_TYPES, new String[]{"text/*"});
+            } else {
+                action = Intent.ACTION_GET_CONTENT
+                putExtra(Intent.EXTRA_LOCAL_ONLY, true)
+            }
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "*/*"
+        }
+        startActivityForResult(intent, FILENAME_ACTIVITY_REQUEST_CODE)
+    }
+
+    override fun onFileNameChosen(uri: Uri) {
+        val tempFile = File(cacheDir, "tmpImport.xml")
+        val tempFileName = tempFile.absolutePath
+
+        val accountListView = binding.listView
+        try {
+            val flags = getSelectedImportExportFlags()
+            val exports = Bridge.VLGetAccounts().filterIndexed { i, _ -> accountListView.isItemChecked(i)  }.toTypedArray()
+            Bridge.VLExportAccounts(tempFileName, exports, flags)
+
+
+            contentResolver.openOutputStream(uri)?.use { sink ->
+                tempFile.inputStream().use { source ->
+                    source.copyTo(sink)
+                }
+            }
+
+            tempFile.delete()
+            showFinalMessage(R.string.export_done)
+
+
+
+        } catch (e: java.lang.Exception) {
+            showMessage(getString(R.string.importFileOpenFailed)+":\n"+ e.message)
+        }
+    }
+
+
+    fun setButtonText() {
         binding.button.setText(if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-                R.string.import_export_need_permission
+                R.string.export_need_permission
             else
                 R.string.export
         )
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        setButtonText()
     }
 
 }
