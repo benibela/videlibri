@@ -59,11 +59,6 @@ class MaxHeightListView : ListView {
 }
 
 
-fun Context.hasPermissionReadExternalFiles() = Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN ||
-        ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-fun Context.hasPermissionWriteExternalFiles() =
-        ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-
 
 @SuppressLint("Registered")
 open class ImportExportBase : VideLibriBaseActivity() {
@@ -75,6 +70,10 @@ open class ImportExportBase : VideLibriBaseActivity() {
 
 
     protected lateinit var binding: ImportexportBinding
+
+    fun hasPermissionReadExternalFiles() = true
+    fun hasPermissionWriteExternalFiles() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
+
 
     @Suppress("unused") //used in layout
     class ScrollViewInterceptor(context: Context, attrs: AttributeSet) : ScrollView(context, attrs) {
