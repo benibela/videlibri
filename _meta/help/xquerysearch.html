@@ -97,8 +97,8 @@ return $book[1]
 <pre>
 for $book in $books 
 group by $author := $book.author
-order by count($book)
-return {"author": $author, "title":  count($book)}
+order by count($book) descending
+return {"author": $author, "Anzahl":  count($book)}
 </pre>
 
 <p>Finde alle Bücher, deren Titel aus mindestens 5 Wörtern besteht:

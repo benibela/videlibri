@@ -48,6 +48,9 @@ Out-of-the-box VideLibri supports the following library catalog systems, OPACs, 
     * combined with Bibdia  (hard coded urls for public library "Staatsbibliothek" Berlin)
     * combined with LBS     
 * Primo 
+    * Primo Explore
+    * Primo Discovery
+    * Deprecated Primo Website parsing
 * SISIS-SunRise (including Touchpoint)
 * SRU 
 * VuFind
