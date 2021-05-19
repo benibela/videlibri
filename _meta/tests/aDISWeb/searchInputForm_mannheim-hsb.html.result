@@ -7,7 +7,7 @@ search-basic-inputs := (text{"$Textfield"},
 text{"$Textfield$0"}, 
 text{"$Textfield$1"}, 
 text{"$Textfield$2"})
-search-basic-options := {"author": "Autor (Person)", "title": "Titelwort", "free": "Freie Suche", "keywords": "Schlagwort", "isbn": "ISSN, ISBN, SWB-Nr."}
+search-basic-options := {"author": "Autor (Person)", "title": "Titelwort", "free": "Freie Suche", "keywords": "Schlagwort", "isbn": "ISSN, ISBN, SWB-Nr.", "id": "Signatur"}
 search-basic-input-year := text{"$Textfield$5"}
 search-filter-map := {"mediaType": "select$6", "language": "select$7"}
 search-params := ("title", 
@@ -15,6 +15,7 @@ search-params := ("title",
 "free", 
 "keywords", 
 "isbn", 
+"id", 
 "year", 
 {"name": "mediaType", "options": ["", "Bücher", "Datenträger", "E-Book", "Filme", "Hochschulschrift", "Tonträger", "Zeitschrift"]}, 
 {"name": "language", "options": ["", "Deutsch", "Englisch", "Französisch", "Italienisch", "Spanisch"]})
