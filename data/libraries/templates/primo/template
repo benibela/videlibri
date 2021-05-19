@@ -42,7 +42,7 @@
       $delivery-url := $pub-url || "/delivery",
       $account-url := $server || "/discovery/account?vid=" || uri-encode($vid),
       $external-login-url := $server || "/primaws/suprimaExtLogin",
-      $account-api-url := $pub-url || "/myaccount/" (:???:)
+      $account-api-url := $server || "/primaws/rest/priv/myaccount/"
     )
     </s>
     <json url="{$configuration-url}"/>
