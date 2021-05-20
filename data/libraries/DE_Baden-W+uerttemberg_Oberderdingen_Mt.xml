@@ -2,11 +2,11 @@
 <library>
   <longName value="Mediathek Oberderdingen"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/oberderdingen"/>	
-  <variable name="DB" value="Oberderdingen"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.komm.one/oberderdingen/Konto"/>	
+  <variable name="urlsearch" value="https://bibliotheken.komm.one/oberderdingen/Mediensuche/Erweiterte-Suche"/>
   
-  <homepage value="https://web-opac.kivbf.de/oberderdingen/index.asp?DB=Oberderdingen"/>
+  <homepage value="https://bibliotheken.komm.one/oberderdingen"/>
   <testing-search value="unknown"/>
   <testing-account value="unknown"/>
 </library>
