@@ -32,7 +32,8 @@
       $delivery-url := $search-url || "/delivery",
       $account-url := $server || "/primo-explore/account?vid=" || uri-encode($vid),
       $external-login-url := $server || "/primo_library/libweb/primoExploreLogin",
-      $account-api-url := $server || "/primo_library/libweb/webservices/rest/v1/myaccount/"
+      $account-api-url := $server || "/primo_library/libweb/webservices/rest/v1/myaccount/",
+      $renew-url := $account-api-url || "/renew_loan"
     ) else (
       $api-mode := "discovery",
       $server := substring-before($baseurl, "/discovery/"),
@@ -42,7 +43,8 @@
       $delivery-url := $pub-url || "/delivery",
       $account-url := $server || "/discovery/account?vid=" || uri-encode($vid),
       $external-login-url := $server || "/primaws/suprimaExtLogin",
-      $account-api-url := $server || "/primaws/rest/priv/myaccount/"
+      $account-api-url := $server || "/primaws/rest/priv/myaccount/",
+      $renew-url := $account-api-url || "/renew_loans"
     )
     </s>
     <json url="{$configuration-url}"/>
@@ -248,7 +250,7 @@
 <action id="renew-list">
   <if test="$use-rest-api">
     <loop var="b" list="$renew-books">
-      <page url="{$account-api-url}/renew_loan">
+      <page url="{$renew-url}">
         <header>Content-Type: application/json; charset=utf-8</header>
         <header>Accept: application/json,*/*</header>
         <header>Authorization: Bearer {$authentication-header}</header>
