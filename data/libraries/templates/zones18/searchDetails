@@ -1,6 +1,19 @@
 <body>
   <A>Vormerkung<t:s>book.orderable := true(), book._order-url := @href</t:s></a>?
  
+ <t:s>declare function local:parse-column($node){
+   $node ! (
+     let $weirdscript := 'document.write(convert_special_characters("'
+     return if (.//script[contains(., $weirdscript)]) then
+       string-join( .//text()!(
+         if (../name() eq "script") then 
+           . => substring-after($weirdscript) => substring-before('"));')
+         else .
+       ) , " ")
+     else string()
+   )     
+ }; ()</t:s>
+ 
             <TABLE  class="inRecordHeader">
               <TR>
                 <TD>
@@ -26,20 +39,23 @@
             <TABLE>
               <t:loop>
                 <t:switch>
-                  <TR><TD>Titel</TD><TD/><TD>{$book.title}</TD></TR>
-                  <TR><TD>Person</TD><TD/><TD>{$book.author}</TD></TR>
-                  <TR><TD>Autor</TD><TD/><TD>{$book.author}</TD></TR>
+                  <TR><TD>Titel</TD><TD/><TD>{$book.title := local:parse-column(.)}</TD></TR>
+                  <TR><TD>Person</TD><TD/><TD>{$book.author := local:parse-column(.)}</TD></TR>
+                  <TR><TD>Autor</TD><TD/><TD>{$book.author := local:parse-column(.)}</TD></TR>
                   <TR><TD>Erschienen</TD><TD/><TD>{
-                    book.year := extract(., "[0-9]+ *$"),
-                    if (contains(., ":")) then (
-                      book.location := substring-before(., ":"),
-                      book.publisher := translate(substring-after(., ":"), "0123456789", "")
-                    ) else ()
+                    let $temp := local:parse-column(.)
+                    return (
+                      book.year := extract($temp, "[0-9]+ *$"),
+                      if (contains($temp, ":")) then (
+                        book.location := substring-before($temp, ":"),
+                        book.publisher := translate(substring-after($temp, ":"), "0123456789", "")
+                      ) else ()
+                    )
                   }</TD></TR>
-                  <TR><TD>ISBN</TD><TD/><TD>{book.isbn := if (contains(., ":")) then substring-before(., ":") else .}</TD></TR>
-                  <TR><TD>EAN</TD><TD/><TD>{$book(if (not($book.isbn)) then "isbn" else "EAN!") := if (contains(., ":")) then substring-before(., ":") else .}</TD></TR>
-                  <TR><TD>Signatur</TD><TD/><TD>{$book.id}</TD></TR>
-                  <TR><TD>{$temp}</TD><TD/><TD>{$book(concat($temp, "!")) := .}</TD></TR>
+                  <TR><TD>ISBN</TD><TD/><TD>{book.isbn := local:parse-column(.) ! ( if (contains(., ":")) then substring-before(., ":") else . )}</TD></TR>
+                  <TR><TD>EAN</TD><TD/><TD>{$book(if (not($book.isbn)) then "isbn" else "EAN!") := local:parse-column(.) ! (if (contains(., ":")) then substring-before(., ":") else .)}</TD></TR>
+                  <TR><TD>Signatur</TD><TD/><TD>{$book.id := local:parse-column(.)}</TD></TR>
+                  <TR><TD>{$temp}</TD><TD/><TD>{$book(concat($temp, "!"))  := local:parse-column(.)}</TD></TR>
                 </t:switch>
               </t:loop>
             </TABLE>
