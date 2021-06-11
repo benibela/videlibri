@@ -10,9 +10,10 @@
 <action id="connect">
   <s>baseurl := if (get("baseurl", ())) then get("baseurl", ()) else x"https://{get('server')}"</s>
   <try>
-    <json url="{$baseurl}/auth/login?username={$username}&amp;password={$password}&amp;grant_type=password">
-  <!--    <header>Content-Type: application/json</header>-->
+    <json url="{$baseurl}/auth/login">
       <header>Accept: application/json,*/*</header>
+      <method>POST</method>
+      <post>username={uri-encode($username)}&amp;password={uri-encode($password)}&amp;grant_type=password</post>
     </json>
     <catch errors="http:403"><s>vl:raise-login("HTTP Code 403. Vermutlich ungültige Kontonummer oder Passwort.")</s></catch></try>
     <s>
