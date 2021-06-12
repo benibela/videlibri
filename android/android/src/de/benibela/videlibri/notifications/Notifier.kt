@@ -41,7 +41,12 @@ object Notifier {
 
 
     private fun getNotifications(context: Context): Array<String>? =
-            if (Accounts.size == 0) with(context) { arrayOf(getString(R.string.notificationNoAccountsTitle), getString(R.string.notificationNoAccounts)) }
+            if (Accounts.size == 0)
+                with(context) {
+                    val sp = preferences
+                    if (sp.getBoolean("hasBeenStartedAtLeastOnce", false) && sp.getInt("accountCountBackup", -1) <= 0) null
+                    else arrayOf(getString(R.string.notificationNoAccountsTitle), getString(R.string.notificationNoAccounts))
+                }
             else {
                 val n = Bridge.VLGetNotifications()
                 if (n?.isNotEmpty() == true) n

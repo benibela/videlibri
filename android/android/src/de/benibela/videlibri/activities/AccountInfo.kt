@@ -146,6 +146,8 @@ class AccountInfo : VideLibriBaseActivity() {
     override fun onResume() {
         super.onResume()
 
+        preferences.edit().apply {  putBoolean("hasBeenStartedAtLeastOnce", true); apply() }
+
         libdetails ?: setActiveLibrary(LibraryList.lastSelectedFallbackLibraryId()) ?: updateLibrary()
     }
 
@@ -238,6 +240,7 @@ class AccountInfo : VideLibriBaseActivity() {
     private fun addAccountNow() {
         inputToAccount()?.let {
             Accounts.add(it)
+            preferences.edit().apply { putInt("accountCountBackup", Accounts.size); apply() }
             finishWithResult()
         }
     }
@@ -249,6 +252,7 @@ class AccountInfo : VideLibriBaseActivity() {
     }
     private fun deleteAccountNow() {
         Accounts.delete(oldAccount)
+        preferences.edit().apply { putInt("accountCountBackup", Accounts.size); apply() }
         finishWithResult()
     }
 
