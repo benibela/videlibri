@@ -16,5 +16,5 @@
   </template>
   
   <homepage value="http://www.ub.tu-dortmund.de/"/>
-  <testing-search value="yes"/>  <testing-account value="yes"/></library>
+  <testing-search value="no"/>  <testing-account value="yes"/></library>
 

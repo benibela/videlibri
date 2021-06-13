@@ -6,8 +6,8 @@
   <longName value="Stadtbibliothek Duisburg"/>
   <shortName value="StB Duisburg"/>
   
-  <template value="bibdia"/>
-  <variable name="baseurl" value="https://opac.stadtbibliothek.duisburg.de/opax/"/>
+  <template value="koha"/>
+  <variable name="baseurl" value="https://sb-duisburg.lmscloud.net/"/>
 
   <template value="digibib">
     <variable name="location" value="BIBDIA"/>
@@ -16,5 +16,5 @@
   </template>
 
   <homepage value="https://www.duisburg.de/bildungwissenschaft/stadtbibliothek/stadtbibliothek.php"/>
-  <testing-search value="yes"/>  <testing-account value="yes"/></library>
+  <testing-search value="yes"/>  <testing-account value="unknown"/></library>
 
