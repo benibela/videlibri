@@ -280,6 +280,12 @@ begin
     Screen.Cursor:=crHourGlass;
     StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:=rsSearchingDetails;
   end;
+
+  if (nextPageAvailable) and (item = bookList.Items[booklist.Items.Count - 1]) then begin
+    nextPageAvailable := false;
+    searcherAccess.searchNextAsync;
+  end;
+
 end;
 
 procedure TbookSearchFrm.autoSearchContinueTimerTimer(Sender: TObject);
