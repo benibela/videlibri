@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="Bibliothek-App VideLibri">
+      <build version="2225" date="2021-06-13">
+        <download url="https://www.videlibri.de/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
+        <download url="https://www.videlibri.de/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
+        <download url="https://www.videlibri.de/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <fix>Anpassungen an geändertes Katalogsystem der Gemeindebücherei Rot am See, Stadtbibliothek Duisburg, Universitätsbibliotheken der TU-Dortmund und FU-Berlin (Verlängerungen)</fix>
+     </build>
       <build version="2222" date="2021-05-20">
-        <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
-        <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
-        <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
         <fix>Anpassungen an geändertes Katalogsystem der Mediathek Oberderdingen und der Unibib der FU-Berlin.</fix>
      </build>
       <build version="2220" date="2021-05-16">

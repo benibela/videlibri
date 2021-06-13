@@ -239,7 +239,7 @@ defaults)
 ;;
 
 src)
-  pushhg
+  #pushhg
   SRCDIR=/tmp/videlibri-$VERSION-src
   rm -R $SRCDIR
   cp -r $PUBLICHG $SRCDIR
@@ -267,8 +267,8 @@ src)
 	  echo do not forget to close the commit window
 		thg commit
 	  ./manage.sh defaults
-    hg tag "VIDELIBRI $VERSION"
-	  ./manage.sh mirror
+#    hg tag "VIDELIBRI $VERSION"
+#	  ./manage.sh mirror
 		;;
  
  
