@@ -1,4 +1,5 @@
 book := {}
+result := ()
 temp := text{"Verlag/Jahr:"}
 temp := text{"Umfang:"}
 temp := text{"Reihe:"}

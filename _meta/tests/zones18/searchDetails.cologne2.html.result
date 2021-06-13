@@ -1,4 +1,5 @@
 book := {}
+result := ()
 temp := text{"Einheitssachtitel"}
 temp := text{"Teil"}
 temp := text{"Organisation(en)"}

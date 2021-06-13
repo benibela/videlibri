@@ -1,4 +1,5 @@
 book := {}
+result := ()
 temp := text{"Teil
 				:=Xread repetitionsoptionalmatch children"}
 temp := text{"Originaltitel"}

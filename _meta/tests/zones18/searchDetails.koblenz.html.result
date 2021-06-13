@@ -1,4 +1,5 @@
 book := {}
+result := ()
 temp := text{"Autor"}
 temp := text{"Hauptsachtitel in Vorlageform/Mischform"}
 temp := text{"Verfasserangabe"}
