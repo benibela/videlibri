@@ -10,8 +10,8 @@
   <variable name="baseurl" value="https://api.ub.tu-dortmund.de/paia/"/>
   
   <template value="digibib">
-    <variable name="location" value="290"/>
-    <variable name="view" value="290:ExtStart"/>
+    <variable name="location" value="DOBIB"/>
+    <variable name="view" value="DOBIB:Dortmunder_Bibliotheke"/>
     <variable name="searchid" value="SERVICEGROUP1.SERVICE.SEARCH_UBDO"/>  
   </template>
   
