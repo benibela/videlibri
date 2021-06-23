@@ -10,8 +10,7 @@
        <button type="button" name="$ScriptButton">Konto</button>
        <input type="hidden" name="$ScriptButton_hidden"/>
        {$loginForm:=form(ancestor::form[1], 
-         let $btn := .//button!tokenize(@onclick, ",")[last()]!extract(., "['""](.*)['""]", 1)
-         let $code := trace($btn, "code")
+         let $code := .//button!tokenize(@onclick, ",")[last()]!extract(., "['""](.*)['""]", 1)
          return .//input/{@name: $code}
        )}
       </li>

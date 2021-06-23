@@ -4,9 +4,10 @@
   <FORM>
   {let $form := form()
    let $inputs := .//input
-   let $backButtonName := ($inputs[@title = "Zurück zur vorherigen Seite"])[1]
-   let $backButtonName := if ($backButtonName) then $backButtonName else ($inputs[contains(@title, 'zur vorherigen Seite')])[1] (:is this line needed?:)
-   let $bbn := $backButtonName/@name/string()
+   let $backButton := ($inputs[@title = "Zurück zur vorherigen Seite" or @value = "Zur Übersicht"])[1]
+   let $backButton := if ($backButton) then $backButton else ($inputs[contains(@title, 'zur vorherigen Seite')])[1] (:is this line needed?:)
+   let $bbn := $backButton/@name/string()
+   let $bbv := if ($backButton/@type = "image") then {"x": 0, "y": 0} else $backButton/@value/string()
    return (
      if ($mode = 'lend') then (
       $extendFormPost := request-combine($form, (($inputs[@type = "submit" and contains(@value, "arkierte") and contains(@value, "ngern")])[1])),
@@ -16,7 +17,7 @@
        $cancelFormPost.post := replace($cancelFormPost.post, "[a-zA-Z0-9]+=on&", "")
      ),
      if ($bbn) then 
-       $goBackPage := request-combine($form, {$bbn: {"x": 0, "y": 0}})
+       $goBackPage := request-combine($form, {$bbn: $bbv})
      else let $accountPage := //a[contains(., "konto")] return
        if ($accountPage) then
          $goBackPage := resolve-html($accountPage)
@@ -62,15 +63,21 @@
       <!- - vormerkungs verfall - -></TD>-->
     <TD>{book.libraryBranch := .}</TD>
     <TD>{let
-            $brs := .//br,
-            $br1 := $brs[1],
-            $text := if ($br1) then string-join(.//text()[. &lt;&lt; $br1]) else ., 
+            $lines := for tumbling window $w in .//node()[self::text() or self::br]
+                      start when true() 
+                      end $node when $node/self::br
+                      return string-join($w),
+            $lines := if ( count($lines) = 4 and matches($lines[1], "\[.*\]") ) then 
+                        ($lines[1] || $lines[2], $lines[3], $lines[4])
+                       else 
+                        $lines,
+            $text := $lines[1],
             $split := extract($text, "^\s*(\[([^\]]*)\])?\s*([^/]+)\s*(/\s*(.*))?", (2,3,5), "s")             
          return (
            book.category := $split[1],
            book.author := $split[3],
            book.title := $split[2],
-           if ($brs) then book.id := string-join($brs/following-sibling::text(), ":")
+           if (count($lines) > 1) then book.id := string-join(tail($lines), ":")
            else ()
          )
          }
