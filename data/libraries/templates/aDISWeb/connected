@@ -1,27 +1,54 @@
-    <template:switch-prioritized>
-       <a>Erweiterte Suche<t:s>searchPage:=.,connected:=true()</t:s></a>
-       
-       <input type="submit" value="Erweiterte Suche" >{searchPage:=form(ancestor::form[1], .), connected:=true()}</input>
-       
+<template:switch prioritized="true">
+  <body t:test="$connect-target = 'account'">
+    <template:switch prioritized="true">
+      <a>
+       <template:meta default-text-matching="regex"/>
+       Benutzerkonto|Konto|Anmeldung
+       <t:s>$loginForm := @href</t:s>
+      </a>
+      <li>
+       <button type="button" name="$ScriptButton">Konto</button>
+       <input type="hidden" name="$ScriptButton_hidden"/>
+       {$loginForm:=form(ancestor::form[1], 
+         let $btn := .//button!tokenize(@onclick, ",")[last()]!extract(., "['""](.*)['""]", 1)
+         let $code := trace($btn, "code")
+         return .//input/{@name: $code}
+       )}
+      </li>
+      <!--<a>Mein Konto<t:s>searchPage:=$url</t:s></a>-->
+    </template:switch>
+  </body>
+
+  <body t:test="$connect-target = 'search'">
+    <template:switch prioritized="true">
+      <a>Erweiterte Suche<t:s>$searchPage := @href</t:s></a>
+   
+      <input type="submit" value="Erweiterte Suche" >{searchPage:=form(ancestor::form[1], .)}</input>
+
+     
        <div id="topleiste" class="block">
          <span class="invisible">Sie sind hier: </span> 
          <span class="txtinsert">Erweiterte Suche</span>
-         {searchPage:=base-uri(),connected:=true()}
+         {searchPage:=base-uri()}
        </div>               
-
+    
        <strong><span class="tree_strong">Erweiterte Suche</span>
-         {searchPage:=base-uri(),connected:=true()}
+         {searchPage:=base-uri()}
        </strong>
-
+    
        <a>Suche<t:s>connectPage:=@href</t:s></a>
-       <a>Mein Konto<t:s>searchPage:=$url,connected:=true()</t:s></a>
-       
-       <div class="aDISMaske"><div id="spruch">Zu viele Benutzer</div><div id="main">{vl:raise(inner-text())}</div></div>
-       <div id="main" t:condition="matches(., 'Benutzer|Wartung|Störung')">{vl:raise(inner-text())}</div>
-       
-       <meta http-equiv="refresh">{connectPage:=extract(@content, "url=(.*)", 1)}</meta>
-       <a title="Zur Startseite">{connectPage:=@href}</a>
-       <a><t:s>connectPage:=@href</t:s>Neue Sitzung</a>
-       
-       <h1>{vl:raise(..)}</h1>
-     </template:switch-prioritized>
+    </template:switch>
+  </body> 
+   
+   <div class="aDISMaske">
+     <div id="spruch">Zu viele Benutzer</div>
+     <div id="main">{vl:raise(inner-text())}</div>
+   </div>
+   <div id="main" t:condition="matches(., 'Benutzer|Wartung|Störung')">{vl:raise(inner-text())}</div>
+   
+   <meta http-equiv="refresh">{$connectPage}</meta>
+   <a title="Zur Startseite">{$connectPage}</a>
+   <a><t:s>$connectPage</t:s>Neue Sitzung</a>
+   
+<!--   <h1>{vl:raise(..)}</h1>-->
+</template:switch>

@@ -82,22 +82,13 @@
 </action>
 
 <action id="internal-update-login">
-  <variable name="connected">false()</variable>
+  <s>connect-target := "account", connectPage := ()</s>
   <try>
     <page url="https://{$server}/aDISWeb/app{get('startparams', '')}" templateFile="connected"/>
+    <page url="{$connectPage}" templateFile="connected"/>
     <catch errors="http:503"><s>vl:raise("Der Bibliothekskatalog ist momentan temporär nicht erreichbar. Vermutlich werden Wartungsarbeiten durchgeführt (insbesondere bei den VÖBB)")</s></catch>
   </try>
-  
-  <if test="$connected"><variable name="connectPage">$searchPage</variable></if>
-
-  <page url="{$connectPage}"/>
-  <pattern>
-    <a>
-      <template:meta default-text-matching="regex"/>
-      Benutzerkonto|Konto|Anmeldung<t:s>loginForm:=@href</t:s>
-    </a>
-  </pattern>
-  
+    
   <loop test="exists($loginForm)">
     <s>lf := $loginForm, loginForm := ()</s>
     <page url="{$lf}">
@@ -254,22 +245,22 @@
 </action>
 
 <action id="search-connect">
-  <s>connected:=false()</s>
-  
-  <page url="https://{$server}/aDISWeb/app{get('startparams', '')}" templateFile="connected"/> <!-- some libraries log in directly, some redirect -->
-  <page url="{$connectPage}" test="not($connected)" templateFile="connected"/>
+  <s>connect-target := "search", connectPage := ()</s>  
+  <page url="https://{$server}/aDISWeb/app{get('startparams', '')}" templateFile="connected"/> 
+  <!-- some libraries log in directly, some redirect -->
+  <page url="{$connectPage}" templateFile="connected"/>
   
   <page url="{$searchPage}" templateFile="searchInputForm"/>
 </action>
 
 <action id="search">
-  <if test="not($connected)">
+  <if test="empty($searchPage)">
     <!-- go back to search form -->
     <call action="search-connect"/>
   </if> 
   
   <s>
-  connected := false(),
+  searchPage := (),
   lastSearchedIndex := 0, 
   search-next-page-available := (), 
   gotDetails_GoBackPage := (),
