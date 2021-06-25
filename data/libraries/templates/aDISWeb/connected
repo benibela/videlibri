@@ -24,16 +24,15 @@
    
       <input type="submit" value="Erweiterte Suche" >{searchPage:=form(ancestor::form[1], .)}</input>
 
-     
-       <div id="topleiste" class="block">
-         <span class="invisible">Sie sind hier: </span> 
-         <span class="txtinsert">Erweiterte Suche</span>
-         {searchPage:=base-uri()}
-       </div>               
-    
-       <strong><span class="tree_strong">Erweiterte Suche</span>
-         {searchPage:=base-uri()}
-       </strong>
+      <form>
+        <t:switch>
+          <span class="txtinsert">Erweiterte Suche</span>
+          <h1>Erweiterte Suche</h1>
+        </t:switch>
+        <select t:condition="contains(@id, 'SUCH0')"/>{3}
+        <t:s>searchPage:=base-uri()</t:s>
+      </form>
+
     
        <a>Suche<t:s>connectPage:=@href</t:s></a>
     </template:switch>

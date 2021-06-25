@@ -1,5 +1,7 @@
 <form>{
-  let $message := string-join(css(".message,.alert,.hinweis")!inner-text()),
+  let $message := string-join(css(".message,.alert,.hinweis")!inner-text())
+                  => replace ("(^\s*[.]\s*)In Ihrem Benutzerkonto können Sie .* prüfen, ob schon Medien für Sie bereitgestellt sind. Erst dann können Sie die Medien in der Bibliothek abholen.", "")
+                  => normalize-space(),  
       $submits := .//input[@type="submit"],
       $submit := ($submits[contains(@value, "bestellen")],$submits)[1]
   return 
