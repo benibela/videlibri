@@ -16,15 +16,20 @@ type
     BitBtn1: TBitBtn;
     BitBtn2: TBitBtn;
     CheckBoxShowEncoding: TCheckBox;
+    ComboBoxIdFirst: TComboBox;
+    ComboBoxIdSecond: TComboBox;
+    ComboBoxIdThird: TComboBox;
     FileNameEdit1: TFileNameEdit;
     GroupBox1: TGroupBox;
     clipboardExport: TRadioButton;
     fileExport: TRadioButton;
     exportWhich: TRadioGroup;
+    GroupBox2: TGroupBox;
     Panel1: TPanel;
     RadioGroup1: TRadioGroup;
     procedure BitBtn1Click(Sender: TObject);
     procedure CheckBoxShowEncodingChange(Sender: TObject);
+    procedure ComboBoxIdThirdChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure Panel1Click(Sender: TObject);
@@ -40,8 +45,174 @@ var
   BibTexExportFrm: TBibTexExportFrm;
 
 implementation
-uses bbutils, applicationconfig, bookWatchMain,booklistreader,Clipbrd,math,applicationdesktopconfig;
+uses bbutils, bbutilsbeta, applicationconfig, bookWatchMain,booklistreader,Clipbrd,math,applicationdesktopconfig, xquery__serialization_nodes;
 { TBibTexExportFrm }
+
+type TBibTeXIDFormats = (
+  bibtexIdReservedA, bibtexIdReservedB,
+  bibtexIdID = 2,
+  bibtexIdLastnameYear,
+  bibtexIdLastnameTitle,
+  bibtexIdLastnameTitlestart,
+  bibtexIdAuthorYear,
+  bibtexIdAuthorTitle,
+  bibtexIdAuthorTitlestart,
+  bibtexIdTitleYear,
+  bibtexIdTitlestartYear,
+  bibtexIdLastname,
+  bibtexIdAuthor,
+  bibtexIdTitle,
+  bibtexIdTitlestart
+);
+
+type TBibTeXIDFormat = record
+  hasAuthor, hasTitle, hasID, hasYear: boolean;
+  shortenAuthor, shortenTitle: boolean;
+  class function getLastName(author: string): string; static;
+  class function getShortTitle(title: string): string; static;
+  function makeID(book: TBook; out finalID: string): boolean;
+  procedure initFromEnum(enum: TBibTeXIDFormats);
+end;
+
+
+class function TBibTeXIDFormat.getLastName(author: string): string;
+var
+  tempview: TStringView;
+begin
+  tempview := author.unsafeView;
+  tempview.cutBeforeFind(';');
+  tempview.cutBeforeFind('[');
+  if tempview.count(',') = 1 then begin
+    tempview.cutBeforeFind(','); //assume Last Name, First Name
+  end else begin
+    //assume First Name Last Name (=0)
+    //OR   First Name Last Name 1, First Name Last Name 2, ... (> 1)
+    //in second case take first author
+    tempview.cutBeforeFind(',');
+    if tempview.contains('.') then begin
+      tempview.moveAfterFindLast('.');
+    end else begin
+      //multiple first names or multiple last names???
+      //assume former
+      tempview.trim();
+      tempview.moveAfterFindLast(' ');
+    end;
+  end;
+  tempview.trim();
+  result := tempview.ToString;
+end;
+
+class function TBibTeXIDFormat.getShortTitle(title: string): string;
+var
+  tempview: TStringView;
+  firstSpace, secondSpace: pchar;
+begin
+  tempview := title.unsafeView;
+  tempview.trim();
+  if tempview.beginsWith('¬') then begin
+    tempview.moveBy(length('¬'));
+    if tempview.contains('¬') then tempview.moveAfterFind('¬');
+    tempview.trim();
+  end;
+  firstSpace := tempview.find(' ');
+  if firstSpace <> nil then begin
+    if firstSpace - tempview.data <= 5 then begin
+      secondSpace := tempview.viewBehind(firstSpace).find(' ');
+      if secondSpace <> nil then firstSpace := secondSpace;
+    end;
+  end;
+  result := tempview.ToString;
+end;
+
+function TBibTeXIDFormat.makeID(book: TBook; out finalID: string): boolean;
+var
+  temp, tempID: String;
+  builder: TStrBuilder;
+  c: Char;
+  lastWasSpace: Boolean;
+begin
+  if hasAuthor and (book.author = '') then exit(false);
+  if hasTitle and (book.title = '') then exit(false);
+  if hasID and (book.id = '') then exit(false);
+  if hasYear and (book.year = '') then exit(false);
+  result := true;
+
+  tempID := '';
+  if hasAuthor then begin
+    if shortenAuthor then temp := getLastName(book.author)
+    else temp := book.author;
+    tempID += temp;
+  end;
+
+  if hasTitle then begin
+    temp := book.title;
+    if shortenTitle then temp := getShortTitle(book.title)
+    else temp := book.title;
+    if temp <> '' then temp[1] := UpCase(temp[1]);
+    tempID += temp;
+  end;
+
+  if hasID then
+    tempID += book.id;
+
+  if hasYear then
+    tempID += book.year;
+
+  if IsValidIdent(tempID) then finalID := tempID //Pascal Ident is close enough
+  else begin
+    //see https://tex.stackexchange.com/questions/408530/what-characters-are-allowed-to-use-as-delimiters-for-bibtex-keys
+    tempID := normalizeString(tempID, unfNFKD);
+    lastWasSpace := false;
+    builder.init(@finalID, length(tempID));
+    for c in tempID do begin
+      case c of
+        '*', '+', '-', '.', '/', ':', ';', '?', '@', 'A'..'Z', '_', 'a'..'z': begin
+          if not lastWasSpace then builder.append(c)
+          else begin
+            builder.append(upcase(c));
+            lastWasSpace := false;
+          end;
+        end;
+        ' ': lastWasSpace := true;
+      end;
+    end;
+    builder.final;
+  end;
+end;
+
+procedure TBibTeXIDFormat.initFromEnum(enum: TBibTeXIDFormats);
+begin
+  hasAuthor := enum in [bibtexIdLastnameYear, bibtexIdLastnameTitle, bibtexIdLastnameTitlestart,
+                        bibtexIdAuthorYear, bibtexIdAuthorTitle, bibtexIdAuthorTitlestart,
+                        bibtexIdLastname, bibtexIdAuthor];
+
+  hasTitle := enum in [
+    bibtexIdLastnameTitle, bibtexIdLastnameTitlestart,
+    bibtexIdAuthorTitle, bibtexIdAuthorTitlestart,
+    bibtexIdTitleYear, bibtexIdTitlestartYear,
+    bibtexIdTitle, bibtexIdTitlestart];
+
+  hasId := enum in [bibtexIdID];
+
+  hasYear := enum in [
+    bibtexIdLastnameYear,
+    bibtexIdAuthorYear,
+    bibtexIdTitleYear,
+    bibtexIdTitlestartYear
+  ];
+
+  shortenAuthor := enum in [
+    bibtexIdLastnameYear, bibtexIdLastnameTitle,  bibtexIdLastnameTitlestart,
+    bibtexIdLastname
+  ];
+
+  shortenTitle := enum in [
+    bibtexIdLastnameTitlestart,
+    bibtexIdAuthorTitlestart,
+    bibtexIdTitlestartYear,
+    bibtexIdTitlestart];
+
+end;
 
 procedure TBibTexExportFrm.RadioGroup2Click(Sender: TObject);
 begin
@@ -52,8 +223,8 @@ procedure TBibTexExportFrm.mySize;
 begin
   //my auto size height calculation
   //AutoSize := true or AdjustSize does not work Lazarus 2.0.10 r64689M FPC 3.2.2 x86_64-linux-gtk2
-  if CheckBoxShowEncoding.Checked then Height := CheckBoxShowEncoding.Top + CheckBoxShowEncoding.Height + 15 + RadioGroup1.Height + panel1.Height
-  else Height := CheckBoxShowEncoding.Top + CheckBoxShowEncoding.Height + 10 + panel1.Height
+  if CheckBoxShowEncoding.Checked then Height := CheckBoxShowEncoding.Top + CheckBoxShowEncoding.Height + 15 + RadioGroup1.Height + panel1.Height + GroupBox1.Height
+  else Height := CheckBoxShowEncoding.Top + CheckBoxShowEncoding.Height + 10 + panel1.Height + GroupBox1.Height
 end;
 
 
@@ -97,7 +268,7 @@ var outputEncoding:longint;
   begin
     s:=StringReplace(s,'\','\\',[rfReplaceAll]);
     s:=StringReplace(s,'{','\{',[rfReplaceAll]);
-    s:=StringReplace(s,'"','"',[rfReplaceAll]);
+    s:=StringReplace(s,'"','',[rfReplaceAll]);
     result:=s;
     case outputEncoding of
       0: begin //UTF-8 to Latex
@@ -123,52 +294,44 @@ var outputEncoding:longint;
         result:=StringReplace(result,charToReplace[i].c[j],charToReplace[i].r2[j],[rfReplaceAll]);
   end;
 
-const AUTHOR_LEN=5;TITLE_LEN=5;
 var all:boolean;
-    exportStr:string;
+    exportStr, id:string;
     book: TBook;
-    id,authorId,titleID:string;
+    ids: array[1..6] of TBibTeXIDFormat;
+
     i:LONGINt;
+    builder: TStrBuilder;
 begin
   if CheckBoxShowEncoding.Checked then outputEncoding:=RadioGroup1.ItemIndex
   else outputEncoding:=2;//utf-8
 
+  for i := 1 to high(ids) do ids[i] := default(TBibTeXIDFormat); //this line is completely useless but necessary to hide a warning
+  ids[1].initFromEnum(TBibTeXIDFormats(ComboBoxIdFirst.ItemIndex + 2));
+  ids[2].initFromEnum(TBibTeXIDFormats(ComboBoxIdSecond.ItemIndex + 2));
+  ids[3].initFromEnum(TBibTeXIDFormats(ComboBoxIdThird.ItemIndex + 2));
+  ids[4].initFromEnum(bibtexIdTitle);
+  ids[5].initFromEnum(bibtexIdAuthor);
+  ids[6].initFromEnum(bibtexIdID);
   all:=exportWhich.ItemIndex=0;
   exportStr:='';
+  builder.init(@exportStr);
   for i:=0 to mainForm.BookList.Items.count-1 do
     if all or (mainForm.BookList.Items[i].Selected) then begin
       book:=TBook(mainForm.BookList.Items[i].data.obj);
       if book=nil then continue;
 
-      //autor-jahr, autor-titel, titel-jahr, autor, titel, id
-      if book.author<>'' then begin
-        if pos(',',book.author)>0 then  //nachname, vorname
-          authorId:=copy(removeBadIDChar(book.author),1,min(pos(',',book.author)-1,AUTHOR_LEN))
-         else if pos(' ',book.author)=0 then  //nachname
-          authorId:=copy(removeBadIDChar(book.author),1,AUTHOR_LEN)
-         else
-          authorId:=copy(removeBadIDChar(book.author),length(book.author)-AUTHOR_LEN+1,AUTHOR_LEN);
-        if book.year<>'' then
-          id:=authorId+book.year
-         else if book.title<>'' then
-          id:=authorId+'_'+copy(removeBadIDChar(book.title),1,TITLE_LEN)
-         else id:=authorId;
-      end else if (book.title<>'') and (book.year<>'') then
-        id:=copy(removeBadIDChar(book.title),1,TITLE_LEN)+book.year
-       else if book.title<>'' then
-        id:=copy(removeBadIDChar(book.title),1,TITLE_LEN+AUTHOR_LEN)
-       else if book.id[1] in ['0'..'9'] then
-        id:=removeBadIDChar(book.id)
-       else
-        id:='b'+removeBadIDChar(book.id);
+      if not ids[1].makeID(book, id) and not ids[2].makeID(book, id) and not ids[3].makeID(book, id)
+         and not ids[4].makeID(book, id) and not ids[5].makeID(book, id) and not ids[6].makeID(book, id)  then begin
+        id := 'book';
+      end;
 
-      exportStr+=#13#10'@book{'+convStr(id)+','#13#10;
-      titleID:=convStr(book.title);
-      if book.author<>'' then exportStr+='  author = "'+convStr(book.author)+'",'#13#10;
-      if book.title<>'' then exportStr+='  title = "'+convStr(book.title)+'",'#13#10;
-      if book.year<>'' then exportStr+='  year = "'+convStr(book.year)+'",'#13#10;
-      exportStr+='}'#13#10;
+      builder.append(#13#10'@book{'+id+','#13#10);
+      if book.author<>'' then builder.append('  author = "'+convStr(book.author)+'",'#13#10);
+      if book.title<>'' then builder.append('  title = "'+convStr(book.title)+'",'#13#10);
+      if book.year<>'' then builder.append('  year = "'+convStr(book.year)+'",'#13#10);
+      builder.append('}'#13#10);
     end;
+    builder.final;
     if ExtractFileExt(FileNameEdit1.Text)='' then
       FileNameEdit1.Text:=FileNameEdit1.Text+'.bib';
 
@@ -183,7 +346,9 @@ begin
     userConfig.WriteBool('BibTeX-Export', 'Clipboard', clipboardExport.Checked);
     userConfig.WriteString('BibTeX-Export', 'Filename', FileNameEdit1.Text);
     userConfig.WriteInteger('BibTeX-Export', 'Charset', RadioGroup1.ItemIndex);
-
+    userConfig.WriteInteger('BibTeX-Export', 'ID-1', ComboBoxIdFirst.ItemIndex + 2);
+    userConfig.WriteInteger('BibTeX-Export', 'ID-2', ComboBoxIdSecond.ItemIndex + 2);
+    userConfig.WriteInteger('BibTeX-Export', 'ID-3', ComboBoxIdThird.ItemIndex + 2);
 end;
 
 procedure TBibTexExportFrm.CheckBoxShowEncodingChange(Sender: TObject);
@@ -192,6 +357,11 @@ begin
   //AutoSize := false;
   RadioGroup1.visible := CheckBoxShowEncoding.Checked;
   mySize;
+end;
+
+procedure TBibTexExportFrm.ComboBoxIdThirdChange(Sender: TObject);
+begin
+
 end;
 
 procedure TBibTexExportFrm.FormCreate(Sender: TObject);
@@ -204,6 +374,13 @@ begin
   clipboardExport.Checked := userConfig.ReadBool('BibTeX-Export', 'Clipboard', false);
   FileNameEdit1.Text:= userConfig.ReadString('BibTeX-Export', 'Filename', '');
   RadioGroup1.ItemIndex := userConfig.ReadInteger('BibTeX-Export', 'Charset', 2);
+
+  ComboBoxIdSecond.Items.Assign(ComboBoxIdFirst.Items);
+  ComboBoxIdThird.Items.Assign(ComboBoxIdFirst.Items);
+  ComboBoxIdFirst.ItemIndex := userConfig.ReadInteger('BibTeX-Export', 'ID-1', 3) - 2;
+  ComboBoxIdSecond.ItemIndex := userConfig.ReadInteger('BibTeX-Export', 'ID-2', 4) - 2;
+  ComboBoxIdThird.ItemIndex := userConfig.ReadInteger('BibTeX-Export', 'ID-3', 2) - 2;
+
   exportWhich.Controls[1].Enabled:=(mainForm.BookList.SelCount<>0);
   if not exportWhich.Controls[1].Enabled then
     exportWhich.ItemIndex:=0;
@@ -215,9 +392,45 @@ begin
 
 end;
 
+{$if false}
+procedure unitTests;
+  procedure lastNameTest(const fullname, lastname: string);
+  begin
+    if TBibTeXIDFormat.getLastName(fullname) <> lastname then
+      writeln(TBibTeXIDFormat.getLastName(fullname));
+  end;
+  procedure shortTitelTest(const fulltitle, shorttitle: string);
+  begin
+    if TBibTeXIDFormat.getShortTitle(fulltitle) <> shorttitle then
+      writeln(TBibTeXIDFormat.getShortTitle(fulltitle), ' <> ', shorttitle);
+  end;
+
+begin
+  writeln('Running tests');
+  lastNameTest('Heinlein, Sylvia; Wiemers, Sabine', 'Heinlein');
+  lastNameTest('Bernard, Jennifer ¬[VerfasserIn]', 'Bernard');
+  lastNameTest('Kevin Lewis [Regisseur/in] ; Nicolas Cage [Schauspieler/in] ; Emily Tosta [Schauspieler/in] ; Ric Reitz [Schauspieler/in] ; G. O. Parsons [Drehbuchautor/in] ; David Newbert [Kamera]',
+               'Lewis');
+  lastNameTest('Gosch, Dietmar *1950-*', 'Gosch');
+  lastNameTest('Paul J Deitel', 'Deitel');
+  lastNameTest('David B. Coe', 'Coe');
+  lastNameTest('Luk''janenko, Sergej V.', 'Luk''janenko');
+  lastNameTest('X Y. A B', 'A B');
+
+  shortTitelTest('¬The¬ Sinking City', 'Sinking City');
+  shortTitelTest('Körperschaftsteuergesetz', 'Körperschaftsteuergesetz');
+  shortTitelTest('Das Körperschaftsteuergesetz', 'Das Körperschaftsteuergesetz');
+  shortTitelTest('Die', 'Die');
+  shortTitelTest('Die      ', 'Die');
+end;
+{$endif}
+
 
 initialization
   {$I bibtexexport.lrs}
 
+//bibtexexport.unitTests;
+
 end.
+
 

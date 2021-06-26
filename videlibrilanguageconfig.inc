@@ -2,4 +2,4 @@
 {$coperators on}
 {$goto on}
 {$ModeSwitch autoderef}
-
+{$ModeSwitch advancedrecords}
