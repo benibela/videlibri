@@ -1,32 +1,30 @@
 object BibTexExportFrm: TBibTexExportFrm
-  Left = 303
-  Height = 315
-  Top = 215
-  Width = 342
+  Left = 565
+  Height = 379
+  Top = 356
+  Width = 447
   HorzScrollBar.Page = 301
   HorzScrollBar.Range = 142
   VertScrollBar.Page = 309
   VertScrollBar.Range = 303
   ActiveControl = exportWhich.RadioButton0
-  AutoSize = True
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = 'BibTeX-Export'
-  ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-  ChildSizing.Layout = cclTopToBottomThenLeftToRight
   ChildSizing.ControlsPerLine = 1
-  ClientHeight = 315
-  ClientWidth = 342
+  ClientHeight = 379
+  ClientWidth = 447
+  DesignTimePPI = 98
   OnCreate = FormCreate
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '1.8.1.0'
+  LCLVersion = '2.0.10.0'
   Scaled = False
   object exportWhich: TRadioGroup
     Left = 5
-    Height = 74
+    Height = 91
     Top = 5
-    Width = 332
+    Width = 437
     Align = alTop
     AutoFill = True
     AutoSize = True
@@ -40,8 +38,8 @@ object BibTexExportFrm: TBibTexExportFrm
     ChildSizing.ShrinkVertical = crsScaleChilds
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 54
-    ClientWidth = 330
+    ClientHeight = 66
+    ClientWidth = 433
     ItemIndex = 0
     Items.Strings = (
       'Alle angezeigten Medien'
@@ -51,22 +49,22 @@ object BibTexExportFrm: TBibTexExportFrm
   end
   object GroupBox1: TGroupBox
     Left = 5
-    Height = 82
-    Top = 84
-    Width = 332
+    Height = 96
+    Top = 101
+    Width = 437
     Align = alTop
     AutoSize = True
     BorderSpacing.Around = 5
     Caption = 'Export nach...'
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 62
-    ClientWidth = 330
+    ClientHeight = 71
+    ClientWidth = 433
     TabOrder = 1
     object clipboardExport: TRadioButton
       Left = 5
-      Height = 21
+      Height = 27
       Top = 5
-      Width = 125
+      Width = 145
       BorderSpacing.Around = 5
       Caption = 'Zwischenablage'
       TabOrder = 0
@@ -75,9 +73,9 @@ object BibTexExportFrm: TBibTexExportFrm
       AnchorSideTop.Control = clipboardExport
       AnchorSideTop.Side = asrBottom
       Left = 5
-      Height = 21
-      Top = 31
-      Width = 59
+      Height = 27
+      Top = 37
+      Width = 67
       BorderSpacing.Around = 5
       Caption = 'Datei:'
       Checked = True
@@ -89,10 +87,10 @@ object BibTexExportFrm: TBibTexExportFrm
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = fileExport
       AnchorSideTop.Side = asrCenter
-      Left = 69
-      Height = 31
-      Top = 26
-      Width = 251
+      Left = 77
+      Height = 32
+      Top = 34
+      Width = 346
       DialogOptions = []
       FilterIndex = 0
       HideDirectories = False
@@ -104,48 +102,17 @@ object BibTexExportFrm: TBibTexExportFrm
       TabOrder = 2
     end
   end
-  object BitBtn1: TBitBtn
-    AnchorSideTop.Control = RadioGroup1
-    AnchorSideTop.Side = asrBottom
-    Left = 8
-    Height = 34
-    Top = 271
-    Width = 108
-    AutoSize = True
-    BorderSpacing.Around = 5
-    Caption = 'exp&ortieren'
-    Default = True
-    Kind = bkOK
-    ModalResult = 1
-    OnClick = BitBtn1Click
-    TabOrder = 2
-  end
-  object BitBtn2: TBitBtn
-    AnchorSideTop.Control = RadioGroup1
-    AnchorSideTop.Side = asrBottom
-    Left = 224
-    Height = 34
-    Top = 271
-    Width = 104
-    Anchors = [akTop, akRight]
-    AutoSize = True
-    BorderSpacing.Around = 5
-    Cancel = True
-    Caption = 'Abbrechen'
-    Kind = bkCancel
-    ModalResult = 2
-    TabOrder = 3
-  end
   object RadioGroup1: TRadioGroup
     Left = 5
-    Height = 95
-    Top = 171
-    Width = 332
+    Height = 97
+    Top = 234
+    Width = 437
     Align = alTop
     AutoFill = True
     AutoSize = True
-    BorderSpacing.Around = 5
-    Caption = 'Ausgabe-Zeichensatz'
+    BorderSpacing.Left = 5
+    BorderSpacing.Right = 5
+    BorderSpacing.Bottom = 4
     ChildSizing.LeftRightSpacing = 6
     ChildSizing.TopBottomSpacing = 6
     ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
@@ -154,14 +121,73 @@ object BibTexExportFrm: TBibTexExportFrm
     ChildSizing.ShrinkVertical = crsScaleChilds
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 75
-    ClientWidth = 330
+    ClientHeight = 93
+    ClientWidth = 433
     ItemIndex = 0
     Items.Strings = (
       'ASCII mit kodierten Sonderzeichen'
       'Windows-1252/Latin-1'
       'UTF-8'
     )
+    TabOrder = 2
+    Visible = False
+  end
+  object CheckBoxShowEncoding: TCheckBox
+    Left = 5
+    Height = 27
+    Top = 202
+    Width = 437
+    Align = alTop
+    BorderSpacing.Around = 5
+    Caption = 'Ausgabe-Zeichensatz (veraltet):'
+    OnChange = CheckBoxShowEncodingChange
+    TabOrder = 3
+  end
+  object Panel1: TPanel
+    Left = 5
+    Height = 51
+    Top = 336
+    Width = 437
+    Align = alTop
+    BorderSpacing.Around = 5
+    BevelOuter = bvNone
+    ClientHeight = 51
+    ClientWidth = 437
     TabOrder = 4
+    OnClick = Panel1Click
+    object BitBtn1: TBitBtn
+      AnchorSideTop.Control = RadioGroup1
+      AnchorSideTop.Side = asrBottom
+      AnchorSideBottom.Side = asrBottom
+      Left = 2
+      Height = 33
+      Top = 2
+      Width = 119
+      Anchors = [akLeft]
+      AutoSize = True
+      BorderSpacing.Around = 5
+      Caption = 'exp&ortieren'
+      Default = True
+      Kind = bkOK
+      ModalResult = 1
+      OnClick = BitBtn1Click
+      TabOrder = 0
+    end
+    object BitBtn2: TBitBtn
+      AnchorSideTop.Control = BitBtn1
+      AnchorSideTop.Side = asrCenter
+      Left = 320
+      Height = 33
+      Top = 2
+      Width = 112
+      Anchors = [akTop, akRight]
+      AutoSize = True
+      BorderSpacing.Around = 5
+      Cancel = True
+      Caption = 'Abbrechen'
+      Kind = bkCancel
+      ModalResult = 2
+      TabOrder = 1
+    end
   end
 end

@@ -15,18 +15,23 @@ type
   TBibTexExportFrm = class(TVideLibriForm)
     BitBtn1: TBitBtn;
     BitBtn2: TBitBtn;
+    CheckBoxShowEncoding: TCheckBox;
     FileNameEdit1: TFileNameEdit;
     GroupBox1: TGroupBox;
     clipboardExport: TRadioButton;
     fileExport: TRadioButton;
     exportWhich: TRadioGroup;
+    Panel1: TPanel;
     RadioGroup1: TRadioGroup;
     procedure BitBtn1Click(Sender: TObject);
+    procedure CheckBoxShowEncodingChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure Panel1Click(Sender: TObject);
     procedure RadioGroup2Click(Sender: TObject);
   private
     { private declarations }
+    procedure mySize;
   public
     { public declarations }
   end; 
@@ -41,6 +46,14 @@ uses bbutils, applicationconfig, bookWatchMain,booklistreader,Clipbrd,math,appli
 procedure TBibTexExportFrm.RadioGroup2Click(Sender: TObject);
 begin
 
+end;
+
+procedure TBibTexExportFrm.mySize;
+begin
+  //my auto size height calculation
+  //AutoSize := true or AdjustSize does not work Lazarus 2.0.10 r64689M FPC 3.2.2 x86_64-linux-gtk2
+  if CheckBoxShowEncoding.Checked then Height := CheckBoxShowEncoding.Top + CheckBoxShowEncoding.Height + 15 + RadioGroup1.Height + panel1.Height
+  else Height := CheckBoxShowEncoding.Top + CheckBoxShowEncoding.Height + 10 + panel1.Height
 end;
 
 
@@ -117,7 +130,8 @@ var all:boolean;
     id,authorId,titleID:string;
     i:LONGINt;
 begin
-  outputEncoding:=RadioGroup1.ItemIndex;
+  if CheckBoxShowEncoding.Checked then outputEncoding:=RadioGroup1.ItemIndex
+  else outputEncoding:=2;//utf-8
 
   all:=exportWhich.ItemIndex=0;
   exportStr:='';
@@ -172,6 +186,14 @@ begin
 
 end;
 
+procedure TBibTexExportFrm.CheckBoxShowEncodingChange(Sender: TObject);
+begin
+  if RadioGroup1.visible = CheckBoxShowEncoding.Checked then exit;
+  //AutoSize := false;
+  RadioGroup1.visible := CheckBoxShowEncoding.Checked;
+  mySize;
+end;
+
 procedure TBibTexExportFrm.FormCreate(Sender: TObject);
 begin
 end;
@@ -185,6 +207,12 @@ begin
   exportWhich.Controls[1].Enabled:=(mainForm.BookList.SelCount<>0);
   if not exportWhich.Controls[1].Enabled then
     exportWhich.ItemIndex:=0;
+  mySize;
+end;
+
+procedure TBibTexExportFrm.Panel1Click(Sender: TObject);
+begin
+
 end;
 
 
