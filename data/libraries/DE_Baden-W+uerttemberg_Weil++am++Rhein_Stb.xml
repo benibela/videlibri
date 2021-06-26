@@ -2,11 +2,11 @@
 <library>
   <longName value="Stadtbibliothek Weil am Rhein"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/weil-am-rhein"/>	
-  <variable name="DB" value="weilamrhein"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.kivbf.de/weil-am-rhein/Konto-und-Verl%C3%A4ngerung/Mein-Bibliothekskonto"/>	
+  <variable name="urlsearch" value="https://bibliotheken.kivbf.de/weil-am-rhein/Mediensuche/Erweiterte-Suche"/>
   
-  <homepage value="https://web-opac.kivbf.de/weil-am-rhein/index.asp?DB=weilamrhein"/>
+  <homepage value="https://bibliotheken.kivbf.de/weil-am-rhein/"/>
   <testing-search value="unknown"/>
   <testing-account value="unknown"/>
 </library>
