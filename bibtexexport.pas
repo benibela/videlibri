@@ -45,7 +45,7 @@ var
   BibTexExportFrm: TBibTexExportFrm;
 
 implementation
-uses bbutils, bbutilsbeta, applicationconfig, bookWatchMain,booklistreader,Clipbrd,math,applicationdesktopconfig, xquery__serialization_nodes;
+uses bbutils, bbutilsbeta, applicationconfig, bookWatchMain,booklistreader,Clipbrd,math,applicationdesktopconfig, xquery__serialization_nodes,xquery.internals.common;
 { TBibTexExportFrm }
 
 type TBibTeXIDFormats = (
@@ -120,6 +120,7 @@ begin
       secondSpace := tempview.viewBehind(firstSpace).find(' ');
       if secondSpace <> nil then firstSpace := secondSpace;
     end;
+    tempview.cutBeforeFind(firstSpace);
   end;
   result := tempview.ToString;
 end;
@@ -135,7 +136,6 @@ begin
   if hasTitle and (book.title = '') then exit(false);
   if hasID and (book.id = '') then exit(false);
   if hasYear and (book.year = '') then exit(false);
-  result := true;
 
   tempID := '';
   if hasAuthor then begin
@@ -145,7 +145,6 @@ begin
   end;
 
   if hasTitle then begin
-    temp := book.title;
     if shortenTitle then temp := getShortTitle(book.title)
     else temp := book.title;
     if temp <> '' then temp[1] := UpCase(temp[1]);
@@ -166,7 +165,7 @@ begin
     builder.init(@finalID, length(tempID));
     for c in tempID do begin
       case c of
-        '*', '+', '-', '.', '/', ':', ';', '?', '@', 'A'..'Z', '_', 'a'..'z': begin
+        '*', '+', '-', '.', '/', ':', ';', '?', '@', 'A'..'Z', '_', 'a'..'z', '0'..'9': begin
           if not lastWasSpace then builder.append(c)
           else begin
             builder.append(upcase(c));
@@ -178,6 +177,7 @@ begin
     end;
     builder.final;
   end;
+  result := finalID <> '';
 end;
 
 procedure TBibTeXIDFormat.initFromEnum(enum: TBibTeXIDFormats);
@@ -299,8 +299,9 @@ var all:boolean;
     book: TBook;
     ids: array[1..6] of TBibTeXIDFormat;
 
-    i:LONGINt;
+    i, idCounter:LONGINt;
     builder: TStrBuilder;
+    duplicateIdCheck: TXQHashsetStr;
 begin
   if CheckBoxShowEncoding.Checked then outputEncoding:=RadioGroup1.ItemIndex
   else outputEncoding:=2;//utf-8
@@ -314,6 +315,7 @@ begin
   ids[6].initFromEnum(bibtexIdID);
   all:=exportWhich.ItemIndex=0;
   exportStr:='';
+  duplicateIdCheck.init;
   builder.init(@exportStr);
   for i:=0 to mainForm.BookList.Items.count-1 do
     if all or (mainForm.BookList.Items[i].Selected) then begin
@@ -324,6 +326,14 @@ begin
          and not ids[4].makeID(book, id) and not ids[5].makeID(book, id) and not ids[6].makeID(book, id)  then begin
         id := 'book';
       end;
+      if duplicateIdCheck.contains(id) then begin
+        id += '_';
+        idCounter := 2;
+        while duplicateIdCheck.contains(id + inttostr(idCounter)) do inc(idCounter);
+        id := id + inttostr(idCounter);
+      end;
+      duplicateIdCheck.include(id);
+
 
       builder.append(#13#10'@book{'+id+','#13#10);
       if book.author<>'' then builder.append('  author = "'+convStr(book.author)+'",'#13#10);
@@ -349,6 +359,7 @@ begin
     userConfig.WriteInteger('BibTeX-Export', 'ID-1', ComboBoxIdFirst.ItemIndex + 2);
     userConfig.WriteInteger('BibTeX-Export', 'ID-2', ComboBoxIdSecond.ItemIndex + 2);
     userConfig.WriteInteger('BibTeX-Export', 'ID-3', ComboBoxIdThird.ItemIndex + 2);
+    duplicateIdCheck.done;
 end;
 
 procedure TBibTexExportFrm.CheckBoxShowEncodingChange(Sender: TObject);
@@ -422,6 +433,7 @@ begin
   shortTitelTest('Das Körperschaftsteuergesetz', 'Das Körperschaftsteuergesetz');
   shortTitelTest('Die', 'Die');
   shortTitelTest('Die      ', 'Die');
+  shortTitelTest('Twenty letters to a friend', 'Twenty');
 end;
 {$endif}
 
