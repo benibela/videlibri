@@ -1,15 +1,22 @@
 <form>{
-  let $message := string-join(css(".message,.alert,.hinweis")!inner-text())
+  let $message-elements := css(".message,.alert,.hinweis")
+  let $message := string-join($message-elements!inner-text())
                   => replace ("(^\s*[.]\s*)In Ihrem Benutzerkonto können Sie .* prüfen, ob schon Medien für Sie bereitgestellt sind. Erst dann können Sie die Medien in der Bibliothek abholen.", "")
                   => normalize-space(),  
       $submits := .//input[@type="submit"],
       $submit := ($submits[contains(@value, "bestellen")],$submits)[1]
   return 
-  if (matches($message, "(ist +erfolgt|Außenmagazinbestellung für.*:)")) then ( final-form := form(., $submit), form := () )
-  else if ($message ne "" and ($message = get("oldmessage", "") or count($submits) eq 1 ) ) then (
+  if (matches($message, "(ist +erfolgt|Außenmagazinbestellung für.*:|Ergebnis)")) then ( 
+    final-form := form(., $submit), 
+    form := () 
+  ) else if ($message ne "" and ($message = get("oldmessage", "") or count($submits) eq 1 ) ) then (
     $error := $message, 
     form := (), 
     final-form := form(., ($submits[@class = "abbrechen" or @value="Zurück"], $submit)[1]) 
   )
-  else (form := form(., $submit), $oldmessage := $message)
+  else if (exists($message-elements) and count($submits) eq 1) then (
+    (:for Munich which does not have an "ist erfolgt" message:)
+    final-form := form(., $submit), 
+    form := () 
+  ) else  (form := form(., $submit), $oldmessage := $message)
 }</form>
