@@ -3,11 +3,9 @@
    let $inputs := .//input
    let $backButton := ($inputs[@title = "Zurück zur vorherigen Seite" or @value = "Zur Übersicht"])[1]
    let $backButton := if ($backButton) then $backButton else ($inputs[contains(@title, 'zur vorherigen Seite')])[1] (:is this line needed?:)
-   let $bbn := $backButton/@name/string()
-   let $bbv := if ($backButton/@type = "image") then {"x": 0, "y": 0} else $backButton/@value/string()
    return (
-     if ($bbn) then 
-       $goBackPage := request-combine($form, {$bbn: $bbv})
+     if ($backButton/@name) then 
+       $goBackPage := request-combine($form, $backButton)
      else let $accountPage := //a[contains(., "konto")] return
        if ($accountPage) then
          $goBackPage := resolve-html($accountPage)

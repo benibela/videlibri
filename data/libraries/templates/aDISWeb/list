@@ -6,8 +6,6 @@
    let $inputs := .//input
    let $backButton := ($inputs[@title = "Zurück zur vorherigen Seite" or @value = "Zur Übersicht"])[1]
    let $backButton := if ($backButton) then $backButton else ($inputs[contains(@title, 'zur vorherigen Seite')])[1] (:is this line needed?:)
-   let $bbn := $backButton/@name/string()
-   let $bbv := if ($backButton/@type = "image") then {"x": 0, "y": 0} else $backButton/@value/string()
    return (
      if ($mode = 'lend') then (
       $extendFormPost := request-combine($form, (($inputs[@type = "submit" and contains(@value, "arkierte") and contains(@value, "ngern")])[1])),
@@ -16,12 +14,12 @@
        $cancelFormPost := request-combine($form, ($inputs[@type = "submit" and contains(@value, "arkierte") and contains(@value, "schen")])[1]),
        $cancelFormPost.post := replace($cancelFormPost.post, "[a-zA-Z0-9]+=on&", "")
      ),
-     if ($bbn) then 
-       $goBackPage := request-combine($form, {$bbn: $bbv})
+     if ($backButton/@name) then 
+       $goBackPage := request-combine($form, $backButton)
      else let $accountPage := //a[contains(., "konto")] return
        if ($accountPage) then
          $goBackPage := resolve-html($accountPage)
-     else vl:raise-internal("Kein Link von der Ausleihentabelle zurück zur vorherigen Seite gefunden")
+       else vl:raise-internal("Kein Link von der Ausleihentabelle zurück zur vorherigen Seite gefunden")
    ),
    $default-book := map:merge(({"_mode": $mode},
      switch ($mode)

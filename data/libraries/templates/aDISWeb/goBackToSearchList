@@ -1,4 +1,4 @@
 <t:switch prioritized="true">
   <a title="Trefferliste">{goBackPage:=@href}</a>
-  <input t:condition="contains(@title, 'zur Trefferliste')">{goBackPage:=form(//form, {@name: {"x": 0, "y": 0}})}</input>
+  <input t:condition="contains(@title, 'zur Trefferliste')">{goBackPage:=form(//form, .)}</input>
 </t:switch>
