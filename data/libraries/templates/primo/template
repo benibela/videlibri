@@ -140,6 +140,7 @@
           <input name="j_username"/>
           {request := form(., ({"j_username": $username, "j_password": $password}, .//button[@name = "_eventId_proceed"] )), datasend := true()}
         </form>
+        <html t:test="$use-rest-api" id="primoExploreRoot">{i:=10000}<!--logged in???--></html>
         <DIV class="EXLMyAccountContainer" id="exlidMyAccountContainer"> <DIV class="EXLMyAccountMainContainer"/> 
           {i := 10000}<!--logged in-->
         </DIV>
