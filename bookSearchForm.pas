@@ -82,6 +82,8 @@ type
     procedure searchLocationSelect(Sender: TObject);
     procedure searchSelectionListClickCheck(Sender: TObject);
   private
+    function GetDigibibTemplate: TMultiPageTemplate;
+  private
     { private declarations }
     locations: TSearchableLocations;
     selectedLibrariesPerLocation: TStringList;
@@ -89,6 +91,7 @@ type
     autoSearchDetailCount: integer;
     procedure makeSearcherAccess(connectNow: boolean = true);
     function currentLocationRegionConfig: string;
+    property digibibtemplate: TMultiPageTemplate read GetDigibibTemplate;
   public
     { public declarations }
     bookList: TBookListView;
@@ -125,7 +128,7 @@ const SB_PANEL_FOUND_COUNT=1;
       SB_PANEL_SEARCH_STATUS=0;
 implementation
 
-uses applicationconfig,applicationdesktopconfig, libraryParser,simplexmlparser,bbdebugtools,bookWatchMain,bbutils,LCLType,libraryAccess,LCLIntf,strutils,Clipbrd,inputlistbox,bookproperties,xquery__regex,commoninterfacehelpers;
+uses applicationconfig,applicationdesktopconfig, libraryParser,simplexmlparser,bbdebugtools,bookWatchMain,bbutils,LCLType,libraryAccess,LCLIntf,strutils,Clipbrd,inputlistbox,bookproperties,xquery__regex,commoninterfacehelpers,androidutils;
 
 { TbookSearchFrm }
 resourcestring
@@ -742,9 +745,29 @@ procedure TbookSearchFrm.searchLocationSelect(Sender: TObject);
 var
     i:longint;
     loki: Integer;
+    libs: TStringList;
+    searchTarget: TSearchTarget;
 begin
   loki := locations.locations.IndexOf(searchLocation.Text);
-  searchSelectionList.Items.Assign(TStringList(locations.locations.Objects[loki]));
+  libs := TStringList(locations.locations.Objects[loki]);
+  i := 0;
+  while i < libs.Count do begin
+    searchTarget := TSearchTarget(libs.Objects[i]);
+    if searchTarget.lib = nil then begin
+      searchTarget.lib := libraryManager.get(SearchTarget.id);
+      if searchTarget.lib = nil then begin
+        libs.Delete(i);
+        continue;
+      end;
+      libs[i] := searchTarget.lib.prettyNameLong;
+      searchTarget.template := searchTarget.lib.template;
+      if strContains(searchTarget.template.name, 'digibib') then begin
+        libs.AddObject(searchTarget.lib.prettyNameLong + ' (digibib)', TSearchTarget.create(searchTarget.lib.prettyNameLong+ ' (digibib)', searchTarget.lib, digibibtemplate));
+      end;
+    end;
+    inc(i);
+  end;
+  searchSelectionList.Items.Assign(libs);
 
   for i:=1 to min(length(selectedLibrariesPerLocation.Values[searchLocation.Text]),
                   searchSelectionList.Items.count) do
@@ -754,25 +777,28 @@ begin
   userConfig.WriteString('BookSearcher', currentLocationRegionConfig, searchLocation.Text);
 end;
 
+var gdigibibtemplate: TMultiPageTemplate;
 procedure TbookSearchFrm.searchSelectionListClickCheck(Sender: TObject);
 var s:string;
     i:longint;
     oldState: String;
     last: LongInt;
-    disallowMultiselect: Boolean;
+    disallowMultiselect, first: Boolean;
 begin
   oldState := selectedLibrariesPerLocation.Values[searchLocation.Text];
-  disallowMultiselect := pos('digibib', searchLocation.Text) = 0;
+  disallowMultiselect := false;
   s:='';
   last := 0;
   for i:=0 to searchSelectionList.Items.count-1 do begin
+    if searchSelectionList.Checked[i] then begin
+      disallowMultiselect := disallowMultiselect or ((searchSelectionList.Items.Objects[i] as TSearchTarget).template <> gdigibibtemplate);
+      if disallowMultiselect and (i + 1 <= length(oldState)) and (oldState[i+1] = '+') then begin
+        last := i;
+        searchSelectionList.Checked[i] := false;
+      end;
+    end;
     if searchSelectionList.Checked[i] then s+='+'
     else s+='-';
-    if disallowMultiselect and searchSelectionList.Checked[i] and (i + 1 <= length(oldState)) and (oldState[i+1] = '+') then begin
-      s[length(s)] := '-';
-      last := i;
-      searchSelectionList.Checked[i] := false;
-    end;
   end;
   if (pos('+', s) = 0) and (last < searchSelectionList.Items.count) then begin
     searchSelectionList.Checked[last] := true;
@@ -785,12 +811,38 @@ begin
   makeSearcherAccess;
 end;
 
+function TbookSearchFrm.GetDigibibTemplate: TMultiPageTemplate;
+begin
+  if gdigibibtemplate <> nil then exit(gdigibibtemplate);
+{  searchTemplates := TStringList.Create;
+  searchTemplates.OwnsObjects := true;
+  searchTemplates.text := assetFileAsString('libraries/search/search.list');
+  for i := searchTemplates.count-1 downto 0 do begin
+    searchTemplates[i] := trim(searchTemplates[i]);
+    if searchTemplates[i] = '' then searchTemplates.Delete(i);
+  end;
+  for i :=0 to searchTemplates.count-1 do begin
+    searchTemplates.Objects[i] := TMultiPageTemplate.create();
+    TMultiPageTemplate(searchTemplates.Objects[i]).loadTemplateWithCallback(@assetFileAsString, StringReplace('libraries\search\templates\' +trim(searchTemplates[i])+'\','\',DirectorySeparator,[rfReplaceAll]),trim(searchTemplates[i]));
+    if searchTemplates[i] <> 'digibib' then begin
+      temp := TStringList.Create;
+      temp.OwnsObjects := true;
+      temp.AddObject(searchTemplates[i], TSearchTarget.create(searchTemplates[i], nil, TMultiPageTemplate(searchTemplates.Objects[i])));
+      locations.AddObject(searchTemplates[i], temp);
+    end else digibib := TMultiPageTemplate(searchTemplates.Objects[i]);
+  end;}
+  gdigibibtemplate := TMultiPageTemplate.create;
+  gdigibibtemplate.loadTemplateWithCallback(@assetFileAsString, StringReplace('libraries\search\templates\digibib\','\',DirectorySeparator,[rfReplaceAll]),'digibib');
+  result := gdigibibtemplate;
+end;
+
 procedure TbookSearchFrm.makeSearcherAccess(connectNow: boolean = true);
 var
   first: Boolean;
   j: Integer;
   i: Integer;
   result: TLibrarySearcherAccess;
+  searchTarget: TSearchTarget;
 begin
   result:=TLibrarySearcherAccess.Create;
   result.OnSearchPageComplete:=@searcherAccessSearchComplete;
@@ -811,19 +863,23 @@ begin
   first := true;
   for j := 0 to searchSelectionList.Items.count - 1 do
     if searchSelectionList.Checked[j] then begin
+      searchTarget := TSearchTarget((TStringList(locations.locations.Objects[i])).Objects[j]);
+      if searchTarget.lib = nil then continue;
       if first then begin
-        result.newSearch( TSearchTarget((TStringList(locations.locations.Objects[i])).Objects[j]).template );
+        result.newSearch( searchTarget.template );
         result.searcher.clear;
         first := false;
       end;
-      result.searcher.addLibrary(TSearchTarget((TStringList(locations.locations.Objects[i])).Objects[j]).lib);
+      result.searcher.addLibrary(searchTarget.lib);
     end;
 
   if first then begin
     if TStringList(locations.locations.Objects[i]).count = 0 then exit;
-    result.newSearch( TSearchTarget((TStringList(locations.locations.Objects[i])).Objects[0]).template );
+    searchTarget := TSearchTarget((TStringList(locations.locations.Objects[i])).Objects[j]);
+    if searchTarget.lib = nil then exit;
+    result.newSearch( searchTarget.template );
     result.searcher.clear;
-    result.searcher.addLibrary(TSearchTarget((TStringList(locations.locations.Objects[i])).Objects[0]).lib);
+    result.searcher.addLibrary(searchTarget.lib);
     if searchSelectionList.Count > 0 then
       searchSelectionList.Checked[0] := true;
   end;
@@ -1073,8 +1129,7 @@ begin
   displayDetails(book);
   if book.owningAccount is TCustomAccountAccess then begin
     lib := TCustomAccountAccess(book.owningAccount).getLibrary();
-    if not selectLibrary(lib.prettyLocation, lib) then
-      selectLibrary(lib.prettyLocation+ ' (digibib)', lib);
+    selectLibrary(lib.prettyLocation, lib);
 
     accId := accounts.IndexOfObject(book.owningAccount);
     if (accId >= 0) and (accId < saveToAccountMenu.Items.Count) then begin

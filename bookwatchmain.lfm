@@ -6,6 +6,7 @@ object mainForm: TmainForm
   Caption = 'Videlibri'
   ClientHeight = 649
   ClientWidth = 927
+  DesignTimePPI = 98
   Menu = MainMenu1
   OnActivate = FormActivate
   OnClose = FormClose
@@ -19,8 +20,8 @@ object mainForm: TmainForm
   Scaled = False
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 24
-    Top = 625
+    Height = 26
+    Top = 623
     Width = 927
     Panels = <    
       item

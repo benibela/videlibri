@@ -135,10 +135,12 @@ type
   { TSearchTarget }
 
   TSearchTarget = class
+    id: string;
     name: string;
     lib: TLibrary; //might be nil
     template: TMultiPageTemplate;
     constructor create(aname: string; alib: TLibrary; atemplate: TMultiPageTemplate);
+    constructor create(aid: string);
   end;
 
   { TSearchableLocations }
@@ -156,7 +158,6 @@ uses applicationconfig, bbdebugtools, internetaccess, androidutils {$ifdef andro
 
 resourcestring
   rsSearchAllRegions = 'alle Regionen';
-  rsSearchWorldRegion = 'Metakatalog';
 
 function getSearchableLocations: TSearchableLocations;
   function nestedList(base: TStringList; name: string): TStringList;
@@ -172,10 +173,10 @@ function getSearchableLocations: TSearchableLocations;
     result := TStringList(base.Objects[i]);
   end;
 
-var digibib: TMultiPageTemplate = nil;
+var
   temp: TStringList;
-  i: Integer;
   loc: String;
+  libraryMetaData: TLibraryMetaDataEnumerator;
 begin
   with result do begin
     regions := TStringList.Create;
@@ -183,45 +184,14 @@ begin
     locations := TStringList.Create;
     locations.OwnsObjects := true;
 
-    searchTemplates := TStringList.Create;
-    searchTemplates.OwnsObjects := true;
-    searchTemplates.text := assetFileAsString('libraries/search/search.list');
-    for i := searchTemplates.count-1 downto 0 do begin
-      searchTemplates[i] := trim(searchTemplates[i]);
-      if searchTemplates[i] = '' then searchTemplates.Delete(i);
-    end;
-    for i :=0 to searchTemplates.count-1 do begin
-      searchTemplates.Objects[i] := TMultiPageTemplate.create();
-      TMultiPageTemplate(searchTemplates.Objects[i]).loadTemplateWithCallback(@assetFileAsString, StringReplace('libraries\search\templates\' +trim(searchTemplates[i])+'\','\',DirectorySeparator,[rfReplaceAll]),trim(searchTemplates[i]));
-      if searchTemplates[i] <> 'digibib' then begin
-        temp := TStringList.Create;
-        temp.OwnsObjects := true;
-        temp.AddObject(searchTemplates[i], TSearchTarget.create(searchTemplates[i], nil, TMultiPageTemplate(searchTemplates.Objects[i])));
-        locations.AddObject(searchTemplates[i], temp);
-      end else digibib := TMultiPageTemplate(searchTemplates.Objects[i]);
-    end;
-    if locations.Count > 0 then
-      nestedList(regions, rsSearchWorldRegion).Text := locations.Text;
 
-    if digibib = nil then raise ELibraryException.create('Digibib template not found');
-
-    for i := 0 to libraryManager.count - 1 do begin
-      if libraryManager[i] = nil then continue;
-      loc := libraryManager[i].prettyLocation;
-      if libraryManager[i].template.findAction('search') <> nil then begin
-        temp := nestedList(regions, libraryManager[i].prettyCountryState);
-        if temp.IndexOf(loc) < 0 then temp.Add(loc);
-        temp := nestedList(locations, loc);
-        temp.AddObject(libraryManager[i].prettyNameLong, TSearchTarget.create(libraryManager[i].prettyNameLong, libraryManager[i], libraryManager[i].template));
-      end;
-      if strContains(libraryManager[i].template.name, 'digibib') then begin
-        temp := nestedList(regions, libraryManager[i].prettyCountryState);
-        if temp.IndexOf(loc+' (digibib)') < 0 then temp.Add(loc+' (digibib)');
-        temp := nestedList(regions, rsSearchWorldRegion);
-        if temp.IndexOf(loc+' (digibib)') < 0 then temp.Add(loc+' (digibib)');
-        temp := nestedList(locations, loc+' (digibib)');
-        temp.AddObject(libraryManager[i].prettyNameLong, TSearchTarget.create(libraryManager[i].prettyNameLong, libraryManager[i], digibib));
-      end;
+    libraryMetaData := libraryManager.enumerateLibraryMetaData;
+    while libraryMetaData.MoveNext do begin
+      loc := libraryMetaData.prettyLocation;
+      temp := nestedList(regions, libraryMetaData.prettyCountryState);
+      if temp.IndexOf(loc) < 0 then temp.Add(loc);
+      temp := nestedList(locations, loc);
+      temp.AddObject(libraryMetaData.libraryId, TSearchTarget.create(libraryMetaData.libraryId));
     end;
 
     locations.Sort;
@@ -237,6 +207,11 @@ begin
   name := aname;
   lib := alib;
   template := atemplate;
+end;
+
+constructor TSearchTarget.create(aid: string);
+begin
+  id := aid
 end;
 
 { TLibrarySearcherAccess }
