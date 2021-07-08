@@ -26,23 +26,23 @@ object bookSearchFrm: TbookSearchFrm
     ClientHeight = 646
     ClientWidth = 243
     TabOrder = 0
+    OnClick = optionPanelClick
     object Label1: TLabel
-      AnchorSideTop.Side = asrBottom
-      Left = 14
+      Left = 7
       Height = 21
-      Top = 8
-      Width = 68
+      Top = 7
+      Width = 229
+      Align = alTop
+      BorderSpacing.Around = 6
       Caption = 'Suche in:'
       ParentColor = False
     end
     object searchSelectionList: TCheckListBox
-      AnchorSideTop.Control = searchLocation
-      AnchorSideTop.Side = asrBottom
-      Left = 8
+      Left = 7
       Height = 77
-      Top = 117
-      Width = 228
-      Anchors = [akTop, akLeft, akRight]
+      Top = 121
+      Width = 229
+      Align = alTop
       BorderSpacing.Around = 6
       ItemHeight = 0
       OnClickCheck = searchSelectionListClickCheck
@@ -52,12 +52,11 @@ object bookSearchFrm: TbookSearchFrm
     object startSearch: TButton
       AnchorSideTop.Control = SearchParamsBox
       AnchorSideTop.Side = asrBottom
-      AnchorSideBottom.Control = displayImage
-      Left = 8
+      Left = 7
       Height = 33
-      Top = 545
-      Width = 228
-      Anchors = [akLeft, akRight, akBottom]
+      Top = 542
+      Width = 229
+      Align = alBottom
       AutoSize = True
       BorderSpacing.Around = 6
       Caption = '&Suche starten'
@@ -68,36 +67,37 @@ object bookSearchFrm: TbookSearchFrm
       TabOrder = 1
     end
     object searchLocation: TComboBox
-      AnchorSideTop.Control = searchLocationRegion
-      AnchorSideTop.Side = asrBottom
-      Left = 8
+      Left = 7
       Height = 35
       Top = 76
-      Width = 228
-      Anchors = [akTop, akLeft, akRight]
+      Width = 229
+      Align = alTop
       BorderSpacing.Top = 1
       BorderSpacing.Bottom = 4
+      BorderSpacing.Around = 6
       ItemHeight = 0
       OnSelect = searchLocationSelect
       Style = csDropDownList
       TabOrder = 2
     end
     object displayInternalProperties: TCheckBox
-      Left = 8
+      Left = 6
       Height = 27
-      Top = 615
+      Top = 613
       Width = 231
+      Align = alBottom
       Anchors = [akLeft, akBottom]
+      BorderSpacing.Around = 5
       Caption = 'alle Eigenschaften auflisten'
       OnChange = displayInternalPropertiesChange
       TabOrder = 3
     end
     object displayImage: TCheckBox
-      AnchorSideBottom.Control = displayInternalProperties
-      Left = 8
+      Left = 5
       Height = 27
-      Top = 584
-      Width = 125
+      Top = 581
+      Width = 233
+      Align = alBottom
       Anchors = [akLeft, akBottom]
       BorderSpacing.Around = 4
       Caption = 'Bild anzeigen'
@@ -107,16 +107,13 @@ object bookSearchFrm: TbookSearchFrm
       TabOrder = 4
     end
     object SearchParamsBox: TScrollBox
-      AnchorSideTop.Control = searchSelectionList
-      AnchorSideTop.Side = asrBottom
-      AnchorSideBottom.Control = startSearch
-      Left = 8
-      Height = 339
-      Top = 200
-      Width = 228
+      Left = 1
+      Height = 327
+      Top = 209
+      Width = 241
       HorzScrollBar.Page = 1
       VertScrollBar.Page = 1
-      Anchors = [akTop, akLeft, akRight, akBottom]
+      Align = alClient
       TabOrder = 5
     end
     object startAutoSearchButton: TButton
@@ -131,18 +128,25 @@ object bookSearchFrm: TbookSearchFrm
       Visible = False
     end
     object searchLocationRegion: TComboBox
-      AnchorSideTop.Control = Label1
-      AnchorSideTop.Side = asrBottom
-      Left = 8
+      Left = 7
       Height = 35
-      Top = 35
-      Width = 228
-      Anchors = [akTop, akLeft, akRight]
+      Top = 34
+      Width = 229
+      Align = alTop
       BorderSpacing.Around = 6
       ItemHeight = 0
       OnSelect = searchLocationRegionSelect
       Style = csDropDownList
       TabOrder = 7
+    end
+    object Splitter2: TSplitter
+      Cursor = crVSplit
+      Left = 1
+      Height = 5
+      Top = 204
+      Width = 241
+      Align = alTop
+      ResizeAnchor = akTop
     end
   end
   object bookListPanel: TPanel
@@ -154,16 +158,6 @@ object bookSearchFrm: TbookSearchFrm
     ClientHeight = 646
     ClientWidth = 677
     TabOrder = 1
-    object Splitter2: TSplitter
-      Cursor = crVSplit
-      Left = 1
-      Height = 5
-      Top = 379
-      Width = 675
-      Align = alBottom
-      Beveled = True
-      ResizeAnchor = akBottom
-    end
     object detailPanelHolder: TPanel
       Left = 1
       Height = 240
@@ -173,7 +167,8 @@ object bookSearchFrm: TbookSearchFrm
       BevelOuter = bvNone
       ClientHeight = 240
       ClientWidth = 675
-      TabOrder = 1
+      TabOrder = 0
+      OnClick = detailPanelHolderClick
       object Image1: TImage
         Left = 569
         Height = 240
@@ -236,7 +231,8 @@ object bookSearchFrm: TbookSearchFrm
       ChildSizing.ControlsPerLine = 4
       ClientHeight = 21
       ClientWidth = 675
-      TabOrder = 2
+      TabOrder = 1
+      OnClick = Panel1Click
       object Label12: TLabel
         Cursor = crHandPoint
         Left = 0
@@ -329,8 +325,8 @@ object bookSearchFrm: TbookSearchFrm
     Enabled = False
     Interval = 100
     OnTimer = autoSearchContinueTimerTimer
-    Left = 95
-    Top = 516
+    Left = 112
+    Top = 504
   end
   object PopupMenu1: TPopupMenu
     Left = 528

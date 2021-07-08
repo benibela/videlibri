@@ -5,7 +5,7 @@ unit applicationformconfig;
 interface
 
 uses
-  Classes, SysUtils, forms, Graphics, controls;
+  Classes, SysUtils, forms, Graphics, controls, ExtCtrls;
 
 type TVideLibriForm = class(TForm)
   function GetRealBounds: TRect;
@@ -144,6 +144,11 @@ begin
   //          log(lv.Column[j].Caption + ' -> '+IntToStr(lv.Column[j].Width));
           end;
       end; }
+        end else if (c is TSplitter) and (TSplitter(c).ResizeControl <> nil) then begin
+          case c.Align of
+            alLeft: TSplitter(c).ResizeControl.width := MathRound(TSplitter(c).ResizeControl.width * guiScaleFactor);
+            alTop: TSplitter(c).ResizeControl.Height := MathRound(TSplitter(c).ResizeControl.Height * guiScaleFactor);
+          end;
         end;
 
       videLibriScale(c);

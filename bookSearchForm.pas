@@ -41,15 +41,17 @@ type
     optionPanel: TPanel;
     bookListPanel: TPanel;
     Splitter1: TSplitter;
-    Splitter2: TSplitter;
     Splitter3: TSplitter;
     StatusBar1: TStatusBar;
     autoSearchContinueTimer: TTimer;
     procedure autoSearchContinueTimerTimer(Sender: TObject);
     procedure bookListSelect({%H-}sender: TObject; item: TTreeListItem);
     procedure bookListVScrollBarChange(Sender: TObject);
+    procedure detailPanelHolderClick(Sender: TObject);
     procedure menuCopyRowClick(Sender: TObject);
     procedure menuCopyValueClick(Sender: TObject);
+    procedure optionPanelClick(Sender: TObject);
+    procedure Panel1Click(Sender: TObject);
     procedure searchLocationRegionSelect(Sender: TObject);
     procedure startAutoSearchButtonClick(Sender: TObject);
     procedure detaillistClickAtRecordItem({%H-}sender: TObject; recorditem: TTreeListRecordItem);
@@ -350,6 +352,11 @@ begin
   end;
 end;
 
+procedure TbookSearchFrm.detailPanelHolderClick(Sender: TObject);
+begin
+
+end;
+
 procedure TbookSearchFrm.menuCopyRowClick(Sender: TObject);
 var
   opener: TComponent;
@@ -376,6 +383,16 @@ procedure TbookSearchFrm.menuCopyValueClick(Sender: TObject);
 begin
   if detaillistLastClickedRecordItem = nil then exit;
   Clipboard.AsText := detaillistLastClickedRecordItem.Text;
+end;
+
+procedure TbookSearchFrm.optionPanelClick(Sender: TObject);
+begin
+
+end;
+
+procedure TbookSearchFrm.Panel1Click(Sender: TObject);
+begin
+
 end;
 
 
