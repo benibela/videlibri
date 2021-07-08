@@ -703,7 +703,7 @@ begin
   detaillist.free;
   searcherAccess.free;
   newSearcherAccess.free;
-  locations.searchTemplates.free;
+  //locations.searchTemplates.free;
   locations.locations.Free;
   locations.regions.Free;
   selectedLibrariesPerLocation.free;

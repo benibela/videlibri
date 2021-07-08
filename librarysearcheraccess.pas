@@ -148,7 +148,7 @@ type
   TSearchableLocations = record
     regions: TStringList; //string -> tstringlist
     locations:  TStringList; //string->stringlist of TSearchTarget
-    searchTemplates: TStringList;
+    //searchTemplates: TStringList;
   end;
 
 function getSearchableLocations: TSearchableLocations;
