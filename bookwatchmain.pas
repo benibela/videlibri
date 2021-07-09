@@ -1359,7 +1359,6 @@ begin
 
   RefreshShellIntegration();
 
-  BookList.EndUpdate;
 
 
   for i:=0 to viewMenu.Count-1 do begin
@@ -1367,7 +1366,6 @@ begin
     if menuItem2AssociatedAccount(viewMenu.Items[i]).enabled then continue;
 
 
-    BookList.BeginUpdate;
     tempitem := BookList.items.Add;
     with tempitem do begin
       text:='ACHTUNG';
@@ -1377,11 +1375,11 @@ begin
       BookList.getAdditionalBookData(tempitem).colorState:=bcsTimeNear;
       Tag:=0;
     end;
-    BookList.EndUpdate;
   end;
   ;
 
 
+  BookList.EndUpdate;
 
   finally
     if criticalSessionUsed then
