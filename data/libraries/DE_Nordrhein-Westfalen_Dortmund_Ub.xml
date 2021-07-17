@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
-
 <library>
   <longName value="Universitätsbibliothek Dortmund"/>
   <shortName value="Ub Dortmund"/> 
@@ -16,5 +14,7 @@
   </template>
   
   <homepage value="http://www.ub.tu-dortmund.de/"/>
-  <testing-search value="no"/>  <testing-account value="yes"/></library>
+  <testing-search value="yes"/>  
+  <testing-account value="yes"/>
+</library>
 
