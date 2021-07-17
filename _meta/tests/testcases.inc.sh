@@ -94,6 +94,7 @@ test pica 'extend{id-list:=join\(\(\"12/435:X\",\"XYZ\"\)\)}' extend2.html exten
 
 test pica 'searchDetails{\(\)/\(base:=\"\"\)}' searchDetails.html searchDetails.swb.html
 test pica searchList searchList.merseburg.html
+test pica searchInputForm searchInputForm.lübeck.html
 
 #================LBS=============
 mkdir -p $OUTPATH/lbs

@@ -13,7 +13,8 @@
       for $key in jn:keys($book) where $book($key) and $search-basic-options($key) count $i
        return  {$search-basic-selects[$i]: $search-basic-options($key), $search-basic-inputs[$i]: $book($key)},
       for $key in jn:keys($book) where $book($key) and $search-filter-map($key) 
-       return {$search-filter-map($key): $book($key)}
+       return {$search-filter-map($key): $book($key)},
+      $book.mediaType[.] ! {"ADI_MAT": .}
   |})
   </variable>
 
