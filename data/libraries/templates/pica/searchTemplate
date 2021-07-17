@@ -1,0 +1,41 @@
+<actions>
+
+<action id="search-connect">
+  <variable name="db" value="DB={get('picadb', 1)}"/>
+  <page url="{$server}/{$db}/ADVANCED_SEARCHFILTER" pattern-href="searchInputForm"/>
+</action>
+
+<action id="search">
+  
+  <variable name="searchRequest">
+  startSearch := request-combine($search-form, {|
+    { $search-basic-input-year ?: $book.year },
+      for $key in jn:keys($book) where $book($key) and $search-basic-options($key) count $i
+       return  {$search-basic-selects[$i]: $search-basic-options($key), $search-basic-inputs[$i]: $book($key)},
+      for $key in jn:keys($book) where $book($key) and $search-filter-map($key) 
+       return {$search-filter-map($key): $book($key)}
+  |})
+  </variable>
+
+  <page url="{$searchRequest}" pattern-href="searchList"/>
+  
+  <if test="$singleResult">
+    <pattern href="searchDetails"/>
+  </if> 
+  
+  <variable name="search-next-page-available">$nextPage</variable>
+</action>
+
+<action id="search-next-page">
+  <page url="{$nextPage}" templateFile="searchList"></page>
+
+  <variable name="search-next-page-available">$nextPage</variable>
+</action>
+
+
+<action id="search-details">
+  <page url="{$book.home-url}" templateFile="searchDetails"></page>
+</action>
+
+
+</actions>
