@@ -96,47 +96,7 @@
 
 
 
-
-
-<action id="search-connect">
-  <variable name="db" value="DB={get('picadb', 1)}"/>
-  <variable name="loanServer" value="{$server}/loan/{$db}/LNG=DU/HTML=Y/"/>
-
-</action>
-
-<action id="search">
-  
-  <variable name="searchKeys">
-  tokenize(get("searchKeysOverride", "tit;prs;isb;jah;slw"), ";")
-  </variable>
-  
-  <variable name="searchOptions">
-  encode-for-uri( string-join(
-    (if ($book.title)    then concat($searchKeys[1], " ", $book.title)    else (),
-     if ($book.author)   then concat($searchKeys[2], " ", $book.author)   else (),
-     if ($book.isbn)     then concat($searchKeys[3], " ", $book.isbn)     else (),
-     if ($book.year)     then concat($searchKeys[4], " ", $book.year)     else (),
-     if ($book.keywords) then concat($searchKeys[5], " ", $book.keywords) else ()), "&amp;"))
-  </variable>
-
-
-  <page url="{$server}/{$db}/HTML=Y/CMD?ACT=SRCHA&IKT=1016&SRT=RLV&TRM={$searchOptions}" templateFile="searchList"></page>
-  
-  <page test="$singleResult" url="{$server}/{$db}/CMD?ACT=SRCHA&IKT=1016&SRT=RLV&TRM={$searchOptions}" templateFile="searchDetails"></page>
-  
-  <variable name="search-next-page-available">$nextPage</variable>
-</action>
-
-<action id="search-next-page">
-  <page url="{$nextPage}" templateFile="searchList"></page>
-
-  <variable name="search-next-page-available">$nextPage</variable>
-</action>
-
-
-<action id="search-details">
-  <page url="{$book.home-url}" templateFile="searchDetails"></page>
-</action>
+<include href="../pica/searchTemplate"/>
 
 
 </actions>
