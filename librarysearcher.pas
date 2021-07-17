@@ -67,6 +67,7 @@ resourcestring
   rsSort = 'Sortierung';
   rsMediaType = 'Medientyp';
   rsFree = 'Freitext';
+  rsCountry = 'Land';
 
 type TFormParamsHelper = class helper for TFormParams
   procedure setCaptions;
@@ -90,6 +91,7 @@ begin
             'mediaType': caption := rsMediaType;
             'language': caption := rsLanguage;
             'free': caption := rsFree;
+            'country': caption := rsCountry;
           end;
         if caption <> '' then caption := caption + ': ';
       end;
