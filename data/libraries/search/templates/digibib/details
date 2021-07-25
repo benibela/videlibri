@@ -15,9 +15,15 @@
       </p>
     
          
-      <table class="datarows"><t:loop>
+      <table class="datarows"><t:loop><t:switch>
+        <tr><th>Sonstiges:</th>
+          <td>
+          <ul><li>{if (contains(., ":")) then $book(substring-before(., ":")||"!") := substring-after(., ":") 
+                   else $book("Sonstiges!")[] := string() }</li>+</ul>
+          </td>
+        </tr>
         <tr>{vl:set-book-property(th, td)}</tr>
-      </t:loop></table>
+      </t:switch></t:loop></table>
    </dd>
 
  
