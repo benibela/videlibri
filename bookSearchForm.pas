@@ -16,11 +16,14 @@ type
   TbookSearchFrm = class(TVideLibriForm)
     detailPanel: TPanel;
     holdingsPanel: TPanel;
+    bookListPanel2: TPanel;
     searchLocationRegion: TComboBox;
     menuCopyValue: TMenuItem;
     menuCopyRow: TMenuItem;
     PopupMenu1: TPopupMenu;
     holdingsSplitter: TSplitter;
+    Splitter2: TSplitter;
+    Splitter4: TSplitter;
     startAutoSearchButton: TButton;
     Label12: TLabel;
     LabelOrder: TLabel;
@@ -172,7 +175,7 @@ begin
   bookList:=TBookListView.create(self,false);
   for i := 0 to high(defaultBookListViewSearchColumns) do
     booklist.addColumn(defaultBookListViewSearchColumns[i]);
-  bookList.Parent:=bookListPanel;
+  bookList.Parent:=bookListPanel2;
   booklist.deserializeColumnWidths(userConfig.ReadString('BookSearcher','ListColumnWidths','200,200,50,75'));
   booklist.OnSelect:=@bookListSelect;
   bookList.OnVScrollBarChange:=@bookListVScrollBarChange;

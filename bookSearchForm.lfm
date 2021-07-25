@@ -288,6 +288,23 @@ object bookSearchFrm: TbookSearchFrm
         OnClick = LabelOrderForClick
       end
     end
+    object bookListPanel2: TPanel
+      Left = 1
+      Height = 378
+      Top = 1
+      Width = 675
+      Align = alClient
+      TabOrder = 2
+    end
+    object Splitter4: TSplitter
+      Cursor = crVSplit
+      Left = 1
+      Height = 5
+      Top = 379
+      Width = 675
+      Align = alBottom
+      ResizeAnchor = akBottom
+    end
   end
   object Splitter1: TSplitter
     Left = 243
