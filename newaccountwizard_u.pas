@@ -346,7 +346,8 @@ var newLib:TCustomAccountAccess;
 begin
   selectedLibrary:=libs.selectedLibrary;
   if selectedLibrary = nil then begin
-    ShowMessage(rsNoLibChosen2);
+    if sender = nextbtn then
+      ShowMessage(rsNoLibChosen2);
     exit;
   end;
 
