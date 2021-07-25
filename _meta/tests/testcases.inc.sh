@@ -193,7 +193,7 @@ test vufind searchDetails searchDetails.hhu.html searchDetails.marl.html searchD
 #=============DIGIBIB==============
 mkdir -p $OUTPATH/digibib
 testCrossDir ../search/templates/digibib search  digibib search.html search2.html
-testCrossDir ../search/templates/digibib details digibib details.html details2.html details3.html details4.html details5.html details6new.html details7new.fhmuenster.html details7holdings.fhmuenster.html details7noholdings.fhmuenster.html  detailsNRW.html
+testCrossDir ../search/templates/digibib details digibib details.html details2.html details3.html details4.html details5.html details6new.html details7new.fhmuenster.html details7holdings.fhmuenster.html details7noholdings.fhmuenster.html  detailsNRW.html details.duestb.holdings.html
 test digibib list list.html list.empty.html 
 
 #=============SRU=================

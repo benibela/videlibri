@@ -49,6 +49,19 @@
           $book.home-url := form(.),
           $book.holdings[] := ..//text()[normalize-space()]!{"title": ., "orderable": false()}
         }</form>
+        <ul>
+          <li><ul><li>Ausleihstatus:</li></ul></li>
+          {$book.holdings[] := ./li/ul/{| ./li/{
+            let $key := substring-before(., ":")
+            return
+              switch ($key) 
+              (:  case "Ausleihstatus" return "status":)
+                case "Signatur" return "id"
+                case "Standort" return "libraryLocation"
+                default return $key||"!"
+                : substring-after(., ":")} |} 
+          }
+        </ul>
         <ul>{$book.holdings[] := .//li/{"libraryBranch": ., "Bibliothek-Info!": .//a/@href}, $book.home-url:=.//a/@href[1]}</ul>
         <a>{$book.home-url:=@href}</a>
       </t:switch>
