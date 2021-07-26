@@ -48,6 +48,7 @@
 
 
   <page test="not(get('idpSystem'))" url="{$loginFormPost}"/>
+  <s>$loginFormPost := ()</s>
   
   <if test="empty($error-login)">
     <pattern>
@@ -72,13 +73,16 @@
         <span class="bnzeig" t:condition="contains(text(), 'Sie sind angemeldet')" /> <!-- sind schon angemeldet. (neuess, ordering!) -->
         
         <div class="message"><div id="R01"><h1>{$error-login}</h1></div></div>
+        <div class="hinweis fehler">{$error-login}<!--new vöbb--></div>
         <span class="alert">{$error-login}</span>
         <input type="password" class="errstate">{$error-login}</input>
          
+        
         <form><select/><select/></form> <!-- munich ordering -->
       </template:switch>
     </pattern>
   </if>
+  <if test="exists($loginFormPost)"><page url="{$loginFormPost}"/></if>
 </action>
 
 <action id="internal-update-login">
@@ -93,6 +97,11 @@
     <s>lf := $loginForm, loginForm := ()</s>
     <page url="{$lf}">
       <template><t:switch prioritized="true">
+        <input name="L#AUSW">{
+          let $form := (ancestor::form)[1]
+          return
+          loginFormPost := form($form, ({"L#AUSW": $username, "LPASSW": $password}, $form//input[@type="submit" and contains(@name, "LOGIN")]) )
+        }</input>
         <input name="$Textfield">{ loginFormPost := 
           let $form := (ancestor::form, //form)[1] (:Aalen has invalid html where the form is not an ancestor of the input:)
           let $buttons := $form//input[@type="submit" and matches(@value, "Anmeld|Login")]
@@ -128,7 +137,7 @@
 <action id="update-all">
   <call action="internal-update-login"/>
   
-  <page url="{$loginFormPost}" templateFile="accountOverview"/>
+  <pattern href="accountOverview"/>
 
   <s>nextSplitTable := false(), $splitIndex := 1, $splitCount := 0, mode:="lend"</s>
   <if test="$kontoPage">
@@ -351,7 +360,7 @@
       <variable name="internal-loggedin">true()</variable>
       <variable name="form">$loginFormPost</variable>
       <pattern href="orderConfirmation"/>
-      <if test="exists($error)"> <!-- it thinks the login confirmation is an error -->
+      <if test="exists($error)"> <!-- it thinks the login confirmation is an error todo: is this still needed?-->
        <s>error:=()</s>
        <page url="{$form}" templateFile="orderConfirmation"/>
       </if>

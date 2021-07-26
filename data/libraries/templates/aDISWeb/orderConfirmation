@@ -48,6 +48,12 @@
     <h1>{error:=.}</h1>
   </div></div>{goBackPage:=.}</form>
 
+  <input name="L#AUSW">{
+    $internal-loggedin := false(), 
+    let $form := (ancestor::form)[1]
+    return
+    loginFormPost := form($form, ({"L#AUSW": $username, "LPASSW": $password}, $form//input[@type="submit" and contains(@name, "LOGIN")]) )
+  }</input>
   
   <input name="$Textfield">{ 
     $internal-loggedin := false(), 
