@@ -24,7 +24,7 @@
     
     {$search-result-count := max( $search-result-count ! translate(.,".,","")[.] ! xs:integer(.) ),
      
-     $new-books := .//div[starts-with(@id, 'result')]/(
+     $new-books := (.//div|.//li)[starts-with(@id, 'result')]/(
        let $linkurls := .//a/@href
        let $records := $linkurls[matches(., "/Record/[^/]+$")]/parent::a[normalize-space()[.]]
        let $title := normalize-space($records[1])
