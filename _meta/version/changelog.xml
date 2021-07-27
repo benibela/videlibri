@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="Bibliothek-App VideLibri">
+      <build version="2300" date="2021-07-27">
+        <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
+        <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
+        <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <change>Windows/Linux: Verbesserter Suchdialog: schneller, größenveränderbare Seitenleisten, keine Sonderliste für Suchen über Metakatalog/Digibib.</change>
+        <change>Beachte Sonderefälle bei der Kommunikation mit Bücherei-Webseiten-Servern, u.a. funktioniert dadurch die Kommunikation mit dem Bücherei Mainz Server.</change>
+        <change>PICA/LBS/GBV Universitätsbibliotheken: Verwendete die "erweiterte Suche" mit mehr Optionen.</change>
+        <fix>Anpassung an geänderte Katalogsysteme bei VÖBB, Stadtbücherei Stolberg, Universitätsbibliothek Leipzig, und Stadtbibliothek Leverkusen. </fix>
+        <fix>Weitere Anpassungen für Stadtbibliothek München (Vormerkungen).</fix>
+        <fix>Repariere, dass die Anpassung für München Verlängerungen in Berliner Universitätsbibliotheken gestört hat.</fix>
+     </build>
       <build version="2230" date="2021-06-27">
-        <download url="https://www.videlibri.de/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
-        <download url="https://www.videlibri.de/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
-        <download url="https://www.videlibri.de/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
        <fix>Anpassungen an geändertes Katalogsystem der Stadtbibliothek München und Stadtbibliothek Weil am Rhein.</fix>
        <change>BibTeX-Export: Verbesserte, benutzerdefinierte IDs.</change>
      </build>

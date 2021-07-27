@@ -16,5 +16,7 @@
   <homepage value="http://www.ub.tu-dortmund.de/"/>
   <testing-search value="yes"/>  
   <testing-account value="yes"/>
+  
+  <account-comment value="Bei Login-Problemen frag die Bibliothek nach dem Zustand des PAIA API Tokens."/>
 </library>
 
