@@ -110,7 +110,7 @@ function __doPostBack(eventTarget, eventArgument) {
   <s>loggedIn := false()</s>
   <page url="{$urlsearch}"/>
   <pattern><form>{
-    search-form := form(., .//input[contains(@name, "BtnSearch")]), 
+    search-form := form(., (.//input[@name[contains(., "BtnSearch") and not(contains(., "SearchSlot"))]])[1]  ), 
     search-fields := .//select[contains(@name, "SearchField")]/@name,
     search-values := .//input[contains(@name, "SearchValue")]/@name,
     search-year-values := .//input[contains(@name, "Year")]/@name,
