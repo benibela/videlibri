@@ -314,11 +314,9 @@ resourcestring
   end;
 
   type TInternetAccessReact = object
-    procedure internetReact(sender: TInternetAccess; var method: string; var url: TDecodedUrl; var data: TInternetAccessDataBlock;
-      var reaction: TInternetAccessReaction);
+    procedure internetReact(sender: TInternetAccess; var transfer: TTransfer; var reaction: TInternetAccessReaction);
    end;
-  procedure TInternetAccessReact.internetReact(sender: TInternetAccess; var method: string; var url: TDecodedUrl;
-    var data: TInternetAccessDataBlock; var reaction: TInternetAccessReaction);
+  procedure TInternetAccessReact.internetReact(sender: TInternetAccess; var transfer: TTransfer; var reaction: TInternetAccessReaction);
   begin
     if reaction = iarFollowRedirectGET then reaction := iarFollowRedirectKeepMethod;
   end;
