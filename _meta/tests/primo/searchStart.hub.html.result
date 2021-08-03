@@ -57,4 +57,4 @@ text{"Alle Felder
 							DCC
 				
 							Signatur"})
-form := {"method": "GET", "url": "file:///primo_library/libweb/action/search.do?tab=default_tab&vl%28123424470UI0%29=any&vl%281UI0%29=contains&vl%28freeText0%29=&vl%28123424471UI1%29=creator&vl%281UI1%29=contains&vl%28freeText1%29=&vl%28123424472UI2%29=title&vl%281UI2%29=contains&vl%28freeText2%29=&vl%28123424475UI3%29=all_items&vl%28123424476UI4%29=all_items&vl%28123424477UI5%29=all_items&fn=search&ct=search&mode=Advanced&vid=hub_ub&indx=1&dum=true&rank=str&initialSearch=true"}
+form := {"method": "GET", "url": "file:///primo_library/libweb/action/search.do?tab=default_tab&vl%28123424470UI0%29=any&vl%281UI0%29=contains&vl%28freeText0%29=&vl%28123424471UI1%29=creator&vl%281UI1%29=contains&vl%28freeText1%29=&vl%28123424472UI2%29=title&vl%281UI2%29=contains&vl%28freeText2%29=&vl%28123424475UI3%29=all_items&vl%28123424476UI4%29=all_items&vl%28123424477UI5%29=all_items&Submit=&fn=search&ct=search&mode=Advanced&vid=hub_ub&indx=1&dum=true&rank=str&initialSearch=true"}

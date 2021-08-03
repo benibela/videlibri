@@ -8,5 +8,5 @@
   let $target := $confirm-button/@name/string()
   let $argument := if (contains($target, "ucLoansView")) then "CommitCatalogueCopiesExtensionEventArgs" else ""
   return (
-   confirm-form := form(., {'__EVENTTARGET': $target, "__EVENTARGUMENT": $argument } )
+   confirm-form := form(., {'__EVENTTARGET': $target, "__EVENTARGUMENT": $argument, "": {"kind": "submit"} } )
 )}</form>

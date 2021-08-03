@@ -4,8 +4,8 @@
 
 {mode := @name/string(),
  switch ($mode) 
-   case "vorml" return cancel-form := form(.)
-   case "medkl" return renew-form := form(.)
+   case "vorml" return cancel-form := form(., {"": {"kind": "submit"}})
+   case "medkl" return renew-form := form(., {"": {"kind": "submit"}})
    default return vl:raise-internal("Unknown list: " || $mode)
 }
 

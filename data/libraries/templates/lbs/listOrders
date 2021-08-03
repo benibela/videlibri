@@ -1,5 +1,5 @@
 <t:switch-prioritized>
-<FORM id="reservationsForm" name="borrowerForm" >{cancel-form:=form(., {"cancel": "Vormerkung stornieren"})}
+<FORM id="reservationsForm" name="borrowerForm" >{cancel-form:=form(., .//input[@name="cancel"])}
   <DIV class="bodydiv">
     <TABLE class="resultset">
  

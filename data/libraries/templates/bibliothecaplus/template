@@ -14,7 +14,8 @@
       return
       loginForm := form(., {"__EVENTTARGET": ($names[ends-with(., "cmdLogin")])[1], 
                             ($names[ends-with(., "txtUsername")])[1]: $username, 
-                            ($names[ends-with(., "txtPassword")])[1]: $password  })
+                            ($names[ends-with(., "txtPassword")])[1]: $password,
+                            "": {"kind": "submit"}  })
     }</form></template>
   </page>
 </action>

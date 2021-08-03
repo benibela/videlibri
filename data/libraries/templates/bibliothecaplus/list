@@ -10,7 +10,7 @@
   <t:switch prioritized="true">
   
   <form>
-    { $user-form := form(.),
+    { $user-form := form(., {"": {"kind": "submit"}}),
       $renew-button := (//input[ends-with(@name, "BtnExtendMediums")])[1]/{"__EVENTTARGET":  @name},
       $cancel-ordered-button := (//input[ends-with(@name, "BtnCancelReservations")])[1]/{"__EVENTTARGET":  @name},
       $cancel-provided-button := (//input[ends-with(@name, "BtnCancelReadyForPickup")])[1]/{"__EVENTTARGET":  @name},

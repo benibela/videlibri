@@ -21,13 +21,13 @@
       <li class="toolbar_li">
         <span>Vorwärts</span>
         {
-         form := form(//form)            
+         form := form(//form, {"": {"kind": "submit"}})
         }
       </li>
       
       <input t:condition="matches(@title, 'nächster|Vorwärts')">
         {
-         form := form(//form)
+         form := form(//form, {"": {"kind": "submit"}})
         }</input>
     </t:switch>
     </ul></div>

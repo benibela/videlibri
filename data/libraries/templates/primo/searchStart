@@ -8,7 +8,7 @@
         {x"vl(freeText{$i})": $book($key), string($selects[contains(@id, $i + 1 (: different numbering! :) )]/@name): $search-keys($key)},
         (i := $i + 1)[2]
       ) else () )
-      , .//input[@type = "submit"]) )  }
+      ) )  }
     </form>
     <a>Return from Check SSO<t:s>redirect:=@href</t:s></a>
     

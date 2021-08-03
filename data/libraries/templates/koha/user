@@ -49,7 +49,7 @@
       </tr>+
     </tbody>
   </table>+
-  <t:s>renew-form := (//form[contains(@action, "renew")])[1]/form(.)</t:s>
+  <t:s>renew-form := (//form[contains(@action, "renew")])[1]/form(., {"": {"kind": "submit"}})</t:s>
   <!--
   <tbody>
       <tr>

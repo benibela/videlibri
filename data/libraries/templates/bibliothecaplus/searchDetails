@@ -92,7 +92,7 @@
       
       {let $target := get("need-reserve-request-target",())[.]
        where exists($target)
-       return $reserve-request := form((//form)[1], {"__EVENTTARGET":  $target})}
+       return $reserve-request := form((//form)[1], {"__EVENTTARGET":  $target, "": {"kind": "submit"}})}
       
     </body>
   </html>

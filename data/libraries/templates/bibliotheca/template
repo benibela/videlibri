@@ -48,7 +48,7 @@
   <call action="connect"/>
   <s>loggedIn := false()</s>
   <page url="{$starturl}">
-    <template><form name="webopac">{profi := form(., {"link_profis.x": 10, "link_profis.y": 10})}</form></template>
+    <template><form name="webopac">{profi := form(., .//input[@name="link_profis"])}</form></template>
   </page>
   <page url="{$profi}">    
     <template><form name="webopac">{search := form(.)}</form></template>
@@ -59,7 +59,7 @@
     <s>   next-page := (),
           temp-year := (tokenize($book.year, "-"), $book.year),
           search-keys := {"title": "titel", "author": "verfasser", "keywords": "stichwort", "isbn": "isbn"},
-          startSearch := form-combine($search, {|
+          startSearch := request-combine($search, {|
             { "jahr_von": $temp-year[1], "jahr_bis": $temp-year[2] },
             (
               for $key in jn:keys($book) return if (boolean($book($key)) and exists($search-keys($key))) then (

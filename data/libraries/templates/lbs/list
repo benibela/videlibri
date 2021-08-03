@@ -1,5 +1,5 @@
 
-<FORM name="loansForm" id="loansForm">{renew-form:=form(., {"renew": "Verlängern"})}
+<FORM name="loansForm" id="loansForm">{renew-form:=form(., .//input[@name="renew"])}
   <DIV class="bodydiv">
     <TABLE class="resultset">
           <template:meta default-text-matching="regex"/>

@@ -3,7 +3,7 @@
 
   
   <FORM ID="BulkRenewForm">
-    {baseForm := form(.), options := {}}
+    {baseForm := form(., {"": {"kind": "submit"}}), options := {}}
       
     <DIV id="elScrollingBrowseList">
       <DIV>

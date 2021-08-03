@@ -1,6 +1,6 @@
 <html>
   <form>
     <INPUT name="Method" value="Cancel"/>
-    {cancel-form := form(.)}
+    {cancel-form := form(., "Method=Cancel")}
   </form>
 </html>

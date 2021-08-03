@@ -55,7 +55,7 @@
  
  
    <fieldset id="reserved_items_flds" template:optional="true">
-     {cancelForm := form(ancestor::form[1]), hasShelfMark:=false(), hasDelete := false()}
+     {cancelForm := form(ancestor::form[1], {"": {"kind": "submit"}}), hasShelfMark:=false(), hasDelete := false()}
      <table>
        
        <thead><tr> 

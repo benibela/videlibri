@@ -25,7 +25,7 @@
         <li class="toolbar_li">
           <span>Vorwärts</span>
           {./input!(search-next-page-available := not(@disabled),          
-           form := form(//form),
+           form := form(//form, {"": {"kind": "submit"}}),
            toolbarForward := xs:integer(substring-after(@name, "_")[.])
            )           
           }
@@ -33,7 +33,7 @@
         
         <input t:condition="matches(@title, 'nächster|Vorwärts')">
           {search-next-page-available := not(@disabled),
-           form := form(//form),
+           form := form(//form, {"": {"kind": "submit"}}),
            toolbarForward := xs:integer(substring-after(@name, "_")[.])
           }</input>
      </t:switch>
@@ -128,13 +128,11 @@
       </t:switch>
 
       <t:switch prioritized="true">
-        <input title="Zurück zur Trefferliste">{backButtonName := uri-encode(@name)}</input>
-        <input t:condition="contains(@title, 'zur Trefferliste')">{backButtonName := uri-encode(@name)}</input>
+        <input title="Zurück zur Trefferliste">{$backButton}</input>
+        <input t:condition="contains(@title, 'zur Trefferliste')">{$backButton}</input>
       </t:switch> 
       
-      {gotDetails_GoBackPage := form(.),
-       gotDetails_GoBackPage.post := x"{$gotDetails_GoBackPage.post}&{$backButtonName}.x=0&{$backButtonName}.y=0"
-      }    
+      {gotDetails_GoBackPage := form(., $backButton)}
     </form>
   </html>
   

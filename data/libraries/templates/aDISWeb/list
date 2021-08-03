@@ -2,7 +2,7 @@
 <template:meta default-text-matching="regex"/>  
  <t:switch prioritized="true">
   <FORM>
-  {let $form := form()
+  {let $form := form(., {"": {"kind": "submit"}})
    let $inputs := .//input
    let $backButton := ($inputs[@title = "Zurück zur vorherigen Seite" or @value = "Zur Übersicht"])[1]
    let $backButton := if ($backButton) then $backButton else ($inputs[contains(@title, 'zur vorherigen Seite')])[1] (:is this line needed?:)

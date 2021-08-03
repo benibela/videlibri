@@ -1,13 +1,13 @@
 <t:switch prioritized="true">
-<form>{form:=form(.), loginForm := ()}
+<form>{form:=form(., {"": {"kind": "submit"}}), loginForm := ()}
 <DIV class="DnnModule-OPENSearchModule">
   <div t:condition="contains(@id, 'SearchResult_ResultArea')">
     <t:switch prioritized="true">
       <span t:condition="contains(@id, 'DataPager1')">
-        <input t:condition="contains(@name, 'PreviousButton')">{prev-page := form-combine($form, {(@name || ".x"): 5, (@name || ".y"): 5})}</input>?
+        <input t:condition="contains(@name, 'PreviousButton')">{prev-page := form-combine($form, .)}</input>?
         <input t:condition="contains(@name, 'NextButton')">{
           if ($current-page eq $last-visited-page) then (search-next-page-available := true()) else (), 
-          next-page := form-combine($form, {(@name || ".x"): 5, (@name || ".y"): 5})}</input>?
+          next-page := form-combine($form, .)}</input>?
         <t:s>(.//span[contains(@id, "CurrentPageLabel")])[1]/(current-page:=xs:integer(.))</t:s>
       </span>
       <div>
