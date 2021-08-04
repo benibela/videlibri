@@ -1,5 +1,5 @@
 book := {}
 issuePoints := ()
-confirm := {"method": "POST", "post": "MGWCHD=0&TOKEN=z4azZSNXDf2484&TOKENX=z4azZSNXDf2484&DATA=VER&usercode=&VERSION=2&RSN=0&BARCODE=&BNO=0123456&usernum=0123456&password=13061989&TOKEN=z4azZSNXDf2484&ACTION=MEMRESE&PICKUPBR=V&MyNote=&reserv=FORTFAHREN", "url": "https://katalog.bibliothek.verl.de/libero/WebOpac.cls"}
+confirm := {"method": "POST", "post": "MGWCHD=0&TOKEN=z4azZSNXDf2484&TOKENX=z4azZSNXDf2484&DATA=VER&usercode=&VERSION=2&RSN=0&BARCODE=&BNO=0123456&usernum=0123456&password=13061989&TOKEN=z4azZSNXDf2484&ACTION=MEMRESE&PICKUPBR=V&MyNote=&reserv=FORTFAHREN", "url": "https://katalog.bibliothek.verl.de/libero/WebOpac.cls", "submit-indices": 16}
 order-branch-name := text{"PICKUPBR"}
 issuePoints := text{"Bibliothek Verl"}

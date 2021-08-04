@@ -1,5 +1,5 @@
 book := {}
-renew-form := {"method": "POST", "post": "renew=Verl%E4ngern&selection=ALL&sorting=NONE", "url": "file:///LBS_WEB/borrower/loans.htm", "charset": "CP1252"}
+renew-form := {"method": "POST", "post": "renew=Verl%E4ngern&selection=ALL&sorting=NONE", "url": "file:///LBS_WEB/borrower/loans.htm", "charset": "CP1252", "submit-indices": 1}
 temp := text{"Derzeit :"}
 temp := text{"Ausleihtyp :"}
 book := {"renewId": "31234", "statusId": "critical", "status": "Keine Verlängerung möglich ; Derzeit: ausgeliehen ; Mahnungen: 0 ; Ausleihtyp: Standardausleihe", "title": "Prioritätisierung nach der Lifo-Methode  ", "author": "Haber, Anna ", "year": "1980", "duedate": "2015-02-20", "libraryBranch": "Theke", "id": "AB 123 C456 V9", "renewCount": "10"}
