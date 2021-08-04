@@ -1,14 +1,15 @@
-
+﻿
  [Setup]
 ;Change this in every version
 AppVerName=VideLibri 2.300
 AppVersion=2.300
 
 ;Don't change
+;Unicode-Check: ääääääööööüüüüüü
 AppName=VideLibri
 AppMutex=VideLibriStartedMutex
 AppPublisher=Benito van der Zander
-AppPublisherURL=http://www.benibela.de
+AppPublisherURL=https://www.benibela.de
 
 OutputBaseFilename=videlibri-setup
 
@@ -16,6 +17,10 @@ DefaultDirName={pf}\VideLibri
 DefaultGroupName=VideLibri
 UninstallDisplayIcon={app}\VideLibri.exe
 SourceDir=..\..\
+
+MinVersion=6
+PrivilegesRequiredOverridesAllowed=dialog
+;Compression=zip
 
 [Types]
 Name: "full"; Description: "Normale Installation"
@@ -29,10 +34,10 @@ Name: "usbstick"; Description: "Zum Start von USB-Stick konfigurieren (beta)";
 
 [Tasks]
 Name: autostart; Description: "Das Programm soll automatisch gestartet werden (empfohlen)"; GroupDescription: "Autostart"; Components: main; Flags: checkedonce
-Name: menuicon; Description: "Erstelle ein Icon im &Startmen�"; GroupDescription: "Icons"; Components: main;
+Name: menuicon; Description: "Erstelle ein Icon im &Startmenü"; GroupDescription: "Icons"; Components: main;
 Name: desktopicon; Description: "Erstelle ein &Desktopicon"; GroupDescription: "Icons"; Components: main
-Name: desktopicon\common; Description: "F�r alle Benutzer"; GroupDescription: "Icons"; Components: main; Flags: exclusive
-Name: desktopicon\user; Description: "Nur f�r den aktuellen"; GroupDescription: "Icons"; Components: main; Flags: exclusive unchecked
+Name: desktopicon\common; Description: "Für alle Benutzer"; GroupDescription: "Icons"; Components: main; Flags: exclusive
+Name: desktopicon\user; Description: "Nur für den aktuellen"; GroupDescription: "Icons"; Components: main; Flags: exclusive unchecked
 ;Name: quicklaunchicon; Description: "Erstelle ein Icon in der Schnellstart&leiste"; GroupDescription: "Icons"; Components: main; Flags: unchecked
 
 [Files]
@@ -72,7 +77,7 @@ var
 function UninstallAccounts():boolean;
 begin
 //if not MyProgChecked then begin
-//    MyProgCheckResult := MsgBox('Sollen auch alle eventuell vorhandenen Informationen �ber ausgeliehene Medien gel�scht werden?', mbConfirmation, MB_YESNO) = idYes;
+//    MyProgCheckResult := MsgBox('Sollen auch alle eventuell vorhandenen Informationen über ausgeliehene Medien gelöscht werden?', mbConfirmation, MB_YESNO) = idYes;
 //    MyProgChecked := True;
 //  end;
   Result := MyProgCheckResult;
@@ -83,7 +88,7 @@ begin
   case CurUninstallStep of
     usUninstall:
       begin
-        if MsgBox('Sollen alle eventuell vorhandenen Informationen �ber ausgeliehene Medien gel�scht werden?', mbConfirmation, MB_YESNO) = idYes then begin
+        if MsgBox('Sollen alle eventuell vorhandenen Informationen über ausgeliehene Medien gelöscht werden?', mbConfirmation, MB_YESNO) = idYes then begin
           deltree(ExpandConstant('{localappdata}')+'\VideLibri\config',true,true,true);
           deltree(ExpandConstant('{localappdata}')+'\VideLibri',true,true,true);
           removeDir(ExpandConstant('{localappdata}')+'\VideLibri');
