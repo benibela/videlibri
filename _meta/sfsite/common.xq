@@ -1,3 +1,4 @@
+xquery version "3.1-xidel";
 (: Wrapper around eval to set the language to XQuery (rather than XPath) :)
 declare function local:eval($tpl) {
   x:eval($tpl, {"language": "xquery"})

@@ -112,7 +112,8 @@ downloadTable)
   ~/hg/programs/internet/xidel/xidel $URL --extract-exclude=pname,url --dot-notation=on  --extract-kind=xquery  \
      -e "declare variable \$pname := '$PROJNAME'; ()" \
      -e "declare variable \$url := '$URL'; ()" \
-     -e 'declare variable $lang := 2; 
+     -e 'xquery version "3.1-xidel"; 
+         declare variable $lang := 2; 
          declare function verboseName($n){ concat ( 
            if (contains($n, "win") or contains($n, ".exe")) then "Windows: " 
            else if (contains($n, "linux")) then "Universal Linux: " 
@@ -136,10 +137,10 @@ downloadTable)
                            "name": data(.),
                            "href": if (a/@href) then a/@href else $url || . || "/download" 
                          }} }}</TH>
-           <td/><td>{{link.size := .}}</td></TR></t:loop></TABLE>, /).link 
-           order by $link.verboseName descending 
-           return <tr><td>{$link.verboseName}</td><td>
-           <a href="{$link.href}">{$link.name}</a></td><td>{$link.size/text()}</td></tr>}</table></div>'     --printed-node-format xml > $VIDELIBRIBASE/_meta/sfsite/downloadTable.html
+           <td/><td>{{($link).size := .}}</td></TR></t:loop></TABLE>, /).link 
+           order by $link?verboseName descending 
+           return <tr><td>{$link?verboseName}</td><td>
+           <a href="{($link).href}">{($link).name}</a></td><td>{($link).size/text()}</td></tr>}</table></div>'     --printed-node-format xml > $VIDELIBRIBASE/_meta/sfsite/downloadTable.html
   cat $VIDELIBRIBASE/_meta/sfsite/downloadTable.html
   (cd _meta/sfsite; rm _publish/downloads.html; make )
 
