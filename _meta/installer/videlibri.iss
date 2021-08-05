@@ -1,8 +1,8 @@
-﻿
+
  [Setup]
 ;Change this in every version
-AppVerName=VideLibri 2.300
-AppVersion=2.300
+AppVerName=VideLibri 2.302
+AppVersion=2.302
 
 ;Don't change
 ;Unicode-Check: ääääääööööüüüüüü
@@ -17,6 +17,10 @@ DefaultDirName={pf}\VideLibri
 DefaultGroupName=VideLibri
 UninstallDisplayIcon={app}\VideLibri.exe
 SourceDir=..\..\
+
+MinVersion=6
+PrivilegesRequiredOverridesAllowed=dialog
+;Compression=zip
 
 MinVersion=6
 PrivilegesRequiredOverridesAllowed=dialog

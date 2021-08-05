@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="Bibliothek-App VideLibri">
-      <build version="2300" date="2021-07-27">
+      <build version="2302" date="2021-08-04">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <change>Windows: Aktualisiere Installer, damit auch Windows-Versionen neuer als XP unterstützt werden, aber nur noch diese.</change>
+        <fix>Windows: LBS/GBV Universitätsbibliotheken: Korrigiere das Datei-Laden, damit es auch mit \ im Dateipfad läuft.</fix>
+        <fix>Windows: Statt der Windows Internet API lässt sich auch wieder OpenSSL verwenden.</fix>
+     </build>
+      <build version="2300" date="2021-07-27">
         <change>Windows/Linux: Verbesserter Suchdialog: schneller, größenveränderbare Seitenleisten, keine Sonderliste für Suchen über Metakatalog/Digibib.</change>
         <change>Beachte Sonderefälle bei der Kommunikation mit Bücherei-Webseiten-Servern, u.a. funktioniert dadurch die Kommunikation mit dem Bücherei Mainz Server.</change>
         <change>PICA/LBS/GBV Universitätsbibliotheken: Verwendete die "erweiterte Suche" mit mehr Optionen.</change>
