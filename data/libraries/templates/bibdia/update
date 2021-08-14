@@ -2,10 +2,27 @@
 <t:switch prioritized="true">
 <form>
 
-{mode := @name/string(),
+{$mode := @name/string(),
+ $form := form(., {"": {"kind": "submit"}}),
  switch ($mode) 
-   case "vorml" return cancel-form := form(., {"": {"kind": "submit"}})
-   case "medkl" return renew-form := form(., {"": {"kind": "submit"}})
+   case "vorml" return (
+     $cancel-form := $form,
+     if (@action[string()]) then ()
+     else 
+       $cancel-form.url := resolve-uri(
+         if (contains(base-uri(), "/opac/")) then "vorml.C" 
+         else "delreserv.C"
+       )
+   )
+   case "medkl" return (
+     $renew-form := $form,
+     if (@action[string()]) then ()
+     else 
+       $renew-form.url := resolve-uri(
+         if (contains(base-uri(), "/opac/")) then "verl.C" 
+         else "renewmedia.C"
+       )
+   )
    default return vl:raise-internal("Unknown list: " || $mode)
 }
 
