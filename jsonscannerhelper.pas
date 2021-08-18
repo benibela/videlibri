@@ -9,10 +9,13 @@ uses
 
 type
 EJSONScannerHelperException = class(Exception);
+TReadObject = function (var scanner: TJSONScanner; const typeId: string): TObject of object;
 TJSONScannerHelper = record helper for TJSONScanner
   procedure expectCurrentToken(token: TJSONToken);
   function fetchNonWSToken: TJSONToken;
   function fetchExpectedToken(token: TJSONToken): TJSONToken;
+  function fetchStringObjectPropertyValue: string;
+  function fetchSerializedTypedObject(callback: TReadObject): TObject; //['type', {obj}]
   procedure skipObjectPropertyValue;
   function CurTokenString: string;
   procedure raiseUnexpectedError();
@@ -46,6 +49,30 @@ function TJSONScannerHelper.fetchExpectedToken(token: TJSONToken): TJSONToken;
 begin
   result := fetchNonWSToken;
   expectCurrentToken(token);
+end;
+
+function TJSONScannerHelper.fetchStringObjectPropertyValue: string;
+begin
+  fetchNonWSToken; expectCurrentToken(tkColon);
+  fetchNonWSToken; expectCurrentToken(tkString);
+  result := CurTokenString;
+  fetchNonWSToken;
+end;
+
+function TJSONScannerHelper.fetchSerializedTypedObject(callback: TReadObject): TObject;
+var additionalArray: boolean;
+  typeId: String;
+begin
+  additionalArray := curtoken = tkSquaredBraceOpen;
+  if additionalArray  then fetchNonWSToken;
+  expectCurrentToken(tkString);
+  typeId := CurTokenString;
+  fetchNonWSToken; expectCurrentToken(tkComma);
+  fetchNonWSToken;
+  result := callback(self, typeId);
+  if additionalArray then begin
+    fetchNonWSToken; expectCurrentToken(tkSquaredBraceClose);
+  end;
 end;
 
 procedure TJSONScannerHelper.skipObjectPropertyValue;

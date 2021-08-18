@@ -46,6 +46,7 @@ type T{@id} = class{@extends!concat("(T",.,")")}
   class function fromJSON(var json: TJSONScanner): T{@id};
 protected
   procedure appendToJSON(var builder: TJSONXHTMLStrBuilder); {$virtual}
+  class function readObjectOfType(var scanner: TJSONScanner; const serializedTypeId: string): TObject; 
   class function readTypedObject(var scanner: TJSONScanner): T{@id}; //['type', {{obj}}]
   class function readObject(obj: T{@id}; var scanner: TJSONScanner): T{@id};
   procedure readProperty(var scanner: TJSONScanner);  {$virtual}
@@ -207,35 +208,27 @@ begin
   end;
 end;
 
-class function T{@id}.readTypedObject(var scanner: TJSONScanner): T{@id}; 
-var additionalArray: boolean;
+class function T{@id}.readObjectOfType(var scanner: TJSONScanner; const serializedTypeId: string): TObject;
+var temp: T{@id};
 begin
-  additionalArray := scanner.curtoken = tkSquaredBraceOpen;
-  if additionalArray  then scanner.fetchNonWSToken;
-  scanner.expectCurrentToken(tkString);
-  case scanner.CurTokenString of
+  case serializedTypeId of
   {let $id := @id return (., /api/class[$id = ig:ancestors(.)/@id])!x"
-    '{@id}': result := T{@id}.create;"}
-  else scanner.raiseUnexpectedError();
+    '{@id}': temp := T{@id}.create;"}
+  else begin scanner.raiseUnexpectedError(); temp := nil; end;
   end;
-  scanner.fetchNonWSToken; scanner.expectCurrentToken(tkComma);
-  scanner.fetchNonWSToken;
-  result := readObject(result, scanner);
-  if additionalArray then begin
-    scanner.fetchNonWSToken; scanner.expectCurrentToken(tkSquaredBraceClose);
-  end;
+  result := readObject(temp, scanner);
+end;
+
+class function T{@id}.readTypedObject(var scanner: TJSONScanner): T{@id}; 
+begin
+  result := scanner.fetchSerializedTypedObject(@readObjectOfType) as T{@id};
 end;
 
 procedure T{@id}.readProperty(var scanner: TJSONScanner);
 begin
   case scanner.CurTokenString of
     {join(*/(typeswitch (.) 
-      case element(string) return x"'{@name}': begin
-        scanner.fetchNonWSToken; scanner.expectCurrentToken(tkColon); 
-        scanner.fetchNonWSToken; scanner.expectCurrentToken(tkString); 
-        {@name} := scanner.CurTokenString;
-        scanner.fetchNonWSToken;
-      end;"
+      case element(string) return x"'{@name}': {@name} := scanner.fetchStringObjectPropertyValue;"
       case element(array) return x"'{@name}': begin
         scanner.fetchNonWSToken; scanner.expectCurrentToken(tkColon); 
         readArray({@name}, scanner);

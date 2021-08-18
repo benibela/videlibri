@@ -14,6 +14,7 @@ type TFormInput = class
   class function fromJSON(var json: TJSONScanner): TFormInput;
 protected
   procedure appendToJSON(var builder: TJSONXHTMLStrBuilder); virtual;
+  class function readObjectOfType(var scanner: TJSONScanner; const serializedTypeId: string): TObject; 
   class function readTypedObject(var scanner: TJSONScanner): TFormInput; //['type', {obj}]
   class function readObject(obj: TFormInput; var scanner: TJSONScanner): TFormInput;
   procedure readProperty(var scanner: TJSONScanner);  virtual;
@@ -30,6 +31,7 @@ type TFormSelect = class(TFormInput)
   class function fromJSON(var json: TJSONScanner): TFormSelect;
 protected
   procedure appendToJSON(var builder: TJSONXHTMLStrBuilder); override;
+  class function readObjectOfType(var scanner: TJSONScanner; const serializedTypeId: string): TObject; 
   class function readTypedObject(var scanner: TJSONScanner): TFormSelect; //['type', {obj}]
   class function readObject(obj: TFormSelect; var scanner: TJSONScanner): TFormSelect;
   procedure readProperty(var scanner: TJSONScanner);  override;
@@ -48,6 +50,7 @@ type TFormParams = class(TFastInterfacedObject)
   class function fromJSON(var json: TJSONScanner): TFormParams;
 protected
   procedure appendToJSON(var builder: TJSONXHTMLStrBuilder); virtual;
+  class function readObjectOfType(var scanner: TJSONScanner; const serializedTypeId: string): TObject; 
   class function readTypedObject(var scanner: TJSONScanner): TFormParams; //['type', {obj}]
   class function readObject(obj: TFormParams; var scanner: TJSONScanner): TFormParams;
   procedure readProperty(var scanner: TJSONScanner);  virtual;
@@ -174,47 +177,29 @@ begin
   end;
 end;
 
-class function TFormInput.readTypedObject(var scanner: TJSONScanner): TFormInput; 
-var additionalArray: boolean;
+class function TFormInput.readObjectOfType(var scanner: TJSONScanner; const serializedTypeId: string): TObject;
+var temp: TFormInput;
 begin
-  additionalArray := scanner.curtoken = tkSquaredBraceOpen;
-  if additionalArray  then scanner.fetchNonWSToken;
-  scanner.expectCurrentToken(tkString);
-  case scanner.CurTokenString of
+  case serializedTypeId of
   
-    'FormInput': result := TFormInput.create; 
-    'FormSelect': result := TFormSelect.create;
-  else scanner.raiseUnexpectedError();
+    'FormInput': temp := TFormInput.create; 
+    'FormSelect': temp := TFormSelect.create;
+  else begin scanner.raiseUnexpectedError(); temp := nil; end;
   end;
-  scanner.fetchNonWSToken; scanner.expectCurrentToken(tkComma);
-  scanner.fetchNonWSToken;
-  result := readObject(result, scanner);
-  if additionalArray then begin
-    scanner.fetchNonWSToken; scanner.expectCurrentToken(tkSquaredBraceClose);
-  end;
+  result := readObject(temp, scanner);
+end;
+
+class function TFormInput.readTypedObject(var scanner: TJSONScanner): TFormInput; 
+begin
+  result := scanner.fetchSerializedTypedObject(@readObjectOfType) as TFormInput;
 end;
 
 procedure TFormInput.readProperty(var scanner: TJSONScanner);
 begin
   case scanner.CurTokenString of
-    'name': begin
-        scanner.fetchNonWSToken; scanner.expectCurrentToken(tkColon); 
-        scanner.fetchNonWSToken; scanner.expectCurrentToken(tkString); 
-        name := scanner.CurTokenString;
-        scanner.fetchNonWSToken;
-      end;
-    'caption': begin
-        scanner.fetchNonWSToken; scanner.expectCurrentToken(tkColon); 
-        scanner.fetchNonWSToken; scanner.expectCurrentToken(tkString); 
-        caption := scanner.CurTokenString;
-        scanner.fetchNonWSToken;
-      end;
-    'value': begin
-        scanner.fetchNonWSToken; scanner.expectCurrentToken(tkColon); 
-        scanner.fetchNonWSToken; scanner.expectCurrentToken(tkString); 
-        value := scanner.CurTokenString;
-        scanner.fetchNonWSToken;
-      end;
+    'name': name := scanner.fetchStringObjectPropertyValue;
+    'caption': caption := scanner.fetchStringObjectPropertyValue;
+    'value': value := scanner.fetchStringObjectPropertyValue;
     else scanner.skipObjectPropertyValue();
   end;
 end;
@@ -283,23 +268,20 @@ begin
   end;
 end;
 
-class function TFormSelect.readTypedObject(var scanner: TJSONScanner): TFormSelect; 
-var additionalArray: boolean;
+class function TFormSelect.readObjectOfType(var scanner: TJSONScanner; const serializedTypeId: string): TObject;
+var temp: TFormSelect;
 begin
-  additionalArray := scanner.curtoken = tkSquaredBraceOpen;
-  if additionalArray  then scanner.fetchNonWSToken;
-  scanner.expectCurrentToken(tkString);
-  case scanner.CurTokenString of
+  case serializedTypeId of
   
-    'FormSelect': result := TFormSelect.create;
-  else scanner.raiseUnexpectedError();
+    'FormSelect': temp := TFormSelect.create;
+  else begin scanner.raiseUnexpectedError(); temp := nil; end;
   end;
-  scanner.fetchNonWSToken; scanner.expectCurrentToken(tkComma);
-  scanner.fetchNonWSToken;
-  result := readObject(result, scanner);
-  if additionalArray then begin
-    scanner.fetchNonWSToken; scanner.expectCurrentToken(tkSquaredBraceClose);
-  end;
+  result := readObject(temp, scanner);
+end;
+
+class function TFormSelect.readTypedObject(var scanner: TJSONScanner): TFormSelect; 
+begin
+  result := scanner.fetchSerializedTypedObject(@readObjectOfType) as TFormSelect;
 end;
 
 procedure TFormSelect.readProperty(var scanner: TJSONScanner);
@@ -394,23 +376,20 @@ begin
   end;
 end;
 
-class function TFormParams.readTypedObject(var scanner: TJSONScanner): TFormParams; 
-var additionalArray: boolean;
+class function TFormParams.readObjectOfType(var scanner: TJSONScanner; const serializedTypeId: string): TObject;
+var temp: TFormParams;
 begin
-  additionalArray := scanner.curtoken = tkSquaredBraceOpen;
-  if additionalArray  then scanner.fetchNonWSToken;
-  scanner.expectCurrentToken(tkString);
-  case scanner.CurTokenString of
+  case serializedTypeId of
   
-    'FormParams': result := TFormParams.create;
-  else scanner.raiseUnexpectedError();
+    'FormParams': temp := TFormParams.create;
+  else begin scanner.raiseUnexpectedError(); temp := nil; end;
   end;
-  scanner.fetchNonWSToken; scanner.expectCurrentToken(tkComma);
-  scanner.fetchNonWSToken;
-  result := readObject(result, scanner);
-  if additionalArray then begin
-    scanner.fetchNonWSToken; scanner.expectCurrentToken(tkSquaredBraceClose);
-  end;
+  result := readObject(temp, scanner);
+end;
+
+class function TFormParams.readTypedObject(var scanner: TJSONScanner): TFormParams; 
+begin
+  result := scanner.fetchSerializedTypedObject(@readObjectOfType) as TFormParams;
 end;
 
 procedure TFormParams.readProperty(var scanner: TJSONScanner);
