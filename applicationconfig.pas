@@ -431,8 +431,9 @@ resourcestring
       CAStore := userConfig.ReadString('access', 'CAPath', '');
       defaultInternetConfiguration.CAFile := '';
       defaultInternetConfiguration.CAPath := '';
-      if DirectoryExists(CAstore) then defaultInternetConfiguration.CAPath := CAStore
-      else if FileExists(CAStore) then defaultInternetConfiguration.CAFile := CAStore;
+      if CAstore <> '' then
+        if DirectoryExists(CAstore) then defaultInternetConfiguration.CAPath := CAStore
+        else if FileExists(CAStore) then defaultInternetConfiguration.CAFile := CAStore;
       defaultInternetConfiguration.searchCertificates;
     end;
     {$endif}
