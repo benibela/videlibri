@@ -154,7 +154,7 @@ type
 function getSearchableLocations: TSearchableLocations;
 implementation
 
-uses applicationconfig, bbdebugtools, internetaccess, androidutils {$ifdef android}, bbjniutils{$else},forms{$endif}, commoninterface, jsonscanner, jsonscannerhelper;
+uses applicationconfig, bbdebugtools, internetaccess, androidutils {$ifdef android}, bbjniutils{$else},forms{$endif}, commoninterface, fastjsonscanner, jsonscannerhelper;
 
 resourcestring
   rsSearchAllRegions = 'alle Regionen';
@@ -316,7 +316,8 @@ var
 begin
   cache := strLoadFromFile(searcher.getCacheFile);
   if cache = '' then exit;
-  scanner := TJSONScanner.Create(cache, [joUTF8, joIgnoreTrailingComma]);
+  scanner := default(TJSONScanner);
+  scanner.init(cache, [joUTF8, joIgnoreTrailingComma]);
   try
     scanner.fetchExpectedToken(tkCurlyBraceOpen);
     scanner.fetchExpectedToken(tkString);
@@ -327,7 +328,7 @@ begin
     end;
   except
   end;
-  scanner.free;
+  scanner.done;
 end;
 
 

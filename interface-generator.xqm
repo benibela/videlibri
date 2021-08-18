@@ -43,12 +43,12 @@ type T{@id} = class{@extends!concat("(T",.,")")}
       if (.//classref) then "destructor destroy; override;" else (),
   if (@serialize-json) then
   x"class function fromJSON(json: string): T{@id};
-  class function fromJSON(json: TJSONScanner): T{@id};
+  class function fromJSON(var json: TJSONScanner): T{@id};
 protected
   procedure appendToJSON(var builder: TJSONXHTMLStrBuilder); {$virtual}
-  class function readTypedObject(scanner: TJSONScanner): T{@id}; //['type', {{obj}}]
-  class function readObject(obj: T{@id}; scanner: TJSONScanner): T{@id};
-  procedure readProperty(scanner: TJSONScanner);  {$virtual}
+  class function readTypedObject(var scanner: TJSONScanner): T{@id}; //['type', {{obj}}]
+  class function readObject(obj: T{@id}; var scanner: TJSONScanner): T{@id};
+  procedure readProperty(var scanner: TJSONScanner);  {$virtual}
   class function typeId: string; {$virtual}" else ()
 ), "&#x0A;  ")
 }
@@ -63,7 +63,7 @@ x"unit commoninterface;
 {{$mode objfpc}}{{$H+}}
 {{$ModeSwitch typehelpers}}{{$ModeSwitch advancedrecords}}{{$ModeSwitch autoderef}}
 interface
- uses sysutils, simplexmlparser, xquery.internals.common, jsonscanner, jsonscannerhelper {{$ifdef android}}, jni, bbjniutils{{$endif}};
+ uses sysutils, simplexmlparser, xquery.internals.common, fastjsonscanner, jsonscannerhelper {{$ifdef android}}, jni, bbjniutils{{$endif}};
  type EVideLibriInterfaceException = class(Exception);
  { let $arrayrefs := distinct-values($r/api//array/classref/@ref)
    where exists($arrayrefs)
@@ -78,7 +78,7 @@ uses bbutils, math;
 
 
 type TStringArray = array of string;
-procedure readArray(var sa: TStringArray; scanner: TJSONScanner); overload;
+procedure readArray(var sa: TStringArray; var scanner: TJSONScanner); overload;
 var temp: TStringArrayList;
   pname: String;
 begin
@@ -108,7 +108,7 @@ end;
    where exists($arrayrefs)
 return $arrayrefs!x"
 type T{.}ArrayList = specialize TCopyingPtrArrayList<T{.}>;
-procedure readArray(var p: T{.}Array; scanner: TJSONScanner); overload;
+procedure readArray(var p: T{.}Array; var scanner: TJSONScanner); overload;
 var temp: T{.}ArrayList;
 begin
   scanner.fetchNonWSToken; scanner.expectCurrentToken(tkSquaredBraceOpen);
@@ -181,17 +181,18 @@ end;
 class function T{@id}.fromJSON(json: string): T{@id};
 var scanner: TJSONScanner;
 begin
-  scanner := TJSONScanner.Create(json, [joUTF8, joIgnoreTrailingComma]);
+  scanner := default(TJSONScanner);
+  scanner.init(json, [joUTF8, joIgnoreTrailingComma]);
   scanner.fetchNonWSToken;
   result := fromJSON(scanner);
-  scanner.free;
+  scanner.done;
 end;
-class function T{@id}.fromJSON(json: TJSONScanner): T{@id};
+class function T{@id}.fromJSON(var json: TJSONScanner): T{@id};
 begin
   result := readObject(T{@id}.create, json);
 end;
 
-class function T{@id}.readObject(obj: T{@id}; scanner: TJSONScanner): T{@id};
+class function T{@id}.readObject(obj: T{@id}; var scanner: TJSONScanner): T{@id};
 begin
   result := obj;
   scanner.expectCurrentToken(tkCurlyBraceOpen); scanner.fetchNonWSToken;
@@ -206,7 +207,7 @@ begin
   end;
 end;
 
-class function T{@id}.readTypedObject(scanner: TJSONScanner): T{@id}; 
+class function T{@id}.readTypedObject(var scanner: TJSONScanner): T{@id}; 
 var additionalArray: boolean;
 begin
   additionalArray := scanner.curtoken = tkSquaredBraceOpen;
@@ -225,7 +226,7 @@ begin
   end;
 end;
 
-procedure T{@id}.readProperty(scanner: TJSONScanner);
+procedure T{@id}.readProperty(var scanner: TJSONScanner);
 begin
   case scanner.CurTokenString of
     {join(*/(typeswitch (.) 

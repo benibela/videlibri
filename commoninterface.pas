@@ -2,7 +2,7 @@ unit commoninterface;
 {$mode objfpc}{$H+}
 {$ModeSwitch typehelpers}{$ModeSwitch advancedrecords}{$ModeSwitch autoderef}
 interface
- uses sysutils, simplexmlparser, xquery.internals.common, jsonscanner, jsonscannerhelper {$ifdef android}, jni, bbjniutils{$endif};
+ uses sysutils, simplexmlparser, xquery.internals.common, fastjsonscanner, jsonscannerhelper {$ifdef android}, jni, bbjniutils{$endif};
  type EVideLibriInterfaceException = class(Exception);
  type TFormInput = class; TFormInputArray = array of TFormInput; 
  
@@ -11,12 +11,12 @@ type TFormInput = class
   procedure toJSON(var builder: TJSONXHTMLStrBuilder);
   function toJSON(): string;
   class function fromJSON(json: string): TFormInput;
-  class function fromJSON(json: TJSONScanner): TFormInput;
+  class function fromJSON(var json: TJSONScanner): TFormInput;
 protected
   procedure appendToJSON(var builder: TJSONXHTMLStrBuilder); virtual;
-  class function readTypedObject(scanner: TJSONScanner): TFormInput; //['type', {obj}]
-  class function readObject(obj: TFormInput; scanner: TJSONScanner): TFormInput;
-  procedure readProperty(scanner: TJSONScanner);  virtual;
+  class function readTypedObject(var scanner: TJSONScanner): TFormInput; //['type', {obj}]
+  class function readObject(obj: TFormInput; var scanner: TJSONScanner): TFormInput;
+  procedure readProperty(var scanner: TJSONScanner);  virtual;
   class function typeId: string; virtual;
 public
   {$ifdef android}
@@ -27,12 +27,12 @@ type TFormSelect = class(TFormInput)
   optionCaptions: array of string;
   optionValues: array of string;
   class function fromJSON(json: string): TFormSelect;
-  class function fromJSON(json: TJSONScanner): TFormSelect;
+  class function fromJSON(var json: TJSONScanner): TFormSelect;
 protected
   procedure appendToJSON(var builder: TJSONXHTMLStrBuilder); override;
-  class function readTypedObject(scanner: TJSONScanner): TFormSelect; //['type', {obj}]
-  class function readObject(obj: TFormSelect; scanner: TJSONScanner): TFormSelect;
-  procedure readProperty(scanner: TJSONScanner);  override;
+  class function readTypedObject(var scanner: TJSONScanner): TFormSelect; //['type', {obj}]
+  class function readObject(obj: TFormSelect; var scanner: TJSONScanner): TFormSelect;
+  procedure readProperty(var scanner: TJSONScanner);  override;
   class function typeId: string; override;
 public
   {$ifdef android}
@@ -45,12 +45,12 @@ type TFormParams = class(TFastInterfacedObject)
   function toJSON(): string;
   destructor destroy; override;
   class function fromJSON(json: string): TFormParams;
-  class function fromJSON(json: TJSONScanner): TFormParams;
+  class function fromJSON(var json: TJSONScanner): TFormParams;
 protected
   procedure appendToJSON(var builder: TJSONXHTMLStrBuilder); virtual;
-  class function readTypedObject(scanner: TJSONScanner): TFormParams; //['type', {obj}]
-  class function readObject(obj: TFormParams; scanner: TJSONScanner): TFormParams;
-  procedure readProperty(scanner: TJSONScanner);  virtual;
+  class function readTypedObject(var scanner: TJSONScanner): TFormParams; //['type', {obj}]
+  class function readObject(obj: TFormParams; var scanner: TJSONScanner): TFormParams;
+  procedure readProperty(var scanner: TJSONScanner);  virtual;
   class function typeId: string; virtual;
 public
   {$ifdef android}
@@ -72,7 +72,7 @@ uses bbutils, math;
 
 
 type TStringArray = array of string;
-procedure readArray(var sa: TStringArray; scanner: TJSONScanner); overload;
+procedure readArray(var sa: TStringArray; var scanner: TJSONScanner); overload;
 var temp: TStringArrayList;
   pname: String;
 begin
@@ -100,7 +100,7 @@ end;
 
 
 type TFormInputArrayList = specialize TCopyingPtrArrayList<TFormInput>;
-procedure readArray(var p: TFormInputArray; scanner: TJSONScanner); overload;
+procedure readArray(var p: TFormInputArray; var scanner: TJSONScanner); overload;
 var temp: TFormInputArrayList;
 begin
   scanner.fetchNonWSToken; scanner.expectCurrentToken(tkSquaredBraceOpen);
@@ -148,17 +148,18 @@ end;
 class function TFormInput.fromJSON(json: string): TFormInput;
 var scanner: TJSONScanner;
 begin
-  scanner := TJSONScanner.Create(json, [joUTF8, joIgnoreTrailingComma]);
+  scanner := default(TJSONScanner);
+  scanner.init(json, [joUTF8, joIgnoreTrailingComma]);
   scanner.fetchNonWSToken;
   result := fromJSON(scanner);
-  scanner.free;
+  scanner.done;
 end;
-class function TFormInput.fromJSON(json: TJSONScanner): TFormInput;
+class function TFormInput.fromJSON(var json: TJSONScanner): TFormInput;
 begin
   result := readObject(TFormInput.create, json);
 end;
 
-class function TFormInput.readObject(obj: TFormInput; scanner: TJSONScanner): TFormInput;
+class function TFormInput.readObject(obj: TFormInput; var scanner: TJSONScanner): TFormInput;
 begin
   result := obj;
   scanner.expectCurrentToken(tkCurlyBraceOpen); scanner.fetchNonWSToken;
@@ -173,7 +174,7 @@ begin
   end;
 end;
 
-class function TFormInput.readTypedObject(scanner: TJSONScanner): TFormInput; 
+class function TFormInput.readTypedObject(var scanner: TJSONScanner): TFormInput; 
 var additionalArray: boolean;
 begin
   additionalArray := scanner.curtoken = tkSquaredBraceOpen;
@@ -193,7 +194,7 @@ begin
   end;
 end;
 
-procedure TFormInput.readProperty(scanner: TJSONScanner);
+procedure TFormInput.readProperty(var scanner: TJSONScanner);
 begin
   case scanner.CurTokenString of
     'name': begin
@@ -256,17 +257,18 @@ end;
 class function TFormSelect.fromJSON(json: string): TFormSelect;
 var scanner: TJSONScanner;
 begin
-  scanner := TJSONScanner.Create(json, [joUTF8, joIgnoreTrailingComma]);
+  scanner := default(TJSONScanner);
+  scanner.init(json, [joUTF8, joIgnoreTrailingComma]);
   scanner.fetchNonWSToken;
   result := fromJSON(scanner);
-  scanner.free;
+  scanner.done;
 end;
-class function TFormSelect.fromJSON(json: TJSONScanner): TFormSelect;
+class function TFormSelect.fromJSON(var json: TJSONScanner): TFormSelect;
 begin
   result := readObject(TFormSelect.create, json);
 end;
 
-class function TFormSelect.readObject(obj: TFormSelect; scanner: TJSONScanner): TFormSelect;
+class function TFormSelect.readObject(obj: TFormSelect; var scanner: TJSONScanner): TFormSelect;
 begin
   result := obj;
   scanner.expectCurrentToken(tkCurlyBraceOpen); scanner.fetchNonWSToken;
@@ -281,7 +283,7 @@ begin
   end;
 end;
 
-class function TFormSelect.readTypedObject(scanner: TJSONScanner): TFormSelect; 
+class function TFormSelect.readTypedObject(var scanner: TJSONScanner): TFormSelect; 
 var additionalArray: boolean;
 begin
   additionalArray := scanner.curtoken = tkSquaredBraceOpen;
@@ -300,7 +302,7 @@ begin
   end;
 end;
 
-procedure TFormSelect.readProperty(scanner: TJSONScanner);
+procedure TFormSelect.readProperty(var scanner: TJSONScanner);
 begin
   case scanner.CurTokenString of
     'optionCaptions': begin
@@ -366,17 +368,18 @@ end;
 class function TFormParams.fromJSON(json: string): TFormParams;
 var scanner: TJSONScanner;
 begin
-  scanner := TJSONScanner.Create(json, [joUTF8, joIgnoreTrailingComma]);
+  scanner := default(TJSONScanner);
+  scanner.init(json, [joUTF8, joIgnoreTrailingComma]);
   scanner.fetchNonWSToken;
   result := fromJSON(scanner);
-  scanner.free;
+  scanner.done;
 end;
-class function TFormParams.fromJSON(json: TJSONScanner): TFormParams;
+class function TFormParams.fromJSON(var json: TJSONScanner): TFormParams;
 begin
   result := readObject(TFormParams.create, json);
 end;
 
-class function TFormParams.readObject(obj: TFormParams; scanner: TJSONScanner): TFormParams;
+class function TFormParams.readObject(obj: TFormParams; var scanner: TJSONScanner): TFormParams;
 begin
   result := obj;
   scanner.expectCurrentToken(tkCurlyBraceOpen); scanner.fetchNonWSToken;
@@ -391,7 +394,7 @@ begin
   end;
 end;
 
-class function TFormParams.readTypedObject(scanner: TJSONScanner): TFormParams; 
+class function TFormParams.readTypedObject(var scanner: TJSONScanner): TFormParams; 
 var additionalArray: boolean;
 begin
   additionalArray := scanner.curtoken = tkSquaredBraceOpen;
@@ -410,7 +413,7 @@ begin
   end;
 end;
 
-procedure TFormParams.readProperty(scanner: TJSONScanner);
+procedure TFormParams.readProperty(var scanner: TJSONScanner);
 begin
   case scanner.CurTokenString of
     'inputs': begin

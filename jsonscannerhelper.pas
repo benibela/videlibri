@@ -1,19 +1,20 @@
 unit jsonscannerhelper;
 
-{$mode objfpc}{$H+}{$ModeSwitch typehelpers}
+{$mode objfpc}{$H+}{$ModeSwitch typehelpers}{$ModeSwitch advancedrecords}
 
 interface
 
 uses
-  Classes, SysUtils,jsonscanner;
+  Classes, SysUtils,fastjsonscanner;
 
 type
 EJSONScannerHelperException = class(Exception);
-TJSONScannerHelper = class helper for TJSONScanner
+TJSONScannerHelper = record helper for TJSONScanner
   procedure expectCurrentToken(token: TJSONToken);
   function fetchNonWSToken: TJSONToken;
   function fetchExpectedToken(token: TJSONToken): TJSONToken;
   procedure skipObjectPropertyValue;
+  function CurTokenString: string;
   procedure raiseUnexpectedError();
 end;
 
@@ -25,7 +26,7 @@ var
   at: String;
 begin
   at := Copy(CurLine, CurColumn - 30, min(CurColumn - 1, 30) ) + '|' + Copy(CurLine, CurColumn, 30 ) ;
-  raise EJSONScannerHelperException.create('Konfigurationsdatei konnte nicht geladen werden. Unerwartetes ' + CurTokenString + '<'+inttostr(ord(CurToken)) + '> '+at);
+  raise EJSONScannerHelperException.create('Konfigurationsdatei konnte nicht geladen werden. Unerwartetes Symbol hier: '+at);
 end;
 
 procedure TJSONScannerHelper.expectCurrentToken(token: TJSONToken);
@@ -67,6 +68,11 @@ begin
     else expectCurrentToken(tkString);
   end;
   fetchNonWSToken;
+end;
+
+function TJSONScannerHelper.CurTokenString: string;
+begin
+  result := decodeJSONString(CurTokenStart, CurTokenLength, jecEscapeNothing, nil);
 end;
 
 end.
