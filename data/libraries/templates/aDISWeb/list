@@ -83,7 +83,7 @@
     <TD>{book.status := inner-text(),
          book.renewCount := extract($book.status, "([0-9]+) *Verlängerung", 1)
         }
-        <t:if test="matches(., x'((nicht +verl.*ngerbar|Keine Verl.*gerung +m.*glich|Vormerkungen).*Stand +{string-join(reverse(tokenize(current-date(), '-')), '[.]')})|((Max. +)?Anzahl +der +Verl.*erreicht)','i')">
+        <t:if test="matches(., x'((nicht +verl.*ngerbar|Keine Verl.*gerung +m.*glich|Vormerkungen|Verlängerung +(noch)? *nicht +möglich).*Stand +{string-join(reverse(tokenize(current-date(), '-')), '[.]')})|((Max. +)?Anzahl +der +Verl.*erreicht)','i')">
           {book.statusId := "critical"}
         </t:if>
     </TD>
