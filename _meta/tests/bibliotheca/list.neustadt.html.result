@@ -1,10 +1,10 @@
 book := {}
-book := {"author": "Allende, Isabel", "title": "A S", "duedate": "2014-10-07", "status": "nicht verlängerbar", "statusId": "critical"}
-book := {"author": "Connelly, Michael", "title": "B B", "duedate": "2014-10-23", "statusId": "curious", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_2"}
-book := {"author": "D, A", "title": "T Schmerz", "duedate": "2014-10-23", "statusId": "curious", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_3"}
-book := {"author": "Grebe, Camilla ...", "title": "Bevor du stirbst", "duedate": "2014-10-23", "statusId": "curious", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_4"}
-book := {"author": "Klönne, Gisa", "title": "Das Lied der Stare nach dem Frost", "duedate": "2014-10-23", "statusId": "curious", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_5"}
-book := {"author": "Lescroart, John T.", "title": "Das Gesetz der Jagd", "duedate": "2014-10-23", "statusId": "curious", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_6"}
-book := {"author": "MacDermid, Val", "title": "Betrug", "duedate": "2014-10-23", "statusId": "curious", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_7"}
-book := {"author": "O'Flynn, Catherine", "title": "Was geschah", "duedate": "2014-10-23", "statusId": "curious", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_8"}
-book := {"author": "Sundermeyer, Erik Axl", "title": "Krähenmädchen", "duedate": "2014-10-23", "statusId": "curious", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_9"}
+book := {"statusId": "critical", "author": "Allende, Isabel", "title": "A S", "duedate": "2014-10-07", "status": "nicht verlängerbar"}
+book := {"statusId": "curious", "author": "Connelly, Michael", "title": "B B", "duedate": "2014-10-23", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_2"}
+book := {"statusId": "curious", "author": "D, A", "title": "T Schmerz", "duedate": "2014-10-23", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_3"}
+book := {"statusId": "curious", "author": "Grebe, Camilla ...", "title": "Bevor du stirbst", "duedate": "2014-10-23", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_4"}
+book := {"statusId": "curious", "author": "Klönne, Gisa", "title": "Das Lied der Stare nach dem Frost", "duedate": "2014-10-23", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_5"}
+book := {"statusId": "curious", "author": "Lescroart, John T.", "title": "Das Gesetz der Jagd", "duedate": "2014-10-23", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_6"}
+book := {"statusId": "curious", "author": "MacDermid, Val", "title": "Betrug", "duedate": "2014-10-23", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_7"}
+book := {"statusId": "curious", "author": "O'Flynn, Catherine", "title": "Was geschah", "duedate": "2014-10-23", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_8"}
+book := {"statusId": "curious", "author": "Sundermeyer, Erik Axl", "title": "Krähenmädchen", "duedate": "2014-10-23", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_9"}

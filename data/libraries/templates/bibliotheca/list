@@ -16,7 +16,7 @@
            <th/>*
          </t:siblings-header></tr>
          <t:loop>
-           <TR>{$book := {}}<t:siblings id="lendings">
+           <TR>{$book := {"statusId": "critical"}}<t:siblings id="lendings">
              <TD>{$book.status}</TD>
              <TD>{$book.renewCount := normalize-space() ! (
                                       if (. eq "E") then 0
