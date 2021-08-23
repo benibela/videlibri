@@ -2,4 +2,4 @@ book := {}
 i := 0
 i := 1
 i := 2
-book := {"Exemplar 1 Standort!": "1 Universitätsbibliothek \n\t\t\t\t\t\t\t\t\t\t\tMagazin (MAG-G) - Magazinbestellung \n\t\t\t\t\t\t\t\t\t\t\t28/79/163(3) ", "Exemplar 1 Bestand!": "von:1979/81 1979/81 bis:1992/93 1992/93", "Exemplar 2 Standort!": "2 Universitätsbibliothek \n\t\t\t\t\t\t\t\t\t\t\tZeitschriftenbestand \n\t\t\t\t\t\t\t\t\t\t\t28/79/163(3) ", "Exemplar 2 Bestand!": "1979 - 1987; 1992 - 1993 (1979-1981 Benutzung nur im Lesesaal)"}
+book := {"Exemplar 1 Bestand!": "von:1979/81 1979/81 bis:1992/93 1992/93", "Exemplar 1 Standort!": "1 Universitätsbibliothek \n\t\t\t\t\t\t\t\t\t\t\tMagazin (MAG-G) - Magazinbestellung \n\t\t\t\t\t\t\t\t\t\t\t28/79/163(3) ", "Exemplar 2 Bestand!": "1979 - 1987; 1992 - 1993 (1979-1981 Benutzung nur im Lesesaal)", "Exemplar 2 Standort!": "2 Universitätsbibliothek \n\t\t\t\t\t\t\t\t\t\t\tZeitschriftenbestand \n\t\t\t\t\t\t\t\t\t\t\t28/79/163(3) "}

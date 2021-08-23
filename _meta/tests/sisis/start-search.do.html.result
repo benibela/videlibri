@@ -1,14 +1,14 @@
 touchpoint := false
 book := {}
-search-keys := {"author": "100", "title": "331", "free": "-1", "keywords": "902", "isbn": "540", "year": "425"}
-search-form := {"method": "GET", "url": "file:///InfoGuideClient/search.do;jsessionid=9096233F65EDF6AF6D356BEB9E7BF4C3?methodToCall=submit&CSId=47894N10S9f2865c2959d62208fcfa3e74688ba6c5cf6e68f&methodToCallParameter=submitSearch&searchCategories%5B0%5D=331&searchString%5B0%5D=&combinationOperator%5B1%5D=AND&searchCategories%5B1%5D=100&searchString%5B1%5D=&combinationOperator%5B2%5D=AND&searchCategories%5B2%5D=425&searchString%5B2%5D=&submitSearch=Suchen&callingPage=searchParameters&selectedViewBranchlib=0&selectedSearchBranchlib=&searchRestrictionID%5B0%5D=8&searchRestrictionValue1%5B0%5D=&searchRestrictionID%5B1%5D=7&searchRestrictionValue1%5B1%5D=&searchRestrictionID%5B2%5D=6&searchRestrictionValue1%5B2%5D=&searchRestrictionID%5B3%5D=5&searchRestrictionValue1%5B3%5D=&searchRestrictionValue2%5B3%5D=", "submit-indices": 12}
+search-keys := {"author": "100", "free": "-1", "isbn": "540", "keywords": "902", "title": "331", "year": "425"}
+search-form := {"method": "GET", "submit-indices": 12, "url": "file:///InfoGuideClient/search.do;jsessionid=9096233F65EDF6AF6D356BEB9E7BF4C3?methodToCall=submit&CSId=47894N10S9f2865c2959d62208fcfa3e74688ba6c5cf6e68f&methodToCallParameter=submitSearch&searchCategories%5B0%5D=331&searchString%5B0%5D=&combinationOperator%5B1%5D=AND&searchCategories%5B1%5D=100&searchString%5B1%5D=&combinationOperator%5B2%5D=AND&searchCategories%5B2%5D=425&searchString%5B2%5D=&submitSearch=Suchen&callingPage=searchParameters&selectedViewBranchlib=0&selectedSearchBranchlib=&searchRestrictionID%5B0%5D=8&searchRestrictionValue1%5B0%5D=&searchRestrictionID%5B1%5D=7&searchRestrictionValue1%5B1%5D=&searchRestrictionID%5B2%5D=6&searchRestrictionValue1%5B2%5D=&searchRestrictionID%5B3%5D=5&searchRestrictionValue1%5B3%5D=&searchRestrictionValue2%5B3%5D="}
 search-params := ("title", 
 "author", 
 "free", 
 "keywords", 
 "year", 
 "isbn", 
-{"name": "libraryHomeBranch", "options": ["Zentralbibliothek", "Lehrbuchsammlung", "Medizinische Bibliothek"], "caption": "Zweigstelle (für Bestellungen)"}, 
-{"name": "libraryBranch", "options": ["Alle Zweigstellen", "Zentralbibliothek", "Lehrbuchsammlung", "Medizinische Bibliothek", "Chemie-Bibliothek", "EONERC", "GTE der Medizin", "HUMTEC", "Dez. 8.0"], "caption": "Zweigstelle (für Suche)"}, 
+{"caption": "Zweigstelle (für Bestellungen)", "name": "libraryHomeBranch", "options": ["Zentralbibliothek", "Lehrbuchsammlung", "Medizinische Bibliothek"]}, 
+{"caption": "Zweigstelle (für Suche)", "name": "libraryBranch", "options": ["Alle Zweigstellen", "Zentralbibliothek", "Lehrbuchsammlung", "Medizinische Bibliothek", "Chemie-Bibliothek", "EONERC", "GTE der Medizin", "HUMTEC", "Dez. 8.0"]}, 
 {"name": "language", "options": ["alle", "Englisch", "Deutsch", "Italienisch", "Spanisch", "Niederländisch", "Französisch"]})
-search-restriction-keys := {"libraryHomeBranch": "selectedViewBranchlib", "libraryBranch": "selectedSearchBranchlib", "mediaType": null, "language": "searchRestrictionValue1[0]"}
+search-restriction-keys := {"language": "searchRestrictionValue1[0]", "libraryBranch": "selectedSearchBranchlib", "libraryHomeBranch": "selectedViewBranchlib", "mediaType": null}

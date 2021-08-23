@@ -1,3 +1,3 @@
 book := {}
 mode := "orders"
-book := {"_cancelId": "646", "id": "72075438", "author": "Levine, Peter A.", "title": "Trauma und Gedächtnis : die Spuren unserer Erinnerung in Körper und Gehirn : wie wir traumatische Erfahrungen verstehen und verarbeiten", "issueDate": "2017-01-19", "statusId": "ordered"}
+book := {"_cancelId": "646", "author": "Levine, Peter A.", "id": "72075438", "issueDate": "2017-01-19", "statusId": "ordered", "title": "Trauma und Gedächtnis : die Spuren unserer Erinnerung in Körper und Gehirn : wie wir traumatische Erfahrungen verstehen und verarbeiten"}

@@ -4,8 +4,8 @@ obj := text{"Obj_201471375532632"}
 bFoundBottom := false()
 bulkRenew := text{"Obj_201471375532632?Style=Portal2&amp;SubStyle=&amp;Lang=GER&amp;ResponseEncoding=utf-8&amp;Method=BulkRenew&amp;BulkRenew=1&amp;BrowseAsHloc=-2"}
 delete-current-books() := ()
-book := {"title": "Diamant", "statusId": "normal", "author": "Brandhorst, Andreas", "id": "M01 996 012 6", "issuedate": "2013-08-03", "duedate": "2013-09-02", "status": ""}
-book := {"title": "Ringwelt-Thron", "statusId": "normal", "author": "Niven, Larry", "id": "M02 005 789 2", "issuedate": "2013-08-03", "duedate": "2013-09-02", "status": ""}
-book := {"title": "Crashlander", "statusId": "normal", "author": "Niven, Larry", "id": "M02 009 605 8", "issuedate": "2013-08-03", "duedate": "2013-09-02", "status": ""}
-book := {"title": "Der letzte Pfad◉3.", "statusId": "normal", "author": "McIntosh, Fiona", "id": "M02 109 506 4", "issuedate": "2013-08-03", "duedate": "2013-09-02", "status": ""}
-book := {"title": "Seelenfänger", "statusId": "normal", "author": "Brandhorst, Andreas", "id": "M02 165 961 3", "issuedate": "2013-08-03", "duedate": "2013-09-02", "status": ""}
+book := {"author": "Brandhorst, Andreas", "duedate": "2013-09-02", "id": "M01 996 012 6", "issuedate": "2013-08-03", "status": "", "statusId": "normal", "title": "Diamant"}
+book := {"author": "Niven, Larry", "duedate": "2013-09-02", "id": "M02 005 789 2", "issuedate": "2013-08-03", "status": "", "statusId": "normal", "title": "Ringwelt-Thron"}
+book := {"author": "Niven, Larry", "duedate": "2013-09-02", "id": "M02 009 605 8", "issuedate": "2013-08-03", "status": "", "statusId": "normal", "title": "Crashlander"}
+book := {"author": "McIntosh, Fiona", "duedate": "2013-09-02", "id": "M02 109 506 4", "issuedate": "2013-08-03", "status": "", "statusId": "normal", "title": "Der letzte Pfad◉3."}
+book := {"author": "Brandhorst, Andreas", "duedate": "2013-09-02", "id": "M02 165 961 3", "issuedate": "2013-08-03", "status": "", "statusId": "normal", "title": "Seelenfänger"}

@@ -1,2 +1,2 @@
 book := {}
-book := {"_orderCount": 1, "_orderTitle1": "Lokaler Bibliotheksbestand\tentliehen (gesamte Vormerkungen: 0)\tauswählen", "_order1": "file:///webOPACClient.sisis/availability.do?methodToCall=doVormerkung&katkey=187705&title=_Das+Anti-Burnout-Buch+f%C3%BCr+M%C3%BCtter&author=Engelbrecht%2C+Sigrid&context=hitlist", "orderTitle": "vorbestellen", "orderable": true}
+book := {"_order1": "file:///webOPACClient.sisis/availability.do?methodToCall=doVormerkung&katkey=187705&title=_Das+Anti-Burnout-Buch+f%C3%BCr+M%C3%BCtter&author=Engelbrecht%2C+Sigrid&context=hitlist", "_orderCount": 1, "_orderTitle1": "Lokaler Bibliotheksbestand\tentliehen (gesamte Vormerkungen: 0)\tauswählen", "orderTitle": "vorbestellen", "orderable": true}

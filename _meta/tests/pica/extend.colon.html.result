@@ -1,3 +1,3 @@
 id-list := 12/435:X XYZ
 book := {}
-book := {"select(id)": "LB:QC:10;2", "status:problematic": "Max. Zahl der Verlaengerungen ist erreicht. Band ist nicht verlaengert.;", "duedate": "2018-01-27"}
+book := {"duedate": "2018-01-27", "select(id)": "LB:QC:10;2", "status:problematic": "Max. Zahl der Verlaengerungen ist erreicht. Band ist nicht verlaengert.;"}

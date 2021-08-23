@@ -1,2 +1,2 @@
 book := {}
-book := {"orderable": true, "_orderCount": 1, "_order1": "file:///TouchPoint_touchpoint/requestItem.do?methodToCall=REQUESTITEM&itemId=8834&requestType=order&itemType=TitleId&circTarget=2&activeTab=0&context=hitlist", "_orderTitle1": "Lokaler Bibliotheksbestand\tbestellbar\tauswählen"}
+book := {"_order1": "file:///TouchPoint_touchpoint/requestItem.do?methodToCall=REQUESTITEM&itemId=8834&requestType=order&itemType=TitleId&circTarget=2&activeTab=0&context=hitlist", "_orderCount": 1, "_orderTitle1": "Lokaler Bibliotheksbestand\tbestellbar\tauswählen", "orderable": true}

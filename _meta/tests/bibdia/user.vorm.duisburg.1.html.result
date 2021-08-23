@@ -1,5 +1,5 @@
 book := {}
 mode := "vorml"
-form := {"method": "POST", "post": "LANG=de&FUNC=vorl&BENUTZER=5678956789&PASSWORD=56789987", "url": "vltest://bibdia/bibdia/user.vorm.duisburg.1.html", "charset": "CP1252"}
-cancel-form := {"method": "POST", "post": "LANG=de&FUNC=vorl&BENUTZER=5678956789&PASSWORD=56789987", "url": "vltest://bibdia/bibdia/delreserv.C", "charset": "CP1252"}
-book := {"status": " Entliehen bis: 29.03.2018 Rang: 1 T", "_internalId": "T 567890 5678901", "id": "YBK 5 ABCDEF ", "title": " Der", "author": " Abcdef, Tork", "_internalTitleId": "567890", "libraryBranch": "ZB, Zentralbibliothek", "issuedate": "2018-03-04", "duedate": "2019-03-04", "statusId": "ordered"}
+form := {"charset": "CP1252", "method": "POST", "post": "LANG=de&FUNC=vorl&BENUTZER=5678956789&PASSWORD=56789987", "url": "vltest://bibdia/bibdia/user.vorm.duisburg.1.html"}
+cancel-form := {"charset": "CP1252", "method": "POST", "post": "LANG=de&FUNC=vorl&BENUTZER=5678956789&PASSWORD=56789987", "url": "vltest://bibdia/bibdia/delreserv.C"}
+book := {"_internalId": "T 567890 5678901", "_internalTitleId": "567890", "author": " Abcdef, Tork", "duedate": "2019-03-04", "id": "YBK 5 ABCDEF ", "issuedate": "2018-03-04", "libraryBranch": "ZB, Zentralbibliothek", "status": " Entliehen bis: 29.03.2018 Rang: 1 T", "statusId": "ordered", "title": " Der"}

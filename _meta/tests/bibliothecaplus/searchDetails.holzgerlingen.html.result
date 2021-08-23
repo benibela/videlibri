@@ -2,7 +2,7 @@ search-reverse-keys :=
 book := {}
 reserve-request := ()
 result := ()
-holding := {"libraryLocation": "Zeitschrift", "id": " ", "category": "Zeitschriften", "statusStr": "Verfügbar", "pendingOrders": "0", "orderable": false}
+holding := {"category": "Zeitschriften", "id": " ", "libraryLocation": "Zeitschrift", "orderable": false, "pendingOrders": "0", "statusStr": "Verfügbar"}
 result := ()
-book := {"image-url": ["https://images-eu.ssl-images-amazon.com/images/P/.03.MZZZZZZZ.jpg", "searchDetails.holzgerlingen_files/emptyURL.gif", "https://images-eu.ssl-images-amazon.com/images/P/.03.MZZZZZZZ.jpg", "http://www.amazon.de/exec/obidos/ASIN//bondonline-21", "https://vlb.de/GetBlob.aspx?strIsbn=&size=S", "http://www.buchhandel.de/default.aspx?strframe=titelsuche&caller=vlbPublic&func=DirectIsbnSearch&isbn=&nSiteId=11"], "orderable": false, "holdings": {"libraryLocation": "Zeitschrift", "id": " ", "category": "Zeitschriften", "statusStr": "Verfügbar", "pendingOrders": "0", "orderable": false}, "Jahr:!": " 2015 ", "Verlag:!": " Berlin, Stiftung Warentest ", "ISSN:!": " 0040-3946 ", "Mediengruppe:!": " Zeitschriften "}
+book := {"ISSN:!": " 0040-3946 ", "Jahr:!": " 2015 ", "Mediengruppe:!": " Zeitschriften ", "Verlag:!": " Berlin, Stiftung Warentest ", "holdings": {"category": "Zeitschriften", "id": " ", "libraryLocation": "Zeitschrift", "orderable": false, "pendingOrders": "0", "statusStr": "Verfügbar"}, "image-url": ["https://images-eu.ssl-images-amazon.com/images/P/.03.MZZZZZZZ.jpg", "searchDetails.holzgerlingen_files/emptyURL.gif", "https://images-eu.ssl-images-amazon.com/images/P/.03.MZZZZZZZ.jpg", "http://www.amazon.de/exec/obidos/ASIN//bondonline-21", "https://vlb.de/GetBlob.aspx?strIsbn=&size=S", "http://www.buchhandel.de/default.aspx?strframe=titelsuche&caller=vlbPublic&func=DirectIsbnSearch&isbn=&nSiteId=11"], "orderable": false}
 result := ()

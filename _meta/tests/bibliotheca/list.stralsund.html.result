@@ -1,15 +1,15 @@
 book := {}
-book := {"statusId": "curious", "author": "AAA, Huber...", "title": "Nils Olgerson", "duedate": "2014-07-21", "libraryBranch": "Kinderbibliothek", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_1"}
-book := {"statusId": "critical", "author": "Banks, Ian", "title": "Buchserie; 5", "duedate": "2014-07-21", "libraryBranch": "Kinderbibliothek", "status": "nicht verlängerbar"}
-book := {"statusId": "curious", "author": "A, E", "title": "Trullo Karacho und Lila...", "duedate": "2014-07-21", "libraryBranch": "Kinderbibliothek", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_7"}
-book := {"statusId": "curious", "author": "G, S", "title": "XYS", "duedate": "2014-09-21", "libraryBranch": "Hauptstelle", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_8"}
-book := {"statusId": "curious", "author": "G, J", "title": "Sendung mit der Maus", "duedate": "2014-09-18", "libraryBranch": "Kinderbibliothek", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_9"}
-book := {"statusId": "curious", "author": "", "title": "Titel...; Untertitel...; Bd. 123", "duedate": "2014-09-25", "libraryBranch": "Kinderbibliothek", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_36"}
-book := {"statusId": "curious", "author": "", "title": "Titel...; Untertitel...; Bd. 100", "duedate": "2014-09-25", "libraryBranch": "Kinderbibliothek", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_37"}
-book := {"statusId": "curious", "author": "", "title": "Tikz", "duedate": "2014-09-25", "libraryBranch": "Kinderbibliothek", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_38"}
-book := {"statusId": "ordered", "cancelable": true, "author": "Danac, Erich", "title": "Die XXXXXXXX", "libraryBranch": "Kinderbibliothek", "cancel-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=delvor_12345"}
-book := {"statusId": "ordered", "cancelable": false, "author": "Pierce, Tamora", "title": "Dhana", "libraryBranch": "Hauptstelle"}
-book := {"statusId": "ordered", "cancelable": false, "author": "X, Y", "title": "abcdef", "libraryBranch": "Hauptstelle"}
-book := {"statusId": "ordered", "cancelable": true, "author": "E, H", "title": "Abcdefghi", "libraryBranch": "Hauptstelle", "cancel-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=delvor_9931399"}
-book := {"statusId": "ordered", "cancelable": true, "author": "Foo, bar", "title": "Goldstück", "libraryBranch": "Hauptstelle", "cancel-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=delvor_9999129"}
-book := {"statusId": "ordered", "cancelable": true, "author": "Autor, Vorname ...", "title": "reddit personalfinance", "libraryBranch": "Hauptstelle", "cancel-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=delvor_9999985"}
+book := {"author": "AAA, Huber...", "duedate": "2014-07-21", "libraryBranch": "Kinderbibliothek", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_1", "statusId": "curious", "title": "Nils Olgerson"}
+book := {"author": "Banks, Ian", "duedate": "2014-07-21", "libraryBranch": "Kinderbibliothek", "status": "nicht verlängerbar", "statusId": "critical", "title": "Buchserie; 5"}
+book := {"author": "A, E", "duedate": "2014-07-21", "libraryBranch": "Kinderbibliothek", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_7", "statusId": "curious", "title": "Trullo Karacho und Lila..."}
+book := {"author": "G, S", "duedate": "2014-09-21", "libraryBranch": "Hauptstelle", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_8", "statusId": "curious", "title": "XYS"}
+book := {"author": "G, J", "duedate": "2014-09-18", "libraryBranch": "Kinderbibliothek", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_9", "statusId": "curious", "title": "Sendung mit der Maus"}
+book := {"author": "", "duedate": "2014-09-25", "libraryBranch": "Kinderbibliothek", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_36", "statusId": "curious", "title": "Titel...; Untertitel...; Bd. 123"}
+book := {"author": "", "duedate": "2014-09-25", "libraryBranch": "Kinderbibliothek", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_37", "statusId": "curious", "title": "Titel...; Untertitel...; Bd. 100"}
+book := {"author": "", "duedate": "2014-09-25", "libraryBranch": "Kinderbibliothek", "renew-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=verl_38", "statusId": "curious", "title": "Tikz"}
+book := {"author": "Danac, Erich", "cancel-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=delvor_12345", "cancelable": true, "libraryBranch": "Kinderbibliothek", "statusId": "ordered", "title": "Die XXXXXXXX"}
+book := {"author": "Pierce, Tamora", "cancelable": false, "libraryBranch": "Hauptstelle", "statusId": "ordered", "title": "Dhana"}
+book := {"author": "X, Y", "cancelable": false, "libraryBranch": "Hauptstelle", "statusId": "ordered", "title": "abcdef"}
+book := {"author": "E, H", "cancel-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=delvor_9931399", "cancelable": true, "libraryBranch": "Hauptstelle", "statusId": "ordered", "title": "Abcdefghi"}
+book := {"author": "Foo, bar", "cancel-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=delvor_9999129", "cancelable": true, "libraryBranch": "Hauptstelle", "statusId": "ordered", "title": "Goldstück"}
+book := {"author": "Autor, Vorname ...", "cancel-link": "vltest://bibliotheca/index.asp?kontofenster=true&target=delvor_9999985", "cancelable": true, "libraryBranch": "Hauptstelle", "statusId": "ordered", "title": "reddit personalfinance"}

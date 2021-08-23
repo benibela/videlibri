@@ -1,5 +1,5 @@
 book := {}
 mode := "medkl"
-form := {"method": "POST", "post": "LANG=de&FUNC=verl&BENUTZER=5678956789&PASSWORD=56789987", "url": "vltest://bibdia/bibdia/user.medk.duisburg.1.html", "charset": "CP1252"}
-renew-form := {"method": "POST", "post": "LANG=de&FUNC=verl&BENUTZER=5678956789&PASSWORD=56789987", "url": "vltest://bibdia/bibdia/renewmedia.C", "charset": "CP1252"}
-book := {"status": " ", "_internalId": "567898695", "duedate": "2018-03-17", "libraryBranch": " ZB , Zentralbibliothek", "renewCount": "0", "id": "CD ROMANE FOO ", "title": "", "author": " Foobar, Jo", "_internalTitleId": "567898", "statusId": "curious"}
+form := {"charset": "CP1252", "method": "POST", "post": "LANG=de&FUNC=verl&BENUTZER=5678956789&PASSWORD=56789987", "url": "vltest://bibdia/bibdia/user.medk.duisburg.1.html"}
+renew-form := {"charset": "CP1252", "method": "POST", "post": "LANG=de&FUNC=verl&BENUTZER=5678956789&PASSWORD=56789987", "url": "vltest://bibdia/bibdia/renewmedia.C"}
+book := {"_internalId": "567898695", "_internalTitleId": "567898", "author": " Foobar, Jo", "duedate": "2018-03-17", "id": "CD ROMANE FOO ", "libraryBranch": " ZB , Zentralbibliothek", "renewCount": "0", "status": " ", "statusId": "curious", "title": ""}

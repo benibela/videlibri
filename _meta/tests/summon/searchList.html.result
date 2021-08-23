@@ -8,7 +8,7 @@ result := text{"1
 			
 		  		    
 		  		  		      Research Guide"}
-book := {"title": "Test", "home-url": "file:///SummonRecord/FETCH-tufts_libguide_6339450", "author": "Kate Bronstad", "year": "2017"}
+book := {"author": "Kate Bronstad", "home-url": "file:///SummonRecord/FETCH-tufts_libguide_6339450", "title": "Test", "year": "2017"}
 result := text{"2						
 			Datensatz auswählen
 
@@ -17,7 +17,7 @@ result := text{"2
 			
 		  		    
 		  		  		      Research Guide"}
-book := {"title": "TEST", "home-url": "file:///SummonRecord/FETCH-maineursus_libguide_8215070", "author": "Jennifer Keplinger", "year": "2018"}
+book := {"author": "Jennifer Keplinger", "home-url": "file:///SummonRecord/FETCH-maineursus_libguide_8215070", "title": "TEST", "year": "2018"}
 result := text{"3						
 			Datensatz auswählen
 
@@ -26,7 +26,7 @@ result := text{"3
 			
 		  		    
 		  		  		      Zeitschrift"}
-book := {"title": "TEST: an official journal of the Spanish Society of Statistics and Operations Research", "home-url": "file:///SummonRecord/FETCH-bonn_catalog_25654783", "author": "", "year": ""}
+book := {"author": "", "home-url": "file:///SummonRecord/FETCH-bonn_catalog_25654783", "title": "TEST: an official journal of the Spanish Society of Statistics and Operations Research", "year": ""}
 result := text{"4						
 			Datensatz auswählen
 
@@ -35,7 +35,7 @@ result := text{"4
 			
 		  		    
 		  		  		      Zeitschriftenaufsatz"}
-book := {"title": "test", "home-url": "file:///SummonRecord/FETCH-crossref_primary_10_14534_PUCR_20181140843", "author": "test, test", "year": "2018"}
+book := {"author": "test, test", "home-url": "file:///SummonRecord/FETCH-crossref_primary_10_14534_PUCR_20181140843", "title": "test", "year": "2018"}
 result := text{"5						
 			Datensatz auswählen
 
@@ -44,7 +44,7 @@ result := text{"5
 			
 		  		    
 		  		  		      Zeitschriftenaufsatz"}
-book := {"title": "Test", "home-url": "file:///SummonRecord/FETCH-crossref_primary_10_20314_als_cbb55aef3d0", "author": "Lamond, Julieanne", "year": "2017"}
+book := {"author": "Lamond, Julieanne", "home-url": "file:///SummonRecord/FETCH-crossref_primary_10_20314_als_cbb55aef3d0", "title": "Test", "year": "2017"}
 result := text{"6						
 			Datensatz auswählen
 
@@ -53,7 +53,7 @@ result := text{"6
 			
 		  		    
 		  		  		      Zeitschriftenaufsatz"}
-book := {"title": "Test", "home-url": "file:///SummonRecord/FETCH-crossref_primary_10_18844_cjes_v15i2_16913", "author": "Kanbul, Sezer", "year": "2017"}
+book := {"author": "Kanbul, Sezer", "home-url": "file:///SummonRecord/FETCH-crossref_primary_10_18844_cjes_v15i2_16913", "title": "Test", "year": "2017"}
 result := text{"7						
 			Datensatz auswählen
 
@@ -62,7 +62,7 @@ result := text{"7
 			
 		  		    
 		  		  		      Zeitschriftenaufsatz"}
-book := {"title": "Test", "home-url": "file:///SummonRecord/FETCH-openaire_primary_oai_dnet_issn21652627_41fa43032b311a9edccfa2e09d920dcc0", "author": "Vandemoortele, Antoine", "year": "2017"}
+book := {"author": "Vandemoortele, Antoine", "home-url": "file:///SummonRecord/FETCH-openaire_primary_oai_dnet_issn21652627_41fa43032b311a9edccfa2e09d920dcc0", "title": "Test", "year": "2017"}
 result := text{"8						
 			Datensatz auswählen
 
@@ -71,7 +71,7 @@ result := text{"8
 			
 		  		    
 		  		  		      Zeitschriftenaufsatz"}
-book := {"title": "Test", "home-url": "file:///SummonRecord/FETCH-proquest_journals_19083355140", "author": "Jessica Goodfellow", "year": "2017"}
+book := {"author": "Jessica Goodfellow", "home-url": "file:///SummonRecord/FETCH-proquest_journals_19083355140", "title": "Test", "year": "2017"}
 result := text{"9						
 			Datensatz auswählen
 
@@ -80,7 +80,7 @@ result := text{"9
 			
 		  		    
 		  		  		      Zeitschriftenaufsatz"}
-book := {"title": "Test", "home-url": "file:///SummonRecord/FETCH-gale_infotrac_4795907030", "author": "Goodfellow, Jessica", "year": "2017"}
+book := {"author": "Goodfellow, Jessica", "home-url": "file:///SummonRecord/FETCH-gale_infotrac_4795907030", "title": "Test", "year": "2017"}
 result := text{"10						
 			Datensatz auswählen
 
@@ -89,7 +89,7 @@ result := text{"10
 			
 		  		    
 		  		  		      Zeitschriftenaufsatz"}
-book := {"title": "Test", "home-url": "file:///SummonRecord/FETCH-gale_lrcgauss_A4795907030", "author": "Goodfellow, Jessica", "year": "2017"}
+book := {"author": "Goodfellow, Jessica", "home-url": "file:///SummonRecord/FETCH-gale_lrcgauss_A4795907030", "title": "Test", "year": "2017"}
 result := text{"11						
 			Datensatz auswählen
 
@@ -98,7 +98,7 @@ result := text{"11
 			
 		  		    
 		  		  		      Zeitschriftenaufsatz"}
-book := {"title": "test", "home-url": "file:///SummonRecord/FETCH-openaire_primary_oai_dnet_od_2659_f65d9cbd6705f2ec413da7bdee012ded0", "author": "jopp", "year": "2018"}
+book := {"author": "jopp", "home-url": "file:///SummonRecord/FETCH-openaire_primary_oai_dnet_od_2659_f65d9cbd6705f2ec413da7bdee012ded0", "title": "test", "year": "2018"}
 result := text{"12						
 			Datensatz auswählen
 
@@ -107,7 +107,7 @@ result := text{"12
 			
 		  		    
 		  		  		      Zeitschriftenaufsatz"}
-book := {"title": "test", "home-url": "file:///SummonRecord/FETCH-gale_infotrac_5469724760", "author": "Journal of Comparative Economics", "year": "2018"}
+book := {"author": "Journal of Comparative Economics", "home-url": "file:///SummonRecord/FETCH-gale_infotrac_5469724760", "title": "test", "year": "2018"}
 result := text{"13						
 			Datensatz auswählen
 
@@ -116,7 +116,7 @@ result := text{"13
 			
 		  		    
 		  		  		      Zeitschriftenaufsatz"}
-book := {"title": "Test", "home-url": "file:///SummonRecord/FETCH-crossref_primary_10_1287_deca_2016_00030", "author": "Walls, Matthew, Janc, Mirko, Miller, Fran, Walls, Kate", "year": "2016"}
+book := {"author": "Walls, Matthew, Janc, Mirko, Miller, Fran, Walls, Kate", "home-url": "file:///SummonRecord/FETCH-crossref_primary_10_1287_deca_2016_00030", "title": "Test", "year": "2016"}
 result := text{"14						
 			Datensatz auswählen
 
@@ -125,7 +125,7 @@ result := text{"14
 			
 		  		    
 		  		  		      Zeitschriftenaufsatz"}
-book := {"title": "Test", "home-url": "file:///SummonRecord/FETCH-crossref_primary_10_1287_deca_2016_00010", "author": "Walls, Matthew, Janc, Mirko, Miller, Fran, Walls, Kate", "year": "2016"}
+book := {"author": "Walls, Matthew, Janc, Mirko, Miller, Fran, Walls, Kate", "home-url": "file:///SummonRecord/FETCH-crossref_primary_10_1287_deca_2016_00010", "title": "Test", "year": "2016"}
 result := text{"15						
 			Datensatz auswählen
 
@@ -134,7 +134,7 @@ result := text{"15
 			
 		  		    
 		  		  		      Research Guide"}
-book := {"title": "Tests", "home-url": "file:///SummonRecord/FETCH-aquinas_libguide_751500", "author": "Shellie Jeffries", "year": "2015"}
+book := {"author": "Shellie Jeffries", "home-url": "file:///SummonRecord/FETCH-aquinas_libguide_751500", "title": "Tests", "year": "2015"}
 result := text{"16						
 			Datensatz auswählen
 
@@ -143,7 +143,7 @@ result := text{"16
 			
 		  		    
 		  		  		      Zeitschriftenaufsatz"}
-book := {"title": "test", "home-url": "file:///SummonRecord/FETCH-crossref_primary_10_5116_ijme_54ca_a5ae3", "author": "test, test", "year": "2015"}
+book := {"author": "test, test", "home-url": "file:///SummonRecord/FETCH-crossref_primary_10_5116_ijme_54ca_a5ae3", "title": "test", "year": "2015"}
 result := text{"17						
 			Datensatz auswählen
 
@@ -152,7 +152,7 @@ result := text{"17
 			
 		  		    
 		  		  		      Zeitschrift"}
-book := {"title": "Test", "home-url": "file:///SummonRecord/FETCH-bonn_catalog_3831572", "author": "Stiftung Warentest", "year": ""}
+book := {"author": "Stiftung Warentest", "home-url": "file:///SummonRecord/FETCH-bonn_catalog_3831572", "title": "Test", "year": ""}
 result := text{"18						
 			Datensatz auswählen
 
@@ -161,7 +161,7 @@ result := text{"18
 			
 		  		    
 		  		  		      Zeitschriftenaufsatz"}
-book := {"title": "Test", "home-url": "file:///SummonRecord/FETCH-informs_primary_10_1287_stsc_2014_00010", "author": "", "year": "2017"}
+book := {"author": "", "home-url": "file:///SummonRecord/FETCH-informs_primary_10_1287_stsc_2014_00010", "title": "Test", "year": "2017"}
 result := text{"19						
 			Datensatz auswählen
 
@@ -170,7 +170,7 @@ result := text{"19
 			
 		  		    
 		  		  		      Zeitschriftenaufsatz"}
-book := {"title": "test", "home-url": "file:///SummonRecord/FETCH-crossref_primary_10_1038_nature_2014_157593", "author": "Gibney, Elizabeth", "year": "2014"}
+book := {"author": "Gibney, Elizabeth", "home-url": "file:///SummonRecord/FETCH-crossref_primary_10_1038_nature_2014_157593", "title": "test", "year": "2014"}
 result := text{"20						
 			Datensatz auswählen
 
@@ -179,5 +179,5 @@ result := text{"20
 			
 		  		    
 		  		  		      Zeitschriftenaufsatz"}
-book := {"title": "Test for", "home-url": "file:///SummonRecord/FETCH-pubmed_primary_299971273", "author": "Wise, Jacqui", "year": "2018"}
+book := {"author": "Wise, Jacqui", "home-url": "file:///SummonRecord/FETCH-pubmed_primary_299971273", "title": "Test for", "year": "2018"}
 next-page := "file:///Summon/Search?lookfor=test&amp;type=AllFields&amp;page=2"

@@ -1,5 +1,5 @@
 book := {}
 mode := "vorml"
-form := {"method": "POST", "post": "LANG=de&FUNC=vorl&BENUTZER=5678956789&PASSWORD=56789987", "url": "vltest://bibdia/bibdia/user.vorm.duisburg.1b.html", "charset": "CP1252"}
-cancel-form := {"method": "POST", "post": "LANG=de&FUNC=vorl&BENUTZER=5678956789&PASSWORD=56789987", "url": "vltest://bibdia/bibdia/delreserv.C", "charset": "CP1252"}
-book := {"status": " Entliehen bis: 02.03.2018 Rang: 1 T", "_internalId": "T 567893 5678901", "id": "WTF 4 LEICH ", "title": "", "author": " Leichende Frösche!", "_internalTitleId": "567893", "libraryBranch": "ZB, Zentralbibliothek", "issuedate": "2018-03-01", "duedate": "2019-03-01", "statusId": "ordered"}
+form := {"charset": "CP1252", "method": "POST", "post": "LANG=de&FUNC=vorl&BENUTZER=5678956789&PASSWORD=56789987", "url": "vltest://bibdia/bibdia/user.vorm.duisburg.1b.html"}
+cancel-form := {"charset": "CP1252", "method": "POST", "post": "LANG=de&FUNC=vorl&BENUTZER=5678956789&PASSWORD=56789987", "url": "vltest://bibdia/bibdia/delreserv.C"}
+book := {"_internalId": "T 567893 5678901", "_internalTitleId": "567893", "author": " Leichende Frösche!", "duedate": "2019-03-01", "id": "WTF 4 LEICH ", "issuedate": "2018-03-01", "libraryBranch": "ZB, Zentralbibliothek", "status": " Entliehen bis: 02.03.2018 Rang: 1 T", "statusId": "ordered", "title": ""}

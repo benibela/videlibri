@@ -33,7 +33,7 @@ brs := ("2005",
 brs := ("", 
 "2005", 
 "H-Wirtschaft HKQ5/TEST")
-book := {"orderable": false, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.15.19941", "title": "/2006.", "author": "", "year": "2005"}
+book := {"_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.15.19941", "author": "", "orderable": false, "title": "/2006.", "year": "2005"}
 hasZ3988 := false()
 brs := ("", 
 "2013", 
@@ -43,7 +43,7 @@ brs := ("2013",
 brs := ("", 
 "2013", 
 "Z/Öko-Test.2013 ; 01")
-book := {"orderable": false, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.15.19941", "title": "Öko-Test/01", "author": "", "year": "2013"}
+book := {"_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.15.19941", "author": "", "orderable": false, "title": "Öko-Test/01", "year": "2013"}
 hasZ3988 := false()
 brs := ("", 
 "2014", 
@@ -53,7 +53,7 @@ brs := ("2014",
 brs := ("", 
 "2014", 
 "Z/Öko-Test.2014 ; 01")
-book := {"orderable": false, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.15.19941", "title": "Öko-Test/01", "author": "", "year": "2014"}
+book := {"_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.15.19941", "author": "", "orderable": false, "title": "Öko-Test/01", "year": "2014"}
 hasZ3988 := false()
 brs := ("", 
 "2015", 
@@ -63,7 +63,7 @@ brs := ("2015",
 brs := ("", 
 "2015", 
 "Z/Öko-Test.2015 ; 01")
-book := {"orderable": false, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.15.19941", "title": "Öko-Test/01", "author": "", "year": "2015"}
+book := {"_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.15.19941", "author": "", "orderable": false, "title": "Öko-Test/01", "year": "2015"}
 hasZ3988 := false()
 brs := ("", 
 "2015", 
@@ -73,7 +73,7 @@ brs := ("2015",
 brs := ("", 
 "2015", 
 "Z/Öko-Test.2015 ; 01")
-book := {"orderable": false, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.15.19941", "title": "Öko-Test/01", "author": "", "year": "2015"}
+book := {"_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.15.19941", "author": "", "orderable": false, "title": "Öko-Test/01", "year": "2015"}
 hasZ3988 := false()
 brs := ("", 
 "2013", 
@@ -83,7 +83,7 @@ brs := ("2013",
 brs := ("", 
 "2013", 
 "Z/Öko-Test.2013 ; 02")
-book := {"orderable": false, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_S_IG.15.19941", "title": "Öko-Test/02", "author": "", "year": "2013"}
+book := {"_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_S_IG.15.19941", "author": "", "orderable": false, "title": "Öko-Test/02", "year": "2013"}
 hasZ3988 := false()
 brs := ("", 
 "2014", 
@@ -93,7 +93,7 @@ brs := ("2014",
 brs := ("", 
 "2014", 
 "Z/Öko-Test.2014 ; 02")
-book := {"orderable": false, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_S_IG.15.19941", "title": "Öko-Test/02", "author": "", "year": "2014"}
+book := {"_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_S_IG.15.19941", "author": "", "orderable": false, "title": "Öko-Test/02", "year": "2014"}
 hasZ3988 := false()
 brs := ("", 
 "2014", 
@@ -103,7 +103,7 @@ brs := ("2014",
 brs := ("", 
 "2014", 
 "Z/Öko-Test.2014 ; 02")
-book := {"orderable": false, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_S_IG.15.19941", "title": "Öko-Test/02", "author": "", "year": "2014"}
+book := {"_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_S_IG.15.19941", "author": "", "orderable": false, "title": "Öko-Test/02", "year": "2014"}
 hasZ3988 := false()
 brs := ("", 
 "2015", 
@@ -113,7 +113,7 @@ brs := ("2015",
 brs := ("", 
 "2015", 
 "Z/Öko-Test.2015 ; 02")
-book := {"orderable": false, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_S_IG.15.19941", "title": "Öko-Test/02", "author": "", "year": "2015"}
+book := {"_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_S_IG.15.19941", "author": "", "orderable": false, "title": "Öko-Test/02", "year": "2015"}
 hasZ3988 := false()
 brs := ("", 
 "2013", 
@@ -123,4 +123,4 @@ brs := ("2013",
 brs := ("", 
 "2013", 
 "Z/Öko-Test.2013 ; 03")
-book := {"orderable": false, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_S_IG.15.19941", "title": "Öko-Test/03", "author": "", "year": "2013"}
+book := {"_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_S_IG.15.19941", "author": "", "orderable": false, "title": "Öko-Test/03", "year": "2013"}

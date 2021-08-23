@@ -1,6 +1,6 @@
 book := {}
 mode := "circulations"
-book := {"_renewId": "96188", "id": "71022121", "author": "Rohrbach, Stefan", "title": "Bieler Jahrbuch 1991", "year": "1991", "dueDate": "2017-02-17", "renewCount": "0"}
+book := {"_renewId": "96188", "author": "Rohrbach, Stefan", "dueDate": "2017-02-17", "id": "71022121", "renewCount": "0", "title": "Bieler Jahrbuch 1991", "year": "1991"}
 result := ()
-book := {"_renewId": "4821", "id": "70002549", "author": "Roten, Gabrielle von", "title": "L'espace bibliothéconomique suisse : hier, aujourd'hui, demain", "year": "1993", "dueDate": "2017-02-17", "renewCount": "0"}
+book := {"_renewId": "4821", "author": "Roten, Gabrielle von", "dueDate": "2017-02-17", "id": "70002549", "renewCount": "0", "title": "L'espace bibliothéconomique suisse : hier, aujourd'hui, demain", "year": "1993"}
 result := ()

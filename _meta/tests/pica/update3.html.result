@@ -1,6 +1,6 @@
 book := {}
 reservations := text{"/loan/DB=1/LNG=DU/USERINFO?ACT=UI_DATA&amp;BOR_U=0012345965&amp;BOR_PW_ENC=%12XY%12%12%12%12%12%12%12%12%12%12%12%12%12%12%12%12%12"}
 delete-current-books() := ()
-book := {"extendId": "105005296", "title": "a title: and subtitle", "author": "", "id": "23/434:W XYZ", "status:curious": "ausgeliehen (0 Mahnung/en)", "duedate:dd-mm-yyyy": "25-05-2011"}
-book := {"extendId": "101430092", "title": "Titel: ein Untertitel ", "author": "Vor Name; Vorr X", "id": "19/123:X MUI", "status:curious": "ausgeliehen (0 Mahnung/en)", "duedate:dd-mm-yyyy": "30-05-2011"}
-book := {"extendId": "104990438", "title": "Title: sbttitle", "author": "", "id": "12/345:X YSI 12345", "status:curious": "ausgeliehen (0 Mahnung/en)", "duedate:dd-mm-yyyy": "30-05-2011"}
+book := {"author": "", "duedate:dd-mm-yyyy": "25-05-2011", "extendId": "105005296", "id": "23/434:W XYZ", "status:curious": "ausgeliehen (0 Mahnung/en)", "title": "a title: and subtitle"}
+book := {"author": "Vor Name; Vorr X", "duedate:dd-mm-yyyy": "30-05-2011", "extendId": "101430092", "id": "19/123:X MUI", "status:curious": "ausgeliehen (0 Mahnung/en)", "title": "Titel: ein Untertitel "}
+book := {"author": "", "duedate:dd-mm-yyyy": "30-05-2011", "extendId": "104990438", "id": "12/345:X YSI 12345", "status:curious": "ausgeliehen (0 Mahnung/en)", "title": "Title: sbttitle"}

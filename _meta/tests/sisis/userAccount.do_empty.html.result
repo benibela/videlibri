@@ -6,5 +6,5 @@ requestedUrl := text{"http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/userA
 result := ()
 mode := 1
 delete-current-books() := ()
-default-book := {"statusId": "critical", "_onPage": "vltest://sisis/userAccount.do_empty.html", "_onPageStart": ""}
+default-book := {"_onPage": "vltest://sisis/userAccount.do_empty.html", "_onPageStart": "", "statusId": "critical"}
 nextPage := ()

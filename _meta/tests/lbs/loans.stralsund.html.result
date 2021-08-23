@@ -1,11 +1,11 @@
 book := {}
-renew-form := {"method": "POST", "post": "renew=Verl%E4ngern&selection=ALL&sorting=NONE", "url": "file:///LBS_WEB/borrower/loans.htm", "charset": "CP1252", "submit-indices": 1}
+renew-form := {"charset": "CP1252", "method": "POST", "post": "renew=Verl%E4ngern&selection=ALL&sorting=NONE", "submit-indices": 1, "url": "file:///LBS_WEB/borrower/loans.htm"}
 temp := text{"Derzeit :"}
 temp := text{"Ausleihtyp :"}
-book := {"renewId": "31234", "statusId": "critical", "status": "Keine Verlängerung möglich ; Derzeit: ausgeliehen ; Mahnungen: 0 ; Ausleihtyp: Standardausleihe", "title": "Prioritätisierung nach der Lifo-Methode  ", "author": "Haber, Anna ", "year": "1980", "duedate": "2015-02-20", "libraryBranch": "Theke", "id": "AB 123 C456 V9", "renewCount": "10"}
+book := {"author": "Haber, Anna ", "duedate": "2015-02-20", "id": "AB 123 C456 V9", "libraryBranch": "Theke", "renewCount": "10", "renewId": "31234", "status": "Keine Verlängerung möglich ; Derzeit: ausgeliehen ; Mahnungen: 0 ; Ausleihtyp: Standardausleihe", "statusId": "critical", "title": "Prioritätisierung nach der Lifo-Methode  ", "year": "1980"}
 temp := text{"Derzeit :"}
 temp := text{"Ausleihtyp :"}
-book := {"renewId": "37123", "statusId": "critical", "status": "Keine Verlängerung möglich ; Derzeit: ausgeliehen ; Mahnungen: 0 ; Ausleihtyp: Standardausleihe", "title": "Foobar ", "author": "Haber, Martin ", "year": "1994", "duedate": "2015-04-20", "libraryBranch": "Theke", "id": "AB 123 I456", "renewCount": "10"}
+book := {"author": "Haber, Martin ", "duedate": "2015-04-20", "id": "AB 123 I456", "libraryBranch": "Theke", "renewCount": "10", "renewId": "37123", "status": "Keine Verlängerung möglich ; Derzeit: ausgeliehen ; Mahnungen: 0 ; Ausleihtyp: Standardausleihe", "statusId": "critical", "title": "Foobar ", "year": "1994"}
 temp := text{"Derzeit :"}
 temp := text{"Ausleihtyp :"}
-book := {"renewId": "37332", "statusId": "critical", "status": "Keine Verlängerung möglich ; Derzeit: ausgeliehen ; Mahnungen: 0 ; Ausleihtyp: Standardausleihe", "title": "Blabla : [dieser Band enthält die überarbeiteten auf der Jahrestagung der Deutschen Steuerjuristischen Gesellschaft e.V. am 12.4. und 12.3.1994 in XXXXXXXXX so und so ] ", "author": "Doralt, Werner ", "year": "1991", "duedate": "2015-04-24", "libraryBranch": "Theke", "id": "AB 1234 C567", "renewCount": "10"}
+book := {"author": "Doralt, Werner ", "duedate": "2015-04-24", "id": "AB 1234 C567", "libraryBranch": "Theke", "renewCount": "10", "renewId": "37332", "status": "Keine Verlängerung möglich ; Derzeit: ausgeliehen ; Mahnungen: 0 ; Ausleihtyp: Standardausleihe", "statusId": "critical", "title": "Blabla : [dieser Band enthält die überarbeiteten auf der Jahrestagung der Deutschen Steuerjuristischen Gesellschaft e.V. am 12.4. und 12.3.1994 in XXXXXXXXX so und so ] ", "year": "1991"}

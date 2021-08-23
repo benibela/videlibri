@@ -1,9 +1,9 @@
 book := {}
-book := {"statusId": "curious", "author": "xxx, xxx", "title": "Das Hexenmädchen", "duedate": "2014-12-04", "renew-link": "vltest://bibliotheca/index.asp?target=verl_1"}
-book := {"statusId": "curious", "author": "Jacobs, Louise", "title": "Fräulein Jacobs funktioniert nicht", "duedate": "2014-12-04", "renew-link": "vltest://bibliotheca/index.asp?target=verl_2"}
-book := {"statusId": "curious", "author": "xxxxxx, Douglas", "title": "yyyyyyyyyyyyy", "duedate": "2014-12-04", "renew-link": "vltest://bibliotheca/index.asp?target=verl_3"}
-book := {"statusId": "curious", "author": "xxxx, Marcia", "title": "xxxxxxxxxxx", "duedate": "2014-12-04", "renew-link": "vltest://bibliotheca/index.asp?target=verl_4"}
-book := {"statusId": "curious", "author": "xxx, xxxxx", "title": "1984", "duedate": "2014-12-04", "renew-link": "vltest://bibliotheca/index.asp?target=verl_5"}
-book := {"statusId": "curious", "author": "xxxxxxxxx, Karen", "title": "yyyyyyyy", "duedate": "2014-12-04", "renew-link": "vltest://bibliotheca/index.asp?target=verl_6"}
-book := {"statusId": "curious", "author": "xxxxxxx, Edney", "title": "yyyyyyyyy", "duedate": "2014-12-04", "renew-link": "vltest://bibliotheca/index.asp?target=verl_7"}
-book := {"statusId": "curious", "author": "Templeton, Aline", "title": "yyyyyyyyyyyyyyt", "duedate": "2014-12-04", "renew-link": "vltest://bibliotheca/index.asp?target=verl_8"}
+book := {"author": "xxx, xxx", "duedate": "2014-12-04", "renew-link": "vltest://bibliotheca/index.asp?target=verl_1", "statusId": "curious", "title": "Das Hexenmädchen"}
+book := {"author": "Jacobs, Louise", "duedate": "2014-12-04", "renew-link": "vltest://bibliotheca/index.asp?target=verl_2", "statusId": "curious", "title": "Fräulein Jacobs funktioniert nicht"}
+book := {"author": "xxxxxx, Douglas", "duedate": "2014-12-04", "renew-link": "vltest://bibliotheca/index.asp?target=verl_3", "statusId": "curious", "title": "yyyyyyyyyyyyy"}
+book := {"author": "xxxx, Marcia", "duedate": "2014-12-04", "renew-link": "vltest://bibliotheca/index.asp?target=verl_4", "statusId": "curious", "title": "xxxxxxxxxxx"}
+book := {"author": "xxx, xxxxx", "duedate": "2014-12-04", "renew-link": "vltest://bibliotheca/index.asp?target=verl_5", "statusId": "curious", "title": "1984"}
+book := {"author": "xxxxxxxxx, Karen", "duedate": "2014-12-04", "renew-link": "vltest://bibliotheca/index.asp?target=verl_6", "statusId": "curious", "title": "yyyyyyyy"}
+book := {"author": "xxxxxxx, Edney", "duedate": "2014-12-04", "renew-link": "vltest://bibliotheca/index.asp?target=verl_7", "statusId": "curious", "title": "yyyyyyyyy"}
+book := {"author": "Templeton, Aline", "duedate": "2014-12-04", "renew-link": "vltest://bibliotheca/index.asp?target=verl_8", "statusId": "curious", "title": "yyyyyyyyyyyyyyt"}

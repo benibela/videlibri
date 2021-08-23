@@ -1,2 +1,2 @@
 book := {}
-book := {"libraryBranch": "ZB Grimm-Zentrum  ", "Standort!!": "UG / Raum 104 - Geschlossenes Magazin Rara 1  ", "Standort: Signatur!!": "Eu 7678:F8   ", "Verfügbarkeit!!": "(1 Exemplar, 1 Verfügbar, 0 Vormerkungen/Bestellungen)"}
+book := {"Standort!!": "UG / Raum 104 - Geschlossenes Magazin Rara 1  ", "Standort: Signatur!!": "Eu 7678:F8   ", "Verfügbarkeit!!": "(1 Exemplar, 1 Verfügbar, 0 Vormerkungen/Bestellungen)", "libraryBranch": "ZB Grimm-Zentrum  "}

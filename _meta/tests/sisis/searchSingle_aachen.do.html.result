@@ -1,3 +1,3 @@
 book := {}
 result := ()
-book := {"id": "", "Bestand!": "1.1756 - 35.1757", "ZDB-Signatur!": "Zf2304", "ZDB-Bemerkung!": "Repr. 1979", "title": "Test", "Erscheinungsverlauf!": "1.1756 - 35.1757; damit Ersch. eingest.", "location": "London", "Jahr, Ansetzung!": "1756", "Ausgabeform!": "Repr.: New York, NY : AMS Pr", "Erscheinungsart!": "p ( = Zeitschrift )", "ID!": "HT007016928", "MedienArt!": "a ( = Gedrucktes Werk )"}
+book := {"Ausgabeform!": "Repr.: New York, NY : AMS Pr", "Bestand!": "1.1756 - 35.1757", "Erscheinungsart!": "p ( = Zeitschrift )", "Erscheinungsverlauf!": "1.1756 - 35.1757; damit Ersch. eingest.", "ID!": "HT007016928", "Jahr, Ansetzung!": "1756", "MedienArt!": "a ( = Gedrucktes Werk )", "ZDB-Bemerkung!": "Repr. 1979", "ZDB-Signatur!": "Zf2304", "id": "", "location": "London", "title": "Test"}

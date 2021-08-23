@@ -7,9 +7,9 @@ search-basic-inputs := (text{"TRM0"},
 text{"TRM1"}, 
 text{"TRM2"}, 
 text{"TRM3"})
-search-basic-options := {"author": "1004", "title": "4", "free": "1016", "keywords": "46", "isbn": "1007", "id": "2140"}
+search-basic-options := {"author": "1004", "free": "1016", "id": "2140", "isbn": "1007", "keywords": "46", "title": "4"}
 search-basic-input-year := text{"ADI_JVU"}
-search-filter-map := {"language": "ADI_TAA", "country": "ADI_LND", "sort": "SRT"}
+search-filter-map := {"country": "ADI_LND", "language": "ADI_TAA", "sort": "SRT"}
 search-params := ("title", 
 "author", 
 "free", 

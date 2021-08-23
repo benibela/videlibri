@@ -1,18 +1,18 @@
 book := {}
 search-result-count := text{"38977"}
 search-next-page-available := true()
-book := {"ppn": "558974147", "year": "2021", "author": "Goko; Wisniewski-Tp, Danka-Tp; Liventsova, Elena", "title": "Der Test-MBW für Sortierzählung Zusatz zu 4000"}
-book := {"ppn": "1023632314", "year": "2018", "author": "Altmann, Michael", "title": "Multifunktionales energieeffizientes Dach- und Fassaden-Solarelement - DAFASOL, Teilvorhaben: Umsetzung in einen Teststand und Anwendung im Stahlbetonbau Sachbericht : Laufzeit des Vorhabens: 01.12.2014-30.11.2017 = Multifunctional energy-efficient roof and facade solar-element - DAFASOL, sub project: Implementation in a test stand and its adaption to applications in reinforced concrete construction"}
-book := {"ppn": "1023562987", "year": "2018", "author": "Hanisch, Falk; Bäker, Bernard", "title": "Automatisierte Generierung von Straßennetzwerken für die Verwendung der Verkehrsflusssimulation SUMO"}
-book := {"ppn": "1023562723", "year": "2018", "author": "Häberlein, Tim; Unger, Andreas; Bäker, Bernard; Manicke, Oliver", "title": "Backendbasierte Fahrzeugfunktionen Herausforderungen zur durchgängigen Funktionsüberprüfung"}
-book := {"ppn": "1023562456", "year": "2018", "author": "Günther, Andy; Bäker, Bernard", "title": "Prüffeld für LiDaR-Sensoren Diagnose zukünftiger Fahrerassistenzsystem"}
-book := {"ppn": "1023561824", "year": "2018", "author": "Gothan, Tom; Bäker, Bernard", "title": "Continuos Delivery im Kontext von vernetzen Fahrzeugen"}
-book := {"ppn": "1023561530", "year": "2018", "author": "Hartl, Florian; Dlask, Andreas; Grasreiner, Sebastian; Pöltenstein, Axel", "title": "Online Identifikation von Laufunruhe an einem Vierzylinder Otto DI Motor als Beitrag zur Überwachung des SOH und zur prädiktiven Wartung"}
-book := {"ppn": "1023561239", "year": "2018", "author": "Jähnel, Tobias; Riese, Marc", "title": "An open source CAN diagnostic vehicle simulator for Raspberry Pi"}
-book := {"ppn": "1023561042", "year": "2018", "author": "Richter, Jens; Unger, Andreas; Bäker, Bernard", "title": "Automatisierte Generierung von Diagnosemodellen"}
-book := {"ppn": "102356078X", "year": "2018", "author": "Rupalla, Armin; Kotschenreuther, Thomas", "title": "ASAM-Telematik-Referenzarchitektur für die Entwicklung von hochautomatisierten und autonomen Fahrzeugen"}
-book := {"ppn": "1023560496", "year": "2018", "author": "Hartwig, Andreas; Cunis, Roman", "title": "Welweiter Service mit webbasierter, kooperativer Diagnose"}
-book := {"ppn": "1023560313", "year": "2018", "author": "Schröder, Thorsten; Roy, Alexander; Nitsche, Holger", "title": "Future Smart Service die Digitalisierung des After Sales"}
-book := {"ppn": "1023559528", "year": "2018", "author": "Gutenkunst, Christian", "title": "Validierung von hochautomatisierten Fahrerassistenzsystemen am Fahrzeugprüfstand"}
-book := {"ppn": "102355934X", "year": "2018", "author": "Stoß, Peter", "title": "Konformitätstest für WWH-OBD nach ISO 27145"}
-book := {"ppn": "1023559145", "year": "2018", "author": "Hanc, Marjan; Steffelbauer, Markus", "title": "OTX in lokalen und Remote-Anwendungsfällen"}
+book := {"author": "Goko; Wisniewski-Tp, Danka-Tp; Liventsova, Elena", "ppn": "558974147", "title": "Der Test-MBW für Sortierzählung Zusatz zu 4000", "year": "2021"}
+book := {"author": "Altmann, Michael", "ppn": "1023632314", "title": "Multifunktionales energieeffizientes Dach- und Fassaden-Solarelement - DAFASOL, Teilvorhaben: Umsetzung in einen Teststand und Anwendung im Stahlbetonbau Sachbericht : Laufzeit des Vorhabens: 01.12.2014-30.11.2017 = Multifunctional energy-efficient roof and facade solar-element - DAFASOL, sub project: Implementation in a test stand and its adaption to applications in reinforced concrete construction", "year": "2018"}
+book := {"author": "Hanisch, Falk; Bäker, Bernard", "ppn": "1023562987", "title": "Automatisierte Generierung von Straßennetzwerken für die Verwendung der Verkehrsflusssimulation SUMO", "year": "2018"}
+book := {"author": "Häberlein, Tim; Unger, Andreas; Bäker, Bernard; Manicke, Oliver", "ppn": "1023562723", "title": "Backendbasierte Fahrzeugfunktionen Herausforderungen zur durchgängigen Funktionsüberprüfung", "year": "2018"}
+book := {"author": "Günther, Andy; Bäker, Bernard", "ppn": "1023562456", "title": "Prüffeld für LiDaR-Sensoren Diagnose zukünftiger Fahrerassistenzsystem", "year": "2018"}
+book := {"author": "Gothan, Tom; Bäker, Bernard", "ppn": "1023561824", "title": "Continuos Delivery im Kontext von vernetzen Fahrzeugen", "year": "2018"}
+book := {"author": "Hartl, Florian; Dlask, Andreas; Grasreiner, Sebastian; Pöltenstein, Axel", "ppn": "1023561530", "title": "Online Identifikation von Laufunruhe an einem Vierzylinder Otto DI Motor als Beitrag zur Überwachung des SOH und zur prädiktiven Wartung", "year": "2018"}
+book := {"author": "Jähnel, Tobias; Riese, Marc", "ppn": "1023561239", "title": "An open source CAN diagnostic vehicle simulator for Raspberry Pi", "year": "2018"}
+book := {"author": "Richter, Jens; Unger, Andreas; Bäker, Bernard", "ppn": "1023561042", "title": "Automatisierte Generierung von Diagnosemodellen", "year": "2018"}
+book := {"author": "Rupalla, Armin; Kotschenreuther, Thomas", "ppn": "102356078X", "title": "ASAM-Telematik-Referenzarchitektur für die Entwicklung von hochautomatisierten und autonomen Fahrzeugen", "year": "2018"}
+book := {"author": "Hartwig, Andreas; Cunis, Roman", "ppn": "1023560496", "title": "Welweiter Service mit webbasierter, kooperativer Diagnose", "year": "2018"}
+book := {"author": "Schröder, Thorsten; Roy, Alexander; Nitsche, Holger", "ppn": "1023560313", "title": "Future Smart Service die Digitalisierung des After Sales", "year": "2018"}
+book := {"author": "Gutenkunst, Christian", "ppn": "1023559528", "title": "Validierung von hochautomatisierten Fahrerassistenzsystemen am Fahrzeugprüfstand", "year": "2018"}
+book := {"author": "Stoß, Peter", "ppn": "102355934X", "title": "Konformitätstest für WWH-OBD nach ISO 27145", "year": "2018"}
+book := {"author": "Hanc, Marjan; Steffelbauer, Markus", "ppn": "1023559145", "title": "OTX in lokalen und Remote-Anwendungsfällen", "year": "2018"}

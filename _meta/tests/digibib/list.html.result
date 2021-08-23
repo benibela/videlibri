@@ -1,3 +1,3 @@
 book := {}
 books-deleted := true()
-book := {"title": "Linux : die praktische Referenz ", "author": ", Hertzog, Ute. ", "year": "2005", "issueDate": "2017-01-25", "dueDate": "2017-02-28", "statusId": "curious", "_renewUrl": "file:///template/opacservice?SID=PHOBOS:053bb8a58765d9efc76f219b2b6a903b&LOCATION=836&mnumber=1803e18e-8c9d-4396-a61f-1a8b6808718d&PAGE=renew", "id": "255474746"}
+book := {"_renewUrl": "file:///template/opacservice?SID=PHOBOS:053bb8a58765d9efc76f219b2b6a903b&LOCATION=836&mnumber=1803e18e-8c9d-4396-a61f-1a8b6808718d&PAGE=renew", "author": ", Hertzog, Ute. ", "dueDate": "2017-02-28", "id": "255474746", "issueDate": "2017-01-25", "statusId": "curious", "title": "Linux : die praktische Referenz ", "year": "2005"}

@@ -1,4 +1,4 @@
 book := {}
 sruVersion := "1.1"
-searchKeys := {"title": "pica.tit", "author": "pica.prs", "isbn": "pica.isb", "year": "pica.jah", "keywords": "pica.slw"}
+searchKeys := {"author": "pica.prs", "isbn": "pica.isb", "keywords": "pica.slw", "title": "pica.tit", "year": "pica.jah"}
 recordSchema := "marcxml"

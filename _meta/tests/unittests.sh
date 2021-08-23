@@ -3,7 +3,7 @@ DIR="$( cd "$( dirname -- "$(readlink -f -- "${BASH_SOURCE[0]}")" )" && pwd )"
 VLDIR="$DIR/../../"
 if xidel -e 1 2>/dev/null; then TEMPLATEPARSER="xidel"
 else TEMPLATEPARSER="$VLDIR/../xidel/xidel"; fi
-TEMPLATEPARSERARGS="--deprecated-trim-nodes --dot-notation=on --extract=\"book:=map{}\" --print-type-annotations  --extract-kind=xml-pattern --module $VLDIR/mockvidelibri.xqm --xmlns:videlibri http://www.videlibri.de "
+TEMPLATEPARSERARGS="--deprecated-trim-nodes --output-key-order ascending --dot-notation=on --extract=\"book:=map{}\" --print-type-annotations  --extract-kind=xml-pattern --module $VLDIR/mockvidelibri.xqm --xmlns:videlibri http://www.videlibri.de "
 TEMPLATEPATH=$VLDIR/data/libraries/templates
 INPATH=$DIR/
 OUTPATH=/tmp/

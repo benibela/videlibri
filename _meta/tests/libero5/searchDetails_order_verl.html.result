@@ -1,6 +1,6 @@
 book := {}
-holding := {"orderable": true, "id": "Xbp 41 Birm Tiere halten", "libraryLocation": "Sachbuchbereich", "status": ". Ausgeliehen .", "dueDate": "2016-05-27", "_order-id": "BCRE1780116"}
-order-form := {"method": "POST", "post": "MGWCHD=0&TOKEN=NbgzqQOXPq4818&TOKENX=NbgzqQOXPq4818&DATA=VER&usercode=&VERSION=2&ACTION=Vormerkung+senden", "url": "https://katalog.bibliothek.verl.de/libero/WebOpac.cls", "submit-indices": 7}
+holding := {"_order-id": "BCRE1780116", "dueDate": "2016-05-27", "id": "Xbp 41 Birm Tiere halten", "libraryLocation": "Sachbuchbereich", "orderable": true, "status": ". Ausgeliehen ."}
+order-form := {"method": "POST", "post": "MGWCHD=0&TOKEN=NbgzqQOXPq4818&TOKENX=NbgzqQOXPq4818&DATA=VER&usercode=&VERSION=2&ACTION=Vormerkung+senden", "submit-indices": 7, "url": "https://katalog.bibliothek.verl.de/libero/WebOpac.cls"}
 currentfield := "Verfasser"
 currentfield := "Weitere Pers"
 currentfield := "Auflage"
@@ -13,4 +13,4 @@ currentfield := "Beilagen"
 currentfield := "Reihe"
 currentfield := "Kurzinfo"
 currentfield := "SW"
-book := {"holdings": {"orderable": true, "id": "Xbp 41 Birm Tiere halten", "libraryLocation": "Sachbuchbereich", "status": ". Ausgeliehen .", "dueDate": "2016-05-27", "_order-id": "BCRE1780116"}, "orderTitle": "vormerken", "Verfasser!": "Birmelin, Immanuel", "title": "Mein Wellensittich", "Weitere Pers!": "Immanuel Birmelin", "Auflage!": "1. Aufl.", "Verlagsort!": "München", "Verlag!": "Gräfe und Unzer", "year": "2008", "Umfang!": "144 S.", "Illustration!": "zahlr. Ill. (farb.)", "Format!": "24 cm", "Beilagen!": "Poster", "Reihe!": "Mein Heimtier", "isbn": "978-3-8338-0187-7 kt. : EUR 12.90", "Kurzinfo!": "Handbuch für die Halter von Wellensittichen mit zahlreichen Farbfotos, Tipps und Tabellen.", "SW!": "Wellensittich", "Link: 11¤RATGEBER!": "https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&ACTION=RELATE&RSN=79792&DATA=VER&TOKEN=NbgzqQOXPq4818&Z=1&TERM='11RATGEBER'&KEY=ku&TYPE=SK"}
+book := {"Auflage!": "1. Aufl.", "Beilagen!": "Poster", "Format!": "24 cm", "Illustration!": "zahlr. Ill. (farb.)", "Kurzinfo!": "Handbuch für die Halter von Wellensittichen mit zahlreichen Farbfotos, Tipps und Tabellen.", "Link: 11¤RATGEBER!": "https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&ACTION=RELATE&RSN=79792&DATA=VER&TOKEN=NbgzqQOXPq4818&Z=1&TERM='11RATGEBER'&KEY=ku&TYPE=SK", "Reihe!": "Mein Heimtier", "SW!": "Wellensittich", "Umfang!": "144 S.", "Verfasser!": "Birmelin, Immanuel", "Verlag!": "Gräfe und Unzer", "Verlagsort!": "München", "Weitere Pers!": "Immanuel Birmelin", "holdings": {"_order-id": "BCRE1780116", "dueDate": "2016-05-27", "id": "Xbp 41 Birm Tiere halten", "libraryLocation": "Sachbuchbereich", "orderable": true, "status": ". Ausgeliehen ."}, "isbn": "978-3-8338-0187-7 kt. : EUR 12.90", "orderTitle": "vormerken", "title": "Mein Wellensittich", "year": "2008"}

@@ -1,5 +1,5 @@
 book := {}
 needOrders := true()
-holding := {"barcode": "9999881", "libraryLocation": "Online-Dokument", "libraryBranch": "Bibliothek Zentrum / 061 264 11 11", "status": "nicht ausleihbar"}
+holding := {"barcode": "9999881", "libraryBranch": "Bibliothek Zentrum / 061 264 11 11", "libraryLocation": "Online-Dokument", "status": "nicht ausleihbar"}
 result := ()
-book := {"holdings": {"barcode": "9999881", "libraryLocation": "Online-Dokument", "libraryBranch": "Bibliothek Zentrum / 061 264 11 11", "status": "nicht ausleihbar"}}
+book := {"holdings": {"barcode": "9999881", "libraryBranch": "Bibliothek Zentrum / 061 264 11 11", "libraryLocation": "Online-Dokument", "status": "nicht ausleihbar"}}

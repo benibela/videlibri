@@ -7,5 +7,5 @@ curAuthor := "Lindqvist, Cecilia"
 holding-keys := "Signatur"
 holding-keys := ("Signatur", 
 "Standort")
-holding := {"orderable": false, "id": "4\" 493678 Verfügbarkeit anzeigen / bestellen", "libraryBranch": "Potsdamer Straße"}
-book := {"title": "Kina nu. ; Vad skulle Mao ha sagt? Ett reportage av Cecilia och Sven Lindqvist", "author": "Lindqvist, Cecilia", "Sonst. Personen!": "Lindqvist, Sven", "Erschienen!": "Stockholm: Förl. A.B. Marieberg, 1980", "Umfang!": "72 S. 4\".", "isbn": "91-7588-022-9", "holdings": {"orderable": false, "id": "4\" 493678 Verfügbarkeit anzeigen / bestellen", "libraryBranch": "Potsdamer Straße"}}
+holding := {"id": "4\" 493678 Verfügbarkeit anzeigen / bestellen", "libraryBranch": "Potsdamer Straße", "orderable": false}
+book := {"Erschienen!": "Stockholm: Förl. A.B. Marieberg, 1980", "Sonst. Personen!": "Lindqvist, Sven", "Umfang!": "72 S. 4\".", "author": "Lindqvist, Cecilia", "holdings": {"id": "4\" 493678 Verfügbarkeit anzeigen / bestellen", "libraryBranch": "Potsdamer Straße", "orderable": false}, "isbn": "91-7588-022-9", "title": "Kina nu. ; Vad skulle Mao ha sagt? Ett reportage av Cecilia och Sven Lindqvist"}

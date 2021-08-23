@@ -1,7 +1,7 @@
 search-reverse-keys := 
 book := {}
 reserve-request := ()
-holding := {"libraryBranch": "Kinderbibliothek", "libraryLocation": "I J 0", "statusStr": "Entliehen", "pendingOrders": "0", "duedate": "2014-10-06", "orderable": false}
+holding := {"duedate": "2014-10-06", "libraryBranch": "Kinderbibliothek", "libraryLocation": "I J 0", "orderable": false, "pendingOrders": "0", "statusStr": "Entliehen"}
 result := ()
-book := {"image-url": "http://images-eu.amazon.com/images/P/3896034073.03.MZZZZZZZ.jpg", "orderable": true, "_orderTarget": "dnn$ctr690$MainView$UcNormalView$UcDetailView$ucCatalogueView$ucSharedCatalogueView$BtnReserve", "holdings": {"libraryBranch": "Kinderbibliothek", "libraryLocation": "I J 0", "statusStr": "Entliehen", "pendingOrders": "0", "duedate": "2014-10-06", "orderable": false}, "Mediengruppe:!": " Kinderliteratur ", "Verfasser:!": " Miler, Zdenek; Miler, Katerina ", "Jahr:!": " 2013 ", "Verlag:!": " Leipzig, leiv ", "Signatur:!": " I J 0 ", "ISBN:!": " 978-3-89603-407-6 ", "Beschreibung:!": " 1. Aufl., 46 S. : überw. Ill. ", "Schlagwörter:!": " BILDERBUCH ", "Originaltitel:!": " Kretek a rybka "}
+book := {"Beschreibung:!": " 1. Aufl., 46 S. : überw. Ill. ", "ISBN:!": " 978-3-89603-407-6 ", "Jahr:!": " 2013 ", "Mediengruppe:!": " Kinderliteratur ", "Originaltitel:!": " Kretek a rybka ", "Schlagwörter:!": " BILDERBUCH ", "Signatur:!": " I J 0 ", "Verfasser:!": " Miler, Zdenek; Miler, Katerina ", "Verlag:!": " Leipzig, leiv ", "_orderTarget": "dnn$ctr690$MainView$UcNormalView$UcDetailView$ucCatalogueView$ucSharedCatalogueView$BtnReserve", "holdings": {"duedate": "2014-10-06", "libraryBranch": "Kinderbibliothek", "libraryLocation": "I J 0", "orderable": false, "pendingOrders": "0", "statusStr": "Entliehen"}, "image-url": "http://images-eu.amazon.com/images/P/3896034073.03.MZZZZZZZ.jpg", "orderable": true}
 result := ()

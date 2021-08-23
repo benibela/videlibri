@@ -27,67 +27,67 @@ brs := ("",
 "2017")
 brs := ("Moers, Walter", 
 "2017")
-book := {"orderable": false, "_detail-url": "https://webopac.stadtbibliothek-leipzig.de/webOPACClient/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_FT_335578352", "title": "Rumo & die Wunder im Dunkeln", "author": "Moers, Walter", "year": "2017"}
+book := {"_detail-url": "https://webopac.stadtbibliothek-leipzig.de/webOPACClient/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_FT_335578352", "author": "Moers, Walter", "orderable": false, "title": "Rumo & die Wunder im Dunkeln", "year": "2017"}
 hasZ3988 := false()
 brs := ("", 
 "Moers, Walter", 
 "2017")
 brs := ("Moers, Walter", 
 "2017")
-book := {"orderable": false, "_detail-url": "https://webopac.stadtbibliothek-leipzig.de/webOPACClient/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_FT_335578352", "title": "Der Schrecksenmeister", "author": "Moers, Walter", "year": "2017"}
+book := {"_detail-url": "https://webopac.stadtbibliothek-leipzig.de/webOPACClient/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_FT_335578352", "author": "Moers, Walter", "orderable": false, "title": "Der Schrecksenmeister", "year": "2017"}
 hasZ3988 := false()
 brs := ("", 
 "Moers, Walter", 
 "2017")
 brs := ("Moers, Walter", 
 "2017")
-book := {"orderable": false, "_detail-url": "https://webopac.stadtbibliothek-leipzig.de/webOPACClient/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_FT_335578352", "title": "Die Stadt der Träumenden Bücher", "author": "Moers, Walter", "year": "2017"}
+book := {"_detail-url": "https://webopac.stadtbibliothek-leipzig.de/webOPACClient/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_FT_335578352", "author": "Moers, Walter", "orderable": false, "title": "Die Stadt der Träumenden Bücher", "year": "2017"}
 hasZ3988 := false()
 brs := ("", 
 "Moers, Walter", 
 "2017")
 brs := ("Moers, Walter", 
 "2017")
-book := {"orderable": false, "_detail-url": "https://webopac.stadtbibliothek-leipzig.de/webOPACClient/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_FT_335578352", "title": "Ensel und Krete", "author": "Moers, Walter", "year": "2017"}
+book := {"_detail-url": "https://webopac.stadtbibliothek-leipzig.de/webOPACClient/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_FT_335578352", "author": "Moers, Walter", "orderable": false, "title": "Ensel und Krete", "year": "2017"}
 hasZ3988 := false()
 brs := ("", 
 "Moers, Walter [Verfasser, Künstler]", 
 "[2016]")
 brs := ("Moers, Walter [Verfasser, Künstler]", 
 "[2016]")
-book := {"orderable": false, "_detail-url": "https://webopac.stadtbibliothek-leipzig.de/webOPACClient/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_FT_335578352", "title": "Adolf total", "author": "Moers, Walter [Verfasser, Künstler]", "year": "[2016]"}
+book := {"_detail-url": "https://webopac.stadtbibliothek-leipzig.de/webOPACClient/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_FT_335578352", "author": "Moers, Walter [Verfasser, Künstler]", "orderable": false, "title": "Adolf total", "year": "[2016]"}
 hasZ3988 := false()
 brs := ("", 
 "Moers, Walter [Verfasser]", 
 "Oktober 2016")
 brs := ("Moers, Walter [Verfasser]", 
 "Oktober 2016")
-book := {"orderable": false, "_detail-url": "https://webopac.stadtbibliothek-leipzig.de/webOPACClient/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_FT_335578352", "title": "¬Die Stadt der träumenden Bücher", "author": "Moers, Walter [Verfasser]", "year": "Oktober 2016"}
+book := {"_detail-url": "https://webopac.stadtbibliothek-leipzig.de/webOPACClient/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_FT_335578352", "author": "Moers, Walter [Verfasser]", "orderable": false, "title": "¬Die Stadt der träumenden Bücher", "year": "Oktober 2016"}
 hasZ3988 := false()
 brs := ("", 
 "Moers, Walter", 
 "2013")
 brs := ("Moers, Walter", 
 "2013")
-book := {"orderable": false, "_detail-url": "https://webopac.stadtbibliothek-leipzig.de/webOPACClient/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_FT_335578352", "title": "¬Die 13 1/2 Leben des Käpt'n Blaubär", "author": "Moers, Walter", "year": "2013"}
+book := {"_detail-url": "https://webopac.stadtbibliothek-leipzig.de/webOPACClient/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_FT_335578352", "author": "Moers, Walter", "orderable": false, "title": "¬Die 13 1/2 Leben des Käpt'n Blaubär", "year": "2013"}
 hasZ3988 := false()
 brs := ("", 
 "Moers, Walter", 
 "2013")
 brs := ("Moers, Walter", 
 "2013")
-book := {"orderable": false, "_detail-url": "https://webopac.stadtbibliothek-leipzig.de/webOPACClient/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_FT_335578352", "title": "Die 13 1/2 Leben des Käpt'n Blaubär", "author": "Moers, Walter", "year": "2013"}
+book := {"_detail-url": "https://webopac.stadtbibliothek-leipzig.de/webOPACClient/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_FT_335578352", "author": "Moers, Walter", "orderable": false, "title": "Die 13 1/2 Leben des Käpt'n Blaubär", "year": "2013"}
 hasZ3988 := false()
 brs := ("", 
 "Moers, Walter", 
 "2012")
 brs := ("Moers, Walter", 
 "2012")
-book := {"orderable": false, "_detail-url": "https://webopac.stadtbibliothek-leipzig.de/webOPACClient/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_FT_335578352", "title": "¬Die Stadt der träumenden Bücher", "author": "Moers, Walter", "year": "2012"}
+book := {"_detail-url": "https://webopac.stadtbibliothek-leipzig.de/webOPACClient/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_FT_335578352", "author": "Moers, Walter", "orderable": false, "title": "¬Die Stadt der träumenden Bücher", "year": "2012"}
 hasZ3988 := false()
 brs := ("", 
 "Moers, Walter", 
 "2011")
 brs := ("Moers, Walter", 
 "2011")
-book := {"orderable": false, "_detail-url": "https://webopac.stadtbibliothek-leipzig.de/webOPACClient/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_FT_335578352", "title": "¬Das Labyrinth der träumenden Bücher", "author": "Moers, Walter", "year": "2011"}
+book := {"_detail-url": "https://webopac.stadtbibliothek-leipzig.de/webOPACClient/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_FT_335578352", "author": "Moers, Walter", "orderable": false, "title": "¬Das Labyrinth der träumenden Bücher", "year": "2011"}

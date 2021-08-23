@@ -1,5 +1,5 @@
 username := foo
 password := bar
 book := {}
-message := {"kind": "confirm", "callback": "internal-order-confirmed", "caption": "Achtung:\n        \n        Für diese Aktion fallen Gebühren in Höhe von EUR 1,00 an!"}
+message := {"callback": "internal-order-confirmed", "caption": "Achtung:\n        \n        Für diese Aktion fallen Gebühren in Höhe von EUR 1,00 an!", "kind": "confirm"}
 confirm := {"method": "POST", "post": "methodToCall=reservation&CSId=30681N2S738290beecd4c7cbecc5267ed33d958a0d0409d6", "url": "file:///webOPACClient/reservation.do"}

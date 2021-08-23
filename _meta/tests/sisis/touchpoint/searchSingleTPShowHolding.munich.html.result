@@ -1,3 +1,3 @@
 book := {}
-holding := {"orderable": false, "id": "1301/IS 1205 K47-2", "status": "Freihandbestand einer Fachbibliothek", "libraryLocation": "Philologien / Vergl. Sprachwiss., Indogerm. ..."}
-book := {"holdings": {"orderable": false, "id": "1301/IS 1205 K47-2", "status": "Freihandbestand einer Fachbibliothek", "libraryLocation": "Philologien / Vergl. Sprachwiss., Indogerm. ..."}}
+holding := {"id": "1301/IS 1205 K47-2", "libraryLocation": "Philologien / Vergl. Sprachwiss., Indogerm. ...", "orderable": false, "status": "Freihandbestand einer Fachbibliothek"}
+book := {"holdings": {"id": "1301/IS 1205 K47-2", "libraryLocation": "Philologien / Vergl. Sprachwiss., Indogerm. ...", "orderable": false, "status": "Freihandbestand einer Fachbibliothek"}}

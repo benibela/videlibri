@@ -8,4 +8,4 @@ key := text{"Divibib:"}
 key := text{"Datenträger:"}
 key := text{"Sprache(n):"}
 key := text{"Notiznr.:"}
-book := {"Titel:!!": "Crazy Games : der perfekte Tag, der in der Hölle endet", "Verlag:!!": "Arena, 2015", "Physische Beschr.:!!": "222 S.", "ISBN:!!": "978-3-401-80454-5", "Links:!!": "Titel digital verfügbar; zum Downloaden bitte hier klicken!", "Divibib:!!": "verfügbar", "Datenträger:!!": "E-Book", "Sprache(n):!!": "ger", "Notiznr.:!!": "V368868918"}
+book := {"Datenträger:!!": "E-Book", "Divibib:!!": "verfügbar", "ISBN:!!": "978-3-401-80454-5", "Links:!!": "Titel digital verfügbar; zum Downloaden bitte hier klicken!", "Notiznr.:!!": "V368868918", "Physische Beschr.:!!": "222 S.", "Sprache(n):!!": "ger", "Titel:!!": "Crazy Games : der perfekte Tag, der in der Hölle endet", "Verlag:!!": "Arena, 2015"}

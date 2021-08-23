@@ -3,4 +3,4 @@ book := {}
 raised := "Es wurde D K verlängert, obwohl  verlängert werden sollte."
 status_found := false()
 status_found := true()
-book := {"id": 123, "_select": {"id": 123}, "status:problematic": "2. Verlängerung", "duedate": "2013-08-19"}
+book := {"_select": {"id": 123}, "duedate": "2013-08-19", "id": 123, "status:problematic": "2. Verlängerung"}

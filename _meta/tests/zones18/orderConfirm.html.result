@@ -1,3 +1,3 @@
 book := {}
 confirm-form := {"method": "GET", "url": "vltest://zones18/Obj_775891379629192?Style=Portal2&SubStyle=&Lang=GER&ResponseEncoding=utf-8&Method=Start&ConfirmReservationCharge=%E2%82%AC+1%2C00&ConfirmRacCardCharge=%E2%82%AC+0%2C00&Confirm=0&BrowseAsHloc=11"}
-message := {"kind": "choose", "callback": "internal-order-confirmed", "caption": "Wohin soll das Buch geliefert werden?", "options": ["Zentralbibliothek", "Kücknitz", "Marli-Brandenbaum", "Moisling", "Travemünde"], "option-values": ["1", "6", "3", "8", "10"]}
+message := {"callback": "internal-order-confirmed", "caption": "Wohin soll das Buch geliefert werden?", "kind": "choose", "option-values": ["1", "6", "3", "8", "10"], "options": ["Zentralbibliothek", "Kücknitz", "Marli-Brandenbaum", "Moisling", "Travemünde"]}

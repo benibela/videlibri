@@ -7,5 +7,5 @@ result := ()
 result := ()
 mode := 1
 books-deleted := true()
-default-book := {"statusId": "critical", "_onPage": "vltest://sisis/touchpoint/userAccount_empty_chem.html", "_onPageStart": ""}
+default-book := {"_onPage": "vltest://sisis/touchpoint/userAccount_empty_chem.html", "_onPageStart": "", "statusId": "critical"}
 nextPage := ()
