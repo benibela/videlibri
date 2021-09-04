@@ -5,8 +5,8 @@
   <longName value="Stadtbibliothek Basel"/>
   <shortName value="Stb Basel"/> 
   
-  <template value="sisis"/>  
-  <variable name="server" value="http://www.stadtbibliothekbasel.ch:8080/InfoGuideClient.sisis/"/>
+  <template value="netbiblio"/>  
+  <variable name="baseurl" value="https://katalog.stadtbibliothekbasel.ch/GGG/WebOPAC/"/>
   
   <homepage value="http://www.stadtbibliothekbasel.ch/"/>
   <testing-search value="yes"/>

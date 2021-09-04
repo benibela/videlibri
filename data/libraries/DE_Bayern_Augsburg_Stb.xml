@@ -5,8 +5,8 @@
   <longName value="Stadtbücherei Augsburg"/>
   <shortName value="Stb Augsburg"/> 
   
-  <template value="sisis"/>  
-  <variable name="server" value="https://opac-stadtbuecherei.augsburg.de/webOPACClient.stasis/"/>
+  <template value="koha"/>  
+  <variable name="baseurl" value="https://sb-augsburg.lmscloud.net/"/>
   
   <homepage value="http://www.stadtbuecherei.augsburg.de/"/>
   <testing-search value="yes"/>
