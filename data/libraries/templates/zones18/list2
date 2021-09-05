@@ -1,0 +1,42 @@
+<table id="BrowseList" class="browseList">
+  <tr>
+    <td t:condition="contains(@class, 'LoansBrowseHitNumber')"/>
+    <td t:condition="contains(@class, 'LoansBrowseItemDetailsCell')">
+      {$book := {"_internalId": substring-after(@id, "item_")}}
+      <table><t:loop><t:switch>
+        <tr>
+          <td class="LoanBrowseFieldNameCell">Titel</td>
+          <td class="LoanBrowseFieldDataCell">{$book.title}</td>
+        </tr>
+        <tr>
+          <td class="LoanBrowseFieldNameCell">Verfasser</td>
+          <td class="LoanBrowseFieldDataCell">{$book.author}</td>
+        </tr>
+        <tr>
+          <td class="LoanBrowseFieldNameCell">Mediennummer</td>
+          <td class="LoanBrowseFieldDataCell">{$book.id}</td>
+        </tr>
+        <tr>
+          <td class="LoanBrowseFieldNameCell">ausgeliehen in</td>
+          <td class="LoanBrowseFieldDataCell">{$book.libraryBranch}</td>
+        </tr>
+        <tr>
+          <td class="LoanBrowseFieldNameCell">Ausleih</td>
+          <td class="LoanBrowseFieldDataCell">{$book.issueDate := parse-date(.)}</td>
+        </tr>
+        <tr>
+          <td class="LoanBrowseFieldNameCell">Fälligkeits</td>
+          <td class="LoanBrowseFieldDataCell">
+            <b>{$book.issueDate := parse-date(.)}</b>
+            <a>{$book._renewUrl := extract(@href, "Obj[^']+")}</a>
+          </td>
+        </tr>
+        <tr>
+          <td class="LoanBrowseFieldNameCell">Anz.Verl.</td>
+          <td class="LoanBrowseFieldDataCell">{$book.renewCount}</td>
+        </tr>
+        </t:switch></t:loop>
+    </table>
+</td>
+</tr>+
+</table>
