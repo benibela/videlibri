@@ -8,5 +8,5 @@ key := text{"Bereich:"}
 key := text{"Sprache(n):"}
 key := text{"Notiznr.:"}
 result := ()
-holding := {"_orderId": "146420", "barcode": "72055587", "id": "C", "libraryBranch": "Nahbereich  Livres de poche", "orderTitle": "Reservieren", "pendingOrders": "0", "status": "verfügbar"}
-book := {"Benutzungsgruppe:!!": "Erwachsene", "Bereich:!!": "Belletristik", "Datenträger:!!": "Buch", "ISBN:!!": "978-2-253-16405-0", "Notiznr.:!!": "414619", "Sprache(n):!!": "fre", "Titel:!!": "Le testament des abeilles", "Verlag:!!": "2015", "holdings": {"_orderId": "146420", "barcode": "72055587", "id": "C", "libraryBranch": "Nahbereich  Livres de poche", "orderTitle": "Reservieren", "pendingOrders": "0", "status": "verfügbar"}}
+holding := {"_orderId": "146420", "barcode": "72055587", "id": "C", "libraryBranch": "Nahbereich\nLivres de poche", "orderTitle": "Reservieren", "pendingOrders": "0", "status": "verfügbar"}
+book := {"Benutzungsgruppe:!!": "Erwachsene", "Bereich:!!": "Belletristik", "Datenträger:!!": "Buch", "ISBN:!!": "978-2-253-16405-0", "Notiznr.:!!": "414619", "Sprache(n):!!": "fre", "Titel:!!": "Le testament des abeilles", "Verlag:!!": "2015", "holdings": {"_orderId": "146420", "barcode": "72055587", "id": "C", "libraryBranch": "Nahbereich\nLivres de poche", "orderTitle": "Reservieren", "pendingOrders": "0", "status": "verfügbar"}}

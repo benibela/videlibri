@@ -15,31 +15,40 @@
 
 <table class="wo-grid-table"> <thead>
   <tr>
+    <t:siblings-header>
     <th><input type="checkbox" class="wo-grid-chkall" /></th>
-    <th></th>
-    <th><a t:condition="contains(@href,'sort=Notices.Author')"></a>
-        <a t:condition="contains(@href,'sort=Notices.Title')"></a></th>
+    <th><a t:condition="contains(@href,'sort=Notices.Author')"></a> 
+        <a t:condition="contains(@href,'sort=Notices.Title')"></a></th>?
+    <th><a t:condition="contains(@href,'sort=Notices.Title')"></a>
+        <a t:condition="contains(@href,'sort=Notices.Author')"></a></th>?
     <th><a t:condition="contains(@href,'sort=Notices.Date1')"></a></th>
-    <th><a t:condition="contains(@href,'sort=Notices.VolumeKey')"></a></th>
+    <th><a t:condition="contains(@href,'sort=Notices.VolumeKey')"></a></th>?
+    <th><a t:condition="contains(@href,'sort=Notices.AgeKey')"></a></th>?
     <th><a t:condition="contains(@href,'sort=Notices.MediaType1Code')"></a>
         <a t:condition="contains(@href,'sort=Notices.MediaType2Code')"></a></th>
-    <th>  </th>
+    <th>  </th>*
+    </t:siblings-header>
   </tr>
  </thead>
  <tbody>
     <tr>
-      <td>{$book := {}}</td>
-      <td><!--{$book.image-url := resolve-html(img)}--></td>
+      {$book := {}}
+      <t:siblings>
+      <td></td>
       <td>{$book.author := join(br/preceding-sibling::text())}<a>{$book.title := ., $book._detailUrl := resolve-html(.)}</a></td>
+      <td><a>{$book.title := ., $book._detailUrl := resolve-html(.)}</a>{$book.author := matched-text()}</td>
       <td>{$book.year}</td>
       <td></td>
-      <td><!--E-Book<br />---></td>
+      <td></td>
+      <td>{$book.mediaType := inner-text()}</td>
       <td><!--<span id="wo-status-177235" class="wo-status-plc" data-noticeid="177235" data-divibibid="402284777" data-format="icon"></span>-->
       <span class="wo-disposability-icon">{
         let $state := @class return
         if (contains($state, "wo-disposability-checkedOut")) then $book.statusId := "lend"
         else if (contains($state, "wo-disposability-here")) then $book.statusId := "available"
         else ()}</span>?</td>
+      <!--<td>{$book.image-url := resolve-html(img)}</td>-->
+      </t:siblings>
     </tr>+
   </tbody>
 </table>
