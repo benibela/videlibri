@@ -2,11 +2,11 @@
 <library>
   <longName value="Öffentliche Bibliothek Titisee-Neustadt"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/titisee-neustadt"/>	
-  <variable name="DB" value="Titisee-Neustadt"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.komm.one/titisee-neustadt/Mein-Konto"/>	
+  <variable name="urlsearch" value="https://bibliotheken.komm.one/titisee-neustadt/Mediensuche/Erweiterte-Suche"/>
   
-  <homepage value="https://web-opac.kivbf.de/titisee-neustadt/index.asp?DB=Titisee-Neustadt"/>
+  <homepage value="https://bibliotheken.komm.one/titisee-neustadt/Mein-Konto"/>
   <testing-search value="unknown"/>
   <testing-account value="unknown"/>
 </library>

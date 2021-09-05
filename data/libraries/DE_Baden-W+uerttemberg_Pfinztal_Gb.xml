@@ -2,11 +2,11 @@
 <library>
   <longName value="Gemeindebücherei Pfinztal"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/pfinztal"/>	
-  <variable name="DB" value="Pfinztal"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.komm.one/pfinztal/Mein-Konto"/>	
+  <variable name="urlsearch" value="https://bibliotheken.komm.one/pfinztal/Mediensuche/Erweiterte-Suche"/>
   
-  <homepage value="https://web-opac.kivbf.de/pfinztal/index.asp?DB=Pfinztal"/>
+  <homepage value="https://bibliotheken.komm.one/pfinztal/"/>
   <testing-search value="unknown"/>
   <testing-account value="unknown"/>
 </library>
