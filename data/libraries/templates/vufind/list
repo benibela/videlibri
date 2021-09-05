@@ -3,9 +3,8 @@
     { $inOrderings := contains(@class, "template-name-holds") (:template-name-checkedout:)} 
  
     <div t:condition="starts-with(@id, 'record')"> 
-       <input/>
        <t:s>
-       ancestor-or-self::div[contains(@class, "row")][1]/(
+       ((ancestor-or-self::div[contains-token(@class, "row")])[last()],.)[1]/(
        let $checkbox := .//input[@type="checkbox" and not(@disabled)] return
             $book := {"status": join ( (.//div)[last()][not(strong)] | .//div[contains(@class, "alert")] ), 
                       "statusId": if ($inOrderings) then "ordered" 
@@ -13,7 +12,7 @@
                                   else "critical",
                       if ($inOrderings) then "_cancelID" else "_renewID": $checkbox/@value,
                       "title": (.//a[contains(@class, "title")])[1],
-                      "author": (.//a[contains(@href, 'type=Author')])[1]
+                      "author": (.//a[contains(@href, 'type=Author') or contains(@href, '/Author/')])[1]
                      },
         (.//strong, .//label) ! (
         let $field := . || following-sibling::text()[1]
