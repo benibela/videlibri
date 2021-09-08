@@ -5,7 +5,7 @@
   <longName value="Stadtbibliothek Koblenz"/>
   
   <template value="zones18"/>  
-  <variable name="baseurl" value="https://www.stb.koblenz.de/opac/alswww2.dll/"/>
+  <variable name="baseurl" value="https://stb.koblenz.de/alswww3.dll/"/>
 
   <homepage value="http://www.koblenz.de/stadtleben_kultur/k42_bibliothekskatalog.html"/>
   <testing-search value="yes"/>
