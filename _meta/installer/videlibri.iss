@@ -1,8 +1,8 @@
 
  [Setup]
 ;Change this in every version
-AppVerName=VideLibri 2.302
-AppVersion=2.302
+AppVerName=VideLibri 2.400
+AppVersion=2.400
 
 ;Don't change
 ;Unicode-Check: ääääääööööüüüüüü
@@ -22,9 +22,6 @@ MinVersion=6
 PrivilegesRequiredOverridesAllowed=dialog
 ;Compression=zip
 
-MinVersion=6
-PrivilegesRequiredOverridesAllowed=dialog
-;Compression=zip
 
 [Types]
 Name: "full"; Description: "Normale Installation"
