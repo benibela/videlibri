@@ -1,4 +1,4 @@
-
+﻿
  [Setup]
 ;Change this in every version
 AppVerName=VideLibri 2.400
