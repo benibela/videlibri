@@ -77,11 +77,11 @@ function __doPostBack(eventTarget, eventArgument) {
 </action>
 
 <action id="cancel-list"> <!-- this is murks -->
-  <if test="$cancel-books[(.).statusId eq 'ordered']">
+  <if test="exists($cancel-books[(.).statusId eq 'ordered'])">
     <s>form := form-combine($user-form, ($cancel-books[(.).statusId eq 'ordered'] ! {(.)._cancelid: "on"}, $cancel-ordered-button) ) </s>
     <page url="{$form}" templateFile="list"/> <!-- this returns all of update-all list again, but we only need the user-form (other stuff is irrelevant?)-->
   </if>
-  <if test="$cancel-books[(.).statusId eq 'provided']">
+  <if test="exists($cancel-books[(.).statusId eq 'provided'])">
     <s>form := form-combine($user-form, ($cancel-books[(.).statusId eq 'provided'] ! {(.)._cancelid: "on"}, $cancel-provided-button) ) </s>
     <page url="{$form}"  templateFile="list"/> <!-- this returns all of update-all list again-->
     <!--    <call action="update-all"/> does not do anything??-->
