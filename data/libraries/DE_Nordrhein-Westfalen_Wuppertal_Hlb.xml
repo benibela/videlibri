@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Hochschul- und Landeskirchenbibliothek Wuppertal"/>
+  <shortName value="HLB Wuppertal"/> 
+  
+  <template value="sisis"/>  
+  <variable name="server" value="https://katalog.hlb-wuppertal.de/webOPACClient/"/>
+  
+  <homepage value="https://www.hlb-wuppertal.de/"/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+</library>
