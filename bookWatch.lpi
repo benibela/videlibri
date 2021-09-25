@@ -174,7 +174,7 @@
         <PackageName Value="LCL"/>
       </Item5>
     </RequiredPackages>
-    <Units Count="38">
+    <Units Count="39">
       <Unit0>
         <Filename Value="bookWatch.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -378,6 +378,11 @@
         <Filename Value="applicationdesktopconfig."/>
         <IsPartOfProject Value="True"/>
       </Unit37>
+      <Unit38>
+        <Filename Value="coverloaderaccess.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="coverLoaderAccess"/>
+      </Unit38>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

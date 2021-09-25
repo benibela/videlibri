@@ -16,7 +16,7 @@ TLibrarySearcherAccess = class;
 
 { TLibrarySearcherAccess }
 
-TSearcherMessageTyp=(smtNone, smtFree, smtConnect, smtSearch, smtSearchNext, smtDetails, smtImage, smtOrder, smtCompletePendingMessage, smtDisconnect);
+TSearcherMessageTyp=(smtNone, smtFree, smtConnect, smtSearch, smtSearchNext, smtDetails, smtOrder, smtCompletePendingMessage, smtDisconnect);
 
 { TSearcherMessage }
 
@@ -76,7 +76,6 @@ private
   ftemplate: TMultiPageTemplate;
   FOnConnected, FOnPendingMessageCompleted: TNotifyEvent;
   FOnDetailsComplete, FOnOrderComplete: TBookNotifyEvent;
-  FOnImageComplete: TBookNotifyEvent;
   FOnSearchPageComplete: TPageCompleteNotifyEvent;
   FOnTakePendingMessage: TPendingMessageEvent;
 
@@ -102,7 +101,6 @@ public
   procedure searchAsync;
   procedure searchNextAsync;
   procedure detailsAsyncSave(book: TBook); //save means they make sure the
-  procedure imageAsyncSave(book: TBook);   //book is not updated only once
   procedure orderAsync(account: TCustomAccountAccess; book: TBook);
   procedure completePendingMessage(book: TBook; pm: TPendingMessage; result: integer);
   procedure disconnectAsync;
@@ -126,7 +124,6 @@ public
   property OnOrderComplete: TBookNotifyEvent read FOnOrderComplete write FOnOrderComplete;
   property OnTakePendingMessage: TPendingMessageEvent read FOnTakePendingMessage write FOnTakePendingMessage;
   property OnPendingMessageCompleted: TNotifyEvent read FOnPendingMessageCompleted write FOnPendingMessageCompleted;
-  property OnImageComplete: TBookNotifyEvent read FOnImageComplete write FOnImageComplete;
   property searcher: TLibrarySearcher read GetSearcher;
 end;
 
@@ -361,12 +358,6 @@ begin
   fthread.messages.storeMessage(TSearcherMessage.Create(smtDetails,book));
 end;
 
-procedure TLibrarySearcherAccess.imageAsyncSave(book: TBook);
-begin
-  if not assigned(fthread) then exit;
-  removeOldMessageOf(smtImage);
-  fthread.messages.storeMessage(TSearcherMessage.Create(smtImage,book));
-end;
 
 procedure TLibrarySearcherAccess.orderAsync(account: TCustomAccountAccess; book: TBook);
 begin
@@ -554,42 +545,6 @@ begin
             addProperty('details-searched','true',book.additional);
             access.endBookReading;
             callBookEvent(access.FOnDetailsComplete,book);
-          end;
-        end;
-        smtImage: begin
-          if logging then log('Searcher thread: message typ smtImage: image-searched: '+getproperty('image-searched',book.additional)+'  image-url: '+getProperty('image-url',book.additional));
-          if (getproperty('image-searched',book.additional)<>'true') then begin
-            oldUrl := searcher.bookListReader.internet.lastUrl;
-
-            images := strSplit(getProperty('image-url',book.additional), LineEnding);
-            if book.isbn <> '' then begin
-              arrayAdd(images, 'http://covers.openlibrary.org/b/isbn/'+book.getNormalizedISBN(false, 10)+'-M.jpg?default=false');
-              arrayAdd(images, 'http://images-eu.amazon.com/images/P/'+book.getNormalizedISBN(true, 10)+'.03.L.jpg');
-	      temp := book.getNormalizedISBN(true, 13);
-              //arrayAdd(images, 'http://vlb.de/GetBlob.aspx?strIsbn='+book.getNormalizedISBN(true, 13)+'&size=M');
-              arrayAdd(images, 'https://www.buchhandel.de/cover/'+temp+'/'+temp+'-cover-m.jpg');
-            end;
-            if logging then log('image candidate urls: '+strJoin(images, LineEnding));
-            for temp in images do begin
-              image := strTrimAndNormalize(temp);
-              if image = '' then continue;
-              try
-                image:=searcher.bookListReader.internet.get(temp);
-              except
-                on e: EInternetException do image := '';
-              end;
-              if image <> '' then break;
-            end;
-            searcher.bookListReader.internet.lastUrl := oldUrl;
-            if logging then log('got image: size: '+IntToStr(length(image)));
-            access.beginBookReading;
-            addProperty('image',image,book.additional);
-            addProperty('image-real-url', strTrimAndNormalize(temp), book.additional);
-            addProperty('image-content-type', searcher.bookListReader.internet.getLastContentType,book.additional);
-            addProperty('image-searched','true',book.additional);
-            access.endBookReading;
-            callBookEvent(access.FOnImageComplete,book);
-            if logging then log('end image');
           end;
         end;
         smtOrder: begin

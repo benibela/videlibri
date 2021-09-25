@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   CheckLst, StdCtrls,bookListView, ComCtrls, Menus,librarySearcher,booklistreader,TreeListView,math,
-  librarySearcherAccess,multipagetemplate,applicationformconfig, commoninterface;
+  librarySearcherAccess,multipagetemplate,applicationformconfig, commoninterface, coverLoaderAccess;
 
 type
 
@@ -102,6 +102,7 @@ type
     detaillistLastClickedRecordItem: TTreeListRecordItem;
     holdings: TBookListView;
     searcherAccess: TLibrarySearcherAccess;
+    coverLoader: TCoverLoaderAccess;
     newSearcherAccess: TLibrarySearcherAccess;
     nextPageAvailable: boolean;
     displayedBook: TBook;
@@ -109,6 +110,7 @@ type
     procedure bookListHoldingsSelect({%H-}sender: TObject; item: TTreeListItem);
     procedure detaillistMouseDown(Sender: TObject; {%H-}Button: TMouseButton; {%H-}Shift: TShiftState; X, Y: Integer);
     function displayDetails(book: TBook=nil): longint; //0: no details, 1: detail, no image, 2: everything
+    function displayCover(book: TBook): boolean; //false: no cover, true: displayed cover
     function cloneDisplayedBook: TBook;
     procedure selectBookToReSearch(book: TBook);
     procedure loadDefaults;
@@ -181,6 +183,8 @@ begin
   bookList.OnVScrollBarChange:=@bookListVScrollBarChange;
 
   searcherAccess := nil;
+  coverLoader:=TCoverLoaderAccess.create;
+  coverloader.OnImageReceived := @displayImageChange;
 
   detaillist:=TTreeListView.Create(self);
   detaillist.Parent:=detailPanel;
@@ -479,7 +483,7 @@ end;
 
 procedure TbookSearchFrm.displayImageChange(Sender: TObject);
 begin
-  displayDetails(nil);
+  displayCover(displayedBook);
 end;
 
 procedure TbookSearchFrm.FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -705,6 +709,7 @@ begin
   bookList.free;
   detaillist.free;
   searcherAccess.free;
+  coverLoader.shutdownAndFree;
   newSearcherAccess.free;
   //locations.searchTemplates.free;
   locations.locations.Free;
@@ -718,7 +723,6 @@ procedure TbookSearchFrm.searcherAccessDetailsComplete(sender: TObject;
 begin
   if sender <> searcherAccess then exit;
   if (displayDetails() < 2) and (displayImage.Checked) then begin
-    searcherAccess.imageAsyncSave(displayedBook);
     StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:=rsSearchingCover;
   end else begin
     StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='';
@@ -786,7 +790,7 @@ var s:string;
     i:longint;
     oldState: String;
     last: LongInt;
-    disallowMultiselect, first: Boolean;
+    disallowMultiselect: Boolean;
 begin
   oldState := selectedLibrariesPerLocation.Values[searchLocation.Text];
   disallowMultiselect := false;
@@ -853,7 +857,6 @@ begin
   result.OnOrderComplete:=@searcherAccessOrderComplete;
   result.OnTakePendingMessage:=@searcherAccessTakePendingMessage;
   result.OnPendingMessageCompleted:=@searcherAccessPendingMessageCompleted;
-  result.OnImageComplete:=@searcherAccessImageComplete;
   result.OnException:=@searcherAccessException;
   result.OnConnected:=@searcherAccessConnected;
   if newSearcherAccess <> nil then newSearcherAccess.free;
@@ -940,10 +943,9 @@ var intern, empty, normal: TTreeListItems; //item lists
 
 
 var i:longint;
-    tempStream: TStringAsMemoryStream;
-    ext, tempStr: String;
+    tempStr: String;
     j, orderableHolding: Integer;
-    showColumn: Boolean;
+    showColumn, hadCover: Boolean;
     tempBook: TBook;
 begin
   if book=nil then
@@ -977,31 +979,10 @@ begin
       propAdd(book.additional[i].name,book.additional[i].value);
     detaillist.EndUpdate;
 
-    Image1.Picture.Clear;
-    Image1.AutoSize:=false;
-    Image1.Width:=1;
-    if displayImage.Checked and (length(getProperty('image',book.additional))>50) then begin
-      try
-        tempStream:=TStringAsMemoryStream.Create(getProperty('image',book.additional));
-        try
-          ext := getProperty('image-content-type',book.additional);
-          if striContains(ext, 'image/jpeg') or striContains(ext, 'image/jpg') then ext := '.jpg'
-          else if striContains(ext, 'image/png') then ext := '.png'
-          else if striContains(ext, 'image/gif') then ext := '.gif'
-          else ext := ExtractFileExt(getProperty('image-url',book.additional));
-          if (ext = '') or (ext = '.') then image1.Picture.LoadFromStream(tempStream)
-          else image1.Picture.LoadFromStreamWithFileExt(tempStream, ext);
-          Image1.width:=min(image1.Picture.Width, Image1.Picture.Width * image1.Height div max(1,image1.Picture.Height));
-        finally
-          tempStream.free;
-        end;
-      except
-        //sometimes the image is just garbage
-      end;
-    end;
-    
+    hadCover := displayCover(book);
+
     if getProperty('details-searched',book.additional) <> 'true' then Result:=0
-    else if getProperty('image-searched',book.additional) <> 'true' then result:=1
+    else if hadCover then result:=1
     else result:=2;
 
 
@@ -1064,6 +1045,37 @@ begin
   finally
     if searcherAccess <> nil then searcherAccess.endBookReading;
   end;
+end;
+
+function TbookSearchFrm.displayCover(book: TBook): boolean;
+var
+  bookImageInfo: TCoverImageInfo;
+  tempStream: TStringAsMemoryStream;
+begin
+  if logging then log('search form: display cover');
+  if book = nil then exit;
+  Image1.Picture.Clear;
+  Image1.AutoSize:=false;
+  Image1.Width:=1;
+  result := false;
+  if displayImage.Checked then begin
+    bookImageInfo := coverLoader.getImageInfo(book);
+    if assigned(bookImageInfo) and (length(bookimageinfo.image)>50) then
+    try
+      result := true;
+      tempStream:=TStringAsMemoryStream.Create(bookimageinfo.image);
+      try
+        if (bookimageinfo.imageExtension = '') or (bookimageinfo.imageExtension = '.') then image1.Picture.LoadFromStream(tempStream)
+        else image1.Picture.LoadFromStreamWithFileExt(tempStream, bookImageInfo.imageExtension);
+        Image1.width:=min(image1.Picture.Width, Image1.Picture.Width * image1.Height div max(1,image1.Picture.Height));
+      finally
+        tempStream.free;
+      end;
+    except
+      //sometimes the image is just garbage
+    end;
+  end;
+  if logging then log('search form: end cover');
 end;
 
 procedure TbookSearchFrm.detaillistMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
@@ -1155,16 +1167,6 @@ begin
   end;
 
   displayedBook := researchedBook;
-
-  if displayImage.Checked and (getProperty('image-searched',book.additional) <> 'true') then begin
-    makeSearcherAccess(false);
-    FreeAndNil(searcherAccess);
-    searcherAccess := newSearcherAccess;
-    newSearcherAccess := nil;
-
-    searcherAccess.imageAsyncSave(displayedBook);
-    StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:=rsSearchingCover;
-  end;
 end;
 
 procedure TbookSearchFrm.loadDefaults;
