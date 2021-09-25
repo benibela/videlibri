@@ -46,6 +46,7 @@ public
   thread: TCoverThread;
   emptyImageInfo: TCoverImageInfo;
   OnImageReceived: TNotifyEvent;
+  //returns nil if not in cache
   function getImageInfo(lockedBook: TBook): TCoverImageInfo;
   function getImageInfo(isbn, imageUrl: string): TCoverImageInfo;
   constructor create;
@@ -216,7 +217,7 @@ end;
 
 procedure TCoverLoaderAccess.threadReceivedImage;
 const MAX_IMAGES = 50;
-      MIN_IMAGES = 10;
+      MIN_IMAGES = 30;
 var
   i: Integer;
 begin

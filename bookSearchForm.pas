@@ -80,7 +80,6 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure searcherAccessDetailsComplete(sender: TObject; book: TBook);
     procedure searcherAccessException(Sender: TObject);
-    procedure searcherAccessImageComplete(sender: TObject; book: TBook);
     procedure searcherAccessSearchComplete(sender: TObject; firstPage, nextPageAvailable: boolean);
     procedure searchLocationSelect(Sender: TObject);
     procedure searchSelectionListClickCheck(Sender: TObject);
@@ -140,6 +139,7 @@ resourcestring
   rsPropertyName = 'Eigenschaftsname';
   rsValue = 'Wert';
   rsWait = 'Warte...';
+  rsSearchException = 'Es ist ein Fehler aufgetreten';
   rsSearching = 'Suche Medien...';
   rsBytesHidden = '<%s Bytes ausgeblendet>';
   rsPropertiesNormal = 'normale Eigenschaften';
@@ -483,7 +483,12 @@ end;
 
 procedure TbookSearchFrm.displayImageChange(Sender: TObject);
 begin
-  displayCover(displayedBook);
+  if displayCover(displayedBook) then begin
+    if StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text=rsSearchingCover then begin
+      StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='';
+      screen.Cursor:=crDefault;
+    end;
+  end;
 end;
 
 procedure TbookSearchFrm.FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -735,17 +740,10 @@ procedure TbookSearchFrm.searcherAccessException(Sender: TObject);
 begin
   if (sender <> searcherAccess) and (sender <> newSearcherAccess) then exit;
   mainForm.delayedCall.Enabled:=true;
-end;
-
-procedure TbookSearchFrm.searcherAccessImageComplete(sender: TObject;
-  book: TBook);
-begin
-  if sender <> searcherAccess then exit;
-  displayDetails();
-  StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='';
-  autoSearchPhase:=aspSearchedDetails;
+  StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:=rsSearchException;
   screen.Cursor:=crDefault;
 end;
+
 
 
 procedure TbookSearchFrm.searchLocationSelect(Sender: TObject);
@@ -982,8 +980,8 @@ begin
     hadCover := displayCover(book);
 
     if getProperty('details-searched',book.additional) <> 'true' then Result:=0
-    else if hadCover then result:=1
-    else result:=2;
+    else if hadCover then result:=2
+    else result:=1;
 
 
     tempStr := book.getPropertyAdditional('home-url');
@@ -1052,17 +1050,17 @@ var
   bookImageInfo: TCoverImageInfo;
   tempStream: TStringAsMemoryStream;
 begin
+  result := false;
   if logging then log('search form: display cover');
   if book = nil then exit;
   Image1.Picture.Clear;
   Image1.AutoSize:=false;
   Image1.Width:=1;
-  result := false;
   if displayImage.Checked then begin
     bookImageInfo := coverLoader.getImageInfo(book);
+    result := assigned(bookImageInfo);
     if assigned(bookImageInfo) and (length(bookimageinfo.image)>50) then
     try
-      result := true;
       tempStream:=TStringAsMemoryStream.Create(bookimageinfo.image);
       try
         if (bookimageinfo.imageExtension = '') or (bookimageinfo.imageExtension = '.') then image1.Picture.LoadFromStream(tempStream)
@@ -1074,7 +1072,7 @@ begin
     except
       //sometimes the image is just garbage
     end;
-  end;
+  end else result := true;
   if logging then log('search form: end cover');
 end;
 
