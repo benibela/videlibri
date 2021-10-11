@@ -1,22 +1,28 @@
-<html>
-	<META NAME="ZonesObjName">{obj:=@CONTENT, bFoundBottom := false()}</META>
-
+<t:switch prioritized="true">
+  <html>
+  	<META NAME="ZonesObjName">{obj:=@CONTENT, bFoundBottom := false()}</META>
   
-  <FORM ID="BulkRenewForm">
-    {baseForm := form(., {"": {"kind": "submit"}}), options := {}}
-      
-    <DIV id="elScrollingBrowseList">
-      <DIV>
-        <t:loop>
-          <TABLE>
-            <TR>
-              <TD>
-                <INPUT>{$tempId := @VALUE}<t:if test="$tempId = get('renew-ids', ())">{$options(@NAME) := @VALUE}</t:if></INPUT>
-              </TD>
-            </TR>
-          </TABLE>
-        </t:loop>
+    
+    <FORM ID="BulkRenewForm">
+      {baseForm := form(., {"": {"kind": "submit"}}), options := {}}
+        
+      <DIV id="elScrollingBrowseList">
+        <DIV>
+          <t:loop>
+            <TABLE>
+              <TR>
+                <TD>
+                  <INPUT>{$tempId := @VALUE}<t:if test="$tempId = get('renew-ids', ())">{$options(@NAME) := @VALUE}</t:if></INPUT>
+                </TD>
+              </TR>
+            </TABLE>
+          </t:loop>
+        </DIV>
       </DIV>
-    </DIV>
-  </FORM>
-</html>
+    </FORM>
+  </html>
+  
+  <body t:condition="count(.//*) = 1 and exists(.//script)">
+  {vl:raise-internal("Verlängerung hat nicht geklappt, weil auf der Webseite statt Büchern nur steht: " || $line-ending || normalize-space())}
+  </body>
+</t:switch>

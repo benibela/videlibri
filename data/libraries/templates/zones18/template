@@ -124,7 +124,7 @@
 
 
 <action id="update-all">  
-  <s>ordersListUrl := (), bookListUrl := (), bFoundBottom := true()</s>
+  <s>ordersListUrl := (), bookListUrl := (), bFoundBottom := true(), bulkRenew := ()</s>
   <call action="internal-login"/>
     
   <s>requestId := 0</s>
