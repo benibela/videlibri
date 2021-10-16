@@ -80,13 +80,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/lay_newlib_label_template"
-            android:labelFor="@id/template"
+            android:labelFor="@id/templateSpinner"
             android:id="@+id/textView3" android:layout_gravity="left|center_vertical"
             android:padding="@dimen/defborder"/>
     <Spinner
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/template"/>
+            android:id="@+id/templateSpinner"/>
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"

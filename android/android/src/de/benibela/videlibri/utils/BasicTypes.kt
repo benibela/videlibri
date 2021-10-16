@@ -17,7 +17,7 @@ fun CharSequence.escapeForHtml(): CharSequence =
         else this.toString().replace(Regex("&"), "&amp;").replace(Regex("<"), "&lt;")
 
 
-
+fun CharSequence.countOf(c: Char) = this.count { it == c }
 
 
 private val dateFormatShort: DateFormat? by lazy {
