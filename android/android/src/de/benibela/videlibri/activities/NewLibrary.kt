@@ -14,6 +14,8 @@ import de.benibela.videlibri.jni.Bridge
 import de.benibela.videlibri.jni.Bridge.LibraryDetails
 import de.benibela.videlibri.utils.countOf
 import de.benibela.videlibri.utils.showMessage
+import de.benibela.videlibri.utils.showMessageYesNo
+import de.benibela.videlibri.utils.withActivity
 import kotlinx.android.synthetic.main.newlib.*
 
 data class LibraryVariable(val defaultValue: String, val editText: EditText?)
@@ -52,10 +54,15 @@ class NewLibrary : VideLibriBaseActivity() {
             binding.id.setText(id)
             binding.name.setText(details.prettyName)
             binding.deleteButton.setOnClickListener {
-                Bridge.VLSetLibraryDetails(id, null)
-                finish()
+                showMessageYesNo(getString(R.string.delete_library_confirmation, binding.name.text.toString())) {
+                    Bridge.VLSetLibraryDetails(id, null)
+                    withActivity<NewLibrary> {  finish() }
+                }
             }
-        } else binding.id.setText( "user${(Math.random() * 1000).toInt()}")
+        } else {
+            binding.id.setText( "user${(Math.random() * 1000).toInt()}")
+            binding.deleteButton.visibility = View.GONE
+        }
         binding.create.setOnClickListener {
             val oldId = if (mode == MODE_LIBRARY_MODIFY) intent.getStringExtra("libId") else null
             val newId = getNewId()

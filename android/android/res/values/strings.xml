@@ -168,6 +168,7 @@
     <string name="lay_newlib_label_args_description">In diesem Abschnitt können Metadaten für eine Bibliothek direkt eingegeben werden, aber nur die Serverparameter. Daher kann man hiermit auf jede Bibliothek zugreifen, die ein Katalogsystem verwendet, welches auch von einer anderen, VideLibri bereits bekannten Bibliothek eingesetzt wird. </string>
     <string name="create">erstellen</string>
     <string name="delete">löschen</string>
+    <string name="delete_library_confirmation">Soll die Bibliothek \"%s\" gelöscht werden?</string>
     <string name="lay_options_caption_viewmode">Angezeigte Ausleihen:</string>
     <string name="lay_options_option_current">aktuelle Ausleihen</string>
     <string name="lay_options_option_currenthistory">alle Ausleihen, inklusive Historie</string>

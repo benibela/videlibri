@@ -446,4 +446,5 @@
     <string name="warning_duplicate_account">This account has already been registered in the app. To change the account information, select the account in the options (to open the options use the drawer menu).</string>
     <string name="internalVersion">Internal Version</string>
     <string name="needReadExternalStoragePermissionForImport">Ohne Lese-Berechtigung können keine Daten zum Importieren geladen werden.</string>
+    <string name="delete_library_confirmation">Do you want to delete the library \\\"%s\\\"?</string>
 </resources>
