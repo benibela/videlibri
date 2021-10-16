@@ -102,7 +102,8 @@ class LibraryListAdapter: MultiLevelListView.Adapter<LibraryListAdapter.Holder>(
 
         var lastIdSplit = listOf("", "", "", "")
         for (id in libs) {
-            val split = id.split("_".toRegex())
+            val split = id.split('_')
+            if (split.size < 3) continue
             if (states.isEmpty() || split[0] != lastIdSplit[0] || split[1] != lastIdSplit[1]) {
                 if (localMetaCatalogs < 0 && id.contains("ueberregional")) localMetaCatalogs = states.size
                 states.add(Bridge.LibraryDetails.decodeIdEscapes(split[0] + " - " + split[1]))
