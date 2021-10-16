@@ -144,16 +144,12 @@
     <string name="lay_feedback_label_includeerrors">Include error messages</string>
     <string name="lay_feedback_label_includepagesanonymized">Include structure of the last opened webpages</string>
     <string name="lay_feedback_label_includepagesfull">Include text on the last opened webpages</string>
-    <string name="lay_newlib_caption_installlib">Download a library description file from an URL:</string>
-    <string name="lay_newlib_label_adress">URL:</string>
-    <string name="install">Install</string>
     <string name="lay_newlib_caption_ownlib">Own library description:</string>
     <string name="lay_newlib_label_id">Internal Id: (random number)</string>
     <string name="lay_newlib_label_name">Name: (to show it in the list)</string>
     <string name="lay_newlib_edit_newlib">my library</string>
     <string name="lay_newlib_label_template">Template: (the catalogue system used by the library)</string>
-    <string name="lay_newlib_label_template_description">In this section you can download an entirely new library description from an web address. This can include the address of a library OPAC as well as arbitrarily complex code to access an OPAC. So here you can add any library and any OPAC system, if someone has written a template to interface it with VideLibri.</string>
-    <string name="lay_newlib_label_args_description">In this section you can enter the address and parameters of a library OPAC. So here you can add any library that uses a system which is already support in this version of VideLibri.</string>
+    <string name="lay_newlib_label_args_description">Here you can enter the address and parameters of a library OPAC. So here you can add any library that uses a system which is already support in this version of VideLibri.</string>
     <string name="create">Create</string>
     <string name="delete">Delete</string>
     <string name="lay_options_caption_viewmode">View mode:</string>
@@ -447,4 +443,6 @@
     <string name="internalVersion">Internal Version</string>
     <string name="needReadExternalStoragePermissionForImport">Ohne Lese-Berechtigung können keine Daten zum Importieren geladen werden.</string>
     <string name="delete_library_confirmation">Do you want to delete the library \\\"%s\\\"?</string>
+    <string name="lay_options_btn_installupdate">Download and install an update...</string>
+    <string name="library_update_dialog_url">Enter the URL of an update providing website:</string>
 </resources>

@@ -12,7 +12,7 @@ import de.benibela.videlibri.utils.Util;
 
 @SuppressLint("Registered")
 public class VideLibriBaseActivityOld extends AppCompatActivity{
-    protected static final int RETURNED_FROM_NEW_LIBRARY = 29326;
+    static final public int RETURNED_FROM_NEW_LIBRARY = 29326;
 
     static final public int LOADING_ACCOUNT_UPDATE = 1;
     static final public int LOADING_SEARCH_CONNECTING = 200;

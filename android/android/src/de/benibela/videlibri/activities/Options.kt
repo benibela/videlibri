@@ -138,6 +138,10 @@ class Options : VideLibriBaseActivity() {
                 startActivity<NewLibrary>()
                 true
             })
+            cpm.makePreference(getString(R.string.lay_options_btn_installupdate), Preference.OnPreferenceClickListener {
+                LibraryUpdateLoader.askForUpdate()
+                true
+            })
             cpm.makePreference(getString(R.string.lay_options_btn_editsource), Preference.OnPreferenceClickListener {
                 startActivity<SourceEdit>()
                 true

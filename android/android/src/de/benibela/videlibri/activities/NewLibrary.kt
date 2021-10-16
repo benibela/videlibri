@@ -28,10 +28,6 @@ class NewLibrary : VideLibriBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = setVideLibriView(NewlibBinding::inflate)
-        binding.install.setOnClickListener {
-            Bridge.VLInstallLibrary(binding.url.text.toString())
-            beginLoading(LOADING_INSTALL_LIBRARY)
-        }
         val templates = Bridge.VLGetTemplates()
         binding.templateSpinner.adapter = makeAdapterStrings(templates)
         binding.templateSpinner.onItemSelectedListener = object : OnItemSelectedListener {
@@ -49,7 +45,6 @@ class NewLibrary : VideLibriBaseActivity() {
             val templatePos = templates.indexOf(details.templateId)
             if (templatePos >= 0) templateSpinner.setSelection(templatePos)
 
-            binding.createGroup.visibility = View.GONE
             binding.create.setText(R.string.change)
             binding.id.setText(id)
             binding.name.setText(details.prettyName)
@@ -82,9 +77,7 @@ class NewLibrary : VideLibriBaseActivity() {
             if (newId != oldId && oldId != null) Bridge.VLSetLibraryDetails(oldId, null)
             finish()
         }
-        if (mode == MODE_LIBRARY_ENTER_NEW_DATA || mode == MODE_LIBRARY_MODIFY) {
-            binding.name.requestFocus() //or use scrollView.requestChildFocus(target, target); ??
-        }
+        //binding.name.requestFocus() //or use scrollView.requestChildFocus(target, target); ??
     }
 
     fun getNewId() =
@@ -128,6 +121,5 @@ class NewLibrary : VideLibriBaseActivity() {
 
     companion object {
         const val MODE_LIBRARY_MODIFY = 1237
-        const val MODE_LIBRARY_ENTER_NEW_DATA = 1238
     }
 }

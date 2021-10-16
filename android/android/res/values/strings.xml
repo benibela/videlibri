@@ -156,16 +156,12 @@
         anonymisiert mitsenden
     </string>
     <string name="lay_feedback_label_includepagesfull">zuletzt aufgerufene Katalogseiten unverändert mitsenden</string>
-    <string name="lay_newlib_caption_installlib">Vollständige Metadaten von URL laden:</string>
-    <string name="lay_newlib_label_adress">Adresse:</string>
-    <string name="install">installieren</string>
     <string name="lay_newlib_caption_ownlib">Eigene Bibliothek :</string>
     <string name="lay_newlib_label_id">Interne Id: (eindeutige Zufallszahl, um die Bibliothek zu identifizieren)</string>
     <string name="lay_newlib_label_name">Name: (irgendeine Bezeichnung, die dann in der Liste angezeigt wird)</string>
     <string name="lay_newlib_edit_newlib">meine neue Bib</string>
     <string name="lay_newlib_label_template">Zugrunde liegendes Template: (das verwendete Katalogsystem)</string>
-    <string name="lay_newlib_label_template_description">In diesem Abschnitt können bereitgestellte Metadaten von einer HTTP-Adresse heruntergeladen und installiert werden. Diese Metadaten können sowohl die Parameter für einen Server/Katalogsystem als auch neue ausführbare Programmteile (Template) enthalten. Hiermit kann also der Zugriff auf beliebige Bibliothekssysteme installiert werden, aber nur wenn bereits jemand alle Daten im VideLibri-(XQuery)-Format vorbereitet hat. Jemand wie entweder die Bibliothek selbst, der VideLibri-Entwickler oder ein beliebiger Leser. </string>
-    <string name="lay_newlib_label_args_description">In diesem Abschnitt können Metadaten für eine Bibliothek direkt eingegeben werden, aber nur die Serverparameter. Daher kann man hiermit auf jede Bibliothek zugreifen, die ein Katalogsystem verwendet, welches auch von einer anderen, VideLibri bereits bekannten Bibliothek eingesetzt wird. </string>
+    <string name="lay_newlib_label_args_description">Hier können Metadaten für eine Bibliothek direkt eingegeben werden, aber nur die Serverparameter. Daher kann man hiermit auf jede Bibliothek zugreifen, die ein Katalogsystem verwendet, welches auch von einer anderen, VideLibri bereits bekannten Bibliothek eingesetzt wird. </string>
     <string name="create">erstellen</string>
     <string name="delete">löschen</string>
     <string name="delete_library_confirmation">Soll die Bibliothek \"%s\" gelöscht werden?</string>
@@ -461,5 +457,7 @@
     <string name="internalVersion">Interne Version</string>
     <string name="needReadExternalStoragePermissionForImport">Ohne Lese-Berechtigung können keine Daten zum Importieren geladen werden.</string>
     <string name="import_file_open_failed">Datei konnte nicht geöffnet werden</string>
+    <string name="lay_options_btn_installupdate">Update herunterladen und installieren...</string>
+    <string name="library_update_dialog_url">Adresse einer Webseite von der ein Update heruntergeladen werden soll:</string>
 </resources>
 

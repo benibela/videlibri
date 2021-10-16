@@ -308,20 +308,7 @@ class VideLibriApp : Application() {
                 }
             }
 
-            Bridge.installationDoneHandler = @SuppressLint("HandlerLeak")
-            object : Handler() {
-                override fun handleMessage(msg: Message) {
-                    withActivity<NewLibrary> { endLoading(VideLibriBaseActivityOld.LOADING_INSTALL_LIBRARY) }
-                    val status = msg.what
-                    if (status == 1) {
-                        showDialog {
-                            message(R.string.app_libregistered)
-                            onDismiss = { withActivity<NewLibrary> { finish() } }
-                        }
-                    } else
-                        showMessage(R.string.app_libregisterfailed)
-                }
-            }
+            LibraryUpdateLoader.registerInstallationDoneHandler()
 
             Bridge.searchEventHandler = @SuppressLint("HandlerLeak")
             object : Handler() {

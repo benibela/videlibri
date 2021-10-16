@@ -12,38 +12,6 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
 
-    <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" android:id="@+id/createGroup" android:longClickable="false">
-        <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/lay_newlib_caption_installlib"
-                  android:id="@+id/textView"
-                  android:padding="@dimen/optionheaderpadding" android:background="@color/optionHeaderBackgroundColor"
-                  android:textStyle="bold" android:layout_marginTop="@dimen/optionheaderpadding"/>
-        <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/lay_newlib_label_template_description"
-                android:id="@+id/textView6" android:padding="@dimen/defborder"/>
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lay_newlib_label_adress"
-                android:labelFor="@id/url"
-                android:id="@+id/textView2" android:layout_gravity="left|center_vertical"
-                android:padding="@dimen/defborder" android:singleLine="false"/>
-        <EditText
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/url" android:inputType="textUri" android:text="http://" android:singleLine="true"
-                android:selectAllOnFocus="true"
-            android:autofillHints="" />
-        <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/install"
-                android:id="@+id/install"/>
-    </LinearLayout>
     <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/lay_newlib_caption_ownlib"
               android:id="@+id/textView1"
               android:padding="@dimen/optionheaderpadding" android:background="@color/optionHeaderBackgroundColor"
