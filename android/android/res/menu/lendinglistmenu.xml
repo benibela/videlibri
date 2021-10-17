@@ -35,4 +35,18 @@
         app:showAsAction="never"
         android:id="@+id/account_information"
         android:title="@string/menu_account_information"/>
+    <item
+        android:id="@+id/xquery"
+        app:showAsAction="never"
+        android:title="@string/menu_xquery_book_tracking" >
+        <menu>
+            <item android:title="@string/menu_xquery_book_tracking_example_most_common_authors" android:id="@+id/xquery_example_most_common_authors" app:showAsAction="never"/>
+            <item android:title="@string/menu_xquery_book_tracking_example_most_common_author_books" android:id="@+id/xquery_example_most_common_author_books" app:showAsAction="never"/>
+            <item android:title="@string/menu_xquery_book_tracking_example_borrowed_repeatedly" android:id="@+id/xquery_example_borrowed_repeatedly" app:showAsAction="never"/>
+            <item android:title="@string/menu_xquery_book_tracking_example_longest_title" android:id="@+id/xquery_example_longest_title" app:showAsAction="never"/>
+            <item android:title="@string/menu_xquery_book_tracking_example_author_regex" android:id="@+id/xquery_example_author_regex" app:showAsAction="never"/>
+            <item android:title="@string/menu_xquery_book_tracking_example_title_regex" android:id="@+id/xquery_example_title_regex" app:showAsAction="never"/>
+            <item android:title="@string/menu_xquery_book_tracking_example_primes" android:id="@+id/xquery_example_primes" app:showAsAction="never"/>
+        </menu>
+    </item>
 </menu>

@@ -334,12 +334,6 @@
     <string name="share_export_footer">von meinem VideLibri gesendet</string>
     <string name="clipboard_copiedS">In Zwischenablage kopiert:\n%s</string>
 
-    <string name="config_example_filters_json">"
-        [\"(:Autoren-Suche:) $books[matches(author, 'Autor1|Autor2')]\",
-         \"(:Mehrmals Ausgeliehene:) for $book in $books group by $temp := $book.author || ':' || $book.title where count($book) > 1 return $book[1]\",
-         \"(:Primzahlen:) for $i in 2 to 100 where empty((2 to $i - 1)[$i mod . = 0]) return $i\"
-        ]
-    "</string>
     <string name="app_error_check_passwd_btn">Passwort korrigieren</string>
     <string name="app_error_report_btn">Fehler&#173;bericht senden</string>
     <string name="app_error_check_internet_btn">Internet&#173;einstellungen</string>
@@ -459,5 +453,14 @@
     <string name="import_file_open_failed">Datei konnte nicht geöffnet werden</string>
     <string name="lay_options_btn_installupdate">Update herunterladen und installieren...</string>
     <string name="library_update_dialog_url">Adresse einer Webseite von der ein Update heruntergeladen werden soll:</string>
+    <string name="menu_xquery_book_tracking">Ausleihenanalyse</string>
+    <string name="menu_xquery_book_tracking_example_most_common_authors">Meist gelesene Autoren</string>
+    <string name="menu_xquery_book_tracking_example_most_common_author_books">Bücher des meistgelesenen Autors</string>
+    <string name="menu_xquery_book_tracking_example_borrowed_repeatedly">Mehrfach ausgeliehene Bücher</string>
+    <string name="menu_xquery_book_tracking_example_longest_title">Längste Titel</string>
+    <string name="menu_xquery_book_tracking_example_author_regex">Regex-Autoren-Suche</string>
+    <string name="menu_xquery_book_tracking_example_title_regex">Regex-Titel-Suche</string>
+    <string name="menu_xquery_book_tracking_example_primes">Primzahlen</string>
+    <string name="xquery_book_tracking_example_regex_dialog">Regex Suche nach:\n(Verwende | um mehrere Suchbegriffe aufzulisten)</string>
 </resources>
 

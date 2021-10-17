@@ -234,6 +234,21 @@ class LendingList: BookListActivity(){
         }
     }
 
+    fun escapeXQueryQuotes(s: String) = s.replace("\"", "\"\"")
+    fun setXQueryFilter(query: String){
+        if (query.contains('\n')) {
+            filter.isMultiLine = true
+            updateFilterMultiLine()
+        }
+        findViewById<EditText>(R.id.searchFilter).setText(query)
+        showList()
+    }
+    fun setXQuerySearch(query: String){
+        showInputDialog(R.string.xquery_book_tracking_example_regex_dialog) { message ->
+            setXQueryFilter(query.replace("%s", message ))
+        }
+    }
+
     override fun onOptionsItemIdSelected(id: Int): Boolean {
         when (id) {
             R.id.account_information -> {
@@ -262,9 +277,7 @@ class LendingList: BookListActivity(){
                 }
             }
             R.id.research_filter_author -> currentBook()?.let {
-                val filter = "\$books[author = \"${it.author.replace("\"", "\"\"")}\"]"
-                findViewById<EditText>(R.id.searchFilter).setText(filter)
-                showList()
+                setXQueryFilter("\$books[author = \"${escapeXQueryQuotes(it.author)}\"]")
             }
             R.id.filter -> {
                 ViewOptionsDialog().show(supportFragmentManager, null)
@@ -277,6 +290,13 @@ class LendingList: BookListActivity(){
                     refreshDisplayedLendBooks()
                 }
             }
+            R.id.xquery_example_most_common_authors -> setXQueryFilter("for \$book in \$books\ngroup by \$author := \$book.author\norder by count(\$book) descending\nreturn \$author[1] || ': ' || count(\$book) ")
+            R.id.xquery_example_most_common_author_books -> setXQueryFilter("let \$author := (for \$book in \$books group by \$author := \$book.author order by count(\$book) descending return \$author)[1]\nreturn \$books[author = \$author]")
+            R.id.xquery_example_borrowed_repeatedly -> setXQueryFilter("for \$book in \$books\ngroup by \$temp := \$book.author || ':' || \$book.title\nwhere count(\$book) > 1\nreturn \$book[1]")
+            R.id.xquery_example_longest_title -> setXQueryFilter("(for \$book in \$books\norder by string-length(\$book.title) descending\nreturn \$book)[1]")
+            R.id.xquery_example_author_regex -> setXQuerySearch("\$books[matches(author, '%s', 'i')]")
+            R.id.xquery_example_title_regex -> setXQuerySearch("\$books[matches(title, '%s', 'i')]")
+            R.id.xquery_example_primes -> setXQueryFilter("for \$i in 2 to 100\nwhere empty((2 to \$i - 1)[\$i mod . = 0])\nreturn \$i")
             else -> return super.onOptionsItemIdSelected(id)
         }
         return true
@@ -395,7 +415,7 @@ class LendingList: BookListActivity(){
     private fun getFilterHistory(): ArrayList<String> {
         val filters = ArrayList<String>()
         try {
-            val filtersJson = JSONArray(PreferenceManager.getDefaultSharedPreferences(this).getString("filterHistory", tr(R.string.config_example_filters_json)))
+            val filtersJson = JSONArray(PreferenceManager.getDefaultSharedPreferences(this).getString("filterHistory", ""))
             for (i in 0 until filtersJson.length())
                 filters.add(filtersJson.getString(i))
         } catch (ignored: JSONException) {

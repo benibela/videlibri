@@ -320,12 +320,6 @@
     <string name="share_export_footer">send from VideLibri </string>
     <string name="clipboard_copiedS">Copied to clipboard:\n%s </string>
 
-    <string name="config_example_filters_json">  &quot;
-        [\&quot;(:Multiple author search:) $books[matches(author, &apos;Autor1|Autor2&apos;)]\&quot;,
-         \&quot;(:Find books borrowed more than once:) for $book in $books group by $temp := $book.author || &apos;:&apos; || $book.title where count($book) &gt; 1 return $book[1]\&quot;,
-         \&quot;(:Prim numbers:) for $i in 2 to 100 where empty((2 to $i - 1)[$i mod . = 0]) return $i\&quot;
-        ]
-    &quot; </string>
     <string name="app_error_check_passwd_btn">Change password</string>
     <string name="app_error_report_btn">Send error report </string>
     <string name="app_error_check_internet_btn">Internet config</string>
@@ -446,4 +440,13 @@
     <string name="lay_options_btn_installupdate">Download and install an update...</string>
     <string name="library_update_dialog_url">Enter the URL of an update providing website:</string>
     <string name="import_file_open_failed">Failed to open file</string>
+    <string name="menu_xquery_book_tracking">Book queries</string>
+    <string name="menu_xquery_book_tracking_example_most_common_authors">Most common author</string>
+    <string name="menu_xquery_book_tracking_example_most_common_author_books">Books of most common author</string>
+    <string name="menu_xquery_book_tracking_example_borrowed_repeatedly">Repeatedly borrowed books</string>
+    <string name="menu_xquery_book_tracking_example_longest_title">Longest titles</string>
+    <string name="menu_xquery_book_tracking_example_author_regex">Author search (regex)</string>
+    <string name="menu_xquery_book_tracking_example_title_regex">Title search (regex)</string>
+    <string name="menu_xquery_book_tracking_example_primes">Prime numbers</string>
+    <string name="xquery_book_tracking_example_regex_dialog">Regex search for:\n(Use | for multiple search terms)</string>
 </resources>
