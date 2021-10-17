@@ -12,10 +12,7 @@ import de.benibela.videlibri.databinding.NewlibBinding
 import de.benibela.videlibri.databinding.NewliboptionBinding
 import de.benibela.videlibri.jni.Bridge
 import de.benibela.videlibri.jni.Bridge.LibraryDetails
-import de.benibela.videlibri.utils.countOf
-import de.benibela.videlibri.utils.showMessage
-import de.benibela.videlibri.utils.showMessageYesNo
-import de.benibela.videlibri.utils.withActivity
+import de.benibela.videlibri.utils.*
 import kotlinx.android.synthetic.main.newlib.*
 
 data class LibraryVariable(val defaultValue: String, val editText: EditText?)
@@ -29,7 +26,7 @@ class NewLibrary : VideLibriBaseActivity() {
         super.onCreate(savedInstanceState)
         binding = setVideLibriView(NewlibBinding::inflate)
         val templates = Bridge.VLGetTemplates()
-        binding.templateSpinner.adapter = makeAdapterStrings(templates)
+        binding.templateSpinner.setItems(templates)
         binding.templateSpinner.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View, i: Int, l: Long) {
                 templates.getOrNull(i)?.let(::selectTemplate)

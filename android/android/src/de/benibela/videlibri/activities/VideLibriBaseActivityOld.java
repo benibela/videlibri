@@ -26,36 +26,6 @@ public class VideLibriBaseActivityOld extends AppCompatActivity{
 
 
 
-
-
-
-
-
-
-    //deprecated Util
-    public Button findButtonById(int id){
-        return (Button)findViewById(id);
-    }
-
-
-
-    public void setTextViewText(int id, CharSequence text){
-        TextView tv = findViewById(id);
-        tv.setText(text);
-    }
-
-    public String getTextViewText(int id){
-        TextView tv = findViewById(id);
-        return tv.getText().toString();
-    }
-
-    public ArrayAdapter<String> makeAdapterStrings(String[] templates) {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, templates);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        return adapter;
-    }
-
-
     public String tr(int id){ return Util.tr(this, id); }
     public String tr(int id, Object... args){ return Util.tr(this, id, args); }
 
