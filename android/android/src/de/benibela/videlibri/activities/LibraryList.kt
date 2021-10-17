@@ -19,10 +19,7 @@ import de.benibela.videlibri.*
 import de.benibela.videlibri.databinding.BookOverviewRowBinding
 import de.benibela.videlibri.databinding.DialogBookListLikeBinding
 import de.benibela.videlibri.jni.Bridge
-import de.benibela.videlibri.utils.getString
-import de.benibela.videlibri.utils.isVisibleNotGone
-import de.benibela.videlibri.utils.takeNonEmpty
-import de.benibela.videlibri.utils.withActivity
+import de.benibela.videlibri.utils.*
 import kotlinx.android.parcel.Parcelize
 import java.lang.IndexOutOfBoundsException
 import java.util.*
@@ -242,7 +239,7 @@ class LibraryList: VideLibriBaseActivity() {
                 dialogBinding.listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ ->
                     withActivity<LibraryList> {
                         when (i) {
-                            1 -> de.benibela.videlibri.utils.startActivity<NewLibrary>()
+                            1 -> startActivityForResult<NewLibrary>(RETURNED_FROM_NEW_LIBRARY)
                             2 -> if (adapter.metaCatalogs >= 0) {
                                 val id = adapter.childId(adapter.bitsPerLevel, 0, adapter.metaCatalogs)
                                 listView?.expandableAdapter?.let { ea ->
@@ -256,8 +253,8 @@ class LibraryList: VideLibriBaseActivity() {
                                 columnView?.expand(id)
                             }
                             3 -> LibraryUpdateLoader.askForUpdate()
-                            4 -> de.benibela.videlibri.utils.startActivity<SourceEdit>() //showUriInBrowser("http://www.videlibri.de/help/neuebibliothek.html")
-                            5 -> de.benibela.videlibri.utils.startActivity<Feedback>()
+                            4 -> startActivity<SourceEdit>() //showUriInBrowser("http://www.videlibri.de/help/neuebibliothek.html")
+                            5 -> startActivity<Feedback>()
                         }
                     }
                     dismiss()
