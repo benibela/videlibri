@@ -90,7 +90,7 @@
     <string name="main_accountcountDD">%1$d/%2$d Konten</string>
     <string name="main_allaccounts">Alle Konten</string>
     <string name="main_cancelconfirm">Soll die Bestellung abgebrochen werden?</string>
-    <string name="menu_accounts">Ausleihkonten</string>
+    <string name="menu_accounts">Ausleihen</string>
     <string name="main_accountwithhistory">Historie</string>
     <string name="app_libregistered">Bibliothek wurde registriert.</string>
     <string name="app_libregisterfailed">Bibliotheksregistrierung fehlgeschlagen.</string>
@@ -322,10 +322,10 @@
     <string name="foreignlibrariesnotinthelist">Es gibt folgende Möglichkeiten, um VideLibri mit Bibliotheken zu verwenden, die wir nicht kennen oder noch nicht getestet haben:</string>
     <string name="foreignlibrariesnotinthelist_easy">1. Die Adresse (URL) des Bibliothekskatalog eingeben</string>
     <string name="foreignlibrariesnotinthelist_easy_req">falls die Bibliothek ein bereits unterstütztes System verwendet.</string>
-    <string name="foreignlibrariesnotinthelist_meta">2. über einen regionalen Meta-Katalog suchen</string>
-    <string name="foreignlibrariesnotinthelist_meta_req">falls man nur etwas suchen möchte.</string>
-    <string name="foreignlibrariesnotinthelist_install">3. Die nötigen Katalogmetadaten herunterladen</string>
-    <string name="foreignlibrariesnotinthelist_install_req">falls die Bibliothek oder jemand anderes ein fertiges VideLibri-Template bereitstellt.</string>
+    <string name="foreignlibrariesnotinthelist_meta">2. Über einen regionalen Meta-Katalog suchen</string>
+    <string name="foreignlibrariesnotinthelist_meta_req">falls man nur etwas suchen möchte.\nIn den Metakatalogen kann man gleichzeitig in 100rten Bibliotheken suchen, die nicht in der Liste stehen.</string>
+    <string name="foreignlibrariesnotinthelist_install">3. Ein Update herunterladen und installieren</string>
+    <string name="foreignlibrariesnotinthelist_install_req">falls jemand für die Bibliothek ein Update gebaut hat.\nJeder kann eigene VideLibri-Updates bauen und irgendwo zum Download anbieten.</string>
     <string name="foreignlibrariesnotinthelist_diy">4. Selbst ein VideLibri-Template erstellen</string>
     <string name="foreignlibrariesnotinthelist_diy_req">unter "Einstellungen/Quellcode bearbeiten" kann alles für beliebige Webseiten konfiguriert werden.</string>
     <string name="foreignlibrariesnotinthelist_mail">5. Eine E-Mail schreiben, damit die Bibliothek in der nächsten VideLibri-Version gelistet wird. </string>

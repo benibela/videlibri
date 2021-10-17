@@ -86,7 +86,7 @@
     <string name="main_accountcountDD">%1$d/%2$d accounts</string>
     <string name="main_allaccounts">All accounts</string>
     <string name="main_cancelconfirm">Do you want to cancel this order?</string>
-    <string name="menu_accounts">Accounts</string>
+    <string name="menu_accounts">Book list</string>
     <string name="main_accountwithhistory">History</string>
     <string name="app_libregistered">Library has been registered.</string>
     <string name="app_libregisterfailed">Library registration failed.</string>
@@ -307,10 +307,10 @@
     <string name="foreignlibrariesnotinthelist">Currently there are no English libraries, since we only have library cards from German-speaking libraries.
     But you can try to add your library using one of these approaches:</string>
     <string name="foreignlibrariesnotinthelist_easy">1. Enter the web address (URL) of the library OPAC </string>
-    <string name="foreignlibrariesnotinthelist_easy_req">if the library uses a library system (from a vendor) that is already supported. </string>
+    <string name="foreignlibrariesnotinthelist_easy_req">if the library uses a library OPAC system that is already supported. </string>
     <string name="foreignlibrariesnotinthelist_meta">2. use a state wide meta catalogue.  </string>
     <string name="foreignlibrariesnotinthelist_meta_req">if you only want to search something in German. </string>
-    <string name="foreignlibrariesnotinthelist_install">3. Install a template </string>
+    <string name="foreignlibrariesnotinthelist_install">3. Install a template update</string>
     <string name="foreignlibrariesnotinthelist_install_req">if someone has created a VideLibri interface to work with your library and uploaded it somewhere. </string>
     <string name="foreignlibrariesnotinthelist_diy">4. Create your own template </string>
     <string name="foreignlibrariesnotinthelist_diy_req">in Options/Edit Source you can write a script to download data from any webpage and display it. Easier to write it on a Desktop computer through and copy it to VideLibri.</string>
@@ -445,4 +445,5 @@
     <string name="delete_library_confirmation">Do you want to delete the library \\\"%s\\\"?</string>
     <string name="lay_options_btn_installupdate">Download and install an update...</string>
     <string name="library_update_dialog_url">Enter the URL of an update providing website:</string>
+    <string name="import_file_open_failed">Failed to open file</string>
 </resources>
