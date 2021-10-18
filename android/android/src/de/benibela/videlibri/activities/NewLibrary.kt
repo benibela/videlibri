@@ -34,6 +34,7 @@ class NewLibrary : VideLibriBaseActivity() {
             override fun onNothingSelected(adapterView: AdapterView<*>?) {}
         }
         val mode = intent.getIntExtra("mode", 0)
+        val existingUserLibraries = Bridge.VLGetOptions().roUserLibIds
         if (mode == MODE_LIBRARY_MODIFY) {
             val id = intent.getStringExtra("libId") ?: return
             details = Bridge.VLGetLibraryDetails(id)
@@ -52,8 +53,17 @@ class NewLibrary : VideLibriBaseActivity() {
                 }
             }
         } else {
-            binding.id.setText( "user${(Math.random() * 1000).toInt()}")
+            val defaultId = if (existingUserLibraries.isEmpty()) "user"
+                                 else run {
+                val oldIds = existingUserLibraries.map { it.substringAfterLast("user").toIntOrNull() ?: 0 }
+                "user${(oldIds.max() ?: existingUserLibraries.size) + 1}"
+            }
+            binding.id.setText(defaultId)
             binding.deleteButton.visibility = View.GONE
+        }
+        if (existingUserLibraries.isEmpty()) {
+            binding.textViewId.visibility = View.GONE
+            binding.id.visibility = View.GONE
         }
         binding.create.setOnClickListener {
             val oldId = if (mode == MODE_LIBRARY_MODIFY) intent.getStringExtra("libId") else null
