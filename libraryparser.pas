@@ -757,6 +757,8 @@ begin
   end;
   if prettyNameShort = '' then
     prettyNameShort:=strCopyFrom(id, strRpos('_', id)+1) + ' '+ prettyLocation;
+  if id.StartsWith('_') or id.StartsWith('-_') then
+    exit; //do not show testing information for user-defined libraries. But here we do not know if it is a user-defined library. But the default id starts with -_-_-_
   if (ftestingSearch = tiBroken) and (ftestingAccount = tiBroken) then begin
     if tableComment = '' then tableComment := 'Da die Bibliothek ihren Webkatalog geändert hat, funktioniert es nicht mehr';
     prettyNameLong += ' (kaputt)';
