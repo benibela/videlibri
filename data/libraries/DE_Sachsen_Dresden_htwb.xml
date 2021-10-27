@@ -6,7 +6,7 @@
   <segregated-accounts value="true"/>
 
   <template value="primo"/>
-  <variable name="baseurl" value="https://primo.bib.htw-dresden.de/primo-explore/search?vid=49HTW_VU1"/>
+  <variable name="baseurl" value="https://primo.bib.htw-dresden.de/discovery/search?vid=49HTW_INST:49HTW_VU1"/>
 
 
 
