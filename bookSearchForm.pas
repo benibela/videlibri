@@ -949,7 +949,7 @@ begin
   if book=nil then
     if bookList.Selected=nil then book:=displayedBook
     else book:=tbook(bookList.Selected.data.obj);
-  if (book=nil) then exit;
+  if (book=nil) then exit(2);
   intern:=nil;
   empty:=nil;
   normal:=nil;
@@ -979,7 +979,7 @@ begin
 
     hadCover := displayCover(book);
 
-    if getProperty('details-searched',book.additional) <> 'true' then Result:=0
+    if (getProperty('details-searched',book.additional) <> 'true') and (book.owningAccount = nil) then Result:=0
     else if hadCover then result:=2
     else result:=1;
 
@@ -1139,7 +1139,12 @@ begin
   if book = nil then
     exit;
 
-  displayDetails(book);
+  if (displayDetails(book) < 2) and (displayImage.Checked) then begin
+    //like in searcherAccessDetailsComplete()
+    screen.Cursor := crHourGlass;
+    StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:=rsSearchingCover;
+  end;
+
   if book.owningAccount is TCustomAccountAccess then begin
     lib := TCustomAccountAccess(book.owningAccount).getLibrary();
     selectLibrary(lib.prettyLocation, lib);
