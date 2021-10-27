@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:text="@string/lay_newlib_label_id"
             android:labelFor="@id/id"
-            android:id="@+id/textView4" android:padding="@dimen/defborder"/>
+            android:id="@+id/textViewId" android:padding="@dimen/defborder"/>
     <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
