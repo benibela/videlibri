@@ -245,7 +245,7 @@
     </page>
   </loop>
 
-  <loop test="$lastIndex &lt; $targetIndex and $targetIndex &lt; $search-result-count">
+  <loop test="$lastIndex &lt; $targetIndex and $targetIndex &lt;= $search-result-count-internal">
     <page url="{$form.url}" templateFile="search">
       <post value="{$form.post}{$toolbarPostForward}"/>
     </page>
@@ -291,7 +291,10 @@
   
   <s>toolbarBackward := $toolbarForward - 1,
      toolbarPostBackward := x"&amp;%24Toolbar_{$toolbarBackward}.x=0&amp;%24Toolbar_{$toolbarBackward}.y=0",
-     toolbarPostForward := x"&amp;%24Toolbar_{$toolbarForward}.x=0&amp;%24Toolbar_{$toolbarForward}.y=0"
+     toolbarPostForward := x"&amp;%24Toolbar_{$toolbarForward}.x=0&amp;%24Toolbar_{$toolbarForward}.y=0",
+     search-result-count-internal := if (exists($search-result-count)) then $search-result-count
+                                     else if ($search-next-page-available) then $lastSearchedIndex + 1
+                                     else 0
   </s>
 </action>
 
@@ -305,6 +308,11 @@
       <call action="gotoindex"/>
     </otherwise>
   </choose>
+  <s>
+   search-result-count-internal := if (exists($search-result-count)) then $search-result-count
+                                   else if ($search-next-page-available) then $lastSearchedIndex + 1
+                                   else 0
+  </s>
 </action>
 
 
