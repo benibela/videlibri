@@ -9,14 +9,6 @@
           default return "unknown"
       };
     
-    (:Keep this and next-page-available in sync with searchBasicForm :)
-    
-      (id("R06"), id("R03"))!extract(., ".*Treffer(.*)$", 1)[.]!
-        ( let $numbers := extract(., '[0-9]+', 0, "*") return ( 
-             $firstIndex := number($numbers[ if (last() >= 3) then last() - 2 else last() - 1 ]),
-             (:$lastIndex := number($temp[2]),:)
-             $search-result-count := xs:integer($numbers[last()][.]))
-        ),
       lastSearchedIndex := get("lastSearchedIndex", 0) (: for unittests :)
     } 
 

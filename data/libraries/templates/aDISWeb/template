@@ -249,6 +249,7 @@
     <page url="{$form.url}" templateFile="search">
       <post value="{$form.post}{$toolbarPostForward}"/>
     </page>
+    <pattern href="searchBasicForm"/>
   </loop>
   
 </action>
@@ -270,7 +271,8 @@
   
   <s>
   searchPage := (),
-  lastSearchedIndex := 0, 
+  lastSearchedIndex := lastSearchedIndexWithNavigation := 0,
+  search-result-count := (),
   search-next-page-available := (), 
   gotDetails_GoBackPage := (),
   toolbarForward := 5,
@@ -289,6 +291,8 @@
 
   <page test="exists($gotDetails_GoBackPage)" url="{$gotDetails_GoBackPage}" templateFile="search"/>
   
+  <pattern href="searchBasicForm"/>
+  
   <s>toolbarBackward := $toolbarForward - 1,
      toolbarPostBackward := x"&amp;%24Toolbar_{$toolbarBackward}.x=0&amp;%24Toolbar_{$toolbarBackward}.y=0",
      toolbarPostForward := x"&amp;%24Toolbar_{$toolbarForward}.x=0&amp;%24Toolbar_{$toolbarForward}.y=0",
@@ -303,6 +307,7 @@
   <choose>
     <when test="$goback and $firstIndex &lt;= $targetIndex and $targetIndex &lt;= $lastIndex">
       <page url="{$goback}" templateFile="search"/>
+      <pattern href="searchBasicForm"/>
     </when>
     <otherwise>
       <call action="gotoindex"/>
