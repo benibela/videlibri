@@ -12,24 +12,7 @@
       lastSearchedIndex := get("lastSearchedIndex", 0) (: for unittests :)
     } 
 
-     <div class="toolbar_div"><ul class="toolbar_ul">
-     <t:switch prioritized="true">
-        <li class="toolbar_li">
-          <span>Vorwärts</span>
-          {./input!(search-next-page-available := not(@disabled),          
-           form := form(//form, {"": {"kind": "submit"}}),
-           toolbarForward := xs:integer(substring-after(@name, "_")[.])
-           )           
-          }
-        </li>
-        
-        <input t:condition="matches(@title, 'nächster|Vorwärts')">
-          {search-next-page-available := not(@disabled),
-           form := form(//form, {"": {"kind": "submit"}}),
-           toolbarForward := xs:integer(substring-after(@name, "_")[.])
-          }</input>
-     </t:switch>
-     </ul></div>
+     <div class="toolbar_div"><ul class="toolbar_ul"></ul></div>
  
         <DIV id="R07">
           <t:switch>

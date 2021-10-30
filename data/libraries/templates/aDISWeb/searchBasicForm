@@ -4,9 +4,6 @@
   lastSearchedIndex := get("lastSearchedIndex", 0),
   lastSearchedIndexWithNavigation := get("lastSearchedIndexWithNavigation", 0),
   search-result-count := get("search-result-count", ()),
-  if ($lastSearchedIndex = $lastSearchedIndexWithNavigation) then
-    $firstIndex := $lastIndex := ()
-  else (),
 
   let $statustext := (id("R06"), id("R03"))!extract(., ".*Treffer(.*)$", 1)[.]
   let $numbers := $statustext!extract(., "(?:([0-9]+)\s*(?:-\s*([0-9]+))\s*von\s*)?([0-9]+)", (1,2,3)) 
@@ -15,30 +12,43 @@
     if ($numbers[1] and $numbers[2]) then (
       $firstIndex := xs:integer($numbers[1][.]),
       $lastIndex := xs:integer($numbers[2][.]) 
-    ) else let $indices := css(".rList_num")[.]!xs:integer(.) return (
+    ) else let $indices := css(".rList_num")[.]!xs:integer(.) 
+    where exists($indices) or ($lastSearchedIndex > $lastSearchedIndexWithNavigation (:a search increases lastSearchedIndex and we skip this:) )
+    return (
       $firstIndex := $indices[1] ,
       $lastIndex := $indices[last()] 
     )
-  )
+  ),
+  
+  $lastSearchedIndexWithNavigation := $lastSearchedIndex
   
 }
 
-  <t:switch prioritized="true">        
-
+  <t:switch prioritized="true">
     <div class="toolbar_div"><ul class="toolbar_ul">
     <t:switch prioritized="true">        
       <li class="toolbar_li">
         <span>Vorwärts</span>
-        {
-         form := form(//form, {"": {"kind": "submit"}})
-        }
+        <input>{$forwardInput}</input>
       </li>
-      
-      <input t:condition="matches(@title, 'nächster|Vorwärts')">
-        {
-         form := form(//form, {"": {"kind": "submit"}})
-        }</input>
+      <input t:condition="matches(@title, 'nächster|Vorwärts')">{$forwardInput}</input>
     </t:switch>
+    {
+      $forwardInput ! (
+        $search-next-page-available := not(@disabled),          
+        $form := form(//form, {"": {"kind": "submit"}}),
+        $toolbarForward := xs:integer(substring-after(@name, "_")[.])
+      ),
+      
+      toolbarBackward := $toolbarForward - 1,
+      toolbarPostBackward := x"&amp;%24Toolbar_{$toolbarBackward}.x=0&amp;%24Toolbar_{$toolbarBackward}.y=0",
+      toolbarPostForward := x"&amp;%24Toolbar_{$toolbarForward}.x=0&amp;%24Toolbar_{$toolbarForward}.y=0",
+      
+      
+      search-result-count-internal := if (exists($search-result-count)) then $search-result-count
+                                      else if ($search-next-page-available) then $lastSearchedIndex + 1
+                                      else 0
+    }
     </ul></div>
 
     <h1>Wir haben seit einiger Zeit<t:s>vl:raise-timeout(.)</t:s></h1>

@@ -1,8 +1,5 @@
 book := {}
 lastSearchedIndex := 0
-search-next-page-available := false()
-form := {"method": "POST", "post": "service=direct%2F1%2FPOOLM40PBSZPROD%40_44002500_2BD9D480%2F%24Form.form&sp=S0&Form0=focus%2CkeyCode%2Cstz%2Csource%2Cselected%2CrequestCount%2CscriptEnabled%2CscrollPos%2CscrDim%2CwinDim%2CimgDim%2C%24Textfield%2C%24FormConditional%2CtextButton%2C%24FormConditional%240%2CtextButton%240%2C%24FormConditional%241%2C%24FormConditional%242%2CtextButton%241%2C%24FormConditional%243%2CtextButton%242%2C%24FormConditional%244%2CtextButton%243%2CtextButton%244%2CtextButton%245%2CtextButton%246%2CtextButton%247%2CtextButton%248%2CtextButton%249%2C%24FormConditional%245%2CtextButton%2410%2C%24Toolbar%2CcellCheck%2CcellCheck%240%2CcellCheck%241%2CcellCheck%242%2CcellCheck%243%2CcellCheck%244%2CcellCheck%245%2CcellCheck%246%2C%24Toolbar%240&focus=&keyCode=0&stz=&source=&selected=&requestCount=2&scriptEnabled=F&scrollPos=0&scrDim=&winDim=&imgDim=&%24FormConditional=T&%24FormConditional%240=T&%24FormConditional%241=F&%24FormConditional%242=T&%24FormConditional%243=T&%24FormConditional%244=F&%24FormConditional%245=T&%24Textfield=", "url": "file:///aDISWeb/app;jsessionid=95132A0337F33A21552B1148363B95A4"}
-toolbarForward := 5
 lastIndex := 1
 book := {"_index": 1, "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02104501", "author": " Glen R. Anderson. ", "publisher": " Pressure Sensitive Tape Council", "statusId": "available", "title": "Test Methods for Pressure Seinsitive Adhesive Tapes ", "year": "2004"}
 lastSearchedIndex := 1

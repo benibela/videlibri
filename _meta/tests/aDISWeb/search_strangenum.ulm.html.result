@@ -1,8 +1,5 @@
 book := {}
 lastSearchedIndex := 0
-search-next-page-available := false()
-form := {"method": "POST", "post": "service=direct%2F1%2FPOOLM00Qulmprod%40_44003100_32939B80%2F%24Form.form&sp=S0&Form0=focus%2CkeyCode%2Cstz%2Csource%2Cselected%2CrequestCount%2CscriptEnabled%2CscrollPos%2CscrDim%2CwinDim%2CimgDim%2C%24Textfield%2C%24FormConditional%2CtextButton%2C%24FormConditional%240%2CtextButton%240%2C%24FormConditional%241%2CtextButton%241%2C%24FormConditional%242%2CtextButton%242%2C%24FormConditional%243%2CtextButton%243%2C%24FormConditional%244%2CtextButton%244%2CtextButton%245%2CtextButton%246%2CtextButton%247%2CtextButton%248%2CtextButton%249%2CtextButton%2410%2C%24FormConditional%245%2CtextButton%2411%2C%24Toolbar%2CcellCheck%2CcellCheck%240%2CcellCheck%241%2CcellCheck%242%2CcellCheck%243%2CcellCheck%244%2CcellCheck%245%2CcellCheck%246%2CcellCheck%247%2CcellCheck%248%2CcellCheck%249%2CcellCheck%2410%2CcellCheck%2411%2CcellCheck%2412%2CcellCheck%2413%2CcellCheck%2414%2C%24Toolbar%240&focus=&keyCode=0&stz=&source=&selected=&requestCount=2&scriptEnabled=T&scrollPos=0&scrDim=&winDim=&imgDim=&%24FormConditional=T&%24FormConditional%240=T&%24FormConditional%241=T&%24FormConditional%242=T&%24FormConditional%243=T&%24FormConditional%244=F&%24FormConditional%245=T&%24Textfield=", "url": "file:///aDISWeb/app;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A"}
-toolbarForward := 5
 lastIndex := 1
 lastSearchedIndex := 1
 book := {"_index": 1, "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00221365", "author": "von Petra Buyer", "statusId": "available", "title": "Sinn und Unsinn kernspintomographischer Untersuchungen der weiblichen Brustorgane", "year": "2002"}
