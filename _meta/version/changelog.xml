@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="Bibliothek-App VideLibri">
-      <build version="2400" date="2021-09-08">
+      <build version="2410" date="2021-10-31">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <change>Universitätsbibliothek Chemnitz: verwende neuen Katalog.</change>
+        <change>Windows/Linux: Schnelleres Titelbild laden parallel zur Katalogsuche (LPT: Doppelklick auf Ausleihe mit ISBN zeigt das Titelbild).</change>
+        <change>Android: Andere Anordnung der Ausleihenanalyse und eigene-Bücherei-Registrierung, da es schwer zu finden war.</change>
+        <fix>Hochschulbibliothek Dresden HTW: Anpassung an geänderte Adresse.</fix>
+        <fix>bibliothecaplus: Korrigiere Abbrechen von Vormerkungen.</fix>
+        <fix>aDIS/VÖBB: zeige Mehrseitensuchergebnisse bei Bezirksauswahl.</fix>
+        <add>Hochschul- und Landeskirchenbibliothek Wuppertal</add>
+     </build>
+      <build version="2400" date="2021-09-08">
         <change>Technische Verbesserungen: Schnellerer Start-Up. Neuer, schnellerer JSON-Parser. Schnellere reguläre Ausdrücke. Vollständigere XPath/XQuery 3.1 Unterstützung. Schnellere String->Int-Umwandlung. Wenn bei der Kommunikation mit der Büchereiwebseite auf der Seite ein Button gefunden wird, wird der automatisch "angeklickt".</change>
         <fix>Biber Bibdia OPAX: Korrigiere Verlängerung.</fix>
         <fix>aDIS und Bibliotheca: Markiere weitere Bücher als nicht verlängerbar.</fix>
