@@ -2,10 +2,13 @@
 
 
 <library>
-  <longName value="Universitätsbibliothek Chemnitz (alter Katalog)"/>
+  <longName value="Universitätsbibliothek Chemnitz (neuer Katalog)"/>
 
-  <template value="libero5"/>
-  <variable name="baseurl" value="https://opac.bibliothek.tu-chemnitz.de/libero/"/>
+<!--  <template value="libero5"/>
+  <variable name="baseurl" value="https://opac.bibliothek.tu-chemnitz.de/libero/"/>-->
+  <template value="vufind"/>
+  <variable name="baseurl" value="https://katalog.bibliothek.tu-chemnitz.de"/>
+
 
   <homepage value="http://www.bibliothek.tu-chemnitz.de/"/>
   <testing-search value="yes"/>

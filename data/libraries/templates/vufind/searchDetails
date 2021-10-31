@@ -2,7 +2,7 @@
 
 {  if (get("singleMode", false())) then $book := {"_recordId": get("singleModeRecordId","")} else (),
 
-.//div[@resource]//table[@summary]//tr/vl:set-book-property(th, td),
+.//div[@resource]//table[@summary or contains-token(@class, "table-resp-data")]//tr/vl:set-book-property(th, td),
 
   css("div#record div.row.result")/*[.//label]/vl:set-book-property(.//label, normalize-space(join(following-sibling::*))),
   
