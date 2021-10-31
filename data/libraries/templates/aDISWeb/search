@@ -92,6 +92,7 @@
 
   <h1>Ihre Suche erzielte keinen Treffer<t:s>search-result-count :=  0</t:s></h1>
   <h1>Ihre Suche im Verbund erzielte keinen Treffer<t:s>search-result-count :=  0</t:s></h1>  
+  <span class="alert">Ihre Suche erzielte keinen Treffer<t:s>search-result-count :=  0</t:s></span>  
   
   <h1>Die Person wurde nicht gefunden<t:s>search-result-count :=  0</t:s></h1>  
 
@@ -123,7 +124,6 @@
     </div>
   </body>
   
-  <span class="alert">Ihre Suche erzielte keinen Treffer<t:s>search-result-count :=  0</t:s></span>
   <span class="alert">{vl:raise(.)}</span>
   
   <h1>Wir haben seit einiger Zeit<t:s>vl:raise-timeout(.)</t:s></h1>

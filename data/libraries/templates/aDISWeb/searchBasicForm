@@ -53,7 +53,6 @@
 
     <h1>Wir haben seit einiger Zeit<t:s>vl:raise-timeout(.)</t:s></h1>
     <h1>Ihre Sitzung wurde beendet<t:s>vl:raise-timeout(.)</t:s></h1>     
-
   </t:switch>
 
 </html>

@@ -290,7 +290,9 @@
 
   <page test="exists($gotDetails_GoBackPage)" url="{$gotDetails_GoBackPage}" templateFile="search"/>
   
-  <pattern href="searchBasicForm"/>
+  <if test="not($search-result-count = 0)">
+    <pattern href="searchBasicForm"/>
+  </if>
 </action>
 
 <action id="search-next-page">
