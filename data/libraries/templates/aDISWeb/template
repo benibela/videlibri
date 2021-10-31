@@ -409,9 +409,10 @@
     }
     </variable>  
     
-    <s>oldmessage:=()</s>
+    <s>oldmessage:=(), final-form := ()</s>
     <page url="{$form}" templateFile="orderConfirmed"/>
     <page url="{$form}" templateFile="orderConfirmed"/>
+    <if test="empty($final-form)"><pattern><vormerkungs-formular/></pattern></if>
     <page url="{$final-form}"/>
 
     <pattern href="goBackToSearchList"/>
