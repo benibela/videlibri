@@ -4,7 +4,9 @@
       <a>
        <template:meta default-text-matching="regex"/>
        Benutzerkonto|Konto|Anmeldung
-       <t:s>$loginForm := @href</t:s>
+       <t:s>$loginForm := let $code := extract(@href, "javascript:top\.htmlOnLink\(['""](.*)['""]\)", 1)
+                          return if ($code) then form(ancestor::form[1], "selected=ZTEXT       "||$code)
+                          else @href</t:s>
       </a>
       <li>
        <button type="button" name="$ScriptButton">Konto</button>
