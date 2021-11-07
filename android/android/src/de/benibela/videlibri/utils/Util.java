@@ -66,20 +66,9 @@ public class Util {
         return res;
     }
 
-
-    static public boolean equalStrings(String s, String t) {
-        return s == null ? t == null : s.equals(t);
-    }
-
     public static boolean isEmptyString(String s) {
         return s == null || "".equals(s);
     }
-
-
-
-
-
-
 
 
 

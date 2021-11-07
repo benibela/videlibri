@@ -30,6 +30,7 @@ fun showToast(@StringRes message: Int) =
         Toast.makeText(currentContext, message, Toast.LENGTH_SHORT).show()
 
 fun getString(@StringRes message: Int): String = Util.tr(message) ?: "??"
+fun getString(@StringRes message: Int,  vararg a: Any?): String = Util.tr(message, *a) ?: "??"
 
 
 
@@ -60,6 +61,6 @@ internal object Clipboard {
         set(toCopy) {
             val clip = ClipData.newPlainText("Book details", toCopy) ?: return
             manager?.setPrimaryClip(clip)
-            showToast(Util.tr(R.string.clipboard_copiedS, toCopy))
+            showToast(currentContext?.getString(R.string.clipboard_copiedS, toCopy).toString())
         }
 }

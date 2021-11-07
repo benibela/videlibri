@@ -18,7 +18,7 @@ internal object BookFormatter {
             lateinit var ordered: String
             lateinit var problematic: String
         }
-        operator fun invoke(@StringRes id: Int): String = Util.tr(id)
+        operator fun invoke(@StringRes id: Int): String = getString(id)
         @JvmStatic fun init(context: Context? = null){
             //if (bookStatus::provided.isInitialized) return
             val c = context ?: VideLibriApp.currentContext()

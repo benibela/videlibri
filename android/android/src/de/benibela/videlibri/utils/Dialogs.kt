@@ -123,7 +123,7 @@ data class DialogInstance (
     var onCreate: DialogFragmentInitEvent? = null
 
     fun message(caption: String) = args.putString("message", caption)
-    fun message(@StringRes caption: Int,  vararg a: Any?) = message(Util.tr(caption, *a))
+    fun message(@StringRes caption: Int,  vararg a: Any?) = message(getString(caption, *a))
 
     fun items(items: List<String>, onItem: ChooseDialogEvent? = null) {
         args.putStringArray("items", items.toTypedArray())

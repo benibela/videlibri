@@ -9,17 +9,17 @@ private fun dateToWeek(pascalDate: Int): Int {
 }
 
 private fun getWeekString(pascalDate: Int): String {
-    if (pascalDate == 0) return Util.tr(R.string.unknown_date)
+    if (pascalDate == 0) return getString(R.string.unknown_date)
 
     val week = dateToWeek(pascalDate)
     if (Bridge.currentPascalDate > 0)
         when (week - dateToWeek(Bridge.currentPascalDate)) {
-            -1 -> return Util.tr(R.string.last_week)
-            0 -> return Util.tr(R.string.this_week)
-            1 -> return Util.tr(R.string.next_week)
+            -1 -> return getString(R.string.last_week)
+            0 -> return getString(R.string.this_week)
+            1 -> return getString(R.string.next_week)
         }
     val delta = pascalDate - 2 - week * 7
-    return String.format(Util.tr(R.string.week_from_to),
+    return String.format(getString(R.string.week_from_to),
             Bridge.pascalDateToDate(pascalDate - delta).formatShort(),
             Bridge.pascalDateToDate(pascalDate - delta + 6).formatShort())
 }
@@ -30,16 +30,16 @@ private fun Bridge.Book?.getExtendedProperty(key: String): String = this?.run{
         "_account" -> account?.prettyName
         "dueDate" -> BookFormatter.formatDate(dueDate)
         "_status" -> when (status) {
-            Bridge.Book.StatusEnum.Unknown, Bridge.Book.StatusEnum.Normal -> Util.tr(R.string.book_status_normal)
-            Bridge.Book.StatusEnum.Problematic -> Util.tr(R.string.book_status_problematic)
-            Bridge.Book.StatusEnum.Ordered -> Util.tr(R.string.book_status_ordered)
-            Bridge.Book.StatusEnum.Provided -> Util.tr(R.string.book_status_provided)
-            else -> Util.tr(R.string.book_status_unknown)
+            Bridge.Book.StatusEnum.Unknown, Bridge.Book.StatusEnum.Normal -> getString(R.string.book_status_normal)
+            Bridge.Book.StatusEnum.Problematic -> getString(R.string.book_status_problematic)
+            Bridge.Book.StatusEnum.Ordered -> getString(R.string.book_status_ordered)
+            Bridge.Book.StatusEnum.Provided -> getString(R.string.book_status_provided)
+            else -> getString(R.string.book_status_unknown)
         }
         "_issueWeek", "issueDate" -> {
             val date = if (issueDate != 0) issueDate else firstExistsDate
             when {
-                date == 0 -> Util.tr(R.string.unknown_date)
+                date == 0 -> getString(R.string.unknown_date)
                 "issueDate" == key -> BookFormatter.formatDate(date)
                 else -> getWeekString(date)
             }
