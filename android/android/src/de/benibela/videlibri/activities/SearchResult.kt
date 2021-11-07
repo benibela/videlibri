@@ -50,7 +50,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
 
     private fun setTitle() {
         when (searcher?.state) {
-            Search.SEARCHER_STATE_SEARCHING -> title = tr(R.string.search_resultcountD, max(bookCache.size, searcher!!.totalResultCount))
+            Search.SEARCHER_STATE_SEARCHING -> title = getString(R.string.search_resultcountD, max(bookCache.size, searcher!!.totalResultCount))
             Search.SEARCHER_STATE_INIT, Search.SEARCHER_STATE_CONNECTED -> setTitle(R.string.search_loading)
             Search.SEARCHER_STATE_FAILED -> setTitle(R.string.search_failed)
             null -> setTitle(R.string.search_lost)
@@ -93,7 +93,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
                     if (matchingAccounts.isEmpty())
                         matchingAccounts = Accounts.toArray.toList()
                     if (matchingAccounts.isEmpty())
-                        showMessage(tr(R.string.search_needaccount_for_wishlist))
+                        showMessage(getString(R.string.search_needaccount_for_wishlist))
                     else
                         showChooseAccountDialog(getString(R.string.search_getaccount_for_wishlist), matchingAccounts) { account ->
                             book.account = account
@@ -273,7 +273,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
     fun orderBookHolding(book: Bridge.Book, choosenHolding: Int) {
         val matchingAccounts = accounts.filter { it.libId == libId && it.isReal }
         if (matchingAccounts.isEmpty()) {
-            showMessage(tr(R.string.search_needaccount))
+            showMessage(getString(R.string.search_needaccount))
             return
         }
         showChooseAccountDialog(getString(R.string.search_orderTargetAccount, book.title), matchingAccounts) { account ->

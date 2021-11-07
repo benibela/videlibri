@@ -314,7 +314,7 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
         try {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(uri)))
         } catch (e: android.content.ActivityNotFoundException) {
-            showMessage(tr(R.string.err_uri_open_failed, uri))
+            showMessage(getString(R.string.err_uri_open_failed, uri))
         }
     }
 

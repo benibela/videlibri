@@ -88,7 +88,7 @@ class AccountInfo : VideLibriBaseActivity() {
                     withActivity<AccountInfo> { deleteAccountNow() }
                 }
             }
-            findViewById<Button>(R.id.completeAccountButton).text = tr(R.string.change)
+            findViewById<Button>(R.id.completeAccountButton).text = getString(R.string.change)
             findViewById<View>(R.id.completeAccountButton).setOnClickListener {
                 if (!checkInputConstraints())
                     return@setOnClickListener
@@ -206,7 +206,7 @@ class AccountInfo : VideLibriBaseActivity() {
             message(if (accountAutoExtend)
                 resources.getQuantityString(R.plurals.warning_autorenewal_onD, accountAutoExtendDays, accountAutoExtendDays)
             else
-                tr(R.string.warning_autorenewal_off))
+                getString(R.string.warning_autorenewal_off))
             negativeButton(R.string.cancel)
             positiveButton(R.string.ok) { callback() }
         }

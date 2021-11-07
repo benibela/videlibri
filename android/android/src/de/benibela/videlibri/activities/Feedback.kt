@@ -64,9 +64,9 @@ class Feedback : VideLibriBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)    //To change body of overridden methods use File | Settings | File Templates.
         setVideLibriView(R.layout.feedback)
-        title = tr(R.string.feedback_feedbacktitle)
+        title = getString(R.string.feedback_feedbacktitle)
         if (!PreferenceManager.getDefaultSharedPreferences(this)[ACRA.PREF_ENABLE_SYSTEM_LOGS, true])
-            findViewById<TextView>(R.id.feedbackACRAHeader).text = tr(R.string.feedback_acraheader)
+            findViewById<TextView>(R.id.feedbackACRAHeader).text = getString(R.string.feedback_acraheader)
 
         intent.getStringExtra("message")?.let {
             findViewById<EditText>(R.id.text).setText(it)
@@ -146,7 +146,7 @@ class Feedback : VideLibriBaseActivity() {
                             }
                         }
                     } else
-                        showMessage("${tr(R.string.feedback_send_failedconnect)}\n$err")
+                        showMessage("${getString(R.string.feedback_send_failedconnect)}\n$err")
                 }
             }).start()
         }
@@ -160,7 +160,7 @@ class Feedback : VideLibriBaseActivity() {
             try {
                 startActivity(emailIntent)
             } catch (e: ActivityNotFoundException) {
-                showMessage(tr(R.string.error_nomailapp))
+                showMessage(getString(R.string.error_nomailapp))
             }
         }
 

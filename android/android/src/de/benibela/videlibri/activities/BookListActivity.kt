@@ -129,13 +129,13 @@ open class BookListActivity: VideLibriBaseActivity(){
                 sendIntent.putExtra(Intent.EXTRA_TEXT,
                         (if (listVisible()) list.exportShare(false) + "\n\n" else "")
                                 + (if (detailsVisible()) details.exportShare(false) + "\n\n" else "")
-                                + tr(R.string.share_export_footer)
+                                + getString(R.string.share_export_footer)
                 )
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
                     sendIntent.putExtra(Intent.EXTRA_HTML_TEXT,
                             ((if (listVisible()) list.exportShare(true) + "<br>\n<br>\n" else "")
                                     + (if (detailsVisible()) details.exportShare(true) + "<br>\n<br>\n" else "")
-                                    + tr(R.string.share_export_footer))
+                                    + getString(R.string.share_export_footer))
                     )
                 sendIntent.type = "text/plain"
                 startActivity(Intent.createChooser(sendIntent, getText(R.string.menu_share)))

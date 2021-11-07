@@ -22,14 +22,4 @@ public class VideLibriBaseActivityOld extends AppCompatActivity{
     static final public int LOADING_SEARCH_ORDER_HOLDING = 204;
     static final public int LOADING_SEARCH_MESSAGE = 205;
     static final public int LOADING_INSTALL_LIBRARY = 600;
-
-
-
-
-    public String tr(int id){ return Util.tr(this, id); }
-    public String tr(int id, Object... args){ return Util.tr(this, id, args); }
-
-
-
-
 }

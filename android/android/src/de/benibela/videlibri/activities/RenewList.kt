@@ -17,7 +17,7 @@ class RenewList : BookListActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        title = tr(R.string.renew_title_start)
+        title = getString(R.string.renew_title_start)
         selectedBooks = mutableSetOf()
         updateViewFilters()
 
@@ -26,7 +26,7 @@ class RenewList : BookListActivity() {
         button.apply {
             visibility = View.VISIBLE
             isEnabled = false
-            text = tr(R.string.booklist_noselection)
+            text = getString(R.string.booklist_noselection)
             setOnClickListener {
                 VideLibriApp.renewBooks(selectedBooks?.toTypedArray()
                         ?: return@setOnClickListener)
@@ -72,13 +72,13 @@ class RenewList : BookListActivity() {
 
     private fun updateRenewButton() {
         if (selectedBooks?.size == 0) {
-            title = tr(R.string.renew_title_select)
+            title = getString(R.string.renew_title_select)
             button.isEnabled = false
-            button.text = tr(R.string.renew_noselection)
+            button.text = getString(R.string.renew_noselection)
         } else {
-            title = tr(R.string.renew_title_selectionDD, selectedBooks?.size, trueCount)
+            title = getString(R.string.renew_title_selectionDD, selectedBooks?.size, trueCount)
             button.isEnabled = true
-            button.text = tr(R.string.renew_renewD, selectedBooks?.size)
+            button.text = getString(R.string.renew_renewD, selectedBooks?.size)
         }
     }
 }

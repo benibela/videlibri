@@ -120,7 +120,7 @@ class DebugLogViewer : VideLibriBaseActivity(), AdapterView.OnItemSelectedListen
             log.appendNewEntry("ERROR", "You need at least Android 4.1 to view the debug log on a non-rooted device.")
 
         if (!Bridge.VLGetOptions().logging)
-            log.appendNewEntry("", tr(R.string.debuglog_disabled))
+            log.appendNewEntry("", getString(R.string.debuglog_disabled))
 
 
         val details = log.toArrayList()

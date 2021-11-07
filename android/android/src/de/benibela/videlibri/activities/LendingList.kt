@@ -183,12 +183,12 @@ class LendingList: BookListActivity(){
         var title: String =
             if (displayHistoryActually) {
                 if (bookCountPrimary == bookCount)
-                    tr(R.string.main_bookcounthistoryDD, bookCountPrimaryNoHistory, bookCountPrimary)
+                    getString(R.string.main_bookcounthistoryDD, bookCountPrimaryNoHistory, bookCountPrimary)
                 else
-                    tr(R.string.main_bookcounthistoryDDD, bookCount, bookCountPrimaryNoHistory, bookCountPrimary)
+                    getString(R.string.main_bookcounthistoryDDD, bookCount, bookCountPrimaryNoHistory, bookCountPrimary)
             } else {
                 if (bookCountPrimary != bookCount)
-                    tr(R.string.main_bookcountDD, bookCount, bookCountPrimary)
+                    getString(R.string.main_bookcountDD, bookCount, bookCountPrimary)
                 else
                     resources.getQuantityString(R.plurals.main_bookcountPluralD, bookCount, bookCount)
             }
@@ -202,7 +202,7 @@ class LendingList: BookListActivity(){
                         break
                     }
             } else {
-                title += ", " + tr(R.string.main_accountcountDD, shownAccounts, Accounts.size)
+                title += ", " + getString(R.string.main_accountcountDD, shownAccounts, Accounts.size)
             }
         }
         setTitle(title)

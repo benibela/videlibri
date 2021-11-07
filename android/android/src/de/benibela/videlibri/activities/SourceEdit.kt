@@ -32,7 +32,7 @@ class SourceEdit : VideLibriBaseActivity() {
         templateIds = Bridge.VLGetTemplates()
         selection1 = (0 until templateIds.size + 2).map { when (it) {
             0 -> getString(R.string.lay_source_edit_library_list)
-            templateIds.size + 1 -> tr(R.string.source_edit_new_directory)
+            templateIds.size + 1 -> getString(R.string.source_edit_new_directory)
             else -> getString(R.string.lay_source_edit_template, templateIds[it - 1])
         } }
         spinner.setItems(selection1.toTypedArray())
@@ -90,7 +90,7 @@ class SourceEdit : VideLibriBaseActivity() {
                     userFiles?.let { files.addAll(userFiles) }
                 } catch (ignored: IOException) {
                 }
-                files.add(tr(R.string.source_edit_new_file))
+                files.add(getString(R.string.source_edit_new_file))
                 selection2 = files.toTypedArray()
                 baseDir += "/"
             }
@@ -150,7 +150,7 @@ class SourceEdit : VideLibriBaseActivity() {
                                     } else {
                                         val libid = text.replace(".xml", "")
                                         Bridge.VLSetLibraryDetails(libid, Bridge.LibraryDetails().apply {
-                                            prettyName = tr(R.string.source_edit_new_library_default_name)
+                                            prettyName = getString(R.string.source_edit_new_library_default_name)
                                             templateId = "sru"
                                         })
                                         makeLibraryIds()
@@ -186,7 +186,7 @@ class SourceEdit : VideLibriBaseActivity() {
                 }
 
             } catch (e: IOException) {
-                showMessage(tr(R.string.source_edit_filewritefailed, e.localizedMessage))
+                showMessage(getString(R.string.source_edit_filewritefailed, e.localizedMessage))
             }
             showFileName(true)
         }
@@ -263,7 +263,7 @@ class SourceEdit : VideLibriBaseActivity() {
     }
 
     private fun showFileName(userDefined: Boolean) {
-        findViewById<TextView>(R.id.filename).text = tr(R.string.source_edit_filename, fileName) + if (userDefined) "\n" + tr(R.string.source_edit_userdefined) else ""
+        findViewById<TextView>(R.id.filename).text = getString(R.string.source_edit_filename, fileName) + if (userDefined) "\n" + getString(R.string.source_edit_userdefined) else ""
         fileNameShownAsUserdefined = userDefined
     }
 
