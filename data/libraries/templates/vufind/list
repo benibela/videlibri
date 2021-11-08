@@ -21,13 +21,15 @@
         let $value := normalize-space(substring-after($field, $sep))
         let $value := if (ends-with($value, ",")) then substring($value, 1, string-length($value) - 1) else $value
         return if (empty(switch ($name)
+          case "von" return if (empty($book.author)) then $book.author := $value else ()
           case "Signatur" case "Call Number" return $book.id := $value
-          case "due date" case "fällig am" case "Bis" case "until" case "Ablaufdatum" return 
+          case "due date" case "fällig am" case "Bis" case "until" case "Ablaufdatum" case "Fälligkeit am" return 
             if (matches($value, "[0-9][-0-9.]{7,10}")) then $book.duedate := parse-date($value) else ()
-          case "Erstellt" case "Created" return 
+          case "Erstellt" case "Created" case "Ausleihdatum" return 
             if (matches($value, "[0-9][-0-9.]{7,10}")) then $book.issuedate := parse-date($value) else ()
           case "Zweigstelle" case "Borrowing Location" case "Pickup library" return $book.libraryBranch := $value
-          case "Strichcode" case "Buchungsnummer" case "barcode" return $book.barcode := $value
+          case "Regalstandort" return $book.libraryLocation := $value
+          case "Strichcode" case "Buchungsnummer" case "barcode" case "Barcode" return $book.barcode := $value
           case "Medientyp" case "Media type" return $book.id := $value
           case "Status" case "Vormerkstatus" return (
             if ($inOrderings) then $book.statusId := "ordered" else (), 
