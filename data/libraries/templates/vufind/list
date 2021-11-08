@@ -1,6 +1,6 @@
 <t:switch prioritized="true">
   <div role="main">
-    { $inOrderings := contains(@class, "template-name-holds") (:template-name-checkedout:)} 
+    { $inOrderings := get("inOrderings", false()) or contains(@class, "template-name-holds") (:template-name-checkedout:)} 
  
     <div t:condition="starts-with(@id, 'record')"> 
        <t:s>

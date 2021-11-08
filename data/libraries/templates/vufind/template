@@ -30,8 +30,9 @@
 
 <action id="update-all">
   <call action="internal-login"/>
-  <s>vl:delete-current-books()</s>
+  <s>vl:delete-current-books(), inOrderings := false()</s>
   <page url="{$accounturl}/CheckedOut" templateFile="list"/>
+  <s>inOrderings := true()</s>
   <page url="{$accounturl}/Holds" templateFile="list"/>
 </action>
 
