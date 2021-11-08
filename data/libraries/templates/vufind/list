@@ -2,7 +2,7 @@
   <div role="main">
     { $inOrderings := get("inOrderings", false()) or contains(@class, "template-name-holds") (:template-name-checkedout:)} 
  
-    <div t:condition="starts-with(@id, 'record')"> 
+    <t:element t:condition="(self::div or self::li) and starts-with(@id, 'record')"> 
        <t:s>
        ((ancestor-or-self::div[contains-token(@class, "row")])[last()],.)[1]/(
        let $checkbox := .//input[@type="checkbox" and not(@disabled)] return
@@ -50,7 +50,7 @@
         if (empty($book.title[.])) then $book.title := join(.//br[1]/(preceding-sibling::strong,preceding-sibling::text())) else ()
       )
       </t:s>
-    </div>+
+    </t:element>+
   </div>
   
   <div role="main" t:condition="empty(.//input[contains(@id, 'IDS')])">
