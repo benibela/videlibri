@@ -11,7 +11,7 @@
                                   else if ($checkbox) then "curious" 
                                   else "critical",
                       if ($inOrderings) then "_cancelID" else "_renewID": $checkbox/@value,
-                      "title": (.//a[contains(@class, "title")])[1],
+                      "title": (.//a[contains(@class, "title")], .//span[@class = "title"])[1],
                       "author": (.//a[contains(@href, 'type=Author') or contains(@href, '/Author/')])[1]
                      },
         (.//strong, .//label) ! (
@@ -22,19 +22,20 @@
         let $value := if (ends-with($value, ",")) then substring($value, 1, string-length($value) - 1) else $value
         return if (empty(switch ($name)
           case "Signatur" case "Call Number" return $book.id := $value
-          case "due date" case "fällig am" case "Bis" case "until" return 
+          case "due date" case "fällig am" case "Bis" case "until" case "Ablaufdatum" return 
             if (matches($value, "[0-9][-0-9.]{7,10}")) then $book.duedate := parse-date($value) else ()
           case "Erstellt" case "Created" return 
             if (matches($value, "[0-9][-0-9.]{7,10}")) then $book.issuedate := parse-date($value) else ()
           case "Zweigstelle" case "Borrowing Location" case "Pickup library" return $book.libraryBranch := $value
-          case "Buchungsnummer" case "barcode" return $book.barcode := $value
+          case "Strichcode" case "Buchungsnummer" case "barcode" return $book.barcode := $value
           case "Medientyp" case "Media type" return $book.id := $value
           case "Status" case "Vormerkstatus" return (
             if ($inOrderings) then $book.statusId := "ordered" else (), 
             extract(join((following-sibling::text(), ..)), "[0-9][-0-9.]{7,10}")[.] ! ( $book.duedate := parse-date(.) ),
             $book.status := $value
           )
-          case "Abholort" case "Pickup Location" return $book.libraryBranch := $value
+          case "Erscheinungsjahr" return $book.year := $value
+          case "Ausleihstelle" case "Abholort" case "Pickup Location" return $book.libraryBranch := $value
           default return ())
         ) then
           if (empty($book.title)) then (
