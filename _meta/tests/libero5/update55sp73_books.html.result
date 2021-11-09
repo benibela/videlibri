@@ -1,5 +1,6 @@
 book := {}
 bookTableBroken := false()
+wrong-update-page := false()
 new-update-page := text{"https://webopac.stadtbibliothek-aachen.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=MEMSTAT&amp;RSN=0&amp;DATA=LAC&amp;TOKEN=YV2ngk2Wnx3761&amp;Z=1&amp;NewBreadCrumb=1&amp;xin=05886694&amp;CHK=6076"}
 delete-current-books() := ()
 hasShelfMark := false()

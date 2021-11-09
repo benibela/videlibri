@@ -1,5 +1,6 @@
 book := {}
 bookTableBroken := false()
+wrong-update-page := false()
 new-update-page := text{"https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=MEMSTAT&amp;RSN=&amp;DATA=VER&amp;TOKEN=dncpYFWPX01849&amp;Z=1&amp;NewBreadCrumb=1&amp;xin=0165525&amp;CHK=4327"}
 delete-current-books() := ()
 hasShelfMark := false()

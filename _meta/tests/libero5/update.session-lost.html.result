@@ -1,3 +1,4 @@
 book := {}
 bookTableBroken := false()
+wrong-update-page := false()
 session-lost := true()

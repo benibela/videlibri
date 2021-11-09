@@ -1,5 +1,6 @@
 book := {}
 bookTableBroken := false()
+wrong-update-page := false()
 new-update-page := text{"http://193.30.112.94/libero/WebOpac.cls?VERSION=2&amp;ACTION=MEMSTAT&amp;RSN=0&amp;DATA=DUE&amp;TOKEN=fBYlzXq4Gw425&amp;Z=1&amp;NewBreadCrumb=1&amp;xin=9000491&amp;CHK=1145"}
 delete-current-books() := ()
 hasShelfMark := false()
