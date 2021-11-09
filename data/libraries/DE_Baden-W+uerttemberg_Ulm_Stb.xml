@@ -3,7 +3,7 @@
   <longName value="Stadtbibliothek Ulm"/>
   
   <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://opac.ulm.de/webopac/"/>	
+  <variable name="baseurl" value="https://opac.ulm.de/"/>	
   <variable name="DB" value="w_biblio"/>	
   
 
