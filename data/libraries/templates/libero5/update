@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html>
-<t:s>$bookTableBroken:=false()</t:s>
+<t:s>$bookTableBroken:=false(), $wrong-update-page := get("wrong-update-page", false())</t:s>
 <t:switch-prioritized>
 <body>
  <a t:condition="contains(@href, 'MEMSTAT')">{$new-update-page := @href}</a>?
@@ -102,6 +102,8 @@
 </form>
 
 <head><title>Log out redirect</title>{$session-lost := true}</head>
+
+<a t:condition="not($wrong-update-page) and contains(@href, 'MEMSTAT')">{$update-page := @href, $wrong-update-page := true()}</a>
 
 </t:switch-prioritized>
 
