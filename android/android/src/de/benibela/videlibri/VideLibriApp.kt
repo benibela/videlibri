@@ -281,8 +281,8 @@ class VideLibriApp : Application() {
 
             Bridge.userPath = context.filesDir.absolutePath
 
-            Bridge.allThreadsDoneHandler = @SuppressLint("HandlerLeak")
-            object : Handler() {
+            Bridge.allThreadsDoneHandler =
+            object : Handler(Looper.getMainLooper()) {
                 override fun handleMessage(msg: Message) {
                     mainIconCache = 0
                     accounts.allUpdatesComplete()
@@ -310,8 +310,8 @@ class VideLibriApp : Application() {
 
             LibraryUpdateLoader.registerInstallationDoneHandler()
 
-            Bridge.searchEventHandler = @SuppressLint("HandlerLeak")
-            object : Handler() {
+            Bridge.searchEventHandler =
+            object : Handler(Looper.getMainLooper()) {
                 override fun handleMessage(msg: Message) {
                     val event = msg.obj as Bridge.SearchEvent
                     if (currentActivity<SearchEventHandler>()?.onSearchEvent(event) == true)

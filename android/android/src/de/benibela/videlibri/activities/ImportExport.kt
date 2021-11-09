@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -24,7 +23,6 @@ import android.widget.ListView
 import android.widget.ScrollView
 import androidx.annotation.StringRes
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import de.benibela.videlibri.Accounts
 import de.benibela.videlibri.R
 import de.benibela.videlibri.accounts
@@ -320,7 +318,7 @@ class Import : ImportExportBase() {
 
     }
 
-    private fun importNow(v: View){
+    private fun importNow(@Suppress("UNUSED_PARAMETER") v: View){
         val accountListView = binding.listView
         val data = data ?: return
         try {

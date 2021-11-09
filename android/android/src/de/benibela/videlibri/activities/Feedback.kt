@@ -131,7 +131,7 @@ class Feedback : VideLibriBaseActivity() {
                         if (Bridge.VLSendFeedback(postData.toTypedArray()))
                             ok += 1
                     } catch (e: Exception) {
-                        err = e.localizedMessage
+                        err = e.localizedMessage ?: e.message ?: "error"
                     }
 
                     System.gc()

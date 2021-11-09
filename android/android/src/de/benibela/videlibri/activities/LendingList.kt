@@ -7,10 +7,7 @@ import android.app.Dialog
 import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
-import android.os.Build
-import android.os.Bundle
-import android.os.Handler
-import android.os.Parcelable
+import android.os.*
 import android.preference.PreferenceManager
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -99,7 +96,7 @@ class LendingList: BookListActivity(){
         super.onPostResume()
 
         if (Accounts.isEmpty())
-            Handler().postDelayed({
+            Handler(Looper.getMainLooper()).postDelayed({
                 if (VideLibriApp.currentActivity is LendingList) //do not open the list, if the user navigated away
                     startActivity<AccountInfo>("mode" to AccountInfo.MODE_ACCOUNT_CREATION_INITIAL)
             }, 200) //without delay it has crashed on old android (android 3 or something) in onresume

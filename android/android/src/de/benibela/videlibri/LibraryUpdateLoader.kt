@@ -1,7 +1,7 @@
 package de.benibela.videlibri
 
-import android.annotation.SuppressLint
 import android.os.Handler
+import android.os.Looper
 import android.os.Message
 import de.benibela.videlibri.activities.LibraryList
 import de.benibela.videlibri.activities.Options
@@ -25,8 +25,8 @@ object LibraryUpdateLoader{
     }
 
     fun registerInstallationDoneHandler() {
-        Bridge.installationDoneHandler = @SuppressLint("HandlerLeak")
-        object : Handler() {
+        Bridge.installationDoneHandler =
+        object : Handler(Looper.getMainLooper()) {
             override fun handleMessage(msg: Message) {
                 currentActivity<VideLibriBaseActivity>()?.endLoading(VideLibriBaseActivityOld.LOADING_INSTALL_LIBRARY)
                 val status = msg.what
