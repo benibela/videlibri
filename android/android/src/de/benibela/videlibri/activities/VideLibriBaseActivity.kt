@@ -51,8 +51,8 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
         super.attachBaseContext(newBase)
     }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
-        super.onRestoreInstanceState(savedInstanceState ?: return)
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
         this.savedInstanceState = null
     }
 
@@ -174,11 +174,10 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
         mDrawerToggle?.onConfigurationChanged(newConfig)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean = item?.let {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean =
         (mDrawerToggle?.onOptionsItemSelected(item) ?: false) ||
                 onOptionsItemIdSelected(item.itemId) ||
                 super.onOptionsItemSelected(item)
-    } ?: false
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

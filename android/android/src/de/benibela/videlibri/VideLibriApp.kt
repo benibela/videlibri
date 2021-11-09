@@ -60,9 +60,9 @@ class VideLibriApp : Application() {
 
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration?) {
-        super.onConfigurationChanged(newConfig ?: return)
-        staticApplicationContext ?.let { checkLanguageOverride(it) }
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        staticApplicationContext ?.let(::checkLanguageOverride)
     }
 
     companion object {
