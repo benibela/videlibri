@@ -20,7 +20,7 @@ public class UserKeyStore {
     static private ArrayList<byte[]> certificates; //can't use a set, since equals/hashCode are not defined properly for arrays
 
     static public synchronized void setFromSerialization(String certs){
-        if (Util.isEmptyString(certs)) {
+        if (certs == null || "".equals(certs)) {
             certificates = null;
             return;
         }

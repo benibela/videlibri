@@ -66,10 +66,5 @@ public class Util {
         return res;
     }
 
-    public static boolean isEmptyString(String s) {
-        return s == null || "".equals(s);
-    }
-
-
 
 }
