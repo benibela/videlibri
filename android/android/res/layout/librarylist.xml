@@ -19,5 +19,5 @@
             android:layout_height="wrap_content"
             android:text="@string/lay_chooselib_whynot"
             android:id="@+id/textViewLibWhyNot" android:layout_gravity="center_vertical|left" android:padding="5sp"
-            android:clickable="true" android:layout_weight="0"/>
+            android:clickable="true" android:focusable="true" android:layout_weight="0"/>
 </LinearLayout>

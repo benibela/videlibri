@@ -12,7 +12,7 @@ import kotlin.math.max
 
 class SearchResult : BookListActivity(), SearchEventHandler {
 
-    internal var searcher: Bridge.SearcherAccess? = null
+    private var searcher: Bridge.SearcherAccess? = null
     internal var libId = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -171,7 +171,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
         return true
     }
 
-    fun onSearchFirstPageComplete(books: Array<Bridge.Book>) {
+    private fun onSearchFirstPageComplete(books: Array<Bridge.Book>) {
         searcher?.let { searcher ->
             searcher.bookCache.clear()
             searcher.bookCache.addAll(books)
@@ -182,7 +182,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
         setTitle()
     }
 
-    fun onSearchNextPageComplete(books: Array<Bridge.Book>) {
+    private fun onSearchNextPageComplete(books: Array<Bridge.Book>) {
         searcher?.let { searcher ->
             searcher.nextPageSearchPending = false
             searcher.bookCache.addAll(books)
@@ -193,7 +193,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
     }
 
 
-    fun onSearchDetailsComplete(book: Bridge.Book) {
+    private fun onSearchDetailsComplete(book: Bridge.Book) {
         searcher?.let { searcher ->
             val oldWaitingForDetails = searcher.waitingForDetails
             searcher.waitingForDetails = -1 //search has ended
@@ -222,7 +222,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
     }
 
 
-    fun onOrderComplete(book: Bridge.Book) {
+    private fun onOrderComplete(book: Bridge.Book) {
         showMessage(getString(R.string.search_orderedokS, book.title, book.getProperty("status")))
         LendingList.refreshDisplayedLendBooks()
         searcher?.let { searcher ->
@@ -295,7 +295,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
         }
     }
 
-    fun onTakePendingMessage(kind: Int, caption: String, options: Array<String>) {
+    private fun onTakePendingMessage(kind: Int, caption: String, options: Array<String>) {
         when (kind) {
             1 -> showDialog {
                 message(caption)

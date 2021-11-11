@@ -166,7 +166,7 @@ open class BookListActivity: VideLibriBaseActivity(){
     }
 
     //shows the detail view
-    fun showDetails(startBookPos: Int) {
+    private fun showDetails(startBookPos: Int) {
         val bookPos = (startBookPos until bookCache.size).find { !bookCache[it].isGroupingHeader } ?: return
         state.currentBookPos = bookPos
         if (port_mode) {

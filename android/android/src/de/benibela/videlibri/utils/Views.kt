@@ -1,5 +1,4 @@
 package de.benibela.videlibri.utils
-import android.app.Activity
 import android.util.SparseBooleanArray
 import android.view.Menu
 import android.view.MenuItem
@@ -8,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Spinner
-
 
 
 fun View.forEachDescendantView(f: (View) -> Unit) {

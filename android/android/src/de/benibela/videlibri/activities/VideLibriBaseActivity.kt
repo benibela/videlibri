@@ -277,22 +277,22 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
         when (id) {
             android.R.id.home -> onBackPressed()
             R.id.search -> VideLibriApp.newSearchActivity()
-            R.id.accounts -> de.benibela.videlibri.utils.startActivity<LendingList>()
-            R.id.options -> de.benibela.videlibri.utils.startActivity<Options>()
+            R.id.accounts -> startActivity<LendingList>()
+            R.id.options -> startActivity<Options>()
             R.id.refresh -> VideLibriApp.updateAccount(null, false, false)
             R.id.renew -> showMessageYesNo(R.string.base_renewallconfirm) {
                 VideLibriApp.updateAccount(null, false, true)
                 withActivity<RenewList> { onBackPressed() }
             }
-            R.id.renewlist -> de.benibela.videlibri.utils.startActivity<RenewList>()
-            R.id.import_ -> de.benibela.videlibri.utils.startActivity<Import>()
-            R.id.export -> de.benibela.videlibri.utils.startActivity<Export>()
+            R.id.renewlist -> startActivity<RenewList>()
+            R.id.import_ -> startActivity<Import>()
+            R.id.export -> startActivity<Export>()
             R.id.libinfo -> startActivityForResult<LibraryList>(REQUESTED_LIBRARY_CATALOGUE,"reason" to getString(R.string.base_chooselibhomepage), "search" to true)
             R.id.libcatalogue -> startActivityForResult<LibraryList>(REQUESTED_LIBRARY_CATALOGUE,"reason" to getString(R.string.base_chooselibcat), "search" to true)
             R.id.newlib -> startActivityForResult<NewLibrary>(RETURNED_FROM_NEW_LIBRARY)
-            R.id.feedback -> de.benibela.videlibri.utils.startActivity<Feedback>()
-            R.id.debuglog -> de.benibela.videlibri.utils.startActivity<DebugLogViewer>()
-            R.id.about -> de.benibela.videlibri.utils.startActivity<About>()
+            R.id.feedback -> startActivity<Feedback>()
+            R.id.debuglog -> startActivity<DebugLogViewer>()
+            R.id.about -> startActivity<About>()
             else -> return false
         }
         return true
@@ -309,7 +309,7 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    fun showUriInBrowser(uri: String) {
+    private fun showUriInBrowser(uri: String) {
         try {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(uri)))
         } catch (e: android.content.ActivityNotFoundException) {

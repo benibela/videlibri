@@ -4,7 +4,7 @@
   
   <template value="sisis"/>  
   <variable name="server" value="https://buecherei.esslingen.de/webOPACClient/"/>
-  <variable name="startparams" value="?Login=opacext&BaseURL=this"/>
+  <variable name="startparams" value="?Login=opacext&amp;BaseURL=this"/>
   
   <homepage value="https://stadtbuecherei.esslingen.de/start"/>
   <testing-search value="yes"/>

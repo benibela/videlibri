@@ -18,10 +18,10 @@ import kotlinx.android.synthetic.main.newlib.*
 data class LibraryVariable(val defaultValue: String, val editText: EditText?)
 
 class NewLibrary : VideLibriBaseActivity() {
-    protected lateinit var binding: NewlibBinding
+    private lateinit var binding: NewlibBinding
 
     var details: LibraryDetails? = null
-    var variables = HashMap<String, LibraryVariable>()
+    private var variables = HashMap<String, LibraryVariable>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = setVideLibriView(NewlibBinding::inflate)
@@ -87,12 +87,12 @@ class NewLibrary : VideLibriBaseActivity() {
         //binding.name.requestFocus() //or use scrollView.requestChildFocus(target, target); ??
     }
 
-    fun getNewId() =
+    private fun getNewId() =
         binding.id.text.toString().let { newId ->
             (newId.countOf('_')..3).map{"-_"}.joinToString("") + newId
         }
 
-    fun addTemplateVariable(linearLayout: LinearLayout, inflater: LayoutInflater, name: String, desc: String?, defaultValue: String?): EditText {
+    private fun addTemplateVariable(linearLayout: LinearLayout, inflater: LayoutInflater, name: String, desc: String?, defaultValue: String?): EditText {
         val value = defaultValue ?: ""
         val option = NewliboptionBinding.inflate(inflater, linearLayout, true)
         option.text.text = desc?.let { "$name ( $desc)" } ?: name

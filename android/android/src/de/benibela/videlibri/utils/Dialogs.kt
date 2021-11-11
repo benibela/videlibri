@@ -204,7 +204,7 @@ class DialogFragmentUtil : DialogFragment(), DialogInterface.OnClickListener, Di
         return builder.create()
     }
 
-    fun onFinished(button: Int){
+    private fun onFinished(button: Int){
         instance?.apply {
             when (button) {
                 DialogInterface.BUTTON_NEGATIVE -> onNegativeButton?.invoke(this@DialogFragmentUtil)

@@ -229,11 +229,13 @@ class AccountInfo : VideLibriBaseActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 setActiveLibrary(LibraryList.lastSelectedLibId) ?: return
                 accountPrettyName.setText(libshortname)
-            } else if (libdetails == null)
+            } else if (libdetails == null) {
                 if (mode == MODE_ACCOUNT_CREATION_INITIAL && accounts.isNullOrEmpty()) {
-                }//    updateLibrary();
-                else
-                    finish()
+                    //    updateLibrary();
+                    return
+                }
+                finish()
+            }
         } else super.onActivityResult(requestCode, resultCode, data)
     }
 
@@ -258,9 +260,9 @@ class AccountInfo : VideLibriBaseActivity() {
 
 
     companion object {
-        @JvmField internal val MODE_ACCOUNT_CREATION = 134390
-        @JvmField internal val MODE_ACCOUNT_CREATION_INITIAL = 134391
-        @JvmField internal val MODE_ACCOUNT_MODIFY = 134392
-        private val REQUEST_LIBRARY_FOR_ACCOUNT_CREATION = 1236
+        internal const val MODE_ACCOUNT_CREATION = 134390
+        internal const val MODE_ACCOUNT_CREATION_INITIAL = 134391
+        internal const val MODE_ACCOUNT_MODIFY = 134392
+        private const val REQUEST_LIBRARY_FOR_ACCOUNT_CREATION = 1236
     }
 }

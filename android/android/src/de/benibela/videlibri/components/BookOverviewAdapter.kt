@@ -24,10 +24,10 @@ private const val VIEW_TYPE_GROUPING = 2
 
 
 internal class BookOverviewAdapter(private val context: BookListActivity, books: ArrayList<Bridge.Book>, count: Int, private val options: BookListDisplayOptions) : ClickableRecyclerView.Adapter<ViewHolderWithBinding<*>>() {
-    private val defaultColor: Int
-    private val defaultColorSecondary: Int
-    private val defaultBackgroundColor: Int
-    private val placeHolder: Bridge.Book
+    private val defaultColor: Int = context.resources.getColor(android.R.color.primary_text_dark)
+    private val defaultColorSecondary: Int = context.resources.getColor(android.R.color.secondary_text_dark)
+    private val defaultBackgroundColor: Int = context.resources.getColor(android.R.color.background_dark)
+    private val placeHolder: Bridge.Book = Bridge.Book()
 
     var books: ArrayList<Bridge.Book> = books
     set(value){
@@ -117,10 +117,6 @@ internal class BookOverviewAdapter(private val context: BookListActivity, books:
 
     init {
         //super(context, R.layout.bookoverview, books);
-        defaultColor = context.resources.getColor(android.R.color.primary_text_dark)
-        defaultColorSecondary = context.resources.getColor(android.R.color.secondary_text_dark)
-        defaultBackgroundColor = context.resources.getColor(android.R.color.background_dark)
-        placeHolder = Bridge.Book()
         placeHolder.author = context.getString(R.string.booklist_loading)
         BookFormatter.tr.init(context)
     }

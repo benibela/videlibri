@@ -7,7 +7,7 @@
   <variable name="baseurl" value="https://www.bib-kreisre.de/"/>
   <variable name="loginParams" value="library_select=OERE"/>
     
-  <homepage value="https://www.oer-erkenschwick.de/inhalte/rathaus_politik/buergerservice_a-z/index.asp?seite=angebot&id=1682"/>
+  <homepage value="https://www.oer-erkenschwick.de/inhalte/rathaus_politik/buergerservice_a-z/index.asp?seite=angebot&amp;id=1682"/>
   <testing-search value="yes"/>  <testing-account value="yes"/>
 </library>
 

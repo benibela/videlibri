@@ -94,7 +94,7 @@ class About : VideLibriBaseActivity() {
             details.add(0, BookDetails.Details(getString(R.string.version), "VideLibri " + (changelog.firstVersion.toIntOrNull()
                     ?: 0) / 1000.0 + " ??"))
         }
-        val vi = Bridge.VLGetVersion();
+        val vi = Bridge.VLGetVersion()
         details.add(1, BookDetails.Details(getString(R.string.internalVersion), vi.version + " " + vi.platform))
         details.add(2, BookDetails.Details(getString(R.string.homepage), "http://www.videlibri.de"))
         details.add(3, BookDetails.Details(getString(R.string.about_manual), "http://www.videlibri.de/help"))

@@ -121,7 +121,7 @@ class LendingList: BookListActivity(){
     }
 
 
-    var primaryBookCache = ArrayList<Bridge.Book>()
+    private var primaryBookCache = ArrayList<Bridge.Book>()
     fun displayAccounts() {
         displayHistoryActually = displayHistory || alwaysFilterOnHistory && filter.actually.isNotEmpty()
         displayOptionsActually = displayOptions.copy()
@@ -139,7 +139,7 @@ class LendingList: BookListActivity(){
     }
 
 
-    fun refreshBookCache() {
+    private fun refreshBookCache() {
         val filterActually = filter.actually
         var xquery = (filterActually.startsWith("xquery version") || filterActually.startsWith("for $") || filterActually.contains("\$book"))
         if (!xquery) {
@@ -231,8 +231,8 @@ class LendingList: BookListActivity(){
         }
     }
 
-    fun escapeXQueryQuotes(s: String) = s.replace("\"", "\"\"")
-    fun setXQueryFilter(query: String){
+    private fun escapeXQueryQuotes(s: String) = s.replace("\"", "\"\"")
+    private fun setXQueryFilter(query: String){
         if (query.contains('\n')) {
             filter.isMultiLine = true
             updateFilterMultiLine()
@@ -240,7 +240,7 @@ class LendingList: BookListActivity(){
         findViewById<EditText>(R.id.searchFilter).setText(query)
         showList()
     }
-    fun setXQuerySearch(query: String){
+    private fun setXQuerySearch(query: String){
         showInputDialog(R.string.xquery_book_tracking_example_regex_dialog) { message ->
             setXQueryFilter(query.replace("%s", message ))
         }
@@ -299,9 +299,9 @@ class LendingList: BookListActivity(){
         return true
     }
 
-    var displayOptionsActually = BookListDisplayOptions()
+    private var displayOptionsActually = BookListDisplayOptions()
 
-    var alwaysFilterOnHistory = true
+    private var alwaysFilterOnHistory = true
     private var displayHistoryActually = false
 
     override fun onBookActionButtonClicked(book: Bridge.Book) {
@@ -325,7 +325,7 @@ class LendingList: BookListActivity(){
         }
     }
 
-    internal var displayForcedCounterActually: Int = 0
+    private var displayForcedCounterActually: Int = 0
 
 
     class ViewOptionsDialog : DialogFragment(), DialogInterface.OnCancelListener {
@@ -466,7 +466,7 @@ class LendingList: BookListActivity(){
         else super.onBackPressed()
     }
 
-    internal fun updateFilterMultiLine() {
+    private fun updateFilterMultiLine() {
         findViewById<EditText>(R.id.searchFilter).apply {
             if (filter.isMultiLine) {
                 setSingleLine(false)

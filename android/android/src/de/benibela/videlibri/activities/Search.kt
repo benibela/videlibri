@@ -126,13 +126,13 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
         }
     }
 
-    internal val REQUEST_CHOOSE_LIBRARY = 1234
+    private val REQUEST_CHOOSE_LIBRARY = 1234
 
 
-    internal var searcher: Bridge.SearcherAccess? = null
+    private var searcher: Bridge.SearcherAccess? = null
 
 
-    fun gcSearchers() {
+    private fun gcSearchers() {
         for (i in searchers.indices.reversed()) {
             //Log.d("VideLibri", " GC Searcher: " + i + "/"+searchers.size()+ ": "+searchers.get(i).nativePtr+" // "+(System.currentTimeMillis() - searchers.get(i).heartBeat));
             if (System.currentTimeMillis() - searchers[i].heartBeat > SEARCHER_HEARTH_BEAT_TIMEOUT || searchers[i].state == SEARCHER_STATE_FAILED) {
@@ -143,7 +143,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
     }
 
 
-    protected fun obtainSearcher() {
+    private fun obtainSearcher() {
         gcSearchers()
         if (searchers.size > 0) {
             val candidate = searchers[searchers.size - 1]
@@ -194,7 +194,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
     }
 
 
-    internal fun changeSearchLib() {
+    private fun changeSearchLib() {
         startActivityForResult<LibraryList>(REQUEST_CHOOSE_LIBRARY,
                 "defaultLibId" to state.libId,
                 "reason" to getString(R.string.search_selectlib),
@@ -321,7 +321,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
 
 
     internal var debugTester: SearchDebugTester? = null
-    fun activateHiddenDebugMode() {
+    private fun activateHiddenDebugMode() {
         showDialog("You have activated the secret debug mode") {
             onDismiss = {
                 showMessageYesNo("Do you want to search ALL libraries? ") {
@@ -353,10 +353,10 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
 
 
 
-internal class SearchDebugTester(var query: Bridge.Book, startId: String) {
-    var libs: Array<String> = Bridge.VLGetLibraryIds()
+internal class SearchDebugTester(private var query: Bridge.Book, startId: String) {
+    private var libs: Array<String> = Bridge.VLGetLibraryIds()
     var pos: Int = 0
-    var searcher: Bridge.SearcherAccess? = null
+    private var searcher: Bridge.SearcherAccess? = null
 
     init {
         pos = 0

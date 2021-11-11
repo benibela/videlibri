@@ -4,7 +4,7 @@
   
   <template value="sisis"/>  
   <variable name="server" value="https://opac.ub.tum.de/TouchPoint/"/>
-  <variable name="startparams" value="?View=tum&Language=de"/>
+  <variable name="startparams" value="?View=tum&amp;Language=de"/>
   
   <homepage value="http://www.ub.tum.de/"/>
   <testing-search value="yes"/>

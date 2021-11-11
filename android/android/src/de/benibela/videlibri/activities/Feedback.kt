@@ -116,13 +116,17 @@ class Feedback : VideLibriBaseActivity() {
                     val postData = mutableListOf(commonData)
                     errCache.getOrNull(i)?.let { e ->
                         postData.add("Error $i: ${e.error} bei ${e.library}\n")
-                        if (details) {
-                            postData.add("errorDetails$i")
-                            postData.add(e.details)
-                        } else if (anonymousDetails) { //including both often causse an out of memory exception
-                            postData.add("errorAnonDetails$i")
-                            postData.add(e.anonymousDetails)
-                        } else 0
+                        when {
+                            details -> {
+                                postData.add("errorDetails$i")
+                                postData.add(e.details)
+                            }
+                            anonymousDetails -> { //including both often causse an out of memory exception
+                                postData.add("errorAnonDetails$i")
+                                postData.add(e.anonymousDetails)
+                            }
+                            else -> 0
+                        }
                     }
                     postData.add("system: ")
                     postData.add(system)

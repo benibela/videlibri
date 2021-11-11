@@ -4,7 +4,6 @@
     <PreferenceCategory android:title="@string/lay_options_caption_displayoptions">
 
         <ListPreference
-            android:defaultValue=""
             android:dialogTitle="@string/lay_options_label_filtering"
             android:entries="@array/filterable_properties_tr"
             android:entryValues="@array/filterable_properties"
@@ -76,7 +75,6 @@
             ></de.benibela.videlibri.components.PreferenceSeekBar>
 
         <ListPreference
-            android:defaultValue=""
             android:dialogTitle="@string/lay_options_label_language"
             android:entries="@array/languages_tr"
             android:entryValues="@array/languages"

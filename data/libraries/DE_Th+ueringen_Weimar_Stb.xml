@@ -4,7 +4,7 @@
   
   <template value="sisis"/>  
   <variable name="server" value="https://katalog.stadtbibliothek-weimar.de/webOPACClient/"/>
-  <variable name="startparams" value="?Login=opextern&BaseURL=this"/>
+  <variable name="startparams" value="?Login=opextern&amp;BaseURL=this"/>
   
   <homepage value="http://www.stadtbibliothek-weimar.de"/>
   <testing-search value="yes"/>  <testing-account value="unknown"/></library>

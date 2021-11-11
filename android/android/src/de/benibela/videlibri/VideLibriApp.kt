@@ -160,7 +160,7 @@ class VideLibriApp : Application() {
                     errors.removeAt(0)
                 System.gc()
             }
-            errors.addAll(Arrays.asList(*exceptions))
+            errors.addAll(listOf(*exceptions))
 
             for (i in exceptions.indices) {
                 val ex = exceptions[i]

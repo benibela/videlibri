@@ -5,7 +5,7 @@
   
   <template value="sisis"/>  
   <variable name="server" value="https://www.katalog.fau.de/TouchPoint"/>
-  <variable name="startparams" value="?View=uer&Language=de&Branch=0"/>
+  <variable name="startparams" value="?View=uer&amp;Language=de&amp;Branch=0"/>
   
   <homepage value="https://ub.fau.de"/>
   

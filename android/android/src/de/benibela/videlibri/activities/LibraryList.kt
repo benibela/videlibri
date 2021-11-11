@@ -214,7 +214,7 @@ class LibraryList: VideLibriBaseActivity() {
 
 
     private fun showHowToAddLibraryDialog(){
-        de.benibela.videlibri.utils.showDialog {
+        showDialog {
             onCreate = onCreate@{ builder ->
                 val activity = activity ?: return@onCreate
                 val inflater = activity.layoutInflater

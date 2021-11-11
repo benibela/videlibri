@@ -34,7 +34,7 @@ fun Date.formatFull() = dateFormatFull?.format(this) ?: this.formatShort()
 operator fun SharedPreferences.get(name: String, def: Boolean) = this.getBoolean(name, def)
 operator fun SharedPreferences.get(name: String, def: String) = this.getString(name, def)!!
 
-
+/*
 fun Bundle.putSparseBooleanArray(key: String, value: SparseBooleanArray) {
     putIntArray(key, IntArray(value.size() * 2) { i ->
         when (i and 1) {
@@ -52,7 +52,7 @@ fun Bundle.getSparseBooleanArray(key: String): SparseBooleanArray? {
         res.put(a[i], a[i + 1] == 1)
     return res
 }
-
+*/
 
 
 

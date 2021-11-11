@@ -55,7 +55,7 @@ fun AssetManager.exists(fileName: String): Boolean {
 
 
 internal object Clipboard {
-    val manager = currentContext?.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
+    private val manager = currentContext?.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
     var text: CharSequence?
         get() = manager?.primaryClip?.getItemAt(0)?.coerceToText(currentContext)
         set(toCopy) {

@@ -44,7 +44,7 @@ class MaxHeightListView : ListView {
         super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE shr 2, MeasureSpec.AT_MOST))
     }
 
-    fun checkAllSet(@Suppress("SameParameterValue") checked: Boolean) {
+    private fun checkAllSet(@Suppress("SameParameterValue") checked: Boolean) {
         choiceMode = AbsListView.CHOICE_MODE_MULTIPLE
         val count = count
         for (i in 0 until count)
@@ -137,7 +137,7 @@ open class ImportExportBase : VideLibriBaseActivity() {
                                             File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "videlibri.xml").absolutePath
                     putExtra(DocumentsContract.EXTRA_INITIAL_URI, initialUri)
                 }
-                putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("text/xml", "application/xml", "*/*"));
+                putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("text/xml", "application/xml", "*/*"))
             }
             addCategory(Intent.CATEGORY_OPENABLE)
             type = "*/*"
@@ -261,7 +261,7 @@ class Import : ImportExportBase() {
 
     }
 
-    fun startChooseImportFileActivity(){
+    private fun startChooseImportFileActivity(){
         startChooseFileNameActivity(forWriting = false)
         state.phase = ImportPhase.OpenedFileChooser
     }
@@ -286,11 +286,11 @@ class Import : ImportExportBase() {
 
     private fun showPreparedImport(filename: String) {
         if (data == null)
-            try {
-                data = Bridge.VLImportAccountsPrepare(filename)
+            data = try {
+                Bridge.VLImportAccountsPrepare(filename)
             } catch (e: Bridge.InternalError){
                 showMessage(getString(R.string.import_file_open_failed) + ":\n" + e.message)
-                data = null
+                null
             }
         val data = data ?: return
 
@@ -387,7 +387,7 @@ class Export : ImportExportBase() {
             it.setItemChecked(flagAdapter.count - 1, false)
         }
 
-        binding.button.setOnClickListener(View.OnClickListener { _ ->
+        binding.button.setOnClickListener(View.OnClickListener {
             if (!hasPermissionWriteExternalFiles()) {
                 ActivityCompat.requestPermissions(this@Export, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
                 return@OnClickListener
@@ -427,7 +427,7 @@ class Export : ImportExportBase() {
     }
 
 
-    fun setButtonText() {
+    private fun setButtonText() {
         binding.button.setText(if (!hasPermissionWriteExternalFiles())
                 R.string.export_need_permission
             else
