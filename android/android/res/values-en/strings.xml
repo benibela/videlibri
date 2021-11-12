@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="crash_toast_text">VideLibri has crashed. Please wait, while it creates a crash report.</string>
     <string name="crash_dialog_text">VideLibri has crashed. You can help  to fix the issue by sending this crash report.</string>
     <string name="crash_dialog_comment_prompt">Your comment, and mail if you want an answer or solution:</string>
@@ -38,7 +38,7 @@
     <string name="book_publisher">Publisher</string>
     <string name="book_order">order</string>
     <string name="book_renew">renew</string>
-    <string name="book_cancel">cancel</string>
+    <string name="book_cancel" tools:ignore="ButtonCase">cancel</string>
     <string name="book_title">Title</string>
     <string name="book_author">Author</string>
     <string name="book_id">ID</string>
@@ -449,4 +449,6 @@
     <string name="menu_xquery_book_tracking_example_title_regex">Title search (regex)</string>
     <string name="menu_xquery_book_tracking_example_primes">Prime numbers</string>
     <string name="xquery_book_tracking_example_regex_dialog">Regex search for:\n(Use | for multiple search terms)</string>
+    <string name="menu_filter">Filter</string>
+    <string name="loading">loading</string>
 </resources>

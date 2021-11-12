@@ -1,8 +1,6 @@
 package de.benibela.videlibri.utils
 
 import android.content.SharedPreferences
-import android.os.Bundle
-import android.util.SparseBooleanArray
 import java.io.InputStream
 import java.text.DateFormat
 import java.util.*

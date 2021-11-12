@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/filter"
-        android:title="Filter"
+        android:title="@string/menu_filter"
         android:icon="@android:drawable/ic_menu_view"
         app:showAsAction="ifRoom" />
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView android:id="@+id/scrollView"
+<ScrollView xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
     android:layout_height="wrap_content"
     android:layout_weight="1"
     android:layout_width="fill_parent"
@@ -36,7 +37,8 @@
             android:layout_weight="1"
             android:layout_width="fill_parent"
             android:minLines="4"
-            android:autofillHints="text" />
+            android:autofillHints="text"
+            android:inputType="textLongMessage|textMultiLine" />
 
         <CheckBox
             android:checked="false"
@@ -80,7 +82,8 @@
             android:layout_width="fill_parent"
             android:minHeight="48dp"
             android:singleLine="true"
-            android:autofillHints="personName" />
+            android:autofillHints="personName"
+            android:inputType="textPersonName"/>
 
         <TextView
             android:id="@+id/textView5"
@@ -97,7 +100,8 @@
             android:layout_width="fill_parent"
             android:minHeight="48dp"
             android:singleLine="true"
-            android:autofillHints="emailAddress" />
+            android:autofillHints="emailAddress"
+            android:inputType="textEmailAddress"/>
 
         <Button
             android:id="@+id/button"
@@ -125,7 +129,8 @@
             android:layout_width="fill_parent"
             android:padding="20sp"
             android:text="benito@benibela.de"
-            android:textColor="#5830ff" />
+            android:textColor="#5830ff"
+            tools:ignore="HardcodedText" />
 
 
         <TextView
@@ -142,7 +147,8 @@
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
             android:padding="20sp"
-            android:text="https://play.google.com/store/apps/details?id=de.benibela.videlibri" />
+            android:text="https://play.google.com/store/apps/details?id=de.benibela.videlibri"
+            tools:ignore="HardcodedText" />
 
 
         <TextView

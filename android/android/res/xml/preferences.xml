@@ -55,8 +55,7 @@
             android:title="@string/lay_options_warningtimedelay"
             app:dynamicSummary="@string/lay_options_warningtimedelay_summary"
             app:safeMin="3"
-            app:unsafeWarning="@string/lay_options_warningtimedelay_too_small"
-            ></de.benibela.videlibri.components.PreferenceSeekBar>
+            app:unsafeWarning="@string/lay_options_warningtimedelay_too_small" />
 
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/lay_options_caption_ownlibs" android:key="ownlibraries">
@@ -71,8 +70,7 @@
             android:title="@string/lay_options_refreshInterval"
             app:dynamicSummary="@string/lay_options_check_summary"
             app:safeMax="5"
-            app:unsafeWarning="@string/lay_options_check_summary_too_large"
-            ></de.benibela.videlibri.components.PreferenceSeekBar>
+            app:unsafeWarning="@string/lay_options_check_summary_too_large" />
 
         <ListPreference
             android:dialogTitle="@string/lay_options_label_language"

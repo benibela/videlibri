@@ -139,6 +139,7 @@ data class DialogInstance (
     }
 
 
+    @Suppress("MemberVisibilityCanBePrivate")
     fun negativeButton(caption: String, onClicked: DialogEvent? = null){
         args.putString("negativeButton", caption)
         onNegativeButton = onClicked
@@ -147,6 +148,7 @@ data class DialogInstance (
             negativeButton(getString(caption), onClicked)
 
 
+    @Suppress("MemberVisibilityCanBePrivate")
     fun neutralButton(caption: String, onClicked: DialogEvent? = null){
         args.putString("neutralButton", caption)
         onNeutralButton = onClicked
@@ -155,6 +157,7 @@ data class DialogInstance (
             neutralButton(getString(caption), onClicked)
 
 
+    @Suppress("MemberVisibilityCanBePrivate")
     fun positiveButton(caption: String, onClicked: DialogEvent? = null){
         args.putString("positiveButton", caption)
         onPositiveButton = onClicked

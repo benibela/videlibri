@@ -76,7 +76,8 @@
                     android:layout_height="wrap_content"
                     android:minHeight="48dp"
                     android:id="@+id/accountPassword" android:password="true" android:singleLine="true"
-                android:autofillHints="password" />
+                android:autofillHints="password"
+                android:inputType="textPassword" />
             <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="fill_parent"
@@ -110,7 +111,9 @@
                         android:text="7"
                         android:minHeight="48dp"
                         android:id="@+id/autoExtendDaysEdit" android:numeric="integer"
-                    android:autofillHints="" />
+                    android:autofillHints=""
+                    tools:ignore="HardcodedText"
+                    android:inputType="number" />
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -151,7 +154,7 @@
                     android:id="@+id/accountPrettyName" android:singleLine="true"
                 android:autofillHints=""
                 android:importantForAutofill="no"
-                />
+                android:inputType="text" />
         </LinearLayout>
     </ScrollView>
     <LinearLayout

@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:text="@string/lay_newlib_edit_newlib"
         android:id="@+id/name" android:singleLine="true" android:selectAllOnFocus="true"
-        android:autofillHints="" />
+        android:autofillHints="" android:inputType="text"/>
     <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/id" android:text="user" android:singleLine="true" android:selectAllOnFocus="true"
-        android:autofillHints="" />
+        android:autofillHints="" android:inputType="text"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

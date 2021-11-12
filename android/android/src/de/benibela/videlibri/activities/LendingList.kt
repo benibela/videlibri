@@ -469,11 +469,11 @@ class LendingList: BookListActivity(){
     private fun updateFilterMultiLine() {
         findViewById<EditText>(R.id.searchFilter).apply {
             if (filter.isMultiLine) {
-                setSingleLine(false)
+                isSingleLine = false
                 maxLines = 10
             } else {
                 maxLines = 1
-                setSingleLine(true)
+                isSingleLine = true
             }
         }
     }

@@ -462,5 +462,7 @@
     <string name="menu_xquery_book_tracking_example_title_regex">Regex-Titel-Suche</string>
     <string name="menu_xquery_book_tracking_example_primes">Primzahlen</string>
     <string name="xquery_book_tracking_example_regex_dialog">Regex Suche nach:\n(Verwende | um mehrere Suchbegriffe aufzulisten)</string>
+    <string name="menu_filter">Filter</string>
+    <string name="loading">Lade</string>
 </resources>
 
