@@ -89,7 +89,7 @@ class NewLibrary : VideLibriBaseActivity() {
 
     private fun getNewId() =
         binding.id.text.toString().let { newId ->
-            (newId.countOf('_')..3).map{"-_"}.joinToString("") + newId
+            (newId.countOf('_') until 3).joinToString("") { "-_" } + newId
         }
 
     private fun addTemplateVariable(linearLayout: LinearLayout, inflater: LayoutInflater, name: String, desc: String?, defaultValue: String?): EditText {
