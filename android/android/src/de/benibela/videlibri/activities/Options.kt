@@ -149,7 +149,7 @@ class Options : VideLibriBaseActivity() {
 
             cpm.beginCat("owncertificates")
             if (UserKeyStore.hasCertificates())
-                for (cert in UserKeyStore.getCertificates()) {
+                for (cert in UserKeyStore.certificates) {
                     cpm.makePreference(UserKeyStore.getFingerprint(cert), getString(R.string.lay_options_btn_newcertificate_delete), Preference.OnPreferenceClickListener {
                         showMessageYesNo(R.string.certificate_delete) {
                             UserKeyStore.removeUserCertificate(cert)
