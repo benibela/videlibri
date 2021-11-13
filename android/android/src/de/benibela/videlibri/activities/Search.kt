@@ -158,9 +158,10 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
             it.state = SEARCHER_STATE_INIT
             it.connect()
             if (it.nativePtr != 0L) {
-                beginLoading(LOADING_SEARCH_CONNECTING)
                 searchers.add(it)
-            }
+            } else
+                it.state = SEARCHER_STATE_FAILED
+            refreshLoadingIcon()
         }
     }
 
@@ -174,8 +175,6 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
                     onSearchEvent(event)
             }
             it.pendingEvents.clear()
-            if (it.state != SEARCHER_STATE_INIT)
-                endLoadingAll(LOADING_SEARCH_CONNECTING)
         }
     }
 
@@ -295,19 +294,19 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
         event.searcherAccess?.let { s ->
             when (event.kind) {
                 Bridge.SearchEventKind.CONNECTED -> {
-                    endLoadingAll(LOADING_SEARCH_CONNECTING)
                     s.heartBeat = System.currentTimeMillis()
                     s.state = SEARCHER_STATE_CONNECTED
                     s.searchParams = event.obj1 as? FormParams
                     updateSearchParamsViews()
+                    refreshLoadingIcon()
                     return true
                 }
                 Bridge.SearchEventKind.EXCEPTION -> {
-                    endLoadingAll(LOADING_SEARCH_CONNECTING)
                     s.state = SEARCHER_STATE_FAILED
                     searcher = null
                     gcSearchers()
                     VideLibriApp.showPendingExceptions()
+                    refreshLoadingIcon()
                     return true
                 }
                 else -> {}
@@ -333,6 +332,13 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
         }
     }
 
+    override val isLoading: Boolean
+        get() = super.isLoading || searcher?.state == SEARCHER_STATE_INIT
+
+    override fun listLoadingTasksStrings(tasks: MutableList<Int>) {
+        super.listLoadingTasksStrings(tasks)
+        if (searcher?.state == SEARCHER_STATE_INIT) tasks += R.string.loading_search_connecting
+    }
 
     companion object {
         internal var searchers = ArrayList<Bridge.SearcherAccess>()
@@ -377,7 +383,7 @@ internal class SearchDebugTester(private var query: Bridge.Book, startId: String
             state.libId = libs[pos]
             state.libName = libs[pos]
             findViewById<TextView>(R.id.library).text = state.libName
-            beginLoading(VideLibriBaseActivityOld.LOADING_SEARCH_SEARCHING)
+            refreshLoadingIcon()
         }
     }
 
@@ -418,8 +424,8 @@ internal class SearchDebugTester(private var query: Bridge.Book, startId: String
     private fun endComplete() {
         searcher = null
         withActivity<Search> {
-            endLoadingAll(VideLibriBaseActivityOld.LOADING_SEARCH_SEARCHING)
             debugTester = null
+            refreshLoadingIcon()
         }
     }
 }

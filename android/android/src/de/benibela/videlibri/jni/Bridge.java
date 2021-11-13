@@ -414,6 +414,7 @@ public class Bridge {
         public long heartBeat;
         public boolean nextPageSearchPending;
         @NotNull public final ArrayList<Bridge.Book> bookCache = new ArrayList<>();
+        public boolean loadingTaskList, loadingTaskDetails, loadingTaskOrder, loadingTaskOrderHolding, loadingTaskMessage;
         //The detail search runs in the background, for a single book.
         //But the user might request other detail searches, before the search is complete.
         //Then wait for the old search to complete, and then start the newest search, unless the user has closed the view

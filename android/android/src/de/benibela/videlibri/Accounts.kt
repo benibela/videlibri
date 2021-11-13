@@ -1,7 +1,9 @@
 package de.benibela.videlibri
 
 import de.benibela.videlibri.activities.LendingList
+import de.benibela.videlibri.activities.VideLibriBaseActivity
 import de.benibela.videlibri.jni.Bridge
+import de.benibela.videlibri.utils.currentActivity
 import java.util.*
 
 object Accounts: Collection<Bridge.Account> {
@@ -78,6 +80,8 @@ object Accounts: Collection<Bridge.Account> {
         runningUpdates.clear()
     }
     fun filterWithRunningUpdate() = runningUpdates
+    val hasRunningUpdates
+        get() = runningUpdates.isNotEmpty()
 
     //private fun filterReal() = this.accounts.filter { it.isReal }
 
@@ -102,8 +106,9 @@ private var runningUpdates = mutableSetOf<Bridge.Account>()
 var Bridge.Account.isUpdating: Boolean
     get() = runningUpdates.contains(this)
     set(value){
-        if (value) runningUpdates.add(this)
-        else runningUpdates.remove(this)
+        val changed = if (value) runningUpdates.add(this)
+                              else runningUpdates.remove(this)
+        if (changed) currentActivity<VideLibriBaseActivity>()?.refreshLoadingIcon()
     }
 
 

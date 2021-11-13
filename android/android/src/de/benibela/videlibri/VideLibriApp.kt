@@ -123,18 +123,15 @@ class VideLibriApp : Application() {
                     }
                 accounts.forEach { updateAccount(it, autoUpdate, forceExtend) }
             } else if (acc.isReal) { //not search only account
-                if (Bridge.VLUpdateAccount(acc, autoUpdate, forceExtend)) {
-                    currentActivity<LendingList>()?.beginLoading(VideLibriBaseActivityOld.LOADING_ACCOUNT_UPDATE)
-                    acc.isUpdating = true
-                }
+                acc.isUpdating = true
+                if (!Bridge.VLUpdateAccount(acc, autoUpdate, forceExtend))
+                    acc.isUpdating = false
             }
         }
 
 
         @JvmStatic fun renewBooks(books: Array<Bridge.Book>) {
             for (book in books) book.account?.isUpdating = true
-            if (accounts.filterWithRunningUpdate().isNotEmpty())
-                currentActivity<LendingList>()?.beginLoading(VideLibriBaseActivityOld.LOADING_ACCOUNT_UPDATE)
             Bridge.VLBookOperation(books, Bridge.BOOK_OPERATION_RENEW)
         }
 
@@ -287,8 +284,7 @@ class VideLibriApp : Application() {
                     mainIconCache = 0
                     accounts.allUpdatesComplete()
                     NotificationScheduling.onUpdateComplete()
-
-                    withActivity<LendingList> { endLoadingAll(VideLibriBaseActivityOld.LOADING_ACCOUNT_UPDATE) }
+                    currentActivity<VideLibriBaseActivity>()?.refreshLoadingIcon()
 
                     LendingList.refreshDisplayedLendBooks()
 

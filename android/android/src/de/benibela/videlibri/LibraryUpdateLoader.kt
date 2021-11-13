@@ -1,5 +1,6 @@
 package de.benibela.videlibri
 
+import android.app.Activity
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
@@ -12,6 +13,7 @@ import de.benibela.videlibri.utils.*
 
 object LibraryUpdateLoader{
     private var lastUrl: String = "https://"
+    var isActive = false
     fun askForUpdate(){
         val context = VideLibriApp.currentContext() ?: return
         showInputDialog(context.getString(R.string.library_update_dialog_url), "Update", lastUrl) {
@@ -19,8 +21,9 @@ object LibraryUpdateLoader{
             lastUrl = url
             if (!lastUrl.contains("://")) lastUrl = "https://$lastUrl"
             Bridge.VLInstallLibrary(lastUrl)
-            currentActivity<VideLibriBaseActivity>()?.beginLoading(VideLibriBaseActivityOld.LOADING_INSTALL_LIBRARY)
             lastUrl = url
+            isActive = true
+            currentActivity<VideLibriBaseActivity>()?.refreshLoadingIcon()
         }
     }
 
@@ -28,7 +31,8 @@ object LibraryUpdateLoader{
         Bridge.installationDoneHandler =
         object : Handler(Looper.getMainLooper()) {
             override fun handleMessage(msg: Message) {
-                currentActivity<VideLibriBaseActivity>()?.endLoading(VideLibriBaseActivityOld.LOADING_INSTALL_LIBRARY)
+                isActive = false
+                currentActivity<VideLibriBaseActivity>()?.refreshLoadingIcon()
                 val status = msg.what
                 if (status == 1) {
                     showDialog {

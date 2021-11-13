@@ -81,8 +81,6 @@ class LendingList: BookListActivity(){
         updateAccountView()
 
         //setTitle("Ausleihen");  //does not work in onCreate (why? makes the title invisible) No. it just works sometimes?
-
-        if (Accounts.filterWithRunningUpdate().isNotEmpty()) beginLoading(LOADING_ACCOUNT_UPDATE)
         if (!cacheShown)
             displayBookCache()
 
@@ -307,18 +305,16 @@ class LendingList: BookListActivity(){
         when (book.status) {
             Bridge.Book.StatusEnum.Normal -> showDialog {
                 message(R.string.renew_single_confirm)
-                negativeButton(R.string.cancel)
+                negativeButton(android.R.string.cancel)
                 positiveButton(R.string.renew) {
                     VideLibriApp.renewBooks(arrayOf(book))
                     withActivity<LendingList> { showList() }
                 }
             }
             Bridge.Book.StatusEnum.Ordered, Bridge.Book.StatusEnum.Provided -> showMessageYesNo(R.string.main_cancelconfirm) {
+                book.account?.isUpdating = true
                 Bridge.VLBookOperation(arrayOf(book), Bridge.BOOK_OPERATION_CANCEL) //cancel
-                withActivity<LendingList> {
-                    beginLoading(LOADING_ACCOUNT_UPDATE)
-                    showList()
-                }
+                withActivity<LendingList> { showList() }
             }
             else -> return
         }

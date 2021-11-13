@@ -12,7 +12,9 @@ import kotlin.math.max
 
 class SearchResult : BookListActivity(), SearchEventHandler {
 
-    private var searcher: Bridge.SearcherAccess? = null
+    var searcher: Bridge.SearcherAccess? = null
+        get
+        private set
     internal var libId = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,17 +33,14 @@ class SearchResult : BookListActivity(), SearchEventHandler {
             when (it.state) {
                 Search.SEARCHER_STATE_INIT -> {
                     //searcher.connect(); //should not happen
-                    beginLoading(LOADING_SEARCH_CONNECTING)
                     it.waitingForDetails = -1
                     it.nextDetailsRequested = -1
                     it.start(book)
-                    beginLoading(LOADING_SEARCH_SEARCHING)
                 }
                 Search.SEARCHER_STATE_CONNECTED -> {
                     it.waitingForDetails = -1
                     it.nextDetailsRequested = -1
                     it.start(book)
-                    beginLoading(LOADING_SEARCH_SEARCHING)
                 }
                 else -> bookCache = it.bookCache
             }
@@ -121,53 +120,50 @@ class SearchResult : BookListActivity(), SearchEventHandler {
                 access.waitingForDetails = -1
                 access.nextDetailsRequested = -1
                 access.start(intent.getSerializableExtra("searchQuery") as Bridge.Book)
-                beginLoading(LOADING_SEARCH_SEARCHING)
-                endLoadingAll(LOADING_SEARCH_CONNECTING)
-                return true
             }
             Bridge.SearchEventKind.FIRST_PAGE //obj1 = Book[] books
             -> {
-                endLoadingAll(LOADING_SEARCH_SEARCHING)
+                access.loadingTaskList = false
                 access.state = Search.SEARCHER_STATE_SEARCHING
                 onSearchFirstPageComplete(event.obj1 as Array<Bridge.Book>)
             }
             Bridge.SearchEventKind.NEXT_PAGE  //obj1 = Book[] books
             -> {
-                endLoadingAll(LOADING_SEARCH_SEARCHING)
+                access.loadingTaskList = false
                 onSearchNextPageComplete(event.obj1 as Array<Bridge.Book>)
             }
             Bridge.SearchEventKind.DETAILS    //obj1 = Book book
             -> onSearchDetailsComplete(event.obj1 as Bridge.Book)
             Bridge.SearchEventKind.ORDER_COMPLETE //obj1 = Book book
             -> {
-                endLoading(LOADING_SEARCH_ORDER)
-                endLoading(LOADING_SEARCH_ORDER_HOLDING)
-                endLoading(LOADING_SEARCH_MESSAGE)
+                access.loadingTaskOrder = false
+                access.loadingTaskOrderHolding = false
+                access.loadingTaskMessage = false
                 onOrderComplete(event.obj1 as Bridge.Book)
             }
             Bridge.SearchEventKind.TAKE_PENDING_MESSAGE //arg1 = int kind, obj1 = String caption, obj2 = String[] options
             -> {
-                endLoading(LOADING_SEARCH_MESSAGE)
+                access.loadingTaskMessage = false
                 onTakePendingMessage(event.arg1, event.obj1 as String, event.obj2 as Array<String>)
             }
             Bridge.SearchEventKind.PENDING_MESSAGE_COMPLETE -> {
                 onOrderFailed()
-                endLoading(LOADING_SEARCH_MESSAGE)
-                endLoading(LOADING_SEARCH_ORDER)
-                endLoading(LOADING_SEARCH_ORDER_HOLDING)
+                access.loadingTaskOrder = false
+                access.loadingTaskOrderHolding = false
+                access.loadingTaskMessage = false
                 details.setOrderButtonsClickable()
             }
             Bridge.SearchEventKind.EXCEPTION -> {
                 onOrderFailed()
-                endLoadingAll(intArrayOf(LOADING_SEARCH_CONNECTING, LOADING_SEARCH_SEARCHING, LOADING_SEARCH_DETAILS, LOADING_SEARCH_ORDER, LOADING_SEARCH_ORDER_HOLDING, LOADING_SEARCH_MESSAGE))
+                access.state = Search.SEARCHER_STATE_FAILED
                 setTitle()
                 //searcher.state = Search.SEARCHER_STATE_FAILED;
                 //searcher = null;
                 //Search.gcSearchers();
                 VideLibriApp.showPendingExceptions()
-                return true
             }
         }
+        refreshLoadingIcon()
         return true
     }
 
@@ -202,7 +198,8 @@ class SearchResult : BookListActivity(), SearchEventHandler {
             if (oldWaitingForDetails in searcher.bookCache.indices)
                 searcher.bookCache[oldWaitingForDetails] = book //still save the search result, so it does not need to be searched again
 
-            endLoading(LOADING_SEARCH_DETAILS)
+            searcher.loadingTaskDetails = false
+            refreshLoadingIcon()
 
             if (detailsVisible()) {
                 val nextDetailsRequested = searcher.nextDetailsRequested
@@ -210,8 +207,9 @@ class SearchResult : BookListActivity(), SearchEventHandler {
                     return
                 if (nextDetailsRequested != oldWaitingForDetails) {
                     searcher.waitingForDetails = nextDetailsRequested
-                    beginLoading(LOADING_SEARCH_DETAILS)
+                    searcher.loadingTaskDetails = true
                     searcher.details(bookCache[nextDetailsRequested])
+                    refreshLoadingIcon()
                     return
                 }
 
@@ -240,7 +238,8 @@ class SearchResult : BookListActivity(), SearchEventHandler {
             if (searcher.nextPageSearchPending) return
             searcher.nextPageAvailable = false
             searcher.nextPageSearchPending = true
-            beginLoading(LOADING_SEARCH_SEARCHING)
+            searcher.loadingTaskList = true
+            refreshLoadingIcon()
             searcher.nextPage()
         }
     }
@@ -259,7 +258,8 @@ class SearchResult : BookListActivity(), SearchEventHandler {
             searcher.nextDetailsRequested = bookpos
             if (searcher.waitingForDetails == -1) {
                 searcher.waitingForDetails = bookpos
-                beginLoading(LOADING_SEARCH_DETAILS)
+                searcher.loadingTaskDetails = true
+                refreshLoadingIcon()
                 searcher.details(bookCache[searcher.waitingForDetails])
             }
         }
@@ -284,13 +284,14 @@ class SearchResult : BookListActivity(), SearchEventHandler {
                 searcher.orderingAccount = book.account //this property is lost on roundtrip, saved it on java side
                 if (choosenHolding < 0) {
                     bookActionButton?.isClickable = false
-                    beginLoading(LOADING_SEARCH_ORDER)
+                    searcher.loadingTaskOrder = true
                     searcher.order(book)
                 } else {
-                    beginLoading(LOADING_SEARCH_ORDER_HOLDING)
+                    searcher.loadingTaskOrderHolding = true
                     details.setOrderButtonsClickable()
                     searcher.order(book, choosenHolding)
                 }
+                refreshLoadingIcon()
             }
         }
     }
@@ -317,6 +318,35 @@ class SearchResult : BookListActivity(), SearchEventHandler {
                 ?: details.book
         if (!book.hasOrderedStatus())
             book.account = null
+    }
+
+
+    override val isLoading: Boolean
+        get() = super.isLoading || ( searcher?.run {
+            when (state){
+                Search.SEARCHER_STATE_INIT -> true
+                Search.SEARCHER_STATE_CONNECTED -> true
+                Search.SEARCHER_STATE_FAILED -> false
+                else -> loadingTaskList || loadingTaskDetails || loadingTaskOrder || loadingTaskOrderHolding || loadingTaskMessage
+            }
+        } ?: false )
+
+    override fun listLoadingTasksStrings(tasks: MutableList<Int>) {
+        super.listLoadingTasksStrings(tasks)
+        searcher?.run {
+            when (state) {
+                Search.SEARCHER_STATE_INIT -> tasks += R.string.loading_search_connecting
+                Search.SEARCHER_STATE_CONNECTED -> tasks += R.string.loading_search_searching
+                Search.SEARCHER_STATE_FAILED -> return
+                else -> {
+                    if (loadingTaskList) tasks += R.string.loading_search_searching
+                    if (loadingTaskDetails) tasks += R.string.loading_search_details
+                    if (loadingTaskOrder) tasks += R.string.loading_search_order
+                    if (loadingTaskOrderHolding) tasks += R.string.loading_search_order_holding
+                    if (loadingTaskMessage) tasks += R.string.loading_search_message
+                }
+            }
+        }
     }
 
     companion object {

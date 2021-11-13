@@ -29,7 +29,6 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
     private var mDrawerLayout: DrawerLayout? = null
     private var mDrawerToggle: ActionBarDrawerToggle? = null
 
-    private val loadingTasks = ArrayList<Int>()
     private var loadingItem: MenuItem? = null
 
     private var savedInstanceState: Bundle? = null
@@ -38,10 +37,6 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
         super.onCreate(savedInstanceState)
         this.savedInstanceState = savedInstanceState
         VideLibriApp.initializeAll(this)
-        if (savedInstanceState != null) {
-            loadingTasks.clear()
-            savedInstanceState.getIntegerArrayList("activeLoadingTasks")?.let { loadingTasks += it }
-        }
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N)
             VideLibriApp.overrideResourcesLocale(this)
     }
@@ -78,7 +73,6 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putIntegerArrayList("activeLoadingTasks", loadingTasks)
         registeredStates.forEach { outState.putParcelable(it.key, it.value()) }
         if (VideLibriApp.currentActivity === this) VideLibriApp.currentActivity = null
     }
@@ -186,7 +180,7 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
         loadingItem = menu.findItem(R.id.loading)?.apply {
             setActionView(R.layout.actionbar_loading)
             actionView?.setOnClickListener { showLoadingInfo() }
-            isVisible = loadingTasks.size > 0
+            isVisible = this@VideLibriBaseActivity.isLoading
         }
         return super.onCreateOptionsMenu(menu)
     }
@@ -221,48 +215,20 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
     }
 
 
+    open val isLoading
+            get() = accounts.hasRunningUpdates || CoverLoader.isActive() || LibraryUpdateLoader.isActive
+    open fun listLoadingTasksStrings(tasks: MutableList<Int>){}
+
     internal fun refreshLoadingIcon(){
-        loadingItem?.isVisible = loadingTasks.size > 0 || CoverLoader.isActive()
-    }
-    fun beginLoading(loadingId: Int) {
-        loadingTasks += loadingId
-        refreshLoadingIcon()
-    }
-
-    fun endLoading(loadingId: Int) {
-        loadingTasks -= loadingId
-        refreshLoadingIcon()
-    }
-
-    fun endLoadingAll(loadingId: Int) {
-        loadingTasks.removeAll{ it == loadingId }
-        refreshLoadingIcon()
-    }
-
-    fun endLoadingAll(loadingId: IntArray) {
-        loadingTasks.removeAll{ loadingId.contains(it) }
-        refreshLoadingIcon()
-    }
-
-    fun isLoading(loadingId: Int): Boolean {
-        return loadingTasks.contains(loadingId)
+        loadingItem?.isVisible = isLoading
     }
 
     private fun showLoadingInfo() {
-        val tasks = loadingTasks.map {
-            when (it) {
-                LOADING_ACCOUNT_UPDATE -> R.string.loading_account_update
-                LOADING_SEARCH_CONNECTING -> R.string.loading_search_connecting
-                LOADING_SEARCH_SEARCHING -> R.string.loading_search_searching
-                LOADING_SEARCH_DETAILS -> R.string.loading_search_details
-                LOADING_SEARCH_ORDER -> R.string.loading_search_order
-                LOADING_SEARCH_ORDER_HOLDING -> R.string.loading_search_order_holding
-                LOADING_SEARCH_MESSAGE -> R.string.loading_search_message
-                LOADING_INSTALL_LIBRARY -> R.string.loading_search_install_library
-                else -> 0
-            }
-        }.filter { it != 0 }.toMutableList()
+        val tasks =  mutableListOf<Int>()
+        if (accounts.hasRunningUpdates) tasks += R.string.loading_account_update
         if (CoverLoader.isActive()) tasks += R.string.loading_cover
+        if (LibraryUpdateLoader.isActive) tasks += R.string.loading_search_install_library
+        listLoadingTasksStrings(tasks)
 
         showMessage(tasks.joinToString("\n") { getString(it) })
     }
