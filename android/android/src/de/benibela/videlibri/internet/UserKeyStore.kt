@@ -3,11 +3,9 @@ package de.benibela.videlibri.internet
 import android.content.SharedPreferences
 import android.util.Base64
 import de.benibela.internettools.X509TrustManagerWrapper.CustomTrustManagerFactory
-import de.benibela.videlibri.utils.internalStartActivityForResult
 import java.security.MessageDigest
 import java.security.cert.CertificateException
 import java.security.cert.X509Certificate
-import java.util.*
 import javax.net.ssl.X509TrustManager
 
 object UserKeyStore {

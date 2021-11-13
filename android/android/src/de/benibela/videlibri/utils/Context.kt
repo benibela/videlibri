@@ -15,7 +15,6 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import de.benibela.videlibri.R
 import de.benibela.videlibri.VideLibriApp
-import de.benibela.videlibri.VideLibriApp.Companion.currentContext
 import java.io.IOException
 import java.util.*
 
