@@ -1,6 +1,7 @@
 package de.benibela.videlibri.activities
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.ActivityManager
 import android.app.AlertDialog
 import android.app.Dialog
@@ -9,20 +10,18 @@ import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.os.*
 import android.preference.PreferenceManager
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import android.text.Editable
 import android.view.*
-import android.widget.Button
 import android.widget.CompoundButton
 import android.widget.EditText
 import android.widget.LinearLayout
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import de.benibela.videlibri.*
+import de.benibela.videlibri.databinding.OptionsLendingsAccountrowBinding
 import de.benibela.videlibri.jni.Bridge
 import de.benibela.videlibri.utils.*
-import de.benibela.videlibri.utils.BookFormatter
-import de.benibela.videlibri.utils.Clipboard
 import kotlinx.android.parcel.Parcelize
 import org.json.JSONArray
 import org.json.JSONException
@@ -335,6 +334,7 @@ class LendingList: BookListActivity(){
             builder.setOnCancelListener(this)
             activity?.let { activity ->
                 val inflater = activity.layoutInflater
+                @SuppressLint("InflateParams")
                 view = inflater.inflate(R.layout.options_lendings, null)
                 Options.showLendingOptionsInView(activity, view)
 
@@ -364,24 +364,23 @@ class LendingList: BookListActivity(){
 
                 for (i in -1 until Accounts.size) {
                     val acc = if (i == -1) null else accounts[i]
-                    val group = inflater.inflate(R.layout.options_lendings_accountrow, null)
-                    val sb: CompoundButton = group.findViewById<CompoundButton>(R.id.switchbox).apply {
+                    val row = OptionsLendingsAccountrowBinding.inflate(inflater, linearLayout, true)
+                    val sb: CompoundButton = row.switchbox.apply {
                         isChecked = if (acc == null) Accounts.filterHidden().size <= Accounts.size / 2 else !acc.isHidden
                         tag = acc
                         isSaveEnabled = false
                         setOnClickListener(accountCheckListener)
                     }
                     if (acc != null) switchboxes.add(sb)
-                    group.findViewById<Button>(R.id.button).apply {
+                    row.button.apply {
                         text = acc?.prettyName ?: getText(R.string.main_allaccounts)
                         tag = acc
                         setOnClickListener(accountClickListener)
                     }
-                    group.findViewById<Button>(R.id.buttonforhistory).apply {
+                    row.buttonforhistory.apply {
                         tag = acc
                         setOnClickListener(accountClickListener)
                     }
-                    linearLayout.addView(group)
                 }
 
                 builder.setView(view)

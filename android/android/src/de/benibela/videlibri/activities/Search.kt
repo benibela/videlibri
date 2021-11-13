@@ -7,18 +7,17 @@ import android.graphics.Point
 import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Parcelable
-import androidx.core.view.ViewCompat
-import androidx.appcompat.app.ActionBar
 import android.text.InputType
 import android.util.Log
-import android.view.Gravity
 import android.view.Menu
 import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
-import de.benibela.videlibri.*
+import androidx.core.view.ViewCompat
+import de.benibela.videlibri.R
+import de.benibela.videlibri.VideLibriApp
 import de.benibela.videlibri.jni.Bridge
 import de.benibela.videlibri.jni.FormInput
 import de.benibela.videlibri.jni.FormParams
@@ -108,9 +107,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
         supportActionBar?.let {
             it.setDisplayShowTitleEnabled(false)
             it.setDisplayShowCustomEnabled(true)
-            it.setCustomView(layoutInflater.inflate(R.layout.searchlayout_bar, null),
-                    ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT, Gravity.CENTER
-            ))
+            it.setCustomView(R.layout.searchlayout_bar)
             it.customView.findViewById<View>(R.id.button).setOnClickListener(searchStartClickListener)
         }
 
