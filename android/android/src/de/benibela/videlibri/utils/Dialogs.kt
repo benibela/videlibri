@@ -10,6 +10,7 @@ import androidx.fragment.app.DialogFragment
 import de.benibela.videlibri.R
 import de.benibela.videlibri.VideLibriApp
 
+const val MessageHandlerCanceled = -123
 
 internal typealias DialogInitEvent = (DialogInstance.() -> Unit)
 internal typealias DialogEvent = (DialogFragmentUtil.() -> Unit)
@@ -213,7 +214,7 @@ class DialogFragmentUtil : DialogFragment(), DialogInterface.OnClickListener, Di
                 DialogInterface.BUTTON_NEGATIVE -> onNegativeButton?.invoke(this@DialogFragmentUtil)
                 DialogInterface.BUTTON_NEUTRAL -> onNeutralButton?.invoke(this@DialogFragmentUtil)
                 DialogInterface.BUTTON_POSITIVE -> onPositiveButton?.invoke(this@DialogFragmentUtil)
-                Util.MessageHandlerCanceled -> onCancel?.invoke(this@DialogFragmentUtil)
+                MessageHandlerCanceled -> onCancel?.invoke(this@DialogFragmentUtil)
             }
             if (button >= 0 && onItem != null) onItem?.invoke(this@DialogFragmentUtil, button)
             onDismiss?.invoke(this@DialogFragmentUtil)
@@ -226,7 +227,7 @@ class DialogFragmentUtil : DialogFragment(), DialogInterface.OnClickListener, Di
     }
 
     override fun onCancel(dialog: DialogInterface) {
-        onFinished(Util.MessageHandlerCanceled)
+        onFinished(MessageHandlerCanceled)
     }
 }
 

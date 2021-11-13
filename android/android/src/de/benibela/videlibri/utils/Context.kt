@@ -7,6 +7,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.AssetManager
+import android.content.res.Resources.NotFoundException
 import android.os.Handler
 import android.os.Looper
 import android.preference.PreferenceManager
@@ -14,7 +15,9 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import de.benibela.videlibri.R
 import de.benibela.videlibri.VideLibriApp
+import de.benibela.videlibri.VideLibriApp.Companion.currentContext
 import java.io.IOException
+import java.util.*
 
 
 @Suppress("NOTHING_TO_INLINE")
@@ -29,8 +32,17 @@ fun showToast(message: CharSequence) =
 fun showToast(@StringRes message: Int) =
         Toast.makeText(currentContext, message, Toast.LENGTH_SHORT).show()
 
-fun getString(@StringRes message: Int): String = Util.tr(message) ?: "??"
-fun getString(@StringRes message: Int,  vararg a: Any?): String = Util.tr(message, *a) ?: "??"
+//fun getString(@StringRes message: Int): String = Util.tr(message) ?: "??"
+fun getString(@StringRes message: Int,  vararg args: Any?): String = currentContext?.let { context -> try {
+        try {
+            context.getString(message, *args)
+        } catch (e: IllegalFormatException) {
+            context.getString(message)
+        }
+    } catch (e: NotFoundException) {
+        "missing translation: $message"
+    }
+} ?: "?tr?$message"
 
 
 

@@ -3,12 +3,6 @@ import android.annotation.SuppressLint;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.TextView;
-
-import de.benibela.videlibri.utils.Util;
-
 
 @SuppressLint("Registered")
 public class VideLibriBaseActivityOld extends AppCompatActivity{
