@@ -89,15 +89,17 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
     }
 
 
-
-
     override fun setContentView(@LayoutRes layoutResID: Int) {
-        setContentView(layoutInflater.inflate(layoutResID, null))
+        super.setContentView(layoutResID)
+        initActionBar()
     }
 
     override fun setContentView(view: View) {
         super.setContentView(view)
-        // initActionBar
+        initActionBar()
+    }
+
+    private fun initActionBar(){
         setSupportActionBar(findViewById(R.id.actionbar))
         mDrawerLayout = findViewById(R.id.drawer_layout)
         supportActionBar?.apply {
@@ -114,18 +116,13 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
     }
 
     fun setVideLibriView(@LayoutRes layoutResID: Int) {
-        val inflater = layoutInflater
-        val layout = inflater.inflate(R.layout.videlibribaselayout, null)
-        inflater.inflate(layoutResID, layout.findViewById(R.id.content_holder), true)
-        setContentView(layout)
+        setContentView(R.layout.videlibribaselayout)
+        layoutInflater.inflate(layoutResID, findViewById(R.id.content_holder), true)
     }
 
     fun <T: ViewBinding> setVideLibriView(viewBindingInflate:  (LayoutInflater, ViewGroup, Boolean) -> T): T = run {
-        val inflater = layoutInflater
-        val layout = inflater.inflate(R.layout.videlibribaselayout, null)
-        val result = viewBindingInflate(inflater, layout.findViewById(R.id.content_holder), true)
-        setContentView(layout)
-        result
+        setContentView(R.layout.videlibribaselayout)
+        viewBindingInflate(layoutInflater, findViewById(R.id.content_holder), true)
     }
 
 
