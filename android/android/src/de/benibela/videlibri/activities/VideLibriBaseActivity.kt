@@ -13,18 +13,19 @@ import android.view.*
 import android.widget.ImageView
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.navigation.NavigationView
 import de.benibela.videlibri.*
 import de.benibela.videlibri.jni.Bridge
-import de.benibela.videlibri.utils.startActivityForResult
-import kotlin.reflect.KMutableProperty0
 import de.benibela.videlibri.utils.*
+import kotlin.reflect.KMutableProperty0
 
 @SuppressLint("Registered")
-open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
+open class VideLibriBaseActivity: AppCompatActivity(){
+
 
     private var mDrawerLayout: DrawerLayout? = null
     private var mDrawerToggle: ActionBarDrawerToggle? = null
@@ -283,6 +284,10 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
     protected fun finishWithResult(){
         setResult(Activity.RESULT_OK, Intent())
         finish()
+    }
+
+    companion object {
+        const val RETURNED_FROM_NEW_LIBRARY = 29326
     }
 
 }

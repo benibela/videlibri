@@ -1,13 +1,11 @@
 package de.benibela.videlibri
 
-import android.app.Activity
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import de.benibela.videlibri.activities.LibraryList
 import de.benibela.videlibri.activities.Options
 import de.benibela.videlibri.activities.VideLibriBaseActivity
-import de.benibela.videlibri.activities.VideLibriBaseActivityOld
 import de.benibela.videlibri.jni.Bridge
 import de.benibela.videlibri.utils.*
 
@@ -39,7 +37,7 @@ object LibraryUpdateLoader{
                         message(R.string.app_libregistered)
                         onDismiss = {
                             currentActivity<Options>()?.finish()
-                            currentActivity<LibraryList>()?.onActivityResult(VideLibriBaseActivityOld.RETURNED_FROM_NEW_LIBRARY, 0, null)
+                            currentActivity<LibraryList>()?.onActivityResult(VideLibriBaseActivity.RETURNED_FROM_NEW_LIBRARY, 0, null)
                         }
                     }
                 } else {
