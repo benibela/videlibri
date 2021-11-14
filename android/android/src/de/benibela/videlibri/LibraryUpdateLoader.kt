@@ -42,8 +42,10 @@ object LibraryUpdateLoader{
                             currentActivity<LibraryList>()?.onActivityResult(VideLibriBaseActivityOld.RETURNED_FROM_NEW_LIBRARY, 0, null)
                         }
                     }
-                } else
+                } else {
                     showMessage(R.string.app_libregisterfailed)
+                    VideLibriApp.showPendingExceptions()
+                }
             }
         }
     }
