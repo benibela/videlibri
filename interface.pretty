@@ -1,0 +1,26 @@
+
+@SerializeJson
+class FormInput {
+  name: String
+  caption: String
+  value: String
+}
+
+@SerializeJson
+class FormSelect: FormInput {
+  optionCaptions: String[]
+  optionValues: String[]
+}
+
+@SerializeJson
+class FormParams: FastInterfacedObject {
+  inputs: FormInput[]
+}
+
+class VersionInfo {
+  version: String
+  platform: String
+}
+
+
+fun VLGetVersion(): VersionInfo
