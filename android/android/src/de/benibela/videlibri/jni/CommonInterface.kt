@@ -1,6 +1,5 @@
-@file:Suppress("EqualsOrHashCode")
-package de.benibela.videlibri.jni
-class PropertyArray(val names: Array<String>, values: Array<String>)
+@file:Suppress("EqualsOrHashCode", "unused")
+package de.benibela.videlibri.jni;
 
   open class FormInput( 
     val name: String,

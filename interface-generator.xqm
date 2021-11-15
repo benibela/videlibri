@@ -341,9 +341,8 @@ declare function ig:kotlin-make-class($s){
   }}")
 };
 declare function ig:kotlin-make($r){
-  x"@file:Suppress(""EqualsOrHashCode"")
+  x"@file:Suppress(""EqualsOrHashCode"", ""unused"")
 package de.benibela.videlibri.jni;
-class PropertyArray(val names: Array<String>, values: Array<String>)
 { $r/api/class/ig:kotlin-make-class(.)} "
 };
 
