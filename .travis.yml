@@ -105,7 +105,7 @@ script:
       cd $basepath/programs/internet/VideLibri && ./_meta/build.deb.sh && lintian *.deb;
     fi
   - cd $basepath/programs/internet/VideLibri/_meta/tests;  ./unittests.sh
-  - lazbuild $LAZ_OPT programs/internet/VideLibri/commoninterfacetests.lpi; programs/internet/VideLibri/commoninterfacetests
+  - lazbuild $LAZ_OPT $basepath/programs/internet/VideLibri/commoninterfacetests.lpi; $basepath/programs/internet/VideLibri/commoninterfacetests
 
 notifications:
   email:
