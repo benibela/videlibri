@@ -2,7 +2,7 @@ xquery version "3.1-xidel";
 module namespace igp="igp";
 
 declare function igp:error($message, $info){
-  error(QName("interface"), join($message, $info))
+  error(QName("interface"), join(($message, $info)))
 };
 declare function igp:error($message){
   igp:error($message, ())
@@ -14,7 +14,10 @@ declare function igp:make-type($type, $attrib){
   else let $type2 :=   
   switch($type)
     case "String" return ["string", ()]
-(:    case "Int" return ["int", ()]:)
+    case "Int" return ["int", ()]
+    case "Long" return ["long", ()]
+    case "Double" return ["double", ()]
+    case "Boolean" return ["boolean", ()]
     case "" return igp:error("empty type")
     default return ["classref", attribute ref {$type}]
   return element {$type2(1)} { $attrib, $type2(2) }
@@ -38,7 +41,9 @@ declare function igp:make-class($c){
   for $a in $annotations return
     switch ($a) 
       case "@SerializeJson" return attribute serialize-json {} 
-      default return error("a", "invalid annotation"),      
+      case "@KotlinVar" return attribute kotlin-var {"var"} 
+      case "@KotlinDataClass" return attribute kotlin-class {"data"} 
+      default return igp:error("invalid annotation", $a),
   for $x in subsequence($c, count($annotations) + 2, count($c) - count($annotations) - 2)!translate(., " ", "") return 
     igp:make-type( substring-after($x, ":"), attribute name { substring-before($x, ":") } )
 }

@@ -1,6 +1,10 @@
 xquery version "3.1-xidel";
 module namespace ig="ig";
 
+declare function ig:error($e){
+  error("interface", $e)
+};
+
 declare function ig:parent($e){
   $e/@extends[. ne "FastInterfacedObject"]
 };
@@ -27,16 +31,38 @@ declare function ig:jni-full-name($c){
       case element(string) return "Ljava/lang/String;" 
       case element(array) return concat("[L", ig:jni-name(*), ";")
       case element(classref) return concat("L", ig:jni-name(.), ";")
+      case element(int) return "I"
+      case element(long) return "J"
+      case element(double) return "D"
+      case element(boolean) return "Z"
       default return ())
 };
 
+
+declare function ig:pascal-make-fields-of-type($s, $type){
+  if (empty($s)) then () 
+  else join($s/@name, ", ") || ": " || $type || ";"
+};
+
+declare function ig:pascal-make-fields($s, $prefix){
+  ig:pascal-make-fields-of-type($s/string, $prefix || "string"),
+  ig:pascal-make-fields-of-type($s/int, $prefix || "int"),
+  ig:pascal-make-fields-of-type($s/long, $prefix || "int64"),
+  ig:pascal-make-fields-of-type($s/double, $prefix || "double"),
+  ig:pascal-make-fields-of-type($s/boolean, $prefix || "boolean"),
+  $s/array/(@name || ig:pascal-make-fields(., "array of ")),
+  $s/classref/ig:pascal-make-fields-of-type(., $prefix||"T"||@ref)
+};
+
+declare function ig:pascal-make-fields($s){
+  ig:pascal-make-fields($s, "")  
+};
 
 declare function ig:pascal-make-class($s){
 $s/(let $virtual := if (ig:parent(.)) then "override;" else "virtual;" return x"
 type T{@id} = class{@extends!concat("(T",.,")")}
   {join(
-    ( if (./string) then join(./string/@name, ", ") || ": string;" else (),
-      ./array/x"{@name}: array of {(classref/@ref!concat("T",.), string!"string")};",
+    (ig:pascal-make-fields(.),
      
       if (@serialize-json and not(ig:parent(.))) then "procedure toJSON(var builder: TJSONXHTMLStrBuilder);
   function toJSON(): string;" else (),
@@ -157,6 +183,9 @@ begin{ig:parent(.)!"
   with builder do begin    
     {join(./*/(typeswitch(.) 
       case element(string) return x"appendJSONObjectKeyColon('{@name}'); appendJSONString(self.{@name});"
+      case element(int) | element(long) return x"appendJSONObjectKeyColon('{@name}'); appendNumber(self.{@name});"
+      case element(double) return ig:error("double not implemented")
+      case element(boolean) return x"appendJSONObjectKeyColon('{@name}'); if self.{@name} then append('true') else append('false');"
       case element(array) return x"appendJSONObjectKeyColon('{@name}'); appendJSONArrayStart();
     if length({@name}) > 0 then begin{
       if (classref) then x"
@@ -229,6 +258,10 @@ begin
   case scanner.CurTokenString of
     {join(*/(typeswitch (.) 
       case element(string) return x"'{@name}': {@name} := scanner.fetchStringObjectPropertyValue;"
+      case element(int) return x"'{@name}': {@name} := StrToIntDef(scanner.fetchStringObjectPropertyValue, 0);"
+      case element(long) return x"'{@name}': {@name} := StrToInt64Def(scanner.fetchStringObjectPropertyValue, 0);"
+      case element(double) return x"'{@name}': {@name} := StrToFloatDef(scanner.fetchStringObjectPropertyValue, 0);"
+      case element(boolean) return x"'{@name}': {@name} := scanner.fetchStringObjectPropertyValue = 'true';"
       case element(array) return x"'{@name}': begin
         scanner.fetchNonWSToken; scanner.expectCurrentToken(tkColon); 
         readArray({@name}, scanner);
@@ -284,8 +317,12 @@ var temp: array[0..{count($allprops) - 1}] of jvalue;
 begin
  {for $p at $i1 in $allprops let $i := $i1 - 1 return 
    typeswitch ($p) 
-     case element(string) return x"   temp[{$i}].l := j.stringToJString(self.{$p/@name});&#x0A;"
-     case element(array) return x"   temp[{$i}].l := arrayToJArray(self.{$p/@name});&#x0A;"
+     case element(string)  return x"   temp[{$i}].l := j.stringToJString(self.{$p/@name});&#x0A;"
+     case element(int)     return x"   temp[{$i}].i := self.{$p/@name};&#x0A;"
+     case element(long)    return x"   temp[{$i}].j := self.{$p/@name};&#x0A;"
+     case element(double)  return x"   temp[{$i}].d := self.{$p/@name};&#x0A;"
+     case element(boolean) return x"   temp[{$i}].z := j.booleanToJboolean(self.{$p/@name});&#x0A;"
+     case element(array)   return x"   temp[{$i}].l := arrayToJArray(self.{$p/@name});&#x0A;"
      default return ()
    }
   with j do begin
@@ -310,30 +347,45 @@ end.
 "
 };
 
+declare function ig:kotlin-make-prop-type($s, $prefix, $suffix){
+  $prefix || 
+  $s/(typeswitch (.) 
+    case element(string) return "String" 
+    case element(int) return "Int" 
+    case element(long) return "Long" 
+    case element(double) return "Double" 
+    case element(boolean) return "Boolean" 
+    case element(classref) return @ref
+    case element(array) return ig:kotlin-make-prop-type(*, "Array<", ">")
+    default return () 
+  ) || $suffix
+};
+
 declare function ig:kotlin-make-prop($s){
   $s/(typeswitch (.) 
-    case element(string) return @name || ": String" 
-    case element(array) return x"{@name}: Array<{(classref/@ref, string!"String")}>" 
+    case element(string)|element(int)|element(long)|element(double)|element(boolean)|element(array)|element(classref) 
+    return x"{@name}: " || ig:kotlin-make-prop-type(., "", "")
     default return () 
   )
 };
 
 declare function ig:kotlin-make-class($s){
   let $a := ig:ancestors($s)
+  let $fieldtype := ($s/@kotlin-var, "val")[1] || " "
   let $aprops := $a/*
   return
   $s/(x"
-  open class {@id}( 
+  {(@kotlin-class, "open")[1]} class {@id}( 
     { join ((
     $aprops!ig:kotlin-make-prop(.),
-    */ig:kotlin-make-prop(.)!concat("val ",.)
+    */ig:kotlin-make-prop(.)!concat($fieldtype,.)
   ), ",&#x0A;    ") 
   }
   ) {ig:parent(.)!x": {.}({join($aprops!@name, ", ")})"}  {{
     override fun equals(other: Any?): Boolean =
        other != null &amp;&amp; {join(("javaClass == other.javaClass", "other is " || @id, (*,$aprops)/(
          typeswitch (.)
-           case element(string) return concat(@name, " == other.", @name)
+           case element(string)|element(int)|element(long)|element(double)|element(boolean)|element(classref) return concat(@name, " == other.", @name)
            case element(array) return concat(@name, ".contentEquals(other.", @name,")")
            default return ()
        )), " &amp;&amp; ")}
