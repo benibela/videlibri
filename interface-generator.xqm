@@ -2,7 +2,11 @@ xquery version "3.1-xidel";
 module namespace ig="ig";
 
 declare function ig:error($e){
-  error("interface", $e)
+  error(QName("interface"), $e)
+};
+
+declare function ig:properties($e){
+  $e/*
 };
 
 declare function ig:parent($e){
@@ -14,6 +18,10 @@ declare function ig:ancestors($e){
   let $parent := $e/root()//class[@id = $parent-id]
   where $parent
   return (ig:ancestors($parent), $parent)
+};
+
+declare function ig:ancestor-and-self-properties($e){
+  ig:properties((ig:ancestors($e),$e))
 };
 
 
@@ -295,7 +303,7 @@ var {$r/api/class/x"
 "}
 
 { distinct-values($r/api//array/classref/@ref)!x"
-function arrayToJArray(const a: T{.}Array): jobject; overload;
+function arrayToJArrayCI(const a: T{.}Array): jobject; overload;
 var
   i: Integer;
 begin
@@ -306,28 +314,29 @@ begin
   end;
 end;
 " }
-function arrayToJArray(const a: array of string): jobject; overload;
+function arrayToJArrayCI(const a: array of string): jobject; overload;
 begin;
   result := j.arrayToJArray(a);
 end;
 
-{ $r/api/class/(let $allprops := (ig:ancestors(.),.)/* return x"
+{ $r/api/class/(let $allprops := ig:ancestor-and-self-properties(.) return x"
 function T{@id}.toJava: jobject;
 var temp: array[0..{count($allprops) - 1}] of jvalue;
 begin
+  with j do begin
  {for $p at $i1 in $allprops let $i := $i1 - 1 return 
    typeswitch ($p) 
-     case element(string)  return x"   temp[{$i}].l := j.stringToJString(self.{$p/@name});&#x0A;"
+     case element(string)  return x"   temp[{$i}].l := stringToJString(self.{$p/@name});&#x0A;"
      case element(int)     return x"   temp[{$i}].i := self.{$p/@name};&#x0A;"
      case element(long)    return x"   temp[{$i}].j := self.{$p/@name};&#x0A;"
      case element(double)  return x"   temp[{$i}].d := self.{$p/@name};&#x0A;"
-     case element(boolean) return x"   temp[{$i}].z := j.booleanToJboolean(self.{$p/@name});&#x0A;"
-     case element(array)   return x"   temp[{$i}].l := arrayToJArray(self.{$p/@name});&#x0A;"
-     default return ()
+     case element(boolean) return x"   temp[{$i}].z := booleanToJboolean(self.{$p/@name});&#x0A;"
+     case element(array)   return x"   temp[{$i}].l := arrayToJArrayCI(self.{$p/@name});&#x0A;"
+     case element(classref)   return x"   temp[{$i}].l := self.{$p/@name}.toJava;&#x0A;"
+     default return ig:error("unknown property type")
    }
-  with j do begin
     result := newObject({@id}Class, {@id}ClassInit, @temp[0]); 
- {for $p at $i in $allprops return x"   deleteLocalRef(temp[{$i - 1}].l);&#x0A;"}
+ {for $p at $i in $allprops where $p[self::array or self::string or self::classref] return x"   deleteLocalRef(temp[{$i - 1}].l);&#x0A;"}
  end;
 end;
 ")
@@ -338,7 +347,7 @@ procedure initBridge;
 begin
   with needJ do begin {$r/api/class/x"
     {@id}Class := newGlobalRefAndDelete(getclass('{ig:jni-name(.)}'));
-    {@id}ClassInit := getmethod({@id}Class, '<init>', '({join((ig:ancestors(.),.)/*/ig:jni-full-name(.)
+    {@id}ClassInit := getmethod({@id}Class, '<init>', '({join(ig:ancestor-and-self-properties(.)/ig:jni-full-name(.)
       , "")})V');"}
   end;
 end;
@@ -372,7 +381,7 @@ declare function ig:kotlin-make-prop($s){
 declare function ig:kotlin-make-class($s){
   let $a := ig:ancestors($s)
   let $fieldtype := ($s/@kotlin-var, "val")[1] || " "
-  let $aprops := $a/*
+  let $aprops := ig:properties($a)
   return
   $s/(x"
   {(@kotlin-class, "open")[1]} class {@id}( 

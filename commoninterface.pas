@@ -432,7 +432,7 @@ var
 
 
 
-function arrayToJArray(const a: TFormInputArray): jobject; overload;
+function arrayToJArrayCI(const a: TFormInputArray): jobject; overload;
 var
   i: Integer;
 begin
@@ -443,7 +443,7 @@ begin
   end;
 end;
 
-function arrayToJArray(const a: array of string): jobject; overload;
+function arrayToJArrayCI(const a: array of string): jobject; overload;
 begin;
   result := j.arrayToJArray(a);
 end;
@@ -452,11 +452,11 @@ end;
 function TFormInput.toJava: jobject;
 var temp: array[0..2] of jvalue;
 begin
-    temp[0].l := j.stringToJString(self.name);
-    temp[1].l := j.stringToJString(self.caption);
-    temp[2].l := j.stringToJString(self.value);
-
   with j do begin
+    temp[0].l := stringToJString(self.name);
+    temp[1].l := stringToJString(self.caption);
+    temp[2].l := stringToJString(self.value);
+
     result := newObject(FormInputClass, FormInputClassInit, @temp[0]); 
     deleteLocalRef(temp[0].l);
     deleteLocalRef(temp[1].l);
@@ -468,13 +468,13 @@ end;
 function TFormSelect.toJava: jobject;
 var temp: array[0..4] of jvalue;
 begin
-    temp[0].l := j.stringToJString(self.name);
-    temp[1].l := j.stringToJString(self.caption);
-    temp[2].l := j.stringToJString(self.value);
-    temp[3].l := arrayToJArray(self.optionCaptions);
-    temp[4].l := arrayToJArray(self.optionValues);
-
   with j do begin
+    temp[0].l := stringToJString(self.name);
+    temp[1].l := stringToJString(self.caption);
+    temp[2].l := stringToJString(self.value);
+    temp[3].l := arrayToJArrayCI(self.optionCaptions);
+    temp[4].l := arrayToJArrayCI(self.optionValues);
+
     result := newObject(FormSelectClass, FormSelectClassInit, @temp[0]); 
     deleteLocalRef(temp[0].l);
     deleteLocalRef(temp[1].l);
@@ -488,9 +488,9 @@ end;
 function TFormParams.toJava: jobject;
 var temp: array[0..0] of jvalue;
 begin
-    temp[0].l := arrayToJArray(self.inputs);
-
   with j do begin
+    temp[0].l := arrayToJArrayCI(self.inputs);
+
     result := newObject(FormParamsClass, FormParamsClassInit, @temp[0]); 
     deleteLocalRef(temp[0].l);
 
@@ -500,10 +500,10 @@ end;
 function TVersionInfo.toJava: jobject;
 var temp: array[0..1] of jvalue;
 begin
-    temp[0].l := j.stringToJString(self.version);
-    temp[1].l := j.stringToJString(self.platform);
-
   with j do begin
+    temp[0].l := stringToJString(self.version);
+    temp[1].l := stringToJString(self.platform);
+
     result := newObject(VersionInfoClass, VersionInfoClassInit, @temp[0]); 
     deleteLocalRef(temp[0].l);
     deleteLocalRef(temp[1].l);
