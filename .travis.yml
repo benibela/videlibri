@@ -103,9 +103,10 @@ script:
   - cd $basepath; $LAZ_ENV programs/internet/VideLibri/_meta/assetversiontests
   - if [[ -z "$LAZ_ENV" ]] && [[ $android = false ]]; then 
       cd $basepath/programs/internet/VideLibri && ./_meta/build.deb.sh && lintian *.deb;
+      lazbuild $LAZ_OPT $basepath/programs/internet/VideLibri/commoninterfacetests.lpi;
+      $basepath/programs/internet/VideLibri/commoninterfacetests;
     fi
   - cd $basepath/programs/internet/VideLibri/_meta/tests;  ./unittests.sh
-  - lazbuild $LAZ_OPT $basepath/programs/internet/VideLibri/commoninterfacetests.lpi; $basepath/programs/internet/VideLibri/commoninterfacetests
 
 notifications:
   email:
