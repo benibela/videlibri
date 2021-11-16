@@ -77,7 +77,6 @@ uses bbutils, math;
 type TStringArray = array of string;
 procedure readArray(var sa: TStringArray; var scanner: TJSONScanner); overload;
 var temp: TStringArrayList;
-  pname: String;
 begin
   scanner.fetchNonWSToken; scanner.expectCurrentToken(tkSquaredBraceOpen);
   temp.init;
@@ -216,22 +215,14 @@ begin
   builder.appendJSONObjectComma;
   with builder do begin    
     appendJSONObjectKeyColon('optionCaptions'); appendJSONArrayStart();
-    if length(optionCaptions) > 0 then begin
-      optionCaptions[0].toJSON(builder);
-    end;
-    for i := 1 to high(optionCaptions) do begin
-      appendJSONArrayComma();
-      
+    for i := 0 to high(optionCaptions) do begin
+      if i > 0 then appendJSONArrayComma();
       optionCaptions[i].toJSON(builder);
     end;
     appendJSONArrayEnd(); appendJSONObjectComma;
     appendJSONObjectKeyColon('optionValues'); appendJSONArrayStart();
-    if length(optionValues) > 0 then begin
-      optionValues[0].toJSON(builder);
-    end;
-    for i := 1 to high(optionValues) do begin
-      appendJSONArrayComma();
-      
+    for i := 0 to high(optionValues) do begin
+      if i > 0 then appendJSONArrayComma();
       optionValues[i].toJSON(builder);
     end;
     appendJSONArrayEnd();
@@ -328,15 +319,8 @@ var i: sizeint;
 begin
   with builder do begin    
     appendJSONObjectKeyColon('inputs'); appendJSONArrayStart();
-    if length(inputs) > 0 then begin
-      appendJSONString(inputs[0].typeId);
-      appendJSONArrayComma();
-      
-      inputs[0].toJSON(builder);
-    end;
-    for i := 1 to high(inputs) do begin
-      appendJSONArrayComma();
-      
+    for i := 0 to high(inputs) do begin
+      if i > 0 then appendJSONArrayComma();
       appendJSONString(inputs[i].typeId);
       appendJSONArrayComma();
       

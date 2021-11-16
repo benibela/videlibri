@@ -115,7 +115,6 @@ uses bbutils, math;
 type TStringArray = array of string;
 procedure readArray(var sa: TStringArray; var scanner: TJSONScanner); overload;
 var temp: TStringArrayList;
-  pname: String;
 begin
   scanner.fetchNonWSToken; scanner.expectCurrentToken(tkSquaredBraceOpen);
   temp.init;
@@ -195,16 +194,9 @@ begin{ig:parent(.)!"
       case element(double) return ig:error("double not implemented")
       case element(boolean) return x"appendJSONObjectKeyColon('{@name}'); if self.{@name} then append('true') else append('false');"
       case element(array) return x"appendJSONObjectKeyColon('{@name}'); appendJSONArrayStart();
-    if length({@name}) > 0 then begin{
+    for i := 0 to high({@name}) do begin
+      if i > 0 then appendJSONArrayComma();{
       if (classref) then x"
-      appendJSONString({@name}[0].typeId);
-      appendJSONArrayComma();
-      " else ()}
-      {@name}[0].toJSON(builder);
-    end;
-    for i := 1 to high({@name}) do begin
-      appendJSONArrayComma();
-      {if (classref) then x"
       appendJSONString({@name}[i].typeId);
       appendJSONArrayComma();
       " else ()}
