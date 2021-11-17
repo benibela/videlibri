@@ -307,7 +307,8 @@ end;
 ",
  .[.//classref]/(
 x"destructor T{@id}.destroy;{if (./array[classref]) then "&#x0A;var i: integer;" else ()}
-begin {./array[classref]/x"&#x0A;  for i := 0 to high({@name}) do {@name}[i].free;"}
+begin {./array[classref]/x"&#x0A;  for i := 0 to high({@name}) do {@name}[i].free;"}{
+  ./classref/x"&#x0A;  {@name}.free;"}
   inherited;
 end;"
 ))
