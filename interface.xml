@@ -21,6 +21,13 @@
     <string name="version"/>
     <string name="platform"/>
   </class>
+  <class id="BookListDisplayOptions" serialize-json="" kotlin-var="var" kotlin-class="data" jvm-pascal="" pascal-jvm="">
+    <boolean name="noDetailsInOverview"/>
+    <boolean name="showRenewCount"/>
+    <string name="groupingKey"/>
+    <string name="sortingKey"/>
+    <string name="filterKey"/>
+  </class>
   <function id="VLGetVersion">
     <return-type>
       <classref ref="VersionInfo"/>

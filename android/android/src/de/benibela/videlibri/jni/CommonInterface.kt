@@ -36,3 +36,14 @@ package de.benibela.videlibri.jni;
        other != null && javaClass == other.javaClass && other is VersionInfo && version == other.version && platform == other.platform
 
   } 
+  data class BookListDisplayOptions( 
+    @JvmField var noDetailsInOverview: Boolean,
+    @JvmField var showRenewCount: Boolean,
+    @JvmField var groupingKey: String,
+    @JvmField var sortingKey: String,
+    @JvmField var filterKey: String
+  )   {
+    override fun equals(other: Any?): Boolean =
+       other != null && javaClass == other.javaClass && other is BookListDisplayOptions && noDetailsInOverview == other.noDetailsInOverview && showRenewCount == other.showRenewCount && groupingKey == other.groupingKey && sortingKey == other.sortingKey && filterKey == other.filterKey
+
+  } 

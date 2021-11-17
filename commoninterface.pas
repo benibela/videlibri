@@ -24,6 +24,7 @@ protected
 public
   {$ifdef android}
   function toJava: jobject; virtual;
+  
   {$endif}
 
 end;  
@@ -42,6 +43,7 @@ protected
 public
   {$ifdef android}
   function toJava: jobject; override;
+  
   {$endif}
 
 end;  
@@ -64,6 +66,7 @@ protected
 public
   {$ifdef android}
   function toJava: jobject; virtual;
+  
   {$endif}
 
 end;  
@@ -74,6 +77,7 @@ TVersionInfo = class
 public
   {$ifdef android}
   function toJava: jobject; virtual;
+  
   {$endif}
 
 end;  
@@ -82,10 +86,8 @@ TBookListDisplayOptionsClass = class of TBookListDisplayOptions;
 TBookListDisplayOptions = class
   groupingKey, sortingKey, filterKey: string;
   noDetailsInOverview, showRenewCount: boolean;
-  x: TVersionInfo;
   procedure toJSON(var builder: TJSONXHTMLStrBuilder);
   function toJSON(): string;
-  destructor destroy; override;
   class function fromJSON(const json: string): TBookListDisplayOptions; virtual;
   class function fromJSON(const json: IXQValue): TBookListDisplayOptions; virtual;
 protected
@@ -98,6 +100,9 @@ protected
 public
   {$ifdef android}
   function toJava: jobject; virtual;
+  class function fromJava(jvm: jobject): TBookListDisplayOptions; virtual;
+  class function fromJavaAndDelete(jvm: jobject): TBookListDisplayOptions; virtual;
+  
   {$endif}
 
 end; 
@@ -423,27 +428,36 @@ begin
   result := classFromTypeId(typ).fromJSON(json);
 end;
 
- destructor TBookListDisplayOptions.destroy;
-begin 
-  inherited;
-end;
+
 
 {$ifdef android}
-var 
+
+
+
+
+var
   FormInputClass: jclass;
   FormInputClassInit: jmethodID;
  
+var
   FormSelectClass: jclass;
   FormSelectClassInit: jmethodID;
  
+var
   FormParamsClass: jclass;
   FormParamsClassInit: jmethodID;
  
+var
   VersionInfoClass: jclass;
   VersionInfoClassInit: jmethodID;
  
+var
   BookListDisplayOptionsClass: jclass;
   BookListDisplayOptionsClassInit: jmethodID;
+ 
+  BookListDisplayOptionsFields: record
+    noDetailsInOverviewZ, showRenewCountZ, groupingKeyS, sortingKeyS, filterKeyS: jfieldID;
+  end;
 
 
 
@@ -527,7 +541,7 @@ begin
 end;
  
 function TBookListDisplayOptions.toJava: jobject;
-var temp: array[0..5] of jvalue;
+var temp: array[0..4] of jvalue;
 begin
   with j do begin
     temp[0].z := booleanToJboolean(self.noDetailsInOverview);
@@ -535,15 +549,31 @@ begin
     temp[2].l := stringToJString(self.groupingKey);
     temp[3].l := stringToJString(self.sortingKey);
     temp[4].l := stringToJString(self.filterKey);
-    temp[5].l := self.x.toJava;
 
     result := newObject(BookListDisplayOptionsClass, BookListDisplayOptionsClassInit, @temp[0]); 
     deleteLocalRef(temp[2].l);
     deleteLocalRef(temp[3].l);
     deleteLocalRef(temp[4].l);
-    deleteLocalRef(temp[5].l);
 
  end;
+end;
+
+class function TBookListDisplayOptions.fromJava(jvm: jobject): TBookListDisplayOptions;
+begin
+  result := TBookListDisplayOptions.create;
+  with j, result, BookListDisplayOptionsFields do begin
+    noDetailsInOverview := getbooleanField( jvm, noDetailsInOverviewZ );
+    showRenewCount := getbooleanField( jvm, showRenewCountZ );
+    groupingKey := getstringField( jvm, groupingKeyS );
+    sortingKey := getstringField( jvm, sortingKeyS );
+    filterKey := getstringField( jvm, filterKeyS );
+
+ end;
+end;
+class function TBookListDisplayOptions.fromJavaAndDelete(jvm: jobject): TBookListDisplayOptions;
+begin
+  result := fromJava(jvm);
+  j.deleteLocalRef(jvm);
 end;
 
 
@@ -560,7 +590,12 @@ begin
     VersionInfoClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/VersionInfo'));
     VersionInfoClassInit := getmethod(VersionInfoClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;)V'); 
     BookListDisplayOptionsClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/BookListDisplayOptions'));
-    BookListDisplayOptionsClassInit := getmethod(BookListDisplayOptionsClass, '<init>', '(ZZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lde/benibela/videlibri/jni/VersionInfo;)V');
+    BookListDisplayOptionsClassInit := getmethod(BookListDisplayOptionsClass, '<init>', '(ZZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V');
+    BookListDisplayOptionsFields.noDetailsInOverviewZ := getfield(BookListDisplayOptionsClass, 'noDetailsInOverview', 'Z');
+    BookListDisplayOptionsFields.showRenewCountZ := getfield(BookListDisplayOptionsClass, 'showRenewCount', 'Z');
+    BookListDisplayOptionsFields.groupingKeyS := getfield(BookListDisplayOptionsClass, 'groupingKey', 'Ljava/lang/String;');
+    BookListDisplayOptionsFields.sortingKeyS := getfield(BookListDisplayOptionsClass, 'sortingKey', 'Ljava/lang/String;');
+    BookListDisplayOptionsFields.filterKeyS := getfield(BookListDisplayOptionsClass, 'filterKey', 'Ljava/lang/String;');
   end;
 end;
 {$endif}

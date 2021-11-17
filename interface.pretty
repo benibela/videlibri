@@ -26,5 +26,19 @@ class VersionInfo {
   platform: String
 }
 
+@SerializeJson
+@KotlinVar
+@KotlinDataClass
+@Pascal<->Kotlin
+class BookListDisplayOptions {
+  noDetailsInOverview: Boolean
+  showRenewCount: Boolean
+  groupingKey: String
+  sortingKey: String
+  filterKey: String
+}
+
+
 
 fun VLGetVersion(): VersionInfo
+

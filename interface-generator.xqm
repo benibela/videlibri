@@ -39,16 +39,24 @@ declare function ig:jni-name($c){
       "de/benibela/videlibri/jni/"||$c
 };
 
-declare function ig:jni-full-name($c){
+declare function ig:jni-pascal-suffix($c){
   $c/(typeswitch(.)
-      case element(string) return "Ljava/lang/String;" 
-      case element(array) return concat("[L", ig:jni-name(*), ";")
-      case element(classref) return concat("L", ig:jni-name(.), ";")
+      case element(string) return "S" 
+      case element(array) return "A"
+      case element(classref) return "L"
       case element(int) return "I"
       case element(long) return "J"
       case element(double) return "D"
       case element(boolean) return "Z"
       default return ())
+};
+
+declare function ig:jni-full-name($c){
+  $c/(typeswitch(.)
+      case element(string) return "Ljava/lang/String;" 
+      case element(array) return concat("[L", ig:jni-name(*), ";")
+      case element(classref) return concat("L", ig:jni-name(.), ";")
+      default return ig:jni-pascal-suffix(.))
 };
 
 
@@ -94,10 +102,13 @@ protected
 "
 }" else ()
 ), "&#x0A;  ")
-}{if (@pascal-jvm) then x"
+}{if (@pascal-jvm or @jvm-pascal) then x"
 public
   {{$ifdef android}}
-  function toJava: jobject; {$virtual}
+  {if (@pascal-jvm) then x"function toJava: jobject; {$virtual}" else ()}
+  {if (@jvm-pascal) then x"class function fromJava(jvm: jobject): T{@id}; {$virtual}
+  class function fromJavaAndDelete(jvm: jobject): T{@id}; {$virtual}
+  " else ()}
   {{$endif}}
 " else ()
 }
@@ -181,9 +192,9 @@ begin
   builder.appendJSONString(self);
 end;
 
-{let $arrayrefs := distinct-values($r/api//array/classref/@ref)
-   where exists($arrayrefs)
-return $arrayrefs!x"
+{for $array in distinct-values($r/api//array/classref/@ref)
+ where $r/api/class[@id = $array][@serialize-json]
+return $array!x"
 procedure readArray(var p: T{.}Array; const json: IXQValue); overload;
 var
   objList: TObjectArrayList;
@@ -303,9 +314,30 @@ end;"
 }
 
 {{$ifdef android}}
-var {$r/api/class/x"
+
+{ ($r/api/class[@jvm-pascal]//array/string)[1]!"
+procedure fromJavaArrayAndDelete(var sa: TStringArray; jvm: jarray);
+var
+  i: sizeint;
+begin
+  with j do begin
+    SetLength(sa, getArrayLength(jvm));
+    for i := 0 to high(sa) do
+      sa[i] := getStringArrayElement(jvm, i);
+    deleteLocalRef(jvm);
+  end;
+end;
+
+" }
+
+{$r/api/class[@pascal-jvm or @jvm-pascal]/x"
+var
   {@id}Class: jclass;
   {@id}ClassInit: jmethodID;
+",for $c in $r/api/class[@jvm-pascal] let $fields := ig:properties($c) where exists($fields) return $c/x"
+  {@id}Fields: record
+    {join($fields!(@name || ig:jni-pascal-suffix(.)), ", ") }: jfieldID;
+  end;
 "}
 
 { distinct-values($r/api/class[@pascal-jvm]//array/classref/@ref)!x"
@@ -346,15 +378,40 @@ begin
  end;
 end;
 ")
+}{ $r/api/class[@jvm-pascal]/(let $allprops := ig:ancestor-and-self-properties(.) return x"
+class function T{@id}.fromJava(jvm: jobject): T{@id};
+begin
+  result := T{@id}.create;
+  with j, result, {@id}Fields do begin
+ {for $p at $i1 in $allprops return    
+   $p/(typeswitch (.) 
+     case element(string)|element(int)|element(long)|element(double)|element(boolean) 
+     return x"   {@name} := get{name()}Field( jvm, {@name}{ig:jni-pascal-suffix(.)} );&#x0A;"
+     case element(array)   return x"   fromJavaArrayAndDelete({@name}, getObjectField( jvm, {@name}{ig:jni-pascal-suffix(.)} ));&#x0A;"
+     case element(classref)   return x"   {@name} := T{@ref}.fromJavaAndDelete(getObjectField( jvm, {@name}{ig:jni-pascal-suffix(.)} ));&#x0A;"
+     default return ig:error("unknown property type.")
+   )}
+ end;
+end;
+class function T{@id}.fromJavaAndDelete(jvm: jobject): T{@id};
+begin
+  result := fromJava(jvm);
+  j.deleteLocalRef(jvm);
+end;
+")
 }
 
 
 procedure initBridge;
 begin
-  with needJ do begin {$r/api/class/x"
+  with needJ do begin {$r/api/class[@pascal-jvm or @jvm-pascal]/join((x"
     {@id}Class := newGlobalRefAndDelete(getclass('{ig:jni-name(.)}'));
     {@id}ClassInit := getmethod({@id}Class, '<init>', '({join(ig:ancestor-and-self-properties(.)/ig:jni-full-name(.)
-      , "")})V');"}
+      , "")})V');",
+    if (@jvm-pascal) then 
+      ig:properties(.)/x"    {../@id}Fields.{@name}{ig:jni-pascal-suffix(.)} := getfield({../@id}Class, '{@name}', '{ig:jni-full-name(.)}');"
+    else ()
+    ), "&#x0A;")}
   end;
 end;
 {{$endif}}
@@ -386,7 +443,7 @@ declare function ig:kotlin-make-prop($s){
 
 declare function ig:kotlin-make-class($s){
   let $a := ig:ancestors($s)
-  let $fieldtype := ($s/@kotlin-var, "val")[1] || " "
+  let $fieldtype := (if ($s/@jvm-pascal) then  "@JvmField " else "") ||  ($s/@kotlin-var, "val")[1] || " "
   let $aprops := ig:properties($a)
   return
   $s/(x"

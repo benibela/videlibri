@@ -13,6 +13,8 @@ end;
 
 implementation
 
+
+
 function T_FormInputHelper.equals(other: TFormInput): boolean;
   function equalSelects(a,b: TFormSelect): boolean;
   var
