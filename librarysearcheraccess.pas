@@ -151,7 +151,7 @@ type
 function getSearchableLocations: TSearchableLocations;
 implementation
 
-uses applicationconfig, bbdebugtools, internetaccess, androidutils {$ifdef android}, bbjniutils{$else},forms{$endif}, commoninterface, fastjsonscanner, jsonscannerhelper;
+uses applicationconfig, bbdebugtools, internetaccess, androidutils {$ifdef android}, bbjniutils{$else},forms{$endif}, commoninterface, xquery, jsonscannerhelper;
 
 resourcestring
   rsSearchAllRegions = 'alle Regionen';
@@ -309,23 +309,14 @@ end;
 procedure TLibrarySearcherAccess.loadSearchCache;
 var
   cache: String;
-  scanner: TJSONScanner;
+  json, temp: IXQValue;
 begin
   cache := strLoadFromFile(searcher.getCacheFile);
   if cache = '' then exit;
-  scanner := default(TJSONScanner);
-  scanner.init(cache, [joUTF8, joIgnoreTrailingComma]);
-  try
-    scanner.fetchExpectedToken(tkCurlyBraceOpen);
-    scanner.fetchExpectedToken(tkString);
-    if scanner.CurTokenString = 'search-params' then begin
-      scanner.fetchExpectedToken(tkColon);
-      scanner.fetchExpectedToken(tkCurlyBraceOpen);
-      searcher.SearchParams := TFormParams.fromJSON(scanner);
-    end;
-  except
-  end;
-  scanner.done;
+  json := commoninterface.parseJSON(cache);
+  temp := json.getProperty('search-params');
+  if temp.kind = pvkObject then
+    searcher.SearchParams := TFormParams.fromJSON(temp);
 end;
 
 

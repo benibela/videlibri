@@ -2,122 +2,182 @@ unit commoninterface;
 {$mode objfpc}{$H+}
 {$ModeSwitch typehelpers}{$ModeSwitch advancedrecords}{$ModeSwitch autoderef}
 interface
- uses sysutils, simplexmlparser, xquery.internals.common, fastjsonscanner, jsonscannerhelper {$ifdef android}, jni, bbjniutils{$endif};
+ uses sysutils, xquery.internals.common, xquery, fastjsonreader {$ifdef android}, jni, bbjniutils{$endif};
  type EVideLibriInterfaceException = class(Exception);
  type TFormInput = class; TFormInputArray = array of TFormInput; 
  
-type TFormInput = class
+type 
+TFormInputClass = class of TFormInput;
+TFormInput = class
   name, caption, value: string;
   procedure toJSON(var builder: TJSONXHTMLStrBuilder);
   function toJSON(): string;
-  class function fromJSON(json: string): TFormInput;
-  class function fromJSON(var json: TJSONScanner): TFormInput;
+  class function fromJSON(const json: string): TFormInput; virtual;
+  class function fromJSON(const json: IXQValue): TFormInput; virtual;
 protected
   procedure appendToJSON(var builder: TJSONXHTMLStrBuilder); virtual;
-  class function readObjectOfType(var scanner: TJSONScanner; const serializedTypeId: string): TObject; 
-  class function readTypedObject(var scanner: TJSONScanner): TFormInput; //['type', {obj}]
-  class function readObject(obj: TFormInput; var scanner: TJSONScanner): TFormInput;
-  procedure readProperty(var scanner: TJSONScanner);  virtual;
+  procedure setPropertiesFromJSON(const json: IXQValue); virtual;
   class function typeId: string; virtual;
+  class function classFromTypeId(const id: string): TFormInputClass;
+  class function fromJSONWithType(const typ: string; const json: IXQValue): TObject;
+
 public
   {$ifdef android}
   function toJava: jobject; virtual;
   {$endif}
-end; 
-type TFormSelect = class(TFormInput)
+end;
+ 
+type 
+TFormSelectClass = class of TFormSelect;
+TFormSelect = class(TFormInput)
   optionCaptions: array of string;
   optionValues: array of string;
-  class function fromJSON(json: string): TFormSelect;
-  class function fromJSON(var json: TJSONScanner): TFormSelect;
+  class function fromJSON(const json: string): TFormSelect; override;
+  class function fromJSON(const json: IXQValue): TFormSelect; override;
 protected
   procedure appendToJSON(var builder: TJSONXHTMLStrBuilder); override;
-  class function readObjectOfType(var scanner: TJSONScanner; const serializedTypeId: string): TObject; 
-  class function readTypedObject(var scanner: TJSONScanner): TFormSelect; //['type', {obj}]
-  class function readObject(obj: TFormSelect; var scanner: TJSONScanner): TFormSelect;
-  procedure readProperty(var scanner: TJSONScanner);  override;
+  procedure setPropertiesFromJSON(const json: IXQValue); override;
   class function typeId: string; override;
+
 public
   {$ifdef android}
   function toJava: jobject; override;
   {$endif}
-end; 
-type TFormParams = class(TFastInterfacedObject)
+end;
+ 
+type 
+TFormParamsClass = class of TFormParams;
+TFormParams = class(TFastInterfacedObject)
   inputs: array of TFormInput;
   procedure toJSON(var builder: TJSONXHTMLStrBuilder);
   function toJSON(): string;
   destructor destroy; override;
-  class function fromJSON(json: string): TFormParams;
-  class function fromJSON(var json: TJSONScanner): TFormParams;
+  class function fromJSON(const json: string): TFormParams; virtual;
+  class function fromJSON(const json: IXQValue): TFormParams; virtual;
 protected
   procedure appendToJSON(var builder: TJSONXHTMLStrBuilder); virtual;
-  class function readObjectOfType(var scanner: TJSONScanner; const serializedTypeId: string): TObject; 
-  class function readTypedObject(var scanner: TJSONScanner): TFormParams; //['type', {obj}]
-  class function readObject(obj: TFormParams; var scanner: TJSONScanner): TFormParams;
-  procedure readProperty(var scanner: TJSONScanner);  virtual;
+  procedure setPropertiesFromJSON(const json: IXQValue); virtual;
   class function typeId: string; virtual;
+  class function classFromTypeId(const id: string): TFormParamsClass;
+  class function fromJSONWithType(const typ: string; const json: IXQValue): TObject;
+
 public
   {$ifdef android}
   function toJava: jobject; virtual;
   {$endif}
-end; 
-type TVersionInfo = class
+end;
+ 
+type 
+TVersionInfoClass = class of TVersionInfo;
+TVersionInfo = class
   version, platform: string;
 public
   {$ifdef android}
   function toJava: jobject; virtual;
   {$endif}
 end;
+ 
+type 
+TBookListDisplayOptionsClass = class of TBookListDisplayOptions;
+TBookListDisplayOptions = class
+  groupingKey, sortingKey, filterKey: string;
+  noDetailsInOverview, showRenewCount: boolean;
+  x: TVersionInfo;
+  procedure toJSON(var builder: TJSONXHTMLStrBuilder);
+  function toJSON(): string;
+  destructor destroy; override;
+  class function fromJSON(const json: string): TBookListDisplayOptions; virtual;
+  class function fromJSON(const json: IXQValue): TBookListDisplayOptions; virtual;
+protected
+  procedure appendToJSON(var builder: TJSONXHTMLStrBuilder); virtual;
+  procedure setPropertiesFromJSON(const json: IXQValue); virtual;
+  class function typeId: string; virtual;
+  class function classFromTypeId(const id: string): TBookListDisplayOptionsClass;
+  class function fromJSONWithType(const typ: string; const json: IXQValue): TObject;
+
+public
+  {$ifdef android}
+  function toJava: jobject; virtual;
+  {$endif}
+end;
+
  {$ifdef android}
  procedure initBridge;
  {$endif}
+ 
+ function parseJSON(const s: string): IXQValue;
 implementation
-uses bbutils, math;
+uses bbutils;
 
-
-type TStringArray = array of string;
-procedure readArray(var sa: TStringArray; var scanner: TJSONScanner); overload;
-var temp: TStringArrayList;
+function parseJSON(const s: string): IXQValue;
 begin
-  scanner.fetchNonWSToken; scanner.expectCurrentToken(tkSquaredBraceOpen);
-  temp.init;
-  while true do begin
-    case scanner.fetchNonWSToken of
-      tkString: temp.add(scanner.CurTokenString);
-      tkComma:;
-      tkSquaredBraceClose: break;
-      else scanner.raiseUnexpectedError();
+  result := TXQJsonParser.parse(s, [jpoAllowMultipleTopLevelItems, jpoLiberal, jpoAllowTrailingComma]);
+end;
+
+procedure readArray(var sa: TStringArray; const json: IXQValue); overload;
+var
+  i: SizeInt = 0;
+  pv: PIXQValue;
+begin
+  sa := nil;
+  if json.kind <> pvkArray then
+    exit;
+  SetLength(sa, json.Size);
+  for pv in json.GetEnumeratorMembersPtrUnsafe do begin
+    sa[i] := pv^.toString;
+    inc(i);
+  end;
+end;
+
+type TGetObject = function (const typ: string; const json: IXQValue): TObject of object;
+function readObjectArray(const json: IXQValue; callback: TGetObject): TObjectArrayList; overload;
+var
+  pv: PIXQValue;
+  typ: String;
+  temp: TObject;
+begin
+  result.init;
+  if json.kind <> pvkArray then exit;
+  typ := '';
+  for pv in json.GetEnumeratorMembersPtrUnsafe do begin
+    case pv^.kind of
+    pvkString: typ := pv^.toString;
+    pvkArray: if pv^.get(2).kind = pvkObject then begin
+      typ := pv^.get(1).toString;
+      temp := callback(typ, pv^.get(2));
+      if  temp <> nil then result.add(temp);
+      typ := '';
+    end;
+    pvkObject: begin
+      temp := callback(typ, pv^);
+      if  temp <> nil then result.add(temp);
+      typ := '';
+    end;
     end;
   end;
+end;
 
-  sa := temp.toSharedArray;
-end;        
 
 type TStringHelper = type helper for string
   procedure toJSON(var builder: TJSONXHTMLStrBuilder);
 end;
+
 procedure TStringHelper.toJSON(var builder: TJSONXHTMLStrBuilder);
 begin
   builder.appendJSONString(self);
 end;
 
 
-type TFormInputArrayList = specialize TCopyingPtrArrayList<TFormInput>;
-procedure readArray(var p: TFormInputArray; var scanner: TJSONScanner); overload;
-var temp: TFormInputArrayList;
+procedure readArray(var p: TFormInputArray; const json: IXQValue); overload;
+var
+  objList: TObjectArrayList;
+  i: SizeInt;
+  callback: TGetObject;
 begin
-  scanner.fetchNonWSToken; scanner.expectCurrentToken(tkSquaredBraceOpen);
-  temp.init;
-  while true do begin
-    case scanner.fetchNonWSToken of
-      tkString: temp.add(TFormInput.readTypedObject(scanner));
-      tkComma: ;
-      tkSquaredBraceClose: break;
-      tkCurlyBraceOpen: temp.add(TFormInput.readObject(TFormInput.create, scanner));
-      else scanner.raiseUnexpectedError();
-    end;
-  end;
-
-  p := temp.toSharedArray;
+  callback := @TFormInput.fromJSONWithType;
+  objList := readObjectArray(json, callback);
+  setlength(p, objList.count);
+  for i := 0 to high(p) do p[i] := objList[i] as TFormInput
 end;        
 
 procedure TFormInput.toJSON(var builder: TJSONXHTMLStrBuilder);
@@ -147,65 +207,40 @@ begin
   end;
 end;
 
-class function TFormInput.fromJSON(json: string): TFormInput;
-var scanner: TJSONScanner;
+class function TFormInput.fromJSON(const json: string): TFormInput;
 begin
-  scanner := default(TJSONScanner);
-  scanner.init(json, [joUTF8, joIgnoreTrailingComma]);
-  scanner.fetchNonWSToken;
-  result := fromJSON(scanner);
-  scanner.done;
+  result := fromJSON(parseJSON(json))
 end;
-class function TFormInput.fromJSON(var json: TJSONScanner): TFormInput;
+class function TFormInput.fromJSON(const json: IXQValue): TFormInput;
 begin
-  result := readObject(TFormInput.create, json);
+  result := TFormInput.create;
+  result.setPropertiesFromJSON(json)
 end;
 
-class function TFormInput.readObject(obj: TFormInput; var scanner: TJSONScanner): TFormInput;
+procedure TFormInput.setPropertiesFromJSON(const json: IXQValue);
 begin
-  result := obj;
-  scanner.expectCurrentToken(tkCurlyBraceOpen); scanner.fetchNonWSToken;
-  while true do begin    
-    case scanner.curtoken of
-      tkString: result.readProperty(scanner);
-      tkEOF: exit;
-      tkCurlyBraceClose: exit;
-      tkComma: scanner.fetchNonWSToken;
-      else scanner.raiseUnexpectedError();
-    end;
-  end;
-end;
-
-class function TFormInput.readObjectOfType(var scanner: TJSONScanner; const serializedTypeId: string): TObject;
-var temp: TFormInput;
-begin
-  case serializedTypeId of
+  name := json.getProperty('name').toString();
+    caption := json.getProperty('caption').toString();
+    value := json.getProperty('value').toString();
   
-    'FormInput': temp := TFormInput.create; 
-    'FormSelect': temp := TFormSelect.create;
-  else begin scanner.raiseUnexpectedError(); temp := nil; end;
-  end;
-  result := readObject(temp, scanner);
-end;
-
-class function TFormInput.readTypedObject(var scanner: TJSONScanner): TFormInput; 
-begin
-  result := scanner.fetchSerializedTypedObject(@readObjectOfType) as TFormInput;
-end;
-
-procedure TFormInput.readProperty(var scanner: TJSONScanner);
-begin
-  case scanner.CurTokenString of
-    'name': name := scanner.fetchStringObjectPropertyValue;
-    'caption': caption := scanner.fetchStringObjectPropertyValue;
-    'value': value := scanner.fetchStringObjectPropertyValue;
-    else scanner.skipObjectPropertyValue();
-  end;
 end;
 
 class function TFormInput.typeId: string;
 begin
   result := 'FormInput'
+end;
+
+  
+class function TFormInput.classFromTypeId(const id: string): TFormInputClass;
+begin
+  case id of
+    'FormSelect': result := TFormSelect; 
+    else result := TFormInput;
+  end;
+end;
+class function TFormInput.fromJSONWithType(const typ: string; const json: IXQValue): TObject;
+begin
+  result := classFromTypeId(typ).fromJSON(json);
 end;
 
  procedure TFormSelect.appendToJSON(var builder: TJSONXHTMLStrBuilder);
@@ -230,66 +265,21 @@ begin
   end;
 end;
 
-class function TFormSelect.fromJSON(json: string): TFormSelect;
-var scanner: TJSONScanner;
+class function TFormSelect.fromJSON(const json: string): TFormSelect;
 begin
-  scanner := default(TJSONScanner);
-  scanner.init(json, [joUTF8, joIgnoreTrailingComma]);
-  scanner.fetchNonWSToken;
-  result := fromJSON(scanner);
-  scanner.done;
+  result := fromJSON(parseJSON(json))
 end;
-class function TFormSelect.fromJSON(var json: TJSONScanner): TFormSelect;
+class function TFormSelect.fromJSON(const json: IXQValue): TFormSelect;
 begin
-  result := readObject(TFormSelect.create, json);
+  result := TFormSelect.create;
+  result.setPropertiesFromJSON(json)
 end;
 
-class function TFormSelect.readObject(obj: TFormSelect; var scanner: TJSONScanner): TFormSelect;
+procedure TFormSelect.setPropertiesFromJSON(const json: IXQValue);
 begin
-  result := obj;
-  scanner.expectCurrentToken(tkCurlyBraceOpen); scanner.fetchNonWSToken;
-  while true do begin    
-    case scanner.curtoken of
-      tkString: result.readProperty(scanner);
-      tkEOF: exit;
-      tkCurlyBraceClose: exit;
-      tkComma: scanner.fetchNonWSToken;
-      else scanner.raiseUnexpectedError();
-    end;
-  end;
-end;
-
-class function TFormSelect.readObjectOfType(var scanner: TJSONScanner; const serializedTypeId: string): TObject;
-var temp: TFormSelect;
-begin
-  case serializedTypeId of
-  
-    'FormSelect': temp := TFormSelect.create;
-  else begin scanner.raiseUnexpectedError(); temp := nil; end;
-  end;
-  result := readObject(temp, scanner);
-end;
-
-class function TFormSelect.readTypedObject(var scanner: TJSONScanner): TFormSelect; 
-begin
-  result := scanner.fetchSerializedTypedObject(@readObjectOfType) as TFormSelect;
-end;
-
-procedure TFormSelect.readProperty(var scanner: TJSONScanner);
-begin
-  case scanner.CurTokenString of
-    'optionCaptions': begin
-        scanner.fetchNonWSToken; scanner.expectCurrentToken(tkColon); 
-        readArray(optionCaptions, scanner);
-        scanner.fetchNonWSToken;
-      end;
-    'optionValues': begin
-        scanner.fetchNonWSToken; scanner.expectCurrentToken(tkColon); 
-        readArray(optionValues, scanner);
-        scanner.fetchNonWSToken;
-      end;
-    else inherited;
-  end;
+  readArray(optionCaptions, json.getProperty('optionCaptions'));
+    readArray(optionValues, json.getProperty('optionValues'));
+  inherited;
 end;
 
 class function TFormSelect.typeId: string;
@@ -331,61 +321,20 @@ begin
   end;
 end;
 
-class function TFormParams.fromJSON(json: string): TFormParams;
-var scanner: TJSONScanner;
+class function TFormParams.fromJSON(const json: string): TFormParams;
 begin
-  scanner := default(TJSONScanner);
-  scanner.init(json, [joUTF8, joIgnoreTrailingComma]);
-  scanner.fetchNonWSToken;
-  result := fromJSON(scanner);
-  scanner.done;
+  result := fromJSON(parseJSON(json))
 end;
-class function TFormParams.fromJSON(var json: TJSONScanner): TFormParams;
+class function TFormParams.fromJSON(const json: IXQValue): TFormParams;
 begin
-  result := readObject(TFormParams.create, json);
+  result := TFormParams.create;
+  result.setPropertiesFromJSON(json)
 end;
 
-class function TFormParams.readObject(obj: TFormParams; var scanner: TJSONScanner): TFormParams;
+procedure TFormParams.setPropertiesFromJSON(const json: IXQValue);
 begin
-  result := obj;
-  scanner.expectCurrentToken(tkCurlyBraceOpen); scanner.fetchNonWSToken;
-  while true do begin    
-    case scanner.curtoken of
-      tkString: result.readProperty(scanner);
-      tkEOF: exit;
-      tkCurlyBraceClose: exit;
-      tkComma: scanner.fetchNonWSToken;
-      else scanner.raiseUnexpectedError();
-    end;
-  end;
-end;
-
-class function TFormParams.readObjectOfType(var scanner: TJSONScanner; const serializedTypeId: string): TObject;
-var temp: TFormParams;
-begin
-  case serializedTypeId of
+  readArray(inputs, json.getProperty('inputs'));
   
-    'FormParams': temp := TFormParams.create;
-  else begin scanner.raiseUnexpectedError(); temp := nil; end;
-  end;
-  result := readObject(temp, scanner);
-end;
-
-class function TFormParams.readTypedObject(var scanner: TJSONScanner): TFormParams; 
-begin
-  result := scanner.fetchSerializedTypedObject(@readObjectOfType) as TFormParams;
-end;
-
-procedure TFormParams.readProperty(var scanner: TJSONScanner);
-begin
-  case scanner.CurTokenString of
-    'inputs': begin
-        scanner.fetchNonWSToken; scanner.expectCurrentToken(tkColon); 
-        readArray(inputs, scanner);
-        scanner.fetchNonWSToken;
-      end;
-    else scanner.skipObjectPropertyValue();
-  end;
 end;
 
 class function TFormParams.typeId: string;
@@ -393,10 +342,89 @@ begin
   result := 'FormParams'
 end;
 
+  
+class function TFormParams.classFromTypeId(const id: string): TFormParamsClass;
+begin
+  ignore(id);
+  result := TFormParams
+end;
+class function TFormParams.fromJSONWithType(const typ: string; const json: IXQValue): TObject;
+begin
+  result := classFromTypeId(typ).fromJSON(json);
+end;
+
  destructor TFormParams.destroy;
 var i: integer;
 begin 
   for i := 0 to high(inputs) do inputs[i].free;
+  inherited;
+end; procedure TBookListDisplayOptions.toJSON(var builder: TJSONXHTMLStrBuilder);
+begin
+  with builder do begin
+    appendJSONObjectStart;
+    self.appendToJSON(builder);
+    appendJSONObjectEnd;
+  end;
+end;
+
+function TBookListDisplayOptions.toJSON(): string;
+var b:  TJSONXHTMLStrBuilder;
+begin
+  b.init(@result);
+  toJSON(b);
+  b.final;
+end;
+
+ procedure TBookListDisplayOptions.appendToJSON(var builder: TJSONXHTMLStrBuilder);
+begin
+  with builder do begin    
+    appendJSONObjectKeyColon('noDetailsInOverview'); if self.noDetailsInOverview then append('true') else append('false'); appendJSONObjectComma;
+    appendJSONObjectKeyColon('showRenewCount'); if self.showRenewCount then append('true') else append('false'); appendJSONObjectComma;
+    appendJSONObjectKeyColon('groupingKey'); appendJSONString(self.groupingKey); appendJSONObjectComma;
+    appendJSONObjectKeyColon('sortingKey'); appendJSONString(self.sortingKey); appendJSONObjectComma;
+    appendJSONObjectKeyColon('filterKey'); appendJSONString(self.filterKey);
+    
+  end;
+end;
+
+class function TBookListDisplayOptions.fromJSON(const json: string): TBookListDisplayOptions;
+begin
+  result := fromJSON(parseJSON(json))
+end;
+class function TBookListDisplayOptions.fromJSON(const json: IXQValue): TBookListDisplayOptions;
+begin
+  result := TBookListDisplayOptions.create;
+  result.setPropertiesFromJSON(json)
+end;
+
+procedure TBookListDisplayOptions.setPropertiesFromJSON(const json: IXQValue);
+begin
+  noDetailsInOverview := json.getProperty('noDetailsInOverview').toBoolean();
+    showRenewCount := json.getProperty('showRenewCount').toBoolean();
+    groupingKey := json.getProperty('groupingKey').toString();
+    sortingKey := json.getProperty('sortingKey').toString();
+    filterKey := json.getProperty('filterKey').toString();
+  
+end;
+
+class function TBookListDisplayOptions.typeId: string;
+begin
+  result := 'BookListDisplayOptions'
+end;
+
+  
+class function TBookListDisplayOptions.classFromTypeId(const id: string): TBookListDisplayOptionsClass;
+begin
+  ignore(id);
+  result := TBookListDisplayOptions
+end;
+class function TBookListDisplayOptions.fromJSONWithType(const typ: string; const json: IXQValue): TObject;
+begin
+  result := classFromTypeId(typ).fromJSON(json);
+end;
+
+ destructor TBookListDisplayOptions.destroy;
+begin 
   inherited;
 end;
 
@@ -413,6 +441,9 @@ var
  
   VersionInfoClass: jclass;
   VersionInfoClassInit: jmethodID;
+ 
+  BookListDisplayOptionsClass: jclass;
+  BookListDisplayOptionsClassInit: jmethodID;
 
 
 
@@ -494,6 +525,26 @@ begin
 
  end;
 end;
+ 
+function TBookListDisplayOptions.toJava: jobject;
+var temp: array[0..5] of jvalue;
+begin
+  with j do begin
+    temp[0].z := booleanToJboolean(self.noDetailsInOverview);
+    temp[1].z := booleanToJboolean(self.showRenewCount);
+    temp[2].l := stringToJString(self.groupingKey);
+    temp[3].l := stringToJString(self.sortingKey);
+    temp[4].l := stringToJString(self.filterKey);
+    temp[5].l := self.x.toJava;
+
+    result := newObject(BookListDisplayOptionsClass, BookListDisplayOptionsClassInit, @temp[0]); 
+    deleteLocalRef(temp[2].l);
+    deleteLocalRef(temp[3].l);
+    deleteLocalRef(temp[4].l);
+    deleteLocalRef(temp[5].l);
+
+ end;
+end;
 
 
 
@@ -507,7 +558,9 @@ begin
     FormParamsClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/FormParams'));
     FormParamsClassInit := getmethod(FormParamsClass, '<init>', '([Lde/benibela/videlibri/jni/FormInput;)V'); 
     VersionInfoClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/VersionInfo'));
-    VersionInfoClassInit := getmethod(VersionInfoClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;)V');
+    VersionInfoClassInit := getmethod(VersionInfoClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;)V'); 
+    BookListDisplayOptionsClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/BookListDisplayOptions'));
+    BookListDisplayOptionsClassInit := getmethod(BookListDisplayOptionsClass, '<init>', '(ZZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lde/benibela/videlibri/jni/VersionInfo;)V');
   end;
 end;
 {$endif}

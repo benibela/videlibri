@@ -24,6 +24,11 @@ declare function ig:ancestor-and-self-properties($e){
   ig:properties((ig:ancestors($e),$e))
 };
 
+declare function ig:descendants($e){
+  let $allclasses := $e/root()//class
+  let $id := $e/@id
+  return $allclasses[ig:ancestors(.)/@id = $id ]
+};
 
 declare function ig:jni-name($c){
   typeswitch ($c)
@@ -68,7 +73,9 @@ declare function ig:pascal-make-fields($s){
 
 declare function ig:pascal-make-class($s){
 $s/(let $virtual := if (ig:parent(.)) then "override;" else "virtual;" return x"
-type T{@id} = class{@extends!concat("(T",.,")")}
+type 
+T{@id}Class = class of T{@id};
+T{@id} = class{@extends!concat("(T",.,")")}
   {join(
     (ig:pascal-make-fields(.),
      
@@ -76,29 +83,31 @@ type T{@id} = class{@extends!concat("(T",.,")")}
   function toJSON(): string;" else (),
       if (.//classref) then "destructor destroy; override;" else (),
   if (@serialize-json) then
-  x"class function fromJSON(json: string): T{@id};
-  class function fromJSON(var json: TJSONScanner): T{@id};
+  x"class function fromJSON(const json: string): T{@id}; {$virtual}
+  class function fromJSON(const json: IXQValue): T{@id}; {$virtual}
 protected
   procedure appendToJSON(var builder: TJSONXHTMLStrBuilder); {$virtual}
-  class function readObjectOfType(var scanner: TJSONScanner; const serializedTypeId: string): TObject; 
-  class function readTypedObject(var scanner: TJSONScanner): T{@id}; //['type', {{obj}}]
-  class function readObject(obj: T{@id}; var scanner: TJSONScanner): T{@id};
-  procedure readProperty(var scanner: TJSONScanner);  {$virtual}
-  class function typeId: string; {$virtual}" else ()
+  procedure setPropertiesFromJSON(const json: IXQValue); {$virtual}
+  class function typeId: string; {$virtual}
+{ if (ig:parent(.)) then () else x"  class function classFromTypeId(const id: string): T{@id}Class;
+  class function fromJSONWithType(const typ: string; const json: IXQValue): TObject;
+"
+}" else ()
 ), "&#x0A;  ")
 }
 public
   {{$ifdef android}}
   function toJava: jobject; {$virtual}
   {{$endif}}
-end;")
+end;
+")
 };
 declare function ig:pascal-make($r){
 x"unit commoninterface;
 {{$mode objfpc}}{{$H+}}
 {{$ModeSwitch typehelpers}}{{$ModeSwitch advancedrecords}}{{$ModeSwitch autoderef}}
 interface
- uses sysutils, simplexmlparser, xquery.internals.common, fastjsonscanner, jsonscannerhelper {{$ifdef android}}, jni, bbjniutils{{$endif}};
+ uses sysutils, xquery.internals.common, xquery, fastjsonreader {{$ifdef android}}, jni, bbjniutils{{$endif}};
  type EVideLibriInterfaceException = class(Exception);
  { let $arrayrefs := distinct-values($r/api//array/classref/@ref)
    where exists($arrayrefs)
@@ -108,31 +117,64 @@ interface
  {{$ifdef android}}
  procedure initBridge;
  {{$endif}}
+ 
+ function parseJSON(const s: string): IXQValue;
 implementation
-uses bbutils, math;
+uses bbutils;
 
-
-type TStringArray = array of string;
-procedure readArray(var sa: TStringArray; var scanner: TJSONScanner); overload;
-var temp: TStringArrayList;
+function parseJSON(const s: string): IXQValue;
 begin
-  scanner.fetchNonWSToken; scanner.expectCurrentToken(tkSquaredBraceOpen);
-  temp.init;
-  while true do begin
-    case scanner.fetchNonWSToken of
-      tkString: temp.add(scanner.CurTokenString);
-      tkComma:;
-      tkSquaredBraceClose: break;
-      else scanner.raiseUnexpectedError();
+  result := TXQJsonParser.parse(s, [jpoAllowMultipleTopLevelItems, jpoLiberal, jpoAllowTrailingComma]);
+end;
+
+procedure readArray(var sa: TStringArray; const json: IXQValue); overload;
+var
+  i: SizeInt = 0;
+  pv: PIXQValue;
+begin
+  sa := nil;
+  if json.kind <> pvkArray then
+    exit;
+  SetLength(sa, json.Size);
+  for pv in json.GetEnumeratorMembersPtrUnsafe do begin
+    sa[i] := pv^.toString;
+    inc(i);
+  end;
+end;
+
+type TGetObject = function (const typ: string; const json: IXQValue): TObject of object;
+function readObjectArray(const json: IXQValue; callback: TGetObject): TObjectArrayList; overload;
+var
+  pv: PIXQValue;
+  typ: String;
+  temp: TObject;
+begin
+  result.init;
+  if json.kind <> pvkArray then exit;
+  typ := '';
+  for pv in json.GetEnumeratorMembersPtrUnsafe do begin
+    case pv^.kind of
+    pvkString: typ := pv^.toString;
+    pvkArray: if pv^.get(2).kind = pvkObject then begin
+      typ := pv^.get(1).toString;
+      temp := callback(typ, pv^.get(2));
+      if  temp <> nil then result.add(temp);
+      typ := '';
+    end;
+    pvkObject: begin
+      temp := callback(typ, pv^);
+      if  temp <> nil then result.add(temp);
+      typ := '';
+    end;
     end;
   end;
+end;
 
-  sa := temp.toSharedArray;
-end;        
 
 type TStringHelper = type helper for string
   procedure toJSON(var builder: TJSONXHTMLStrBuilder);
 end;
+
 procedure TStringHelper.toJSON(var builder: TJSONXHTMLStrBuilder);
 begin
   builder.appendJSONString(self);
@@ -141,23 +183,16 @@ end;
 {let $arrayrefs := distinct-values($r/api//array/classref/@ref)
    where exists($arrayrefs)
 return $arrayrefs!x"
-type T{.}ArrayList = specialize TCopyingPtrArrayList<T{.}>;
-procedure readArray(var p: T{.}Array; var scanner: TJSONScanner); overload;
-var temp: T{.}ArrayList;
+procedure readArray(var p: T{.}Array; const json: IXQValue); overload;
+var
+  objList: TObjectArrayList;
+  i: SizeInt;
+  callback: TGetObject;
 begin
-  scanner.fetchNonWSToken; scanner.expectCurrentToken(tkSquaredBraceOpen);
-  temp.init;
-  while true do begin
-    case scanner.fetchNonWSToken of
-      tkString: temp.add(T{.}.readTypedObject(scanner));
-      tkComma: ;
-      tkSquaredBraceClose: break;
-      tkCurlyBraceOpen: temp.add(T{.}.readObject(T{.}.create, scanner));
-      else scanner.raiseUnexpectedError();
-    end;
-  end;
-
-  p := temp.toSharedArray;
+  callback := @T{.}.fromJSONWithType;
+  objList := readObjectArray(json, callback);
+  setlength(p, objList.count);
+  for i := 0 to high(p) do p[i] := objList[i] as T{.}
 end;"}        
 
 {
@@ -208,71 +243,29 @@ begin{ig:parent(.)!"
   end;
 end;
 
-class function T{@id}.fromJSON(json: string): T{@id};
-var scanner: TJSONScanner;
+class function T{@id}.fromJSON(const json: string): T{@id};
 begin
-  scanner := default(TJSONScanner);
-  scanner.init(json, [joUTF8, joIgnoreTrailingComma]);
-  scanner.fetchNonWSToken;
-  result := fromJSON(scanner);
-  scanner.done;
+  result := fromJSON(parseJSON(json))
 end;
-class function T{@id}.fromJSON(var json: TJSONScanner): T{@id};
+class function T{@id}.fromJSON(const json: IXQValue): T{@id};
 begin
-  result := readObject(T{@id}.create, json);
+  result := T{@id}.create;
+  result.setPropertiesFromJSON(json)
 end;
 
-class function T{@id}.readObject(obj: T{@id}; var scanner: TJSONScanner): T{@id};
+procedure T{@id}.setPropertiesFromJSON(const json: IXQValue);
 begin
-  result := obj;
-  scanner.expectCurrentToken(tkCurlyBraceOpen); scanner.fetchNonWSToken;
-  while true do begin    
-    case scanner.curtoken of
-      tkString: result.readProperty(scanner);
-      tkEOF: exit;
-      tkCurlyBraceClose: exit;
-      tkComma: scanner.fetchNonWSToken;
-      else scanner.raiseUnexpectedError();
-    end;
-  end;
-end;
-
-class function T{@id}.readObjectOfType(var scanner: TJSONScanner; const serializedTypeId: string): TObject;
-var temp: T{@id};
-begin
-  case serializedTypeId of
-  {let $id := @id return (., /api/class[$id = ig:ancestors(.)/@id])!x"
-    '{@id}': temp := T{@id}.create;"}
-  else begin scanner.raiseUnexpectedError(); temp := nil; end;
-  end;
-  result := readObject(temp, scanner);
-end;
-
-class function T{@id}.readTypedObject(var scanner: TJSONScanner): T{@id}; 
-begin
-  result := scanner.fetchSerializedTypedObject(@readObjectOfType) as T{@id};
-end;
-
-procedure T{@id}.readProperty(var scanner: TJSONScanner);
-begin
-  case scanner.CurTokenString of
-    {join(*/(typeswitch (.) 
-      case element(string) return x"'{@name}': {@name} := scanner.fetchStringObjectPropertyValue;"
-      case element(int) return x"'{@name}': {@name} := StrToIntDef(scanner.fetchStringObjectPropertyValue, 0);"
-      case element(long) return x"'{@name}': {@name} := StrToInt64Def(scanner.fetchStringObjectPropertyValue, 0);"
-      case element(double) return x"'{@name}': {@name} := StrToFloatDef(scanner.fetchStringObjectPropertyValue, 0);"
-      case element(boolean) return x"'{@name}': {@name} := scanner.fetchStringObjectPropertyValue = 'true';"
-      case element(array) return x"'{@name}': begin
-        scanner.fetchNonWSToken; scanner.expectCurrentToken(tkColon); 
-        readArray({@name}, scanner);
-        scanner.fetchNonWSToken;
-      end;"
-      default return ()
-    ), "&#x0A;    ")
-    }
-    else {if (ig:parent(.)) then "inherited;" else "scanner.skipObjectPropertyValue();"
-    }
-  end;
+  {join(ig:properties(.)/(typeswitch (.) 
+    case element(string) return x"{@name} := json.getProperty('{@name}').toString();"
+    case element(int) return x"{@name} := json.getProperty('{@name}').toInt64();"
+    case element(long) return x"{@name} := json.getProperty('{@name}').toInt64();"
+    case element(double) return x"{@name} := json.getProperty('{@name}').toFloat();"
+    case element(boolean) return x"{@name} := json.getProperty('{@name}').toBoolean();"
+    case element(array) return x"readArray({@name}, json.getProperty('{@name}'));"
+    default return ()
+  ), "&#x0A;    ")
+  }
+  {if (ig:parent(.)) then "inherited;" else ()  }
 end;
 
 class function T{@id}.typeId: string;
@@ -280,7 +273,27 @@ begin
   result := '{@id}'
 end;
 
-", .[.//classref]/(
+",
+if (empty(@serialize-json) or ig:parent(.)) then () else
+let $descendants := ig:descendants(.) return x" 
+class function T{@id}.classFromTypeId(const id: string): T{@id}Class;
+begin{ 
+  if (count($descendants) = 0) then x"
+  ignore(id);
+  result := T{@id}"
+  else x"
+  case id of
+    { $descendants ! x"'{@id}': result := T{@id}; " }
+    else result := T{@id};
+  end;"}
+end;
+class function T{@id}.fromJSONWithType(const typ: string; const json: IXQValue): TObject;
+begin
+  result := classFromTypeId(typ).fromJSON(json);
+end;
+
+",
+ .[.//classref]/(
 x"destructor T{@id}.destroy;{if (./array[classref]) then "&#x0A;var i: integer;" else ()}
 begin {./array[classref]/x"&#x0A;  for i := 0 to high({@name}) do {@name}[i].free;"}
   inherited;
