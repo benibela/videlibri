@@ -1,5 +1,6 @@
 
 @SerializeJson
+@Pascal->Kotlin
 class FormInput {
   name: String
   caption: String
@@ -7,16 +8,19 @@ class FormInput {
 }
 
 @SerializeJson
+@Pascal->Kotlin
 class FormSelect: FormInput {
   optionCaptions: String[]
   optionValues: String[]
 }
 
 @SerializeJson
+@Pascal->Kotlin
 class FormParams: FastInterfacedObject {
   inputs: FormInput[]
 }
 
+@Pascal->Kotlin
 class VersionInfo {
   version: String
   platform: String

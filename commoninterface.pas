@@ -25,8 +25,8 @@ public
   {$ifdef android}
   function toJava: jobject; virtual;
   {$endif}
-end;
- 
+
+end;  
 type 
 TFormSelectClass = class of TFormSelect;
 TFormSelect = class(TFormInput)
@@ -43,8 +43,8 @@ public
   {$ifdef android}
   function toJava: jobject; override;
   {$endif}
-end;
- 
+
+end;  
 type 
 TFormParamsClass = class of TFormParams;
 TFormParams = class(TFastInterfacedObject)
@@ -65,8 +65,8 @@ public
   {$ifdef android}
   function toJava: jobject; virtual;
   {$endif}
-end;
- 
+
+end;  
 type 
 TVersionInfoClass = class of TVersionInfo;
 TVersionInfo = class
@@ -75,8 +75,8 @@ public
   {$ifdef android}
   function toJava: jobject; virtual;
   {$endif}
-end;
- 
+
+end;  
 type 
 TBookListDisplayOptionsClass = class of TBookListDisplayOptions;
 TBookListDisplayOptions = class
@@ -99,8 +99,8 @@ public
   {$ifdef android}
   function toJava: jobject; virtual;
   {$endif}
-end;
 
+end; 
  {$ifdef android}
  procedure initBridge;
  {$endif}

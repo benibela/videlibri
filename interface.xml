@@ -1,10 +1,10 @@
 <api>
-  <class id="FormInput" serialize-json="">
+  <class id="FormInput" serialize-json="" pascal-jvm="">
     <string name="name"/>
     <string name="caption"/>
     <string name="value"/>
   </class>
-  <class id="FormSelect" extends="FormInput" serialize-json="">
+  <class id="FormSelect" extends="FormInput" serialize-json="" pascal-jvm="">
     <array name="optionCaptions">
       <string/>
     </array>
@@ -12,12 +12,12 @@
       <string/>
     </array>
   </class>
-  <class id="FormParams" extends="FastInterfacedObject" serialize-json="">
+  <class id="FormParams" extends="FastInterfacedObject" serialize-json="" pascal-jvm="">
     <array name="inputs">
       <classref ref="FormInput"/>
     </array>
   </class>
-  <class id="VersionInfo">
+  <class id="VersionInfo" pascal-jvm="">
     <string name="version"/>
     <string name="platform"/>
   </class>

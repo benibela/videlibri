@@ -94,13 +94,14 @@ protected
 "
 }" else ()
 ), "&#x0A;  ")
-}
+}{if (@pascal-jvm) then x"
 public
   {{$ifdef android}}
   function toJava: jobject; {$virtual}
   {{$endif}}
-end;
-")
+" else ()
+}
+end; ")
 };
 declare function ig:pascal-make($r){
 x"unit commoninterface;
@@ -307,7 +308,7 @@ var {$r/api/class/x"
   {@id}ClassInit: jmethodID;
 "}
 
-{ distinct-values($r/api//array/classref/@ref)!x"
+{ distinct-values($r/api/class[@pascal-jvm]//array/classref/@ref)!x"
 function arrayToJArrayCI(const a: T{.}Array): jobject; overload;
 var
   i: Integer;
@@ -324,7 +325,7 @@ begin;
   result := j.arrayToJArray(a);
 end;
 
-{ $r/api/class/(let $allprops := ig:ancestor-and-self-properties(.) return x"
+{ $r/api/class[@pascal-jvm]/(let $allprops := ig:ancestor-and-self-properties(.) return x"
 function T{@id}.toJava: jobject;
 var temp: array[0..{count($allprops) - 1}] of jvalue;
 begin
