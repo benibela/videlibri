@@ -55,4 +55,14 @@
       <classref ref="VersionInfo"/>
     </return-type>
   </function>
+  <function id="VLGetOptionsAndroidOnly">
+    <return-type>
+      <classref ref="OptionsAndroidOnly"/>
+    </return-type>
+  </function>
+  <function id="VLSetOptionsAndroidOnly">
+    <arg name="options">
+      <classref ref="OptionsAndroidOnly"/>
+    </arg>
+  </function>
 </api>

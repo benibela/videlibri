@@ -85,6 +85,8 @@ class OptionsAndroidOnly {
 
 
 fun VLGetVersion(): VersionInfo
+fun VLGetOptionsAndroidOnly(): OptionsAndroidOnly
+fun VLSetOptionsAndroidOnly(options: OptionsAndroidOnly)
 
 
 

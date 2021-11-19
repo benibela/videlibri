@@ -1912,6 +1912,49 @@ begin
 end;
 
 
+
+function Java_de_benibela_VideLibri_Bridge_VLGetOptionsAndroidOnly(env:PJNIEnv; this:jobject): jobject; cdecl;
+var
+  options: TOptionsAndroidOnly;
+  androidConfigPath: String;
+begin
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetOptionsAndroidOnly (started)');
+  androidConfigPath := userPath + 'user-config-android.json';
+  result := nil;
+  try
+    if FileExists(androidConfigPath) then options := TOptionsAndroidOnly.fromJSON(strLoadFromFile(androidConfigPath))
+    else begin
+      if logging then log('Config '+androidConfigPath + ' does not exist');
+      options := TOptionsAndroidOnly.Create;
+    end;
+    result := options.toJava;
+    options.free
+  except
+    on e: Exception do throwExceptionToJava(e);
+  end;
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetOptionsAndroidOnly (ended)');
+end;
+
+
+function Java_de_benibela_VideLibri_Bridge_VLSetOptionsAndroidOnly(env:PJNIEnv; this:jobject; options: jobject): jobject; cdecl;
+var
+  androidConfigPath: String;
+  temp: TOptionsAndroidOnly;
+begin
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLSetOptionsAndroidOnly (started)');
+  androidConfigPath := userPath + 'user-config-android.json';
+  result := nil;
+  try
+    temp := TOptionsAndroidOnly.fromJava(options);
+    strSaveToFile(androidConfigPath, temp.toJSON());
+    temp.free;
+  except
+    on e: Exception do throwExceptionToJava(e);
+  end;
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLSetOptionsAndroidOnly (ended)');
+end;
+
+
 const ExportImportMap: array[0..3] of TExportImportFlag = (eifCurrent,eifHistory,eifConfig,eifPassword);
 function exportImportFlagsToInt(flags: TExportImportFlags): Integer;
 var
@@ -2137,7 +2180,7 @@ end;
 
 
 
-const nativeMethods: array[1..38] of JNINativeMethod=
+const nativeMethods: array[1..40] of JNINativeMethod=
   ((name:'VLInit';          signature:'(Landroid/content/Context;)V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInit)
    ,(name:'VLFinalize';      signature:'()V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLFInit)
 
@@ -2176,6 +2219,8 @@ const nativeMethods: array[1..38] of JNINativeMethod=
 
    ,(name:'VLSetOptions'; signature: '(Lde/benibela/videlibri/jni/Bridge$Options;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSetOptions)
    ,(name:'VLGetOptions'; signature: '()Lde/benibela/videlibri/jni/Bridge$Options;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetOptions)
+   ,(name:'VLGetOptionsAndroidOnly'; signature: '()Lde/benibela/videlibri/jni/OptionsAndroidOnly;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetOptionsAndroidOnly)
+   ,(name:'VLSetOptionsAndroidOnly'; signature: '(Lde/benibela/videlibri/jni/OptionsAndroidOnly;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSetOptionsAndroidOnly)
 
    ,(name:'VLExportAccounts'; signature: '(Ljava/lang/String;[Lde/benibela/videlibri/jni/Bridge$Account;I)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLExportAccounts)
    ,(name:'VLImportAccountsPrepare'; signature: '(Ljava/lang/String;)Lde/benibela/videlibri/jni/Bridge$ImportExportData;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLImportAccountsPrepare)

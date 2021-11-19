@@ -387,6 +387,8 @@ public class Bridge {
 
     static public native void VLSetOptions(@NotNull Options options);
     static public native @NotNull Options VLGetOptions();
+    static public native OptionsAndroidOnly VLGetOptionsAndroidOnly();
+    static public native void VLSetOptionsAndroidOnly(OptionsAndroidOnly oao);
 
     static public native @NotNull Book[] VLXQuery(@NotNull String query);
 
