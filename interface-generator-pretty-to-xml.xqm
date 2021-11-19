@@ -25,10 +25,11 @@ declare function igp:make-type($type, $attrib){
 };
 
 declare function igp:make-function($f){
-  let $split := extract($f, "fun ([^(]+)\((.*)\):(.*)", (1,2,3))!normalize-space()
+  let $split := extract($f, "fun ([^(]+)\((.*)\)(:(.*))?", (1,2,4))!normalize-space()
   return
   <function id="{$split[1]}">
-    <return-type>{igp:make-type($split[3], ())}</return-type>
+    {tokenize($split[2], ",")[normalize-space()]!<arg name="{substring-before(., ":")=>normalize-space()}">{igp:make-type(substring-after(., ":")=>normalize-space(), ())}</arg>,
+    if (exists($split[3][.])) then <return-type>{igp:make-type($split[3], ())}</return-type> else ()}
   </function>
 };
 

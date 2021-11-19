@@ -474,14 +474,27 @@ package de.benibela.videlibri.jni;
 
  
  
+declare function ig:pascal-native-arg-type($arg){
+  $arg/(typeswitch(.)
+      case element(string) return "jobject" 
+      case element(array) return "jobject"
+      case element(classref) return "jobject"
+      case element(int) return "jint"
+      case element(long) return "jlong"
+      case element(double) return "jdouble"
+      case element(boolean) return "jboolean"
+      default return ())
+};
  
 declare function ig:pascal-make-function-native-declaration($f){ 
-  $f/x",(name:'{@id}'; signature: '({(* except return-type)/ig:jni-full-name(.)}){ig:jni-full-name(return-type/*)}'; fnPtr: @Java_de_benibela_VideLibri_Bridge_{@id})"
+  $f/x",(name:'{@id}'; signature: '({arg/ig:jni-full-name(*)}){(return-type/ig:jni-full-name(*),"V")[1]}'; fnPtr: @Java_de_benibela_VideLibri_Bridge_{@id})"
 };
  
 declare function ig:pascal-make-function($f){ 
   $f/x"
-function Java_de_benibela_VideLibri_Bridge_{@id}(env:PJNIEnv; this:jobject {(:todo:)()}): jobject; cdecl;
+function Java_de_benibela_VideLibri_Bridge_{@id}(env:PJNIEnv; this:jobject{
+  arg!concat("; ", @name, ": ", ig:pascal-native-arg-type(*))
+}): jobject; cdecl;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.{@id} (started)');
   result := nil;
@@ -496,7 +509,7 @@ end;
 };
 
 declare function ig:java-make-function-native-declaration($f){ 
-  $f/x"static public native {return-type/classref/@ref} {@id}();"
+  $f/x"static public native {if (empty(return-type)) then "void" else return-type/classref/@ref} {@id}({join(arg/classref/@ref, ", ")});"
 };
  
  
