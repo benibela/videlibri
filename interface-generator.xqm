@@ -60,6 +60,7 @@ declare function ig:jni-full-name($c){
 };
 
 
+
 declare function ig:pascal-make-fields-of-type($s, $type){
   if (empty($s)) then () 
   else join($s/@name, ", ") || ": " || $type || ";"
@@ -67,7 +68,7 @@ declare function ig:pascal-make-fields-of-type($s, $type){
 
 declare function ig:pascal-make-fields($s, $prefix){
   ig:pascal-make-fields-of-type($s/string, $prefix || "string"),
-  ig:pascal-make-fields-of-type($s/int, $prefix || "int"),
+  ig:pascal-make-fields-of-type($s/int, $prefix || "int32"),
   ig:pascal-make-fields-of-type($s/long, $prefix || "int64"),
   ig:pascal-make-fields-of-type($s/double, $prefix || "double"),
   ig:pascal-make-fields-of-type($s/boolean, $prefix || "boolean"),
@@ -497,9 +498,21 @@ declare function ig:kotlin-make-class($s){
 };
 declare function ig:kotlin-make($r){
   x"@file:Suppress(""EqualsOrHashCode"", ""unused"")
-package de.benibela.videlibri.jni;
+package de.benibela.videlibri.jni
 { $r/api/class/ig:kotlin-make-class(.)} "
 };
+
+
+
+
+
+
+
+
+
+
+
+
 
 
  

@@ -26,6 +26,13 @@ class VersionInfo {
   platform: String
 }
 
+
+
+
+
+
+
+
 @SerializeJson
 @KotlinVar
 @KotlinDataClass
@@ -38,6 +45,17 @@ class BookListDisplayOptions {
   sortingKey: String = "dueDate"
   filterKey: String
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

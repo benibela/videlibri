@@ -1,5 +1,5 @@
 @file:Suppress("EqualsOrHashCode", "unused")
-package de.benibela.videlibri.jni;
+package de.benibela.videlibri.jni
 
   open class FormInput( 
     val name: String = "",
