@@ -85,9 +85,10 @@ type
 TBookListDisplayOptionsClass = class of TBookListDisplayOptions;
 TBookListDisplayOptions = class
   groupingKey, sortingKey, filterKey: string;
-  noDetailsInOverview, showRenewCount: boolean;
+  showHistory, noBorrowedBookDetails, showRenewCount, alwaysFilterOnHistory: boolean;
   procedure toJSON(var builder: TJSONXHTMLStrBuilder);
   function toJSON(): string;
+  constructor create; virtual;
   class function fromJSON(const json: string): TBookListDisplayOptions; virtual;
   class function fromJSON(const json: IXQValue): TBookListDisplayOptions; virtual;
 protected
@@ -383,11 +384,13 @@ end;
  procedure TBookListDisplayOptions.appendToJSON(var builder: TJSONXHTMLStrBuilder);
 begin
   with builder do begin    
-    appendJSONObjectKeyColon('noDetailsInOverview'); if self.noDetailsInOverview then append('true') else append('false'); appendJSONObjectComma;
+    appendJSONObjectKeyColon('showHistory'); if self.showHistory then append('true') else append('false'); appendJSONObjectComma;
+    appendJSONObjectKeyColon('noBorrowedBookDetails'); if self.noBorrowedBookDetails then append('true') else append('false'); appendJSONObjectComma;
     appendJSONObjectKeyColon('showRenewCount'); if self.showRenewCount then append('true') else append('false'); appendJSONObjectComma;
     appendJSONObjectKeyColon('groupingKey'); appendJSONString(self.groupingKey); appendJSONObjectComma;
     appendJSONObjectKeyColon('sortingKey'); appendJSONString(self.sortingKey); appendJSONObjectComma;
-    appendJSONObjectKeyColon('filterKey'); appendJSONString(self.filterKey);
+    appendJSONObjectKeyColon('filterKey'); appendJSONString(self.filterKey); appendJSONObjectComma;
+    appendJSONObjectKeyColon('alwaysFilterOnHistory'); if self.alwaysFilterOnHistory then append('true') else append('false');
     
   end;
 end;
@@ -404,11 +407,13 @@ end;
 
 procedure TBookListDisplayOptions.setPropertiesFromJSON(const json: IXQValue);
 begin
-  noDetailsInOverview := json.getProperty('noDetailsInOverview').toBoolean();
+  showHistory := json.getProperty('showHistory').toBoolean();
+    noBorrowedBookDetails := json.getProperty('noBorrowedBookDetails').toBoolean();
     showRenewCount := json.getProperty('showRenewCount').toBoolean();
     groupingKey := json.getProperty('groupingKey').toString();
     sortingKey := json.getProperty('sortingKey').toString();
     filterKey := json.getProperty('filterKey').toString();
+    alwaysFilterOnHistory := json.getProperty('alwaysFilterOnHistory').toBoolean();
   
 end;
 
@@ -590,8 +595,9 @@ begin
     VersionInfoClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/VersionInfo'));
     VersionInfoClassInit := getmethod(VersionInfoClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;)V'); 
     BookListDisplayOptionsClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/BookListDisplayOptions'));
-    BookListDisplayOptionsClassInit := getmethod(BookListDisplayOptionsClass, '<init>', '(ZZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V');
-    BookListDisplayOptionsFields.noDetailsInOverviewZ := getfield(BookListDisplayOptionsClass, 'noDetailsInOverview', 'Z');
+    BookListDisplayOptionsClassInit := getmethod(BookListDisplayOptionsClass, '<init>', '(ZZZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V');
+    BookListDisplayOptionsFields.showHistoryZ := getfield(BookListDisplayOptionsClass, 'showHistory', 'Z');
+    BookListDisplayOptionsFields.noBorrowedBookDetailsZ := getfield(BookListDisplayOptionsClass, 'noBorrowedBookDetails', 'Z');
     BookListDisplayOptionsFields.showRenewCountZ := getfield(BookListDisplayOptionsClass, 'showRenewCount', 'Z');
     BookListDisplayOptionsFields.groupingKeyS := getfield(BookListDisplayOptionsClass, 'groupingKey', 'Ljava/lang/String;');
     BookListDisplayOptionsFields.sortingKeyS := getfield(BookListDisplayOptionsClass, 'sortingKey', 'Ljava/lang/String;');

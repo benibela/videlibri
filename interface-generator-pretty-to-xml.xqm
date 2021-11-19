@@ -48,8 +48,14 @@ declare function igp:make-class($c){
       case "@Pascal->Kotlin" return attribute pascal-jvm {} 
       case "@Kotlin<->Pascal" case "@Pascal<->Kotlin" return (attribute jvm-pascal {}, attribute pascal-jvm {} )
       default return igp:error("invalid annotation", $a),
-  for $x in subsequence($c, count($annotations) + 2, count($c) - count($annotations) - 2)!translate(., " ", "") return 
-    igp:make-type( substring-after($x, ":"), attribute name { substring-before($x, ":") } )
+  for $x in subsequence($c, count($annotations) + 2, count($c) - count($annotations) - 2)!translate(., " ", "") 
+  let $split := extract($x, "([^:]+):([^=]+)(=\s*(.*))?", (1,2,4) )
+  let $name := $split[1]!normalize-space()
+  let $type := $split[2]!normalize-space()
+  let $default := $split[3]
+  let $default := $default!(if ($type = "String") then replace(., '^"|"$', '') else .) 
+  return 
+    igp:make-type($type, (attribute name { $name }, $default[.] ! attribute default { . } ) )
 }
   </class>
 };

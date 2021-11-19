@@ -2,9 +2,9 @@
 package de.benibela.videlibri.jni;
 
   open class FormInput( 
-    val name: String,
-    val caption: String,
-    val value: String
+    val name: String = "",
+    val caption: String = "",
+    val value: String = ""
   )   {
     override fun equals(other: Any?): Boolean =
        other != null && javaClass == other.javaClass && other is FormInput && name == other.name && caption == other.caption && value == other.value
@@ -29,19 +29,21 @@ package de.benibela.videlibri.jni;
 
   } 
   open class VersionInfo( 
-    val version: String,
-    val platform: String
+    val version: String = "",
+    val platform: String = ""
   )   {
     override fun equals(other: Any?): Boolean =
        other != null && javaClass == other.javaClass && other is VersionInfo && version == other.version && platform == other.platform
 
   } 
   data class BookListDisplayOptions( 
-    @JvmField var noDetailsInOverview: Boolean,
-    @JvmField var showRenewCount: Boolean,
-    @JvmField var groupingKey: String,
-    @JvmField var sortingKey: String,
-    @JvmField var filterKey: String
+    @JvmField var showHistory: Boolean = false,
+    @JvmField var noBorrowedBookDetails: Boolean = false,
+    @JvmField var showRenewCount: Boolean = true,
+    @JvmField var groupingKey: String = "_dueWeek",
+    @JvmField var sortingKey: String = "dueDate",
+    @JvmField var filterKey: String = "",
+    @JvmField var alwaysFilterOnHistory: Boolean = true
   )   {
     override fun equals(other: Any?): Boolean =
        other != null && javaClass == other.javaClass && other is BookListDisplayOptions && noDetailsInOverview == other.noDetailsInOverview && showRenewCount == other.showRenewCount && groupingKey == other.groupingKey && sortingKey == other.sortingKey && filterKey == other.filterKey

@@ -31,10 +31,11 @@ class VersionInfo {
 @KotlinDataClass
 @Pascal<->Kotlin
 class BookListDisplayOptions {
-  noDetailsInOverview: Boolean
-  showRenewCount: Boolean
-  groupingKey: String
-  sortingKey: String
+  showHistory: Boolean
+  noBorrowedBookDetails: Boolean
+  showRenewCount: Boolean = true
+  groupingKey: String = "_dueWeek"
+  sortingKey: String = "dueDate"
   filterKey: String
 }
 

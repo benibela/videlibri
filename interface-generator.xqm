@@ -89,6 +89,7 @@ T{@id} = class{@extends!concat("(T",.,")")}
      
       if (@serialize-json and not(ig:parent(.))) then "procedure toJSON(var builder: TJSONXHTMLStrBuilder);
   function toJSON(): string;" else (),
+      if (./classref,.//@default) then "constructor create; " || $virtual  else (),
       if (.//classref) then "destructor destroy; override;" else (),
   if (@serialize-json) then
   x"class function fromJSON(const json: string): T{@id}; {$virtual}
@@ -305,6 +306,16 @@ begin
 end;
 
 ",
+ .[./classref,.//@default]/(
+x"constructor T{@id}.create;
+begin
+  inherited;{
+  ./classref/x"&#x0A;  {@name} := T{@ref}.create;",
+  .//@default/../x"&#x0A;  {@name} := {if (self::String) then x"'{@default}'" else @default};"
+  }
+end;
+"
+),
  .[.//classref]/(
 x"destructor T{@id}.destroy;{if (./array[classref]) then "&#x0A;var i: integer;" else ()}
 begin {./array[classref]/x"&#x0A;  for i := 0 to high({@name}) do {@name}[i].free;"}{
@@ -434,10 +445,26 @@ declare function ig:kotlin-make-prop-type($s, $prefix, $suffix){
   ) || $suffix
 };
 
-declare function ig:kotlin-make-prop($s){
+declare function ig:kotlin-prop-default($s){
+  $s/(typeswitch (.) 
+    case element(string) return '""' 
+    case element(int) return "0" 
+    case element(long) return "0" 
+    case element(double) return "0" 
+    case element(boolean) return "false"
+    default return "" 
+  )
+};
+
+declare function ig:kotlin-make-prop($s, $default){
   $s/(typeswitch (.) 
     case element(string)|element(int)|element(long)|element(double)|element(boolean)|element(array)|element(classref) 
-    return x"{@name}: " || ig:kotlin-make-prop-type(., "", "")
+    return x"{@name}: " || ig:kotlin-make-prop-type(., "", 
+      if (@default) then  
+        if (self::string) then x' = "{@default}"'
+        else " = " || @default
+      else if ($default) then " = " || ig:kotlin-prop-default($s) 
+      else "" )
     default return () 
   )
 };
@@ -445,13 +472,14 @@ declare function ig:kotlin-make-prop($s){
 declare function ig:kotlin-make-class($s){
   let $a := ig:ancestors($s)
   let $fieldtype := (if ($s/@jvm-pascal) then  "@JvmField " else "") ||  ($s/@kotlin-var, "val")[1] || " "
+  let $addDefault := empty(($s//classref, $s//array))
   let $aprops := ig:properties($a)
   return
   $s/(x"
   {(@kotlin-class, "open")[1]} class {@id}( 
     { join ((
-    $aprops!ig:kotlin-make-prop(.),
-    */ig:kotlin-make-prop(.)!concat($fieldtype,.)
+    $aprops!ig:kotlin-make-prop(., $addDefault),
+    */ig:kotlin-make-prop(., $addDefault)!concat($fieldtype,.)
   ), ",&#x0A;    ") 
   }
   ) {ig:parent(.)!x": {.}({join($aprops!@name, ", ")})"}  {{
