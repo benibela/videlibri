@@ -7,34 +7,35 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import de.benibela.videlibri.*
+import de.benibela.videlibri.Accounts
+import de.benibela.videlibri.R
+import de.benibela.videlibri.VideLibriApp
 import de.benibela.videlibri.activities.LendingList
+import de.benibela.videlibri.isReal
 import de.benibela.videlibri.jni.Bridge
+import de.benibela.videlibri.jni.globalOptionsAndroid
+import de.benibela.videlibri.jni.save
 import de.benibela.videlibri.utils.notificationManager
-import de.benibela.videlibri.utils.preferences
 
 object Notifier {
     private const val DUEDATE_CHANNEL = "duedate"
     private const val NOTIFICATION_ID = 8239238
     private const val OUTDATED_DATA_PERIOD_DAYS: Long = 7
 
-    private fun skipableNotification(context: Context, title: String, text: String): Boolean {
+    private fun skipableNotification(title: String, text: String): Boolean {
         val checkSkipPeriodic: Long = kotlin.math.min(1000L * 60 * 60 * 23, NotificationScheduling.DAILY_CHECK_PERIOD)
         val now = System.currentTimeMillis()
-        val sp = context.preferences
-        val lastTime = sp.getLong("lastNotificationTime", 0)
-        val canSkip = now - lastTime < checkSkipPeriodic &&
-                      now >= lastTime &&
-                      title == sp.getString("lastNotificationTitle", "") &&
-                      text == sp.getString("lastNotificationText", "")
+        val notifications = globalOptionsAndroid.notifications
+        val canSkip = now - notifications.lastTime < checkSkipPeriodic &&
+                      now >= notifications.lastTime &&
+                      title == notifications.lastTitle &&
+                      text == notifications.lastText
 
         if (!canSkip) {
-            sp.edit().let { e ->
-                e.putLong("lastNotificationTime", now)
-                e.putString("lastNotificationTitle", title)
-                e.putString("lastNotificationText", text)
-                e.apply()
-            }
+            notifications.lastTime = now
+            notifications.lastTitle = title
+            notifications.lastText = text
+            globalOptionsAndroid.save()
         }
         return canSkip
     }
@@ -43,8 +44,7 @@ object Notifier {
     private fun getNotifications(context: Context): Array<String>? =
             if (Accounts.size == 0)
                 with(context) {
-                    val sp = preferences
-                    if (sp.getBoolean("hasBeenStartedAtLeastOnce", false) && sp.getInt("accountCountBackup", -1) <= 0) null
+                    if (globalOptionsAndroid.hasBeenStartedAtLeastOnce && globalOptionsAndroid.accountCountBackup <= 0) null
                     else arrayOf(getString(R.string.notificationNoAccountsTitle), getString(R.string.notificationNoAccounts))
                 }
             else {
@@ -61,7 +61,7 @@ object Notifier {
 
     private fun cancelNotification(context: Context) {
         context.notificationManager?.cancel(NOTIFICATION_ID)
-        skipableNotification(context, "", "")
+        skipableNotification("", "")
     }
 
     private fun initChannels(context: Context) {
@@ -88,7 +88,7 @@ object Notifier {
             return
         }
 
-        if (skipableNotification(context, notification[0], notification[1]))
+        if (skipableNotification(notification[0], notification[1]))
             return
 
         initChannels(context)

@@ -46,6 +46,30 @@ package de.benibela.videlibri.jni
     @JvmField var alwaysFilterOnHistory: Boolean = true
   )   {
     override fun equals(other: Any?): Boolean =
-       other != null && javaClass == other.javaClass && other is BookListDisplayOptions && noDetailsInOverview == other.noDetailsInOverview && showRenewCount == other.showRenewCount && groupingKey == other.groupingKey && sortingKey == other.sortingKey && filterKey == other.filterKey
+       other != null && javaClass == other.javaClass && other is BookListDisplayOptions && showHistory == other.showHistory && noBorrowedBookDetails == other.noBorrowedBookDetails && showRenewCount == other.showRenewCount && groupingKey == other.groupingKey && sortingKey == other.sortingKey && filterKey == other.filterKey && alwaysFilterOnHistory == other.alwaysFilterOnHistory
+
+  } 
+  open class NotificationConfig( 
+    @JvmField var enabled: Boolean = true,
+    @JvmField var serviceDelay: Int = 15,
+    @JvmField var lastTime: Long = 0,
+    @JvmField var lastTitle: String = "",
+    @JvmField var lastText: String = ""
+  )   {
+    override fun equals(other: Any?): Boolean =
+       other != null && javaClass == other.javaClass && other is NotificationConfig && enabled == other.enabled && serviceDelay == other.serviceDelay && lastTime == other.lastTime && lastTitle == other.lastTitle && lastText == other.lastText
+
+  } 
+  open class OptionsAndroidOnly( 
+    @JvmField var bookListDisplayOptions: BookListDisplayOptions,
+    @JvmField var filterHistory: Array<String>,
+    @JvmField var importExportFileName: String,
+    @JvmField var additionalCertificatesBase64: Array<String>,
+    @JvmField var notifications: NotificationConfig,
+    @JvmField var hasBeenStartedAtLeastOnce: Boolean,
+    @JvmField var accountCountBackup: Int = -1
+  )   {
+    override fun equals(other: Any?): Boolean =
+       other != null && javaClass == other.javaClass && other is OptionsAndroidOnly && bookListDisplayOptions == other.bookListDisplayOptions && filterHistory.contentEquals(other.filterHistory) && importExportFileName == other.importExportFileName && additionalCertificatesBase64.contentEquals(other.additionalCertificatesBase64) && notifications == other.notifications && hasBeenStartedAtLeastOnce == other.hasBeenStartedAtLeastOnce && accountCountBackup == other.accountCountBackup
 
   } 

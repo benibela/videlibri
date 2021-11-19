@@ -2,7 +2,6 @@ package de.benibela.videlibri.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
@@ -13,33 +12,15 @@ import android.widget.Button
 import android.widget.ListView
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import de.benibela.videlibri.*
-import de.benibela.videlibri.components.BookOverviewAdapter
-import de.benibela.videlibri.utils.Clipboard
+import de.benibela.videlibri.R
 import de.benibela.videlibri.components.BookDetails
 import de.benibela.videlibri.components.BookListFragment
+import de.benibela.videlibri.components.BookOverviewAdapter
+import de.benibela.videlibri.jni.BookListDisplayOptions
 import de.benibela.videlibri.jni.Bridge
-import de.benibela.videlibri.utils.get
+import de.benibela.videlibri.utils.Clipboard
 import kotlinx.android.parcel.Parcelize
 import java.util.*
-
-data class BookListDisplayOptions(
-        var noDetailsInOverview: Boolean = false,
-        var showRenewCount: Boolean = false,
-        var groupingKey: String = "",
-        var sortingKey: String = "",
-        var filterKey: String = ""
-)
-{
-    fun isGrouped() = groupingKey != ""
-    fun readFromPreferences(sp: SharedPreferences){
-        noDetailsInOverview = sp["noLendBookDetails", false]
-        showRenewCount = sp["showRenewCount", true]
-        sortingKey = sp["sorting", "dueDate"]
-        groupingKey = sp["grouping", "_dueWeek"]
-        filterKey = sp["filtering", ""]
-    }
-}
 
 @SuppressLint("Registered")
 open class BookListActivity: VideLibriBaseActivity(){
@@ -240,7 +221,7 @@ open class BookListActivity: VideLibriBaseActivity(){
 
 
     @JvmField var bookCache = ArrayList<Bridge.Book>()
-    val displayOptions = BookListDisplayOptions()
+    var displayOptions = BookListDisplayOptions()
 
     var selectedBooks: MutableSet<Bridge.Book>? = null
 

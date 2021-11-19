@@ -10,7 +10,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.os.Parcelable
-import android.preference.PreferenceManager
 import android.provider.DocumentsContract
 import android.util.AttributeSet
 import android.util.SparseBooleanArray
@@ -28,6 +27,8 @@ import de.benibela.videlibri.R
 import de.benibela.videlibri.accounts
 import de.benibela.videlibri.databinding.ImportexportBinding
 import de.benibela.videlibri.jni.Bridge
+import de.benibela.videlibri.jni.globalOptionsAndroid
+import de.benibela.videlibri.jni.save
 import de.benibela.videlibri.utils.*
 import kotlinx.android.parcel.Parcelize
 import java.io.File
@@ -131,9 +132,7 @@ open class ImportExportBase : VideLibriBaseActivity() {
                     flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
                 }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    val initialUri = PreferenceManager.getDefaultSharedPreferences(this@ImportExportBase).
-                                            getString("importExportFileName", "")?.
-                                            takeNonEmpty() ?:
+                    val initialUri = globalOptionsAndroid.importExportFileName.takeNonEmpty() ?:
                                             File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "videlibri.xml").absolutePath
                     putExtra(DocumentsContract.EXTRA_INITIAL_URI, initialUri)
                 }
@@ -146,10 +145,8 @@ open class ImportExportBase : VideLibriBaseActivity() {
     }
 
     open fun onFileNameChosen(uri: Uri){
-        PreferenceManager.getDefaultSharedPreferences(this).edit().let {
-            it.putString("importExportFileName", uri.toString())
-            it.apply()
-        }
+        globalOptionsAndroid.importExportFileName = uri.toString()
+        globalOptionsAndroid.save()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

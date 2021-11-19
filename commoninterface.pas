@@ -106,6 +106,66 @@ public
   
   {$endif}
 
+end;  
+type 
+TNotificationConfigClass = class of TNotificationConfig;
+TNotificationConfig = class
+  lastTitle, lastText: string;
+  serviceDelay: int32;
+  lastTime: int64;
+  enabled: boolean;
+  procedure toJSON(var builder: TJSONXHTMLStrBuilder);
+  function toJSON(): string;
+  constructor create; virtual;
+  class function fromJSON(const json: string): TNotificationConfig; virtual;
+  class function fromJSON(const json: IXQValue): TNotificationConfig; virtual;
+protected
+  procedure appendToJSON(var builder: TJSONXHTMLStrBuilder); virtual;
+  procedure setPropertiesFromJSON(const json: IXQValue); virtual;
+  class function typeId: string; virtual;
+  class function classFromTypeId(const id: string): TNotificationConfigClass;
+  class function fromJSONWithType(const typ: string; const json: IXQValue): TObject;
+
+public
+  {$ifdef android}
+  function toJava: jobject; virtual;
+  class function fromJava(jvm: jobject): TNotificationConfig; virtual;
+  class function fromJavaAndDelete(jvm: jobject): TNotificationConfig; virtual;
+  
+  {$endif}
+
+end;  
+type 
+TOptionsAndroidOnlyClass = class of TOptionsAndroidOnly;
+TOptionsAndroidOnly = class
+  importExportFileName: string;
+  accountCountBackup: int32;
+  hasBeenStartedAtLeastOnce: boolean;
+  filterHistory: array of string;
+  additionalCertificatesBase64: array of string;
+  bookListDisplayOptions: TBookListDisplayOptions;
+  notifications: TNotificationConfig;
+  procedure toJSON(var builder: TJSONXHTMLStrBuilder);
+  function toJSON(): string;
+  constructor create; virtual;
+  destructor destroy; override;
+  class function fromJSON(const json: string): TOptionsAndroidOnly; virtual;
+  class function fromJSON(const json: IXQValue): TOptionsAndroidOnly; virtual;
+protected
+  procedure appendToJSON(var builder: TJSONXHTMLStrBuilder); virtual;
+  procedure setPropertiesFromJSON(const json: IXQValue); virtual;
+  class function typeId: string; virtual;
+  class function classFromTypeId(const id: string): TOptionsAndroidOnlyClass;
+  class function fromJSONWithType(const typ: string; const json: IXQValue): TObject;
+
+public
+  {$ifdef android}
+  function toJava: jobject; virtual;
+  class function fromJava(jvm: jobject): TOptionsAndroidOnly; virtual;
+  class function fromJavaAndDelete(jvm: jobject): TOptionsAndroidOnly; virtual;
+  
+  {$endif}
+
 end; 
  {$ifdef android}
  procedure initBridge;
@@ -433,9 +493,193 @@ begin
   result := classFromTypeId(typ).fromJSON(json);
 end;
 
+ constructor TBookListDisplayOptions.create;
+begin
+  inherited;
+  showRenewCount := true; 
+  groupingKey := '_dueWeek'; 
+  sortingKey := 'dueDate'; 
+  alwaysFilterOnHistory := true;
+end;
+ procedure TNotificationConfig.toJSON(var builder: TJSONXHTMLStrBuilder);
+begin
+  with builder do begin
+    appendJSONObjectStart;
+    self.appendToJSON(builder);
+    appendJSONObjectEnd;
+  end;
+end;
 
+function TNotificationConfig.toJSON(): string;
+var b:  TJSONXHTMLStrBuilder;
+begin
+  b.init(@result);
+  toJSON(b);
+  b.final;
+end;
+
+ procedure TNotificationConfig.appendToJSON(var builder: TJSONXHTMLStrBuilder);
+begin
+  with builder do begin    
+    appendJSONObjectKeyColon('enabled'); if self.enabled then append('true') else append('false'); appendJSONObjectComma;
+    appendJSONObjectKeyColon('serviceDelay'); appendNumber(self.serviceDelay); appendJSONObjectComma;
+    appendJSONObjectKeyColon('lastTime'); appendNumber(self.lastTime); appendJSONObjectComma;
+    appendJSONObjectKeyColon('lastTitle'); appendJSONString(self.lastTitle); appendJSONObjectComma;
+    appendJSONObjectKeyColon('lastText'); appendJSONString(self.lastText);
+    
+  end;
+end;
+
+class function TNotificationConfig.fromJSON(const json: string): TNotificationConfig;
+begin
+  result := fromJSON(parseJSON(json))
+end;
+class function TNotificationConfig.fromJSON(const json: IXQValue): TNotificationConfig;
+begin
+  result := TNotificationConfig.create;
+  result.setPropertiesFromJSON(json)
+end;
+
+procedure TNotificationConfig.setPropertiesFromJSON(const json: IXQValue);
+begin
+  enabled := json.getProperty('enabled').toBoolean();
+    serviceDelay := json.getProperty('serviceDelay').toInt64();
+    lastTime := json.getProperty('lastTime').toInt64();
+    lastTitle := json.getProperty('lastTitle').toString();
+    lastText := json.getProperty('lastText').toString();
+  
+end;
+
+class function TNotificationConfig.typeId: string;
+begin
+  result := 'NotificationConfig'
+end;
+
+  
+class function TNotificationConfig.classFromTypeId(const id: string): TNotificationConfigClass;
+begin
+  ignore(id);
+  result := TNotificationConfig
+end;
+class function TNotificationConfig.fromJSONWithType(const typ: string; const json: IXQValue): TObject;
+begin
+  result := classFromTypeId(typ).fromJSON(json);
+end;
+
+ constructor TNotificationConfig.create;
+begin
+  inherited;
+  enabled := true; 
+  serviceDelay := 15;
+end;
+ procedure TOptionsAndroidOnly.toJSON(var builder: TJSONXHTMLStrBuilder);
+begin
+  with builder do begin
+    appendJSONObjectStart;
+    self.appendToJSON(builder);
+    appendJSONObjectEnd;
+  end;
+end;
+
+function TOptionsAndroidOnly.toJSON(): string;
+var b:  TJSONXHTMLStrBuilder;
+begin
+  b.init(@result);
+  toJSON(b);
+  b.final;
+end;
+
+ procedure TOptionsAndroidOnly.appendToJSON(var builder: TJSONXHTMLStrBuilder);
+var i: sizeint;
+begin
+  with builder do begin    
+    appendJSONObjectKeyColon('bookListDisplayOptions'); bookListDisplayOptions.toJSON(builder); appendJSONObjectComma;
+    appendJSONObjectKeyColon('filterHistory'); appendJSONArrayStart();
+    for i := 0 to high(filterHistory) do begin
+      if i > 0 then appendJSONArrayComma();
+      filterHistory[i].toJSON(builder);
+    end;
+    appendJSONArrayEnd(); appendJSONObjectComma;
+    appendJSONObjectKeyColon('importExportFileName'); appendJSONString(self.importExportFileName); appendJSONObjectComma;
+    appendJSONObjectKeyColon('additionalCertificatesBase64'); appendJSONArrayStart();
+    for i := 0 to high(additionalCertificatesBase64) do begin
+      if i > 0 then appendJSONArrayComma();
+      additionalCertificatesBase64[i].toJSON(builder);
+    end;
+    appendJSONArrayEnd(); appendJSONObjectComma;
+    appendJSONObjectKeyColon('notifications'); notifications.toJSON(builder); appendJSONObjectComma;
+    appendJSONObjectKeyColon('hasBeenStartedAtLeastOnce'); if self.hasBeenStartedAtLeastOnce then append('true') else append('false'); appendJSONObjectComma;
+    appendJSONObjectKeyColon('accountCountBackup'); appendNumber(self.accountCountBackup);
+    
+  end;
+end;
+
+class function TOptionsAndroidOnly.fromJSON(const json: string): TOptionsAndroidOnly;
+begin
+  result := fromJSON(parseJSON(json))
+end;
+class function TOptionsAndroidOnly.fromJSON(const json: IXQValue): TOptionsAndroidOnly;
+begin
+  result := TOptionsAndroidOnly.create;
+  result.setPropertiesFromJSON(json)
+end;
+
+procedure TOptionsAndroidOnly.setPropertiesFromJSON(const json: IXQValue);
+begin
+  bookListDisplayOptions.setPropertiesFromJSON(json.getProperty('bookListDisplayOptions'));
+    readArray(filterHistory, json.getProperty('filterHistory'));
+    importExportFileName := json.getProperty('importExportFileName').toString();
+    readArray(additionalCertificatesBase64, json.getProperty('additionalCertificatesBase64'));
+    notifications.setPropertiesFromJSON(json.getProperty('notifications'));
+    hasBeenStartedAtLeastOnce := json.getProperty('hasBeenStartedAtLeastOnce').toBoolean();
+    accountCountBackup := json.getProperty('accountCountBackup').toInt64();
+  
+end;
+
+class function TOptionsAndroidOnly.typeId: string;
+begin
+  result := 'OptionsAndroidOnly'
+end;
+
+  
+class function TOptionsAndroidOnly.classFromTypeId(const id: string): TOptionsAndroidOnlyClass;
+begin
+  ignore(id);
+  result := TOptionsAndroidOnly
+end;
+class function TOptionsAndroidOnly.fromJSONWithType(const typ: string; const json: IXQValue): TObject;
+begin
+  result := classFromTypeId(typ).fromJSON(json);
+end;
+
+ constructor TOptionsAndroidOnly.create;
+begin
+  inherited;
+  bookListDisplayOptions := TBookListDisplayOptions.create; 
+  notifications := TNotificationConfig.create; 
+  accountCountBackup := -1;
+end;
+ destructor TOptionsAndroidOnly.destroy;
+begin 
+  bookListDisplayOptions.free; 
+  notifications.free;
+  inherited;
+end;
 
 {$ifdef android}
+
+
+procedure fromJavaArrayAndDelete(var sa: TStringArray; jvm: jarray);
+var
+  i: sizeint;
+begin
+  with j do begin
+    SetLength(sa, getArrayLength(jvm));
+    for i := 0 to high(sa) do
+      sa[i] := getStringArrayElement(jvm, i);
+    deleteLocalRef(jvm);
+  end;
+end;
 
 
 
@@ -460,8 +704,24 @@ var
   BookListDisplayOptionsClass: jclass;
   BookListDisplayOptionsClassInit: jmethodID;
  
+var
+  NotificationConfigClass: jclass;
+  NotificationConfigClassInit: jmethodID;
+ 
+var
+  OptionsAndroidOnlyClass: jclass;
+  OptionsAndroidOnlyClassInit: jmethodID;
+ 
   BookListDisplayOptionsFields: record
-    noDetailsInOverviewZ, showRenewCountZ, groupingKeyS, sortingKeyS, filterKeyS: jfieldID;
+    showHistoryZ, noBorrowedBookDetailsZ, showRenewCountZ, groupingKeyS, sortingKeyS, filterKeyS, alwaysFilterOnHistoryZ: jfieldID;
+  end;
+ 
+  NotificationConfigFields: record
+    enabledZ, serviceDelayI, lastTimeJ, lastTitleS, lastTextS: jfieldID;
+  end;
+ 
+  OptionsAndroidOnlyFields: record
+    bookListDisplayOptionsL, filterHistoryA, importExportFileNameS, additionalCertificatesBase64A, notificationsL, hasBeenStartedAtLeastOnceZ, accountCountBackupI: jfieldID;
   end;
 
 
@@ -546,16 +806,57 @@ begin
 end;
  
 function TBookListDisplayOptions.toJava: jobject;
+var temp: array[0..6] of jvalue;
+begin
+  with j do begin
+    temp[0].z := booleanToJboolean(self.showHistory);
+    temp[1].z := booleanToJboolean(self.noBorrowedBookDetails);
+    temp[2].z := booleanToJboolean(self.showRenewCount);
+    temp[3].l := stringToJString(self.groupingKey);
+    temp[4].l := stringToJString(self.sortingKey);
+    temp[5].l := stringToJString(self.filterKey);
+    temp[6].z := booleanToJboolean(self.alwaysFilterOnHistory);
+
+    result := newObject(BookListDisplayOptionsClass, BookListDisplayOptionsClassInit, @temp[0]); 
+    deleteLocalRef(temp[3].l);
+    deleteLocalRef(temp[4].l);
+    deleteLocalRef(temp[5].l);
+
+ end;
+end;
+ 
+function TNotificationConfig.toJava: jobject;
 var temp: array[0..4] of jvalue;
 begin
   with j do begin
-    temp[0].z := booleanToJboolean(self.noDetailsInOverview);
-    temp[1].z := booleanToJboolean(self.showRenewCount);
-    temp[2].l := stringToJString(self.groupingKey);
-    temp[3].l := stringToJString(self.sortingKey);
-    temp[4].l := stringToJString(self.filterKey);
+    temp[0].z := booleanToJboolean(self.enabled);
+    temp[1].i := self.serviceDelay;
+    temp[2].j := self.lastTime;
+    temp[3].l := stringToJString(self.lastTitle);
+    temp[4].l := stringToJString(self.lastText);
 
-    result := newObject(BookListDisplayOptionsClass, BookListDisplayOptionsClassInit, @temp[0]); 
+    result := newObject(NotificationConfigClass, NotificationConfigClassInit, @temp[0]); 
+    deleteLocalRef(temp[3].l);
+    deleteLocalRef(temp[4].l);
+
+ end;
+end;
+ 
+function TOptionsAndroidOnly.toJava: jobject;
+var temp: array[0..6] of jvalue;
+begin
+  with j do begin
+    temp[0].l := self.bookListDisplayOptions.toJava;
+    temp[1].l := arrayToJArrayCI(self.filterHistory);
+    temp[2].l := stringToJString(self.importExportFileName);
+    temp[3].l := arrayToJArrayCI(self.additionalCertificatesBase64);
+    temp[4].l := self.notifications.toJava;
+    temp[5].z := booleanToJboolean(self.hasBeenStartedAtLeastOnce);
+    temp[6].i := self.accountCountBackup;
+
+    result := newObject(OptionsAndroidOnlyClass, OptionsAndroidOnlyClassInit, @temp[0]); 
+    deleteLocalRef(temp[0].l);
+    deleteLocalRef(temp[1].l);
     deleteLocalRef(temp[2].l);
     deleteLocalRef(temp[3].l);
     deleteLocalRef(temp[4].l);
@@ -567,15 +868,55 @@ class function TBookListDisplayOptions.fromJava(jvm: jobject): TBookListDisplayO
 begin
   result := TBookListDisplayOptions.create;
   with j, result, BookListDisplayOptionsFields do begin
-    noDetailsInOverview := getbooleanField( jvm, noDetailsInOverviewZ );
+    showHistory := getbooleanField( jvm, showHistoryZ );
+    noBorrowedBookDetails := getbooleanField( jvm, noBorrowedBookDetailsZ );
     showRenewCount := getbooleanField( jvm, showRenewCountZ );
     groupingKey := getstringField( jvm, groupingKeyS );
     sortingKey := getstringField( jvm, sortingKeyS );
     filterKey := getstringField( jvm, filterKeyS );
+    alwaysFilterOnHistory := getbooleanField( jvm, alwaysFilterOnHistoryZ );
 
  end;
 end;
 class function TBookListDisplayOptions.fromJavaAndDelete(jvm: jobject): TBookListDisplayOptions;
+begin
+  result := fromJava(jvm);
+  j.deleteLocalRef(jvm);
+end;
+ 
+class function TNotificationConfig.fromJava(jvm: jobject): TNotificationConfig;
+begin
+  result := TNotificationConfig.create;
+  with j, result, NotificationConfigFields do begin
+    enabled := getbooleanField( jvm, enabledZ );
+    serviceDelay := getintField( jvm, serviceDelayI );
+    lastTime := getlongField( jvm, lastTimeJ );
+    lastTitle := getstringField( jvm, lastTitleS );
+    lastText := getstringField( jvm, lastTextS );
+
+ end;
+end;
+class function TNotificationConfig.fromJavaAndDelete(jvm: jobject): TNotificationConfig;
+begin
+  result := fromJava(jvm);
+  j.deleteLocalRef(jvm);
+end;
+ 
+class function TOptionsAndroidOnly.fromJava(jvm: jobject): TOptionsAndroidOnly;
+begin
+  result := TOptionsAndroidOnly.create;
+  with j, result, OptionsAndroidOnlyFields do begin
+    bookListDisplayOptions := TBookListDisplayOptions.fromJavaAndDelete(getObjectField( jvm, bookListDisplayOptionsL ));
+    fromJavaArrayAndDelete(filterHistory, getObjectField( jvm, filterHistoryA ));
+    importExportFileName := getstringField( jvm, importExportFileNameS );
+    fromJavaArrayAndDelete(additionalCertificatesBase64, getObjectField( jvm, additionalCertificatesBase64A ));
+    notifications := TNotificationConfig.fromJavaAndDelete(getObjectField( jvm, notificationsL ));
+    hasBeenStartedAtLeastOnce := getbooleanField( jvm, hasBeenStartedAtLeastOnceZ );
+    accountCountBackup := getintField( jvm, accountCountBackupI );
+
+ end;
+end;
+class function TOptionsAndroidOnly.fromJavaAndDelete(jvm: jobject): TOptionsAndroidOnly;
 begin
   result := fromJava(jvm);
   j.deleteLocalRef(jvm);
@@ -602,6 +943,23 @@ begin
     BookListDisplayOptionsFields.groupingKeyS := getfield(BookListDisplayOptionsClass, 'groupingKey', 'Ljava/lang/String;');
     BookListDisplayOptionsFields.sortingKeyS := getfield(BookListDisplayOptionsClass, 'sortingKey', 'Ljava/lang/String;');
     BookListDisplayOptionsFields.filterKeyS := getfield(BookListDisplayOptionsClass, 'filterKey', 'Ljava/lang/String;');
+    BookListDisplayOptionsFields.alwaysFilterOnHistoryZ := getfield(BookListDisplayOptionsClass, 'alwaysFilterOnHistory', 'Z'); 
+    NotificationConfigClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/NotificationConfig'));
+    NotificationConfigClassInit := getmethod(NotificationConfigClass, '<init>', '(ZIJLjava/lang/String;Ljava/lang/String;)V');
+    NotificationConfigFields.enabledZ := getfield(NotificationConfigClass, 'enabled', 'Z');
+    NotificationConfigFields.serviceDelayI := getfield(NotificationConfigClass, 'serviceDelay', 'I');
+    NotificationConfigFields.lastTimeJ := getfield(NotificationConfigClass, 'lastTime', 'J');
+    NotificationConfigFields.lastTitleS := getfield(NotificationConfigClass, 'lastTitle', 'Ljava/lang/String;');
+    NotificationConfigFields.lastTextS := getfield(NotificationConfigClass, 'lastText', 'Ljava/lang/String;'); 
+    OptionsAndroidOnlyClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/OptionsAndroidOnly'));
+    OptionsAndroidOnlyClassInit := getmethod(OptionsAndroidOnlyClass, '<init>', '(Lde/benibela/videlibri/jni/BookListDisplayOptions;[Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;Lde/benibela/videlibri/jni/NotificationConfig;ZI)V');
+    OptionsAndroidOnlyFields.bookListDisplayOptionsL := getfield(OptionsAndroidOnlyClass, 'bookListDisplayOptions', 'Lde/benibela/videlibri/jni/BookListDisplayOptions;');
+    OptionsAndroidOnlyFields.filterHistoryA := getfield(OptionsAndroidOnlyClass, 'filterHistory', '[Ljava/lang/String;');
+    OptionsAndroidOnlyFields.importExportFileNameS := getfield(OptionsAndroidOnlyClass, 'importExportFileName', 'Ljava/lang/String;');
+    OptionsAndroidOnlyFields.additionalCertificatesBase64A := getfield(OptionsAndroidOnlyClass, 'additionalCertificatesBase64', '[Ljava/lang/String;');
+    OptionsAndroidOnlyFields.notificationsL := getfield(OptionsAndroidOnlyClass, 'notifications', 'Lde/benibela/videlibri/jni/NotificationConfig;');
+    OptionsAndroidOnlyFields.hasBeenStartedAtLeastOnceZ := getfield(OptionsAndroidOnlyClass, 'hasBeenStartedAtLeastOnce', 'Z');
+    OptionsAndroidOnlyFields.accountCountBackupI := getfield(OptionsAndroidOnlyClass, 'accountCountBackup', 'I');
   end;
 end;
 {$endif}

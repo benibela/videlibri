@@ -18,6 +18,8 @@ import de.benibela.videlibri.activities.SearchEventHandler
 import de.benibela.videlibri.internet.UserKeyStore
 import de.benibela.videlibri.internet.VideLibriKeyStore
 import de.benibela.videlibri.jni.Bridge
+import de.benibela.videlibri.jni.OptionsAndroidOnly
+import de.benibela.videlibri.jni.globalOptionsAndroid
 import de.benibela.videlibri.notifications.NotificationScheduling
 import de.benibela.videlibri.notifications.Notifier
 import de.benibela.videlibri.utils.*
@@ -264,7 +266,6 @@ class VideLibriApp : Application() {
             val prefs = PreferenceManager.getDefaultSharedPreferences(context)
 
             Config.defaultCustomTrustManagerFactory = UserKeyStore.makeFactory()
-            UserKeyStore.loadUserCertificates(prefs)
             Config.defaultKeystoreFactory = X509TrustManagerWithAdditionalKeystores.LazyLoadKeyStoreFactory { VideLibriKeyStore() }
             Config.invalidCerticateMessage = context.getString(R.string.internet_invalid_certificateS)
 
@@ -320,6 +321,8 @@ class VideLibriApp : Application() {
 
 
             Bridge.initialize(context)
+            globalOptionsAndroid = Bridge.VLGetOptionsAndroidOnly()
+            UserKeyStore.loadUserCertificates(globalOptionsAndroid.additionalCertificatesBase64)
             accounts.refreshAll()
 
             NotificationScheduling.rescheduleDailyIfNecessary(context, false)

@@ -1,11 +1,12 @@
 package de.benibela.videlibri.internet
 
 import android.app.Activity
-import android.preference.PreferenceManager
 import de.benibela.internettools.X509TrustManagerWrapper
 import de.benibela.internettools.okhttp.ClientBuilderCustomizer
 import de.benibela.videlibri.R
 import de.benibela.videlibri.activities.Options
+import de.benibela.videlibri.jni.globalOptionsAndroid
+import de.benibela.videlibri.jni.save
 import de.benibela.videlibri.utils.currentActivity
 import de.benibela.videlibri.utils.getString
 import de.benibela.videlibri.utils.showMessage
@@ -55,7 +56,8 @@ class DownloadCertificate(private val server: String) : Runnable {
         }
         val context = currentActivity<Activity>() ?: return
         context.runOnUiThread {
-            UserKeyStore.storeUserCertificates(PreferenceManager.getDefaultSharedPreferences(context))
+            globalOptionsAndroid.additionalCertificatesBase64 = UserKeyStore.toArray()
+            globalOptionsAndroid.save()
             showMessage(message)
             if (context is Options) context.updatePreferences()
         }

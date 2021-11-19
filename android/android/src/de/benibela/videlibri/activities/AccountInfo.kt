@@ -11,6 +11,8 @@ import android.view.View
 import android.widget.*
 import de.benibela.videlibri.*
 import de.benibela.videlibri.jni.Bridge
+import de.benibela.videlibri.jni.globalOptionsAndroid
+import de.benibela.videlibri.jni.save
 import de.benibela.videlibri.utils.*
 
 internal open class EmptyTextWatcher : TextWatcher {
@@ -146,7 +148,10 @@ class AccountInfo : VideLibriBaseActivity() {
     override fun onResume() {
         super.onResume()
 
-        preferences.edit().apply {  putBoolean("hasBeenStartedAtLeastOnce", true); apply() }
+        if (!globalOptionsAndroid.hasBeenStartedAtLeastOnce) {
+            globalOptionsAndroid.hasBeenStartedAtLeastOnce = true
+            globalOptionsAndroid.save()
+        }
 
         libdetails ?: setActiveLibrary(LibraryList.lastSelectedFallbackLibraryId()) ?: updateLibrary()
     }
@@ -242,7 +247,8 @@ class AccountInfo : VideLibriBaseActivity() {
     private fun addAccountNow() {
         inputToAccount()?.let {
             Accounts.add(it)
-            preferences.edit().apply { putInt("accountCountBackup", Accounts.size); apply() }
+            globalOptionsAndroid.accountCountBackup = Accounts.size
+            globalOptionsAndroid.save()
             finishWithResult()
         }
     }
@@ -254,7 +260,8 @@ class AccountInfo : VideLibriBaseActivity() {
     }
     private fun deleteAccountNow() {
         Accounts.delete(oldAccount)
-        preferences.edit().apply { putInt("accountCountBackup", Accounts.size); apply() }
+        globalOptionsAndroid.accountCountBackup = Accounts.size
+        globalOptionsAndroid.save()
         finishWithResult()
     }
 

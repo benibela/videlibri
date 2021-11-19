@@ -12,12 +12,12 @@ import de.benibela.videlibri.R
 import de.benibela.videlibri.utils.*
 
 class PreferenceSeekBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = androidx.preference.R.attr.seekBarPreferenceStyle, defStyleRes: Int = 0) : SeekBarPreference(context, attrs, defStyleAttr, defStyleRes) {
-    private val dynamicSummary: String?
+    var dynamicSummary: String?
     private var seekbarView: SeekBar? = null
     private var editable: Boolean = false
-    private var safeMin: Int
-    private var safeMax: Int
-    private var unsafeWarning: String?
+    var safeMin: Int
+    var safeMax: Int
+    var unsafeWarning: String?
 
     init {
 
@@ -55,7 +55,7 @@ class PreferenceSeekBar @JvmOverloads constructor(context: Context, attrs: Attri
         showDynamicSummary()
     }
 
-    private fun showDynamicSummary() {
+    fun showDynamicSummary() {
         val s = dynamicSummary?.let { String.format(it, value) } ?: ""
         //todo: plural https://stackoverflow.com/a/25648349
         summary = if (editable) s

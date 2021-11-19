@@ -46,7 +46,7 @@ public class NotificationService extends Service{
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         //Log.i("LocalService", "Received start id " + startId + ": " + intent);
-        if (!NotificationScheduling.preferenceNotificationsEnabled(this))
+        if (!NotificationScheduling.preferenceNotificationsEnabled())
             return START_NOT_STICKY;
 
 
@@ -108,9 +108,9 @@ public class NotificationService extends Service{
 
 
     static public void resheduleDailyIfNecessary(Context context, boolean afterDeviceBoot){
-        if (!NotificationScheduling.preferenceNotificationsEnabled(context)) return;
+        if (!NotificationScheduling.preferenceNotificationsEnabled()) return;
         sheduleDailyCheck(context);
         if (afterDeviceBoot)
-            sheduleQuickCheck(context, NotificationScheduling.preferenceNotificationsBootDelayInMilliseconds(context));
+            sheduleQuickCheck(context, NotificationScheduling.preferenceNotificationsBootDelayInMilliseconds());
     }
 }

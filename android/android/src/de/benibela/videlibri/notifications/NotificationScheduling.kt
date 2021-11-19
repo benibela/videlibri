@@ -4,10 +4,10 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import de.benibela.videlibri.jni.globalOptionsAndroid
 import de.benibela.videlibri.notifications.jobs.NotificationJobService
 import de.benibela.videlibri.notifications.jobs.rescheduleDailyIfNecessaryAsJob
 import de.benibela.videlibri.notifications.service.NotificationService
-import de.benibela.videlibri.utils.preferences
 
 class NotificationOnBootCompleted : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent?) {
@@ -24,11 +24,11 @@ object NotificationScheduling{
             NotificationService.resheduleDailyIfNecessary(context, afterDeviceBoot)
     }
 
-    @JvmStatic fun preferenceNotificationsEnabled(context: Context): Boolean{
-        return context.preferences.getBoolean("notifications", true)
+    @JvmStatic fun preferenceNotificationsEnabled(): Boolean{
+        return globalOptionsAndroid.notifications.enabled
     }
-    @JvmStatic fun preferenceNotificationsBootDelayInMilliseconds(context: Context): Long{
-        return 1000 * 60 * context.preferences.getInt("notificationsServiceDelay", 15).toLong()
+    @JvmStatic fun preferenceNotificationsBootDelayInMilliseconds(): Long{
+        return 1000 * 60 * globalOptionsAndroid.notifications.serviceDelay.let { if (it <= 0) 15L else it.toLong() }
     }
     @JvmStatic fun onUpdateComplete(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)

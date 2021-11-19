@@ -8,10 +8,11 @@ import android.view.ViewGroup
 import de.benibela.multilevellistview.ClickableRecyclerView
 import de.benibela.videlibri.R
 import de.benibela.videlibri.activities.BookListActivity
-import de.benibela.videlibri.activities.BookListDisplayOptions
+import de.benibela.videlibri.jni.BookListDisplayOptions
 import de.benibela.videlibri.utils.BookFormatter.shortened
 import de.benibela.videlibri.databinding.BookOverviewRowBinding
 import de.benibela.videlibri.jni.Bridge
+import de.benibela.videlibri.jni.isGrouped
 import de.benibela.videlibri.utils.BookFormatter
 import de.benibela.videlibri.utils.getDateText
 import de.benibela.videlibri.utils.getMoreText
@@ -41,7 +42,7 @@ internal class BookOverviewAdapter(private val context: BookListActivity, books:
 
     override fun getItemViewType(position: Int): Int = get(position).let { book ->
         if (options.isGrouped() && book.isGroupingHeader) VIEW_TYPE_GROUPING
-        else if (options.noDetailsInOverview) VIEW_TYPE_NODETAILS
+        else if (options.noBorrowedBookDetails) VIEW_TYPE_NODETAILS
         else VIEW_TYPE_DEFAULT
     }
 
@@ -108,7 +109,7 @@ internal class BookOverviewAdapter(private val context: BookListActivity, books:
                 if (pos == 0) book.title
                 else "$paragraph${book.title}"
             } else  {
-                val more = if (!options.noDetailsInOverview) book.getMoreText() else ""
+                val more = if (!options.noBorrowedBookDetails) book.getMoreText() else ""
                 val date = if (!book.history) ": ${book.getDateText(options)}" else ""
                 "${book.title} $more$date"
             }

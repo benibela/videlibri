@@ -5,12 +5,10 @@ import android.app.NotificationManager
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.content.SharedPreferences
 import android.content.res.AssetManager
 import android.content.res.Resources.NotFoundException
 import android.os.Handler
 import android.os.Looper
-import android.preference.PreferenceManager
 import android.widget.Toast
 import androidx.annotation.StringRes
 import de.benibela.videlibri.R
@@ -47,10 +45,6 @@ fun getString(@StringRes message: Int,  vararg args: Any?): String = currentCont
 
 inline val Context.notificationManager: NotificationManager?
     get() = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager?
-
-inline val Context.preferences: SharedPreferences
-    get() = PreferenceManager.getDefaultSharedPreferences(this)
-
 
 
 fun AssetManager.exists(fileName: String): Boolean {

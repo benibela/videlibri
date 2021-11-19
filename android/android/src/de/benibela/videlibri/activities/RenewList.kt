@@ -1,11 +1,11 @@
 package de.benibela.videlibri.activities
 
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.view.View
 import android.widget.Button
 import de.benibela.videlibri.R
 import de.benibela.videlibri.VideLibriApp
+import de.benibela.videlibri.jni.globalOptionsAndroid
 import de.benibela.videlibri.utils.filterToSecondaryBookCache
 import de.benibela.videlibri.utils.makePrimaryBookCache
 
@@ -47,9 +47,7 @@ class RenewList : BookListActivity() {
     }
 
     private fun updateViewFilters() {
-        val sp = PreferenceManager.getDefaultSharedPreferences(this)
-        displayOptions.readFromPreferences(sp)
-        displayOptions.filterKey = ""
+        displayOptions = globalOptionsAndroid.bookListDisplayOptions.copy(filterKey = "", showHistory = false, alwaysFilterOnHistory = false)
         val oldSelection = selectedBooks
         bookCache = makePrimaryBookCache(false, true)
         trueCount = bookCache.size

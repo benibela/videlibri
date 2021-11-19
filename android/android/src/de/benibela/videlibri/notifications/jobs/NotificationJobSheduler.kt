@@ -26,7 +26,7 @@ class NotificationJobService: JobService() {
         VideLibriApp.initializeAll(this)
 
         //Log.d("VIDELIBRI JOB", "onStartJob!!")
-        if (!NotificationScheduling.preferenceNotificationsEnabled(this))
+        if (!NotificationScheduling.preferenceNotificationsEnabled())
             return false
 
         VideLibriApp.updateAccount(null, true, false)
@@ -85,7 +85,7 @@ class NotificationJobService: JobService() {
 class NotificationJobServiceNoUpdate: JobService() {
     override fun onStartJob(params: JobParameters?): Boolean {
         VideLibriApp.initializeAll(this)
-        if (!NotificationScheduling.preferenceNotificationsEnabled(this))
+        if (!NotificationScheduling.preferenceNotificationsEnabled())
             return false
         Notifier.updateNotification(this)
         return false
@@ -100,7 +100,7 @@ class NotificationJobServiceNoUpdate: JobService() {
 fun rescheduleDailyIfNecessaryAsJob(context: Context, afterDeviceBoot: Boolean){
     val scheduler  = context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as? JobScheduler ?: return
     if (afterDeviceBoot) {
-        val delay = NotificationScheduling.preferenceNotificationsBootDelayInMilliseconds(context)
+        val delay = NotificationScheduling.preferenceNotificationsBootDelayInMilliseconds()
         val b = JobInfo.Builder(JOB_ID_AFTER_BOOT, ComponentName(context, NotificationJobService::class.java))
         b.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
         b.setMinimumLatency(delay)

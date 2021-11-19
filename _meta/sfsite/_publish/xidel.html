@@ -6,7 +6,7 @@
 <head>
 <title>Xidel - HTML/XML/JSON data extraction tool </title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="description" content="Xidel is a command line tool to download html/xml pages and extract data from them using CSS 3 selectors, XPath 3 expressions or pattern-matching templates.">
+<meta name="description" content="Xidel is a command line tool to download HTML/XML pages and extract data from them using CSS 3 selectors, XPath 3 expressions or pattern-matching.">
 <meta name="author" content="Benito van der Zander">
 <meta name="keywords" content="Xidel,  xpath, xpath 3, xquery 3, css, css 3, template, pattern matching, xml, html, download">
 <link rel="stylesheet" type="text/css" href="all.css">
@@ -68,27 +68,27 @@ It supports:
  
 <ul class="xidelfeatures">
 <li>Extract expressions:<ul>
-  <li>CSS 3 Selectors: to extract simple elements</li>
-  <li>XPath 3.0: to extract values and calculate things with them</li>
-  <li>XQuery 3.0: to  create new documents from the extracted values</li> 
-  <li>JSONiq: to  work with JSON apis</li> 
-  <li>Templates: to extract several expressions in an easy way using a annotated version of the page for pattern-matching</li>
-  <li>XPath 2.0/XQuery 1.0: compatibility mode for the old XPath/XQuery version</li>
+  <li>CSS 3 Selectors: to extract elements unchanged.</li>
+  <li>XPath 3.0: to extract values and calculate things with them.</li>
+  <li>XQuery 3.0: to  create new documents from the extracted values.</li> 
+  <li>JSONiq: to work with JSON APIs.</li> 
+  <li>Pattern matching: to extract several expressions in an easy way using a annotated version of the input page.</li>
+  <li>XPath 2.0/XQuery 1.0: compatibility mode for the old XPath/XQuery versions.</li>
 </ul></li>
 <li>Following:<ul>
-  <li>HTTP Codes: Redirections like 30x are automatically followed, while keeping things like cookies </li>
-  <li>Links: It can follow all links on a page as well as some extracted values </li>
-  <li>Forms: It can fill in arbitrary data and submit the form </li>
+  <li>HTTP Codes: Redirections like 30x are automatically followed, while keeping things like cookies.</li>
+  <li>Links: It can follow all links on a page as well as some extracted values.</li>
+  <li>HTML Forms: It can fill in arbitrary data and submit the form.</li>
 </ul></li>
 <li>Output formats:<ul>
-  <li>Adhoc: just prints the data in a human readable format</li>
-  <li>XML: encodes the data as XML  </li>
-  <li>HTML: encodes the data as HTML  </li>
-  <li>JSON: encodes the data as JSON </li>
-  <li>bash/cmd: exports the data as shell variables  </li>
+  <li>Adhoc: just prints the data in a human readable format.</li>
+  <li>XML: encodes the data as XML. </li>
+  <li>HTML: encodes the data as HTML.  </li>
+  <li>JSON: encodes the data as JSON. </li>
+  <li>bash/cmd: exports the data as shell variables. </li>
 </ul></li>
-<li>Connections: HTTP / HTTPS as well as local files or stdin</li>
-<li>Systems: Windows (using wininet), Linux (using synapse+openssl), Mac (synapse) </li>
+<li>Connections: HTTP / HTTPS as well as local files or stdin.</li>
+<li>Systems: Windows (using wininet), Linux (using synapse+openssl), Mac (synapse).</li>
 </ul>
 
 <h2><div><a name="examples">Examples</a></div></h2>
@@ -106,9 +106,9 @@ Print the title of all pages found by a google search and download them: <br><br
 Generally follow all links on a page and print the titles of the linked pages:<ul>
   <li>With XPath: <code>xidel http://example.org -f //a -e //title</code> </li>
   <li>With CSS: <code>xidel http://example.org -f "css('a')" --css title</code> </li>
-  <li>With Templates: <code>xidel http://example.org -f "&lt;a&gt;{.}&lt;/a&gt;*" -e "&lt;title&gt;{.}&lt;/title&gt;"</code> </li>
+  <li>With pattern-matching: <code>xidel http://example.org -f "&lt;a&gt;{.}&lt;/a&gt;*" -e "&lt;title&gt;{.}&lt;/title&gt;"</code> </li>
 </ul></li>
-<li>Another template example: <br><br>
+<li>Another pattern-matching example: <br><br>
    If you have an example.xml file like <code>&lt;x&gt;&lt;foo&gt;ood&lt;/foo&gt;&lt;bar&gt;IMPORTANT!&lt;/bar&gt;&lt;/x&gt;</code><br>
    You can read the imporant part like: <code>xidel example.xml -e "&lt;x&gt;&lt;foo&gt;ood&lt;/foo&gt;&lt;bar&gt;{.}&lt;/bar&gt;&lt;/x&gt;"</code><br>
    (and this will also check, if the element containing "ood" is there, and fail otherwise)
@@ -116,9 +116,9 @@ Generally follow all links on a page and print the titles of the linked pages:<u
 <li>Calculate something with XPath using arbitrary precision arithmetics: <br><br>
   <code>xidel -e "(1 + 2 + 3) * 1000000000000 + 4 + 5 + 6 + 7.000000008"</code>
 </li>
-<li>Print all newest Stackoverflow questions with title and url:<br><br>
+<li>Print all newest Stackoverflow questions with title and url using pattern matching on their RSS feed:<br><br>
 
-   <code>xidel http://stackoverflow.com -e "&lt;A class='question-hyperlink'&gt;{title:=text(), url:=@href}&lt;/A&gt;*"</code>
+   <code>xidel http://stackoverflow.com/feeds -e  "&lt;entry&gt;&lt;title&gt;{title:=.}&lt;/title&gt;&lt;link&gt;{uri:=@href}&lt;/link&gt;&lt;/entry&gt;+"</code>
 </li><li>Print all reddit comments of an user, with HTML and URL:<br><br>
    <code>xidel "http://www.reddit.com/user/username/" --extract "&lt;t:loop&gt;&lt;div class='usertext-body'&gt;&lt;div&gt;{outer-xml(.)}&lt;/div&gt;&lt;/div&gt;&lt;ul class='flat-list buttons'&gt;&lt;a&gt;&lt;t:s&gt;link:=@href&lt;/t:s&gt;permalink&lt;/a&gt;&lt;/ul&gt;&lt;/div&gt;&lt;/div&gt;&lt;/t:loop&gt;" --follow "&lt;a rel='nofollow next'&gt;{.}&lt;/a&gt;?"</code>
 </li>
@@ -151,24 +151,22 @@ Generally follow all links on a page and print the titles of the linked pages:<u
     </ul>   
 </li>
 <li>Convert table rows and columns to a CSV-like format: <br><br>
-    <code>xidel http://site -e '//tr / join(td, ",")'</code><br><br>
-    <code>join((...))</code> can generally be used to output some values in a single line. The function name is an abbreviation for the XPath function <code>string-join</code>. In the example <code>tr / join</code> calls <code>join</code> for every row.
+    <code>xidel http://site -e '//tr / string-join(td, ",")'</code><br><br>
+    <code>string-join((...))</code> can generally be used to output some values in a single line. <!-- The function name is an abbreviation for the XPath function <code>string-join</code>. --> 
+    In the example <code>tr / string-join</code> calls <code>string-join</code> for every row.
 </li>
 <li>Modify/Transform an HTML file, e.g. to mark all links as bold: <br><br>
-    Windows cmd: <code><pre>xidel --html your-file.html --xquery "transform(/, function($e) { 
-   $e / if (name() = 'a') then 
-           &lt;a style='{join((@style, 'font-weight: bold'), '; ')}'&gt;{@* except @style, node()}&lt;/a&gt; 
+    Windows cmd: <code><pre>xidel --html your-file.html --xquery "x:replace-nodes(/, //a, function($e) { 
+   $e/&lt;a style='{string-join((@style, 'font-weight: bold'), '; ')}'&gt;{@* except @style, node()}&lt;/a&gt; 
         else .
 })" &gt; your-output-file.html </pre></code>
-    Linux/Powershell: <code><pre>xidel --html your-file.html --xquery 'transform(/, function($e) { 
-   $e / if (name() = "a") then 
-           &lt;a style="{join((@style, "font-weight: bold"), "; ")}"&gt;{@* except @style, node()}&lt;/a&gt; 
-        else .
+    Linux/Powershell: <code><pre>xidel --html your-file.html --xquery 'x:replace-nodes(/, //a, function($e) { 
+   $e/&lt;a style="{string-join((@style, "font-weight: bold"), "; ")}"&gt;{@* except @style, node()}&lt;/a&gt; 
 })' &gt; your-output-file.html</pre></code><br>
  This example combines three important syntaxes:
- <ul><li><code>transform(/, function($e) {  .. }</code>: This applies an anonymous function to every element in the HTML document, whereby that element is stored in variable <code>$e</code> and is replaced by the return value of the function.</li>
+ <ul><li><code>x:replace-nodes(/, //a, function($e) {  .. }</code>: This applies an anonymous function to every link <code>a</code>-element in the HTML document, whereby that element is stored in the variable <code>$e</code> and is replaced by the return value of the function.</li>
      <li><code>&lt;a&gt;{@* except @style, node()}&lt;/a&gt; </code>: This creates a new <code>a</code>-element that has the same children, descendants and attributes as the current element, but removes the <code>style</code>-attribute.</li>
-     <li><code>style="{join((@style, "font-weight: bold"), "; ")}"</code>: This creates a new <code>style</code>-attribute by appending <code>"font-weight: bold"</code> to the old value of the attribute. A separating <code>"; "</code> is inserted, if (and only if) that attribute already existed.</li>
+     <li><code>style="{string-join((@style, "font-weight: bold"), "; ")}"</code>: This creates a new <code>style</code>-attribute by appending <code>"font-weight: bold"</code> to the old value of the attribute. A separating <code>"; "</code> is inserted, if (and only if) that attribute already existed.</li>
  </ul>
 </li>
 </ol>

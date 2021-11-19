@@ -44,6 +44,31 @@ class BookListDisplayOptions {
   groupingKey: String = "_dueWeek"
   sortingKey: String = "dueDate"
   filterKey: String
+  alwaysFilterOnHistory: Boolean = true
+}
+
+@SerializeJson
+@KotlinVar
+@Pascal<->Kotlin
+class NotificationConfig {
+  enabled: Boolean = true
+  serviceDelay: Int = 15
+  lastTime: Long
+  lastTitle: String
+  lastText: String
+}
+
+@SerializeJson
+@KotlinVar
+@Pascal<->Kotlin
+class OptionsAndroidOnly {
+  bookListDisplayOptions: BookListDisplayOptions
+  filterHistory: String[]
+  importExportFileName: String
+  additionalCertificatesBase64: String[]
+  notifications: NotificationConfig
+  hasBeenStartedAtLeastOnce: Boolean
+  accountCountBackup: Int = -1
 }
 
 
@@ -60,4 +85,6 @@ class BookListDisplayOptions {
 
 
 fun VLGetVersion(): VersionInfo
+
+
 

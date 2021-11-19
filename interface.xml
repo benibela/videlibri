@@ -22,11 +22,33 @@
     <string name="platform"/>
   </class>
   <class id="BookListDisplayOptions" serialize-json="" kotlin-var="var" kotlin-class="data" jvm-pascal="" pascal-jvm="">
-    <boolean name="noDetailsInOverview"/>
-    <boolean name="showRenewCount"/>
-    <string name="groupingKey"/>
-    <string name="sortingKey"/>
+    <boolean name="showHistory"/>
+    <boolean name="noBorrowedBookDetails"/>
+    <boolean name="showRenewCount" default="true"/>
+    <string name="groupingKey" default="_dueWeek"/>
+    <string name="sortingKey" default="dueDate"/>
     <string name="filterKey"/>
+    <boolean name="alwaysFilterOnHistory" default="true"/>
+  </class>
+  <class id="NotificationConfig" serialize-json="" kotlin-var="var" jvm-pascal="" pascal-jvm="">
+    <boolean name="enabled" default="true"/>
+    <int name="serviceDelay" default="15"/>
+    <long name="lastTime"/>
+    <string name="lastTitle"/>
+    <string name="lastText"/>
+  </class>
+  <class id="OptionsAndroidOnly" serialize-json="" kotlin-var="var" jvm-pascal="" pascal-jvm="">
+    <classref name="bookListDisplayOptions" ref="BookListDisplayOptions"/>
+    <array name="filterHistory">
+      <string/>
+    </array>
+    <string name="importExportFileName"/>
+    <array name="additionalCertificatesBase64">
+      <string/>
+    </array>
+    <classref name="notifications" ref="NotificationConfig"/>
+    <boolean name="hasBeenStartedAtLeastOnce"/>
+    <int name="accountCountBackup" default="-1"/>
   </class>
   <function id="VLGetVersion">
     <return-type>

@@ -1,6 +1,5 @@
 package de.benibela.videlibri.internet
 
-import android.content.SharedPreferences
 import android.util.Base64
 import de.benibela.internettools.X509TrustManagerWrapper.CustomTrustManagerFactory
 import java.security.MessageDigest
@@ -13,14 +12,8 @@ object UserKeyStore {
         private set
 
     @Synchronized
-    fun setFromSerialization(certs: String?) {
-        certificates = if (certs.isNullOrEmpty()) mutableSetOf()
-                       else certs.split('|').map { Base64.decode(it, Base64.DEFAULT) }.toMutableSet()
-    }
-
-    @Synchronized
-    private fun serialize(): String =
-        certificates.joinToString("|") { Base64.encodeToString(it, Base64.DEFAULT) }
+    fun toArray(): Array<String> =
+        certificates.map { Base64.encodeToString(it, Base64.DEFAULT) }.toTypedArray()
 
     @Synchronized
     fun addUserCertificate(encoded: ByteArray): Boolean = certificates.add(encoded)
@@ -28,16 +21,10 @@ object UserKeyStore {
     @Synchronized
     fun removeUserCertificate(cert: ByteArray?) = certificates.remove(cert)
 
-    fun storeUserCertificates(preferences: SharedPreferences) =
-        preferences.edit()?.let { editor ->
-            if (!hasCertificates()) editor.remove("additionalCertificatesBase64")
-            else editor.putString("additionalCertificatesBase64", serialize())
-            editor.apply()
-        }
 
     @Synchronized
-    fun loadUserCertificates(preferences: SharedPreferences) {
-        if (preferences.contains("additionalCertificatesBase64")) setFromSerialization(preferences.getString("additionalCertificatesBase64", null))
+    fun loadUserCertificates(certs: Array<String>) {
+        certificates = certs.map { Base64.decode(it, Base64.DEFAULT) }.toMutableSet()
     }
 
     @Synchronized

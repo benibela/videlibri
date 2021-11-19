@@ -3,18 +3,25 @@ package de.benibela.videlibri.activities
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.preference.PreferenceManager
+import android.util.AttributeSet
+import android.util.TypedValue
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
-import androidx.appcompat.view.ContextThemeWrapper
-import android.util.TypedValue
-import android.view.View
-import android.widget.CompoundButton
-import android.widget.Spinner
-import de.benibela.videlibri.*
+import androidx.preference.PreferenceScreen
+import de.benibela.videlibri.LibraryUpdateLoader
+import de.benibela.videlibri.R
+import de.benibela.videlibri.VideLibriApp
+import de.benibela.videlibri.accounts
+import de.benibela.videlibri.components.CategoryBuilder
+import de.benibela.videlibri.components.PreferenceScreenBuilder
+import de.benibela.videlibri.components.PreferenceSeekBar
+import de.benibela.videlibri.databinding.OptionsLendingsBinding
 import de.benibela.videlibri.internet.DownloadCertificate
 import de.benibela.videlibri.internet.UserKeyStore
 import de.benibela.videlibri.jni.Bridge
+import de.benibela.videlibri.jni.globalOptionsAndroid
+import de.benibela.videlibri.jni.save
 import de.benibela.videlibri.notifications.NotificationScheduling
 import de.benibela.videlibri.utils.*
 import java.util.regex.Pattern
@@ -25,7 +32,6 @@ class Options : VideLibriBaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        syncBridgeToPreferences(this)
         setContentView(R.layout.videlibribaselayout)
     }
 
@@ -36,145 +42,260 @@ class Options : VideLibriBaseActivity() {
 
     class SettingsFragment : androidx.preference.PreferenceFragmentCompat() {
 
+        var categoryAccounts: PreferenceCategory? = null
+        var categoryOwnLibraries: PreferenceCategory? = null
+        var categoryOwnCertificates: PreferenceCategory? = null
+
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
-            addPreferencesFromResource(R.xml.preferences)
-            val prefs = arrayOf<Preference?>(findPreference("bridge_logging"), findPreference("bridge_nearTime"), findPreference("bridge_refreshInterval"))
-            val listener = Preference.OnPreferenceChangeListener { preference, newValue ->
-                Bridge.globalOptions = Bridge.VLGetOptions()
-                val options = Bridge.globalOptions
-                when (preference.key) {
-                    "bridge_logging" -> options.logging = newValue as Boolean
-                    "bridge_nearTime" -> options.nearTime = newValue as Int
-                    "bridge_refreshInterval" -> options.refreshInterval = newValue as Int
-                    "languageOverride" -> context?.let { VideLibriApp.setLanguageOverride(it, newValue as String) }
-                }//if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                //    getActivity().recreate();
-                //}
-                Bridge.VLSetOptions(options)
-                true
-            }
-            for (p in prefs) p?.onPreferenceChangeListener = listener
         }
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            val context = context ?: return
+            val themeTypedValue = TypedValue()
+            val theme = context.theme
+            theme?.resolveAttribute(R.attr.preferenceTheme, themeTypedValue, true)
+            val ctw = ContextThemeWrapper(context, themeTypedValue.resourceId)
 
+            preferenceScreen = preferenceManager.createPreferenceScreen(ctw)
+
+            val saveOptionsAndroidOnly: (Preference?,Any) -> Unit = {_, _ -> globalOptionsAndroid.save();  }
+            val saveOptionsSHARED: (Preference?, Any) -> Unit = {_, _ -> Bridge.VLSetOptions(Bridge.globalOptions); }
+
+            PreferenceScreenBuilder(ctw, preferenceScreen) {
+                category(R.string.lay_options_caption_displayoptions){
+                    list {
+                        property(globalOptionsAndroid.bookListDisplayOptions::filterKey)
+                        title(R.string.lay_options_label_filtering)
+                        dialogTitle(R.string.lay_options_label_filtering)
+                        entries(R.array.filterable_properties_tr)
+                        entryValues(R.array.filterable_properties)
+                        summary(R.string.lay_options_label_filtering_summary)
+                        onChanged(saveOptionsAndroidOnly)
+                    }
+                    switchCompat {
+                        property(globalOptionsAndroid.bookListDisplayOptions::alwaysFilterOnHistory)
+                        summaryOn(R.string.lay_options_filter_search_in_history_summary_on)
+                        summaryOff(R.string.lay_options_filter_search_in_history_summary_off)
+                        title(R.string.lay_options_filter_search_in_history)
+                        onChanged(saveOptionsAndroidOnly)
+                    }
+                    switchCompat {
+                        property(globalOptionsAndroid.bookListDisplayOptions::noBorrowedBookDetails)
+                        summaryOn(R.string.lay_options_option_onlytitles_summary_on)
+                        title(R.string.lay_options_option_onlytitles)
+                        onChanged(saveOptionsAndroidOnly)
+                    }
+                    switchCompat {
+                        property(globalOptionsAndroid.bookListDisplayOptions::showRenewCount)
+                        summaryOn(R.string.lay_show_renewcount_summary_on)
+                        title(R.string.lay_show_renewcount)
+                        onChanged(saveOptionsAndroidOnly)
+                    }
+                }
+
+
+
+                categoryAccounts = category(R.string.lay_options_caption_accountchange){
+                    createPreferencesAccounts(this)
+                }
+
+
+                var seekBarToToggle: PreferenceSeekBar? = null
+                category(R.string.lay_options_caption_notifications) {
+                    switchCompat {
+                        property(globalOptionsAndroid.notifications::enabled)
+                        title(R.string.lay_options_option_warn)
+                        summaryOn(R.string.lay_options_option_warn_summary_on)
+                        onChanged({_, v ->
+                            seekBarToToggle?.isEnabled = v
+                            globalOptionsAndroid.save()
+                        })
+                    }
+                    seekBarToToggle = seekBar(PreferenceSeekBar(ctw)) {
+                        property(globalOptionsAndroid.notifications::serviceDelay)
+                        //dependency(notificationSwitcher.key)
+                        max(1440)
+                        title(R.string.lay_options_label_autocheckdelay)
+                        onChanged(saveOptionsAndroidOnly)
+                    } as PreferenceSeekBar
+                    seekBarToToggle!!.apply {
+                        dynamicSummary = getString(R.string.lay_options_label_autocheckdelay_summary)
+                        safeMax = 120
+                        unsafeWarning = getString(R.string.lay_options_label_autocheckdelay_too_large)
+                        isEnabled = globalOptionsAndroid.notifications.enabled
+                        showDynamicSummary()
+                    }
+                    seekBar(PreferenceSeekBar(ctw)) {
+                        property(Bridge.globalOptions::nearTime)
+                        max(31)
+                        title(R.string.lay_options_warningtimedelay)
+                        onChanged(saveOptionsSHARED)
+                        (preference as PreferenceSeekBar).apply {
+                            dynamicSummary = getString(R.string.lay_options_warningtimedelay_summary)
+                            safeMin = 3
+                            unsafeWarning = getString(R.string.lay_options_warningtimedelay_too_small)
+                            showDynamicSummary()
+                        }
+                    }
+                }
+
+
+                categoryOwnLibraries = category(R.string.lay_options_caption_ownlibs) {
+                    createPreferencesOwnLibraries(this)
+                }
+
+                categoryOwnCertificates = category(R.string.lay_options_caption_owncertificates) {
+                    createPreferencesOwnCertificates(this)
+                }
+
+                category(R.string.lay_options_caption_misc){
+                    seekBar(PreferenceSeekBar(ctw)) {
+                        property(Bridge.globalOptions::refreshInterval)
+                        max(31)
+                        title(R.string.lay_options_refreshInterval)
+                        onChanged(saveOptionsSHARED)
+                        (preference as PreferenceSeekBar).apply {
+                            dynamicSummary = getString(R.string.lay_options_check_summary)
+                            safeMax = 5
+                            unsafeWarning = getString(R.string.lay_options_check_summary_too_large)
+                            showDynamicSummary()
+                        }
+                    }
+
+                    list {
+                        dialogTitle(R.string.lay_options_label_language)
+                        entries(R.array.languages_tr)
+                        entryValues(R.array.languages)
+                        title(R.string.lay_options_label_language)
+                        summary(R.string.lay_options_label_language_summary)
+                        preference.key = "languageOverride"
+                        onChanged {_, newValue ->
+                            VideLibriApp.setLanguageOverride(context, newValue)
+                        }
+                    }
+
+                    switchCompat {
+                        property(Bridge.globalOptions::logging)
+                        summaryOn(R.string.lay_options_option_debuglog_summary_on)
+                        title(R.string.lay_options_option_debuglog)
+                        onChanged(saveOptionsSHARED)
+                    }
+
+                    switchCompat {
+                        summaryOn(R.string.lay_options_option_includelog_summary_on)
+                        title(R.string.lay_options_option_includelog)
+                        preference.isPersistent = true
+                        preference.key = "acra.syslog.enable"
+                    }
+
+                }
+
+            }
         }
 
-        private inner class CustomPreferenceMaker internal constructor(
-                internal var contextThemeWrapper: ContextThemeWrapper
-        ) {
-            internal var cat: PreferenceCategory? = null
-
-            internal fun beginCat(key: String) {
-                cat = preferenceScreen.findPreference(key)
-                cat?.removeAll()
+        private fun createPreferencesAccounts(categoryBuilder: CategoryBuilder) = categoryBuilder.apply {
+            val summary = getString(R.string.lay_options_label_accounts_summary)
+            accounts.forEach { acc ->
+                preference {
+                    title(acc.prettyName)
+                    summary(summary)
+                    onClick {
+                        startActivity<AccountInfo>(
+                                "mode" to AccountInfo.MODE_ACCOUNT_MODIFY,
+                                "account" to acc
+                        )
+                    }
+                }
+            }
+            preference {
+                title(R.string.lay_options_btn_newaccount)
+                onClick { startActivity<AccountInfo>(
+                        "mode" to AccountInfo.MODE_ACCOUNT_CREATION
+                ) }
             }
 
-            internal fun makePreference(title: String, onClick: Preference.OnPreferenceClickListener): Preference {
-                return makePreference(title, null, onClick)
+        }
+        private fun createPreferencesOwnLibraries(categoryBuilder: CategoryBuilder) = categoryBuilder.apply {
+            val options = Bridge.VLGetOptions()
+            val summary = getString(R.string.lay_options_label_ownlibraries_summary)
+            options.roUserLibIds.filterNotNull().forEach { userLibId ->
+                val details = Bridge.VLGetLibraryDetails(userLibId) ?: return@forEach
+                preference {
+                    title(details.prettyName)
+                    summary(summary)
+                    onClick {
+                        startActivity<NewLibrary>(
+                                "mode" to NewLibrary.MODE_LIBRARY_MODIFY,
+                                "libId" to userLibId
+                        )
+                    }
+                }
             }
 
-            internal fun makePreference(title: String, summary: String?, onClick: Preference.OnPreferenceClickListener): Preference {
-                return Preference(contextThemeWrapper).also {
-                    it.title = title
-                    if (summary != null) it.summary = summary
-                    it.onPreferenceClickListener = onClick
-                    cat?.addPreference(it)
+            preference {
+                title(R.string.lay_options_btn_newlib)
+                onClick { startActivity<NewLibrary>() }
+            }
+            preference {
+                title(R.string.lay_options_btn_installupdate)
+                onClick { LibraryUpdateLoader.askForUpdate() }
+            }
+            preference {
+                title(R.string.lay_options_btn_editsource)
+                onClick { startActivity<SourceEdit>() }
+            }
+        }
+        private fun createPreferencesOwnCertificates(categoryBuilder: CategoryBuilder) = categoryBuilder.apply {
+            if (UserKeyStore.hasCertificates())
+                for (cert in UserKeyStore.certificates) {
+                    preference {
+                        title(UserKeyStore.getFingerprint(cert))
+                        summary(R.string.lay_options_btn_newcertificate_delete)
+                        onClick {
+                            showMessageYesNo(R.string.certificate_delete) {
+                                UserKeyStore.removeUserCertificate(cert)
+                                globalOptionsAndroid.additionalCertificatesBase64 = UserKeyStore.toArray()
+                                globalOptionsAndroid.save()
+                                currentActivity<Options>()?.updatePreferences()
+                            }
+                        }
+                    }
+                }
+
+            preference {
+                title(R.string.lay_options_btn_newcertificate)
+                onClick {
+                    val defaultServer: String? = VideLibriApp.errors.asSequence().map { e ->
+                        if (e.kind == Bridge.PendingException.KIND_INTERNET && e.error?.contains("https://") == true) {
+                            val matcher = Pattern.compile("https://([^/]+)").matcher(e.error)
+                            if (matcher.find()) matcher.group(1) else null
+                        } else null
+                    }.firstOrNull()
+
+                    showInputDialog(R.string.certificate_download, default = defaultServer) { text ->
+                        Thread(DownloadCertificate(text)).start()
+                    }
                 }
             }
         }
+
 
         override fun onResume() {
             super.onResume()
             updatePreferences()
         }
 
+
         internal fun updatePreferences() {
-            val context = context ?: return
-            val themeTypedValue = TypedValue()
-            val theme = context.theme
-            theme?.resolveAttribute(R.attr.preferenceTheme, themeTypedValue, true)
-            val cpm = CustomPreferenceMaker(ContextThemeWrapper(context, themeTypedValue.resourceId))
+            val ctx = context ?: return
+            categoryAccounts?.let { it.removeAll(); createPreferencesAccounts(CategoryBuilder(ctx, it)) }
+            categoryOwnLibraries?.let { it.removeAll(); createPreferencesOwnLibraries(CategoryBuilder(ctx, it)) }
+            categoryOwnCertificates?.let { it.removeAll(); createPreferencesOwnCertificates(CategoryBuilder(ctx, it)) }
 
-            cpm.beginCat("accounts")
-
-            var summary = getString(R.string.lay_options_label_accounts_summary)
-            accounts.forEach { acc ->
-                cpm.makePreference(acc.prettyName, summary, Preference.OnPreferenceClickListener {
-                    startActivity<AccountInfo>(
-                            "mode" to AccountInfo.MODE_ACCOUNT_MODIFY,
-                            "account" to acc
-                    )
-                    true
-                })
-            }
-
-            cpm.makePreference(getString(R.string.lay_options_btn_newaccount), Preference.OnPreferenceClickListener {
-                startActivity<AccountInfo>(
-                        "mode" to AccountInfo.MODE_ACCOUNT_CREATION
-                )
-                true
-            })
-
-
-            cpm.beginCat("ownlibraries")
-
-            val options = Bridge.VLGetOptions()
-
-            summary = getString(R.string.lay_options_label_ownlibraries_summary)
-            options.roUserLibIds.filterNotNull().forEach { userLibId ->
-                val details = Bridge.VLGetLibraryDetails(userLibId) ?: return@forEach
-                cpm.makePreference(details.prettyName, summary, Preference.OnPreferenceClickListener {
-                    startActivity<NewLibrary>(
-                            "mode" to NewLibrary.MODE_LIBRARY_MODIFY,
-                            "libId" to userLibId
-                    )
-                    true
-                })
-            }
-
-            cpm.makePreference(getString(R.string.lay_options_btn_newlib), Preference.OnPreferenceClickListener {
-                startActivity<NewLibrary>()
-                true
-            })
-            cpm.makePreference(getString(R.string.lay_options_btn_installupdate), Preference.OnPreferenceClickListener {
-                LibraryUpdateLoader.askForUpdate()
-                true
-            })
-            cpm.makePreference(getString(R.string.lay_options_btn_editsource), Preference.OnPreferenceClickListener {
-                startActivity<SourceEdit>()
-                true
-            })
-
-            cpm.beginCat("owncertificates")
-            if (UserKeyStore.hasCertificates())
-                for (cert in UserKeyStore.certificates) {
-                    cpm.makePreference(UserKeyStore.getFingerprint(cert), getString(R.string.lay_options_btn_newcertificate_delete), Preference.OnPreferenceClickListener {
-                        showMessageYesNo(R.string.certificate_delete) {
-                            UserKeyStore.removeUserCertificate(cert)
-                            UserKeyStore.storeUserCertificates(PreferenceManager.getDefaultSharedPreferences(VideLibriApp.currentContext()))
-                            currentActivity<Options>()?.updatePreferences()
-                        }
-                        true
-                    })
-                }
-
-            cpm.makePreference(getString(R.string.lay_options_btn_newcertificate), Preference.OnPreferenceClickListener {
-                val defaultServer: String? = VideLibriApp.errors.asSequence().map { e ->
-                    if (e.kind == Bridge.PendingException.KIND_INTERNET && e.error?.contains("https://") == true) {
-                        val matcher = Pattern.compile("https://([^/]+)").matcher(e.error)
-                        if (matcher.find()) matcher.group(1) else null
-                    } else null
-                }.firstOrNull()
-
-                showInputDialog(R.string.certificate_download, default = defaultServer) { text ->
-                    Thread(DownloadCertificate(text)).start()
-                }
-                true
-            })
         }
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == NEW_ACCOUNT_CREATION_RESULT && resultCode == Activity.RESULT_OK)
@@ -199,49 +320,22 @@ class Options : VideLibriBaseActivity() {
 
         internal const val NEW_ACCOUNT_CREATION_RESULT = 1235
 
-
-        internal fun syncBridgeToPreferences(activity: Activity) {
-            Bridge.globalOptions = Bridge.VLGetOptions()
-            val options = Bridge.globalOptions
-            PreferenceManager.getDefaultSharedPreferences(activity).edit().apply {
-                putBoolean("bridge_logging", options.logging)
-                putInt("bridge_nearTime", options.nearTime)
-                putInt("bridge_refreshInterval", options.refreshInterval)
-                apply()
-            }
-        }
-        /*static void syncPreferencesToBridge(Activity activity){
-        Bridge.Options options = Bridge.VLGetOptions();
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
-        options.logging = sp.getBoolean("bridge_logging", false);
-        options.nearTime = sp.getInt("bridge_nearTime", 3);
-        options.refreshInterval = sp.getInt("bridge_refreshInterval", 1);
-        Bridge.VLSetOptions(options);
-    }*/
-
-        internal fun showLendingOptionsInView(activity: Activity, v: View) {
-            val sp = PreferenceManager.getDefaultSharedPreferences(activity)
-            v.findViewById<CompoundButton>(R.id.viewHistory).isChecked = LendingList.displayHistory
-
+        internal fun showLendingOptionsInView(activity: Activity, binding: OptionsLendingsBinding) {
+            binding.viewHistory.isChecked = globalOptionsAndroid.bookListDisplayOptions.showHistory
 
             val sortingKeys = activity.resources.getStringArray(R.array.sortable_properties)
-            val sorting = sp["sorting", "dueDate"]
-            val grouping = sp["grouping", "_dueWeek"]
-            v.findViewById<Spinner>(R.id.sorting).setSelection(sorting, sortingKeys)
-            v.findViewById<Spinner>(R.id.grouping).setSelection(grouping, sortingKeys)
+            val sorting = globalOptionsAndroid.bookListDisplayOptions.sortingKey
+            val grouping = globalOptionsAndroid.bookListDisplayOptions.groupingKey
+            binding.sorting.setSelection(sorting, sortingKeys)
+            binding.grouping.setSelection(grouping, sortingKeys)
         }
 
-        internal fun putLendingOptionsFromView(activity: Activity, v: View) {
+        internal fun putLendingOptionsFromView(activity: Activity, binding: OptionsLendingsBinding) {
+            globalOptionsAndroid.bookListDisplayOptions.showHistory = binding.viewHistory.isChecked
             val sortingKeys = activity.resources.getStringArray(R.array.sortable_properties)
-            LendingList.displayHistory = v.findViewById<CompoundButton>(R.id.viewHistory).isChecked
-            PreferenceManager.getDefaultSharedPreferences(activity).edit().apply {
-                putBoolean("displayHistory", LendingList.displayHistory)
-
-                sortingKeys.getOrNull(v.findViewById<Spinner>(R.id.sorting).selectedItemPosition)?.let { putString("sorting", it) }
-                sortingKeys.getOrNull(v.findViewById<Spinner>(R.id.grouping).selectedItemPosition)?.let { putString("grouping", it) }
-
-                apply()
-            }
+            sortingKeys.getOrNull(binding.sorting.selectedItemPosition)?.let { globalOptionsAndroid.bookListDisplayOptions.sortingKey = it }
+            sortingKeys.getOrNull(binding.grouping.selectedItemPosition)?.let {  globalOptionsAndroid.bookListDisplayOptions.groupingKey = it }
+            globalOptionsAndroid.save()
         }
     }
 

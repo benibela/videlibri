@@ -5,7 +5,7 @@ import android.content.Context
 import android.graphics.Color
 import androidx.annotation.StringRes
 import de.benibela.videlibri.*
-import de.benibela.videlibri.activities.BookListDisplayOptions
+import de.benibela.videlibri.jni.BookListDisplayOptions
 
 import de.benibela.videlibri.jni.Bridge
 

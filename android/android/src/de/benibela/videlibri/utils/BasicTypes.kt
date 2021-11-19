@@ -1,6 +1,5 @@
 package de.benibela.videlibri.utils
 
-import android.content.SharedPreferences
 import java.io.InputStream
 import java.text.DateFormat
 import java.util.*
@@ -28,9 +27,6 @@ private val dateFormatFull: DateFormat? by lazy {
 fun Date.formatShort() = dateFormatShort?.format(this) ?: "${year+1900}-$month-$day"
 fun Date.formatFull() = dateFormatFull?.format(this) ?: this.formatShort()
 
-
-operator fun SharedPreferences.get(name: String, def: Boolean) = this.getBoolean(name, def)
-operator fun SharedPreferences.get(name: String, def: String) = this.getString(name, def)!!
 
 /*
 fun Bundle.putSparseBooleanArray(key: String, value: SparseBooleanArray) {

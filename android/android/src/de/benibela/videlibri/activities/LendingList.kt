@@ -1,7 +1,6 @@
 package de.benibela.videlibri.activities
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.ActivityManager
 import android.app.AlertDialog
 import android.app.Dialog
@@ -9,22 +8,22 @@ import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.os.*
-import android.preference.PreferenceManager
 import android.text.Editable
 import android.view.*
 import android.widget.CompoundButton
 import android.widget.EditText
-import android.widget.LinearLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import de.benibela.videlibri.*
 import de.benibela.videlibri.databinding.OptionsLendingsAccountrowBinding
+import de.benibela.videlibri.databinding.OptionsLendingsBinding
+import de.benibela.videlibri.jni.BookListDisplayOptions
 import de.benibela.videlibri.jni.Bridge
+import de.benibela.videlibri.jni.globalOptionsAndroid
+import de.benibela.videlibri.jni.save
 import de.benibela.videlibri.utils.*
 import kotlinx.android.parcel.Parcelize
-import org.json.JSONArray
-import org.json.JSONException
 import java.util.*
 
 
@@ -68,7 +67,7 @@ class LendingList: BookListActivity(){
     internal fun setFilter(s: String) {
         val oldFilterActually = filter.actually
         filter.actually = s
-        if (alwaysFilterOnHistory && oldFilterActually.isEmpty() != filter.actually.isEmpty()) {
+        if (displayOptions.alwaysFilterOnHistory && oldFilterActually.isEmpty() != filter.actually.isEmpty()) {
             displayAccounts()
         } else
             refreshBookCache()
@@ -100,31 +99,26 @@ class LendingList: BookListActivity(){
     }
 
     private fun updateViewFilters() {
-        val sp = PreferenceManager.getDefaultSharedPreferences(this)
-        displayOptions.readFromPreferences(sp)
+        displayOptions = globalOptionsAndroid.bookListDisplayOptions.copy()
+        displayOptions.showHistory = displayOptions.showHistory || (displayOptions.alwaysFilterOnHistory && filter.actually.isNotEmpty())
         searchPanel?.isVisibleNotGone = "__disabled" != displayOptions.filterKey
-        displayHistory = sp["displayHistory", false]
-        alwaysFilterOnHistory = sp["alwaysFilterOnHistory", true]
     }
 
     private fun updateAccountView() {
         updateViewFilters()
-        if (displayHistoryActually != (displayHistory || alwaysFilterOnHistory && filter.actually.isNotEmpty())
-                || displayOptions != displayOptionsActually
-                || displayForcedCounterActually != displayForcedCounter
-        ) {
+        displayOptionsActually.alwaysFilterOnHistory = displayOptions.alwaysFilterOnHistory
+        if (displayOptions != displayOptionsActually || displayForcedCounterActually != displayForcedCounter)
             displayAccounts()
-        }
     }
 
 
     private var primaryBookCache = ArrayList<Bridge.Book>()
     fun displayAccounts() {
-        displayHistoryActually = displayHistory || alwaysFilterOnHistory && filter.actually.isNotEmpty()
+        displayOptions.showHistory = globalOptionsAndroid.bookListDisplayOptions.showHistory || (displayOptions.alwaysFilterOnHistory && filter.actually.isNotEmpty())
         displayOptionsActually = displayOptions.copy()
         displayForcedCounterActually = displayForcedCounter
 
-        primaryBookCache = makePrimaryBookCache(displayHistoryActually, false)
+        primaryBookCache = makePrimaryBookCache(displayOptionsActually.showHistory, false)
         refreshBookCache()
 
         if (VideLibriApp.mainIcon != currentMainIcon) {
@@ -158,7 +152,7 @@ class LendingList: BookListActivity(){
 
         var bookCountPrimary = 0 //number of shown books (after filtering), number of books (before filtering)
         var bookCountPrimaryNoHistory = 0
-        if (displayHistoryActually) {
+        if (displayOptionsActually.showHistory) {
             for (b in primaryBookCache)
                 if (b.account != null) {
                     bookCountPrimary++
@@ -175,7 +169,7 @@ class LendingList: BookListActivity(){
                 bookCache.count { it.account != null }
 
         var title: String =
-            if (displayHistoryActually) {
+            if (displayOptionsActually.showHistory) {
                 if (bookCountPrimary == bookCount)
                     getString(R.string.main_bookcounthistoryDD, bookCountPrimaryNoHistory, bookCountPrimary)
                 else
@@ -298,9 +292,6 @@ class LendingList: BookListActivity(){
 
     private var displayOptionsActually = BookListDisplayOptions()
 
-    private var alwaysFilterOnHistory = true
-    private var displayHistoryActually = false
-
     override fun onBookActionButtonClicked(book: Bridge.Book) {
         when (book.status) {
             Bridge.Book.StatusEnum.Normal -> showDialog {
@@ -324,18 +315,20 @@ class LendingList: BookListActivity(){
 
 
     class ViewOptionsDialog : DialogFragment(), DialogInterface.OnCancelListener {
-        internal lateinit var view: View
+        //internal lateinit var view: View
+        internal lateinit var binding: OptionsLendingsBinding
         override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
             val builder = AlertDialog.Builder(activity)
             builder.setOnCancelListener(this)
             activity?.let { activity ->
                 val inflater = activity.layoutInflater
-                @SuppressLint("InflateParams")
-                view = inflater.inflate(R.layout.options_lendings, null)
-                Options.showLendingOptionsInView(activity, view)
+                binding = OptionsLendingsBinding.inflate(inflater)
+                //@SuppressLint("InflateParams")
+                //view = inflater.inflate(R.layout.options_lendings, null)
+                Options.showLendingOptionsInView(activity, binding)
 
 
-                val linearLayout = view.findViewById<LinearLayout>(R.id.viewaccounts)
+                val linearLayout = binding.viewaccounts
                 linearLayout.removeAllViews()
                 val switchboxes = ArrayList<CompoundButton>()
                 val accountCheckListener = View.OnClickListener { v ->
@@ -379,7 +372,7 @@ class LendingList: BookListActivity(){
                     }
                 }
 
-                builder.setView(view)
+                builder.setView(binding.root)
             }
             return builder.create().apply {
                 window?.setGravity(Gravity.END or Gravity.TOP)
@@ -389,7 +382,7 @@ class LendingList: BookListActivity(){
         override fun onCancel(dialog: DialogInterface) {
             super.onCancel(dialog)
             val activity = activity ?: return
-            Options.putLendingOptionsFromView(activity, view)
+            Options.putLendingOptionsFromView(activity, binding)
             if (activity is LendingList)
                 activity.updateAccountView()
         }
@@ -404,35 +397,19 @@ class LendingList: BookListActivity(){
             super.onCreateContextMenu(menu, v, menuInfo)
     }
 
-    private fun getFilterHistory(): ArrayList<String> {
-        val filters = ArrayList<String>()
-        try {
-            val filtersJson = JSONArray(PreferenceManager.getDefaultSharedPreferences(this).getString("filterHistory", ""))
-            for (i in 0 until filtersJson.length())
-                filters.add(filtersJson.getString(i))
-        } catch (ignored: JSONException) {
-        }
-
-        return filters
-    }
-
     override fun onContextItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.load_filter -> {
-                showChooseDialog(R.string.menu_context_load_filter, getFilterHistory()) {
-                    currentActivity<LendingList>()?.findViewById<EditText>(R.id.searchFilter)?.setText(getFilterHistory()[it])
+                showChooseDialog(R.string.menu_context_load_filter, globalOptionsAndroid.filterHistory.toList()) {
+                    currentActivity<LendingList>()?.findViewById<EditText>(R.id.searchFilter)?.setText(globalOptionsAndroid.filterHistory[it])
                 }
             }
             R.id.save_filter -> {
-                val filters = getFilterHistory()
+                val filters = globalOptionsAndroid.filterHistory.toMutableList()
                 if (filters.contains(filter.actually)) filters.remove(filter.actually)
                 filters.add(0, filter.actually)
-                val filtersJson = JSONArray()
-                for (s in filters) filtersJson.put(s)
-                PreferenceManager.getDefaultSharedPreferences(this).edit().let {
-                    it.putString("filterHistory", filtersJson.toString())
-                    it.apply()
-                }
+                globalOptionsAndroid.filterHistory = filters.toTypedArray()
+                globalOptionsAndroid.save()
             }
             R.id.clear -> {
                 findViewById<EditText>(R.id.searchFilter).setText("")
@@ -476,7 +453,6 @@ class LendingList: BookListActivity(){
 
     companion object {
         internal var displayForcedCounter = 1
-        @JvmField var displayHistory = false
         @JvmStatic fun refreshDisplayedLendBooks() {
             displayForcedCounter += 1
             withActivity<LendingList> { displayAccounts() }
