@@ -251,7 +251,8 @@ begin{ig:parent(.)!"
       {@name}[i].toJSON(builder);
     end;
     appendJSONArrayEnd();"
-      default return ()), " appendJSONObjectComma;&#x0A;    " )}
+      case element(classref) return x"appendJSONObjectKeyColon('{@name}'); {@name}.toJSON(builder);"
+      default return ig:error("invalid type for serialization")), " appendJSONObjectComma;&#x0A;    " )}
     
   end;
 end;
@@ -275,7 +276,8 @@ begin
     case element(double) return x"{@name} := json.getProperty('{@name}').toFloat();"
     case element(boolean) return x"{@name} := json.getProperty('{@name}').toBoolean();"
     case element(array) return x"readArray({@name}, json.getProperty('{@name}'));"
-    default return ()
+    case element(classref) return x"{@name}.setPropertiesFromJSON(json.getProperty('{@name}'));"
+    default return ig:error("invalid type for deserialization")
   ), "&#x0A;    ")
   }
   {if (ig:parent(.)) then "inherited;" else ()  }
