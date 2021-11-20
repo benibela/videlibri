@@ -56,5 +56,6 @@
 
 
 <p>Ihre Abfrage hat keine Treffer erzielt<t:s>search-result-count := 0</t:s></p>
-
+<p>Your search did not yield any results<t:s>search-result-count := 0</t:s></p>
+         
 </t:switch>
