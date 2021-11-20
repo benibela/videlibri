@@ -7,3 +7,4 @@ fun OptionsAndroidOnly.save(){
 }
 
 lateinit var globalOptionsAndroid: OptionsAndroidOnly
+lateinit var globalOptionsShared: OptionsShared

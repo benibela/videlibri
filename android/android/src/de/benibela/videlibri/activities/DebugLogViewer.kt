@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import de.benibela.videlibri.R
 import de.benibela.videlibri.components.BookDetails
 import de.benibela.videlibri.jni.Bridge
+import de.benibela.videlibri.jni.globalOptionsAndroid
 import de.benibela.videlibri.utils.useLines
 import java.io.IOException
 import java.util.*
@@ -119,7 +120,7 @@ class DebugLogViewer : VideLibriBaseActivity(), AdapterView.OnItemSelectedListen
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN)
             log.appendNewEntry("ERROR", "You need at least Android 4.1 to view the debug log on a non-rooted device.")
 
-        if (!Bridge.VLGetOptions().logging)
+        if (!globalOptionsAndroid.logging)
             log.appendNewEntry("", getString(R.string.debuglog_disabled))
 
 

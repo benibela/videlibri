@@ -34,7 +34,7 @@ class NewLibrary : VideLibriBaseActivity() {
             override fun onNothingSelected(adapterView: AdapterView<*>?) {}
         }
         val mode = intent.getIntExtra("mode", 0)
-        val existingUserLibraries = Bridge.VLGetOptions().roUserLibIds
+        val existingUserLibraries = Bridge.VLGetOptions().userLibIds
         if (mode == MODE_LIBRARY_MODIFY) {
             val id = intent.getStringExtra("libId") ?: return
             details = Bridge.VLGetLibraryDetails(id)

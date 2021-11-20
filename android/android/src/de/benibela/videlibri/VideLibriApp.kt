@@ -5,6 +5,7 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.*
@@ -17,9 +18,7 @@ import de.benibela.videlibri.activities.*
 import de.benibela.videlibri.activities.SearchEventHandler
 import de.benibela.videlibri.internet.UserKeyStore
 import de.benibela.videlibri.internet.VideLibriKeyStore
-import de.benibela.videlibri.jni.Bridge
-import de.benibela.videlibri.jni.OptionsAndroidOnly
-import de.benibela.videlibri.jni.globalOptionsAndroid
+import de.benibela.videlibri.jni.*
 import de.benibela.videlibri.notifications.NotificationScheduling
 import de.benibela.videlibri.notifications.Notifier
 import de.benibela.videlibri.utils.*
@@ -32,6 +31,8 @@ import org.acra.annotation.AcraHttpSender
 import org.acra.config.HttpSenderConfigurationBuilder
 import org.acra.data.StringFormat
 import org.acra.sender.HttpSender
+import org.json.JSONArray
+import org.json.JSONException
 import java.util.*
 
 @AcraCore(buildConfigClass = BuildConfig::class,
@@ -55,7 +56,7 @@ class VideLibriApp : Application() {
         staticApplicationContext = applicationContext
 
         val builder = org.acra.config.CoreConfigurationBuilder(this)
-        builder.getPluginConfigurationBuilder(HttpSenderConfigurationBuilder::class.java).setUri("http://www.benibela.de/autoFeedback.php?app=VideLibriA"+ Build.VERSION.SDK_INT)
+        builder.getPluginConfigurationBuilder(HttpSenderConfigurationBuilder::class.java).setUri("https://www.benibela.de/autoFeedback.php?app=VideLibriA"+ Build.VERSION.SDK_INT)
         ACRA.init(this, builder)
 
         initializeAll(null)
@@ -263,7 +264,7 @@ class VideLibriApp : Application() {
 
             val context = staticApplicationContext ?: instance?.applicationContext ?: alternativeContext?.applicationContext  ?: alternativeContext ?: return
 
-            val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+            @Suppress("DEPRECATION") val prefs = PreferenceManager.getDefaultSharedPreferences(context)
 
             Config.defaultCustomTrustManagerFactory = UserKeyStore.makeFactory()
             Config.defaultKeystoreFactory = X509TrustManagerWithAdditionalKeystores.LazyLoadKeyStoreFactory { VideLibriKeyStore() }
@@ -321,11 +322,47 @@ class VideLibriApp : Application() {
 
 
             Bridge.initialize(context)
+            globalOptionsShared = Bridge.VLGetOptions()
             globalOptionsAndroid = Bridge.VLGetOptionsAndroidOnly()
+            importDeprecatedPreferences(prefs)
             UserKeyStore.loadUserCertificates(globalOptionsAndroid.additionalCertificatesBase64)
             accounts.refreshAll()
 
             NotificationScheduling.rescheduleDailyIfNecessary(context, false)
+        }
+
+
+        fun importDeprecatedPreferences(prefs: SharedPreferences){
+            if (globalOptionsAndroid.hasBeenStartedAtLeastOnce) return
+            globalOptionsAndroid.bookListDisplayOptions.apply {
+                showHistory = prefs.getBoolean("displayHistory", false)
+                noBorrowedBookDetails = prefs.getBoolean("noLendBookDetails", false)
+                showRenewCount = prefs.getBoolean("showRenewCount", true)
+                groupingKey = prefs.getString("grouping", "_dueWeek") ?: "_dueWeek"
+                sortingKey = prefs.getString("sorting", "dueDate") ?: "dueDate"
+                filterKey = prefs.getString("filtering", "") ?: ""
+                alwaysFilterOnHistory = prefs.getBoolean("alwaysFilterOnHistory", true)
+            }
+            globalOptionsAndroid.notifications.apply {
+                enabled = prefs.getBoolean("notifications", true)
+                serviceDelay = prefs.getInt("notificationsServiceDelay", 15)
+                lastTime = prefs.getLong("lastNotificationTime", 0)
+                lastTitle = prefs.getString("lastNotificationTitle", "") ?: ""
+                lastText = prefs.getString("lastNotificationText", "") ?: ""
+            }
+            globalOptionsAndroid.apply {
+                try {
+                    val temp = JSONArray(prefs.getString("filterHistory", "[]"))
+                    filterHistory = (0 until temp.length()).map { temp.getString(it) }.toTypedArray()
+                } catch (e: JSONException) {}
+                importExportFileName = prefs.getString("importExportFileName", "") ?: ""
+                val certs = prefs.getString("additionalCertificatesBase64", "")
+                if (!certs.isNullOrEmpty())
+                    additionalCertificatesBase64 = certs.split('|').toTypedArray()
+                hasBeenStartedAtLeastOnce = true
+                accountCountBackup = prefs.getInt("accountCountBackup", -1)
+            }
+            globalOptionsAndroid.save()
         }
     }
 

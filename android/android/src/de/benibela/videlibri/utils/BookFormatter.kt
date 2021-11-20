@@ -8,6 +8,7 @@ import de.benibela.videlibri.*
 import de.benibela.videlibri.jni.BookListDisplayOptions
 
 import de.benibela.videlibri.jni.Bridge
+import de.benibela.videlibri.jni.globalOptionsShared
 
 
 internal object BookFormatter {
@@ -88,7 +89,7 @@ fun Bridge.Book.getStatusColor(): Int =
             -1
         else if ((account != null || isGroupingHeader)
                 && dueDate != 0
-                && dueDate - Bridge.currentPascalDate <= Bridge.globalOptions.nearTime)
+                && dueDate - Bridge.currentPascalDate <= globalOptionsShared.nearTime)
             Color.RED
         else
             when (status) {

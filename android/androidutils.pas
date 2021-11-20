@@ -150,12 +150,6 @@ var
     importExportDataFields: record
       accountsToImportAL, flagsI, nativePtrJ: jfieldID;
     end;
-    optionsClass: jclass;
-    optionsClassInit: jmethodID;
-    optionsClassFields: record
-      nearTimeI, loggingZ, refreshIntervalI, roUserLibIdsAS: jfieldID;
-    end;
-
     globalStrings: record
       libraryBranch, libraryLocation, isbn, category, status, renewCount, cancelable: jobject;
     end;
@@ -338,15 +332,6 @@ begin
       searcherOnTakePendingMessage := getmethod(searcherClass, 'onTakePendingMessage', '(ILjava/lang/String;[Ljava/lang/String;)V');
       searcherOnPendingMessageCompleted := getmethod(searcherClass, 'onPendingMessageCompleted', '()V');
       searcherOnException := getmethod(searcherClass, 'onException', '()V');
-
-      optionsClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/Bridge$Options'));
-      optionsClassInit := getmethod(optionsClass, '<init>', '()V');;
-      with optionsClassFields do begin
-        nearTimeI := getfield(optionsClass, 'nearTime', 'I');
-        loggingZ := getfield(optionsClass, 'logging', 'Z');
-        refreshIntervalI := getfield(optionsClass, 'refreshInterval','I');
-        roUserLibIdsAS := getfield(optionsClass, 'roUserLibIds', '[Ljava/lang/String;');
-      end;
 
 
       importExportDataClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/Bridge$ImportExportData'));
@@ -1862,26 +1847,21 @@ end;
 function Java_de_benibela_VideLibri_Bridge_VLGetOptions(env:PJNIEnv; this:jobject): jobject; cdecl;
 var
   i: Integer;
-  userlibs: TList;
-  temp: jobject;
+  temp: TOptionsShared;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetOptions (started)');
   //bbdebugtools.log(strFromPtr(libraryManager));
   //bbdebugtools.log(IntToStr(libraryManager.count));
   result := nil;
   try
-    with optionsClassFields, j do begin
-      result := newObject(optionsClass, optionsClassInit);
-      SetIntField(result, nearTimeI, userConfig.ReadInteger('base','near-time',3));
-      SetIntField(result, refreshIntervalI, RefreshInterval);
-      SetBooleanField(result, loggingZ, logging);
-
-      userlibs := libraryManager.getUserLibraries();
-      temp := newStringArray(userlibs.Count);
-      for i := 0 to userlibs.Count-1 do
-        setStringArrayElement(temp, i, TLibrary(userlibs[i]).id);
-      SetObjectFieldAndDelete(result, roUserLibIdsAS, temp);
-    end;
+    temp := TOptionsShared.Create;
+    temp.nearTime := userConfig.ReadInteger('base','near-time',3);
+    temp.refreshInterval := RefreshInterval;
+    temp.userLibIds := strSplit(userConfig.ReadString('base', 'user-libraries', ''), ',');
+    while (length(temp.userLibIds) > 0) and (temp.userLibIds[high(temp.userLibIds)] = '') do setlength(temp.userLibIds, high(temp.userLibIds));
+    for i := 0 to high(temp.userLibIds) do temp.userLibIds[i] := trim(temp.userLibIds[i]); //is this needed?
+    result := temp.toJava;
+    temp.free;
   except
     on e: Exception do throwExceptionToJava(e);
   end;
@@ -1889,22 +1869,20 @@ begin
 end;
 
 function Java_de_benibela_VideLibri_Bridge_VLSetOptions(env:PJNIEnv; this:jobject; options: jobject): jobject; cdecl;
+var
+  temp: TOptionsShared;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLSetOptions (started)');
   result := nil;
   //bbdebugtools.log(strFromPtr(libraryManager));
   //bbdebugtools.log(IntToStr(libraryManager.count));
   try
-    with optionsClassFields, j do begin
-      userConfig.WriteInteger('base','near-time', getIntField(options, nearTimeI));
-      updateGlobalTimeCache;
+    temp := TOptionsShared.fromJava(options);
+    userConfig.WriteInteger('base','near-time', temp.nearTime);
+    updateGlobalTimeCache;
 
-      RefreshInterval:=getIntField(options, refreshIntervalI);
-      userConfig.WriteInteger('access','refresh-interval',refreshInterval);
-
-      logging := getBooleanField(options, loggingZ);
-      userConfig.WriteBool('base','logging', logging);
-    end;
+    RefreshInterval:=temp.refreshInterval;
+    userConfig.WriteInteger('access','refresh-interval',refreshInterval);
   except
     on e: Exception do throwExceptionToJava(e);
   end;
@@ -1926,7 +1904,9 @@ begin
     else begin
       if logging then log('Config '+androidConfigPath + ' does not exist');
       options := TOptionsAndroidOnly.Create;
+      options.logging := userConfig.ReadBool('base', 'logging', logging);
     end;
+    logging := options.logging;
     result := options.toJava;
     options.free
   except
@@ -1946,6 +1926,7 @@ begin
   result := nil;
   try
     temp := TOptionsAndroidOnly.fromJava(options);
+    logging := temp.logging;
     strSaveToFile(androidConfigPath, temp.toJSON());
     temp.free;
   except
@@ -2217,8 +2198,8 @@ const nativeMethods: array[1..40] of JNINativeMethod=
    ,(name:'VLSearchCompletePendingMessage'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;I)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchCompletePendingMessage)
    ,(name:'VLSearchEnd'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchEnd)
 
-   ,(name:'VLSetOptions'; signature: '(Lde/benibela/videlibri/jni/Bridge$Options;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSetOptions)
-   ,(name:'VLGetOptions'; signature: '()Lde/benibela/videlibri/jni/Bridge$Options;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetOptions)
+   ,(name:'VLSetOptions'; signature: '(Lde/benibela/videlibri/jni/OptionsShared;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSetOptions)
+   ,(name:'VLGetOptions'; signature: '()Lde/benibela/videlibri/jni/OptionsShared;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetOptions)
    ,(name:'VLGetOptionsAndroidOnly'; signature: '()Lde/benibela/videlibri/jni/OptionsAndroidOnly;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetOptionsAndroidOnly)
    ,(name:'VLSetOptionsAndroidOnly'; signature: '(Lde/benibela/videlibri/jni/OptionsAndroidOnly;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSetOptionsAndroidOnly)
 

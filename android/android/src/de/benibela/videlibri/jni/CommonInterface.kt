@@ -61,6 +61,7 @@ package de.benibela.videlibri.jni
 
   } 
   open class OptionsAndroidOnly( 
+    @JvmField var logging: Boolean,
     @JvmField var bookListDisplayOptions: BookListDisplayOptions,
     @JvmField var filterHistory: Array<String>,
     @JvmField var importExportFileName: String,
@@ -70,6 +71,15 @@ package de.benibela.videlibri.jni
     @JvmField var accountCountBackup: Int = -1
   )   {
     override fun equals(other: Any?): Boolean =
-       other != null && javaClass == other.javaClass && other is OptionsAndroidOnly && bookListDisplayOptions == other.bookListDisplayOptions && filterHistory.contentEquals(other.filterHistory) && importExportFileName == other.importExportFileName && additionalCertificatesBase64.contentEquals(other.additionalCertificatesBase64) && notifications == other.notifications && hasBeenStartedAtLeastOnce == other.hasBeenStartedAtLeastOnce && accountCountBackup == other.accountCountBackup
+       other != null && javaClass == other.javaClass && other is OptionsAndroidOnly && logging == other.logging && bookListDisplayOptions == other.bookListDisplayOptions && filterHistory.contentEquals(other.filterHistory) && importExportFileName == other.importExportFileName && additionalCertificatesBase64.contentEquals(other.additionalCertificatesBase64) && notifications == other.notifications && hasBeenStartedAtLeastOnce == other.hasBeenStartedAtLeastOnce && accountCountBackup == other.accountCountBackup
+
+  } 
+  open class OptionsShared( 
+    @JvmField var nearTime: Int,
+    @JvmField var refreshInterval: Int,
+    @JvmField var userLibIds: Array<String>
+  )   {
+    override fun equals(other: Any?): Boolean =
+       other != null && javaClass == other.javaClass && other is OptionsShared && nearTime == other.nearTime && refreshInterval == other.refreshInterval && userLibIds.contentEquals(other.userLibIds)
 
   } 

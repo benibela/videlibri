@@ -140,7 +140,7 @@ TOptionsAndroidOnlyClass = class of TOptionsAndroidOnly;
 TOptionsAndroidOnly = class
   importExportFileName: string;
   accountCountBackup: int32;
-  hasBeenStartedAtLeastOnce: boolean;
+  logging, hasBeenStartedAtLeastOnce: boolean;
   filterHistory: array of string;
   additionalCertificatesBase64: array of string;
   bookListDisplayOptions: TBookListDisplayOptions;
@@ -163,6 +163,31 @@ public
   function toJava: jobject; virtual;
   class function fromJava(jvm: jobject): TOptionsAndroidOnly; virtual;
   class function fromJavaAndDelete(jvm: jobject): TOptionsAndroidOnly; virtual;
+  
+  {$endif}
+
+end;  
+type 
+TOptionsSharedClass = class of TOptionsShared;
+TOptionsShared = class
+  nearTime, refreshInterval: int32;
+  userLibIds: array of string;
+  procedure toJSON(var builder: TJSONXHTMLStrBuilder);
+  function toJSON(): string;
+  class function fromJSON(const json: string): TOptionsShared; virtual;
+  class function fromJSON(const json: IXQValue): TOptionsShared; virtual;
+protected
+  procedure appendToJSON(var builder: TJSONXHTMLStrBuilder); virtual;
+  procedure setPropertiesFromJSON(const json: IXQValue); virtual;
+  class function typeId: string; virtual;
+  class function classFromTypeId(const id: string): TOptionsSharedClass;
+  class function fromJSONWithType(const typ: string; const json: IXQValue): TObject;
+
+public
+  {$ifdef android}
+  function toJava: jobject; virtual;
+  class function fromJava(jvm: jobject): TOptionsShared; virtual;
+  class function fromJavaAndDelete(jvm: jobject): TOptionsShared; virtual;
   
   {$endif}
 
@@ -593,6 +618,7 @@ end;
 var i: sizeint;
 begin
   with builder do begin    
+    appendJSONObjectKeyColon('logging'); if self.logging then append('true') else append('false'); appendJSONObjectComma;
     appendJSONObjectKeyColon('bookListDisplayOptions'); bookListDisplayOptions.toJSON(builder); appendJSONObjectComma;
     appendJSONObjectKeyColon('filterHistory'); appendJSONArrayStart();
     for i := 0 to high(filterHistory) do begin
@@ -626,7 +652,8 @@ end;
 
 procedure TOptionsAndroidOnly.setPropertiesFromJSON(const json: IXQValue);
 begin
-  bookListDisplayOptions.setPropertiesFromJSON(json.getProperty('bookListDisplayOptions'));
+  logging := json.getProperty('logging').toBoolean();
+    bookListDisplayOptions.setPropertiesFromJSON(json.getProperty('bookListDisplayOptions'));
     readArray(filterHistory, json.getProperty('filterHistory'));
     importExportFileName := json.getProperty('importExportFileName').toString();
     readArray(additionalCertificatesBase64, json.getProperty('additionalCertificatesBase64'));
@@ -664,7 +691,74 @@ begin
   bookListDisplayOptions.free; 
   notifications.free;
   inherited;
+end; procedure TOptionsShared.toJSON(var builder: TJSONXHTMLStrBuilder);
+begin
+  with builder do begin
+    appendJSONObjectStart;
+    self.appendToJSON(builder);
+    appendJSONObjectEnd;
+  end;
 end;
+
+function TOptionsShared.toJSON(): string;
+var b:  TJSONXHTMLStrBuilder;
+begin
+  b.init(@result);
+  toJSON(b);
+  b.final;
+end;
+
+ procedure TOptionsShared.appendToJSON(var builder: TJSONXHTMLStrBuilder);
+var i: sizeint;
+begin
+  with builder do begin    
+    appendJSONObjectKeyColon('nearTime'); appendNumber(self.nearTime); appendJSONObjectComma;
+    appendJSONObjectKeyColon('refreshInterval'); appendNumber(self.refreshInterval); appendJSONObjectComma;
+    appendJSONObjectKeyColon('userLibIds'); appendJSONArrayStart();
+    for i := 0 to high(userLibIds) do begin
+      if i > 0 then appendJSONArrayComma();
+      userLibIds[i].toJSON(builder);
+    end;
+    appendJSONArrayEnd();
+    
+  end;
+end;
+
+class function TOptionsShared.fromJSON(const json: string): TOptionsShared;
+begin
+  result := fromJSON(parseJSON(json))
+end;
+class function TOptionsShared.fromJSON(const json: IXQValue): TOptionsShared;
+begin
+  result := TOptionsShared.create;
+  result.setPropertiesFromJSON(json)
+end;
+
+procedure TOptionsShared.setPropertiesFromJSON(const json: IXQValue);
+begin
+  nearTime := json.getProperty('nearTime').toInt64();
+    refreshInterval := json.getProperty('refreshInterval').toInt64();
+    readArray(userLibIds, json.getProperty('userLibIds'));
+  
+end;
+
+class function TOptionsShared.typeId: string;
+begin
+  result := 'OptionsShared'
+end;
+
+  
+class function TOptionsShared.classFromTypeId(const id: string): TOptionsSharedClass;
+begin
+  ignore(id);
+  result := TOptionsShared
+end;
+class function TOptionsShared.fromJSONWithType(const typ: string; const json: IXQValue): TObject;
+begin
+  result := classFromTypeId(typ).fromJSON(json);
+end;
+
+
 
 {$ifdef android}
 
@@ -712,6 +806,10 @@ var
   OptionsAndroidOnlyClass: jclass;
   OptionsAndroidOnlyClassInit: jmethodID;
  
+var
+  OptionsSharedClass: jclass;
+  OptionsSharedClassInit: jmethodID;
+ 
   BookListDisplayOptionsFields: record
     showHistoryZ, noBorrowedBookDetailsZ, showRenewCountZ, groupingKeyS, sortingKeyS, filterKeyS, alwaysFilterOnHistoryZ: jfieldID;
   end;
@@ -721,7 +819,11 @@ var
   end;
  
   OptionsAndroidOnlyFields: record
-    bookListDisplayOptionsL, filterHistoryA, importExportFileNameS, additionalCertificatesBase64A, notificationsL, hasBeenStartedAtLeastOnceZ, accountCountBackupI: jfieldID;
+    loggingZ, bookListDisplayOptionsL, filterHistoryA, importExportFileNameS, additionalCertificatesBase64A, notificationsL, hasBeenStartedAtLeastOnceZ, accountCountBackupI: jfieldID;
+  end;
+ 
+  OptionsSharedFields: record
+    nearTimeI, refreshIntervalI, userLibIdsA: jfieldID;
   end;
 
 
@@ -843,23 +945,38 @@ begin
 end;
  
 function TOptionsAndroidOnly.toJava: jobject;
-var temp: array[0..6] of jvalue;
+var temp: array[0..7] of jvalue;
 begin
   with j do begin
-    temp[0].l := self.bookListDisplayOptions.toJava;
-    temp[1].l := arrayToJArrayCI(self.filterHistory);
-    temp[2].l := stringToJString(self.importExportFileName);
-    temp[3].l := arrayToJArrayCI(self.additionalCertificatesBase64);
-    temp[4].l := self.notifications.toJava;
-    temp[5].z := booleanToJboolean(self.hasBeenStartedAtLeastOnce);
-    temp[6].i := self.accountCountBackup;
+    temp[0].z := booleanToJboolean(self.logging);
+    temp[1].l := self.bookListDisplayOptions.toJava;
+    temp[2].l := arrayToJArrayCI(self.filterHistory);
+    temp[3].l := stringToJString(self.importExportFileName);
+    temp[4].l := arrayToJArrayCI(self.additionalCertificatesBase64);
+    temp[5].l := self.notifications.toJava;
+    temp[6].z := booleanToJboolean(self.hasBeenStartedAtLeastOnce);
+    temp[7].i := self.accountCountBackup;
 
     result := newObject(OptionsAndroidOnlyClass, OptionsAndroidOnlyClassInit, @temp[0]); 
-    deleteLocalRef(temp[0].l);
     deleteLocalRef(temp[1].l);
     deleteLocalRef(temp[2].l);
     deleteLocalRef(temp[3].l);
     deleteLocalRef(temp[4].l);
+    deleteLocalRef(temp[5].l);
+
+ end;
+end;
+ 
+function TOptionsShared.toJava: jobject;
+var temp: array[0..2] of jvalue;
+begin
+  with j do begin
+    temp[0].i := self.nearTime;
+    temp[1].i := self.refreshInterval;
+    temp[2].l := arrayToJArrayCI(self.userLibIds);
+
+    result := newObject(OptionsSharedClass, OptionsSharedClassInit, @temp[0]); 
+    deleteLocalRef(temp[2].l);
 
  end;
 end;
@@ -906,6 +1023,7 @@ class function TOptionsAndroidOnly.fromJava(jvm: jobject): TOptionsAndroidOnly;
 begin
   result := TOptionsAndroidOnly.create;
   with j, result, OptionsAndroidOnlyFields do begin
+    logging := getbooleanField( jvm, loggingZ );
     bookListDisplayOptions := TBookListDisplayOptions.fromJavaAndDelete(getObjectField( jvm, bookListDisplayOptionsL ));
     fromJavaArrayAndDelete(filterHistory, getObjectField( jvm, filterHistoryA ));
     importExportFileName := getstringField( jvm, importExportFileNameS );
@@ -917,6 +1035,22 @@ begin
  end;
 end;
 class function TOptionsAndroidOnly.fromJavaAndDelete(jvm: jobject): TOptionsAndroidOnly;
+begin
+  result := fromJava(jvm);
+  j.deleteLocalRef(jvm);
+end;
+ 
+class function TOptionsShared.fromJava(jvm: jobject): TOptionsShared;
+begin
+  result := TOptionsShared.create;
+  with j, result, OptionsSharedFields do begin
+    nearTime := getintField( jvm, nearTimeI );
+    refreshInterval := getintField( jvm, refreshIntervalI );
+    fromJavaArrayAndDelete(userLibIds, getObjectField( jvm, userLibIdsA ));
+
+ end;
+end;
+class function TOptionsShared.fromJavaAndDelete(jvm: jobject): TOptionsShared;
 begin
   result := fromJava(jvm);
   j.deleteLocalRef(jvm);
@@ -952,14 +1086,20 @@ begin
     NotificationConfigFields.lastTitleS := getfield(NotificationConfigClass, 'lastTitle', 'Ljava/lang/String;');
     NotificationConfigFields.lastTextS := getfield(NotificationConfigClass, 'lastText', 'Ljava/lang/String;'); 
     OptionsAndroidOnlyClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/OptionsAndroidOnly'));
-    OptionsAndroidOnlyClassInit := getmethod(OptionsAndroidOnlyClass, '<init>', '(Lde/benibela/videlibri/jni/BookListDisplayOptions;[Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;Lde/benibela/videlibri/jni/NotificationConfig;ZI)V');
+    OptionsAndroidOnlyClassInit := getmethod(OptionsAndroidOnlyClass, '<init>', '(ZLde/benibela/videlibri/jni/BookListDisplayOptions;[Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;Lde/benibela/videlibri/jni/NotificationConfig;ZI)V');
+    OptionsAndroidOnlyFields.loggingZ := getfield(OptionsAndroidOnlyClass, 'logging', 'Z');
     OptionsAndroidOnlyFields.bookListDisplayOptionsL := getfield(OptionsAndroidOnlyClass, 'bookListDisplayOptions', 'Lde/benibela/videlibri/jni/BookListDisplayOptions;');
     OptionsAndroidOnlyFields.filterHistoryA := getfield(OptionsAndroidOnlyClass, 'filterHistory', '[Ljava/lang/String;');
     OptionsAndroidOnlyFields.importExportFileNameS := getfield(OptionsAndroidOnlyClass, 'importExportFileName', 'Ljava/lang/String;');
     OptionsAndroidOnlyFields.additionalCertificatesBase64A := getfield(OptionsAndroidOnlyClass, 'additionalCertificatesBase64', '[Ljava/lang/String;');
     OptionsAndroidOnlyFields.notificationsL := getfield(OptionsAndroidOnlyClass, 'notifications', 'Lde/benibela/videlibri/jni/NotificationConfig;');
     OptionsAndroidOnlyFields.hasBeenStartedAtLeastOnceZ := getfield(OptionsAndroidOnlyClass, 'hasBeenStartedAtLeastOnce', 'Z');
-    OptionsAndroidOnlyFields.accountCountBackupI := getfield(OptionsAndroidOnlyClass, 'accountCountBackup', 'I');
+    OptionsAndroidOnlyFields.accountCountBackupI := getfield(OptionsAndroidOnlyClass, 'accountCountBackup', 'I'); 
+    OptionsSharedClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/OptionsShared'));
+    OptionsSharedClassInit := getmethod(OptionsSharedClass, '<init>', '(II[Ljava/lang/String;)V');
+    OptionsSharedFields.nearTimeI := getfield(OptionsSharedClass, 'nearTime', 'I');
+    OptionsSharedFields.refreshIntervalI := getfield(OptionsSharedClass, 'refreshInterval', 'I');
+    OptionsSharedFields.userLibIdsA := getfield(OptionsSharedClass, 'userLibIds', '[Ljava/lang/String;');
   end;
 end;
 {$endif}

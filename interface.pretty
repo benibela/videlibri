@@ -62,6 +62,7 @@ class NotificationConfig {
 @KotlinVar
 @Pascal<->Kotlin
 class OptionsAndroidOnly {
+  logging: Boolean
   bookListDisplayOptions: BookListDisplayOptions
   filterHistory: String[]
   importExportFileName: String
@@ -74,7 +75,14 @@ class OptionsAndroidOnly {
 
 
 
-
+@SerializeJson
+@KotlinVar
+@Pascal<->Kotlin
+class OptionsShared {
+  nearTime: Int
+  refreshInterval: Int
+  userLibIds: String[]
+}
 
 
 
@@ -85,8 +93,9 @@ class OptionsAndroidOnly {
 
 
 fun VLGetVersion(): VersionInfo
+fun VLSetOptions(options: OptionsShared)
+fun VLGetOptions(): OptionsShared
 fun VLGetOptionsAndroidOnly(): OptionsAndroidOnly
 fun VLSetOptionsAndroidOnly(options: OptionsAndroidOnly)
-
 
 

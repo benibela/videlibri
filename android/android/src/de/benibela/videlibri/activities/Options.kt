@@ -21,6 +21,7 @@ import de.benibela.videlibri.internet.DownloadCertificate
 import de.benibela.videlibri.internet.UserKeyStore
 import de.benibela.videlibri.jni.Bridge
 import de.benibela.videlibri.jni.globalOptionsAndroid
+import de.benibela.videlibri.jni.globalOptionsShared
 import de.benibela.videlibri.jni.save
 import de.benibela.videlibri.notifications.NotificationScheduling
 import de.benibela.videlibri.utils.*
@@ -60,7 +61,7 @@ class Options : VideLibriBaseActivity() {
             preferenceScreen = preferenceManager.createPreferenceScreen(ctw)
 
             val saveOptionsAndroidOnly: (Preference?,Any) -> Unit = {_, _ -> globalOptionsAndroid.save();  }
-            val saveOptionsSHARED: (Preference?, Any) -> Unit = {_, _ -> Bridge.VLSetOptions(Bridge.globalOptions); }
+            val saveOptionsSHARED: (Preference?, Any) -> Unit = {_, _ -> Bridge.VLSetOptions(globalOptionsShared); }
 
             PreferenceScreenBuilder(ctw, preferenceScreen) {
                 category(R.string.lay_options_caption_displayoptions){
@@ -127,7 +128,7 @@ class Options : VideLibriBaseActivity() {
                         showDynamicSummary()
                     }
                     seekBar(PreferenceSeekBar(ctw)) {
-                        property(Bridge.globalOptions::nearTime)
+                        property(globalOptionsShared::nearTime)
                         max(31)
                         title(R.string.lay_options_warningtimedelay)
                         onChanged(saveOptionsSHARED)
@@ -151,7 +152,7 @@ class Options : VideLibriBaseActivity() {
 
                 category(R.string.lay_options_caption_misc){
                     seekBar(PreferenceSeekBar(ctw)) {
-                        property(Bridge.globalOptions::refreshInterval)
+                        property(globalOptionsShared::refreshInterval)
                         max(31)
                         title(R.string.lay_options_refreshInterval)
                         onChanged(saveOptionsSHARED)
@@ -170,16 +171,17 @@ class Options : VideLibriBaseActivity() {
                         title(R.string.lay_options_label_language)
                         summary(R.string.lay_options_label_language_summary)
                         preference.key = "languageOverride"
+                        preference.isPersistent = true
                         onChanged {_, newValue ->
                             VideLibriApp.setLanguageOverride(context, newValue)
                         }
                     }
 
                     switchCompat {
-                        property(Bridge.globalOptions::logging)
+                        property(globalOptionsAndroid::logging)
                         summaryOn(R.string.lay_options_option_debuglog_summary_on)
                         title(R.string.lay_options_option_debuglog)
-                        onChanged(saveOptionsSHARED)
+                        onChanged(saveOptionsAndroidOnly)
                     }
 
                     switchCompat {
@@ -219,7 +221,7 @@ class Options : VideLibriBaseActivity() {
         private fun createPreferencesOwnLibraries(categoryBuilder: CategoryBuilder) = categoryBuilder.apply {
             val options = Bridge.VLGetOptions()
             val summary = getString(R.string.lay_options_label_ownlibraries_summary)
-            options.roUserLibIds.filterNotNull().forEach { userLibId ->
+            options.userLibIds.filterNotNull().forEach { userLibId ->
                 val details = Bridge.VLGetLibraryDetails(userLibId) ?: return@forEach
                 preference {
                     title(details.prettyName)

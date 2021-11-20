@@ -335,13 +335,6 @@ public class Bridge {
         @NotNullLateInit public String firstAccountUser, firstAccountLib;
     }
 
-    public static class Options{
-        public boolean logging;
-        public int nearTime, refreshInterval;
-        @NotNullLateInit public String roUserLibIds[];
-    }
-    public static Options globalOptions;
-
     public static class TemplateDetails{
         @NotNullLateInit public String variablesNames[];
         @NotNullLateInit public String variablesDescription[];
@@ -385,8 +378,8 @@ public class Bridge {
     static public native void VLSearchCompletePendingMessage(@NotNull SearcherAccess searcher, int result);
     static public native void VLSearchEnd(@NotNull SearcherAccess searcher);
 
-    static public native void VLSetOptions(@NotNull Options options);
-    static public native @NotNull Options VLGetOptions();
+    static public native void VLSetOptions(@NotNull OptionsShared options);
+    static public native @NotNull OptionsShared VLGetOptions();
     static public native OptionsAndroidOnly VLGetOptionsAndroidOnly();
     static public native void VLSetOptionsAndroidOnly(OptionsAndroidOnly oao);
 
@@ -554,7 +547,6 @@ public class Bridge {
         }
         Log.i("Videlibri", "Initializing Windows VM and Pascal layer");
         VLInit(context);
-        Bridge.globalOptions = Bridge.VLGetOptions();
         //throw new Error("test");
     }
 }

@@ -38,6 +38,7 @@
     <string name="lastText"/>
   </class>
   <class id="OptionsAndroidOnly" serialize-json="" kotlin-var="var" jvm-pascal="" pascal-jvm="">
+    <boolean name="logging"/>
     <classref name="bookListDisplayOptions" ref="BookListDisplayOptions"/>
     <array name="filterHistory">
       <string/>
@@ -50,9 +51,26 @@
     <boolean name="hasBeenStartedAtLeastOnce"/>
     <int name="accountCountBackup" default="-1"/>
   </class>
+  <class id="OptionsShared" serialize-json="" kotlin-var="var" jvm-pascal="" pascal-jvm="">
+    <int name="nearTime"/>
+    <int name="refreshInterval"/>
+    <array name="userLibIds">
+      <string/>
+    </array>
+  </class>
   <function id="VLGetVersion">
     <return-type>
       <classref ref="VersionInfo"/>
+    </return-type>
+  </function>
+  <function id="VLSetOptions">
+    <arg name="options">
+      <classref ref="OptionsShared"/>
+    </arg>
+  </function>
+  <function id="VLGetOptions">
+    <return-type>
+      <classref ref="OptionsShared"/>
     </return-type>
   </function>
   <function id="VLGetOptionsAndroidOnly">
