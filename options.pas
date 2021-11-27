@@ -16,6 +16,9 @@ type
 
   ToptionForm = class(TVideLibriForm)
     accountList: TListView;
+    Button10: TButton;
+    Button12: TButton;
+    Button13: TButton;
     cbCopyAccountLimits: TCheckBox;
     accountType: TComboBox;
     openSSLCAStore: TEdit;
@@ -26,9 +29,13 @@ type
     lblAccountType: TLabel;
     libNameEdit: TEdit;
     Label33: TLabel;
+    PageControlLibs: TPageControl;
     Panel6: TPanel;
     internetAccessW32: TRadioButton;
     internetAccessSynapse: TRadioButton;
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
+    TabSheet3: TTabSheet;
     templateDefine: TButton;
     Button11: TButton;
     templateName: TEdit;
@@ -104,7 +111,6 @@ type
     SpeedButton5: TSpeedButton;
     SpeedButton6: TSpeedButton;
     SpeedButtonLibraryConfig: TSpeedButton;
-    Splitter1: TSplitter;
     symbols: TComboBox;
     Label19: TLabel;
     proxyHTTPName: TEdit;
@@ -163,7 +169,10 @@ type
     procedure btnAccountChangeClick(Sender: TObject);
     procedure btnAccountCreateClick(Sender: TObject);
     procedure accountdeleteClick(Sender: TObject);
+    procedure Button10Click(Sender: TObject);
     procedure Button11Click(Sender: TObject);
+    procedure Button12Click(Sender: TObject);
+    procedure Button13Click(Sender: TObject);
     procedure internetAccessChange(Sender: TObject);
     procedure internetProxyChange(Sender: TObject);
     procedure libAddClick(Sender: TObject);
@@ -236,10 +245,9 @@ ResourceString
   rsAccountDeletionConfirm = 'Soll auf diesem Computer das Konto %s - %s wirklich gelöscht werden?    %sDadurch werden auch alle '
     +'gespeicherten Bücherdaten dieses Kontos gelöscht   ';
   rsTemplateDelete = 'Soll das System "%s" wirklich gelöscht werden?';
-  rsInstallLibTemplate = 'Geben Sie die Adresse des von der Bibliothek zur Verfügung gestellten Templates ein:';
+  rsInstallLibTemplate = 'Geben Sie die Internet-Adresse ein, von der ein Update heruntergeladen werden soll:';
   rsTemplateInstalled = 'Template installiert';
   rsTemplateNotFound = 'Template nicht gefunden: %s';
-  rsHasTheLibOwnTemplate = 'Stellt die Bibliothek ein eigenes VideLibri-Template zur Verfügung?';
   rsLibNamePrompt = 'Geben Sie den Namen der Bibliothek ein';
   rsLibSystemPrompt = 'Welches Katalog-System verwendet die Bibliothek?';
   rsVariablePromptOptional = 'Es kann ein Wert für die optionale Variable "%s" gesetzt werden. (%s)';
@@ -863,6 +871,11 @@ begin
   end;
 end;
 
+procedure ToptionForm.Button10Click(Sender: TObject);
+begin
+  PageControlLibs.ActivePageIndex := 1;
+end;
+
 procedure ToptionForm.Button11Click(Sender: TObject);
 begin
   if confirm(format(rsTemplateDelete, [templateName.Text])) then begin
@@ -871,6 +884,38 @@ begin
     if (templateList.Items.IndexOf(templateName.text) >= 0) and not DirectoryExists(assetPath+'libraries/templates/'+templateName.text) then
       templateList.Items.Delete(templateList.Items.IndexOf(templateName.text));
   end;
+end;
+
+procedure ToptionForm.Button12Click(Sender: TObject);
+begin
+  PageControlLibs.ActivePageIndex := 2;
+end;
+
+procedure ToptionForm.Button13Click(Sender: TObject);
+  procedure downloadAndInstallTemplate;
+  var
+    lib: TLibrary;
+    url: String;
+  begin
+    url := 'https://';
+    if not InputQuery('VideLibri', rsInstallLibTemplate, url) then exit;
+    try
+      lib := libraryManager.downloadAndInstallUserLibrary(url);
+      if lib <> nil then begin
+        addUserLibrary(lib);
+        if (lib.template <> nil) and (templateList.Items.IndexOf(lib.template.name) < 0) then
+          templateList.Items.add(lib.template.name);;
+      end;
+
+      ShowMessage(rsTemplateInstalled)
+    except on e: EInternetException do
+      ShowMessage(Format(rsTemplateNotFound, [e.Message]));
+    on e: ELibraryException do
+      ShowMessage(Format(rsTemplateNotFound, [e.Message]));
+    end;
+  end;
+begin
+  downloadAndInstallTemplate;
 end;
 
 procedure ToptionForm.internetAccessChange(Sender: TObject);
@@ -893,29 +938,6 @@ begin
 end;
 
 procedure ToptionForm.libAddClick(Sender: TObject);
-  procedure downloadAndInstallTemplate;
-  var
-    lib: TLibrary;
-    url: String;
-  begin
-    url := '';
-    if not InputQuery('VideLibri', rsInstallLibTemplate, url) then exit;
-    try
-
-      lib := libraryManager.downloadAndInstallUserLibrary(url);
-      if lib <> nil then begin
-        addUserLibrary(lib);
-        if (lib.template <> nil) and (templateList.Items.IndexOf(lib.template.name) < 0) then
-          templateList.Items.add(lib.template.name);;
-      end;
-
-      ShowMessage(rsTemplateInstalled)
-    except on e: EInternetException do
-      ShowMessage(Format(rsTemplateNotFound, [e.Message]));
-    on e: ELibraryException do
-      ShowMessage(Format(rsTemplateNotFound, [e.Message]));
-    end;
-  end;
 
 var
   libname: String;
@@ -927,10 +949,6 @@ var
   vari: String;
   desc: String;
 begin
-  if confirm(rsHasTheLibOwnTemplate) then begin
-    downloadAndInstallTemplate;
-    exit;
-  end;
 
   libname := '';
   if not InputQuery('VideLibri', rsLibNamePrompt, libname) then exit;

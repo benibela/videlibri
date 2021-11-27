@@ -37,7 +37,7 @@ object optionForm: ToptionForm
     Height = 505
     Top = 6
     Width = 597
-    PageIndex = 0
+    PageIndex = 5
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Around = 2
     OnChangeBounds = Notebook1ChangeBounds
@@ -1449,421 +1449,483 @@ object optionForm: ToptionForm
       end
     end
     object pageLibs: TPage
-      object Panel4: TPanel
+      object PageControlLibs: TPageControl
         Left = 0
-        Height = 303
+        Height = 505
         Top = 0
-        Width = 609
+        Width = 597
+        ActivePage = TabSheet2
         Align = alClient
-        ClientHeight = 303
-        ClientWidth = 609
+        TabIndex = 1
         TabOrder = 0
-        OnClick = Panel4Click
-        object libList: TListView
-          AnchorSideBottom.Control = libxml
-          Left = 4
-          Height = 120
-          Top = 2
-          Width = 600
-          Anchors = [akTop, akLeft, akRight, akBottom]
-          BorderSpacing.Bottom = 4
-          Columns = <          
-            item
-              Caption = 'ID'
-            end          
-            item
-              Caption = 'Name der Bibliothek'
-              Width = 200
-            end          
-            item
-              Caption = 'System'
-              Width = 75
-            end          
-            item
-              Caption = 'Variablen'
-              Width = 309
-            end>
-          HideSelection = False
-          RowSelect = True
-          TabOrder = 0
-          ViewStyle = vsReport
-          OnSelectItem = libListSelectItem
+        object TabSheet1: TTabSheet
+          Caption = 'Übersicht'
+          ClientHeight = 468
+          ClientWidth = 593
+          object Button10: TButton
+            AnchorSideRight.Control = Button12
+            AnchorSideRight.Side = asrBottom
+            Left = 24
+            Height = 33
+            Top = 46
+            Width = 404
+            Anchors = [akTop, akLeft, akRight]
+            AutoSize = True
+            Caption = 'Eigene Bibliothek hinzufügen oder bearbeiten'
+            OnClick = Button10Click
+            TabOrder = 0
+          end
+          object Button12: TButton
+            AnchorSideTop.Control = Button10
+            AnchorSideTop.Side = asrBottom
+            Left = 25
+            Height = 33
+            Top = 99
+            Width = 403
+            AutoSize = True
+            BorderSpacing.Around = 20
+            Caption = 'Katalogsysteme/Bibliothekschnittstellen bearbeiten'
+            OnClick = Button12Click
+            TabOrder = 1
+          end
+          object Button13: TButton
+            AnchorSideTop.Control = Button12
+            AnchorSideTop.Side = asrBottom
+            AnchorSideRight.Control = Button12
+            AnchorSideRight.Side = asrCenter
+            Left = 24
+            Height = 33
+            Top = 152
+            Width = 403
+            Anchors = [akTop, akLeft, akRight]
+            AutoSize = True
+            BorderSpacing.Around = 12
+            Caption = 'Bibliothekupdate herunterladen und installieren'
+            OnClick = Button13Click
+            TabOrder = 2
+          end
         end
-        object libxml: TMemo
-          AnchorSideBottom.Control = libDelete
-          Left = 6
-          Height = 134
-          Top = 126
-          Width = 593
-          Anchors = [akLeft, akRight, akBottom]
-          BorderSpacing.Bottom = 4
-          Lines.Strings = (
-            '<!--    XML-Beschreibung einer selbstdefinierten Bibliothek'
-            ''
-            'Klicken Sie auf "Neue Bibliothek hinzufügen", um eine neue Bibliothek zu VideLibri hinzuzufügen, welche dasselbe System wie eine bereits existierende verwendet. Dies öffnet einen neuen Dialog, der alle relevanten Informationen abfragt.'
-            ''
-            'Um eine Bibliothek hinzuzufügen, die ein bisher unbekanntes System verwenden, erstellen Sie zuerst ein neues Template für das System mit den unteren Feldern.'
-            ''
-            'Eine Beispielsbeschreibung:'
-            '-->'
-            ''
-            '<library>'
-            '  <longName value="Name der Bibliothek"/>'
-            '  '
-            '  <template value="sisis"/> <!-- Name des Bibliotheksystems, z.B.: sisis -->'
-            '  <variable name="server" value="https://<Addresse des Bibliothek >"/>'
-            ''
-            '</library>'
-          )
-          ScrollBars = ssAutoVertical
-          TabOrder = 1
+        object TabSheet2: TTabSheet
+          Caption = 'Eigene Bibliotheken'
+          ClientHeight = 468
+          ClientWidth = 593
+          object Panel4: TPanel
+            Left = 0
+            Height = 468
+            Top = 0
+            Width = 593
+            Align = alClient
+            ClientHeight = 468
+            ClientWidth = 593
+            TabOrder = 0
+            OnClick = Panel4Click
+            object libList: TListView
+              AnchorSideBottom.Control = libxml
+              Left = 4
+              Height = 162
+              Top = 2
+              Width = 584
+              Anchors = [akTop, akLeft, akRight]
+              BorderSpacing.Bottom = 4
+              Columns = <              
+                item
+                  Caption = 'ID'
+                end              
+                item
+                  Caption = 'Name der Bibliothek'
+                  Width = 200
+                end              
+                item
+                  Caption = 'System'
+                  Width = 75
+                end              
+                item
+                  Caption = 'Variablen'
+                  Width = 309
+                end>
+              HideSelection = False
+              RowSelect = True
+              TabOrder = 0
+              ViewStyle = vsReport
+              OnSelectItem = libListSelectItem
+            end
+            object libxml: TMemo
+              AnchorSideBottom.Control = libDelete
+              Left = 8
+              Height = 251
+              Top = 175
+              Width = 577
+              Anchors = [akTop, akLeft, akRight, akBottom]
+              BorderSpacing.Bottom = 4
+              Font.Name = 'Monospace'
+              Lines.Strings = (
+                '<!--    XML-Beschreibung einer selbstdefinierten Bibliothek'
+                ''
+                'Klicken Sie auf "Neue Bibliothek hinzufügen", um eine neue Bibliothek zu VideLibri hinzuzufügen, welche dasselbe System wie eine bereits existierende verwendet. Dies öffnet einen neuen Dialog, der alle relevanten Informationen abfragt.'
+                ''
+                'Um eine Bibliothek hinzuzufügen, die ein bisher unbekanntes System verwenden, erstellen Sie zuerst ein neues Template für das System mit den unteren Feldern.'
+                ''
+                'Eine Beispielsbeschreibung:'
+                '-->'
+                ''
+                '<library>'
+                '  <longName value="Name der Bibliothek"/>'
+                '  '
+                '  <template value="sisis"/> <!-- Name des Bibliotheksystems, z.B.: sisis -->'
+                '  <variable name="server" value="https://<Addresse des Bibliothek >"/>'
+                ''
+                '</library>'
+              )
+              ParentFont = False
+              ScrollBars = ssAutoVertical
+              TabOrder = 1
+            end
+            object libChange: TButton
+              AnchorSideLeft.Control = libNameEdit
+              AnchorSideLeft.Side = asrBottom
+              AnchorSideTop.Control = libNameEdit
+              AnchorSideTop.Side = asrCenter
+              Left = 122
+              Height = 33
+              Top = 430
+              Width = 166
+              AutoSize = True
+              BorderSpacing.Left = 4
+              Caption = 'Bibliothek speichern'
+              OnClick = libChangeClick
+              TabOrder = 2
+            end
+            object libDelete: TButton
+              AnchorSideLeft.Control = libChange
+              AnchorSideLeft.Side = asrBottom
+              AnchorSideTop.Control = libChange
+              Left = 292
+              Height = 32
+              Top = 430
+              Width = 150
+              Anchors = [akTop, akLeft, akBottom]
+              AutoSize = True
+              BorderSpacing.Left = 4
+              Caption = 'Bibliothek löschen'
+              OnClick = libDeleteClick
+              TabOrder = 3
+            end
+            object libAdd: TButton
+              AnchorSideLeft.Control = libDelete
+              AnchorSideLeft.Side = asrBottom
+              AnchorSideTop.Control = libDelete
+              Left = 457
+              Height = 33
+              Top = 429
+              Width = 201
+              Anchors = [akLeft, akBottom]
+              AutoSize = True
+              BorderSpacing.Left = 15
+              Caption = 'Neue Bibliothek erstellen'
+              OnClick = libAddClick
+              TabOrder = 4
+            end
+            object Label33: TLabel
+              AnchorSideTop.Control = libNameEdit
+              AnchorSideTop.Side = asrCenter
+              Left = 12
+              Height = 21
+              Top = 436
+              Width = 22
+              Caption = 'ID:'
+              ParentColor = False
+            end
+            object libNameEdit: TEdit
+              AnchorSideLeft.Control = Label33
+              AnchorSideLeft.Side = asrBottom
+              AnchorSideTop.Control = Label33
+              Left = 43
+              Height = 32
+              Top = 430
+              Width = 70
+              Anchors = [akLeft, akBottom]
+              BorderSpacing.Around = 9
+              Constraints.MinWidth = 70
+              TabOrder = 5
+              Text = 'user1'
+            end
+          end
         end
-        object libChange: TButton
-          AnchorSideLeft.Control = libNameEdit
-          AnchorSideLeft.Side = asrBottom
-          AnchorSideTop.Control = libNameEdit
-          AnchorSideTop.Side = asrCenter
-          Left = 118
-          Height = 33
-          Top = 264
-          Width = 153
-          AutoSize = True
-          BorderSpacing.Left = 4
-          Caption = 'Bibliothek speichern'
-          OnClick = libChangeClick
-          TabOrder = 2
+        object TabSheet3: TTabSheet
+          Caption = 'Katalogsysteme'
+          ClientHeight = 468
+          ClientWidth = 593
+          object Panel5: TPanel
+            Left = 0
+            Height = 461
+            Top = 0
+            Width = 593
+            Align = alClient
+            Caption = 'Panel5'
+            ClientHeight = 461
+            ClientWidth = 593
+            TabOrder = 0
+            OnClick = Panel5Click
+            object templatexml: TMemo
+              AnchorSideBottom.Control = templateDefine
+              Left = 122
+              Height = 419
+              Top = 1
+              Width = 461
+              Anchors = [akTop, akLeft, akRight, akBottom]
+              BorderSpacing.Around = 3
+              Font.Name = 'Monospace'
+              Lines.Strings = (
+                '<!-- '
+                ''
+                'XML-Beschreibung eines Bibliotheksystems als Template.'
+                ''
+                'Schlagen Sie in der Hilfe nach, wie ein solches Template aufgebaut ist.'
+                ''
+                'Beispielstemplate:'
+                '-->'
+                ''
+                '<actions>'
+                '<action id="connect">'
+                ' <!-- Aktion zum Herstellene einer Verbindung zum Bibliotheksserver -->'
+                '  <variable name="db" value="DB={get(''picadb'', 1)}"/>'
+                '  <variable name="loanServer" value="{$server}/loan/{$db}/LNG=DU/"/>'
+                '</action>'
+                ''
+                '<action id="update-all">'
+                ' <!-- Aktion zum Abfragen der aktuellen Ausleihen -->'
+                '  <page url="{$loanServer}/USERINFO"> '
+                '    <post name="ACT" value="UI_LOL"/>'
+                '    <post name="BOR_U" value="{$username}"/>'
+                '    <post name="BOR_PW" value="{$password}"/>'
+                '    '
+                '    <!-- Template zur Beschreibung der Ausleihliste -->'
+                '    <template>'
+                '    <html>     '
+                '      <table summary="list of loans - data">'
+                '        <template:read var="delete-current-books()"/>'
+                '        <tr> <!-- Header der Liste -->'
+                '          <td></td>'
+                '          <td></td>'
+                '          <td></td>'
+                '          <td></td>'
+                '          <td><!--title-->Titel</td>'
+                '          <td></td>'
+                '          <td></td>'
+                '          <td></td>'
+                '          <td><!--shelf mark-->Signatur</td>'
+                '          <td></td>'
+                '          <td></td>'
+                '          <td></td>'
+                '          <td><!--status-->Status</td>'
+                '          <td></td>'
+                '          <td></td>'
+                '          <td></td>'
+                '          <td><!--volume-->Band</td>'
+                '          <td></td>'
+                '          <td></td>'
+                '          <td></td>'
+                '          <td><!--expiry-->Leihfristende</td>'
+                '          <td></td>'
+                '          <td></td>'
+                '          <td></td>'
+                '          <td><!--reservations-->Vormerkungen</td>'
+                '          <td></td>'
+                '          <td></td>'
+                '          <td></td>'
+                '          <td><!--renewals-->Verlängerungen</td>'
+                '          <td></td>'
+                '          <td></td>'
+                '          <td></td>'
+                '        </tr>'
+                '        '
+                '        <tr> <td class="h2"></td> </tr>'
+                '        '
+                '        '
+                '        '
+                '        <!-- Abfragen aller Medien -->'
+                '        <template:loop>'
+                '        <tr>'
+                '          {book := object()}'
+                '          <td></td>'
+                '          <td >'
+                '            {book.extendId:=''''}'
+                '            <input name="VB" type="checkbox">{book.extendId:=@value}</input>?'
+                '          </td>'
+                '          <td></td>'
+                '          <td></td>'
+                '          <td></td>'
+                '          <td>'
+                '            <template:read source="text()" var="book.title" regex="^[^/]*"/>'
+                '            <template:read source="text()" var="book.author" regex="^[^/]*/\s*(von)?\s*(.*)" submatch="2"/>'
+                '          </td>'
+                '      '
+                '          <td></td><td></td><td></td><td class="value-small">{$book.id}</td>'
+                '          <td></td><td></td><td></td><td class="value-small">'
+                '            <template:switch value="$book.extendId">'
+                '              <template:if value="''''">'
+                '                <template:switch value="filter(., ''Abholregal|Vormerkung|bestellt'')">'
+                '                  <template:if value="''Abholregal''">'
+                '                    {book.status := ., book.statusId := ''provided''}'
+                '                  </template:if>'
+                '                  <template:if value="''Vormerkung''">'
+                '                    {book.status := ., book.statusId := ''ordered''}'
+                '                  </template:if>'
+                '                  <template:if value="''bestellt''">'
+                '                    {book.status := ., book.statusId := ''ordered''}'
+                '                  </template:if>'
+                '                  <template:read var="book.status:problematic" source="."/>'
+                '                </template:switch>'
+                '              </template:if>'
+                '              <template:read var="book.status:curious" source="."/>'
+                '            </template:switch>'
+                '          </td>'
+                '          <td></td><td></td><td></td><td class="value-small"></td>'
+                '          <td></td><td></td><td></td><td class="value-small">'
+                '            <template:if test="text()!=''''"><template:read source="." var="book.duedate:dd-mm-yyyy"/></template:if>'
+                '          </td>'
+                '          <td></td><td></td><td></td><td class="value-small"></td>'
+                '          <td></td><td></td><td></td><td class="value-small"><iframe></iframe></td>'
+                '        </tr>'
+                '      </template:loop>'
+                '      '
+                '      </table>'
+                '    </html>'
+                '    </template>'
+                '    '
+                '  </page>'
+                '</action>'
+                ''
+                '<action id="renew-list">'
+                '  <!-- Aktion zum Verlängern der Medien. '
+                '       $renew-books ist die Liste der zu verlängernden Medien -->'
+                '  <variable name="book-list">string-join(for $book in $renew-books return x"VB={$book.extendId}", "&amp;")</variable> '
+                '  <page url="{$loanServer}/USERINFO" templateFile="extend">'
+                '    <post name="ACT" value="UI_RENEWLOAN"/>'
+                '    <post name="BOR_U" value="{$username}"/>'
+                '    <post name="BOR_PW" value="{$password}"/>'
+                '    <post value="{$book-list}"/>'
+                '    <template>'
+                '      <!-- Template zum Abfragen der neuen Ablauffristen -->'
+                '      <table summary="list of loan renewals - data" template:optional="true">'
+                '        <tr>'
+                '        </tr>'
+                '      '
+                '        <template:loop>'
+                '          <tr valign="top"><td>'
+                '              <table summary="title data">'
+                '                <tr><td class="plain"> <!--TITEL/AUTOR--></td></tr>'
+                '                <tr><td>'
+                '                  <span class="label-small">Signatur:<!--shelf mark--></span>'
+                '                  {book:=object(("select(id)", filter(text(),''[^;]*'')))} '
+                '                  <span class="label-small"><!--status:-->Status:</span>'
+                '                  <template:read var="book.status" source="text()"/>'
+                '                  <span class="label-small">Leihfristende:<!--expiry date:--></span>'
+                '                  <template:read source="parse-date(text(), ''dd-mm-yyyy'')" var="book.duedate"/>'
+                '                </td></tr>'
+                '              </table>'
+                '            </td>'
+                '          </tr>'
+                '        </template:loop>'
+                '        '
+                '      </table>'
+                '    </template>'
+                '    '
+                '  </page>'
+                '</action>'
+                ''
+                ''
+                ''
+                ''
+                '<action id="search-connect">'
+                '  <!-- Aktion für Suchverbindung -->'
+                '  <call action="connect"/>'
+                '</action>'
+                ''
+                '<action id="search">'
+                '  <!-- Aktion für Suchstart -->'
+                '</action>'
+                ''
+                '<action id="search-next-page">'
+                '  <!-- Aktion für Suchnächste Seite -->'
+                '</action>'
+                ''
+                ''
+                '<action id="search-details">'
+                '  <!-- Aktion für Suchdetails -->'
+                '</action>'
+                '</actions> '
+              )
+              ParentFont = False
+              ScrollBars = ssAutoBoth
+              TabOrder = 0
+            end
+            object templateDefine: TButton
+              AnchorSideLeft.Control = templateName
+              AnchorSideLeft.Side = asrBottom
+              Left = 163
+              Height = 33
+              Top = 423
+              Width = 146
+              Anchors = [akLeft, akBottom]
+              AutoSize = True
+              BorderSpacing.Left = 58
+              Caption = 'System definieren'
+              OnClick = templateDefineClick
+              TabOrder = 1
+            end
+            object Label32: TLabel
+              Left = 12
+              Height = 21
+              Top = 430
+              Width = 22
+              Anchors = [akLeft, akBottom]
+              Caption = 'ID:'
+              ParentColor = False
+            end
+            object templateName: TEdit
+              AnchorSideLeft.Control = Label32
+              AnchorSideLeft.Side = asrBottom
+              Left = 38
+              Height = 32
+              Top = 424
+              Width = 67
+              Anchors = [akLeft, akBottom]
+              BorderSpacing.Around = 4
+              TabOrder = 2
+              Text = 'user1'
+            end
+            object Button11: TButton
+              AnchorSideLeft.Control = templateDefine
+              AnchorSideLeft.Side = asrBottom
+              AnchorSideTop.Control = templateDefine
+              Left = 313
+              Height = 33
+              Top = 423
+              Width = 128
+              Anchors = [akLeft, akBottom]
+              AutoSize = True
+              BorderSpacing.Left = 4
+              Caption = 'System löschen'
+              OnClick = Button11Click
+              TabOrder = 3
+            end
+            object templateList: TListBox
+              AnchorSideBottom.Control = templateName
+              Left = 6
+              Height = 419
+              Top = 1
+              Width = 110
+              Anchors = [akTop, akLeft, akBottom]
+              BorderSpacing.Around = 4
+              ItemHeight = 0
+              OnSelectionChange = templateListSelectionChange
+              ScrollWidth = 106
+              TabOrder = 4
+              TopIndex = -1
+            end
+          end
         end
-        object libDelete: TButton
-          AnchorSideLeft.Control = libChange
-          AnchorSideLeft.Side = asrBottom
-          AnchorSideTop.Control = libChange
-          Left = 275
-          Height = 33
-          Top = 264
-          Width = 139
-          Anchors = [akTop, akLeft, akBottom]
-          AutoSize = True
-          BorderSpacing.Left = 4
-          Caption = 'Bibliothek löschen'
-          OnClick = libDeleteClick
-          TabOrder = 3
-        end
-        object libAdd: TButton
-          AnchorSideLeft.Control = libDelete
-          AnchorSideLeft.Side = asrBottom
-          AnchorSideTop.Control = libDelete
-          Left = 429
-          Height = 33
-          Top = 264
-          Width = 199
-          Anchors = [akLeft, akBottom]
-          AutoSize = True
-          BorderSpacing.Left = 15
-          Caption = 'Neue Bibliothek hinzufügen'
-          OnClick = libAddClick
-          TabOrder = 4
-        end
-        object Label33: TLabel
-          AnchorSideTop.Control = libNameEdit
-          AnchorSideTop.Side = asrCenter
-          Left = 12
-          Height = 15
-          Top = 273
-          Width = 18
-          Caption = 'ID:'
-          ParentColor = False
-        end
-        object libNameEdit: TEdit
-          AnchorSideLeft.Control = Label33
-          AnchorSideLeft.Side = asrBottom
-          AnchorSideTop.Control = Label33
-          Left = 39
-          Height = 33
-          Top = 264
-          Width = 70
-          Anchors = [akLeft, akBottom]
-          BorderSpacing.Around = 9
-          Constraints.MinWidth = 70
-          TabOrder = 5
-          Text = 'user1'
-        end
-      end
-      object Panel5: TPanel
-        Left = 0
-        Height = 195
-        Top = 310
-        Width = 609
-        Align = alBottom
-        Caption = 'Panel5'
-        ClientHeight = 195
-        ClientWidth = 609
-        TabOrder = 1
-        OnClick = Panel5Click
-        object templatexml: TMemo
-          AnchorSideBottom.Control = templateDefine
-          Left = 122
-          Height = 153
-          Top = 1
-          Width = 477
-          Anchors = [akTop, akLeft, akRight, akBottom]
-          BorderSpacing.Around = 3
-          Lines.Strings = (
-            '<!-- '
-            ''
-            'XML-Beschreibung eines Bibliotheksystems als Template.'
-            ''
-            'Schlagen Sie in der Hilfe nach, wie ein solches Template aufgebaut ist.'
-            ''
-            'Beispielstemplate:'
-            '-->'
-            ''
-            '<actions>'
-            '<action id="connect">'
-            ' <!-- Aktion zum Herstellene einer Verbindung zum Bibliotheksserver -->'
-            '  <variable name="db" value="DB={get(''picadb'', 1)}"/>'
-            '  <variable name="loanServer" value="{$server}/loan/{$db}/LNG=DU/"/>'
-            '</action>'
-            ''
-            '<action id="update-all">'
-            ' <!-- Aktion zum Abfragen der aktuellen Ausleihen -->'
-            '  <page url="{$loanServer}/USERINFO"> '
-            '    <post name="ACT" value="UI_LOL"/>'
-            '    <post name="BOR_U" value="{$username}"/>'
-            '    <post name="BOR_PW" value="{$password}"/>'
-            '    '
-            '    <!-- Template zur Beschreibung der Ausleihliste -->'
-            '    <template>'
-            '    <html>     '
-            '      <table summary="list of loans - data">'
-            '        <template:read var="delete-current-books()"/>'
-            '        <tr> <!-- Header der Liste -->'
-            '          <td></td>'
-            '          <td></td>'
-            '          <td></td>'
-            '          <td></td>'
-            '          <td><!--title-->Titel</td>'
-            '          <td></td>'
-            '          <td></td>'
-            '          <td></td>'
-            '          <td><!--shelf mark-->Signatur</td>'
-            '          <td></td>'
-            '          <td></td>'
-            '          <td></td>'
-            '          <td><!--status-->Status</td>'
-            '          <td></td>'
-            '          <td></td>'
-            '          <td></td>'
-            '          <td><!--volume-->Band</td>'
-            '          <td></td>'
-            '          <td></td>'
-            '          <td></td>'
-            '          <td><!--expiry-->Leihfristende</td>'
-            '          <td></td>'
-            '          <td></td>'
-            '          <td></td>'
-            '          <td><!--reservations-->Vormerkungen</td>'
-            '          <td></td>'
-            '          <td></td>'
-            '          <td></td>'
-            '          <td><!--renewals-->Verlängerungen</td>'
-            '          <td></td>'
-            '          <td></td>'
-            '          <td></td>'
-            '        </tr>'
-            '        '
-            '        <tr> <td class="h2"></td> </tr>'
-            '        '
-            '        '
-            '        '
-            '        <!-- Abfragen aller Medien -->'
-            '        <template:loop>'
-            '        <tr>'
-            '          {book := object()}'
-            '          <td></td>'
-            '          <td >'
-            '            {book.extendId:=''''}'
-            '            <input name="VB" type="checkbox">{book.extendId:=@value}</input>?'
-            '          </td>'
-            '          <td></td>'
-            '          <td></td>'
-            '          <td></td>'
-            '          <td>'
-            '            <template:read source="text()" var="book.title" regex="^[^/]*"/>'
-            '            <template:read source="text()" var="book.author" regex="^[^/]*/\s*(von)?\s*(.*)" submatch="2"/>'
-            '          </td>'
-            '      '
-            '          <td></td><td></td><td></td><td class="value-small">{$book.id}</td>'
-            '          <td></td><td></td><td></td><td class="value-small">'
-            '            <template:switch value="$book.extendId">'
-            '              <template:if value="''''">'
-            '                <template:switch value="filter(., ''Abholregal|Vormerkung|bestellt'')">'
-            '                  <template:if value="''Abholregal''">'
-            '                    {book.status := ., book.statusId := ''provided''}'
-            '                  </template:if>'
-            '                  <template:if value="''Vormerkung''">'
-            '                    {book.status := ., book.statusId := ''ordered''}'
-            '                  </template:if>'
-            '                  <template:if value="''bestellt''">'
-            '                    {book.status := ., book.statusId := ''ordered''}'
-            '                  </template:if>'
-            '                  <template:read var="book.status:problematic" source="."/>'
-            '                </template:switch>'
-            '              </template:if>'
-            '              <template:read var="book.status:curious" source="."/>'
-            '            </template:switch>'
-            '          </td>'
-            '          <td></td><td></td><td></td><td class="value-small"></td>'
-            '          <td></td><td></td><td></td><td class="value-small">'
-            '            <template:if test="text()!=''''"><template:read source="." var="book.duedate:dd-mm-yyyy"/></template:if>'
-            '          </td>'
-            '          <td></td><td></td><td></td><td class="value-small"></td>'
-            '          <td></td><td></td><td></td><td class="value-small"><iframe></iframe></td>'
-            '        </tr>'
-            '      </template:loop>'
-            '      '
-            '      </table>'
-            '    </html>'
-            '    </template>'
-            '    '
-            '  </page>'
-            '</action>'
-            ''
-            '<action id="renew-list">'
-            '  <!-- Aktion zum Verlängern der Medien. '
-            '       $renew-books ist die Liste der zu verlängernden Medien -->'
-            '  <variable name="book-list">string-join(for $book in $renew-books return x"VB={$book.extendId}", "&amp;")</variable> '
-            '  <page url="{$loanServer}/USERINFO" templateFile="extend">'
-            '    <post name="ACT" value="UI_RENEWLOAN"/>'
-            '    <post name="BOR_U" value="{$username}"/>'
-            '    <post name="BOR_PW" value="{$password}"/>'
-            '    <post value="{$book-list}"/>'
-            '    <template>'
-            '      <!-- Template zum Abfragen der neuen Ablauffristen -->'
-            '      <table summary="list of loan renewals - data" template:optional="true">'
-            '        <tr>'
-            '        </tr>'
-            '      '
-            '        <template:loop>'
-            '          <tr valign="top"><td>'
-            '              <table summary="title data">'
-            '                <tr><td class="plain"> <!--TITEL/AUTOR--></td></tr>'
-            '                <tr><td>'
-            '                  <span class="label-small">Signatur:<!--shelf mark--></span>'
-            '                  {book:=object(("select(id)", filter(text(),''[^;]*'')))} '
-            '                  <span class="label-small"><!--status:-->Status:</span>'
-            '                  <template:read var="book.status" source="text()"/>'
-            '                  <span class="label-small">Leihfristende:<!--expiry date:--></span>'
-            '                  <template:read source="parse-date(text(), ''dd-mm-yyyy'')" var="book.duedate"/>'
-            '                </td></tr>'
-            '              </table>'
-            '            </td>'
-            '          </tr>'
-            '        </template:loop>'
-            '        '
-            '      </table>'
-            '    </template>'
-            '    '
-            '  </page>'
-            '</action>'
-            ''
-            ''
-            ''
-            ''
-            '<action id="search-connect">'
-            '  <!-- Aktion für Suchverbindung -->'
-            '  <call action="connect"/>'
-            '</action>'
-            ''
-            '<action id="search">'
-            '  <!-- Aktion für Suchstart -->'
-            '</action>'
-            ''
-            '<action id="search-next-page">'
-            '  <!-- Aktion für Suchnächste Seite -->'
-            '</action>'
-            ''
-            ''
-            '<action id="search-details">'
-            '  <!-- Aktion für Suchdetails -->'
-            '</action>'
-            '</actions> '
-          )
-          ScrollBars = ssAutoBoth
-          TabOrder = 0
-        end
-        object templateDefine: TButton
-          AnchorSideLeft.Control = templateName
-          AnchorSideLeft.Side = asrBottom
-          Left = 159
-          Height = 33
-          Top = 157
-          Width = 136
-          Anchors = [akLeft, akBottom]
-          AutoSize = True
-          BorderSpacing.Left = 58
-          Caption = 'System definieren'
-          OnClick = templateDefineClick
-          TabOrder = 1
-        end
-        object Label32: TLabel
-          Left = 12
-          Height = 15
-          Top = 170
-          Width = 18
-          Anchors = [akLeft, akBottom]
-          Caption = 'ID:'
-          ParentColor = False
-        end
-        object templateName: TEdit
-          AnchorSideLeft.Control = Label32
-          AnchorSideLeft.Side = asrBottom
-          Left = 34
-          Height = 33
-          Top = 157
-          Width = 67
-          Anchors = [akLeft, akBottom]
-          BorderSpacing.Around = 4
-          TabOrder = 2
-          Text = 'user1'
-        end
-        object Button11: TButton
-          AnchorSideLeft.Control = templateDefine
-          AnchorSideLeft.Side = asrBottom
-          AnchorSideTop.Control = templateDefine
-          Left = 299
-          Height = 33
-          Top = 157
-          Width = 119
-          Anchors = [akLeft, akBottom]
-          AutoSize = True
-          BorderSpacing.Left = 4
-          Caption = 'System löschen'
-          OnClick = Button11Click
-          TabOrder = 3
-        end
-        object templateList: TListBox
-          AnchorSideBottom.Control = templateName
-          Left = 6
-          Height = 152
-          Top = 1
-          Width = 110
-          Anchors = [akTop, akLeft, akBottom]
-          BorderSpacing.Around = 4
-          ItemHeight = 0
-          OnSelectionChange = templateListSelectionChange
-          ScrollWidth = 108
-          TabOrder = 4
-          TopIndex = -1
-        end
-      end
-      object Splitter1: TSplitter
-        Cursor = crVSplit
-        Left = 0
-        Height = 7
-        Top = 303
-        Width = 609
-        Align = alBottom
-        ResizeAnchor = akBottom
       end
     end
   end
