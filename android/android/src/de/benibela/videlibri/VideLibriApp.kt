@@ -332,7 +332,7 @@ class VideLibriApp : Application() {
         }
 
 
-        fun importDeprecatedPreferences(prefs: SharedPreferences){
+        private fun importDeprecatedPreferences(prefs: SharedPreferences){
             if (globalOptionsAndroid.hasBeenStartedAtLeastOnce) return
             globalOptionsAndroid.bookListDisplayOptions.apply {
                 showHistory = prefs.getBoolean("displayHistory", false)

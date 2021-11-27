@@ -3,12 +3,10 @@ package de.benibela.videlibri.activities
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.AttributeSet
 import android.util.TypedValue
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
-import androidx.preference.PreferenceScreen
 import de.benibela.videlibri.LibraryUpdateLoader
 import de.benibela.videlibri.R
 import de.benibela.videlibri.VideLibriApp
@@ -43,13 +41,9 @@ class Options : VideLibriBaseActivity() {
 
     class SettingsFragment : androidx.preference.PreferenceFragmentCompat() {
 
-        var categoryAccounts: PreferenceCategory? = null
-        var categoryOwnLibraries: PreferenceCategory? = null
-        var categoryOwnCertificates: PreferenceCategory? = null
-
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-        }
+        private var categoryAccounts: PreferenceCategory? = null
+        private var categoryOwnLibraries: PreferenceCategory? = null
+        private var categoryOwnCertificates: PreferenceCategory? = null
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             val context = context ?: return
@@ -108,10 +102,10 @@ class Options : VideLibriBaseActivity() {
                         property(globalOptionsAndroid.notifications::enabled)
                         title(R.string.lay_options_option_warn)
                         summaryOn(R.string.lay_options_option_warn_summary_on)
-                        onChanged({_, v ->
+                        onChanged { _, v ->
                             seekBarToToggle?.isEnabled = v
                             globalOptionsAndroid.save()
-                        })
+                        }
                     }
                     seekBarToToggle = seekBar(PreferenceSeekBar(ctw)) {
                         property(globalOptionsAndroid.notifications::serviceDelay)
@@ -221,7 +215,7 @@ class Options : VideLibriBaseActivity() {
         private fun createPreferencesOwnLibraries(categoryBuilder: CategoryBuilder) = categoryBuilder.apply {
             val options = Bridge.VLGetOptions()
             val summary = getString(R.string.lay_options_label_ownlibraries_summary)
-            options.userLibIds.filterNotNull().forEach { userLibId ->
+            options.userLibIds.forEach { userLibId ->
                 val details = Bridge.VLGetLibraryDetails(userLibId) ?: return@forEach
                 preference {
                     title(details.prettyName)

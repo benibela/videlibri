@@ -3,7 +3,7 @@ package de.benibela.videlibri.jni
 fun BookListDisplayOptions.isGrouped() = groupingKey != ""
 
 fun OptionsAndroidOnly.save(){
-    Bridge.VLSetOptionsAndroidOnly(globalOptionsAndroid)
+    Bridge.VLSetOptionsAndroidOnly(this)
 }
 
 lateinit var globalOptionsAndroid: OptionsAndroidOnly

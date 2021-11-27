@@ -316,7 +316,7 @@ class LendingList: BookListActivity(){
 
     class ViewOptionsDialog : DialogFragment(), DialogInterface.OnCancelListener {
         //internal lateinit var view: View
-        internal lateinit var binding: OptionsLendingsBinding
+        private lateinit var binding: OptionsLendingsBinding
         override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
             val builder = AlertDialog.Builder(activity)
             builder.setOnCancelListener(this)

@@ -3,7 +3,6 @@
 package de.benibela.videlibri.components
 
 import android.content.Context
-import android.service.controls.templates.ControlTemplate
 import androidx.annotation.ArrayRes
 import androidx.annotation.StringRes
 import androidx.preference.*

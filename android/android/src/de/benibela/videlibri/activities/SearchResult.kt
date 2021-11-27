@@ -13,7 +13,6 @@ import kotlin.math.max
 class SearchResult : BookListActivity(), SearchEventHandler {
 
     var searcher: Bridge.SearcherAccess? = null
-        get
         private set
     internal var libId = ""
 

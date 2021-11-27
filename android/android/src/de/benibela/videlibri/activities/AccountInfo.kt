@@ -218,8 +218,8 @@ class AccountInfo : VideLibriBaseActivity() {
     }
 
     private fun possiblyWarnAboutShortExtendDays(callback: () -> Unit){
-        val MIN_SAFE_EXTEND = 3
-        if (!accountAutoExtend || accountAutoExtendDays >= MIN_SAFE_EXTEND) callback()
+        val minSafeExtendDays = 3
+        if (!accountAutoExtend || accountAutoExtendDays >= minSafeExtendDays) callback()
         else {
             showDialog {
                 message(R.string.warning_autorenewal_short)
