@@ -4,7 +4,7 @@ unit applicationdesktopconfig;
 interface
 
 uses
-  Classes, SysUtils, Graphics, applicationconfig,LazFileUtils, forms {$ifdef win32},registry{$endif};
+  Classes, SysUtils, Graphics, applicationconfig,LazFileUtils, forms {$ifdef win32},registry{$endif}, inputlistbox;
 
 
 var
@@ -16,6 +16,8 @@ var
   colorOld:tcolor;
 
   function confirm(s: string): boolean;
+  function InputList(caption: string; options: TStringArray): integer; overload;
+  function InputList(caption: string; options: TStrings): integer; overload;
   function alertAboutBooksThatMustBeReturned:boolean;
 
 type TCallbackHolderDesktop = class (TCallbackHolder)
@@ -209,7 +211,21 @@ function confirm(s: string): boolean;
 begin
   result := MessageDlg(s, mtConfirmation ,[mbYes,mbNo],0) = mrYes;
 end;
-
+function InputList(caption: string; options: sysutils.TStringArray): integer;
+var
+  sl: TStringList;
+  i: Integer;
+begin
+  sl := TStringList.Create;
+  for i :=  0 to high(options) do
+    sl.Add(options[i]);
+  result := inputlistbox.InputList('VideLibri', caption, sl );
+  sl.free;
+end;
+function InputList(caption: string; options: TStrings): integer;
+begin
+  result := inputlistbox.InputList('VideLibri', caption, options);
+end;
 
 procedure raiseInitializationError(s: string);
 begin

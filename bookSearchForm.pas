@@ -132,7 +132,7 @@ const SB_PANEL_FOUND_COUNT=1;
       SB_PANEL_SEARCH_STATUS=0;
 implementation
 
-uses applicationconfig,applicationdesktopconfig, libraryParser,simplexmlparser,bbdebugtools,bookWatchMain,bbutils,LCLType,libraryAccess,LCLIntf,strutils,Clipbrd,inputlistbox,bookproperties,xquery__regex,commoninterfacehelpers,androidutils;
+uses applicationconfig,applicationdesktopconfig, libraryParser,simplexmlparser,bbdebugtools,bookWatchMain,bbutils,LCLType,libraryAccess,LCLIntf,strutils,Clipbrd,bookproperties,xquery__regex,commoninterfacehelpers,androidutils;
 
 { TbookSearchFrm }
 resourcestring
@@ -648,18 +648,12 @@ end;
 procedure TbookSearchFrm.searcherAccessTakePendingMessage(sender: TObject; book: TBook; pendingMessage: TPendingMessage);
 var
   i: Integer;
-  sl: TStringList;
 begin
   screen.Cursor:=crDefault;
   case pendingMessage.kind of
     pmkChoose: begin
-      sl := TStringList.Create;
-      for i :=  0 to high(pendingMessage.options) do
-        sl.Add(pendingMessage.options[i]);
-      i := InputList('VideLibri', pendingMessage.caption, sl );
-      sl.free;
+      i := InputList(pendingMessage.caption, pendingMessage.options);
       screen.Cursor:=crHourGlass;
-
       searcherAccess.completePendingMessage(book, pendingMessage, i);
     end;
     pmkConfirm: begin

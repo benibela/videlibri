@@ -241,7 +241,7 @@ ResourceString
   rsTemplateNotFound = 'Template nicht gefunden: %s';
   rsHasTheLibOwnTemplate = 'Stellt die Bibliothek ein eigenes VideLibri-Template zur Verfügung?';
   rsLibNamePrompt = 'Geben Sie den Namen der Bibliothek ein';
-  rsLibSystemPrompt = 'Welches System verwendet die Bibliothek?%sDie folgenden Systeme stehen zur Auswahl: %s';
+  rsLibSystemPrompt = 'Welches Katalog-System verwendet die Bibliothek?';
   rsVariablePromptOptional = 'Es kann ein Wert für die optionale Variable "%s" gesetzt werden. (%s)';
   rsVariablePrompt = 'Das Template benötigt einen Wert für die Variable "%s". (%s)';
   rsLibConfirmSave = 'Bibliotheksdaten erstellt. Um sie zu speichern, klicken Sie auf "Bibliothek speichern"';
@@ -921,14 +921,11 @@ var
   libname: String;
   system: String;
   result: String;
-  i: Integer;
+  i, systemIdx: Integer;
   template: TMultiPageTemplate;
   meta: TTemplateActionMeta;
   vari: String;
   desc: String;
-  systems: String;
-
-label systemWrong;
 begin
   if confirm(rsHasTheLibOwnTemplate) then begin
     downloadAndInstallTemplate;
@@ -937,18 +934,9 @@ begin
 
   libname := '';
   if not InputQuery('VideLibri', rsLibNamePrompt, libname) then exit;
-  system := '';
-  systems := '';
-  for i := 0 to templateList.Items.Count - 1 do begin
-    if i <> 0 then systems += ', ';
-    if i mod 10 = 9 then systems += LineEnding;
-    systems += templateList.Items[i]
-  end;
-
-  systemWrong:
-  if not InputQuery('VideLibri', Format(rsLibSystemPrompt, [LineEnding, LineEnding+systems]), system) then
-    exit;
-  if templateList.Items.IndexOf(system) < 0 then goto systemWrong;
+  systemIdx := InputList(rsLibSystemPrompt, templateList.Items);
+  if systemIdx < 0 then exit;
+  system := templateList.Items[systemIdx];
 
   result := '<?xml version="1.0" encoding="UTF-8"?>' + LineEnding;
   result += '<library>' + LineEnding;
