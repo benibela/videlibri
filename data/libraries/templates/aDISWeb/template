@@ -119,6 +119,7 @@
         <form t:condition=" .//@name = ('_eventId_proceed', 'SAMLResponse', 'RelayState') ">
         { $loginFormPost := $lf, $idpSystem := true() (:we are logged in SAML but not in OPAC:) }
         </form>
+        <h1>Ihre Sitzung wurde beendet.<t:s>error-login:=.</t:s></h1>
       </t:switch></template>
     </page>
   </loop>
