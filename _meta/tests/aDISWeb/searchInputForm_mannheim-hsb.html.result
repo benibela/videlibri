@@ -19,3 +19,4 @@ search-params := ("title",
 "year", 
 {"name": "mediaType", "options": ["", "Bücher", "Datenträger", "E-Book", "Filme", "Hochschulschrift", "Tonträger", "Zeitschrift"]}, 
 {"name": "language", "options": ["", "Deutsch", "Englisch", "Französisch", "Italienisch", "Spanisch"]})
+search-start-button := ()
