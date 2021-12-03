@@ -6,8 +6,8 @@
   <shortName value="Stb Chemnitz"/> 
   
   <template value="sisis"/>  
-  <variable name="server" value="https://opac2.stadtbibliothek-chemnitz.de/TouchPoint_touchpoint/"/>
-  <variable name="startparams" value=""/>
+  <variable name="server" value="https://opac2.stadtbibliothek-chemnitz.de/webOPACClient/"/>
+  <variable name="startparams" value="?Login=opsb"/>
   
   <homepage value="http://www.stadtbibliothek-chemnitz.de/"/>
   <testing-search value="yes"/>
