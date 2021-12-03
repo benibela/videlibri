@@ -275,14 +275,14 @@
   search-result-count := (),
   search-next-page-available := (), 
   gotDetails_GoBackPage := (),
-  firstIndex := 1,
-  startSearch := form(//form, {|
+  firstIndex := 1, lastIndex := 0,
+  startSearch := form(//form, ({|
     { $search-basic-input-year: $book.year },
       for $key in jn:keys($book) where $book($key) and $search-basic-options($key) count $i
        return  {$search-basic-selects[$i]: $search-basic-options($key), $search-basic-inputs[$i]: $book($key)},
       for $key in jn:keys($book) where $book($key) and $search-filter-map($key) 
        return {$search-filter-map($key): $book($key)}
-  |})
+  |}, $search-start-button) )
 
   </s>
 

@@ -37,7 +37,9 @@ return (
      return $key, 
     $search-basic-input-year[1]!"year",
     map:keys($filter-selects) ! {"name": ., "options": $filter-selects(.)//option}
-  )
+  ),
+  
+  search-start-button := ($inputs[@type="submit"][contains(@class, "suche-starten")])[1]
 )
  }
 
