@@ -13,7 +13,6 @@ env:
 
 matrix:
   include:
-    - env: LAZ_VER=2.0.8 android=false
     - env: LAZ_VER=2.0.12 android=false
     - env: LAZ_VER=2.0.12 LAZ_ENV=wine LAZ_OPT="--os=win32 --cpu=i386" android=false
     - env: LAZ_VER=2.0.12 android=true FPC_VER=3.0.4
