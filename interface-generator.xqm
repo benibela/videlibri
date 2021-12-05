@@ -138,7 +138,7 @@ uses bbutils;
 
 function parseJSON(const s: string): IXQValue;
 begin
-  result := TXQJsonParser.parse(s, [jpoAllowMultipleTopLevelItems, jpoLiberal, jpoAllowTrailingComma]);
+  result := TXQJsonParser.parse(s, [jpoAllowMultipleTopLevelItems, jpoLiberal, jpoAllowTrailingComma, jpoJSONiq]);
 end;
 
 procedure readArray(var sa: TStringArray; const json: IXQValue); overload;
