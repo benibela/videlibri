@@ -12,6 +12,7 @@ uses
 var fi, fi2: TFormInput;
   fp, fp2: TFormParams;
   fs, fs2: TFormSelect;
+  nc: TNotificationConfig;
 begin
   writeln('Test auto generated JSON serialization');
   writeln();
@@ -74,6 +75,31 @@ begin
 
   fp2.free;
   fp.free;
+
+  nc := TNotificationConfig.fromJSON('{"lastTime": 123}');
+  test(nc.lastTime, 123);
+  test(nc.toJSON(), '{"enabled": false, "serviceDelay": 0, "lastTime": 123, "lastTitle": "", "lastText": ""}');
+  nc.free;
+  nc := TNotificationConfig.fromJSON('{"lastTime": 1599549012000}');
+  test(nc.lastTime, 1599549012000);
+  test(nc.toJSON(), '{"enabled": false, "serviceDelay": 0, "lastTime": 1599549012000, "lastTitle": "", "lastText": ""}');
+  nc.free;
+  nc := TNotificationConfig.fromJSON('{"lastTime": 9223372036854775807}');
+  test(nc.lastTime, 9223372036854775807);
+  test(nc.toJSON(), '{"enabled": false, "serviceDelay": 0, "lastTime": 9223372036854775807, "lastTitle": "", "lastText": ""}');
+  nc.free;
+  nc := TNotificationConfig.fromJSON('{"lastTime": -9223372036854775808}');
+  test(nc.lastTime, -9223372036854775808);
+  test(nc.toJSON(), '{"enabled": false, "serviceDelay": 0, "lastTime": -9223372036854775808, "lastTitle": "", "lastText": ""}');
+  nc.free;
+  nc := TNotificationConfig.fromJSON('{"lastTime": "9223372036854775807"}');
+  test(nc.lastTime, 9223372036854775807);
+  test(nc.toJSON(), '{"enabled": false, "serviceDelay": 0, "lastTime": 9223372036854775807, "lastTitle": "", "lastText": ""}');
+  nc.free;
+  nc := TNotificationConfig.fromJSON('{"lastTime": "-9223372036854775808"}');
+  test(nc.lastTime, -9223372036854775808);
+  test(nc.toJSON(), '{"enabled": false, "serviceDelay": 0, "lastTime": -9223372036854775808, "lastTitle": "", "lastText": ""}');
+  nc.free;
 
 end.
 
