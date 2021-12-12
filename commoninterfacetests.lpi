@@ -43,7 +43,7 @@
     <PathDelim Value="\"/>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="\home\benito\hg\components\pascal\data\;\home\benito\hg\programs\contests\euler\;\home\benito\hg\components\pascal\internet\;\home\benito\hg\components\lazarus\dialogs\;\home\benito\hg\components\pascal\system\;..\..\..\components\pascal\data\tests"/>
+      <OtherUnitFiles Value="..\..\..\components\pascal\data;..\..\..\components\pascal\internet;..\..\..\components\lazarus\dialogs;..\..\..\components\pascal\system;..\..\..\components\pascal\data\tests"/>
       <SrcPath Value="\home\benito\hg\components\pascal\import\synapse\;..\..\import\synapse"/>
     </SearchPaths>
     <Parsing>
