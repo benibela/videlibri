@@ -1,11 +1,11 @@
 book := {}
 renew-form := {"charset": "CP1252", "method": "POST", "post": "renew=Verl%E4ngern&selection=ALL&sorting=NONE", "submit-indices": 1, "url": "file:///LBS_WEB/borrower/loans.htm"}
-temp := text{"Derzeit :"}
-temp := text{"Ausleihtyp :"}
+temp := "Derzeit :"
+temp := "Ausleihtyp :"
 book := {"author": "Haber, Anna ", "duedate": "2015-02-20", "id": "AB 123 C456 V9", "libraryBranch": "Theke", "renewCount": "10", "renewId": "31234", "status": "Keine Verlängerung möglich ; Derzeit: ausgeliehen ; Mahnungen: 0 ; Ausleihtyp: Standardausleihe", "statusId": "critical", "title": "Prioritätisierung nach der Lifo-Methode  ", "year": "1980"}
-temp := text{"Derzeit :"}
-temp := text{"Ausleihtyp :"}
+temp := "Derzeit :"
+temp := "Ausleihtyp :"
 book := {"author": "Haber, Martin ", "duedate": "2015-04-20", "id": "AB 123 I456", "libraryBranch": "Theke", "renewCount": "10", "renewId": "37123", "status": "Keine Verlängerung möglich ; Derzeit: ausgeliehen ; Mahnungen: 0 ; Ausleihtyp: Standardausleihe", "statusId": "critical", "title": "Foobar ", "year": "1994"}
-temp := text{"Derzeit :"}
-temp := text{"Ausleihtyp :"}
+temp := "Derzeit :"
+temp := "Ausleihtyp :"
 book := {"author": "Doralt, Werner ", "duedate": "2015-04-24", "id": "AB 1234 C567", "libraryBranch": "Theke", "renewCount": "10", "renewId": "37332", "status": "Keine Verlängerung möglich ; Derzeit: ausgeliehen ; Mahnungen: 0 ; Ausleihtyp: Standardausleihe", "statusId": "critical", "title": "Blabla : [dieser Band enthält die überarbeiteten auf der Jahrestagung der Deutschen Steuerjuristischen Gesellschaft e.V. am 12.4. und 12.3.1994 in XXXXXXXXX so und so ] ", "year": "1991"}

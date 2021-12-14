@@ -1,5 +1,5 @@
 book := {}
-reservations := text{"/loan/DB=1/LNG=DU/USERINFO?ACT=UI_LOR&amp;BOR_U=123&amp;BOR_PW_ENC=xxx"}
+reservations := "/loan/DB=1/LNG=DU/USERINFO?ACT=UI_LOR&amp;BOR_U=123&amp;BOR_PW_ENC=xxx"
 delete-current-books() := ()
 book := {"author": "def introductio", "duedate:dd-mm-yyyy": "11-07-2011", "extendId": "1049957", "id": "12/3456:X ABC", "status:curious": "ausgeliehen (0 Mahnung/en)", "title": "Some Systems: a abc"}
 book := {"author": "Sound So; Aber W", "duedate:dd-mm-yyyy": "18-07-2011", "extendId": "123", "id": "18/123:C ABC", "status:curious": "ausgeliehen (0 Mahnung/en)", "title": "Systeme: blabla "}

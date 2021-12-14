@@ -2,7 +2,7 @@ curPos := 1
 book := {}
 nextPage := ()
 box-header := ()
-box-header := text{"«
+box-header := "«
 1
  2
  3
@@ -18,7 +18,7 @@ box-header := text{"«
           
          
          
-         Treffer Hauptkatalog (632)"}
+         Treffer Hauptkatalog (632)"
 search-result-count := "632"
 curPos := "11"
 nextPage := "speedHitList.do?methodToCall=refineHitList&amp;speedHitlistUrl=speedHitList.do&amp;newMemorizeListName=&amp;databaseId=2&amp;dbIdentifier=2&amp;pos=11"

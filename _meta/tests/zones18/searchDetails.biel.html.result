@@ -1,8 +1,8 @@
 book := {}
 result := ()
-temp := text{"Verlag/Jahr:"}
-temp := text{"Umfang:"}
-temp := text{"Reihe:"}
-temp := text{"DK:"}
-temp := text{"Sprache(n):"}
+temp := "Verlag/Jahr:"
+temp := "Umfang:"
+temp := "Reihe:"
+temp := "DK:"
+temp := "Sprache(n):"
 book := {"DK:!": "914.301.22", "Reihe:!": "Geo special\n                                        \n                                    \n                              \n                              \n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\n\t\t\n\n\t\n\t\n\n\t\n\n\t\t\n\t\t\t\t\n\n\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\t ; \n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\tNr. 2, 2006", "Sprache(n):!": "ger\n\n\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\t\n\n\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\tger", "Umfang:!": "178 S. : Ill. ; 27 cm + 1 Plan", "Verlag/Jahr:!": "Hamburg\n\n\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\t : \n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\tGruner + Jahr\n\n\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\t , \n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t2006", "author": "Baur, Eva Gesine", "id": "914.301.2 HAMB", "isbn": "3-570-19669-0", "title": "Hamburg\n\n\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t : Hafencity im Test, Reeperbahn für alle!\n\n\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t / [Mitarbeiter dieser Ausgabe: Eva Gesine Baur ... et al.]", "year": "2006"}

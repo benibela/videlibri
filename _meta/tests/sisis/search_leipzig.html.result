@@ -2,7 +2,7 @@ curPos := 1
 book := {}
 nextPage := ()
 box-header := ()
-box-header := text{"1
+box-header := "1
 2
 
 3
@@ -17,7 +17,7 @@ box-header := text{"1
 				
 				
 				
-				Treffer Lokaler Bestand (60)"}
+				Treffer Lokaler Bestand (60)"
 search-result-count := "60"
 curPos := "11"
 nextPage := "https://webopac.stadtbibliothek-leipzig.de/webOPACClient/hitList.do?methodToCall=pos&amp;identifier=-1_FT_335578352&amp;curPos=11#-1"

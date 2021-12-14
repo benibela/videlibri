@@ -1,6 +1,6 @@
 requestId := 0
 book := {}
-obj := text{"Obj_712891381232124"}
+obj := "Obj_712891381232124"
 bFoundBottom := false()
 search-result-count := "420"
 book := {"home-url": "vltest://zones18/APS_CAT_IDENTIFY?Style=Portal2&SubStyle=&Lang=GER&ResponseEncoding=utf-8&Method=CatIdentify&Via=Z3950&DB=Catalogue&IDType=1&Key=T005363700&Via=Z3950&View=Annotated&Parent=Obj_712891381232124&SearchBrowseList=Obj_712891381232124&SearchBrowseListItem=193852&BrowseList=Obj_712891381232124&BrowseListItem=193852&BrowseAsHloc=-1&QueryObject=Obj_712881381232124", "id": "CD-ROM BWL 489 Info", "publisher": "Stiftung Warentest", "title": "Test/Finanztest 2012", "year": "2013"}

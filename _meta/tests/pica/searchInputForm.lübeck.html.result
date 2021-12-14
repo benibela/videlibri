@@ -1,14 +1,14 @@
 book := {}
-search-basic-selects := (text{"IKT0"}, 
-text{"IKT1"}, 
-text{"IKT2"}, 
-text{"IKT3"})
-search-basic-inputs := (text{"TRM0"}, 
-text{"TRM1"}, 
-text{"TRM2"}, 
-text{"TRM3"})
+search-basic-selects := ("IKT0", 
+"IKT1", 
+"IKT2", 
+"IKT3")
+search-basic-inputs := ("TRM0", 
+"TRM1", 
+"TRM2", 
+"TRM3")
 search-basic-options := {"author": "1004", "free": "1016", "id": "2140", "isbn": "1007", "keywords": "46", "title": "4"}
-search-basic-input-year := text{"ADI_JVU"}
+search-basic-input-year := "ADI_JVU"
 search-filter-map := {"country": "ADI_LND", "language": "ADI_TAA", "sort": "SRT"}
 search-params := ("title", 
 "author", 

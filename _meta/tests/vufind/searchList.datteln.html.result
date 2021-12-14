@@ -25,5 +25,5 @@ new-books := ({"_recordId": "OERE.0110037", "author": "", "image-url": "vltest:/
 {"_recordId": "HERT.0460201", "author": "", "image-url": "vltest://vufind/Cover/Show?author=&callnumber=J+H%C3%B6rbuch&size=medium&title=Fische", "title": "Was ist was : CD, Fische", "year": null}, 
 {"_recordId": "HERT.0497761", "author": "Fischer, Torsten", "image-url": "vltest://vufind/Cover/Show?author=Fischer%2C+Torsten&callnumber=&size=medium&title=Fische&isbn=3788602813", "title": "Was ist was, Fische : 41.", "year": null}, 
 {"_recordId": "HERT.0532577", "author": "Schirawski, Nicolai", "image-url": "vltest://vufind/Cover/Show?author=Schirawski%2C+Nicolai&callnumber=JUk&size=medium&title=Fische+%3A+Wunderwelt+im+Wasser&isbn=3788620765", "title": "Was ist was, Fische : Wunderwelt im Wasser : 41.", "year": null})
-search-next-page := text{"/Search/Results?lookfor=fisch&amp;type=AllLibraries&amp;page=2"}
+search-next-page := "/Search/Results?lookfor=fisch&amp;type=AllLibraries&amp;page=2"
 search-next-page-available := true()

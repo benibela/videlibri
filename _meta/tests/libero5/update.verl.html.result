@@ -1,7 +1,7 @@
 book := {}
 bookTableBroken := false()
 wrong-update-page := false()
-new-update-page := text{"https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=MEMSTAT&amp;RSN=&amp;DATA=VER&amp;TOKEN=dncpYFWPX01849&amp;Z=1&amp;NewBreadCrumb=1&amp;xin=0165525&amp;CHK=4327"}
+new-update-page := "https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=MEMSTAT&amp;RSN=&amp;DATA=VER&amp;TOKEN=dncpYFWPX01849&amp;Z=1&amp;NewBreadCrumb=1&amp;xin=0165525&amp;CHK=4327"
 delete-current-books() := ()
 hasShelfMark := false()
 bookTableBroken := true()
@@ -10,7 +10,7 @@ hasShelfMark := true()
 noExtendingPossible := false()
 bookTableBroken := false()
 book := {"author": "", "category": "Familie 6-9 J.", "duedate": "2016-06-13", "extendid": "REN2132013", "id": "2132013", "renewCount": "1", "status": "", "statusId": "curious", "title": "Am liebsten eine Katze"}
-mid := text{"16079"}
+mid := "16079"
 cancelForm := ()
 hasShelfMark := false()
 hasDelete := false()

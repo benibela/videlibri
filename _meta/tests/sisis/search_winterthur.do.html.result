@@ -2,7 +2,7 @@ curPos := 1
 book := {}
 nextPage := ()
 box-header := ()
-box-header := text{"|«
+box-header := "|«
 «
 1
  2
@@ -20,7 +20,7 @@ box-header := text{"|«
 				
 				
 				
-					Treffer lokale Datenbank (178)"}
+					Treffer lokale Datenbank (178)"
 search-result-count := "178"
 curPos := "11"
 nextPage := "file:///webOPACClient.sisis/hitList.do?methodToCall=pos&amp;identifier=-1_FT_1786867544&amp;curPos=11#-1"

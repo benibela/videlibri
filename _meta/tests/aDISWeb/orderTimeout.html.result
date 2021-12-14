@@ -1,6 +1,6 @@
 book := {}
-error := text{"Wir haben seit einiger Zeit keine Meldung mehr von Ihnen erhalten."}
-goBackPage := text{"Wir haben seit einiger Zeit keine Meldung mehr von Ihnen erhalten.
+error := "Wir haben seit einiger Zeit keine Meldung mehr von Ihnen erhalten."
+goBackPage := "Wir haben seit einiger Zeit keine Meldung mehr von Ihnen erhalten.
 
    Zu Ihrer Sicherheit wurde Ihre Verbindung beendet. 
    Klicken Sie auf 'Neue Sitzung', um eine neue Verbindung herzustellen.
@@ -8,4 +8,4 @@ goBackPage := text{"Wir haben seit einiger Zeit keine Meldung mehr von Ihnen erh
 
 
 
-Neue Sitzung"}
+Neue Sitzung"

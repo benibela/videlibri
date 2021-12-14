@@ -1,4 +1,4 @@
 book := {}
-reservations := text{"https://lhopc4.ub.uni-kiel.de/loan/DB=4/USERINFO?ACT=UI_LOR&amp;BOR_U=084111403X&amp;BOR_PW_ENC=kKjUaxEsFtzUQ91PqQZPDtRD3U%2BpBk8O1B9ckuxE4YY%3D"}
+reservations := "https://lhopc4.ub.uni-kiel.de/loan/DB=4/USERINFO?ACT=UI_LOR&amp;BOR_U=084111403X&amp;BOR_PW_ENC=kKjUaxEsFtzUQ91PqQZPDtRD3U%2BpBk8O1B9ckuxE4YY%3D"
 delete-current-books() := ()
 book := {"author": "", "duedate:dd-mm-yyyy": "02-10-2013", "extendId": "841$0001709046", "id": "LB:VK:603/2", "status:curious": "ausgeliehen (0 Mahnung(en))", "title": "Public-key cryptography"}

@@ -1,5 +1,5 @@
 book := {}
 generalOrderUrl := ()
-templib := text{"Online"}
-templib := text{"Bibliothek Grassistraße"}
+templib := "Online"
+templib := "Bibliothek Grassistraße"
 book := {"Ausgabe:!!": "Studienpartitur", "Besetzung/Gattung:!!": "Orchester\n                                                  Ouvertüre", "Bestellnummer:!!": "Ed. Eulenburg 608", "Datensammlung:!!": "Lokale HMT-Bestände", "Medientyp:!!": "Noten", "Personen und Körperschaften:!!": "Mozart, Wolfgang Amadeus                                                    ;                     Einstein, Alfred (HerausgeberIn)", "Umfang:!!": "33 S.", "Werktitel:!!": "Don Giovanni | Ouvertüre", "holdings": {"Anmerkungen:!": "Verfügbar", "_orderUrl": null, "barcode": "201619269152", "id": "M.pr.VIII 3384", "libraryBranch": "Bibliothek Grassistraße", "libraryLocation": "Ausleihbereich", "orderable": false}, "musikalische Ausgabeform:!!": "Partitur", "online ansehen!!": "online ansehen", "veröffentlicht:!!": "London [u.a.] :\n                                      Eulenburg,\n                        \n                          [circa 1990]"}

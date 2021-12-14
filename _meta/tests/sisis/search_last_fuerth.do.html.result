@@ -2,7 +2,7 @@ curPos := 1
 book := {}
 nextPage := ()
 box-header := ()
-box-header := text{"|«
+box-header := "|«
 «
  1
  2
@@ -14,7 +14,7 @@ box-header := text{"|«
 				
 				
 				
-					Treffer lokale Datenbank (23)"}
+					Treffer lokale Datenbank (23)"
 search-result-count := "23"
 curPos := "11"
 nextPage := "file:///webOPACClient/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.12.6398&amp;curPos=11#-1"

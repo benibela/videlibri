@@ -2,7 +2,7 @@ book := {}
 nextPage := ()
 startUrl := ""
 touchpoint := false()
-requestedUrl := text{"http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/userAccount.do?methodToCall=showAccount&amp;typ=6"}
+requestedUrl := "http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/userAccount.do?methodToCall=showAccount&amp;typ=6"
 result := ()
 mode := 1
 delete-current-books() := ()

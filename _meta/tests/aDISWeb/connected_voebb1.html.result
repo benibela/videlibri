@@ -1,3 +1,3 @@
 connect-target := search
 book := {}
-connectPage := text{"/aDISWeb/app;jsessionid=1D583802EAD56311FB01EA3DA366E811?service=direct/1/POOLVX00@@@@@@@@_4B002E00_2BBB8200/$Tree.treeNodes&amp;sp=SS1&amp;requestCount=9"}
+connectPage := "/aDISWeb/app;jsessionid=1D583802EAD56311FB01EA3DA366E811?service=direct/1/POOLVX00@@@@@@@@_4B002E00_2BBB8200/$Tree.treeNodes&amp;sp=SS1&amp;requestCount=9"

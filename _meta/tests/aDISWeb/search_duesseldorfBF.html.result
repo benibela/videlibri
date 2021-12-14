@@ -6,7 +6,7 @@ search-result-count := 110
 firstIndex := 23
 lastIndex := 44
 lastSearchedIndexWithNavigation := 0
-forwardInput := text{""}
+forwardInput := ""
 search-next-page-available := true()
 form := {"method": "POST", "post": "service=direct%2F1%2FPOOLST07lxbib%40%40%40_57002B00_31E04F80%2F%24Form.form&sp=S0&Form0=focus%2CkeyCode%2Cstz%2Csource%2Cselected%2CrequestCount%2CscriptEnabled%2CscrollPos%2CscrDim%2CwinDim%2CimgDim%2C%24FormConditional%2CtextButton%2C%24Toolbar%2CcellCheck%2CcellCheck%240%2CcellCheck%241%2CcellCheck%242%2CcellCheck%243%2CcellCheck%244%2CcellCheck%245%2CcellCheck%246%2CcellCheck%247%2CcellCheck%248%2CcellCheck%249%2CcellCheck%2410%2CcellCheck%2411%2CcellCheck%2412%2CcellCheck%2413%2CcellCheck%2414%2CcellCheck%2415%2CcellCheck%2416%2CcellCheck%2417%2CcellCheck%2418%2CcellCheck%2419%2CcellCheck%2420%2C%24FormConditional%240%2CtextButton%240%2C%24FormConditional%241%2CtextButton%241%2C%24FormConditional%242%2CtextButton%242%2C%24FormConditional%243%2CtextButton%243%2C%24FormConditional%244%2CtextButton%244%2C%24FormConditional%245%2C%24Toolbar%240&focus=&keyCode=0&stz=&source=&selected=&requestCount=2&scriptEnabled=T&scrollPos=0&scrDim=&winDim=&imgDim=&%24FormConditional=T&%24FormConditional%240=T&%24FormConditional%241=T&%24FormConditional%242=T&%24FormConditional%243=T&%24FormConditional%244=T&%24FormConditional%245=F", "url": "file:///aDISWeb/app;jsessionid=60149C57E4228296C1B52D27521A0BDB"}
 toolbarForward := 5

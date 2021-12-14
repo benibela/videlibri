@@ -2,7 +2,7 @@ curPos := 1
 book := {}
 nextPage := ()
 box-header := ()
-box-header := text{"|«
+box-header := "|«
 «
  1
 2
@@ -20,7 +20,7 @@ box-header := text{"|«
 				
 				
 				
-					Treffer Katalog Stadtbibliothek Basel (133)"}
+					Treffer Katalog Stadtbibliothek Basel (133)"
 search-result-count := "133"
 curPos := "21"
 nextPage := "file:///InfoGuideClient.sisis/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.1273.27359&amp;curPos=21#-1"

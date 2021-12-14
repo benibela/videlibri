@@ -1,8 +1,8 @@
 requestId := 0
 book := {}
-obj := text{"Obj_577491377434134"}
+obj := "Obj_577491377434134"
 bFoundBottom := false()
-bulkRenew := text{"Obj_577491377434134?Style=Portal2&amp;SubStyle=&amp;Lang=GER&amp;ResponseEncoding=utf-8&amp;Method=BulkRenew&amp;BulkRenew=1&amp;BrowseAsHloc=-2"}
+bulkRenew := "Obj_577491377434134?Style=Portal2&amp;SubStyle=&amp;Lang=GER&amp;ResponseEncoding=utf-8&amp;Method=BulkRenew&amp;BulkRenew=1&amp;BrowseAsHloc=-2"
 delete-current-books() := ()
 book := {"author": "Brandhorst, Andreas", "duedate": "2013-09-02", "id": "M01 996 012 6", "issuedate": "2013-08-03", "status": "", "statusId": "normal", "title": "Diamant"}
 book := {"author": "Niven, Larry", "duedate": "2013-09-02", "id": "M02 005 789 2", "issuedate": "2013-08-03", "status": "", "statusId": "normal", "title": "Ringwelt-Thron"}

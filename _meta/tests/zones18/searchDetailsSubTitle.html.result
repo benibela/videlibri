@@ -1,8 +1,8 @@
 book := {}
 result := ()
-temp := text{"Teil"}
-temp := text{"Umfang"}
-temp := text{"Reihe"}
+temp := "Teil"
+temp := "Umfang"
+temp := "Reihe"
 i := 0
 header := ()
 header := "Magazin"

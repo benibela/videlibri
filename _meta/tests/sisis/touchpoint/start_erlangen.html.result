@@ -1,4 +1,4 @@
 book := {}
 jsession := ""
 user-account-page := "file:///TouchPoint/userAccount.do?methodToCall=start"
-CSId := text{"2266N183S560f9ce77fea6d91cba76070088b66e70dc49f53"}
+CSId := "2266N183S560f9ce77fea6d91cba76070088b66e70dc49f53"

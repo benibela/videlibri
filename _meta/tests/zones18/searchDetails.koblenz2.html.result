@@ -1,11 +1,11 @@
 book := {}
 result := ()
-temp := text{"Autor"}
-temp := text{"Teil"}
-temp := text{"Umfang"}
-temp := text{"Anmerkungen"}
-temp := text{"ISMN"}
-temp := text{"Schlagwörter"}
+temp := "Autor"
+temp := "Teil"
+temp := "Umfang"
+temp := "Anmerkungen"
+temp := "ISMN"
+temp := "Schlagwörter"
 i := 0
 header := ()
 header := "Zentralbibliothek"

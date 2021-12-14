@@ -1,7 +1,7 @@
 book := {}
 bookTableBroken := false()
 wrong-update-page := false()
-new-update-page := text{"http://opac.saarbruecken.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=MEMSTAT&amp;RSN=&amp;DATA=SAR&amp;TOKEN=DBDWmhc8sk4064&amp;Z=1&amp;NewBreadCrumb=1&amp;xin=00008332213&amp;CHK=7655"}
+new-update-page := "http://opac.saarbruecken.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=MEMSTAT&amp;RSN=&amp;DATA=SAR&amp;TOKEN=DBDWmhc8sk4064&amp;Z=1&amp;NewBreadCrumb=1&amp;xin=00008332213&amp;CHK=7655"
 delete-current-books() := ()
 hasShelfMark := false()
 bookTableBroken := true()
@@ -11,11 +11,11 @@ noExtendingPossible := false()
 bookTableBroken := false()
 book := {"author": "Pfendtner, Ingrid", "category": "Uax 1 Pfend", "duedate": "2016-03-09", "id": "6696096046", "renewCount": "0", "status": " 6696096046 - 1. Verlängerung   für Benutzer #00008332213; Verlängerung des Mediums nicht erlaubt bis:  2 Mär 2016.", "statusId": "critical", "title": "Mysteriös: geheimnisvollen Phänomenen auf der Spur  "}
 result := ()
-mid := text{"67873"}
+mid := "67873"
 cancelForm := {"method": "POST", "post": "MGWCHD=0&TOKEN=DBDWmhc8sk4064&TOKENX=DBDWmhc8sk4064&DATA=SAR&usercode=&VERSION=2&bno=00008332213&mid=67873&ACTION=MEMSLFRES", "url": "http://opac.saarbruecken.de/libero/WebOpac.cls"}
 hasShelfMark := false()
 hasDelete := false()
 hasShelfMark := true()
 hasDelete := true()
 book := {"author": "Beaton, Marion Chesney", "cancelId": "RES456015RES=456015", "cancelable": true, "category": "1 Beato", "id": "", "issueDate": "2016-02-10", "statusId": "ordered", "title": "Agatha Raisin und die Tote im Feld"}
-mid := text{"67873"}
+mid := "67873"

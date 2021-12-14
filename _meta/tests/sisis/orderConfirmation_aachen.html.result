@@ -3,11 +3,11 @@ password := bar
 book := {}
 titles := ()
 issuePoints := ()
-titles := text{" Ausleihtheke"}
-issuePoints := text{"0"}
-titles := (text{" Ausleihtheke"}, 
-text{" INFORMATIONSZENTRUM"})
-issuePoints := (text{"0"}, 
-text{"2"})
+titles := " Ausleihtheke"
+issuePoints := "0"
+titles := (" Ausleihtheke", 
+" INFORMATIONSZENTRUM")
+issuePoints := ("0", 
+"2")
 message := {"callback": "internal-order", "caption": "Wohin soll das Buch vorbestellt werden?", "kind": "choose", "option-values": ["0", "2"], "options": [" Ausleihtheke", " INFORMATIONSZENTRUM"]}
 confirm := {"method": "POST", "post": "methodToCall=reservation&CSId=34973N33S510eac3e35861e5a86b08c269f23b8a6a000a0ea&issuepoint=", "url": "file:///InfoGuideClient/reservation.do"}

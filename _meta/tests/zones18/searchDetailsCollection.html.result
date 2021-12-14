@@ -1,7 +1,7 @@
 book := {}
 result := ()
-temp := text{"Teil
-				:=Xread repetitionsoptionalmatch children"}
-temp := text{"Originaltitel"}
-temp := text{"Schlagwörter"}
+temp := "Teil
+				:=Xread repetitionsoptionalmatch children"
+temp := "Originaltitel"
+temp := "Schlagwörter"
 book := {"Originaltitel!": "Le test PN", "Schlagwörter!": "Schwarzfuss-Test\n\n\t\t\t\t\n\n\t\t\t\n\n\t\t\n\n\t\n\t\n\n\t\n\n\t\t\n\t\t\t\t\n\n\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\t / \n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\n\n\t\n\n\t\n\n\t\n\t\n\t\t\n    \n\t\t\n\t\t\t\n\n\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\tTestmaterial", "Teil\n\t\t\t\t:=Xread repetitionsoptionalmatch children!": "", "author": "Corman, Louis", "location": "München\n\n\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\t ; \n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\tBasel\n\n\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\t ", "publisher": " \n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\tE. Reinhardt", "title": "Der Schwarzfuss-Test\n\n\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t / Louis Corman. [Übers. aus dem Franz. von Renate Krieger]\n\n\t\t\t\t\n\n\t\t\t\n\n\t\t\n\n\t\n\t\n\n\t\n\n\t\t\n\n\n\t\n    \n       \n    \n\n\t\t\t\t:=Xread repetitionsoptionalmatch children", "year": ""}

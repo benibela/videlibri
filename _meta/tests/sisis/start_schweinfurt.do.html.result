@@ -1,4 +1,4 @@
 book := {}
 jsession := "jsessionid=ED6A67CF21CC1E7CD571F5D0C5FBBA32"
 user-account-page := "https://recherche.bibkatalog.de/InfoGuideClient.fwssis/userAccount.do;jsessionid=ED6A67CF21CC1E7CD571F5D0C5FBBA32?methodToCall=show&amp;type=1"
-CSId := text{"168N9Sac154c4614770f96bba9b035c057808040f455fe"}
+CSId := "168N9Sac154c4614770f96bba9b035c057808040f455fe"

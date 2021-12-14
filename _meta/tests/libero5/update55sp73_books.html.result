@@ -1,7 +1,7 @@
 book := {}
 bookTableBroken := false()
 wrong-update-page := false()
-new-update-page := text{"https://webopac.stadtbibliothek-aachen.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=MEMSTAT&amp;RSN=0&amp;DATA=LAC&amp;TOKEN=YV2ngk2Wnx3761&amp;Z=1&amp;NewBreadCrumb=1&amp;xin=05886694&amp;CHK=6076"}
+new-update-page := "https://webopac.stadtbibliothek-aachen.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=MEMSTAT&amp;RSN=0&amp;DATA=LAC&amp;TOKEN=YV2ngk2Wnx3761&amp;Z=1&amp;NewBreadCrumb=1&amp;xin=05886694&amp;CHK=6076"
 delete-current-books() := ()
 hasShelfMark := false()
 bookTableBroken := true()
@@ -22,4 +22,4 @@ bookTableBroken := false()
 book := {"author": "Anthony, Mark", "duedate": "2010-10-14", "id": "25361008", "renewCount": "0", "status": "Prinzipiell keine Verlängerung möglich", "statusId": "critical", "title": "¬Die¬ letzte Schlacht"}
 bookTableBroken := false()
 book := {"author": "Clemens, James", "duedate": "2010-10-14", "id": "26289548", "renewCount": "0", "status": "Prinzipiell keine Verlängerung möglich", "statusId": "critical", "title": "Schattenritter"}
-mid := text{"140602"}
+mid := "140602"

@@ -1,6 +1,6 @@
 requestId := 0
 book := {}
-obj := text{"Obj_224071381232506"}
+obj := "Obj_224071381232506"
 bFoundBottom := false()
 search-result-count := "420"
 book := {"author": "Bannasch, Lutz", "home-url": "vltest://zones18/APS_CAT_IDENTIFY?Style=Portal2&SubStyle=&Lang=GER&ResponseEncoding=utf-8&Method=CatIdentify&Via=Z3950&DB=Catalogue&IDType=1&Key=T010439790&Via=Z3950&View=ISBD&Parent=Obj_224071381232506&SearchBrowseList=Obj_224071381232506&SearchBrowseListItem=29642&BrowseList=Obj_224071381232506&BrowseListItem=29642&BrowseAsHloc=-1&QueryObject=Obj_224041381232504", "id": "Wcl 3 Bannasch", "publisher": "Heyne", "title": "Genetic Balance", "year": "2013"}

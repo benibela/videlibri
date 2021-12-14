@@ -11,4 +11,4 @@ book := {"_details": "vltest://bibliotheca/index.asp?detmediennr=7", "_detailsBa
 book := {"_details": "vltest://bibliotheca/index.asp?detmediennr=8", "_detailsBackScroll": "vltest://bibliotheca/searchList.neustadt.html?scrollAction=1", "author": "Feibel, Thomas", "title": "iPhone und iPad für Einsteiger / Thomas Feibel\n(PC-Schule für S...)(test)", "year": "2012"}
 book := {"_details": "vltest://bibliotheca/index.asp?detmediennr=9", "_detailsBackScroll": "vltest://bibliotheca/searchList.neustadt.html?scrollAction=1", "author": "Fisch und Meeresfrüchte\n(Test ", "title": " Unsere besten R...)", "year": "2013"}
 search-next-page-available := true()
-next-page := text{"index.asp?scrollAction=3"}
+next-page := "index.asp?scrollAction=3"

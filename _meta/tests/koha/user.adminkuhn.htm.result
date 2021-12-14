@@ -3,13 +3,13 @@ books-deleted := true()
 prestatus := ()
 prestatus := "Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=468"
 prestatus := ("Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=468", 
-text{"Gebühren:
-  Nein"})
+"Gebühren:
+  Nein")
 book := {"author": "Dürrenmatt, Friedrich", "duedate": "2016-11-30", "id": " 830", "status": "Gebühren:\n  Nein; Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=468", "statusId": "critical", "title": "Romulus der Große"}
 prestatus := ()
 prestatus := "Details: file:///cgi-bin/koha/opac-detail.pl?bib=468"
 prestatus := ("Details: file:///cgi-bin/koha/opac-detail.pl?bib=468", 
-text{"Gebühren:
-  Nein"})
+"Gebühren:
+  Nein")
 book := {"author": " Dürrenmatt, Friedrich", "duedate": "2016-11-30", "id": " 830", "status": "Gebühren:\n  Nein; Details: file:///cgi-bin/koha/opac-detail.pl?bib=468", "statusId": "critical", "title": "Romulus der Große"}
 renew-form := {"method": "POST", "post": "borrowernumber=1&from=opac_user", "url": "file:///cgi-bin/koha/opac-renew.pl"}

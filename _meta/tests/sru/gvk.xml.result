@@ -1,5 +1,5 @@
 book := {}
-search-result-count := text{"38977"}
+search-result-count := "38977"
 search-next-page-available := true()
 book := {"author": "Goko; Wisniewski-Tp, Danka-Tp; Liventsova, Elena", "ppn": "558974147", "title": "Der Test-MBW für Sortierzählung Zusatz zu 4000", "year": "2021"}
 book := {"author": "Altmann, Michael", "ppn": "1023632314", "title": "Multifunktionales energieeffizientes Dach- und Fassaden-Solarelement - DAFASOL, Teilvorhaben: Umsetzung in einen Teststand und Anwendung im Stahlbetonbau Sachbericht : Laufzeit des Vorhabens: 01.12.2014-30.11.2017 = Multifunctional energy-efficient roof and facade solar-element - DAFASOL, sub project: Implementation in a test stand and its adaption to applications in reinforced concrete construction", "year": "2018"}

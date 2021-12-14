@@ -1,6 +1,6 @@
 book := {}
 singleMode := false()
-search-result-count := text{"115"}
+search-result-count := "115"
 search-result-count := 115
 new-books := ({"_recordId": "ai-55-aHR0cHM6Ly93d3cuanN0b3Iub3JnL3N0YWJsZS83Mjg3NDU", "author": "Einstein, A.", "image-url": null, "title": "Review: Die mehrstimmige Spielmusik das 17. Jahrhunderts in Nord-und Mittel Europa", "year": null}, 
 {"_recordId": "ai-55-aHR0cHM6Ly93d3cuanN0b3Iub3JnL3N0YWJsZS83Mjg3MzA", "author": "Einstein, A.", "image-url": null, "title": "Vincenzo Bellini", "year": null}, 
@@ -22,5 +22,5 @@ new-books := ({"_recordId": "ai-55-aHR0cHM6Ly93d3cuanN0b3Iub3JnL3N0YWJsZS83Mjg3N
 {"_recordId": "0002989706", "author": "Mozart, Wolfgang Amadeus", "image-url": null, "title": "Galimathias musicum 2 violins, viola, bass, 2 oboes, 2 horns, bassoon and cembalo; K.V. 32", "year": "c 1971"}, 
 {"_recordId": "0002989707", "author": "Mozart, Wolfgang Amadeus", "image-url": null, "title": "Divertimento B-Dur KV App. 227; 2 oboes, 2 clarinets in Bb, 2 bassoons, 2 horns in Eb basso", "year": "c 1971"}, 
 {"_recordId": "0002799147", "author": "Mozart, Wolfgang Amadeus", "image-url": null, "title": "Sinfonia B-dur, Si bémol majeur, Bb major, (Cavaliere); KV 45 b (214)", "year": "c 1964"})
-search-next-page := text{"/vufind/Search/Results?join=AND&amp;bool0%5B%5D=AND&amp;lookfor0%5B%5D=einstein&amp;type0%5B%5D=Author&amp;filter%5B%5D=publishDateSort%3A%22%5B1400+TO+2019%5D%22&amp;page=2"}
+search-next-page := "/vufind/Search/Results?join=AND&amp;bool0%5B%5D=AND&amp;lookfor0%5B%5D=einstein&amp;type0%5B%5D=Author&amp;filter%5B%5D=publishDateSort%3A%22%5B1400+TO+2019%5D%22&amp;page=2"
 search-next-page-available := true()

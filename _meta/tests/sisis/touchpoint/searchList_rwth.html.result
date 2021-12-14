@@ -2,7 +2,7 @@ curPos := 1
 book := {}
 nextPage := ()
 box-header := ()
-box-header := text{"«
+box-header := "«
  1
  2
 3
@@ -15,7 +15,7 @@ box-header := text{"«
           
          
          
-         Treffer Universitätsbibliothek &amp; dezentrale Bibliotheken (141)"}
+         Treffer Universitätsbibliothek &amp; dezentrale Bibliotheken (141)"
 search-result-count := "141"
 curPos := "26"
 nextPage := "speedHitList.do?methodToCall=refineHitList&amp;speedHitlistUrl=speedHitList.do&amp;newMemorizeListName=&amp;databaseId=2&amp;dbIdentifier=2&amp;pos=26"

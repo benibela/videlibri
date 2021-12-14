@@ -1,6 +1,6 @@
 requestId := 0
 book := {}
-obj := text{"Obj_17031381232296"}
+obj := "Obj_17031381232296"
 bFoundBottom := false()
 search-result-count := "21"
 book := {"author": "Ruaud, Olivier", "home-url": "vltest://zones18/APS_CAT_IDENTIFY?Style=Portal2&SubStyle=&Lang=GER&ResponseEncoding=utf-8&Method=CatIdentify&Via=Z3950&DB=Catalogue&IDType=1&Key=T00370027X&Via=Z3950&View=Annotated&Parent=Obj_17031381232296&SearchBrowseList=Obj_17031381232296&SearchBrowseListItem=3566&BrowseList=Obj_17031381232296&BrowseListItem=3566&BrowseAsHloc=-2&QueryObject=Obj_17021381232295&InStock=1", "title": "Réussir le DELE intermedio", "year": "2012"}

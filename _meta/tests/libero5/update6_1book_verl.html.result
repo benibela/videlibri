@@ -1,7 +1,7 @@
 book := {}
 bookTableBroken := false()
 wrong-update-page := false()
-new-update-page := text{"https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=MEMSTAT&amp;RSN=0&amp;DATA=VER&amp;TOKEN=y2obuzOIqm6931&amp;Z=1&amp;NewBreadCrumb=1&amp;xin=0165525&amp;CHK=6836"}
+new-update-page := "https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=MEMSTAT&amp;RSN=0&amp;DATA=VER&amp;TOKEN=y2obuzOIqm6931&amp;Z=1&amp;NewBreadCrumb=1&amp;xin=0165525&amp;CHK=6836"
 delete-current-books() := ()
 hasShelfMark := false()
 bookTableBroken := true()
@@ -9,4 +9,4 @@ noExtendingPossible := true()
 noExtendingPossible := false()
 bookTableBroken := false()
 book := {"author": "Palmen, Connie", "duedate": "2014-03-24", "extendid": "REN1198850", "id": "1198850", "renewCount": "0", "status": "", "statusId": "curious", "title": "¬Die¬ Freundschaft: Roman"}
-mid := text{"16079"}
+mid := "16079"

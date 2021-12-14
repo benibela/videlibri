@@ -11,4 +11,4 @@ book := {"_details": "vltest://bibliotheca/index.asp?detmediennr=7", "_detailsBa
 book := {"_details": "vltest://bibliotheca/index.asp?detmediennr=8", "_detailsBackScroll": "vltest://bibliotheca/searchList.stralsund.html?scrollAction=1", "author": "Hesse, Jürgen ; Schrader, Hans Christian", "title": "Testtraining Polizei und Feuerwehr : Kriminalpolizei, Bundeswehr, Bundesgrenzschutz ; Einstellungs- und Eignungstests...\n(Berufsstrategie)", "year": "2005"}
 book := {"_details": "vltest://bibliotheca/index.asp?detmediennr=9", "_detailsBackScroll": "vltest://bibliotheca/searchList.stralsund.html?scrollAction=1", "author": "Hesse, Jürgen ; Schrader, Hans Christian", "title": "Testtraining Rechnen und Mathematik : Eignungs- und Enstellungstests sicher bstehen\n(Eichborn exakt)", "year": "1999"}
 search-next-page-available := true()
-next-page := text{"index.asp?scrollAction=2"}
+next-page := "index.asp?scrollAction=2"

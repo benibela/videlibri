@@ -1,10 +1,10 @@
 book := {}
 result := ()
-temp := text{"Teil"}
-temp := text{"Ausgabe"}
-temp := text{"Umfang"}
-temp := text{"Reihe"}
-temp := text{"FSK/USK"}
+temp := "Teil"
+temp := "Ausgabe"
+temp := "Umfang"
+temp := "Reihe"
+temp := "FSK/USK"
 i := 0
 header := ()
 header := "Zentralbibliothek"

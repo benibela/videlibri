@@ -1,5 +1,5 @@
 requestId := 0
 book := {}
-obj := text{"Obj_268231391151152"}
+obj := "Obj_268231391151152"
 bFoundBottom := false()
 search-result-count := 0

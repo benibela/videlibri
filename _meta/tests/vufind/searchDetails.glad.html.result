@@ -1,5 +1,5 @@
 book := {}
-generalOrderUrl := text{"/Record/GLAD.0279071/Holdings?login=true&amp;catalogLogin=true"}
+generalOrderUrl := "/Record/GLAD.0279071/Holdings?login=true&amp;catalogLogin=true"
 holding := {"_orderUrl": "/Record/GLAD.0279071/Holdings?login=true&catalogLogin=true", "duedate": "2018-06-01", "id": "535 (Sachbuch)", "libraryBranch": "Hauptst. Gladbeck", "libraryLocation": "Untergeschoss (Kinder/Jugend)", "orderable": true, "pendingOrders": "0", "statusStr": "Entliehen"}
 book := {"1. Verfasser:!!": "Gamlin, Linda (-)", "Bücherei:!!": "Gladbeck", "Medientyp:!!": "Kinder/Jugendbuch", "Schriftenreihe:!!": "Naturführer für Kinder", "Systematik:!!": "535 (Sachbuch)", "Veröffentlicht:!!": "München\n                                      Dorling Kindersley\n                        \n                          2009", "holdings": {"_orderUrl": "/Record/GLAD.0279071/Holdings?login=true&catalogLogin=true", "duedate": "2018-06-01", "id": "535 (Sachbuch)", "libraryBranch": "Hauptst. Gladbeck", "libraryLocation": "Untergeschoss (Kinder/Jugend)", "orderable": true, "pendingOrders": "0", "statusStr": "Entliehen"}}
 result := ()

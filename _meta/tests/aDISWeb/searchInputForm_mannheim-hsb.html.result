@@ -1,14 +1,14 @@
 book := {}
-search-basic-selects := (text{"select"}, 
-text{"select$1"}, 
-text{"select$3"}, 
-text{"select$5"})
-search-basic-inputs := (text{"$Textfield"}, 
-text{"$Textfield$0"}, 
-text{"$Textfield$1"}, 
-text{"$Textfield$2"})
+search-basic-selects := ("select", 
+"select$1", 
+"select$3", 
+"select$5")
+search-basic-inputs := ("$Textfield", 
+"$Textfield$0", 
+"$Textfield$1", 
+"$Textfield$2")
 search-basic-options := {"author": "Autor (Person)", "free": "Freie Suche", "id": "Signatur", "isbn": "ISSN, ISBN, SWB-Nr.", "keywords": "Schlagwort", "title": "Titelwort"}
-search-basic-input-year := text{"$Textfield$5"}
+search-basic-input-year := "$Textfield$5"
 search-filter-map := {"language": "select$7", "mediaType": "select$6"}
 search-params := ("title", 
 "author", 

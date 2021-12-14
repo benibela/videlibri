@@ -2,7 +2,7 @@ curPos := 1
 book := {}
 nextPage := ()
 box-header := ()
-box-header := text{"|«
+box-header := "|«
 <
 1
  2
@@ -20,7 +20,7 @@ box-header := text{"|«
 				
 				
 				
-				Treffer Bibliothekskatalog (500)"}
+				Treffer Bibliothekskatalog (500)"
 search-result-count := "500"
 curPos := "11"
 nextPage := "file:///webOPACClient.sisis/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.15.19941&amp;curPos=11#-1"

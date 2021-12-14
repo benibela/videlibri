@@ -1,7 +1,7 @@
 book := {}
 bookTableBroken := false()
 wrong-update-page := false()
-new-update-page := text{"http://katalog.bibl.fh-duesseldorf.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=MEMSTAT&amp;RSN=0&amp;DATA=DUE&amp;TOKEN=zabOpUzwHQ3373&amp;Z=1&amp;NewBreadCrumb=1&amp;xin=9000491&amp;CHK=7545"}
+new-update-page := "http://katalog.bibl.fh-duesseldorf.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=MEMSTAT&amp;RSN=0&amp;DATA=DUE&amp;TOKEN=zabOpUzwHQ3373&amp;Z=1&amp;NewBreadCrumb=1&amp;xin=9000491&amp;CHK=7545"
 delete-current-books() := ()
 hasShelfMark := false()
 bookTableBroken := true()
@@ -14,4 +14,4 @@ result := ()
 bookTableBroken := false()
 book := {"author": "Imhorst, Christian", "category": "somewhere", "duedate": "2010-10-11", "id": "019965801", "renewCount": "0", "status": " 019965801 - 1. Verlängerung   für Benutzer #9000491; Verlängerung des Mediums nicht erlaubt bis: 16 Sep 2010.", "statusId": "critical", "title": "¬Die¬ Anarchie der Hacker : Richard Stallman und die Freie-Software-Bewegung  "}
 result := ()
-mid := text{"16642"}
+mid := "16642"

@@ -1,5 +1,5 @@
 book := {}
-raised := text{"#0123456/2491929
+raised := "#0123456/2491929
 Dieser Benutzer ist zu jung, um Exemplare dieser Literaturabteilung auszuleihen
 Bitte nehmen Sie Kontakt mit dem Bibliotheksteam auf
-Ihre Anfrage wurde abgelehnt"}
+Ihre Anfrage wurde abgelehnt"

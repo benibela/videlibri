@@ -1,5 +1,5 @@
 book := {}
-search-result-count := text{"5"}
+search-result-count := "5"
 search-next-page-available := true()
 book := {"author": "Silly; Gundermann, Gerhard", "ppn": "342439952", "title": "Silly + Gundermann & Seilschaft - Unplugged das legendäre Konzert vom 22.11.1994", "year": "1999"}
 book := {"ppn": "360743331", "title": "Die Kreba - Fisch - GmbH", "year": "1997"}

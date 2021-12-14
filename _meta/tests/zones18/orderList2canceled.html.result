@@ -1,6 +1,6 @@
 requestId := 0
 book := {}
-obj := text{"Obj_776481379630456"}
+obj := "Obj_776481379630456"
 bFoundBottom := false()
 tempbook := {"author": "Niven, Larry", "issueDate": "2013-09-20", "status": "Gelöscht", "statusId": "deleted", "title": "Hüter der Ringwelt"}
 tempbook := {"author": "Niven, Larry", "id": "(B) NIV 35/3:2 •/SciFi", "issueDate": "2013-09-20", "status": "Gelöscht", "statusId": "deleted", "title": "Ringwelt-Ingenieure"}

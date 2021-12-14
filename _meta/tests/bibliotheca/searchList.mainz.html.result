@@ -11,4 +11,4 @@ book := {"_details": "vltest://bibliotheca/index.asp?detmediennr=7", "_detailsBa
 book := {"_details": "vltest://bibliotheca/index.asp?detmediennr=8", "_detailsBackScroll": "vltest://bibliotheca/searchList.mainz.html?scrollAction=1", "author": "Sprachförderbox DaZ Grundschule 1/2 - 7.28. Hallo! Jetzt lerne ich Deutsch ", "title": " erste Grundlagen für Deutsch als Zweitsprache. - 1. Aufl., 2016. - 28 S. : überw. Ill. (überw. farb.), graph. Darst.\n(Grundschule: Mit und ohne Vorkentnisse)", "year": "2016"}
 book := {"_details": "vltest://bibliotheca/index.asp?detmediennr=9", "_detailsBackScroll": "vltest://bibliotheca/searchList.mainz.html?scrollAction=1", "author": "", "title": "Dschungelfieber.3. Hallo Freunde !.", "year": "1990"}
 search-next-page-available := true()
-next-page := text{"index.asp?scrollAction=3"}
+next-page := "index.asp?scrollAction=3"

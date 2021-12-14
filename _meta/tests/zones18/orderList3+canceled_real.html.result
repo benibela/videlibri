@@ -1,6 +1,6 @@
 requestId := 0
 book := {}
-obj := text{"Obj_777821379631915"}
+obj := "Obj_777821379631915"
 bFoundBottom := false()
 x := "ordered"
 tempbook := {"_cancel-url": "Obj_777821379631915?Style=Portal2&SubStyle=&Lang=GER&ResponseEncoding=utf-8&Method=PreCancel&Item=271787&ConfirmCancel=1&ItemHandle=271787&Finished=Obj_777821379631915%3FStyle%3DPortal2%26SubStyle%3D%26Lang%3DGER%26ResponseEncoding%3Dutf-8%3FMethod%3DCloneList%26amp;Item%3D271787%26amp;BrowseAsHloc%3D-2&BrowseList=Obj_777821379631915%3FStyle%3DPortal2%26SubStyle%3D%26Lang%3DGER%26ResponseEncoding%3Dutf-8&BrowseListItem=271787&BrowseAsHloc=-2", "author": "Niven, John", "cancelable": true, "id": "(B) NIV 30/1", "issueDate": "2013-09-20", "status": "Bei der Suche (Warteliste: 1 von 1)", "statusId": "ordered", "title": "Gott bewahre"}

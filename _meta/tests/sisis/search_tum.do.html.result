@@ -2,7 +2,7 @@ curPos := 1
 book := {}
 nextPage := ()
 box-header := ()
-box-header := text{"|«
+box-header := "|«
 «
 1
  2
@@ -17,7 +17,7 @@ box-header := text{"|«
 »|
 
 				
-				Treffer Katalog (2090)"}
+				Treffer Katalog (2090)"
 search-result-count := "2090"
 curPos := "11"
 nextPage := "file:///Katalog/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.42.3087&amp;curPos=11#-1"

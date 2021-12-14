@@ -1,4 +1,4 @@
 book := {}
 jsession := "jsessionid=9096233F65EDF6AF6D356BEB9E7BF4C3"
 user-account-page := "http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/userAccount.do;jsessionid=9096233F65EDF6AF6D356BEB9E7BF4C3?methodToCall=show&amp;type=1"
-CSId := text{"47894N10S9f2865c2959d62208fcfa3e74688ba6c5cf6e68f"}
+CSId := "47894N10S9f2865c2959d62208fcfa3e74688ba6c5cf6e68f"
