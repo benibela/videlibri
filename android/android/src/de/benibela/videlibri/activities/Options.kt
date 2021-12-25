@@ -244,7 +244,7 @@ class Options : VideLibriBaseActivity() {
         }
         private fun createPreferencesOwnCertificates(categoryBuilder: CategoryBuilder) = categoryBuilder.apply {
             if (UserKeyStore.hasCertificates())
-                for (cert in UserKeyStore.certificates) {
+                for (cert in UserKeyStore) {
                     preference {
                         title(UserKeyStore.getFingerprint(cert))
                         summary(R.string.lay_options_btn_newcertificate_delete)

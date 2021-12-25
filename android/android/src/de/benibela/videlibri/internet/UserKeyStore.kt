@@ -1,6 +1,7 @@
 package de.benibela.videlibri.internet
 
 import android.util.Base64
+import android.util.Log
 import de.benibela.internettools.X509TrustManagerWrapper.CustomTrustManagerFactory
 import java.security.MessageDigest
 import java.security.cert.CertificateException
@@ -8,31 +9,40 @@ import java.security.cert.X509Certificate
 import javax.net.ssl.X509TrustManager
 
 object UserKeyStore {
-    var certificates = mutableSetOf<ByteArray>()
-        private set
+    private var certificates = mutableListOf<ByteArray>() //set does not work for bytearray in java nor kotlin
 
     @Synchronized
     fun toArray(): Array<String> =
         certificates.map { Base64.encodeToString(it, Base64.DEFAULT) }.toTypedArray()
 
     @Synchronized
-    fun addUserCertificate(encoded: ByteArray): Boolean = certificates.add(encoded)
+    fun addUserCertificate(encoded: ByteArray): Boolean {
+        if (hasCertificate(encoded)) return false
+        certificates.add(encoded)
+        return true
+    }
 
     @Synchronized
-    fun removeUserCertificate(cert: ByteArray?) = certificates.remove(cert)
-
+    fun removeUserCertificate(cert: ByteArray?) {
+        val i = indexOfCertificate(cert ?: return)
+        if (i >= 0) certificates.removeAt(i)
+    }
 
     @Synchronized
     fun loadUserCertificates(certs: Array<String>) {
-        certificates = certs.map { Base64.decode(it, Base64.DEFAULT) }.toMutableSet()
+        certificates = certs.map { Base64.decode(it, Base64.DEFAULT) }.toMutableList()
     }
 
     @Synchronized
     fun hasCertificates(): Boolean = certificates.isNotEmpty()
 
     @Synchronized
-    fun hasCertificate(cert: ByteArray): Boolean = certificates.contains(cert)
+    private fun indexOfCertificate(cert: ByteArray): Int = certificates.indexOfFirst { it.contentEquals(cert) }
+    @Synchronized
+    fun hasCertificate(cert: ByteArray): Boolean = indexOfCertificate(cert) >= 0
 
+    @Synchronized
+    operator fun iterator(): Iterator<ByteArray> = certificates.iterator()
 
 
     fun makeFactory(): CustomTrustManagerFactory =  CustomTrustManagerFactory { arrayListOf(
