@@ -252,6 +252,8 @@ type
 
     property charges: currency read getCharges;        //<0 means unknown
 
+    function getDebugStackTrace: TStringArray; virtual;
+
     property books: TBookLists read fbooks;
     property passWord: string read pass write setPassword;
     property lastCheckDate: integer read FLastCheckDate;
@@ -305,6 +307,8 @@ type
 
    // procedure orderList(booklist: TBookList); override;
     procedure cancelList(booklist: TBookList); override;
+
+    function getDebugStackTrace: TStringArray; override;
   end;
 
   TExportImportFlag = (eifCurrent, eifHistory, eifConfig, eifPassword);
@@ -1083,7 +1087,7 @@ begin
         if FileExists(assetPath + libraryFileName) then //file exists is always false for asset files on Android
           raise
         else
-          storeException(e, nil, id, ''); //user defined libraries must not raise an exception or they write some bullshit and cannot start the app anymore
+          storeException(e, nil, id, '', nil); //user defined libraries must not raise an exception or they write some bullshit and cannot start the app anymore
       end;
     end;
     flibraryIds.Objects[index] := result;
@@ -1798,6 +1802,11 @@ begin
   result:=lib.id+'#'+encodeToSafeFileName(user);
 end;
 
+function TCustomAccountAccess.getDebugStackTrace: TStringArray;
+begin
+  result := nil
+end;
+
 
 
 { TTemplateAccountAccess }
@@ -2057,6 +2066,12 @@ begin
   FUpdateTime:=FConnectingTime; //treat cancel like update, since renew usually reupdates
 
   if logging then log('Leave TTemplateAccountAccess.cancelList');
+end;
+
+function TTemplateAccountAccess.getDebugStackTrace: TStringArray;
+begin
+  Result:=reader.actionTrace.toSharedArray;
+  SetLength(result, length(result));
 end;
 
 

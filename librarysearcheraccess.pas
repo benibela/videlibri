@@ -568,7 +568,7 @@ begin
       FreeAndNil(mes);
     except
       on e: Exception do begin
-        storeException(e,nil,searcher.getLibraryIds,debugLastSearchQuery);
+        storeException(e,nil,searcher.getLibraryIds,debugLastSearchQuery,searcher.bookListReader.actionTrace.toSharedArray);
         FreeAndNil(mes);
         messages.removeAndFreeAll;
         callNotifyEvent(access.fOnException);

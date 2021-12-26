@@ -272,11 +272,11 @@ begin
     end;
   except
     on e: EInternetException do {$ifndef activeDebug}if not request.ignoreConnectionErrors or (e.errorCode > 0) then{$endif}
-      storeException(e,lib,lib.getLibrary().id,'');
+      storeException(e,lib,lib.getLibrary().id,'', lib.getDebugStackTrace);
     on e: exception do begin
       lib.broken:=currentDate;
       if lib.passWord = '' then e.Message := e.Message + ' [' + rsErrorNoPassword + ']';
-      storeException(e,lib,lib.getLibrary().id,'');
+      storeException(e,lib,lib.getLibrary().id,'', lib.getDebugStackTrace);
     end
     else if logging then log('Unverständliche Fehlermeldung');
   end;

@@ -5,7 +5,7 @@ unit applicationconfig;
 interface
 
 uses
-  Classes, SysUtils, libraryparser,inifiles, inifilessafe, rcmdline, {$IFNDEF ANDROID}autoupdate,{$ENDIF}extendedhtmlparser,
+  Classes, SysUtils, libraryparser,inifiles, inifilessafe, rcmdline, bbutils, {$IFNDEF ANDROID}autoupdate,{$ENDIF}extendedhtmlparser,
 accountlist{$IFNDEF ANDROID}, LMessages{$endif};
 
 {$IFNDEF ANDROID}
@@ -102,9 +102,9 @@ const localeCountry: string = 'DE'; //for sorting libraries
   procedure finalizeApplicationConfig;
 
   procedure addErrorMessage(kind: TExceptionKind; errorStr,errordetails, anonymouseDetails, libraryId, searchQuery:string;lib:TCustomAccountAccess=nil);
-  procedure createErrorMessageStr(exception:exception; out kind: TExceptionKind; out errorStr,errordetails, anonymousDetails:string;account:TCustomAccountAccess=nil);
+  procedure createErrorMessageStr(exception:exception; out kind: TExceptionKind; out errorStr,errordetails, anonymousDetails:string;account:TCustomAccountAccess; additionalStacktrace: bbutils.TStringArray);
 
-  procedure storeException(ex: exception; account:TCustomAccountAccess; libraryId, searchQuery: string); //thread safe
+  procedure storeException(ex: exception; account:TCustomAccountAccess; libraryId, searchQuery: string; additionalStacktrace: bbutils.TStringArray = nil); //thread safe
 
   function sendFeedback(data: string): boolean;
 
@@ -143,7 +143,7 @@ resourcestring
   rsPatternMatchingFailedDebugAllMatched = 'Es ist nicht klar, was auf der Seite fehlt.';
   rsErrorNoPassword = 'Es wurde kein Passwort für das Konto eingegeben';
 implementation
-uses internetaccess,libraryaccess,math,{$ifndef android}FileUtil,{$endif}bbutils,bbdebugtools,androidutils ,
+uses internetaccess,libraryaccess,math,{$ifndef android}FileUtil,{$endif}bbdebugtools,androidutils ,
   {$IFDEF WIN32}
   windows,synapseinternetaccess,w32internetaccess
   {$ELSE}
@@ -223,13 +223,14 @@ resourcestring
     errorMessageList[high(errorMessageList)].details[0].searchQuery:=searchQuery;
   end;
 
-  procedure createErrorMessageStr(exception: exception; out kind: TExceptionKind; out errorStr, errordetails, anonymousDetails: string; account: TCustomAccountAccess);
+  procedure createErrorMessageStr(exception: exception; out kind: TExceptionKind; out errorStr, errordetails, anonymousDetails: string; account: TCustomAccountAccess; additionalStacktrace: TStringArray);
   var i:integer;
-    moreLineBreak: string;
+    moreLineBreak, commondetails: string;
   begin
     kind := ekUnknown;
     errordetails:='';
     anonymousDetails:='';
+    commondetails := '';
     moreLineBreak := {$ifdef android}''{$else}LineEnding{$endif};
     if exception.InheritsFrom(EInternetException) then begin
       kind := ekInternet;
@@ -240,7 +241,7 @@ resourcestring
         404: errorStr += moreLineBreak+rsErrorHTTP404NotFound;
         500..599: errorStr += moreLineBreak+rsErrorHTTP5xxServerDisturbed;
       end;
-      errordetails:=EInternetException(exception).details;
+      commondetails:=EInternetException(exception).details;
     end else if exception.InheritsFrom(ELoginException) then begin
       kind := ekLogin;
       errorstr:=rsErrorLoginException + moreLineBreak+ trim(exception.message);
@@ -250,7 +251,7 @@ resourcestring
       errorstr:=rsErrorBookListReaderInternal + moreLineBreak+ trim(exception.message);
     end else if exception.InheritsFrom(ELibraryException) then begin
       errorstr:=#13#10+exception.message;
-      errordetails:=ELibraryException(exception).details;
+      commondetails:=ELibraryException(exception).details;
     end else if exception.InheritsFrom(EHTMLParseMatchingException) then begin
        errorstr:=exception.message;
        if exception.InheritsFrom(EVideLibriHTMLMatchingException) then begin
@@ -261,9 +262,15 @@ resourcestring
       errorstr:=//'Es ist folgender Fehler aufgetreten:      '#13#10+
            exception.className()+': '+ exception.message+'     ';
     end;
-    errordetails:=errordetails+#13#10  +rsErrorBacktrace+ #13#10+ BackTraceStrFunc(ExceptAddr);
+
+    commondetails:=commondetails+#13#10  +rsErrorBacktrace+ #13#10+ BackTraceStrFunc(ExceptAddr);
     for i:=0 to ExceptFrameCount-1 do
-      errordetails:=errordetails+#13#10+BackTraceStrFunc(ExceptFrames[i]);
+      commondetails:=commondetails+#13#10+BackTraceStrFunc(ExceptFrames[i]);
+
+    for i := 0 to high(additionalStacktrace) do commondetails:=commondetails+#13#10 + additionalStacktrace[i];
+
+    errordetails += #13#10 + commondetails;
+    anonymousDetails += #13#10 + commondetails;
     if logging then log('createErrorMessageStr: Exception: '+errorstr+#13#10'      Details: '+errordetails);
   end;
 
@@ -279,11 +286,11 @@ resourcestring
   end;        *)
 
 
-  procedure storeException(ex: exception; account:TCustomAccountAccess; libraryId, searchQuery: string);
+  procedure storeException(ex: exception; account:TCustomAccountAccess; libraryId, searchQuery: string; additionalStacktrace: bbutils.TStringArray);
   var  errorstr, errordetails, anonymouseDetails: string;
        kind: TExceptionKind;
   begin
-    createErrorMessageStr(ex,kind,errorstr,errordetails,anonymouseDetails, account);
+    createErrorMessageStr(ex,kind,errorstr,errordetails,anonymouseDetails, account, additionalStacktrace);
     system.EnterCriticalSection(exceptionStoring);
     try
       addErrorMessage(kind, errorstr,errordetails,anonymouseDetails, libraryId, searchQuery, account);
