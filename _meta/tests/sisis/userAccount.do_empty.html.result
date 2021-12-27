@@ -2,8 +2,8 @@ book := {}
 nextPage := ()
 startUrl := ""
 touchpoint := false()
+orderedUrl := ()
 requestedUrl := "http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/userAccount.do?methodToCall=showAccount&amp;typ=6"
-result := ()
 mode := 1
 delete-current-books() := ()
 default-book := {"_onPage": "vltest://sisis/userAccount.do_empty.html", "_onPageStart": "", "statusId": "critical"}

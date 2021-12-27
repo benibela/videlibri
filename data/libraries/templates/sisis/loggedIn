@@ -13,26 +13,22 @@ touchpoint := get('touchpoint', false())
 <body>
    <div id="main"> 
      <div id="middle"> 
+      {
+      let $account-links := .//a[contains(@href, "methodToCall=showAccount") and extract(.., "[0-9]+")[. > "0"]]
+      return (
+        orderedUrl := ($account-links[ contains(., "typ=ordered") or matches(., "Vormerkungen|Reservations") ])[1]/@href, 
+        requestedUrl := ($account-links[ contains(., "typ=requested") or matches(., "Bestellungen|Requests") ])[1]/@href
+      )
+      }
       <t:if test="$touchpoint">
-        <ul id="account-nav">
-<!--          <li>Ausleihen|Loans<t:s>bookCountLend := extract(., "[0-9]+")</t:s></li>-->
-          <li>Bestellungen|Requests<t:s>if (extract(., "[0-9]+") > "0") then requestedUrl := a/@href else ()</t:s></li>?
-          <li>Vormerkungen|Reservations<t:s>if (extract(., "[0-9]+") > "0") then orderedUrl := a/@href else ()</t:s></li>?
-        </ul>
+        <ul id="account-nav"/>
         <script>{let $temp := extract(., 'typ="([^"]+)', 1) return switch ($temp) 
           case "loaned" return    ( mode := 1, if (empty($nextPage)) then vl:delete-current-books() else () ) 
           case "ordered" return   ( mode := 2 )
           case "requested" return ( mode := 3 )
-          default return vl:raise("Unbekannter Medienlistentyp: " || $temp)
+          default return vl:raise-internal("Unbekannter Medienlistentyp: " || $temp)
           }</script>
       </t:if>
-      <t:else>
-        <div id="tab">
-          <div>Ausleihen|Loans</div>
-          <div>Bestellungen|Requests<t:s>if (extract(., "[0-9]+") > "0") then requestedUrl := a/@href else ()</t:s></div>?
-          <div>Vormerkungen|Reservations<t:s>if (extract(., "[0-9]+") > "0") then orderedUrl := a/@href else ()</t:s></div>?
-        </div>
-      </t:else>
         
   <div t:condition="@id = ('tab-content','account-data')">
   
