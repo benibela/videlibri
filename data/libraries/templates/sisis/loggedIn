@@ -16,8 +16,8 @@ touchpoint := get('touchpoint', false())
       {
       let $account-links := .//a[contains(@href, "methodToCall=showAccount") and extract(.., "[0-9]+")[. > "0"]]
       return (
-        orderedUrl := ($account-links[ contains(., "typ=ordered") or matches(., "Vormerkungen|Reservations") ])[1]/@href, 
-        requestedUrl := ($account-links[ contains(., "typ=requested") or matches(., "Bestellungen|Requests") ])[1]/@href
+        orderedUrl := ($account-links[ contains(., "typ=ordered") or matches(., "Bestellungen|Requests") ])[1]/@href, 
+        requestedUrl := ($account-links[ contains(., "typ=requested") or matches(., "Vormerkungen|Reservations") ])[1]/@href
       )
       }
       <t:if test="$touchpoint">
