@@ -146,17 +146,19 @@ object CoverLoader {
 
     init {
         val context = VideLibriApp.currentContext()
-        var availMemory = 8*1024*1024
+        var availMemory = 8*1024*1024L
         if (context != null) {
             diskCache = DiskBitmapCache(context.cacheDir)
             val am = context.getSystemService(Context.ACTIVITY_SERVICE) as? ActivityManager
             am?.let {
                 val memInfo = ActivityManager.MemoryInfo()
                 am.getMemoryInfo(memInfo)
-                availMemory = (memInfo.threshold / 10).coerceAtMost(Int.MAX_VALUE.toLong()).toInt()
+                if (memInfo.threshold > 0) availMemory = memInfo.threshold / 10
+                if (memInfo.availMem > 0) availMemory = min(availMemory, memInfo.availMem / 20)
             }
         } else diskCache = DeadBitmapCache()
-        memoryCache = MemoryBitmapCache(availMemory)
+        if (availMemory > 512*1024*1024) availMemory = 512*1024*1024
+        memoryCache = MemoryBitmapCache(availMemory.toInt())
     }
 
     @JvmStatic fun loadBookCover(bookDetails: BookDetails, book: Bridge.Book) {
