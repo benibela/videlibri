@@ -5,9 +5,9 @@
   <longName value="Stadtbibliothek Speyer"/>
   <shortName value="Stb Speyer"/>
   
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://buecherei.speyer.de/webopac"/>	
-  <variable name="DB" value="web_biblio"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://speyer.bibliotheca-open.de/Mein-Konto"/>
+  <variable name="urlsearch" value="https://speyer.bibliotheca-open.de/Mediensuche/Erweiterte-Suche"/>
   
   <!--<template value="pica"/>-->
 
