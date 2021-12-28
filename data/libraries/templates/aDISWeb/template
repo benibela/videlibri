@@ -79,6 +79,7 @@
          
         
         <form><select/><select/></form> <!-- munich ordering -->
+        <h1><strong>Mein Konto</strong>{error-login:="Ihre Sitzung wurde beendet. (2)"}</h1>
       </template:switch>
     </pattern>
   </if>
@@ -120,6 +121,7 @@
         { $loginFormPost := $lf, $idpSystem := true() (:we are logged in SAML but not in OPAC:) }
         </form>
         <h1>Ihre Sitzung wurde beendet.<t:s>error-login:=.</t:s></h1>
+        <h1><strong>Mein Konto</strong>{error-login:="Ihre Sitzung wurde beendet. (2)"}</h1>
       </t:switch></template>
     </page>
   </loop>
