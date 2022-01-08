@@ -53,8 +53,6 @@ object newAccountWizard: TnewAccountWizard
       end
     end
     object Page2: TPage
-      OnBeforeShow = Page2BeforeShow
-      OnMouseUp = Page2MouseUp
       object Label4: TLabel
         AnchorSideTop.Control = accountName
         AnchorSideTop.Side = asrCenter
@@ -263,7 +261,6 @@ object newAccountWizard: TnewAccountWizard
       end
     end
     object Page4: TPage
-      OnBeforeShow = Page4BeforeShow
       object lblWarning: TLabel
         AnchorSideLeft.Control = extendTypeRG
         AnchorSideLeft.Side = asrBottom

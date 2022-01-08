@@ -468,11 +468,8 @@ end;
 
 procedure TSearcherThread.execute;
 var mes: TSearcherMessage;
-    temp, image:string;
     book: tbook;
     debugLastSearchQuery: String;
-    oldUrl: String;
-    images: TStringArray;
     newsearcher: TLibrarySearcher;
 begin
   newsearcher := TLibrarySearcher.create(access.ftemplate);

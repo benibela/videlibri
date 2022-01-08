@@ -47,7 +47,7 @@ var
   XMLExportFrm: TXMLExportFrm;
 
 implementation
-uses strutils,bookWatchMain,libraryAccess,applicationdesktopconfig;
+uses strutils,bookWatchMain,libraryAccess, bbutils;
 
 const COLUMN_CURRENT = 1;
       COLUMN_HISTORY = 2;
@@ -236,6 +236,7 @@ var
   j: Integer;
 
 begin
+  ignore(sender);
   TreeListView1.BeginUpdate;
   try
     col := recorditem.Index;
@@ -303,6 +304,7 @@ var
   w: Integer;
   cbText: String;
 begin
+  ignore(sender);
   drawCB := false;
   if recordItem.Index = 0 then begin
     if eventTyp_cdet = cdetPrePaint then begin

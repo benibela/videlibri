@@ -45,7 +45,7 @@ var
   BibTexExportFrm: TBibTexExportFrm;
 
 implementation
-uses bbutils, bbutilsbeta, applicationconfig, bookWatchMain,booklistreader,Clipbrd,math,applicationdesktopconfig, xquery__serialization_nodes,xquery.internals.common;
+uses bbutils, bbutilsbeta, applicationconfig, bookWatchMain,booklistreader,Clipbrd, xquery__serialization_nodes,xquery.internals.common;
 { TBibTexExportFrm }
 
 type TBibTeXIDFormats = (

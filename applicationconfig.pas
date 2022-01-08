@@ -321,10 +321,11 @@ resourcestring
   end;
 
   type TInternetAccessReact = object
-    procedure internetReact(sender: TInternetAccess; var transfer: TTransfer; var reaction: TInternetAccessReaction);
+    procedure internetReact(sender: TInternetAccess; var {%H-}transfer: TTransfer; var reaction: TInternetAccessReaction);
    end;
   procedure TInternetAccessReact.internetReact(sender: TInternetAccess; var transfer: TTransfer; var reaction: TInternetAccessReaction);
   begin
+    ignore(sender);
     if reaction = iarFollowRedirectGET then reaction := iarFollowRedirectKeepMethod;
   end;
 
@@ -731,9 +732,9 @@ resourcestring
 
 
 
-class procedure TCallbackHolder.updateAutostart(enabled, askBeforeChange: boolean); begin end;
-class procedure TCallbackHolder.applicationUpdate(auto: boolean); begin end;
-class procedure TCallbackHolder.statusChange(const message: string); begin end;
+class procedure TCallbackHolder.updateAutostart(enabled, askBeforeChange: boolean); begin ignore(enabled); ignore(askBeforeChange); end;
+class procedure TCallbackHolder.applicationUpdate(auto: boolean); begin ignore(auto); end;
+class procedure TCallbackHolder.statusChange(const message: string); begin ignore(message); end;
 class procedure TCallbackHolder.allThreadsDone; begin end;
 class procedure TCallbackHolder.postInitApplication; begin end;
 

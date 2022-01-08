@@ -37,10 +37,9 @@ object optionForm: ToptionForm
     Height = 505
     Top = 6
     Width = 597
-    PageIndex = 5
+    PageIndex = 0
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Around = 2
-    OnChangeBounds = Notebook1ChangeBounds
     TabOrder = 0
     TabStop = True
     object pageAccount: TPage
@@ -1518,7 +1517,6 @@ object optionForm: ToptionForm
             ClientHeight = 468
             ClientWidth = 593
             TabOrder = 0
-            OnClick = Panel4Click
             object libList: TListView
               AnchorSideBottom.Control = libxml
               Left = 4
@@ -1665,7 +1663,6 @@ object optionForm: ToptionForm
             ClientHeight = 461
             ClientWidth = 593
             TabOrder = 0
-            OnClick = Panel5Click
             object templatexml: TMemo
               AnchorSideBottom.Control = templateDefine
               Left = 122

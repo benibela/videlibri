@@ -28,10 +28,10 @@ type
     { public declarations }
     listview: TBookListView;
     totalcount,checkedcount: integer;
-    procedure itemPositioning(sender: TObject; visualColumnIndex: integer; recordItem: TTreeListRecordItem; var aposition: TRect);
-    procedure listviewCustomRecordItemDraw(sender: TObject; eventTyp_cdet: TCustomDrawEventTyp; recordItem: TTreeListRecordItem;
-      var defaultDraw: Boolean);
-    procedure listviewMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+    procedure itemPositioning({%H-}sender: TObject; {%H-}visualColumnIndex: integer; recordItem: TTreeListRecordItem; var aposition: TRect);
+    procedure listviewCustomRecordItemDraw({%H-}sender: TObject; eventTyp_cdet: TCustomDrawEventTyp; recordItem: TTreeListRecordItem;
+      var {%H-}defaultDraw: Boolean);
+    procedure listviewMouseDown(Sender: TObject; {%H-}Button: TMouseButton; {%H-}Shift: TShiftState; X, Y: Integer);
     procedure searchDuplicates;
   end;
 

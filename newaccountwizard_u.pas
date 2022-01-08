@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  Buttons, StdCtrls, Grids,bookwatchmain,libraryParser, libraryListView, TreeListView,applicationformconfig;
+  Buttons, StdCtrls, libraryParser, libraryListView, TreeListView,applicationformconfig;
 
 type
 
@@ -61,12 +61,6 @@ type
     procedure locationListChange(Sender: TObject);
     procedure newlibbtnClick(Sender: TObject);
     procedure Notebook1PageChanged(Sender: TObject);
-    procedure Page2BeforeShow(ASender: TObject; ANewPage: TPage;
-     ANewIndex: Integer);
-    procedure Page2MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-    procedure Page4BeforeShow(ASender: TObject; ANewPage: TPage;
-     ANewIndex: Integer);
-    procedure RadioGroup1Click(Sender: TObject);
     procedure RadioGroup2Click(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
   private
@@ -83,7 +77,7 @@ var
   newAccountWizard: TnewAccountWizard;
 
 implementation
-uses applicationconfig,applicationdesktopconfig, libraryaccess,internetAccess,LCLProc,bbdebugtools, options;
+uses applicationconfig,applicationdesktopconfig, libraryaccess,internetAccess,LCLProc,bbdebugtools, options, bbutils;
 { TnewAccountWizard }
 
 
@@ -176,6 +170,8 @@ procedure TnewAccountWizard.libsSelect(sender: TObject; item: TTreeListItem);
 var
   selectedLibrary: TLibrary;
 begin
+  ignore(sender);
+  ignore(item);
   selectedLibrary:=libs.selectedLibrary;
   if selectedLibrary = nil then exit;
 
@@ -253,25 +249,6 @@ begin
   extendTypeRG.ReAlign;
 end;
 
-procedure TnewAccountWizard.Page2BeforeShow(ASender: TObject; ANewPage: TPage;
- ANewIndex: Integer);
-begin
-
-end;
-
-procedure TnewAccountWizard.Page2MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-begin
-end;
-
-procedure TnewAccountWizard.Page4BeforeShow(ASender: TObject; ANewPage: TPage;
- ANewIndex: Integer);
-begin
-
-end;
-
-procedure TnewAccountWizard.RadioGroup1Click(Sender: TObject);
-begin
-end;
 
 procedure TnewAccountWizard.RadioGroup2Click(Sender: TObject);
 var extendType: TExtendType;

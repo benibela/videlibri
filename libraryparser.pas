@@ -474,7 +474,9 @@ begin
       hasPass := xq.parseXPath3('./config/base/v[@n="pass"]');
       hasCurrent := xq.parseXPath3('./books[@mode="current"]');
       hasHistory := xq.parseXPath3('./books[@mode="history"]');
+      accounts := nil;
       SetLength(accounts, tempv.Count);
+      flags := nil;
       SetLength(flags, tempv.Count);
       for i := 0 to high(accounts) do begin
         xv := tempv.get(i+1);
@@ -526,8 +528,8 @@ var getHistory, getCurrent: IXQuery;
 
   end;
 
-var realAccounts: array of TCustomAccountAccess;
-    accountNodes: array of TTreeNode;
+var realAccounts: array of TCustomAccountAccess = nil;
+    accountNodes: array of TTreeNode = nil;
   i, j: Integer;
   xq: TXQueryEngine;
   getAccoutNode: IXQuery;

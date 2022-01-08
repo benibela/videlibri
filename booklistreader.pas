@@ -1016,6 +1016,7 @@ end;
 procedure TBookListReader.TraceEvent(sender: TXQueryEngine; value, info: IXQValue);
 begin
   if not logging then exit;
+  ignore(sender);
   log(info.toString+ ': ' + value.toXQuery)
 end;
 

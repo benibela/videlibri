@@ -8,8 +8,8 @@ interface
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls,
   Buttons, libraryParser, internetAccess, ComCtrls, Menus, lmessages, ExtCtrls,
-  errorDialog, statistik_u, libraryAccess, sendBackError, Translations,
-  progressDialog, bookListView, TreeListView, bookSearchForm, LCLType, lclproc,
+  statistik_u, libraryAccess, sendBackError, Translations,
+  bookListView, TreeListView, bookSearchForm, LCLType, lclproc,
   LCLIntf, process, applicationconfig,exportxml,applicationdesktopconfig,applicationformconfig;
 
 const //automaticExtend=true;
@@ -102,19 +102,19 @@ type
     procedure accountsChanged(Sender: TObject);
     procedure androidActivationTimerTimer(Sender: TObject);
     procedure bookPopupMenuPopup(Sender: TObject);
-    procedure BookListUserSortItemsEvent(sender: TObject;
-      var sortColumn: longint; var invertSorting: boolean);
+    procedure BookListUserSortItemsEvent({%H-}sender: TObject;
+      var {%H-}sortColumn: longint; var {%H-}invertSorting: boolean);
     procedure cancelTheseBooksClick(Sender: TObject);
     procedure dailyCheckThreadTimer(Sender: TObject);
     procedure delayedCallTimer(Sender: TObject);
     procedure EnsureTrayIconTimerTimer(Sender: TObject);
     procedure extendAdjacentBooksClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
-    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
+    procedure FormClose(Sender: TObject; var {%H-}CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormResize(Sender: TObject);
-    procedure BookListSelectItem(Sender: TObject; Item: TTreeListItem);
+    procedure BookListSelectItem(Sender: TObject; {%H-}Item: TTreeListItem);
     procedure FormShow(Sender: TObject);
     procedure FormWindowStateChange(Sender: TObject);
     procedure menuDuplicateCheckerClick(Sender: TObject);
@@ -141,8 +141,8 @@ type
     procedure removeSelectedMIClick(Sender: TObject);
     procedure displayDetailsMIClick(Sender: TObject);
     procedure repeatedCheckTimerTimer(Sender: TObject);
-    procedure searchTextKeyDown(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
+    procedure searchTextKeyDown(Sender: TObject; var {%H-}Key: Word;
+      {%H-}Shift: TShiftState);
     procedure TrayIcon1Click(Sender: TObject);
     procedure TrayIcon1DblClick(Sender: TObject);
     procedure TrayIconClickTimer(Sender: TObject);
@@ -153,7 +153,7 @@ type
     procedure MenuItem6Click(Sender: TObject);
     procedure MenuItem8Click(Sender: TObject);
     procedure searchCloseClick(Sender: TObject);
-    procedure searchTextKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState
+    procedure searchTextKeyUp(Sender: TObject; var {%H-}Key: Word; {%H-}Shift: TShiftState
       );
     procedure searchUpClick(Sender: TObject);
     procedure showAccount(Sender: TObject);
@@ -163,7 +163,7 @@ type
     procedure Timer1Timer(Sender: TObject);
     procedure ShowOptionsClick(Sender: TObject);
     procedure btnRefreshClick(Sender: TObject);
-    procedure ToolButton2ContextPopup(Sender: TObject; MousePos: TPoint;
+    procedure ToolButton2ContextPopup(Sender: TObject; {%H-}MousePos: TPoint;
       var Handled: Boolean);
     procedure ToolButton3Click(Sender: TObject);
     procedure ViewAllClick(Sender: TObject);
@@ -187,7 +187,7 @@ type
 
     procedure BookListDblClick(Sender: TObject);
     procedure BookListEditingDone(Sender: TObject);
-    procedure BookListMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+    procedure BookListMouseDown(Sender: TObject; {%H-}Button: TMouseButton; Shift: TShiftState; X, {%H-}Y: Integer);
     procedure setPanelText(panel: TStatusPanel; atext: string);
     procedure ThreadDone(Sender: TObject);
     procedure RefreshListView; //Zentrale Anzeige Funktion!
@@ -201,7 +201,7 @@ type
     function IsShortcut(var Message: TLMKey): boolean; override;
 
 
-    procedure showVidelibri(var m:lcltype.TMsg); message LM_SHOW_VIDELIBRI;
+    procedure showVidelibri(var {%H-}m:lcltype.TMsg); message LM_SHOW_VIDELIBRI;
     procedure showMainwindow;
   end;
 

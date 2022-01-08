@@ -151,13 +151,10 @@ resourcestring
   rsSearchingDetails = 'Suche Details für dieses Medium...';
   rsLoadingNextPage = 'Lade nächste Seite...';
   rsSearchComplete = 'Suche abgeschlossen';
-  rsNoSelection = 'Kein Medium ausgewählt';
-  rsNoLinkKnown = 'Leider kann ich das ausgewählte Medium nicht in dieser Seite öffnen, da ich den nötigen Link nicht kenne';
   rsSearchingCover = 'Suche Titelbild...';
   rsSearchPartiallyComplete = 'Suche abgeschlossen (mehr Ergebnisse verfügbar)';
   rsExistsOverrideConfirm = 'Das Medium existiert bereits als "%s", soll es mit "%s" überschrieben werden?';
   rsOverrideConfirm = 'Soll das markierte Medium "%s" mit "%s" überschrieben werden?';
-  rsChooseOrder = 'Es gibt mehrere vormerkbare/Bestellbare Exemplare. Welches wollen Sie?';
   rsNoHoldingSelected = 'Es wurde nicht ausgewählt, welches Exemplar bestellt werden soll. (in der unteren Liste)';
   rsOrderConfirm = 'Soll "%s" bestellt werden?';
   rsOrderComplete = 'Das Buch "%s" wurde ohne Fehler vorgemerkt. %s';
@@ -720,6 +717,7 @@ end;
 procedure TbookSearchFrm.searcherAccessDetailsComplete(sender: TObject;
   book: TBook);
 begin
+  ignore(book);
   if sender <> searcherAccess then exit;
   if (displayDetails() < 2) and (displayImage.Checked) then begin
     StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:=rsSearchingCover;

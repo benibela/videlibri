@@ -191,24 +191,14 @@ type
     procedure FormShow(Sender: TObject);
     procedure ImageList1Change(Sender: TObject);
     procedure lblShowWarningClick(Sender: TObject);
-    procedure ListView2Change(Sender: TObject; Item: TListItem;
-      Change: TItemChange);
-    procedure ListView2Click(Sender: TObject);
-    procedure ListView2SelectItem(Sender: TObject; Item: TListItem;
-      Selected: Boolean);
     procedure mailaddClick(Sender: TObject);
     procedure maildelClick(Sender: TObject);
     procedure mailListSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
     procedure mailsetClick(Sender: TObject);
-    procedure Notebook1ChangeBounds(Sender: TObject);
-    procedure Notebook1Changing(Sender: TObject; var AllowChange: Boolean);
-    procedure Notebook1PageChanged(Sender: TObject);
-    procedure Panel4Click(Sender: TObject);
-    procedure Panel5Click(Sender: TObject);
-    procedure Shape1MouseUp(Sender: TOBject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
+    procedure Shape1MouseUp(Sender: TOBject; {%H-}Button: TMouseButton;
+      {%H-}Shift: TShiftState; {%H-}X, {%H-}Y: Integer);
     procedure SpeedButton1Click(Sender: TObject);
-    procedure templateListSelectionChange(Sender: TObject; User: boolean);
+    procedure templateListSelectionChange(Sender: TObject; {%H-}User: boolean);
     procedure TrackBar1Change(Sender: TObject);
     procedure TrackBar2Change(Sender: TObject);
 
@@ -585,20 +575,6 @@ procedure ToptionForm.Button8Click(Sender: TObject);
 begin
 end;
 
-procedure ToptionForm.ListView2Change(Sender: TObject; Item: TListItem;
-  Change: TItemChange);
-begin
-end;
-
-procedure ToptionForm.ListView2Click(Sender: TObject);
-begin
-
-end;
-
-procedure ToptionForm.ListView2SelectItem(Sender: TObject; Item: TListItem;
-  Selected: Boolean);
-begin
-end;
 
 procedure ToptionForm.mailaddClick(Sender: TObject);
 begin
@@ -617,6 +593,9 @@ end;
 
 procedure ToptionForm.mailListSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
 begin
+ ignore(sender);
+ ignore(item);
+ ignore(selected);
  if (mailList.Items.Count = 0) or (mailList.SelCount = 0) or (mailList.Selected=nil) then
    exit;
 
@@ -638,31 +617,6 @@ begin
    SubItems[0]:=mailaccounts.Text;
    SubItems[1]:=mailinterval.Text;
  end;
-end;
-
-procedure ToptionForm.Notebook1ChangeBounds(Sender: TObject);
-begin
-
-end;
-
-procedure ToptionForm.Notebook1Changing(Sender: TObject;
-  var AllowChange: Boolean);
-begin
-
-end;
-
-procedure ToptionForm.Notebook1PageChanged(Sender: TObject);
-begin
-end;
-
-procedure ToptionForm.Panel4Click(Sender: TObject);
-begin
-
-end;
-
-procedure ToptionForm.Panel5Click(Sender: TObject);
-begin
-
 end;
 
 procedure ToptionForm.Shape1MouseUp(Sender: TOBject; Button: TMouseButton;
