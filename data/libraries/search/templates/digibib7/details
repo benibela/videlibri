@@ -1,0 +1,37 @@
+<body>
+<!--  <div data-coverimg="">
+    <img>{$book.image-url := resolve-html()}</img>
+  </div>?-->
+
+  <div id="fullrec-holdings-data">
+    <ul>
+<!--      <li><a>{$book.holdings[] := {"libraryBranch": ., "id": join(following-sibling::node()/descendant-or-self::text()) }}</a></li>-->
+      <li><a>{let $key := "Besitzende Bücherei!"
+              return
+               $book($key) := join((., following-sibling::node()/descendant-or-self::text()!normalize-space()[.], $book($key)), " ") }</a></li>
+    </ul>
+  </div>
+  
+  <div id="fullrec-bibdetails-data">
+    <table>
+      <template:meta default-text-matching="regex"/>
+      <t:switch>
+      <tr><th>Titel|title:</th><td>{$book.title}</td></tr>
+     <!-- <tr><th>Verfasserangabe:</th><td>{$book.author}</td></tr>
+      <tr><th>Autor/in / Beteiligte Person:</th><td>{$book.author}</td></tr>
+      Ausgabe, Veröffentlichung, Medientyp
+      -->
+      <tr><th>Link:</th>
+        <td>{./a/vl:set-book-property("Link", resolve-html())}
+          <ul><li>{vl:set-book-property(., resolve-html())}</li>*</ul>?
+        </td>
+      </tr>
+      <tr><th>ISBN</th><td>{$book.isbn}</td></tr>
+      <tr><th>Schlagwort|Subject heading:</th><td><ul><li>{$book.keyword := ($book.keyword || string() || " ")}</li>*</ul></td></tr>
+      <script></script>
+      <tr>{vl:set-book-property(th, td)}</tr>
+      </t:switch>+
+    </table>
+  </div>
+  
+</body>

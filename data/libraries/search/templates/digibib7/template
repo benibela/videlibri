@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+
+<meta>
+  <description>Schnittstelle für die Digibib Version 7</description>
+  <variable name="baseurl"><description>Adresse des Katalog</description></variable>
+</meta>
+
+
+<action id="search-connect">
+</action>
+
+<action id="search">
+  <s>starturl := request-combine($baseurl || "/list?defaults=on&amp;start=1", {"q-ti": $book.title, "q-au": $book.author, "q-yr": $book.year, "q-ky": $book.keywords, "q-ib": $book.isbn, "q-is": $book.issn}) </s>
+  <page url="{$starturl}"/>
+  <pattern href="search"/>  
+  
+   <!-- <page url="http://www.digibib.net/{$url}" templateFile="search"/> -->
+  
+<!--  <page url="http://www.digibib.net/Digibib?SID={$sid}&LOCATION={$location}&SERVICE=METASEARCH&SUBSERVICE=GETLIST&PREVREQID={$reqid}&STREAMING=TRUE&VIEW={$view}&FORMAT=List&START=1&COUNT=100&METAID={$metaid}" templateFile="search"/>-->
+  
+<!--  <page url="http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=GETLIST&amp;{$metaid}&amp;FORMAT=List&amp;URLENCODING=TRUE&amp;START=1&amp;COUNT=200&amp;SID={$sid}&amp;LOCATION={$location}&amp;{$sreqid}&amp;{$reqid}&amp;{$olreqid}&amp;STREAMING=on" templateFile="search"/>
+-->  
+
+</action>
+
+<action id="search-next-page"> 
+  <page url="{$next-page}" templateFile="search"/>
+</action>
+
+
+<action id="search-details"> 
+  <page url="{$book.digibib-url}" templateFile="details"/>
+</action>
+
+
+</actions>
+
+ <!--<input type="hidden" name="VIEW"        value="DUEBIB:Lokale_Bibliotheken" />"/><input type="hidden" name="LOCATION"    value="DUEBIB
+      QUERY_czCO = körperschaft, QUERY_0czCO
+      QUERY_dzPB = verlag, QUERY_0dzPB
+      
+     " http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=GETLIST&amp;METAID=4782&amp;FORMAT=List&amp;URLENCODING=TRUE&amp;START=1&amp;COUNT=10&amp;SID=RHEA:1906707980&amp;LOCATION=362&amp;SREQID=RHEA:38292267&amp;REQID=RHEA:38292267&amp;OLREQID=RHEA:38292267&amp;STREAMING=off"/>-->

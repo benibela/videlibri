@@ -758,7 +758,7 @@ begin
       end;
       libs[i] := searchTarget.lib.prettyNameLong;
       searchTarget.template := searchTarget.lib.template;
-      if strContains(searchTarget.template.name, 'digibib') then begin
+      if strContains(searchTarget.template.name, 'digibib') and not strContains(searchTarget.template.name, 'digibib7')  then begin
         libs.AddObject(searchTarget.lib.prettyNameLong + ' (digibib)', TSearchTarget.create(searchTarget.lib.prettyNameLong+ ' (digibib)', searchTarget.lib, digibibtemplate));
       end;
     end;

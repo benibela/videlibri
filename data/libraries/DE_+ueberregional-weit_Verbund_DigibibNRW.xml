@@ -2,11 +2,9 @@
 <library>
   <longName value="Öffentliche Bibliotheken NRW (über Digibib)"/>
 
-  <template value="digibib"/>
+  <template value="digibib7"/>
   
-  <variable name="location" value="EXTERN"/>
-  <variable name="view" value="EXTERN:Recherchedatenbanken"/>
-  <variable name="searchid" value="SERVICEGROUP1.SERVICE.SEARCH_HBZOEB"/>
+  <variable name="baseurl" value="https://nrw.digibib.net/search/hbzfix"/>
 
   <homepage value="https://www.digibib.net"/>
   <testing-search value="yes"/>  <testing-account value="no"/></library>
