@@ -12,9 +12,12 @@
       </li>
       <a>
        (^Benutzerkonto$)|(Konto$)|(^Anmeldung$)
-       <t:s>$loginForm := let $code := extract(@href, "javascript:top\.htmlOnLink\(['""](.*)['""]\)", 1)
-                          return if ($code) then form(ancestor::form[1], "selected=ZTEXT       "||$code)
-                          else @href</t:s>
+       <t:s>$loginForm := let $href := @href 
+                          return if (starts-with($href, "javascript:")) then 
+                            let $code := extract($href, "javascript:top\.htmlOnLink\(['""](.*)['""]\)", 1) 
+                            return if ($code) then form(ancestor::form[1], "selected=ZTEXT       "||$code)
+                            else vl:raise-internal("Der Link zum Ausleihkonto konnte nicht geöffnet werden: """ || . || """: " || $href )
+                          else $href</t:s>
       </a>
       <!--<a>Mein Konto<t:s>searchPage:=$url</t:s></a>-->
     </template:switch>
