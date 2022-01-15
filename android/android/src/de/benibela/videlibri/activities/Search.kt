@@ -18,6 +18,8 @@ import android.widget.TextView
 import androidx.core.view.ViewCompat
 import de.benibela.videlibri.R
 import de.benibela.videlibri.VideLibriApp
+import de.benibela.videlibri.databinding.SearchlayoutRowEditBinding
+import de.benibela.videlibri.databinding.SearchlayoutRowSpinnerBinding
 import de.benibela.videlibri.jni.Bridge
 import de.benibela.videlibri.jni.FormInput
 import de.benibela.videlibri.jni.FormParams
@@ -42,7 +44,11 @@ private class SearchParamHolder(
 class Search: VideLibriBaseActivity(), SearchEventHandler {
     @Parcelize
     class State(var libId: String = "",
-                var libName: String = ""
+                var libName: String = "",
+
+                var focusedChild: String = "",
+                val editState: MutableMap<String, Parcelable> = mutableMapOf(),
+                val spinnerState: MutableMap<String, Parcelable> = mutableMapOf()
     ): Parcelable
 
     var state = State()
@@ -178,6 +184,26 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        state.spinnerState.clear()
+        state.editState.clear()
+        for (holder in searchParamHolders){
+            holder.value.edit?.onSaveInstanceState()?.let { state.editState[holder.key] = it }
+            holder.value.spinner?.onSaveInstanceState()?.let { state.spinnerState[holder.key] = it }
+            if (holder.value.view.isFocused) state.focusedChild = holder.key
+        }
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        for (s in state.editState)
+            searchParamHolders.get(s.key)?.edit?.onRestoreInstanceState(s.value)
+        for (s in state.spinnerState)
+            searchParamHolders.get(s.key)?.spinner?.onRestoreInstanceState(s.value)
+
+    }
+
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         val x = super.onPrepareOptionsMenu(menu)
         menu?.findItem(R.id.search)?.isVisible = false
@@ -212,34 +238,30 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
                 lay.addView(old.layout)
                 searchParamHolders[param.name] = old
             } else {
-                val row = inflater.inflate(if (param is FormSelect) R.layout.searchlayout_row_spinner else R.layout.searchlayout_row_edit, lay, true)
-                val layout = row.findViewById<LinearLayout>(R.id.innerLayout).also {
-                    it.id = ViewCompat.generateViewId()
-                }
-                val caption = row.findViewById<TextView>(R.id.textView).also {
-                    it.text = param.caption
-                    it.id = ViewCompat.generateViewId()
-                    when (param.name) {
-                        "title", "author", "free" -> it.setTypeface(null, Typeface.BOLD)
-                    }
-                }
-                val inputView: View = if (param is FormSelect) {
-                    val spinner = row.findViewById<Spinner>(R.id.spinner)
-                    spinner.setItems(param.optionCaptions)
+                val holder: SearchParamHolder
+                if (param is FormSelect) {
+                    val rowBinding = SearchlayoutRowSpinnerBinding.inflate(inflater, lay, true)
+                    holder = SearchParamHolder(param, rowBinding.innerLayout, rowBinding.textView, rowBinding.spinner)
+                    rowBinding.spinner.setItems(param.optionCaptions)
                     val i = param.optionValues.indexOf(param.value)
-                    spinner.setSelection(if (i >= 0) i else 0)
-                    spinner
+                    rowBinding.spinner.setSelection(if (i >= 0) i else 0)
                 } else {
-                    val edit = row.findViewById<EditText>(R.id.edit)
+                    val rowBinding = SearchlayoutRowEditBinding.inflate(inflater, lay, true)
+                    holder = SearchParamHolder(param, rowBinding.innerLayout, rowBinding.textView, rowBinding.edit)
                     when (param.name) {
-                        "year" -> edit.setRawInputType(InputType.TYPE_CLASS_NUMBER)
+                        "year" -> rowBinding.edit.setRawInputType(InputType.TYPE_CLASS_NUMBER)
                     }
-                    edit
                 }
-
-                searchParamHolders[param.name] = SearchParamHolder(param, layout, caption, inputView)
-                val id = (if (param is FormSelect) "FormSelect" else "FormInput") + param.name
-                inputView.id = namedViewIds.getOrPut(id, { ViewCompat.generateViewId() })
+                holder.layout.isSaveEnabled = false
+                holder.view.isSaveEnabled = false
+                holder.view.id = ViewCompat.generateViewId()
+                holder.caption.isSaveEnabled = false
+                holder.caption.text = param.caption
+                when (param.name) {
+                    "title", "author", "free" -> holder.caption.setTypeface(null, Typeface.BOLD)
+                }
+                searchParamHolders[param.name] = holder
+                if (param.name == state.focusedChild && param.name != "title") holder.view.requestFocus()
             }
         }
 
@@ -348,8 +370,6 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
         internal const val SEARCHER_STATE_CONNECTED = 1
         internal const val SEARCHER_STATE_SEARCHING = 2
         internal const val SEARCHER_STATE_FAILED = 3
-
-        internal val namedViewIds = mutableMapOf<String, Int>()
     }
 }
 
