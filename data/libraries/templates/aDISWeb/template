@@ -95,7 +95,7 @@
   </try>
     
   <loop test="exists($loginForm)">
-    <s>lf := $loginForm, loginForm := ()</s>
+    <s>lf := $loginForm, loginForm := (), loginFormPost := ()</s>
     <page url="{$lf}">
       <template><t:switch prioritized="true">
         <input name="L#AUSW">{
