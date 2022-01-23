@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Hochschulbibliotheken NRW (über Digibib)"/>
+
+  <template value="digibib7"/>
+  
+  <variable name="baseurl" value="https://nrw.digibib.net/search/hbzvk"/>
+
+  <homepage value="https://www.digibib.net"/>
+  <testing-search value="yes"/>  <testing-account value="no"/></library>
+
