@@ -6,7 +6,7 @@
   <shortName value="Fhb Erfurt"/>
   
   <template value="lbs"/>
-  <variable name="server" value="https://lherf.gbv.de/"/>	
+  <variable name="server" value="https://opac.uni-erfurt.de"/>	
   <variable name="picadb" value="4"/>	
 
 
