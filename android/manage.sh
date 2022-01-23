@@ -49,7 +49,7 @@ function nativeBuild(){
   fi
 
   STRIP=true
-  if [[ $BUILDMODE == "release" ]] || [[ $STRIP == "true" ]]; then
+  if [[ $BUILDMODE == "release" ]] || [[ $BUILDMODE == "release-apk" ]] || [[ $STRIP == "true" ]]; then
     cp $path/liblclapp.so liblclapp.unstripped.$BUILDMODE.$abi.so
     $strip --strip-all $path/liblclapp.so
   fi
@@ -107,7 +107,8 @@ build-gradle|build-java)
   if [[ -z "$BUILDMODE" ]]; then BUILDMODE=debug; fi
   case "$BUILDMODE" in
   debug) GRADLEMODE=assembleDebug;;
-  release) GRADLEMODE=assembleRelease;;
+  release-apk) GRADLEMODE=assembleRelease;;
+  release) GRADLEMODE=bundleRelease;;
   esac
   
   ./gradlew $GRADLEMODE || { echo "FAILED!"; exit 1; }
@@ -131,6 +132,7 @@ build-gradle|build-java)
 install)
   case "$2" in
     release) BUILDMODE=release;;
+    release-apk) BUILDMODE=release;;
     *) BUILDMODE=debug;;
   esac
 
