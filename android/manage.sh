@@ -108,7 +108,9 @@ build-gradle|build-java)
   case "$BUILDMODE" in
   debug) GRADLEMODE=assembleDebug;;
   release-apk) GRADLEMODE=assembleRelease;;
-  release) GRADLEMODE=bundleRelease;;
+  release) 
+    ./gradlew assembleRelease || { echo "FAILED!"; exit 1; }
+    GRADLEMODE=bundleRelease;;
   esac
   
   ./gradlew $GRADLEMODE || { echo "FAILED!"; exit 1; }
