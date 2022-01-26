@@ -48,7 +48,7 @@ resourcestring
   rsAlertTextDueOne = '1 Buch fällig bis %1:s';
   rsAlertTextDueMany = '%d Bücher fällig bis %1:s';
   rsAlertTextRenewableDueOne = '1 verlängerbares Buch fällig bis %1:s';
-  rsAlertTextRenewableDueMany = '%d verlängerbares Bücher fällig bis %1:s';
+  rsAlertTextRenewableDueMany = '%d verlängerbare Bücher fällig bis %1:s';
 
 function testAssetVersion(const res: string): boolean;
   function readAttrib(pos: integer): string;
