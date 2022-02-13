@@ -68,7 +68,7 @@
                 : substring-after(., ":")} |} 
           }
         </ul>
-        <ul>{$book.holdings[] := .//li/{"libraryBranch": ., "Bibliothek-Info!": .//a/@href}, $book.home-url:=.//a/@href[1]}</ul>
+        <ul>{$book.holdings[] := .//li/{"libraryBranch": ., "Bibliothek-Info!": .//a/@href}, $book.home-url:=(.//a/@href)[1]}</ul>
         <a>{$book.home-url:=@href}</a>
       </t:switch>
      </table>
