@@ -5,7 +5,7 @@
   {let $form := form(., {"": {"kind": "submit"}})
    let $inputs := .//input
    let $backButton := ($inputs[@title = "Zurück zur vorherigen Seite" or @value = "Zur Übersicht"])[1]
-   let $backButton := if ($backButton) then $backButton else ($inputs[contains(@title, 'zur vorherigen Seite')])[1] (:is this line needed?:)
+   let $backButton := if ($backButton) then $backButton else ($inputs[contains(@title, 'zur vorherigen Seite')])[1] (:is this line needed? düsseldorf has the wrong umlaut on search:)
    return (
      if ($mode = 'lend') then (
       $extendFormPost := request-combine($form, (($inputs[@type = "submit" and contains(@value, "arkierte") and contains(@value, "ngern")])[1])),
@@ -16,10 +16,14 @@
      ),
      if ($backButton/@name) then 
        $goBackPage := request-combine($form, $backButton)
-     else let $accountPage := //a[contains(., "konto")] return
-       if ($accountPage) then
-         $goBackPage := resolve-html($accountPage)
-       else vl:raise-internal("Kein Link von der Ausleihentabelle zurück zur vorherigen Seite gefunden")
+     else let $href := (//a[matches(., "(^Benutzerkonto$)|(Konto$)|(^Anmeldung$)")])[1]/@href return
+       if ($href) then 
+         $goBackPage := ( if (starts-with($href, "javascript:")) then 
+           let $code := extract($href, "javascript:top\.htmlOnLink\(['""](.*)['""]\)", 1) 
+           return if ($code) then form($href/ancestor::form[1], "selected=ZTEXT       "||$code)
+           else vl:raise-internal("Der Link zum Ausleihkonto konnte nicht geöffnet werden: """ || . || """: " || $href )
+         else resolve-html($href) )
+       else vl:raise-internal("Kein Link von der Ausleihentabelle zurück zur vorherigen Seite gefunden" )
    ),
    $default-book := map:merge(({"_mode": $mode},
      switch ($mode)
