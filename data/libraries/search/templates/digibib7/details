@@ -9,7 +9,7 @@
       <li><a>{let $key := "Besitzende Bücherei!"
               return
                $book($key) := join((., following-sibling::node()/descendant-or-self::text()!normalize-space()[.], $book($key)), " ") }</a></li>
-    </ul>
+    </ul>?
   </div>
   
   <div id="fullrec-bibdetails-data">
