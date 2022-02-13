@@ -46,7 +46,10 @@ $base := (let $base := .//base/@href
   </table>
   
   <table>
-    <tr><td height="18" class="tab1">Titeldaten</td></tr>
+    <tr><t:switch>
+      <td height="18" class="tab1">Titeldaten</td>
+      <td height="18" class="tab1">Detailanzeige</td>
+    </t:switch></tr>
     <table>{singleResult := true(), search-result-count := 1}</table>
   </table>
   
