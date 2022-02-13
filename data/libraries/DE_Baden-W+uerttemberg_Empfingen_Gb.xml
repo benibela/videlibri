@@ -2,9 +2,9 @@
 <library>
   <longName value="Gemeinde- und Schulbücherei Empfingen"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/empfingen"/>	
-  <variable name="DB" value="Empfingen"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.komm.one/empfingen/Mein-Konto"/>	
+  <variable name="urlsearch" value="https://bibliotheken.komm.one/empfingen/Mediensuche/Erweiterte-Suche"/>
   
   <homepage value="https://web-opac.kivbf.de/empfingen/index.asp?DB=Empfingen"/>
   <testing-search value="unknown"/>

@@ -3,8 +3,8 @@
   <longName value="Mediathek Denzlingen"/>
   
   <template value="bibliothecaplus"/>
-  <variable name="urlaccount" value="https://bibliotheken.kivbf.de/denzlingen/MeinKonto.aspx"/>
-  <variable name="urlsearch" value="https://bibliotheken.kivbf.de/denzlingen/Mediensuche/ErweiterteSuche.aspx"/>
+  <variable name="urlaccount" value="https://bibliotheken.kivbf.de/denzlingen/Mein-Konto"/>	
+  <variable name="urlsearch" value="https://bibliotheken.kivbf.de/denzlingen/Mediensuche-Medientipps/Erweiterte-Suche"/>
   
   <homepage value="https://bibliotheken.kivbf.de/denzlingen/"/>
   <testing-search value="unknown"/> 
