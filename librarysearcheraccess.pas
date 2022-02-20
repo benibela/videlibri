@@ -313,10 +313,15 @@ var
 begin
   cache := strLoadFromFile(searcher.getCacheFile);
   if cache = '' then exit;
-  json := commoninterface.parseJSON(cache);
-  temp := json.getProperty('search-params');
-  if temp.kind = pvkObject then
-    searcher.SearchParams := TFormParams.fromJSON(temp);
+  try
+    json := commoninterface.parseJSON(cache);
+    temp := json.getProperty('search-params');
+    if temp.kind = pvkObject then
+      searcher.SearchParams := TFormParams.fromJSON(temp);
+  except
+    on e: Exception do
+      storeException(e,nil,searcher.getLibraryIds,'-', nil);
+  end;
 end;
 
 
