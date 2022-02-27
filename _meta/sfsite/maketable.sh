@@ -1,6 +1,6 @@
 #!/bin/sh
 
-xidel --xquery ' 
+xidel --xquery ' xquery version "4.0-xidel";
   declare variable $librarypath := "../../data/libraries/";
   declare variable $testingpath := "../testingrecords/";
   declare variable $text-fixes := {"url": "Anpassung an neue OPAC-Webadresse.", "css": "Anpassung an geändertes CSS-Design auf der Bibliothekswebseite."};
