@@ -14,12 +14,16 @@
       $renew-button := (//input[ends-with(@name, "BtnExtendMediums")])[1]/{"__EVENTTARGET":  @name},
       $cancel-ordered-button := (//input[ends-with(@name, "BtnCancelReservations")])[1]/{"__EVENTTARGET":  @name},
       $cancel-provided-button := (//input[ends-with(@name, "BtnCancelReadyForPickup")])[1]/{"__EVENTTARGET":  @name},
-      let $split := extract($raw, 'LoadExtensionsAsync *\( *["'']([^"'']*?/IsCatalogueCopyExtendable)["''] *, *["'']([^"'']*?)["''] *, *["''][^"'']*?["''] *, *["'']([^"'']*?)["'']', (1,2,3))
+      let $split := extract($raw, 'LoadExtensionsAsync *\( *["'']([^"'']*?/IsCatalogueCopyExtendable)["''] *, *["'']([^"'']*?)["''] *, *["'']([^"'']*?)["''] *(\)|, *["'']([^"'']*?)["''])', (1,2,3,5))
       return (
-        $extendableCheck := if ($split[1][.]) then $split[1] 
-                            else (//link[contains(@href, 'PatronAccountModule')])[1]/(extract(resolve-uri(@href), "^.*PatronAccountModule[/\\]") || "PatronAccountService.asmx/IsCatalogueCopyExtendable"),
-        $portalId := if ($split[2]) then $split[2] else (extract($raw, 'eonportalid *= *[''"]([0-9]+)[''"]', 1)[.], 1)[1],
-        $localResourceFile := ($split[3], "/DesktopModules/OCLC.OPEN.PL.DNN.PatronAccountModule/App_LocalResources/NormalView")[.][1]
+        $extendableCheck := $split[1][.] 
+                            otherwise (//link[contains(@href, 'PatronAccountModule')])[1]/(extract(resolve-uri(@href), "^.*PatronAccountModule[/\\]") || "PatronAccountService.asmx/IsCatalogueCopyExtendable"),
+        $portalId := $split[2][.] 
+                     otherwise extract($raw, 'eonportalid *= *[''"]([0-9]+)[''"]', 1)[.] 
+                     otherwise "0",
+        $localResourceFile := $split[4][contains(., "DesktopModules")]
+                              otherwise $split[3][.]
+                              otherwise "/DesktopModules/OCLC.OPEN.PL.DNN.PatronAccountModule/App_LocalResources/NormalView"
       )
     }
     
