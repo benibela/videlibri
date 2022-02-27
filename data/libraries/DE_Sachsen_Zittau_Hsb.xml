@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
 <library>
   <longName value="Hochschulbibliothek Zittau/Görlitz"/>
 
-  <template value="libero5"/>
-  <variable name="baseurl" value="https://webopac.hszg.de/libero/"/>
+  <template value="vufind"/>
+  <variable name="baseurl" value="https://katalog.hszg.de"/>
 
   <homepage value="http://hsb.hszg.de/"/>
   <testing-search value="yes"/>

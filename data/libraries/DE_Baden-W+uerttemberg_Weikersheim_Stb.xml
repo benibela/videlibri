@@ -2,11 +2,10 @@
 <library>
   <longName value="Stadtbücherei Weikersheim"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/weikersheim"/>	
-  <variable name="DB" value="Weikersheim"/>	
+  <template value="koha"/>
+  <variable name="baseurl" value="https://sb-weikersheim.lmscloud.net/"/>
   
-  <homepage value="https://web-opac.kivbf.de/weikersheim/index.asp?DB=Weikersheim"/>
+  <homepage value="https://www.weikersheim.de/einrichtungen/stadtbuecherei/"/>
   <testing-search value="unknown"/>
   <testing-account value="unknown"/>
 </library>
