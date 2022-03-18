@@ -77,9 +77,9 @@ end;
 
 class function TBibTeXIDFormat.getLastName(author: string): string;
 var
-  tempview: TStringView;
+  tempview: TPCharView;
 begin
-  tempview := author.unsafeView;
+  tempview := author.pcharView;
   tempview.cutBeforeFind(';');
   tempview.cutBeforeFind('[');
   if tempview.count(',') = 1 then begin
@@ -104,10 +104,10 @@ end;
 
 class function TBibTeXIDFormat.getShortTitle(title: string): string;
 var
-  tempview: TStringView;
+  tempview: TPCharView;
   firstSpace, secondSpace: pchar;
 begin
-  tempview := title.unsafeView;
+  tempview := title.pcharView;
   tempview.trim();
   if tempview.beginsWith('¬') then begin
     tempview.moveBy(length('¬'));
@@ -117,7 +117,7 @@ begin
   firstSpace := tempview.find(' ');
   if firstSpace <> nil then begin
     if firstSpace - tempview.data <= 5 then begin
-      secondSpace := tempview.viewBehind(firstSpace).find(' ');
+      secondSpace := tempview.viewAfter(firstSpace).find(' ');
       if secondSpace <> nil then firstSpace := secondSpace;
     end;
     tempview.cutBeforeFind(firstSpace);
