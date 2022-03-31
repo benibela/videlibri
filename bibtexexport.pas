@@ -45,7 +45,7 @@ var
   BibTexExportFrm: TBibTexExportFrm;
 
 implementation
-uses bbutils, bbutilsbeta, applicationconfig, bookWatchMain,booklistreader,Clipbrd, xquery__serialization_nodes,xquery.internals.common;
+uses bbutils, applicationconfig, bookWatchMain,booklistreader,Clipbrd, xquery__serialization_nodes,xquery.internals.common;
 { TBibTexExportFrm }
 
 type TBibTeXIDFormats = (
@@ -80,22 +80,22 @@ var
   tempview: TPCharView;
 begin
   tempview := author.pcharView;
-  tempview.cutBeforeFind(';');
-  tempview.cutBeforeFind('[');
+  tempview.leftOfFind(';');
+  tempview.leftOfFind('[');
   if tempview.count(',') = 1 then begin
-    tempview.cutBeforeFind(','); //assume Last Name, First Name
+    tempview.leftOfFind(','); //assume Last Name, First Name
   end else begin
     //assume First Name Last Name (=0)
     //OR   First Name Last Name 1, First Name Last Name 2, ... (> 1)
     //in second case take first author
-    tempview.cutBeforeFind(',');
+    tempview.leftOfFind(',');
     if tempview.contains('.') then begin
-      tempview.moveAfterFindLast('.');
+      tempview.rightOfFindLast('.');
     end else begin
       //multiple first names or multiple last names???
       //assume former
       tempview.trim();
-      tempview.moveAfterFindLast(' ');
+      tempview.rightOfFindLast(' ');
     end;
   end;
   tempview.trim();
@@ -110,8 +110,8 @@ begin
   tempview := title.pcharView;
   tempview.trim();
   if tempview.beginsWith('¬') then begin
-    tempview.moveBy(length('¬'));
-    if tempview.contains('¬') then tempview.moveAfterFind('¬');
+    tempview.rightOfFirst(length('¬'));
+    if tempview.contains('¬') then tempview.rightOfFind('¬');
     tempview.trim();
   end;
   firstSpace := tempview.find(' ');
@@ -120,7 +120,7 @@ begin
       secondSpace := tempview.viewAfter(firstSpace).find(' ');
       if secondSpace <> nil then firstSpace := secondSpace;
     end;
-    tempview.cutBeforeFind(firstSpace);
+    tempview.leftOfFind(firstSpace);
   end;
   result := tempview.ToString;
 end;
