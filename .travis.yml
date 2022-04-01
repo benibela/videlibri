@@ -28,7 +28,8 @@ install:
   - if [[ ! -e ~/.fpc.cfg ]]; then echo '#INCLUDE /etc/fpc.cfg' > ~/.fpc.cfg; fi 
   - cd ..
   #get dependencies from sourceforge
-  - (hg clone http://hg.code.sf.net/p/videlibri/code sf) || (sleep $( echo $$ | head -c 2); hg clone http://hg.code.sf.net/p/videlibri/code sf) || (sleep 60; hg clone http://hg.code.sf.net/p/videlibri/code sf) || (sleep 60; hg clone http://hg.code.sf.net/p/videlibri/code sf) 
+  - (hg clone http://hg.code.sf.net/p/videlibri/code sf) || (sleep $( echo $$ | head -c 2); hg clone http://hg.code.sf.net/p/videlibri/code sf) || (sleep 60; hg clone http://hg.code.sf.net/p/videlibri/code sf) || (sleep 60; hg clone http://hg.code.sf.net/p/videlibri/code sf)
+  - mkdir -p sf/import/pasdblstrutils/src && curl https://raw.githubusercontent.com/BeRo1985/pasdblstrutils/master/src/PasDblStrUtils.pas > sf/import/pasdblstrutils/src/PasDblStrUtils.pas 
   - | 
     cd sf
     hg pull && hg update default
