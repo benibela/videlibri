@@ -117,7 +117,7 @@ begin
   firstSpace := tempview.find(' ');
   if firstSpace <> nil then begin
     if firstSpace - tempview.data <= 5 then begin
-      secondSpace := tempview.viewAfter(firstSpace).find(' ');
+      secondSpace := tempview.viewRightOf(firstSpace).find(' ');
       if secondSpace <> nil then firstSpace := secondSpace;
     end;
     tempview.leftOfFind(firstSpace);
