@@ -29,16 +29,17 @@ install:
   - cd ..
   #get dependencies from sourceforge
   - (hg clone http://hg.code.sf.net/p/videlibri/code sf) || (sleep $( echo $$ | head -c 2); hg clone http://hg.code.sf.net/p/videlibri/code sf) || (sleep 60; hg clone http://hg.code.sf.net/p/videlibri/code sf) || (sleep 60; hg clone http://hg.code.sf.net/p/videlibri/code sf)
-  - mkdir -p sf/import/pasdblstrutils/src && curl https://raw.githubusercontent.com/BeRo1985/pasdblstrutils/master/src/PasDblStrUtils.pas > sf/import/pasdblstrutils/src/PasDblStrUtils.pas 
   - | 
     cd sf
     hg pull && hg update default
     rm -rf programs/internet/VideLibri; mv ../videlibri programs/internet/VideLibri
-    mkdir import; git clone https://github.com/benibela/flre.git import/flre; 
+    mkdir import; git clone https://github.com/benibela/flre.git import/flre;
     echo -Fu$PWD/import/flre/src/         >> ~/.fpc.cfg
-    echo -Fi$PWD/components/pascal/       >> ~/.fpc.cfg
-    echo -Fi$PWD/components/pascal/data   >> ~/.fpc.cfg
-    echo -Fu$PWD/components/pascal/data   >> ~/.fpc.cfg
+    mkdir -p import/pasdblstrutils/src && curl https://raw.githubusercontent.com/BeRo1985/pasdblstrutils/master/src/PasDblStrUtils.pas > import/pasdblstrutils/src/PasDblStrUtils.pas  
+    echo -Fu$PWD/import/pasdblstrutils/src/   >> ~/.fpc.cfg
+    echo -Fi$PWD/components/pascal/           >> ~/.fpc.cfg
+    echo -Fi$PWD/components/pascal/data       >> ~/.fpc.cfg
+    echo -Fu$PWD/components/pascal/data       >> ~/.fpc.cfg
     ln -s $PWD/import/flre components/pascal/import/flre > /dev/null
   - |
     if [[ $android = true ]]; then 
