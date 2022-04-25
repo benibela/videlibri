@@ -2,11 +2,10 @@
 <library>
   <longName value="Mediathek Gundelfingen"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/gundelfingen"/>	
-  <variable name="DB" value="Gundelfingen"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.komm.one/gundelfingen/Mein-Konto"/>	
+  <variable name="urlsearch" value="https://bibliotheken.komm.one/gundelfingen/Mediensuche/Erweiterte-Suche"/>
   
-  <homepage value="https://web-opac.kivbf.de/gundelfingen/index.asp?DB=Gundelfingen"/>
   <testing-search value="unknown"/>
   <testing-account value="unknown"/>
 </library>

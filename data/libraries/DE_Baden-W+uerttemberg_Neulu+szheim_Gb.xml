@@ -2,11 +2,10 @@
 <library>
   <longName value="Gemeindebücherei Neulußheim"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/neulussheim"/>	
-  <variable name="DB" value="neulussheim"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.komm.one/neulussheim/Konto"/>	
+  <variable name="urlsearch" value="https://bibliotheken.komm.one/neulussheim/Mediensuche/Erweiterte-Suche"/>
   
-  <homepage value="https://web-opac.kivbf.de/neulussheim/index.asp?DB=neulussheim"/>
   <testing-search value="unknown"/>
   <testing-account value="unknown"/>
 </library>

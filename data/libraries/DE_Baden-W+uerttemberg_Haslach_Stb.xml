@@ -2,11 +2,10 @@
 <library>
   <longName value="Stadtbücherei Haslach"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/haslach"/>	
-  <variable name="DB" value="Haslach"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.komm.one/haslach/Mein-Konto"/>	
+  <variable name="urlsearch" value="https://bibliotheken.komm.one/haslach/Mediensuche/Erweiterte-Suche"/>
   
-  <homepage value="https://web-opac.kivbf.de/haslach/index.asp?DB=Haslach"/>
   <testing-search value="unknown"/>
   <testing-account value="unknown"/>
 </library>
