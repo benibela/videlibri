@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="Bibliothek-App VideLibri">
-      <build version="2543" date="2022-02-28">
+      <build version="2550" date="2022-04-26">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <change>Linux/Android: Zuverlässigeres Speichern von Einstellungen.</change>
+        <change>Windows: Aktualisiere OpenSSL zu 1.0.2u (neuste Version vom Indyprojekt)</change>
+        <change>Entferne Bibliotheken aus der Liste, die ihr Katalogsystem geändert haben und sich weigern Ausleihkarten zur Anpassung zur Verfügung zu stellen.</change>
+        <fix>Anpassung an geändertes Katalogsystem der Stadtbibliothek Bruchsal, Gemeinde- und Schulbücherei Empfingen, Mediathek Gundelfingen, Stadtbücherei Haslach, Gemeindebücherei Neulußheim, und Stadtbücherei Rüsselheim.</fix>
+     </build>
+      <build version="2543" date="2022-02-28">
         <fix>Bibliothekssystem OPEN: Anpassung an geänderte Parameter bei der Stadtbibliothek Bielefeld. </fix>
         <fix>Anpassung an geänderte Webadressen der Stadtbücherei Weikersheim und Hochschulbibliothek Zittau/Görlitz.</fix>
         <fix>Stürze nicht ab, wenn die Datei mit möglichen Suchoptionen nicht geöffnet werden kann.</fix>
