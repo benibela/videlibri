@@ -435,7 +435,7 @@ begin
         resultSearch := '2-UNHANDLED EXCEPTION: '+e.Message;
     end;
   end;
-  if homepage then begin
+  if (homepage) and (lib.homepageBase <> '') then begin
     try
       internetaccess.defaultInternetAccessClass.create().get(lib.homepageBase);
       resultHomepage := 'ok';

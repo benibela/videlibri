@@ -265,7 +265,10 @@ open class VideLibriBaseActivity: AppCompatActivity(){
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if ((requestCode == REQUESTED_LIBRARY_CATALOGUE || requestCode == REQUESTED_LIBRARY_HOMEPAGE) && resultCode == RESULT_OK) {
             Bridge.VLGetLibraryDetails(LibraryList.lastSelectedLibId ?: return)?.apply {
-                showUriInBrowser(if (requestCode == REQUESTED_LIBRARY_HOMEPAGE) homepageBase else homepageCatalogue)
+                var uri = if (requestCode == REQUESTED_LIBRARY_HOMEPAGE) homepageBase else homepageCatalogue
+                if (uri == "") uri = homepageBase
+                if (uri == "") uri = homepageCatalogue
+                showUriInBrowser(uri)
             }
             return
         }
