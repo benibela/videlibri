@@ -5,9 +5,9 @@
   <longName value="Stadtbücherei Rüsselheim"/>
   
   <template value="sisis"/>  
-  <variable name="server" value="http://stadtbuecherei.ruesselsheim.de/webOPACClient/"/>
+  <variable name="server" value="https://opac.kultur123ruesselsheim.de:18443/webOPACClient/"/>
   
-  <homepage value="http://www.stadt-ruesselsheim.de/Stadtbuecherei.html"/>
+  <homepage value="https://www.ruesselsheim.de/stadtbuecherei1.html"/>
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
   
