@@ -32,11 +32,24 @@ jobs:
         android/manage.sh setupfpccrosscfg >> ~/.fpc.cfg
     - name: Build VideLibri
       run: |
+        #Disable PasDblStrUtils
         sed -e '/PASDBL/d' -i internettools/internettoolsconfig.inc
+        #Set additional path
         echo -Fi$PWD/internettools/data >> ~/.fpc.cfg
         echo -Fu$PWD/internettools/data >> ~/.fpc.cfg
         echo -Fu$PWD/internettools/internet >> ~/.fpc.cfg
         echo -Fu$PWD/internettools/system >> ~/.fpc.cfg
+        #fix binutils
+        which i686-linux-android-strip
+        which aarch64-linux-android-strip
+        which arm-linux-androideabi-strip
+        which x86_64-linux-android-strip
+        sudo mkdir -p /usr/local/lib/android/sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/
+        sudo ln -sr $(which i686-linux-android-strip) /usr/local/lib/android/sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/
+        sudo ln -sr $(which aarch64-linux-android-strip) /usr/local/lib/android/sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/
+        sudo ln -sr $(which arm-linux-androideabi-strip) /usr/local/lib/android/sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/
+        sudo ln -sr $(which x86_64-linux-android-strip) /usr/local/lib/android/sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/
+        #Start building
         android/manage.sh fakesignature
         cd android
         ./manage.sh build release
