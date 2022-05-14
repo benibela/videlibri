@@ -16,15 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: NDK Cache
-      id: ndk-cache
-      uses: actions/cache@v2
-      with:
-        path: /usr/local/lib/android/sdk/ndk
-        key: ndk-cache-23
     - name: Install NDK
-      if: steps.ndk-cache.outputs.cache-hit != 'true'
-      run: echo "y" | sudo /usr/local/lib/android/sdk/tools/bin/sdkmanager --install "ndk;22.1.7171670" "tools" "build-tools;30.0.3"  "platforms;android-30"
+      run: echo "y" | sudo /usr/local/lib/android/sdk/tools/bin/sdkmanager --install "ndk;23.1.7779620" "tools" "build-tools;30.0.3"  "platforms;android-30"
     - run: git clone https://github.com/benibela/xidel.git
     - run: xidel/.github/download-dependencies.sh && xidel/.github/setup-fpc-cfg.sh 
     - name: Install FreePascal for Android
@@ -51,7 +44,7 @@ jobs:
     - name: 'Upload '
       uses: actions/upload-artifact@v3
       with:
-        path: android/build/outputs/apk/release/android-release.apk
+        path: android/android/build/outputs/apk/release/android-release.apk
     - name: 'Upload '
       uses: actions/upload-artifact@v3
       with:
@@ -60,4 +53,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: android-symbols
-        path: android/symbols
+        path: android/symbols/
