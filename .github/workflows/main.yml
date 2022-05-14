@@ -40,6 +40,11 @@ jobs:
     - name: Build VideLibri
       run: |
         sed -e '/PASDBL/d' -i internettools/internettoolsconfig.inc
+        echo -Fi$PWD/internettools/data >> ~/.fpc.cfg
+        echo -Fu$PWD/internettools/data >> ~/.fpc.cfg
+        echo -Fu$PWD/internettools/internet >> ~/.fpc.cfg
+        echo -Fu$PWD/internettools/system >> ~/.fpc.cfg
+        cat ~/.fpc.cfg
         android/manage.sh fakesignature
         cd android
         ./manage.sh build release
