@@ -97,7 +97,6 @@ build)
     ;;
   esac
 
-  hash $LAZBUILD || { echo >&2 "Failed to find Lazarus build command. Install Lazarus."; exit 1; }
   
   nativeBuild $BUILDARM     armeabi    arm-linux-androideabi-strip   $FPC_ARM    arm
   nativeBuild $BUILDX86     x86        i686-linux-android-strip      $FPC_386    i386
