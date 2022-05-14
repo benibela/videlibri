@@ -42,7 +42,7 @@ android
   
   signingConfigs {
     release {
-      storeFile file('/home/benito/hg/information/android.keystore')
+      storeFile file(ANDROID_GLOBAL_KEYSTORE)
       storePassword ANDROID_STORE_PASSWORD
       keyAlias 'videlibri'
       keyPassword ANDROID_KEY_PASSWORD
