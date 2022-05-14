@@ -28,8 +28,6 @@ else FPC_X64=ppcx64
 fi
 LAZBUILD=lazbuild
 
-hash $LAZBUILD || { echo >&2 "Failed to find Lazarus build command. Install Lazarus."; exit 1; }
-
 hash $ADB || { echo >&2 "Failed to find adb. Install Android SDK."; exit 1; }
 
 function nativeBuild(){
@@ -94,6 +92,8 @@ build)
     ;;
   esac
 
+  hash $LAZBUILD || { echo >&2 "Failed to find Lazarus build command. Install Lazarus."; exit 1; }
+  
   nativeBuild $BUILDARM     armeabi    arm-linux-androideabi-strip   $FPC_ARM    arm
   nativeBuild $BUILDX86     x86        i686-linux-android-strip      $FPC_386    i386
   nativeBuild $BUILDARM64   arm64-v8a  aarch64-linux-android-strip   $FPC_ARM64  aarch64
