@@ -322,6 +322,14 @@ setupfpccrosscfg)
   echo "#endif"
 ;;
   
+fakesignature)
+  mkdir -p ~/.gradle;
+  echo 'ANDROID_STORE_PASSWORD=F2XyHtMYmG65GQimSQmm4WDD' > ~/.gradle/gradle.properties;
+  echo 'ANDROID_KEY_PASSWORD=F2XyHtMYmG65GQimSQmm4WDD' >> ~/.gradle/gradle.properties;
+  echo 'ANDROID_GLOBAL_KEYSTORE=/tmp/keystore' >> ~/.gradle/gradle.properties;
+  keytool -genkey -no-prompt -keystore /tmp/keystore -alias videlibri -keyalg RSA -keysize 2048 -validity 10000 -storepass F2XyHtMYmG65GQimSQmm4WDD -keypass F2XyHtMYmG65GQimSQmm4WDD -dname "CN=travis, OU=ID, O=T, L=T, S=T, C=T";      
+;;
+  
 symbols)
   rm -rf symbols
   mkdir -p symbols symbols/armeabi-v7a/ symbols/arm64-v8a/ symbols/x86 symbols/x86_64
