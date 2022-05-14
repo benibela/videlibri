@@ -46,7 +46,7 @@ function nativeBuild(){
       if [[ ! -f $path/liblclapp.so ]]; then FORCE=-B; fi
       if $LAZBUILD $FORCE --os=android --ws=nogui --compiler="$(which $compiler)" --cpu=$cpu videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
     else 
-      $compiler -P$cpu -B -Tandroid -MObjFPC -Scghi -O1 -Xs -XX -l -vewnhibq -dANDROID -Xd -gl -o$path/liblclapp.so videlibriandroid.pas
+      $compiler -P$cpu -B -Tandroid -MObjFPC -Scghi -O1 -Xs -XX -l -vewnhibq -dANDROID -Xd -gl -Fu.. -o$path/liblclapp.so videlibriandroid.pas
     fi
 
   fi
