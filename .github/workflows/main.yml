@@ -32,8 +32,9 @@ jobs:
         sudo apt-get install fpc
         oldpath=$PWD;
         git clone https://gitlab.com/freepascal.org/fpc/source.git --depth 1 --single-branch -b fixes_3_2 fpc
-        sudo android/manage.sh setupbinutils /usr/bin
-        sudo android/manage.sh setupfpccrosscompile
+        cd fpc
+        sudo $oldpath/android/manage.sh setupbinutils /usr/bin
+        sudo $oldpath/android/manage.sh setupfpccrosscompile
         cd $oldpath;
         android/manage.sh setupfpccrosscfg >> ~/.fpc.cfg
     - run: lazbuild --add-package internettools/internettools.lpk
