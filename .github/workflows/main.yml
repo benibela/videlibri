@@ -29,16 +29,13 @@ jobs:
     - run: xidel/.github/download-dependencies.sh && xidel/.github/setup-fpc-cfg.sh 
     - name: Install FreePascal for Android
       run: |
+        sudo apt-get install fpc
         oldpath=$PWD;
         git clone https://gitlab.com/freepascal.org/fpc/source.git --depth 1 --single-branch -b fixes_3_2 fpc
         sudo android/manage.sh setupbinutils /usr/bin
         sudo android/manage.sh setupfpccrosscompile
         cd $oldpath;
         android/manage.sh setupfpccrosscfg >> ~/.fpc.cfg
-    - name: Install Lazarus
-      uses: gcarreno/setup-lazarus@v3.0.16
-      with:
-        lazarus-version: stable
     - run: lazbuild --add-package internettools/internettools.lpk
     - name: Build VideLibri
       run: |
