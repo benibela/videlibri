@@ -42,8 +42,13 @@ function nativeBuild(){
   if ! $flag ; then rm $path/liblclapp.so; rm -r $path; fi;
   if $flag ; then
     which $compiler > /dev/null || { echo >&2 "Failed to find fpc $compiler. Install FreePascal cross compiler."; exit 1; }
-    if [[ ! -f $path/liblclapp.so ]]; then FORCE=-B; fi
-    if $LAZBUILD $FORCE --os=android --ws=nogui --compiler="$(which $compiler)" --cpu=$cpu videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
+    if hash lazbuild; then 
+      if [[ ! -f $path/liblclapp.so ]]; then FORCE=-B; fi
+      if $LAZBUILD $FORCE --os=android --ws=nogui --compiler="$(which $compiler)" --cpu=$cpu videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
+    else 
+      $compiler -P$cpu -B -Tandroid -MObjFPC -Scghi -O1 -Xs -XX -l -vewnhibq -dANDROID -Xd -gl -o$path/liblclapp.so videlibriandroid.pas
+    fi
+
   fi
 
   STRIP=true

@@ -37,7 +37,6 @@ jobs:
         sudo $oldpath/android/manage.sh setupfpccrosscompile
         cd $oldpath;
         android/manage.sh setupfpccrosscfg >> ~/.fpc.cfg
-    - run: lazbuild --add-package internettools/internettools.lpk
     - name: Build VideLibri
       run: |
         android/manage.sh fakesignature
