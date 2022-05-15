@@ -57,10 +57,12 @@ jobs:
     - name: 'Upload '
       uses: actions/upload-artifact@v3
       with:
+        name: videlibri.apk
         path: android/android/build/outputs/apk/release/android-release.apk
     - name: 'Upload '
       uses: actions/upload-artifact@v3
       with:
+        name: videlibri.aab
         path: android/android/build/outputs/bundle/release/android-release.aab
     - name: 'Upload '
       uses: actions/upload-artifact@v3
