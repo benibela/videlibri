@@ -143,8 +143,8 @@ type
     bookListOldLoaded: boolean;
     keepHistory: boolean;
 
-    function getBooksCurrentFile: TBookList;inline;
-    function getBooksCurrentUpdate: TBookList;inline;
+    function getBooksCurrentFile: TBookList;//inline;
+    function getBooksCurrentUpdate: TBookList;//inline;
     function getBooksOld: TBookList;
     procedure remove;
     procedure save;
@@ -469,11 +469,11 @@ begin
     parser.parseTreeFromFile(fn);
     xq := TXQueryEngine.create;
     try
-      tempv := xq.evaluateXPath3('/videlibri-dump/account', parser.getLastTree);
-      hasConfig := xq.parseXPath3('./config/base');
-      hasPass := xq.parseXPath3('./config/base/v[@n="pass"]');
-      hasCurrent := xq.parseXPath3('./books[@mode="current"]');
-      hasHistory := xq.parseXPath3('./books[@mode="history"]');
+      tempv := xq.evaluateXPath('/videlibri-dump/account', parser.getLastTree);
+      hasConfig := xq.parseQuery('./config/base');
+      hasPass := xq.parseQuery('./config/base/v[@n="pass"]');
+      hasCurrent := xq.parseQuery('./books[@mode="current"]');
+      hasHistory := xq.parseQuery('./books[@mode="history"]');
       accounts := nil;
       SetLength(accounts, tempv.Count);
       flags := nil;
@@ -544,10 +544,10 @@ begin
     SetLength(realAccounts, length(impAccounts));
     SetLength(accountNodes, length(impAccounts));
     xq.VariableChangelog.Clear; xq.VariableChangelog.add('name', '');
-    getAccoutNode := xq.parseXPath3('/videlibri-dump/account[@name=$name]');
-    getConfig := xq.parseXPath3('./config/base/v');
-    getCurrent := xq.parseXPath3('./books[@mode="current"]/book');
-    getHistory := xq.parseXPath3('./books[@mode="history"]/book');
+    getAccoutNode := xq.parseQuery('/videlibri-dump/account[@name=$name]');
+    getConfig := xq.parseQuery('./config/base/v');
+    getCurrent := xq.parseQuery('./books[@mode="current"]/book');
+    getHistory := xq.parseQuery('./books[@mode="history"]/book');
     for i := 0 to high(impAccounts) do begin
       if flags[i] = [] then continue;
       xq.VariableChangelog.Clear; xq.VariableChangelog.add('name', impAccounts[i]);

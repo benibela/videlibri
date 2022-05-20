@@ -97,7 +97,7 @@ type
   TBookList = class(TFPList)
   private
     flendList: boolean;
-    function getBook(i:longint):TBook; inline;
+    function getBook(i:longint):TBook; //inline;
     procedure setLendList(const AValue: boolean);
   public
     owner: TObject;

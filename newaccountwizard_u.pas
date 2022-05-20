@@ -50,19 +50,19 @@ type
     saveHistory: TRadioButton;
     StringGrid1: TPanel;
     Timer1: TTimer;
-    procedure accountNameChange(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
+    procedure accountNameChange({%H-}Sender: TObject);
+    procedure Button1Click({%H-}Sender: TObject);
     procedure Button2Click(Sender: TObject);
-    procedure Button3Click(Sender: TObject);
-    procedure FormActivate(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
-    procedure FormShow(Sender: TObject);
+    procedure Button3Click({%H-}Sender: TObject);
+    procedure FormActivate({%H-}Sender: TObject);
+    procedure FormCreate({%H-}Sender: TObject);
+    procedure FormShow({%H-}Sender: TObject);
     procedure libsSelect(sender: TObject; item: TTreeListItem);
-    procedure locationListChange(Sender: TObject);
-    procedure newlibbtnClick(Sender: TObject);
-    procedure Notebook1PageChanged(Sender: TObject);
-    procedure RadioGroup2Click(Sender: TObject);
-    procedure Timer1Timer(Sender: TObject);
+    procedure locationListChange({%H-}Sender: TObject);
+    procedure newlibbtnClick({%H-}Sender: TObject);
+    procedure Notebook1PageChanged({%H-}Sender: TObject);
+    procedure RadioGroup2Click({%H-}Sender: TObject);
+    procedure Timer1Timer({%H-}Sender: TObject);
   private
     { private declarations }
   public

@@ -334,6 +334,7 @@ resourcestring
       page:string;
       internetReact: TInternetAccessReact;
   begin
+    internetReact := default(TInternetAccessReact);
     internet:=defaultInternetAccessClass.create();
     internet.OnTransferReact:=@internetReact.internetReact;
     page:=internet.post('http','www.benibela.de','/autoFeedback.php',

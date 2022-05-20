@@ -13,10 +13,10 @@ type
 
 TLibraryListView = class(TTreeListView)
   lastCollapsed: TTreeListItem;
-  procedure LibraryListViewClick(sender: TObject);
-  procedure LibraryListViewCustomRecordItemDraw(sender: TObject; eventTyp_cdet: TCustomDrawEventTyp; recordItem: TTreeListRecordItem;
-    var defaultDraw: Boolean);
-  procedure LibraryListViewItemCollapsed(sender: TObject; item: TTreeListItem);
+  procedure LibraryListViewClick({%H-}sender: TObject);
+  procedure LibraryListViewCustomRecordItemDraw({%H-}sender: TObject; eventTyp_cdet: TCustomDrawEventTyp; recordItem: TTreeListRecordItem;
+    var {%H-}defaultDraw: Boolean);
+  procedure LibraryListViewItemCollapsed({%H-}sender: TObject; item: TTreeListItem);
 public
   constructor create(aowner: TComponent);
   function selectedLibrary: TLibrary;
