@@ -31,6 +31,7 @@ hg)
 mirror)
   (cd _meta/tests; ./unittests.sh) || exit;
   pushhg
+  (cd $HGROOT/components/pascal; ./manage.internettools.sh mirror; ./manage.synapse.sh mirror;  ./manage.synapse.sh mirror; ./manage.rcmdline.sh mirror;  )
   SF_PROJECT= 
   mirroredProject videlibri
   GITLAB_PROJECT=
