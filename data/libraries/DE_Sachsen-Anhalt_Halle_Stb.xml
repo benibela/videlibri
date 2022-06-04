@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
-
 <library>
   <longName value="Stadtbibliothek Halle"/>
   <shortName value="Stb Halle"/>
   
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://opac.halle.de/webopac/"/>	
-  <variable name="DB" value="BUCH"/>
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://katalog.halle.de/Mein-Konto"/>	
+  <variable name="urlsearch" value="https://katalog.halle.de/Mediensuche/Erweiterte-Suche"/>
 
   <homepage value="http://www.stadtbibliothek-halle.de/stadtbibliothek/startseite/"/>
   <testing-search value="yes"/>  <testing-account value="unknown"/></library>
+
 
