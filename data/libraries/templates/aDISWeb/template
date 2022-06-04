@@ -75,6 +75,7 @@
         <div class="message"><div id="R01"><h1>{$error-login}</h1></div></div>
         <div class="hinweis fehler">{$error-login}<!--new vöbb--></div>
         <span class="alert">{$error-login}</span>
+        <span class="warnung">{$error-login}<!--stuttgart--></span>
         <input type="password" class="errstate">{$error-login}</input>
          
         
