@@ -58,7 +58,7 @@
         </form>
   
         <td>Keine Ausleihen</td>
-        <a t:condition="contains(., 'Ausleihe') and contains(@href, 'app;')"></a>
+        <a t:condition="contains(., 'Ausleihe') and contains(@href, '&amp;sp=SZA')"></a>
         
         <h1>Bitte auch das Passwort angeben<t:s>$error-login := .</t:s></h1>
         <h1>Sie sind nicht mit Ihren Angaben registriert<t:s>$error-login := .</t:s></h1>
