@@ -1,7 +1,10 @@
 <t:switch prioritized="true">
 
 <body>
-  <p id="numresults"><strong>{$search-result-count:=extract(.,"[0-9]+")}</strong></p>
+  <t:switch>
+    <p id="numresults"><strong>{$search-result-count:=extract(.,"[0-9]+")}</strong></p>
+    <h1 id="numresults">{$search-result-count:=extract(.,"[0-9]+")}</h1>
+  </t:switch>
   <div class="searchresults">
     <table>
       <tr>

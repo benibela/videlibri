@@ -9,7 +9,7 @@
  )}
  </div>
  <div id="holdings">
- <table class="holdingst">
+ <table t:condition="contains-token(@class, 'holdingst') or @id = 'holdingst'">
  <tbody>
   {$book.holdings := tr!{| for $td in td return tokenize($td/@class, " ")!(switch(.)
     case "itype" return {"Medientyp": $td}
