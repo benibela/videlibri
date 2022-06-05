@@ -2,11 +2,11 @@
 <library>
   <longName value="Stadtbibliothek Ingolstadt"/>
   
-  <template value="bibdia"/>
-  <variable name="baseurl" value="https://opac.ingolstadt.de/opax/"/>
+  <template value="koha"/>
+  <variable name="baseurl" value="https://sb-ingolstadt.lmscloud.net/"/>
 
   <homepage value="https://www.ingolstadt.de/stadtbuecherei"/>
-  <testing-search value="no"/>  
+  <testing-search value="yes"/>  
   <testing-account value="unknown"/>
 </library>
 

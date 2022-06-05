@@ -4,8 +4,9 @@
 <library>
   <longName value="Stadtbücherei Dieburg"/>
 
-  <template value="libero5"/>
-  <variable name="baseurl" value="http://www.stadtbuecherei-dieburg.de/libero/"/>
+  <template value="koha"/>
+  <variable name="baseurl" value="https://sb-dieburg.lmscloud.net/"/>
+
 
   <homepage value="http://www.stadtbuecherei-dieburg.de/"/>
   <testing-search value="yes"/>

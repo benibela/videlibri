@@ -4,13 +4,14 @@
 <library>
   <longName value="Stadtbücherei Erbach"/>
 
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://wwwopac.rz-kiru.de/erbach/"/>
-  <variable name="DB" value="erbach"/>
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliothek.komm.one/erbach/Konto"/>	
+  <variable name="urlsearch" value="https://bibliothek.komm.one/erbach/Mediensuche/Erweiterte-Suche"/>
 
   <homepage value="http://www.erbach.de/index.php?id=53"/>
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
   
 </library>
+
 

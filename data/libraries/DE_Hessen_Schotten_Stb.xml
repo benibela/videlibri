@@ -4,8 +4,9 @@
 <library>
   <longName value="Stadtbibliothek Schotten"/>
 
-  <template value="libero5"/>
-  <variable name="baseurl" value="http://bibliothek.schotten.de/libero/"/>
+  <template value="koha"/>
+  <variable name="baseurl" value="https://sb-schotten.lmscloud.net/"/>
+
 
   <homepage value="http://www.schotten.de/index_main.php?unid=740"/>
   <testing-search value="yes"/>

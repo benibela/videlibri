@@ -5,10 +5,10 @@
   <longName value="Stadtbücherei Steinfurt"/>
   <shortName value="Stb Steinfurt"/>
   
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="http://opac84.citeq.de/"/>	
-  <variable name="DB" value="biblio80"/>	
-  
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://opac.steinfurt.de/Mein-Konto"/>	
+  <variable name="urlsearch" value="https://opac.steinfurt.de/Mediensuche/Erweiterte-Suche"/>
+
   <!--<template value="pica"/>-->
 
 
