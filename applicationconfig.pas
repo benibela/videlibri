@@ -300,12 +300,17 @@ resourcestring
 
   end;
 
+
   constructor EVideLibriHTMLMatchingException.create(amessage: string; asender: THtmlTemplateParser);
+  var
+    anonymizer: TPatternMatchExceptionAnonymizer;
   begin
     inherited create(amessage);
     if asender <> nil then begin
       partialMatches := asender.debugMatchings(80);
-      anonymousPartialMatches := asender.debugMatchings(80, false, ['th'], ['class', 'id', 'style', 'abbr', 'http-equiv', 'type', 'fld']);
+      anonymizer := TPatternMatchExceptionAnonymizer.Create;
+      anonymousPartialMatches := asender.debugMatchings(80, @anonymizer.nodeToString);
+      anonymizer.free;
     end;
   end;
 

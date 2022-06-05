@@ -320,6 +320,13 @@ type
   //frees the parser
   procedure importAccounts(parser: TTreeParser; impAccounts: TStringArray; flags: TExportImportFlagsArray);
 
+
+type TPatternMatchExceptionAnonymizer = class
+  inIncludeOverrideElement: integer;
+  function nodeToString(node: TTreeNode): string;
+end;
+
+
 resourcestring
   rsCustomLibrary = 'selbst definierte';
   rsAllLibraries = 'alle';
@@ -2132,5 +2139,69 @@ begin
 end;
 
 
+
+
+function TPatternMatchExceptionAnonymizer.nodeToString(node: TTreeNode): string;
+  function removeMostURLRequestParams(const s: string): string;
+  var
+    sb: TStrBuilder;
+    status: (sPath, sName, sValue);
+    i, valueStart: Integer;
+  begin
+    result := '';
+    sb.init(@result, length(s));
+    for i := 1 to length(s) do begin
+      case s[i] of
+        '?', '&': status := sName;
+        '=': begin status := sValue; valueStart := i; end;  //this treats = in the path as value, but that is acceptable
+      end;
+      if (status in [sPath,sName]) or (i - valueStart <= 3) then
+        sb.append(s[i]);
+    end;
+    sb.final;
+  end;
+  function removeDigits(const s: string): string;
+  var
+    i: SizeInt;
+  begin
+    result := s;
+    for i := 1 to length(result) do
+      if result[i] in ['0'..'9'] then
+        result[i] := '?';
+  end;
+
+var
+  attrib: TTreeAttribute;
+begin
+  result := '';
+  if node = nil then exit();
+  with node do case typ of
+    tetText: if inIncludeOverrideElement > 0 then result := value
+             else result := copy(value.trim, 1, 2);
+    tetClose: begin
+      if striEqual(value, 'th') then dec(inIncludeOverrideElement);
+      result := '</'+value+'>';
+    end;
+    tetOpen: begin
+      result := '<'+value;
+      if striEqual(value, 'th') then inc(inIncludeOverrideElement);
+      if attributes <> nil then
+        for attrib in getEnumeratorAttributes do
+          case lowercase(attrib.value) of
+            'class', 'id', 'style', 'abbr', 'http-equiv', 'type', 'fld':
+               result += ' '+attrib.value + '="'+attrib.realvalue+'"';
+            'href', 'src', 'action':
+              result += ' '+attrib.value + '="'+removeDigits(removeMostURLRequestParams(attrib.realvalue))+'"';
+            'name':
+              result += ' '+attrib.value + '="'+removeDigits(attrib.realvalue)+'"';
+            //'alt', 'title', 'value':
+          end;
+      result+='>';
+    end;
+    tetDocument: if getFirstChild() <> nil then result := nodeToString(getFirstChild());
+    tetComment: result := '<!--...-->';
+    else result := '??';
+  end;
+end;
 
 end.
