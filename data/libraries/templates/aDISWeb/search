@@ -87,7 +87,7 @@
             </li>+</ul></div>
           </t:switch>
       </DIV>
-       
+       z
   </html>
 
   <h1><template:meta default-text-matching="regex"/>
@@ -95,6 +95,11 @@
        <t:s>search-result-count :=  0</t:s>
   </h1>
   <span class="alert">Ihre Suche erzielte keinen Treffer<t:s>search-result-count :=  0</t:s></span>  
+  <p class="hinweis">
+       <template:meta default-text-matching="regex"/>
+       Ihre Suche.*erzielte keinen? Treffer
+       <t:s>search-result-count :=  0</t:s>
+  </p>
   
   <h1>Die Person wurde nicht gefunden<t:s>search-result-count :=  0</t:s></h1>  
 
