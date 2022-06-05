@@ -5,7 +5,11 @@
  let $subspans := span[span[contains(@class, "label")]]
  return (
    (if (empty($subspans)) then . else join(head($subspans)/preceding-sibling::node())),
-    $subspans!data())! ($book(substring-before(., ":") || "!") := normalize-space(substring-after(., ":")) )
+    for $subspan in $subspans let $subsubspans := $subspan/span[contains(@class, "label")]
+    return if (count($subsubspans) le 1) then $subspan!data() else
+           for tumbling window $w in $subspan/node() start when true() end next $n when contains($n/@class, "label")
+           return join($w)!replace(., " ?, ?", "")[.]
+   )! ($book(substring-before(., ":") || "!") := normalize-space(substring-after(., ":")) )
  )}
  </div>
  <div id="holdings">
