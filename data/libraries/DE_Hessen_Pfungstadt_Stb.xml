@@ -5,9 +5,9 @@
   <longName value="Stadtbibliothek Pfungstadt"/>
 
   <template value="koha"/>
-  <variable name="baseurl" value="http://buecherei.pfungstadt.de/"/>
+  <variable name="baseurl" value="https://sb-pfungstadt.lmscloud.net/"/>
 
-  <homepage value="http://www.pfungstadt.de/freizeit-tourismus/stadtbibliothek.html"/>
+  <homepage value="https://www.pfungstadt.de/freizeit-tourismus/stadtbibliothek.html"/>
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
   
