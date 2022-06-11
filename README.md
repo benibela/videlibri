@@ -1,4 +1,4 @@
-VideLibri :books: [![Build Status](https://api.travis-ci.com/benibela/videlibri.svg?branch=master)](https://travis-ci.com/benibela/videlibri) 
+VideLibri :books: [![Build Status](https://api.travis-ci.com/benibela/videlibri.svg?branch=master)](https://app.travis-ci.com/github/benibela/videlibri/) 
 [![CD](https://github.com/benibela/videlibri/actions/workflows/main.yml/badge.svg)](https://github.com/benibela/videlibri/actions/workflows/main.yml)  [![](https://img.shields.io/badge/dynamic/json.svg?label=open%20bugs&url=https%3A%2F%2Fsourceforge.net%2Frest%2Fp%2Fvidelibri%2Ftickets%2Fsearch%3Flimit%3D1%26q%3Dstatus%3Aopen&query=%24.count&colorB=brightgreen&prefix=+++++++)](https://sourceforge.net/p/videlibri/tickets/)  [![hg](https://videlibri.de/badges/commits.php)](https://sourceforge.net/p/videlibri/code/ci/tip/log/?path=)
 =============
 VideLibri is a library client to access all the features of a (public) library catalog/OPAC and store the catalog data for further offline processing. It can
