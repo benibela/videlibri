@@ -90,16 +90,15 @@
        z
   </html>
 
-  <h1><template:meta default-text-matching="regex"/>
-       Ihre Suche.*erzielte keinen? Treffer
-       <t:s>search-result-count :=  0</t:s>
-  </h1>
-  <span class="alert">Ihre Suche erzielte keinen Treffer<t:s>search-result-count :=  0</t:s></span>  
-  <p class="hinweis">
-       <template:meta default-text-matching="regex"/>
-       Ihre Suche.*erzielte keinen? Treffer
-       <t:s>search-result-count :=  0</t:s>
-  </p>
+  <html>
+    <template:meta default-text-matching="regex"/>
+    <t:switch>
+      <h1>Ihre Suche.*erzielte keinen? Treffer</h1>
+      <span class="alert">Ihre Suche erzielte keinen Treffer</span>  
+      <p class="hinweis">Ihre Suche.*erzielte keinen? Treffer</p>
+    </t:switch>
+    <t:s>search-result-count :=  0</t:s>
+  </html>
   
   <h1>Die Person wurde nicht gefunden<t:s>search-result-count :=  0</t:s></h1>  
 
