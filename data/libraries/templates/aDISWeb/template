@@ -18,26 +18,26 @@
     <loop test="$i < 10">
         <page url="{$loginFormPost}"/>
         <pattern><t:switch prioritized="true">
-          <p class="form-error">Benutzernummer oder Passwort falsch<t:s>$error-login := ., i := 1000</t:s></p><!-- blb karlsruhe -->
+          <p class="form-error">{$error-login := ., i := 1000}</p><!-- blb karlsruhe -->
+          <div class="error"><i class="fas"></i>{$error-login := ., i := 1000}</div>
 
           <!-- seems we already are on the correct page, send request again (not tested with any library) -->
           <td>Keine Ausleihen<t:s>i:=1000</t:s></td>
-          <a t:condition="contains(., 'Ausleihe') and contains(@href, 'app;')"><t:s>i:=1000</t:s></a>
+          <a t:condition="contains(., 'Ausleihe') and contains(@href, '&amp;sp=SZA')"><t:s>i:=1000</t:s></a>
        
           <!-- we were logged out ? -->
           <a>Mein Konto<t:s>loginFormPost := .</t:s></a>
   
           <!-- redirection -->
-          <form t:condition=" .//@name = ('_eventId_proceed', 'SAMLResponse', 'RelayState') ">
-            { let $buttons := ((.//input, .//button)[@type=("submit", "image")], .//button, .//input[@type="button"])
-              let $proceed := $buttons[@name = "_eventId_proceed"]
-              return
-                $loginFormPost := form(., ($proceed, $buttons)[1] )
-            }
+          <form t:condition=".//@name = ('_eventId_proceed', 'SAMLResponse', 'RelayState') ">
+            { $loginFormPost := form(., ( 
+                (.//input[@name="j_username"])[1]/{"j_username": $username, "j_password": $password},   
+                (.//*[@name="_eventId_proceed"])[1] 
+              ))  }
           </form>
           <meta http-equiv="refresh">{$loginFormPost}</meta>    
           <a t:condition="contains(@href, '?')">{$loginFormPost}</a>
-          <form>{$loginFormPost := form(., ((.//input, .//button)[@type=("submit", "image")], .//button, .//input[@type="button"])[1] )}</form>
+          <form>{$loginFormPost := form(.)}</form>
           <a>{$loginFormPost}</a>
         </t:switch></pattern>
         <s>$i := $i + 1</s>
@@ -110,17 +110,17 @@
                           otherwise //input[@type="submit" and matches(@value, "Anmeld|Login")]
                           otherwise vl:raise-internal("Anmeldebutton nicht gefunden")
           return form($form, ({"$Textfield": $username, "$Textfield$0": $password}, $buttons[1])) } </input> 
-        <input name="j_username">{ loginFormPost := let $form := (ancestor::form, //form)[1] return form($form, ({"j_username": $username, "j_password": $password}, ($form//button)[1])),
+        <input name="j_username">{ loginFormPost := let $form := (ancestor::form, //form)[1] return form($form, ({"j_username": $username, "j_password": $password}, ($form//*[@name="_eventId_proceed"])[1])),
                 idpSystem := true() }</input> 
         <form><div class="message">Sind Sie Angehörige/r unserer Hochschule?
-          <t:s> if (starts-with($username, "E")) then loginForm := form(ancestor::form[1], (.//input)[2])
-            else if (starts-with($username, "I")) then (loginForm := form(ancestor::form[1], (.//input)[1]), idpSystem := true() )
-            else vl:raise-internal("Diese Bibliothek unterscheidet zwischen internen und externen Benutzern. In VideLibri muss dafür vor der Kontonummer jeweils der Buchstabe I oder E eingefügt werden. ")
+          <t:s> 
+          if (trace($type,"TYPE") > 0) then loginForm := form(ancestor::form[1], (.//input[@type="submit" or @type="button"])[$type])
+          else vl:raise-internal("Diese Bibliothek unterscheidet zwischen internen und externen Benutzern. In den Videlibri-Kontoeinstellungen muss dafür der richtige Benutzertyp ausgewählt werden.")
           </t:s>
         </div></form>
         <form><div class="message">vl:raise(.)</div></form>
         <form t:condition=" .//@name = ('_eventId_proceed', 'SAMLResponse', 'RelayState') ">
-        { $loginFormPost := $lf, $idpSystem := true() (:we are logged in SAML but not in OPAC:) }
+        { $loginFormPost := form(., (.//*[@name="_eventId_proceed"])[1]), $idpSystem := true() }
         </form>
         <h1>Ihre Sitzung wurde beendet.<t:s>error-login:=.</t:s></h1>
         <h1><strong>Mein Konto</strong>{error-login:="Ihre Sitzung wurde beendet. (2)"}</h1>
