@@ -17,7 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Install NDK
-      run: echo "y" | sudo /usr/local/lib/android/sdk/tools/bin/sdkmanager --install "ndk;23.2.8568313"  "tools" "build-tools;30.0.3"  "platforms;android-30"
+      run: echo "y" | sudo /usr/local/lib/android/sdk/tools/bin/sdkmanager --install "ndk;24.0.8215888"  "tools" "build-tools;30.0.3"  "platforms;android-30"
     - name: debug github actions
       run: echo $ANDROID_HOME
            sudo bash -c echo '$ANDROID_HOME'
@@ -47,11 +47,12 @@ jobs:
         which aarch64-linux-android-strip
         which arm-linux-androideabi-strip
         which x86_64-linux-android-strip
-        sudo mkdir -p /usr/local/lib/android/sdk/ndk/23.2.8568313/toolchains/llvm/prebuilt/linux-x86_64/bin/
-        sudo ln -srfv $(which i686-linux-android-strip) /usr/local/lib/android/sdk/ndk/23.2.8568313/toolchains/llvm/prebuilt/linux-x86_64/bin/
-        sudo ln -srfv $(which aarch64-linux-android-strip) /usr/local/lib/android/sdk/ndk/23.2.8568313/toolchains/llvm/prebuilt/linux-x86_64/bin/
-        sudo ln -srfv $(which arm-linux-androideabi-strip) /usr/local/lib/android/sdk/ndk/23.2.8568313/toolchains/llvm/prebuilt/linux-x86_64/bin/
-        sudo ln -srfv $(which x86_64-linux-android-strip) /usr/local/lib/android/sdk/ndk/23.2.8568313/toolchains/llvm/prebuilt/linux-x86_64/bin/
+        newestToolchain=$(echo /usr/local/lib/android/sdk/ndk/*/toolchains/llvm/prebuilt/linux-x86_64/bin/ | tr ' ' '\n' | sort | tail -1)
+        echo Newest toolchain: $newestToolchain
+        sudo ln -srfv $(which i686-linux-android-strip) $newestToolchain/
+        sudo ln -srfv $(which aarch64-linux-android-strip) $newestToolchain/
+        sudo ln -srfv $(which arm-linux-androideabi-strip) $newestToolchain/
+        sudo ln -srfv $(which x86_64-linux-android-strip) $newestToolchain/
         #Start building
         android/manage.sh fakesignature
         cd android
