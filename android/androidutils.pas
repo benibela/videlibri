@@ -243,7 +243,7 @@ procedure Java_de_benibela_VideLibri_Bridge_VLInit(env:PJNIEnv; this:jobject; co
 
   procedure initLocale;
   var LocaleClass: jclass;
-  Locale_getDefault, Locale_getCountry: jmethodID;
+  Locale_getDefault, Locale_getCountry, Locale_getLanguage: jmethodID;
   locale: jobject;
   begin
     with j do begin
