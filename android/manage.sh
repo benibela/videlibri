@@ -256,8 +256,9 @@ setupbinutils)
   if [[ -z "$targetdir" ]]; then targetdir=~/bin; fi
   function singleplatform(){
     platform=$1
-    if [[ -d $ANDROID_HOME/ndk-bundle/toolchains ]]; then path=$ANDROID_HOME/ndk-bundle/toolchains/$platform*/prebuilt/linux-x86_64/bin/
-    else if [[ -d $ANDROID_HOME/ndk ]]; then path=$ANDROID_HOME/ndk/*/toolchains/$platform*/prebuilt/linux-x86_64/bin/
+    if [[ -d $ANDROID_HOME/ndk ]]; then 
+    path=$ANDROID_HOME/ndk/*/toolchains/$platform*/prebuilt/linux-x86_64/bin/
+    else if [[ -d $ANDROID_HOME/ndk-bundle/toolchains ]]; then path=$ANDROID_HOME/ndk-bundle/toolchains/$platform*/prebuilt/linux-x86_64/bin/
     else echo FAILED TO FIND NDK; exit 1;
     fi fi
     echo test0: $ANDROID_HOME/ndk/*/toolchains/
