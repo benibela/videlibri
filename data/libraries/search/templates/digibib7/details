@@ -5,10 +5,29 @@
 
   <div id="fullrec-holdings-data">
     <ul>
+      {
+      $book.holdings := li ! (
+        let $a := a
+        let $href := $a/@href
+        where count($a) = 1 and starts-with($href, "https://lobid.org/organisations")
+        let $lobidName := get("global-lobid-name-cache")?$href 
+                          otherwise (
+                            let $newname := json-doc($href || "?format=json")?name
+                            return (
+                              $global-lobid-name-cache := map:put(get("global-lobid-name-cache", {}), $href, $newname),
+                              $newname
+                            ) [last()]
+                          )
+        return {"libraryBranch": $lobidName, 
+                "libraryLocation" ?: $a/following-sibling::node()/descendant-or-self::text()!normalize-space()[.],
+                "orderable": false()}
+        otherwise {"id": ., "orderable": false()}
+      )
+      }
 <!--      <li><a>{$book.holdings[] := {"libraryBranch": ., "id": join(following-sibling::node()/descendant-or-self::text()) }}</a></li>-->
-      <li><a>{let $key := "Besitzende Bücherei!"
+<!--      <li><a>{let $key := "Besitzende Bücherei!"
               return
-               $book($key) := join((., following-sibling::node()/descendant-or-self::text()!normalize-space()[.], $book($key)), " ") }</a></li>
+               $book($key) := join((., following-sibling::node()/descendant-or-self::text()!normalize-space()[.], $book($key)), " ") }</a></li>-->
     </ul>?
   </div>
   
