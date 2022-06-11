@@ -6,9 +6,9 @@
   <shortName value="Hb Stralsund"/>
   
   <template value="lbs"/>
-  <variable name="server" value="https://lhgrw.gbv.de"/>	
+  <variable name="server" value="https://opac.lbs-greifswald.gbv.de"/>	
   <variable name="picadb" value="2"/>
-  <!--<template value="pica"/>-->
+ 
 
 
   <homepage value="https://www.hochschule-stralsund.de/host/einrichtungen-und-verwaltung/hochschulbibliothek/"/>

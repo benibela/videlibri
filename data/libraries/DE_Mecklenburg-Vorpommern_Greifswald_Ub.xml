@@ -6,7 +6,7 @@
   <shortName value="Ub Greifswald"/>
   
   <template value="lbs"/>
-  <variable name="server" value="https://lhgrw.gbv.de"/>
+  <variable name="server" value="https://opac.lbs-greifswald.gbv.de"/>
   <variable name="picadb" value="1"/>
 
 
