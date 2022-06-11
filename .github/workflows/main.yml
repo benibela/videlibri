@@ -17,7 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Install NDK
-      run: echo "y" | sudo /usr/local/lib/android/sdk/tools/bin/sdkmanager --install "ndk;23.2.8568313" "ndk;22.1.7171670" "tools" "build-tools;30.0.3"  "platforms;android-30"
+      run: echo "y" | sudo /usr/local/lib/android/sdk/tools/bin/sdkmanager --install "ndk;23.2.8568313"  "tools" "build-tools;30.0.3"  "platforms;android-30"
     - name: debug github actions
       run: echo $ANDROID_HOME
            sudo bash -c echo '$ANDROID_HOME'
