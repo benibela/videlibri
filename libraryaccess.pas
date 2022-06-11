@@ -275,6 +275,7 @@ begin
       storeException(e,lib,lib.getLibrary().id,'', lib.getDebugStackTrace);
     on e: exception do begin
       lib.broken:=currentDate;
+      lib.resetConnection;
       if lib.passWord = '' then e.Message := e.Message + ' [' + rsErrorNoPassword + ']';
       storeException(e,lib,lib.getLibrary().id,'', lib.getDebugStackTrace);
     end
