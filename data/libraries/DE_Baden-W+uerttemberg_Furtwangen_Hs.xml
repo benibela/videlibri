@@ -4,6 +4,7 @@
 <library>
   <deprecatedName value="DE_Baden-W+uertenberg_Furtwangen_Hs"/>
   <longName value="Bibliotheken der Hochschule Furtwangen"/>
+  <segregated-accounts value="true"/>
 
   <template value="aDISWeb"/>
   <variable name="server" value="bsz.ibs-bw.de"/>

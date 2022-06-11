@@ -4,6 +4,7 @@
 <library>
   <deprecatedName value="DE_Baden-W+uertenberg_L+oerrach_DHS"/>
   <longName value="Bibliothek der DHBW Lörrach"/>
+  <segregated-accounts value="true"/>
 
   <template value="aDISWeb"/>
   <variable name="server" value="bsz.ibs-bw.de"/>

@@ -4,6 +4,7 @@
 <library>
   <deprecatedName value="DE_Baden-W+uertenberg_Mannheim_HS"/>
   <longName value="Hochschulbibliothek Mannheim"/>
+  <segregated-accounts value="true"/>
 
   <template value="aDISWeb"/>
   <variable name="server" value="bsz.ibs-bw.de"/>

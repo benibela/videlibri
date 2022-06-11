@@ -4,6 +4,7 @@
 <library>
   <deprecatedName value="DE_Baden-W+uertenberg_Stuttgart_HS"/>
   <longName value="Bibliothek der HFT Stuttgart"/>
+  <segregated-accounts value="true"/>
 
   <template value="aDISWeb"/>
   <variable name="server" value="bsz.ibs-bw.de"/>
