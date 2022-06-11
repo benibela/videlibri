@@ -5,7 +5,7 @@ unit applicationconfig;
 interface
 
 uses
-  Classes, SysUtils, libraryparser,inifiles, inifilessafe, rcmdline, bbutils, {$IFNDEF ANDROID}autoupdate,{$ENDIF}extendedhtmlparser,
+  Classes, SysUtils, libraryparser,inifiles, inifilessafe, rcmdline, bbutils, internetaccess, {$IFNDEF ANDROID}autoupdate,{$ENDIF}extendedhtmlparser,
 accountlist{$IFNDEF ANDROID}, LMessages{$endif};
 
 {$IFNDEF ANDROID}
@@ -96,7 +96,8 @@ var programPath,userPath:string;
 
     callbacks: TCallbackHolderClass = TCallbackHolder;
 
-const localeCountry: string = 'DE'; //for sorting libraries
+const localeLanguage: string = 'de'; //for http
+const localeCountry: string = 'DE'; //for http and sorting libraries
 
   procedure initApplicationConfig;
   procedure finalizeApplicationConfig;
@@ -122,6 +123,8 @@ const localeCountry: string = 'DE'; //for sorting libraries
   function DateToPrettyStrGrammarDateItself(const date: tdatetime): string;
   function DateToPrettyStrGrammarFuture(const date: tdatetime): string;
 
+  function createVideLibriInternetAccess: TInternetAccess;
+
 resourcestring
   rsRenewable = 'verlängerbar';
   rsLastRenewDate = 'Älteste angezeigte Daten sind %s';
@@ -143,7 +146,7 @@ resourcestring
   rsPatternMatchingFailedDebugAllMatched = 'Es ist nicht klar, was auf der Seite fehlt.';
   rsErrorNoPassword = 'Es wurde kein Passwort für das Konto eingegeben';
 implementation
-uses internetaccess,libraryaccess,math,{$ifndef android}FileUtil,{$endif}bbdebugtools,androidutils ,
+uses libraryaccess,math,{$ifndef android}FileUtil,{$endif}bbdebugtools,androidutils ,
   {$IFDEF WIN32}
   windows,synapseinternetaccess,w32internetaccess
   {$ELSE}
@@ -340,7 +343,7 @@ resourcestring
       internetReact: TInternetAccessReact;
   begin
     internetReact := default(TInternetAccessReact);
-    internet:=defaultInternetAccessClass.create();
+    internet:=createVideLibriInternetAccess;
     internet.OnTransferReact:=@internetReact.internetReact;
     page:=internet.post('http','www.benibela.de','/autoFeedback.php',
                   'app='+internet.urlEncodeData('VideLibri')+
@@ -734,6 +737,12 @@ resourcestring
       -2..2: result:=Format(rsDateGrammarRelativeDateFuture, [DateToPrettyStr(date)]); //""
       else   result:=Format(rsDateGrammarAbsoluteDateFuture, [DateToSimpleStr(date)]); //zum
     end;
+  end;
+
+  function createVideLibriInternetAccess: TInternetAccess;
+  begin
+    result := defaultInternetAccessClass.create();
+    result.additionalHeaders.add('Accept-Language: ' +localeLanguage+'-'+localeCountry+','+localeLanguage+';q=0.9,en;q=0.4,de;q=0.3'); //this is a race condition if the language changes elsewhere. however, currently there is no option to change the language
   end;
 
 

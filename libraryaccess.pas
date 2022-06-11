@@ -159,7 +159,7 @@ begin
 
       if logging then log('TUpdateLibThread.execute ended marker 1');
       wasConnected := lib.connected;
-      if not wasConnected then lib.connect(defaultInternetAccessClass.create);
+      if not wasConnected then lib.connect(createVideLibriInternetAccess);
       if logging then log('TUpdateLibThread.execute ended marker 2');
       if (not wasConnected) or (not lib.updated) or (partialListOperation = nil) then begin //default behaviour is "update", disabled when a special partial list operation is given, but if we were not connected, it still needs to update
         lib.updateAll();

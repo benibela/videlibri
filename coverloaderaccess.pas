@@ -66,7 +66,7 @@ constructor TCoverThread.Create();
 begin
   inherited Create(false);
   messages := TMessageSystem.create;
-  internet := defaultInternetAccessClass.create();
+  internet := defaultInternetAccessClass.create(); //todo: set accept-language?
 end;
 
 procedure TCoverThread.Execute;

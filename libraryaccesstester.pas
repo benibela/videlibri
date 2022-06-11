@@ -143,7 +143,7 @@ var t: TTemplateAccountAccessTester;
   i: Integer;
   internet: TInternetAccess;
 begin
-  internet := internetaccess.defaultInternetAccessClass.create();
+  internet := createVideLibriInternetAccess;
   lib := libraryManager[ListBox1.ItemIndex];
   if lib = nil then exit;
   t := TTemplateAccountAccessTester.create(lib);
@@ -370,7 +370,7 @@ begin
       if lib.testingAccount in [tiBroken, tiNo] then raise EDoNotTestThis.Create('');
       resultAccount := '';
       for acctype := 1 to ifthen(lib.segregatedAccounts, 2, 1) do begin
-        internet := internetaccess.defaultInternetAccessClass.create();
+        internet := createVideLibriInternetAccess;
         t := TTemplateAccountAccessTester.create(lib);
         t.init('', fakeUser);
         t.accountType:=acctype;
@@ -437,7 +437,7 @@ begin
   end;
   if (homepage) and (lib.homepageBase <> '') then begin
     try
-      internetaccess.defaultInternetAccessClass.create().get(lib.homepageBase);
+      createVideLibriInternetAccess.get(lib.homepageBase);
       resultHomepage := 'ok';
     except
       on e: EInternetException do

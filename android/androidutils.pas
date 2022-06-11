@@ -244,18 +244,20 @@ procedure Java_de_benibela_VideLibri_Bridge_VLInit(env:PJNIEnv; this:jobject; co
   procedure initLocale;
   var LocaleClass: jclass;
   Locale_getDefault, Locale_getCountry: jmethodID;
-  locale, country: jobject;
+  locale: jobject;
   begin
     with j do begin
       LocaleClass := getclass('java/util/Locale');
       Locale_getDefault := getstaticmethod(LocaleClass, 'getDefault', '()Ljava/util/Locale;');
+      Locale_getLanguage := getmethod(LocaleClass, 'getLanguage', '()Ljava/lang/String;');
       Locale_getCountry := getmethod(LocaleClass, 'getCountry', '()Ljava/lang/String;');
       //Locale_getLanguage := getmethod(LocaleClass, 'getLanguage', '()Ljava/lang/String;');
       locale := callStaticObjectMethodChecked(LocaleClass, Locale_getDefault);
       if locale <> nil then begin;
-        country := callObjectMethodChecked(locale, Locale_getCountry);
-        if country <> nil then
-          localeCountry := jStringToStringAndDelete(country);
+        localeLanguage := jStringToStringAndDelete(callObjectMethodChecked(locale, Locale_getLanguage));
+        localeCountry := jStringToStringAndDelete(callObjectMethodChecked(locale, Locale_getCountry));
+        if localeLanguage = '' then localeLanguage := 'de';
+        if localeCountry = '' then localeCountry := 'DE';
         deleteLocalRef(locale);
       end;
       deleteLocalRef(LocaleClass);

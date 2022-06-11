@@ -204,7 +204,7 @@ begin
   template:=searchTemplate;
 
   bookListReader:=TBookListReader.create(template);
-  bookListReader.internet:=defaultInternetAccessClass.create();
+  bookListReader.internet:=createVideLibriInternetAccess;
 
   FTimeout:=10*60*1000;
   FConnected:=false;
