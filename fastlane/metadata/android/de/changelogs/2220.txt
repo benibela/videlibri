@@ -1,0 +1,4 @@
+* Anpassungen an geändertes Katalogsystem der Hochschulbibliothek der HTW Dresden.
+* Signatursuche für die Münchener Stadtbibliothek.
+* android: Um eine Datei zum Import/Export auszuwählen kann der Standard-Dateiauswahldialog verwendet werden statt den Pfad manuell einzugeben.
+* Windows/Linux: Keine Linklistenzeile mehr in der Suche.

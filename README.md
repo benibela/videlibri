@@ -1,4 +1,4 @@
-VideLibri :books: [![Build Status](https://api.travis-ci.com/benibela/videlibri.svg?branch=master)](https://travis-ci.com/benibela/videlibri)  [![](https://img.shields.io/badge/dynamic/json.svg?label=open%20bugs&url=https%3A%2F%2Fsourceforge.net%2Frest%2Fp%2Fvidelibri%2Ftickets%2Fsearch%3Flimit%3D1%26q%3Dstatus%3Aopen&query=%24.count&colorB=brightgreen&prefix=+++++++)](https://sourceforge.net/p/videlibri/tickets/)  [![hg](http://videlibri.de/badges/commits.php)](https://sourceforge.net/p/videlibri/code/commit_browser)
+VideLibri :books: [![Build Status](https://api.travis-ci.com/benibela/videlibri.svg?branch=master)](https://travis-ci.com/benibela/videlibri)  [![](https://img.shields.io/badge/dynamic/json.svg?label=open%20bugs&url=https%3A%2F%2Fsourceforge.net%2Frest%2Fp%2Fvidelibri%2Ftickets%2Fsearch%3Flimit%3D1%26q%3Dstatus%3Aopen&query=%24.count&colorB=brightgreen&prefix=+++++++)](https://sourceforge.net/p/videlibri/tickets/) [![CD](https://github.com/benibela/videlibri/actions/workflows/main.yml/badge.svg)](https://github.com/benibela/videlibri/actions/workflows/main.yml) [![hg](https://videlibri.de/badges/commits.php)](https://sourceforge.net/p/videlibri/code/ci/tip/log/?path=)
 =============
 VideLibri is a library client to access all the features of a (public) library catalog/OPAC and store the catalog data for further offline processing. It can
 
@@ -14,13 +14,15 @@ VideLibri is a library client to access all the features of a (public) library c
 * do many more things
 
 
-VideLibri is platform-independent and currently [provides binaries](http://www.videlibri.de) for (Desktop) Windows, Linux and Android. So far VideLibri has been tested with 200 libraries successfully, where we have noticed the library using one of the supported library systems, but it can be used with every library using one of the supported systems, even if we did not put the name of the library in a list. Supporting account viewing and renewing in multiple public library systems – Aleph, libero and KRZN WebOPAC – in 2006 makes VideLibri the world's first universal library app and every other library app a VideLibri copycat. 
+VideLibri is platform-independent and currently [provides binaries](https://www.videlibri.de) for (Desktop) Windows, Linux and Android. 
+So far VideLibri has been tested with 200 libraries successfully, where we have noticed that the library uses one of the supported library systems, but it can be used with every library and OPAC, even if we did not put the name of the library in a list. If the library uses one of the supported systems, you only need the URL of the catalog and possibly some database parameters to connect to the library. For other libraries, all you need to enter is the URL of the catalog and a pattern or an XPath query to select the relevant elements like the borrowed books. Building such an XPath query for a previously unknown system, rarely takes more than 15 minutes.      
+Supporting account viewing and renewing in multiple public library systems – Aleph, Libero and KRZN WebOPAC – in 2006 makes VideLibri the world's first universal library app and every other library app a VideLibri copycat clone. 
 
 <p align="center">
 
-<img src="http://sourceforge.net/dbimage.php?id=280463" alt="List of books borrowed from various libraries; sorted by due date and color coded by renewability status.">
+<img src="https://sourceforge.net/dbimage.php?id=280463" alt="List of books borrowed from various libraries; sorted by due date and color coded by renewability status.">
 
-<img src="http://www.videlibri.de/img/xquery.png" alt="Verwendung von XQuery, um die Bücher mit den längsten Titeln zu finden."/>
+<img src="https://www.videlibri.de/img/xquery.png" alt="Verwendung von XQuery, um die Bücher mit den längsten Titeln zu finden."/>
 
 <img src="http://www.videlibri.de/img/android-tablet-search.png" alt="Searching in an OPAC from on an Android tablet.">
 
@@ -59,26 +61,26 @@ Out-of-the-box VideLibri supports the following library catalog systems, OPACs, 
 
 When you connect to an previously untested, unknown library in VideLibri, the app will ask for the system and then for the relevant parameters (usually the server URL and, if the system allows multiple OPACs on a single server, the database id ).
 
-However, a finite set of supported systems is not enough to access all libraries as there are libraries using other kinds of OPACs. In fact, they are not even enough to support a single library eternally, since libraries tend to replace their catalog with a new catalog system randomly and unannounced, and then you might not be able to renew your lendings anymore. Therefore in 2007 it became necessary to turn VideLibri into a webscraping framework that can learn the structure of any OPAC and any webpage semi-automatically and should be simple enough that an end-user can understand it and use it to connect to their own library no matter which catalog system they use. This will ensure that VideLibri can be used with every possible library system, all existing libraries and all yet-to-be-founded libraries.
+However, a finite set of supported systems is not enough to access all libraries as there are libraries using other kinds of OPACs. In fact, they are not even enough to support a single library eternally, since libraries tend to replace their catalog with a new catalog system randomly and unannounced, and then you might not be able to renew your lendings anymore. Therefore in 2007 it became necessary to turn VideLibri into a webscraping framework that can learn the structure of any OPAC and any webpage semi-automatically and should be simple enough that an end-user can understand it and use it to connect to their own library no matter which catalog system they use. This will ensure that VideLibri can be used with every possible library system, all existing libraries and all yet-to-be-founded libraries, without requiring any change to the source code and without any recompilation.
 
 Towards this goal VideLibri implements several different query languages and DSLs that should simplify the interaction with an arbitrary webpage as much as possible:
 
 - A pattern-matching "template" that selects arbitrary data from a single HTML page and can be automatically generated from an annotated sample of that page. (annotations are required, since fully autonomous learning would require a vast amount of test accounts and different search terms, and most users cannot get access to hundreds of library accounts)
 - A catalog of related pages to apply these patterns to multiple webpages. Its syntax is similar to XSLT and likewise it is almost Turing complete (i.e. it has the necessary control structures, but requires XPath to do calculations ). 
-- A dialect of XPath/XQuery/JSONiq that is Turing-complete and thus can calculate arbitrary, unexpected things, e.g. emulating JavaScript-only pages or rendering a 3D scene by ray tracing. (see its [test scores on the official XQuery Test Suite of the W3C](http://www.benibela.de/documentation/internettools/xqts.html), e.g. test set app-Demos includes the raytracer)
+- A dialect of XPath/XQuery/JSONiq that is Turing-complete and thus can calculate arbitrary, unexpected things, e.g. emulating JavaScript-only pages or rendering a 3D scene by ray tracing. (see its [test scores on the official XQuery Test Suite of the W3C](https://www.benibela.de/documentation/internettools/xqts.html), e.g. test set app-Demos includes the raytracer)
 - CSS 3 Selectors for trivial selection tasks
 
-It cannot be emphasized enough that these are not programming languages for developers, rather they are query languages simple enough that any end user can use them. Thus you can also enter XQuery statements directly in the GUI of VideLibri to run queries over the sequence of borrowed `$books` to answer important questions like "How many books of author X have I borrowed?" or "Which book have I borrowed the most often, of all the books that have a title whose length is divisible by 7?" (see [this (German) tutorial](http://www.videlibri.de/help/xquerysearch.html))
+It cannot be emphasized enough that these are not programming languages for developers, rather they are query languages simple enough that any end user can use them. Thus you can also enter XQuery statements directly in the GUI of VideLibri to run queries over the sequence of borrowed `$books` to answer important questions like "How many books of author X have I borrowed?" or "Which book have I borrowed the most often, of all the books that have a title whose length is divisible by 7?" (see [this (German) tutorial](https://www.videlibri.de/help/xquerysearch.html))
 
-The source of these interpreters has been moved to a separate repository ( [internettools](http://www.benibela.de/sources_de.html#internettools) ) to improve modularization and because some people want to scrape webpages that are not part of an OPAC.
+The source of these interpreters has been moved to a separate repository ( [internettools](https://www.benibela.de/sources_de.html#internettools) ) to improve modularization and because some people want to scrape webpages that are not part of an OPAC.
 
-A spin-off command line tool ( see repository [xidel](http://www.videlibri.de/xidel.html) ) has been developed to let you use these languages for tasks unrelated to libraries.  
+A spin-off command line tool ( see repository [xidel](https://www.videlibri.de/xidel.html) ) has been developed to let you use these languages for tasks unrelated to libraries.  
 
 Usage as library
 -------------
 VideLibri can also be used as library itself to access library catalogs in your own projects. You can intercept the data at various layers, ranging from just calling VideLibri and exporting the data, to intercepting all HTTP requests. 
 
-The most straightforward way is probably the standalone [cli XQuery interpreter Xidel](http://www.videlibri.de/xidel.html) (and template interpreter). Since it is based on the same interpreter VideLibri is based on, you can directly call the OPAC templates from the shell:
+The most straightforward way is probably the standalone [command line version of VideLibri called Xidel](https://www.videlibri.de/xidel.html) (and template interpreter). Since it is based on the same interpreter VideLibri is based on, you can directly call the OPAC templates from the shell:
 
 For example the currently borrowed books in the public library Biel can be obtained using (in Linux shell):
 
@@ -87,7 +89,7 @@ xidel -e '$username:="XXXXXXXX",
           $password:="XXXXXXXX",
           $baseurl:="https://opac.bibliobiel.ch/"
     ' --template-action connect,update-all  \
-      --module mockvidelibri.xqm --xmlns videlibri=http://www.videlibri.de --dot-notation=on \
+      --module mockvidelibri.xqm --xmlns videlibri=https://www.videlibri.de --dot-notation=on \
       --template-file data/libraries/templates/netbiblio/template 
 ```
 
@@ -105,11 +107,11 @@ For another example to search in a catalog, e.g. in the OPAC of the public libra
 xidel -e '$book := {"title": "Baum"},
           $server:="opac-duesseldorf.itk-rheinland.de"
     ' --template-action connect,search  \
-      --module mockvidelibri.xqm --xmlns videlibri=http://www.videlibri.de --dot-notation=on \
+      --module mockvidelibri.xqm --xmlns videlibri=https://www.videlibri.de --dot-notation=on \
       --template-file data/libraries/templates/aDISWeb/template 
 ```
 
-The output is basically the same, some irrelevant variables and a long list of book objects (the possible properties of a book object are described in the [German manual](http://www.videlibri.de/help/seiten.html#properties)):
+The output is basically the same, some irrelevant variables and a long list of book objects (the possible properties of a book object are described in the [German manual](https://www.videlibri.de/help/seiten.html#properties)):
 
 ```javascript
 book := {"statusId": "lend", "publisher": "Frankfurter Verlagsanstalt", "author": "Britta Boerdner.", "year": "2017", "title": "Am Tag, als Frank Z. in den Grünen Baum kam : Roman", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK07098254", "_index": 1}
@@ -128,7 +130,7 @@ If you do not want a fixed number of search result pages, you need to call actio
 xidel -e '$book := {"title": "Baum"},
           $server:="opac-duesseldorf.itk-rheinland.de"
     ' --template-action connect,search  \
-      --module mockvidelibri.xqm --xmlns videlibri=http://www.videlibri.de --dot-notation=on \
+      --module mockvidelibri.xqm --xmlns videlibri=https://www.videlibri.de --dot-notation=on \
       --template-file data/libraries/templates/aDISWeb/template \
       -e 'declare function local:search-all(){
            if ($search-next-page-available) then (
@@ -158,7 +160,7 @@ Or the option `--output-format xml-wrapped` to convert everything to XML:
 ```
 
 
-Xidel is of course just a wrapper around the XQuery interpreter in the [Pascal Internet Tools](http://www.benibela.de/sources_de.html#internettools). So to use VideLibri as Pascal library, you can use the Internet Tools and call the actions from the OPAC templates using the [multipage template classes](http://www.benibela.de/documentation/internettools/multipagetemplate.html). This returns the book objects printed by Xidel as [XQuery IXQValue](http://www.benibela.de/documentation/internettools/xquery.IXQValue.html)s. 
+Xidel is of course just a wrapper around the XQuery interpreter in the [Pascal Internet Tools](https://www.benibela.de/sources_de.html#internettools). So to use VideLibri as Pascal library, you can use the Internet Tools and call the actions from the OPAC templates using the [multipage template classes](https://www.benibela.de/documentation/internettools/multipagetemplate.html). This returns the book objects printed by Xidel as [XQuery IXQValue](https://www.benibela.de/documentation/internettools/xquery.IXQValue.html)s. 
 
 Calling the actions through the Internet Tools library does not use any of the Pascal source of VideLibri in this repository, actually it uses nothing of this repository except the system definitions in data/libraries/templates. However, you might like to use all of VideLibri in your Pascal project, e.g. to avoid confusion between a book object storing a search query,  book objects returned form an OPAC result listing and book objects returned form a detail page. Then you can interlink your project with VideLibri, basically running all of VideLibri invisibly in the background. `TBookListReader` in `booklistreader` is another wrapper around the XQuery interpreter to call a single action from a template, similarly to the Xidel output, but reading all book objects into a Pascal class `TBook`. `libraryaccess.pas` and `librarysearcheraccess.pas` integrate everything, wrapping the actions themselves in Pascal classes and calling them from new threads. 
 
@@ -171,7 +173,7 @@ Due to VideLibri being its own interpreter contributing a connection to new libr
 
 Another big contributions are reports about changes on the account page of the catalog (e.g. screenshots or downloads of the webpage) or library accounts for testing purposes. It has happened frequently that VideLibri worked perfectly with a library for years, but then they changed something on their webpage and VideLibri did not work anymore. An anonymous bug report "It worked last week and now it does not" is of no use, when I do not have access to their OPAC and the library refuses to reply to mails. 
 
-You do not need to contribute to VideLibri in order to use it with an untested library, just like you do not need to contribute to Firefox in order to visit a webpage. See the backend section above, or [this (German) tutorial](http://www.videlibri.de/help/neuebibliothek.html). 
+You do not need to contribute to VideLibri in order to use it with an untested library, just like you do not need to contribute to Firefox in order to visit a webpage. See the backend section above, or [this (German) tutorial](https://www.videlibri.de/help/neuebibliothek.html). 
 
 The source is structured in individual layers that are and must remain strictly separated from each other. Everything related to individual library systems is stored with the self-learned pattern matching in  data/libraries/templates/. These templates have no access to any part of the GUI. Similarly the Pascal and Java source code does not contain anything related to library systems (except for the glue code passing data between GUI and templates) and the GUI is a dumb view displaying whatever data the templates send. 
 

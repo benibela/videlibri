@@ -1,0 +1,4 @@
+* Die Androidversion ist nun mit FreePascal 3.1.1 (fpc r34557) kompiliert, da Apps, welche mit fpc 3.0 erstellt wurden (d.h. VideLibri seit Version 1.835), unter Android <= 4.0 nicht starten und Android 6 von fpc 3.0 nicht unterstützt wird.
+Die Desktopversion ist weiterhin mit fpc 3.0 kompiliert, da fpc 3.1.1 beim optimierten Kompilieren von größeren Desktop-Programmen einfach abstürzt.
+    
+* Universitätsbibliothek Würzburg und Stadtbibliothek Holzgerlingen: Anpassung an Katalog-Änderungen 

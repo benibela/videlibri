@@ -1,0 +1,4 @@
+* Noch strengere Cookie-Abschirmung, die Server anhand der Subdomain nicht nur der Domain unterscheidet. 
+* Stadtbücherei Erbach: Anpassung an neuen OPAC
+* libero 6/Saarbrücken: Teste, ob VideLibri bereits im Katalog eingeloggt ist, und wenn ja, überspringe den Einlogvorgang. 
+* digibib/FH Münster: Neuimplementation der Konto-Anzeige und Verlängerung

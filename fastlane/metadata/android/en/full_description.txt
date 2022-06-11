@@ -1,0 +1,26 @@
+VideLibri protects one from missing the due date when borrowing books from public libraries by downloading the list of borrowed books from the library webpage (WebOPAC), renewing all renewable books, and notifying you about non-renewable books, so you do not have to pay late fees to the librarians. Furthermore, the app has all the usual functions of an OPAC.
+
+Features:
+
+- Tested with 200 public and academic libraries in Germany, Switzerland, and Austria.
+- Supports 20 different kinds of OPACs from different vendors out of the box.
+- Custom XPath expressions can be entered in the app to select any data from any website, so any library can be added without compiling the app.
+- It shows all borrowed books from all library cards from different libraries in a single list, so you can always see which book needs to be returned next.
+- The list of borrowed books can be sorted by the due date, lending date, lending library, author, title, and other criteria.
+- The notification about a dooming due date is more reliable than reminder emails sent by the library OPAC since you can never know if an email actually arrives in time. VideLibri on the other hand stores all data on your smartphone, so the due date is always already there and does not need to arrive.
+- Renewing of borrowed books, manually or automatically before the due date to extend the lending period.
+- History of all borrowed books, so you can always look back at the books you had borrowed in the past, even after the books were returned to the library and are not shown anymore in the library OPAC.
+- Turing-complete XQuery search in the history that can answer arbitrary complex queries, like which borrowed book had the longest title and was borrowed more than once? 
+- Search in the OPAC for non-lent books as well as ordering and reserving of non-lent books in some libraries.
+- Developed since the year 2006, it is the world's first universal library app and any other library app is a VideLibri copycat.
+- Open-source
+
+
+
+Some larger public libraries that were tested successfully are for example in the cities Augsburg, GGG Basel, Berlin, Bielefeld, Cologne, Düsseldorf, Lübeck, or Linz, or Munich.
+
+The entire list of all tested libraries and OPACs is too long for the app store page, but you can find it at https://videlibri.de/bibliotheken.html . 
+
+
+The Android part of VideLibri has been translated into English. However, since most libraries in the list are German, they have German books with German titles. Additional resources like documentation and changelog written for the original VideLibri Windows app in 2006 remain in German. The Windows and Linux app are currently being translated.
+

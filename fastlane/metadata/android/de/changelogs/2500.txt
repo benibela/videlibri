@@ -1,0 +1,3 @@
+* Speichere Android Einstellungen als JSON.
+* Bessere eigene-Bibliothek-Konfigurations GUI.
+* Anpassung an geänderte Kataloge bei Stadtbibliothek Chemnitz und Stadtbibliothek Stuttgart.

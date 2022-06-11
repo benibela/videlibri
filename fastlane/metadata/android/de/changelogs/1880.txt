@@ -1,0 +1,7 @@
+* Modernisierung des intern simulierten Webbrowsers: Sende Anfragen als latin1 statt utf-8, wenn die Seite nicht explizit utf-8 verwendet. Folge der Cookie-RFC, so dass Cookies, die von einem Server für eine Einzelseite gesetzt werden, auch für andere Seiten auf demselben Server nicht verfügbar sind.
+* bibliotheca/netbiblio: Verwende t:siblings, so dass es mit mehr unbekannten Bibliotheken funktionieren sollte
+* Anpassung an geänderte Serveradresse der Stadtbibliothek Stralsund und Bibliothek Witten. Sowie der Suche bei Universitätsbibliothek der HU-Berlin und Universitätsbibliothek der FU-Berlin
+* Anpassung an geänderte Loginseite der Badischen Landesbibliothek (Karlsruhe).
+* primo, Universitätsbibliotheken TU/HU/FU-Berlin: Anzeige von Standortdaten
+* t:siblings-header/t:siblings-Befehle im Pattern Matching, die VideLibri mitteilen, dass die Spalten einer Tabelle beliebig permutiert werden dürfen. 
+* ausführlichere Fehlermeldungen

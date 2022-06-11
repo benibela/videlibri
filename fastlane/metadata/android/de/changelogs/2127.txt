@@ -1,0 +1,2 @@
+* vöbb: weitere Anpassungen für Magazinbestellungen
+* Rückgängig machen von VÖBB Anpassungen, die nicht mit den Stadtbüchereien Düsseldorf laufen.

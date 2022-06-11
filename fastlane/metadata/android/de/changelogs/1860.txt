@@ -1,0 +1,5 @@
+* Anpassungen an Systemänderungen in der Universitätsbibliothek Ulm, der Universitätsbibliothek der TU-Berlin (Bibliothekssystem Alma), der Winterthurer Bibliotheken
+* Aktualisierte primo-Implementierung
+* Moderneres Layout unter Android: keine separaten Menüs mehr, alle Funktionen sind in einem einzigen Menü
+* verwendet Android Level 22 statt 14, Appcompat statt Sherlock, Gradle statt Ant, FreePascal r35148 statt r34557
+* Es kann nun zwischen internen und externen Leserkonten unterschieden werden

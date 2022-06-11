@@ -1,0 +1,1 @@
+* Fix Crash unter deutschsprachigen Betriebsystemen

@@ -1,0 +1,4 @@
+* Universitätsbibliothek Kiel, Zentrale Hochschulbibliothek Lübeck, Bibliotheken der FH Kiel, Schleswig-Holsteinische Landesbibliothek: Anpassung an Serverumzug.
+* aDIS/VÖBB: Betrachte nur Tabellen mit mindestens 4 Spalten als Tabelle von ausgeliehenen Büchern, für den Fall das mehr als 200 Bücher ausgeliehen sind und es daher weitere Tabellen gibt. 
+* sisis/Leipzig/inner-text: Zeige nicht den gesamten Webseitentext in den Suchergebnissen an.
+* Import/Export: Behebt Absturz unter Android 8.1.

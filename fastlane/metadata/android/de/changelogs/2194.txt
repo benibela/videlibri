@@ -1,0 +1,3 @@
+* Verbesserter XML/HTML-Parser: schneller und toleranter gegenüber fehlerhaften Webseiten wie den Badenwürttemberger Hochschulbibliothekwebseiten.
+* Linux/OpenSSL: Überprüfe HTTPS-Zertifikate ordnungsgemäß.
+* Auflisten der URLs der Stuttgarter Stadtbibliothek und Landesbibliothek.

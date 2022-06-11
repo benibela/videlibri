@@ -1,0 +1,4 @@
+* Verwende Android 5.0 NDK für x86 ABI (wie bei allen anderen ABIs), da das Android 4.0 NDK gelöscht werden musste, um genügend Speicherplatz für ein Linuxupdate freizugeben. Verwende ld/GNU Binutils 2.32 für Linux, da es beim Update installiert wurde.
+* aDIS/Berlin: Korrigiere Vormerkungen/Bestellungen.
+* Sortiere die Stadt Öhringen an die richtige Stelle in der alphabetischen Liste, damit es nicht abstürzt, wenn die Stadt vom Nutzer ausgewählt wird, aber dann nicht gefunden werden kann.
+* android: Zeige die Überschrift von Auswahllisten (für z.B.: Zweigstellenauswahlen) an.

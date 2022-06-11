@@ -1,0 +1,4 @@
+* Erstellt mit Lazarus 2.0.10 auf Ubuntu 19.10.
+* Stadtbibliothek Neustadt: Anpassung an geänderte Webadresse
+* aDIS/Düsseldorf: Suche das Leihfristdatum nicht in der Spalte "Fällig am", sondern in der ganzen Tabellenzeile, weil es die Spalte wohl nicht mehr gibt, und niemand gemeldet hat, wie die neue Spalte heißt.  
+* android: Lade nur die nächste Seite der Suchergebnisse, statt manchmal alle Suchergebnisse.

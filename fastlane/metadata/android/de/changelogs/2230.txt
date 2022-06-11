@@ -1,0 +1,2 @@
+* Anpassungen an geändertes Katalogsystem der Stadtbibliothek München und Stadtbibliothek Weil am Rhein.
+* BibTeX-Export: Verbesserte, benutzerdefinierte IDs.

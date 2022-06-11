@@ -1,0 +1,2 @@
+* Es werden nun auch wieder im März fällige Bücher der FHB (Fachhochschulbibliothek) erkannt.
+* Das Benutzerverzeichnis wird nun auch gefunden, wenn der Pfad in machine.config nur relativ angegeben ist.

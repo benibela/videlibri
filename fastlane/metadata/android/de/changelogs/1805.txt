@@ -1,0 +1,9 @@
+* Stadtbibliothek Chemnitz: Wiederherstellung der grundlegenden Funktionen mit dem neuen System (Touchpoint)
+* Desktopversion: Zeige keine Fehlermeldung, wenn das Titelbild nicht gefunden werden konnte
+* Android: Versuche die virtuelle Tastatur beim Starten zu verbergen
+* Deaktivere Log-Berechtigung auf neuen Geräten
+* Verbesserte Trennung zwischen Android und Desktopversion.
+* Geänderte Errorcodes für das Abfangen von http-Fehlermeldungen in benutzerdefinierten Templates (http:*)
+* Wiederhole fehlgeschlagene HTTP-Anfragen
+* Linux Desktopversion: Verwende TLS 1, wenn OpenSSL die HTTPS-Version nicht erkennen kann. Behebt Verbindungsfehler zu mehreren Bibliotheken.
+* Koblenz/Dresden/Saarland: Liefere wieder die nicht-verifizierbaren HTTPS-Zertifikate mit

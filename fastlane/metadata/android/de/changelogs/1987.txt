@@ -1,0 +1,6 @@
+* Verwende mehr HTTPS (Dresden, ...)
+* okhttp: wiederhole HTTPS-Übertragungen, die bei schlechter Internetverbindung fehlschlagen.
+* Merke ausgewählte Zweigstelle für die nächste Suche.
+* Linux/Windows: unbrauchbares Layout bei größerer Schriftart.
+* Windows: Debug-Log wird nicht (sofort) von NTFS-Dateisystemen geladen.
+* Stadtbüchereien Castrop-Rauxel, Dorsten, Gladbeck, Herten, Oer-Erkenschwick

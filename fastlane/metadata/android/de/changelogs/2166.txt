@@ -1,0 +1,7 @@
+* aDIS: Berücksichtige die Tabellenspaltenüberschriften beim Auslesen der Ausleihentabellen, zum Beispiel lese das Fristdatum nur aus der Spalte mit Überschrift "fällig am" statt aus der zweiten Spalte.
+* Lösche nicht die Tabellenspaltenüberschriften beim Anonymisieren der Webseite für Fehlerberichte. 
+* Linux/Windows: Option, um die Webseiten bei Fehlerberichten zu anonymisieren.
+* aDIS: Wenn beim Anmelden auf der Seite "Ihre Sitzung wurde beendet" auftritt, versuche die Anmeldung erneut.
+* Vufind/HMT Leipzig: Anpassung an geänderte Ausleihstatus-API
+* Stabi Berlin: Anpassung an geänderten Link zur nächsten Seite des Suchergebnis, lade die Suchergebnisse seitenweise.
+* Erstellung von HTML, XML, XHTML und JSON Dokumenten mittels XQuery.

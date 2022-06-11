@@ -1,0 +1,8 @@
+* Cookies werden auch für jeden Server separat statt nur nach Benutzerkonto getrennt gespeichert, so dass Server keinen Zugriff auf Cookies anderer Server haben, selbst wenn beide Server zur selben Bibliothek gehören.
+* Verhindert, dass sich das ALMA-System und der Studentenlogin-Server der Universitätsbibliotheken der HU/TU-Berlin gegenseitig ihre Cookies überschreiben.
+* Anpassungen an das ALMA-System der Bibliotheken der HU/TU/FU-Berlin für grundlegende Such- und Kontofunktionen.
+* Neue Webseiten für Stadtbibliothek Solingen, Bibliothek der staatlichen Akademie der Künste Stuttgart, Stadtbücherei (Oberts-)hausen, Bibliothek der Pädagogischen Hochschule Heidelberg
+* Anpassungen an das neue System der Stadbibliothek Biel
+* Verwende die Digibib für Suche in der FH Münster (noch keine Kontofunktionen)
+* In eigenen Templates kann nun mittels parse-date("datum") ein Datum gelesen werden, ohne dass ein Datumsformat (wie yyyy-mm-dd) angegeben werden muss.
+* netbiblio-Grundfunktionen

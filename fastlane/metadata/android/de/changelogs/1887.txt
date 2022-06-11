@@ -1,0 +1,7 @@
+* android: Frage bei jeder Vormerkung, für welches Konto die Vormerkung erfolgen soll, damit es nicht sofort ohne Nachfrage etwas vormerkt, wenn jemand aus Versehen auf den Vormerkbutton drückt.
+* android: Sortiere das lokale Land an den Anfang der Bibliothekliste.
+* Desktop: Verwende wieder das korrekte Datumsformat.
+* Neue OPAC/Web-Addressen für Universitätsbibliothek Regensburg, Universitätsbibliothek Bamberg, Technische Informationsbibliothek/Universitätsbibliothek Hannover und Universitätsbibliothek Hohenheim.
+* Netbiblio/Stadtbibliothek Biel: Anzeige von Suchergebnissen einer Einzelseite ohne "nächste Seite"-Button im Katalog; und wenn die Katalogsprache nicht deutsch ist
+* android: Behebt Absturz bei einem Timeout der Suche, wenn keine eindeutige Bibliothek zur Suche ausgewählt ist.
+* Netbiblio/Stadtbibliothek Biel: Reservierungsfunktion mit dem neuen Vormerksystem.

@@ -1,0 +1,4 @@
+* Erfurt: Anpassung an Änderung der Loginseite
+* Stralsund/Greifswald: Unterstützung für neues System (LBS)
+* Nürnberg: Anpassung an geänderten Titel
+* stabi: Übertrage kodiertes Passwort

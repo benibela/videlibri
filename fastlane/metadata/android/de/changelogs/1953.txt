@@ -1,0 +1,6 @@
+* Skaliere zu große/kleine Titelbilder.
+* Versuche nicht Titelbilder vom Buchhandel zu laden.
+* aDIS: Suche nicht nur nach "Mathematik" bei einer Schlagwortsuche, wenn es kein separates Feld zur Suche nach einem Thema gibt (wie bei Stadtbibliothek München).
+* Aleph/Bibliotheca+/OPEN: Breche die Verbindung nicht mit "Zugriff fehlgeschlagen" ab, wenn das Gerät schneller ist, als eine fehlerhafte Timeoutberechnung annimmt.
+* Neue Homepage-Adressen für Campusbibliothek Beuth-Hochschule und Fachhochschulbibliothek Düsseldorf (sie nennen sich nun Hochschulbibliothek der Hochschule Düsseldorf).
+* Button zur Bibliothekskonfigurierung im Neues-Konto-Konfigdialog.

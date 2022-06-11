@@ -1,0 +1,12 @@
+* SISIS: Unterstützung für Zweigstellen
+* Falsche Bibliothek-Homepages
+* Entferne (alpha)-Markierung von Bibliotheken, die VideLibri getestet haben
+* aDIS: (Vermutlich) Funktionierende Benutzerkontenanzeige für alle BSZ-gehosteten Bibliotheken und Stadtbibliothek Nürnberg
+* Template-Syntax: erlaubt optional-Marker auf allen Template-Elementen, nicht nur html; unterstützt s-Elemente in Mehrseitentemplate; pxp:url-combine Funktion, um nachträglich url-encoded Werte zu ändern
+* Stadtbücherei Aachen, Fachhochschulbibliothek Düsseldorf: Direkte Katalogsuche (ohne Umweg über Digibib), Bestellfunktionen 
+* Bibliotheken der HU/TU/FU Berlin: Suche im Primosystem
+* Auflistung aller Bibliotheken, deren Suche mit dem libero-Template funktioniert. Also: Stadtbibliothek Linz, Stadtbibliothek Filderstadt, Universitätsbibliothek Konstanz, Stadt- und Regionalbibliothek Cottbus, Stadtbücheri Dieburg, Stadtbücherei Erbach, Stadtbücherei Gießen, Stadtbibliothek Hanau, Stadtbibliothek Hattersheim, Stadtbücherei Mörfelden-Walldorf, Stadtbücherei Mühlheim (am Main), Stadtbücherei (Oberts-)hausen, Stadtbibliothek Pfungstadt, Stadtbibliothek Schotten, Stadtbibliothek Hildesheim, Hochschulbibliothek Bochum, Bibliothek der Westfälischen Hochschule, Stadtbibliothek Solingen, Stadtbücherei Stolberg, Bibliothek Verl, Universitätsbibliothek Witten/Herdecke, Stadtbibliothek Saarbrücken, SVK (Standort- und Ausleih-OPAC), Universitätsbibliothek Chemnitz (alter Katalog), Hochschulbibliothek der HTW, SLUB Dresden (alter Katalog), Bibliothek der Hochschule für Grafik und Buchkunst, Bibliothek der Hochschule für Musik und Theater (alter Katalog), Hochschulbibliothek Zittau/Görlitz, Hochschulbibliothek Zwickau
+* Weitere pica-Bibliotheken: Zentrale Hochschulbibliothek Lübeck, Schleswig-Holsteinische Landesbibliothek, Gottfried Wilhelm Leibniz Bibliothek, Bibliothek der Hochschule für Musik, Theater und Medien Hannover, Bibliothek im Kurt-Schwitters-Forum, Bibliothek des Landeskirchenamts Hannovers, Bibliothek der Medizinischen Hochschule Hannover, Bibliothek der Tierärztlichen Hochschule Hannover
+* TU Ilmenau: Korrigierte Benutzerkontenanzeige
+* Verbesserte Android-GUI
+* Geändertes Layout der Mediensuche

@@ -1,0 +1,10 @@
+* Einfacheres Verlängern: Mehrere Verlängerungen können gleichzeitig begonnen werden => es muss nicht mehr darauf gewartet werden, dass die vorherige abgeschlossen ist
+* sisis: Verlängerungen/Abbrechnungen können in beliebiger Reihenfolge getätigt werden
+* sisis (FH münster): Unsinnige Meldung bei Vormerkung auf einer Seite mit Javascript-Datumsauswahl und fehlender Titel in Einzelsuchergebnissen, wenn im Katalog "Title" statt "Titel" steht
+* Wiesbaden: Neue Serveradresse
+* Veraltete Adressen für Informationswebpages bei mehreren Bibliotheken
+* Unbegrenzt und exponentiell wachsender Speicherverbrauch, wenn Medien verlängert wurden, bei denen eine Eigenschaft leer war
+* Eigene Templates können Informationen über bereits gelesene Medien erhalten
+* Desktop version: In der gruppierten Anzeige konnten keine Aktionen getätigt werden
+* Desktop version: Dead-lock bei der Suche, falls die Bibliothekswebseite nicht erreichbar war 
+* Der HTML-Parser kommt nicht mehr durcheinander, wenn ungültige schließende DIV-Tags in Tabellen auftreten (für Oberhausen) 

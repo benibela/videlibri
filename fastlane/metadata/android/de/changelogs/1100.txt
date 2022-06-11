@@ -1,0 +1,4 @@
+* Unterstützung für den 2.2.1 Stadtbüchereien Düsseldorf OPAC
+* Unterstützung für die Digibib 6
+* Die Templates sind jetzt nahezu vollständig XPath 2 kompatibel (womöglich ist VideLibri jetzt die einzige existierende Pascal XPath 2 Implementierung)
+* E-Mailbenachrichtigungen

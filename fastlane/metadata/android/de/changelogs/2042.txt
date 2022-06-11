@@ -1,0 +1,7 @@
+* Verbesserte Fehlermeldungen, wenn kein Passwort eingegeben wurde oder keine Internetverbindung besteht.
+* android: Erstellt mit FreePascal und Android NDK 5.0 statt mit FreePascal, Lazarus und dem NDK von Android 2.2.
+* android: Umprogrammierung der Benachrichtigungen; zeige eine Warnung, wenn die Ausleihdaten (mehr als) eine Woche alt sind.
+* Anpassung an geänderte URLs: Stadtbibliotheken Darmstadt und Wiesbaden. 
+* aDIS/VÖBB: Verarbeite ungültiges HTML in der Ausleihentabelle besser.
+* android: Zeige das gefilterte Debug-Log auch an, wenn "priority tag" statt "tag/priority" im Log steht.
+* Bibliothek der Katholischen Hochschule Köln (eventuell)

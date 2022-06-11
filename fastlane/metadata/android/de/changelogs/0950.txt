@@ -1,0 +1,4 @@
+* Bei Abgabewarnungen wird jetzt auch die Anzahl der betroffenen Medien angezeigt
+* Das Programm kann jetzt registriert werden.
+* Zu lange und daher abgeschnittene Spalteneinträge werden bei Mausberühung erweitert.
+* Das Medienlistenkontextmenü funktioniert nun immer.

@@ -1,0 +1,3 @@
+* Anpassungen an geändertes JSON bei HU Berlin.
+* OCLC OPEN: Verwende das richtige Passwortfeld, wenn mehrere Passwortfelder auf der Loginseite sind.
+* Stadtbibliothek Bamberg, Hochschulbibliothek Neu-Ulm

@@ -1,0 +1,7 @@
+* android: verarbeite Drehungen von Tabletgeräten korrekt: Dialoge/Markierungen verschwinden nicht mehr und die Suche wird nicht neugestartet
+* android: Layoutdisplayfehler (z.B.: falsche Farben, Gesamtanzahlen, verschwindende Texte beim Wechseln zu anderen Apps, unnötige Ladesymbole)
+* android: Absturz der neuen Bibliotheksseite seit der Modernisierung in 1.860
+* android: Verwende dasselbe Ampelicon wie die Desktopversion
+* android: Der XQuery-Modus wird bereits durch 4 Kontrollzeichen ausgelöst, so dass man zum Beispiel ((123)) oder (1+2+3) schreiben kann, um VideLibri als Taschenrechner zu verwenden
+* android: Verwende ACRA 4.9.1, da das alte ACRA nicht mehr funktioniert. (obwohl das neue ACRA das Debuglog nicht mehr senden kann)
+* Desktop: Unterstützt unterschiedliche Sprachen im Layoutsystem

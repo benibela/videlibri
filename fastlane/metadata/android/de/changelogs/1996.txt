@@ -1,0 +1,6 @@
+* android: Stadtbibliothek Lübeck: Anpassung an fehlerhaftes HTTPS-Zertifikat.
+* Wenn in benutzerdefinierten Bibliothekssystemen ein Statustext für ein Medium gesetzt wird, ändert sich nicht der Statuscode des Mediums.
+* android: Sende Geräte- und Prozessorversion mit in Fehlerberichten.
+* android: Option für benutzerdefinierte HTTPS-Zertifikate, damit kein Update nötig wird, wenn eine Bibliothek ein  neues, fehlerhaftes Zertifikat verwendet.
+* Neue interne Statuscodes für vorbestellte Medien: reserved, requested.
+* Neue Bibliotheken, deren System bereits unterstützt waren, aber die bisher nicht in der Auswahlliste waren: Bibliotheken der Goethe-Universität Frankfurt am Main, und Stadtbücherei Frankfurt

@@ -1,0 +1,3 @@
+* Behebt möglichen Verlust von Einstellungen beim Appneustart
+* aDIS: Ablehnung von Vormerkungen wegen fehlendem Vormerkende 
+* Verschiedene geänderte Bibliothekswebseiten

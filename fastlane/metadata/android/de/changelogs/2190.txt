@@ -1,0 +1,4 @@
+* Unterstützung für Android 10.
+* Verbesserte Fehlermeldungen.
+* Anpassung an neues Bibliothekssystem in Eberbach, Leimen, Hildesheim, Hagen, Lübeck, und Kiel.
+* Medizinische Zentralbibliothek Magdeburg.

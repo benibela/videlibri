@@ -1,0 +1,2 @@
+* zones (z.B.: Lübeck): Verwende die aktuelle Sitzung für Verlängerungen und Vormerken, anstatt zu versuchen, sich erneut im Katalog anzumelden (was fehlschlägt, weil die Sitzung nicht beendet wurde)
+* Erlaube beliebige Sonderzeichen in Benutzernummern (behebt Crash bei der Universitäts- und Landesbibliothek Münster)

@@ -1,0 +1,2 @@
+* Größere Icons
+* Keine Textüberlappungen mehr, wenn in Windows große Schrift aktiviert wurde

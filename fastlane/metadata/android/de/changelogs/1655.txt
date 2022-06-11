@@ -1,0 +1,7 @@
+* Neue Serveradressen für Augsburg, Lübeck
+* Geänderte Systemdetails bei Digibib (Düsseldorf), SHLB Kiel, GBV SRU
+* libero/Aachen: Fehlermeldung bei 0 Suchtreffern 
+* latin1/utf-8 Erkennung trotz Content-type deaktiviert (behebt voebb Sonderzeichenproblem?) 
+* Separate Timeouts für Aktualisierung/Verbindungsaufbau (behebt vermutlich seltsame Variablenfehlermeldung beim Verlängern in adis/zones Bibliotheken)
+* zones: Warte eine Weile mit dem Aktualisieren nach einer Verlängerung, so dass der Server Zeit hatte, die Verlängerung zu bearbeiten
+* Kleinigkeiten

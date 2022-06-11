@@ -1,0 +1,3 @@
+* Repariere FU Berlin Login.
+* Anpassung an geänderte FH Münster-Login-Webseite.
+* Anpassung an geänderte Homepage-Webseiten in: Biberach, Karlsruhe, Nürtingen, Rottenburg, Weinheim, Amberg-Weiden, HTW Berlin, Hanau, Mörfelden-Walldorf, Obertshausen, Braunschweig, Hannover, Marl, Minden, Recklinghausen, Dresden

@@ -1,0 +1,2 @@
+* Stadtbüchereien Düsseldorf: Berücksichtigung einer erneuten Änderung der Websitenstruktur
+* Erlaubt Verschachtelungen in den pseudo-XPath-Ausdrücken (verwendet sie aber nicht)

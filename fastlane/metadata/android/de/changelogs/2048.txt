@@ -1,0 +1,4 @@
+* Änderungen bei der Verarbeitung von HTML-Seiten und UTF-8.
+* Anpassung an Änderungen der Stadtbibliothek München.
+* Ignoriere nicht die Kontoeinstellungen beim Export/Import von einem Gerät zu einem anderen Gerät.
+* Stadtbibliothek Pirna.

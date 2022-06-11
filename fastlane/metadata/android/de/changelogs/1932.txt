@@ -1,0 +1,4 @@
+* korrigiere deb-Erstellung
+* Universitäts- und Landesbibliothek Jena, Bibliothek der EAH Jena: Neues Bibliothekssystem
+* Stadtbibliothek Chemnitz: Versuche nicht die Zahl der Ausleihen zu ermitteln, um dann abzubrechen, wenn es den Ausleihenlink zweimal im Konto-OPAC gibt.
+* Desktop: Ändere Fenstersymbol zusammen mit Programmsymbol

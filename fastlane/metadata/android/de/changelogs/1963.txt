@@ -1,0 +1,7 @@
+* Stadtbibliothek Biel: Verwende HTTPS.
+* Android <= 4.0: Speichere zusätzliche HTTPS-Zertifikate im alten Keystore-Format, damit unter alten Android-Versionen keine "Wrong version of key store"-Fehlermeldung kommt.  
+* Android: Stürze nicht ab, wenn die Internetverbindung mitten in einer Übertragung plötzlich unterbrochen wird.
+* pica/Zentrale Hochschulbibliothek Lübeck: Zeige keine unsinnige Fehlermeldung an, wenn die Verlängerung eines nicht verlängerbaren Mediums, welches ein Semikolon in der Signatur hat, fehlschlägt.
+* Staatsbibliothek Berlin: Kodiere das Passwort auch korrekt, wenn das 3te, 6te, 9te, oder 12te, etc. Zeichen im Passwort ein > oder ? ist.
+* aleph/Universitäts- und Landesbibliothek Düsseldorf: Zeige auch nach der Verlängerung von mehreren Medien deren Autor/Titel korrekt an.
+* Stadtbibliothek Dormagen: Neue Webseiten-Adresse

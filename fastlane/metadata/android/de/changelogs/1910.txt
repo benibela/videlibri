@@ -1,0 +1,7 @@
+* libero/Bibliothek Verl: Neuimplementierung der Vormerkungen mittels "holding"-System.
+* android: breche die Suche nicht ab, wenn eine Fehlermeldung auftritt, da es öfter eine Warnung der Bibliothek ist ("Buch momentan nicht verfügbar") als eine fehlgeschlagene Suche.
+* libero/Bibliothek Verl: Zeige keine nicht verlängerbaren Medien als verlängerbar an.
+* Bibliothek des Deutschen Alpenvereins: Neue Webadresse.
+* Stadtbibliothek Erlangen: Erkenne umbenannten Login-Link auf der Suchergebnisseite.
+* Stadt- und Landesbibliothek Dortmund: Neues HTTPS-Zertifikat.
+* Desktop-Suche: Zeige Scrollbars (nur) an wenn sie benötigt werden.

@@ -1,0 +1,4 @@
+* Gesuchte Bücher können gespeichert werden
+* Merkt sich die letzten BibTeX-Exporteinstellungen
+* Zeigt gbv Vormerkungen nicht als fällige Bücher an
+* Mit neuer Lazarusversion kompiliert, so dass es nach mehreren Suchen nicht abstürzt.

@@ -1,0 +1,12 @@
+* Unterstützung für Bibliotheca+/OPEN
+* Stb Stralsund: von Bibliotheca zu Bibliotheca+
+* Neustadt an der Weinstraße
+* aDIS: Einzelsuchergebnisse
+* zones 1.8: Zeigt alle Vormerkungen an, nicht nur die der ersten Seite
+* Hannover Stb: Erkennung von korrekt ausgeführten Vormerkungen
+* Templates können auf bestimmte VideLibri-Versionen begrenzt werden
+* Aleph: Serveraddresse ist nicht mehr hardcodiert
+* statusId-Eigenschaft von Medien ist im Template lesbar
+* Coburg ist nun in Bayern
+* WebopacOCLC heißt nun Bibliotheca
+* android: Neuimplementierung der Bibliotheksliste, behebt Crashes, nicht klickbare Zeilen und falsche Sortierung 

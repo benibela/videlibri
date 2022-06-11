@@ -1,0 +1,4 @@
+* Windows/Linux: Änderung der Schriftgrößenermittlung.
+* sisis/touchpoint/chemnitz: Anzeige von mehreren Ausleihkontoseiten, Vormerkungen, Suchdetails. 
+* vöbb: Anpassung an Zweigstellensplitting.
+* Stadtbibliothek Mannheim: Anpassung an neuen OPAC.

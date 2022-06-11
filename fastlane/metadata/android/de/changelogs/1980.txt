@@ -1,0 +1,12 @@
+* Bibliothek der HMT Leipzig: Doppelt so schnelle Auswertung der Suchergebniswebseite
+* HTTPS: Wenn Android das HTTPS-Zertifikat der Bibliothek nicht akzeptiert, weil es das verwendete Rootzertifikat nicht kennt,  speichere das Rootzertifikat in der App statt das Zertifikat der Bibliothek (Linz..)
+* GBV GKV: Verwende das neue holdings-Vormerkungsanzeigesystem
+* Markiere Bibliotheken, bei denen ich kein Ausleihkonto habe mit (nur Suche getestet) statt mit (alpha)
+* SRU: Frage den Server nach den verfügbaren Suchschlüsseln, statt die Schlüssel fest zu konfigurieren
+* Verhalte sich mehr wie ein Browser beim Ausfüllen von Formularen auf der Bibliothekswebseite, insbesondere ignoriere deaktivierte Formularelemente.
+* VuFind: Verwende UND statt ODER-Suche
+* PICA/LBS: Wenn im Katalog kein Autor steht, zeige nicht stattdessen das Jahr an
+* PICA/LBS: Korrigiere Anzeige der Vormerkungen: Lese die Eigenschaften aus allen Zeilen unabhängig von den Tabellen, statt die Tabellen aus dem kaputten HTML von Stralsund zu suchen.
+* OPEN: Verwende den korrekten Pfad zur API, wenn das API-Verzeichnis nicht das Webseitenverzeichnis ist (Bielefeld..)
+* CDVOST Bibliotheken, die nicht sowieso schon da waren: Bibliothek der Hochschule für Musik Franz Liszt Weimar, Oberlausitzische Bibliothek der Wissenschaften, Bibliothek der Halle 14, Universitätsbibliothek Leipzig
+* Gemeindebibliothek Heddesheim 

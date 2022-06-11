@@ -1,0 +1,3 @@
+* Variablennamen in benutzerdefinierten Templates beachten nun Scopes und die Groß/Kleinschreibung. Wer zum Beispiel bisher $Book verwendet, muss es in $book ändern. 
+* Es können nun alle XPath/XQuery 3.0 Ausdrücke verwendet werden.
+* Anpassung an Systemänderungen in Verl und Pulheim

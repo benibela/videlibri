@@ -1,0 +1,3 @@
+* Stadtbibliothek Mosbach: Anpassung an geänderte Katalogadresse
+* Windows/Linux: Besseres Handling, wenn das Gerät über Nacht nicht ausgeschaltet wird.
+* aDIS: Wechsel bei einem einzigen Suchergebniss nicht zwischen Vollanzeige und Trefferliste, weil der VÖBB OPAC nicht mehr richtig wechseln kann.

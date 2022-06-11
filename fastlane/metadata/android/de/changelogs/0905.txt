@@ -1,0 +1,9 @@
+* Die Icons der Symbolleiste werden nun auch unter Windows 9x angezeigt.
+* Die Löschen der Konten funktioniert nun.
+* Der Autostart funktioniet nun auch, wenn er im Installationsprogramm aktiviert wird.
+* Die Informationen über ein Update werden in Zukunft vor dem Herunterladen angezeigt.
+* Das Programm erkennt die "Passwort ungültig"-Antwort der Büchereiseiten.
+* Beim Kontoerstellen wird die neue Verlängerungsdauer der UB angezeigt.
+* Das Programm sollte nicht mehr beim Start eine lange Zeit damit verbringen nach Updates zu suchen.
+* Die Beschriftungen der Dialogbuttons sind nun alle auf deutsch.
+* Läuft das Programm schon beim Aufruf, wird nur die laufende Version geöffnet.

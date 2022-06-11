@@ -1,0 +1,3 @@
+* Triviale Layoutverbesserungen und zusätzliche Hinweise zur Kontokonfiguration.
+* android/Stadtbibliothek Saarbrücken: Anpassung an geändertes HTTPS-Zertifikat.
+* Koha/Heilbronn: Anpassung an fehlende Zweigstellenauswahl

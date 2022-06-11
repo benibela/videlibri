@@ -1,0 +1,5 @@
+* FHB/Fachhochschulbibliothek Düsseldorf: An Serverumzug angepasst. 
+* FHB/Fachhochschulbibliothek Bochum: gestrichen
+* Läuft nun unter Linux
+* Unterstützt nun auch die Stadtbibliothek Aachen
+* Unterstützt nun auch die Hochschulbibliothek der RWTH Aachen

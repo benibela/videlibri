@@ -1,0 +1,8 @@
+* Windows/Linux: Zeige Abgabedatum von abgegebenen Ausleihen in Klammern an.
+* Windows/Linux: Gruppierungsoptionen für Verlängerungsanzahl, Barcode und Standort.
+* aDIS/VÖBB: Bessere Fehlermeldung bei Störungen der Webseite.
+* Android: Modernisierte Bibliotheksauswahlliste.
+* Android: Verwende Kotlin 1.3.60 statt 1.3.10.
+* VÖBB: Anzeige von mehr als 200 Ausleihen.
+* Sisis/Touchpoint: Zeige keine Fehlermeldung, wenn bei Suchergebnissen die Liste der Exemplare leer ist. Oder die Verlängerungsbestätigungsmeldung geändert wurde.
+* Stadtbibliotheken  Biberach, Esslingen, Karlsruhe, Ulm, Ingolstadt, Regensburg, Würzburg, Potsdam, Göttingen, Oldenburg, Herne, Mühlheim an der Ruhr, Troisdorf.

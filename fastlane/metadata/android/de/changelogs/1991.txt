@@ -1,0 +1,6 @@
+* primo/UB FU Berlin: Akzeptiere fehlende Daten
+* primo explore: Zeige noch keine Vormerkungsbuttons
+* android: Kein Crash wegen doppelt freigegebenem Wake-Lock.
+* vufind: Vormerkungsauwahl zu mehreren möglichen Zweigstellen.
+* sisis/Freiburg: Suchdetails
+* Vorbereitung für kommende Updates: Caching-Funktionen cache-get/set(), <json>-Aktionkonstrukt

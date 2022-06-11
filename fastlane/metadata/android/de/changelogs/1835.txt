@@ -1,0 +1,7 @@
+* Vereinheitliche HTTP Header, Cookies und Weiterleitungen zwischen den Platformen
+* VideLibri ist nun mit FreePascal 3.0.0 und Lazarus 1.6 kompiliert
+* Das Debug-Log lässt sich in der App ansehen
+* aDIS: Optionen für interne/externe Benutzer
+* Gruppenüberschriften mit roten Elementen werden nun rot gezeichnet
+* Verbesserte Coverimages
+* Neue URLS für Baden/München/Trier

@@ -1,0 +1,5 @@
+* Erlaube wieder Benutzerdefinierte HTTPS-Zertifikate.
+* sisis/Stadtbibliothek Chemnitz: Zeige ausgeliehene Bücher auch wenn kein Link zu vorgemerkten Büchern gefunden werden kann.
+* Anpassung an geänderten Katalog der Stadtbibliothek Speyer.
+* aDIS/VÖBB: Öffne nicht die falsche Webseite, wenn sich ein Link mit dem Wort "Anmeldung" auf der Startseite befindet. Wiederhole den Loginvorgang, wenn nach dem Login nur eine leere Seite kommt. 
+* Patch für FreePascal Bug 39492. 

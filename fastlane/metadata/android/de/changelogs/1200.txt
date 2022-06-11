@@ -1,0 +1,10 @@
+* Fehlermeldungen der Büchereikataloge werden unverändert statt als "Matchfehler" angezeigt
+* Zeigt nicht mehr unendlich viele Fehlermeldungen bei fehlendem Internetzugang unter Linux
+* RWTH BTH Aachen: Warnung bei nicht unterstützten Benutzereinstellungen
+* Mehrere Suchtemplates können gleichzeitig geladen werden
+* isbn wird gespeichert
+* Übersichtlichere GUI
+* Seitentemplate können im Haupttemplate enthalten sein, statt eine neue Datei zu benötigen
+* Nicht mehr unendlich viele Fehlermeldungen bei fehlendem Internetzugang unter Linux
+* Seitentemplates müssen gültige XML-Dateien sein
+* UB Berlin: Unterstützung für das neue Loginsystem der Berliner UBs

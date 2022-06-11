@@ -1,0 +1,6 @@
+* zones18: Verbesserte Exemplaranzeige
+* android: Absturz, wenn der Benutzer eine ungültige URL für die Serverzertifikat-Installation eingibt.
+* Staatsbibliothek Berlin: Verwende nicht mehr "fastUpdate" nach Verlängerungen, da es veraltet ist, und kein Ausleihkonto zur Anpassung zur Verfügung steht.
+* android: Der gesamte Bibliothek-Schnittstellen-Quellcode kann nun in der App geändert werden, damit VideLibri auch auf nicht gerooteten Geräten mit allen existierenden OPACs verwendet werden kann. 
+* request-decode XQuery-Funktion, um HTTP-Anfragen zu dekodieren.
+* android: ein paar erste Übersetzungen

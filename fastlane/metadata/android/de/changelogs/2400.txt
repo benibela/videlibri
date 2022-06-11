@@ -1,0 +1,5 @@
+* Technische Verbesserungen: Schnellerer Start-Up. Neuer, schnellerer JSON-Parser. Schnellere reguläre Ausdrücke. Vollständigere XPath/XQuery 3.1 Unterstützung. Schnellere String->Int-Umwandlung. Wenn bei der Kommunikation mit der Büchereiwebseite auf der Seite ein Button gefunden wird, wird der automatisch "angeklickt".
+* Biber Bibdia OPAX: Korrigiere Verlängerung.
+* aDIS und Bibliotheca: Markiere weitere Bücher als nicht verlängerbar.
+* vufind: Zeige mehr Ausleihen an.
+* Anpassung an geänderte Kataloge bei Stadtbücherei Augsburg, Stadtbibliothek Koblenz, Gemeindebücherei Pfinztal, Öffentliche Bibliothek Titisee-Neustadt, und Stadtbibliothek GGG Basel

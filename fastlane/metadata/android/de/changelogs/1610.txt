@@ -1,0 +1,5 @@
+* Android: Aktiviere Berechtigung für Autostart
+* Android: Verbesserter Fehler-Feedback: Übertrage den Name der Bibliothek, anonymisierte Seitenstruktur
+* Markiere Stb Braunschweig als "getestet", nach User-Feedback
+* Server-URL für Hamburger Bücherhallen
+* Zones: Berechne Katalog-URL für Katalog-Aufruf statt die Homepage-URL zu verwenden 

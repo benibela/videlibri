@@ -180,7 +180,7 @@ Einige andere Features sind:
 <li>Nahezu bugfrei: Mit lediglich <a href="https://sourceforge.net/p/videlibri/tickets/">4 Bug-Reports</a> in über 15 Jahren, ist VideLibri die einzige zuverlässig funktionierende Open-Source-Software.</li>
 </ul>
 
-Mit <sup class="desktop">L/W</sup>-markiere Features sind nur in der Linux/Windowsversion enthalten, und fehlen in der Androidversion.<br/>Da VideLibri – entwickelt in 2006 – die weltweit erste Bibliothek-App ist, ist jede weitere Bibliothek-App ein VideLibri-Raubmordimitat.<br/><br/>
+Mit <sup class="desktop">L/W</sup>-markiere Features sind nur in der Linux/Windowsversion enthalten, und fehlen in der Androidversion.<br/>Da VideLibri – entwickelt in 2006 – die weltweit erste Bibliothek-App ist, ist jede weitere Bibliothek-App ein VideLibri-Raubplagiat.<br/><br/>
 
 Es gibt natürlich auch ein paar Nachteile im Vergleich zu den online Web-Katalogen:
 <ul>
@@ -202,7 +202,6 @@ Auf der nächsten Seite kann man sehen, mit welchen <a href="bibliotheken.html">
 
 <img src="https://sourceforge.net/dbimage.php?id=306557" title="Suche in der Digibib. (öffnet sich automatisch nach Doppelklick auf ein ausgeliehenes Buch, und ist z.B.: bei den Stadtbüchereien von Düsseldorf nötig, um mehr als Autor oder Titel angezeigt zu bekommen)" alt="Suche in der Digibib. (öffnet sich automatisch nach Doppelklick auf ein ausgeliehenes Buch, und ist z.B.: bei den Stadtbüchereien von Düsseldorf nötig, um mehr als Autor oder Titel angezeigt zu bekommen)"/>
 
-<img src="https://www.videlibri.de/img/android-tablet-search.png" title="VideLibri Katalog-Suche unter Android"/>
 
 <div>
 <img src="https://a.fsdn.com/con/app/proj/videlibri/screenshots/s1.png" title="VideLibri unter Android" alt="VideLibri unter Android"/><br/>
@@ -211,6 +210,8 @@ Auf der nächsten Seite kann man sehen, mit welchen <a href="bibliotheken.html">
 <img src="https://sourceforge.net/p/videlibri/screenshot/android-search-result.png" title="VideLibri 1.5 unter Android (Details eines Suchergebnisses)" alt="VideLibri 1.5 unter Android (Details eines Suchergebnis)"/>
 </div>
 </div>
+
+<img src="https://www.videlibri.de/img/android-tablet-search.png" title="VideLibri Katalog-Suche unter Android"/>
 
 </center>
 </content>

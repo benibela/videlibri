@@ -1,0 +1,5 @@
+* Behebt HTTPS-Zertifikateprobleme für Hannover, Berlin, Linz
+* aktualisierte Kataloglinks: Heilbronn, Weinheim, Speyer, Filderstadt, Chemnitz
+* Die Priorität von Template und VideLibri-Variablen wurde getauscht, so dass Template-Variablen VideLibris überschreiben. 
+* Chemnitz/Touchpoint: Mehrseiten Ausleihen, Verlängerungen, verschiedene Probleme
+* aDIS: Verlängerungsanzahl wird bei Neuausleihe zurückgesetzt

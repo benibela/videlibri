@@ -1,0 +1,3 @@
+* Windows: Aktualisiere Installer, damit auch Windows-Versionen neuer als XP unterstützt werden, aber nur noch diese.
+* Windows: LBS/GBV Universitätsbibliotheken: Korrigiere das Datei-Laden, damit es auch mit \ im Dateipfad läuft.
+* Windows: Statt der Windows Internet API lässt sich auch wieder OpenSSL verwenden.

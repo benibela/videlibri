@@ -1,0 +1,4 @@
+* Stadtbüchereien Düsseldorf: Ein Film wird nun auch angezeigt, wenn statt <Jahr> nur <Jahr im WebOPAC steht
+* In den Autostartmeldungen/fenstern werden die Umlaute richtig angezeigt
+* Das Programmicon wird jetzt zusammen mit dem Fenstericon geändert
+* Die Woche beginnt nun Montags

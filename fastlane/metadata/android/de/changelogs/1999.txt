@@ -1,0 +1,2 @@
+* Android 8-Kompatibilität, Neuprogrammierung der gesamten Benachrichtigungsfunktionen mit Android 8-Methoden, so dass es nicht mehr unter Android < 4 laufen kann
+* pica: Zeige bei der Suche Fehlermeldungen an, welche auf der Büchereiwebseite stehen.

@@ -1,0 +1,6 @@
+* Windows/Linux: Verbesserter Suchdialog: schneller, größenveränderbare Seitenleisten, keine Sonderliste für Suchen über Metakatalog/Digibib.
+* Beachte Sonderefälle bei der Kommunikation mit Bücherei-Webseiten-Servern, u.a. funktioniert dadurch die Kommunikation mit dem Bücherei Mainz Server.
+* PICA/LBS/GBV Universitätsbibliotheken: Verwendete die "erweiterte Suche" mit mehr Optionen.
+* Anpassung an geänderte Katalogsysteme bei VÖBB, Stadtbücherei Stolberg, Universitätsbibliothek Leipzig, und Stadtbibliothek Leverkusen. 
+* Weitere Anpassungen für Stadtbibliothek München (Vormerkungen).
+* Repariere, dass die Anpassung für München Verlängerungen in Berliner Universitätsbibliotheken gestört hat.

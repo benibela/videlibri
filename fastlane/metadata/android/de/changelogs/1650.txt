@@ -1,0 +1,12 @@
+* zones (z.B.: Lübeck, Hannover): Zeigt keine Fehlermeldung an, wenn nichts ausgeliehen ist
+* zones: Zeigt an, welche Bücher verlängerbar sind
+* sisis (z.B.: Münster): Geändertes Verlängerungsverhalten, eventuell behebt Fehlermeldung bezüglich "singleExtended", bei der Verlängerung mehrerer Ausleihen 
+* sisis: Eventuell behebt Anzeige von Vormerkungen als Ausleihen bei manchen Bibliotheken
+* pica (z.B.: Magdeburg): Zeigt auch Suchergebnisse, die genau ein Ergebnis liefern, an
+* Android: Zuverlässigere Warnung vor Leihfristabläufen  
+* aDIS (z.B.: alle Bibliothek des BSZ in Baden-Württemberg): Suchen in nicht Standard-Katagorien (z.B.: Schlagwörter) verwenden das korrekte Feld.
+* primo (z.B.: HU Berlin): Zeige auch Medien ohne Autor in Suchergebnissen, Suche funktioniert auch bei mehreren Suchfeldern auf der Seite oder wenigen (eine Seite) Suchergebnissen
+* Verl: Anpassung an neue libero-Version, ermöglicht wieder Verlängerungen
+* Stabi Berlin: Funktioniert nun auch mit Sonderzeichen im Passwort (insbesondere %, + und &) oder der Id von Ausleihen (insbesondere <)
+* Hochschulbibliothek Magdeburg/Stendal
+* VÖBB Berlin

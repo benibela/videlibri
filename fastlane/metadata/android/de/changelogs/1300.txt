@@ -1,0 +1,4 @@
+* Digibib: Entities in Templatedateien werden nicht mehr doppelt aufgelöst (=> Die Suche in der Digibib funktioniert wieder)
+* Staatsbibliothek Berlin: Anpassung an geänderten Webserver
+* Staatsbibliothek Berlin: Zeigt Titel von ausgeliehenen Zeitschriften an
+* Universitätsbibliothek der FU-Berlin: Cookies die während 302-Weiterleitungen gesetzt werden, werden auch unter Windows gespeichert. (=> UB FU funktioniert wieder)

@@ -1,0 +1,2 @@
+* Universitäts- und Landesbibliothek Düsseldorf: Die Änderung der Seitenstruktur wurde übernommen
+* Die Autoupdatefunktion wurde repariert

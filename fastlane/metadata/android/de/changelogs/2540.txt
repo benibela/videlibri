@@ -1,0 +1,3 @@
+* Stabi Berlin: Einzelseitensuchergebnis.
+* Anpassung an geänderte Webadressen in Stadtbücherei Bretten, Mediathek Denzlingen, Gemeinde- und Schulbücherei Empfingen, und Gemeindebücherei Karlsbad. 
+* Zusätzlicher Check für den Javascript-Link der Stadtbüchereien Düsseldorf.

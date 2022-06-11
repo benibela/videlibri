@@ -1,0 +1,3 @@
+* FHB (Fachhochschulbibliothek): Die Änderung der Seitenstruktur wurde übernommen
+* Das nicht automatische Verlängern funktioniert nun auch zuverlässiger
+* Die Liste verschwindet bei XP-Themes nicht mehr beim Fenstervergrößern

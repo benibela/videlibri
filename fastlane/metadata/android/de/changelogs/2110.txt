@@ -1,0 +1,2 @@
+* Stadtbücherei Halle: Anpassung an geänderte URL.
+* VÖBB: Wenn eine Vormerkung nicht erlaubt ist, breche nicht die Suche ab.

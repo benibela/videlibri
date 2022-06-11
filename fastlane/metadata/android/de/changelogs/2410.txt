@@ -1,0 +1,7 @@
+* Universitätsbibliothek Chemnitz: verwende neuen Katalog.
+* Windows/Linux: Schnelleres Titelbild laden parallel zur Katalogsuche (LPT: Doppelklick auf Ausleihe mit ISBN zeigt das Titelbild).
+* Android: Andere Anordnung der Ausleihenanalyse und eigene-Bücherei-Registrierung, da es schwer zu finden war.
+* Hochschulbibliothek Dresden HTW: Anpassung an geänderte Adresse.
+* bibliothecaplus: Korrigiere Abbrechen von Vormerkungen.
+* aDIS/VÖBB: zeige Mehrseitensuchergebnisse bei Bezirksauswahl.
+* Hochschul- und Landeskirchenbibliothek Wuppertal

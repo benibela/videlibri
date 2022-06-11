@@ -1,0 +1,3 @@
+* Das Programm startet nun auch wieder, wenn Medien der FHB (Fachhochschulbibliothek) vorgemerkt sind.
+* Das rückgabefrist-abhängige Verlängern funktioniert nun auch wieder bei den Stadtbüchereien Düsseldorf.
+* Die Buttons sind wieder flach

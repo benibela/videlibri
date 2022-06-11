@@ -1,0 +1,3 @@
+* Universitätsbibliothek der FU-Berlin: Behebt Timeout bei Weiterleitungen zu einem anderen Server (=> UB FU funktioniert jetzt wirklich)
+* Aktualisiert einige veraltete Templates zur neuen Status/Zeitsyntax (Münchener Stadtbibliothek, RWTH Hochschulbibliothek, Campus Katalog Hamburg)
+* Deaktiviert die SSL-Zertifikatüberprüfung, weil sie die Verwendung der Münchener Stadtbibliothek unter WINE verhindert.

@@ -1,0 +1,15 @@
+* Weise eindringlicher auf automatische Verlängerungen hin, so dass man davon nicht überrascht wird.
+* Verbesserte Fehlermeldungen.
+* Neuimplementierung des Shibboleth-Logins bei den Universitätsbibliotheken TU/HU-Berlin, BLB Karlsruhe, etc..
+* Desktop-Version: Verwende FreePascals Standard-Datumsformat. Zeige Titelbild nach Doppelklick auf Ausleihen (falls ISBN bekannt).
+* biber/bibdia: Zeige Erscheinungsjahr von Ausleihen an.
+* Universitätsbibliothek HHU Düsseldorf, HMT Leipzig; Stadtbibliotheken Marl, Haltern am See, Recklinghausen: Suche direkt im Katalog statt in der digibib/Verbundkatalog.
+* bibliotheca: Korrigiere Probleme beim Verlängern.
+* Stadtbibliothek Essen: Korrigiere Kontoanzeige.
+* Kompiliert mit FreePascal Patch #33323.
+* Neue Webseiten für: Göttinger Universitätskataloge, Neubiberg, Nordhausen; Stadtbücherei Datteln, Meerbusch.
+* Rechtschreibung von "Baden-Württemberg".
+* bibliotheca: Erlaube von-bis Angaben im Suchfeld "Jahr".
+* VuFind/Stadtbücherei Datteln: Suche im Katalog.
+* Liste einige Stadtbibliotheken deren Systeme bereits unterstützt wurden: Mannheim, Rostock, Bielefeld, Gelsenkirchen, Hagen, Leverkusen, Mönchengladbach, Münster, Mainz, Halle, Magdeburg, Erfurt
+* Neue HTTPS-Zertifikate für: Rostock, Gelsenkirchen, Leverkusen, Münster, Köln, Witten, Speyer, Chemnitz, Halle.

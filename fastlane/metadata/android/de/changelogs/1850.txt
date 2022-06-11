@@ -1,0 +1,7 @@
+* XQuery-Suche in den eigenen Ausleihen (zum Beispiel Eingabe ($books/author) für eine Liste aller Autoren, von denen mal etwas ausgeliehen worden war; oder (for $author in distinct-values($books/author) order by $author return $author) für eine sortierte Liste dieser Autoren ohne Duplikate ) 
+* Duplikate-Entferner (Desktopversion)
+* sisis (Stadtbücherei Wuppertal/Bremen): Keine Warnmeldung mehr, wenn der Titel in der Bestätigungsmeldung einer Verlängerung eines Mediums leicht von dem in der Ausleihenliste angezeigten Titel abweicht 
+* Universitätsbibliotheken Aachen und Hannover: Neue Serveradressen
+* Behebt inkonsiste Sortierung, von Medien mit oder ohne eine bestimmte Eigenschaft, und daraus folgenden Absturz
+* Behebt Absturz beim Import/Export
+* Staatsbibliothek Berlin: Ignoriere Fehler bei der Mediensuche für die 2014-Kontoansicht ohne Titelanzeige

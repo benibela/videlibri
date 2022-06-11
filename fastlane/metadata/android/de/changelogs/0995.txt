@@ -1,0 +1,1 @@
+* FHB (Fachhochschulbibliothek): Kein Fehler mehr, wenn keine Medien ausgeliehen sind. 

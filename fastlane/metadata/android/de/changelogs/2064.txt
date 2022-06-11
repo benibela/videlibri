@@ -1,0 +1,7 @@
+* android: 64-BIT VERSION
+* Zeige Verlängerungsanzahl und Standort als eigene Eigenschaften von Büchern, statt sie wegzulassen oder als Bemerkung anzuzeigen.
+* Entferne veraltete Sonderbehandlung von VÖBB-Zweigstellen bei Vormerkungen.
+* Weinheim: Anpassung an geänderte URL.
+* OPEN: Zeige Text in gelben Boxen nicht als Fehlermeldung an.
+* Lade Titelbilder von Buchhandel.
+* Stadtbücherei Coburg.

@@ -1,0 +1,5 @@
+* Neue Suche: Die verfügbaren Suchfelder können nun bei jeder Bibliothek anders sein, anstatt sich auf die wenigen Suchfelder zu beschränken, die bei allen Bibliotheken und der Digibib vorhanden sind. Je nach Bibliothek gibt es nun zusätzlich Felder für Freitext, Medienart, Kategorie, Sortierung und Sprache.
+* Android: Warne über unsinnige Benutzereinstellungen.
+* zones: Login mittels Button statt Entertaste.
+* Universitätsbibliotheken Ulm und Hohenheim: Anpassung an geänderte URLs.
+* Linux/Windows: Korrigiere Fensterpositionierung.

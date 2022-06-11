@@ -1,0 +1,3 @@
+* Unterstützt die neue BTH Aachen Sisis version
+* Unterstützt die neue Stadtbüchereien Düsseldorf Version
+* Kleinere Fehler behoben

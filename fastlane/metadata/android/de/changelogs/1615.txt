@@ -1,0 +1,5 @@
+* Universitätsbibliothek Hohenheim (Stuttgart): geänderte Serverparameter  
+* Staatbibliothek München: Verwende wieder das alte Server-Zertifikat  
+* Hochschulbibliothek: Osnabrück: Entferne verbindungsblockierenden // aus URL
+* Libero: Verwende nur die jeweils vorhandenen Form-Parameter statt dieselben hardkodierte Parameter für alle Bibliotheken (behebt Fehlermeldung bei Stadtbibliothek Hanau)
+* Server-Zertifikat für SVK (Saarländischer Virtueller Katalog)

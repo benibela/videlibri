@@ -1,0 +1,3 @@
+* Bibliothekssystem OPEN: Anpassung an geänderte Parameter bei der Stadtbibliothek Bielefeld. 
+* Anpassung an geänderte Webadressen der Stadtbücherei Weikersheim und Hochschulbibliothek Zittau/Görlitz.
+* Stürze nicht ab, wenn die Datei mit möglichen Suchoptionen nicht geöffnet werden kann.

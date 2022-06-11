@@ -1,0 +1,11 @@
+* Unterstützung für Zones 1.8 (z.B.: Stadtbibliothek Lübeck, Stadtbibliothek Köln, Stadtbücherei Kiel, Stadtbibliothek Hannover, Stadtbibliothek Koblenz).
+* Templates: Unterstützung fürs Rechnen mit arbitrary-precision Zahlen (bis zu 19327352832 Stellen Genauigkeit mal einem Exponenten von 10^-2147483648 bis 10^2147483647)
+* Templates: markierte html-Elemente können beim Matching übersprungen werden
+* Sisis (FHB/Fachhochschulbibliothek Münster): Zeige abholbereite Bestellungen statt die Aktualisierung abzubrechen
+* Stabi Berlin: Zeige irgendein Exemplar an, wenn mehrere Medien mit derselben Signatur existieren, statt die Aktualisierung abzubrechen
+* ZHB Lübeck: Anpassung an nicht Standard-PICA Titel in Ausleihentabelle
+* HU Berlin: Anpassung an neue Ausleihentabelle; HU/FU/TU Berlin: Deaktivierung der primo-Verlängerung, so dass die Aleph-Verlängerung wieder funktioniert
+* Bibliothek der Helmut-Schmidt Universität: Neue Server-Adresse
+* Universitätsbibliothek Regensburg: Korrigierte Exemplaranzeige
+* Stadtbibliothek Filderstadt: Neue Server-Adresse
+* Android: Korrigiert falsche Datumsberechnung, die einen Monat zu spät von gelb zu roter Schrift wechselte, bessere Feedbackfunktion 

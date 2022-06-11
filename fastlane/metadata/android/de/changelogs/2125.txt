@@ -1,0 +1,2 @@
+* Als Android 9 kompatibel markiert
+* Anpassungen an Katalogänderungen bei VÖBB, Stadtbibliothek Gießen

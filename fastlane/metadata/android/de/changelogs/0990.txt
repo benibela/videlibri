@@ -1,0 +1,6 @@
+* Es ist nun möglich beliebige Medien zu suchen
+* In der gleichen Woche abzugebende Medien sind markiert
+* Die Statistik wird nun schneller berechnet (Faktor "Zeit der Programmbenutzung" durch "Ausleihzeit eines Medium" ersetzt)
+* Statt der Listenanzeige von Windows wird eine selbstentwickelte benutzt, so dass das Programm paradoxerweise dem übliche Windows XP Design entspricht. 
+* FHB (Fachhochschulbibliothek): Die Statistik funktioniert nun auch hier
+* Stadtbüchereien Düsseldorf: Berücksichtigung einer weiteren Änderung der Websitenstruktur

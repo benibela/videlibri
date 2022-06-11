@@ -1,0 +1,3 @@
+* Primo/TU Berlin: Anpassung an geänderte Ausleihentabelle.
+* sisis: Zeige die Ausleihen nicht mehrmals an, wenn keine Vormerkungen/Bestellungen vorhanden waren.
+* android: für 7.1.1 kompiliert, neuere Google Support-Library

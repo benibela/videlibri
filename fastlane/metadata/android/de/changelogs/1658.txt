@@ -1,0 +1,4 @@
+* Neuss/VOEBB Vormerkungen
+* FH Erfurt: Verwende http statt https, da der Server nicht mehr über https erreichbar ist
+* BLB Karlsruhe: Versuche Weiterleitungen beim Anmelden zu folgen
+* Verwende den Zeichenerkennungfix von 1.655 auch in der Androidversion (voebb)

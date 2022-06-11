@@ -1,0 +1,29 @@
+VideLibri schützt einen davor bei Ausleihen aus Büchereien und öffentlichen Bibliotheken, die Abgabefrist zu verpassen und Mahngebühren an die Bibliothek zahlen zu müssen.
+Dazu wird die Liste der eigenen Ausleihen regelmäßig aus dem OPAC heruntergeladen, vor Ablaufen der Leihfrist gewarnt und verlängerbare Bücher verlängert. Zudem kann man weitere Funktionen des Bibliothekskatalog nutzen.
+
+Features:
+
+- Getestet mit 200 Bibliotheken
+- Unterstützt 20 Bibliothekssysteme
+- Man kann beliebige Webseiten-URLs und XPath-Ausdrücke eingeben, um die Daten jeder beliebigen Webseite und jeder Büchereiwebseite anzeigen zu lassen, damit man es mit allen Büchereien verwenden kann
+- Gleichzeitig Anzeige aller Ausleihen von mehreren Konten bei unterschiedlichen Bibliotheken in einer gemeinsamen Liste
+- Warnung vor bald fälligen Medien; zuverlässiger als Benachrichtigungsmails der Bibliothek, da ein einmal auf dem Handy gespeichertes Abgabedatum immer gespeichert bleibt, während man bei E-Mails nie weiß, ob sie ankommen
+- Verlängerung der Bücher, manuell oder automatisch vor Fristablauf
+- Speichern einer Historie aller jemals ausgeliehenen Bücher, damit man in 100 Jahren noch weiß, wann man was ausgeliehen hatte
+- XQuery-Suche in der Historie, z.B. nach dem am häufigsten ausgeliehenen Autor und der durchschnittlichen Ausleihdauer
+- Katalog-Suche
+- Bestellung und Vormerkung von nicht ausgeliehenen Medien
+- Links zu Homepage und Katalog der Bibliothek
+
+
+Die Liste aller getesteten Bibliotheken findet sich unter: https://videlibri.de/bibliotheken.html
+  
+Von 2006 bis 2013 wurden nur Bibliotheken aufgelistet, bei denen eine Ausleihkarte zur Verfügung stand, damit die Kontofunktionen getestet werden konnten und sichergestellt ist, dass alle Funktionen bei allen gelisteten Büchereien fehlerfrei funktionieren. Seit 2013 stehen in der Liste auch Bibliotheken bei denen ohne Ausleihkarte nur die Suche getestet wurden konnte, weil die Büchereien sich geweigert haben Ausleihkarten zum Testen bereitzustellen, aber begonnen haben Raubplagiate von Videlibri zu verbreiten.
+
+Einige Stadtbibliotheken bei denen der Kontozugriff getestet wurde: Stadtbibliothek Aachen,  Verbund der Öffentlichen Bibliotheken Berlin (VÖBB) und Staatsbibliothek, Stadtbibliothek Biel, Bielefeld, Braunschweig, Chemnitz, Darmstadt, Stadtbüchereien Düsseldorf, Städtische Bibliotheken Dresden, Stadtbücherei Gießen, Stadtbibliothek Hannover, Koblenz, Linz, Leipzig, Lübeck, Münchener Stadtbibliothek,  Stadtbücherei Rüsselheim, Stadtbibliothek Nürnberg, Stralsund, Bibliothek Verl
+
+Wissenschaftliche Bibliotheken: Unibibliothek der RWTH Aachen, Berliner Universitätsbibliotheken, Universitäts- und Landesbibliothek Düsseldorf (HHU), Hochschulbibliothek Düsseldorf, Universitätsbibliothek Dortmund, Campus-Katalog Hamburg, Fachhochschulbibliothek Erfurt, Universitätsbibliothek Hildesheim, Zentrale Hochschulbibliothek Lübeck, Hochschulbibliothek der Fachhochschule Münster, Bibliothek der Hochschule Hannover, Universitätsbibliothek Ilmenau, Bibliotheken der Hochschulen Stuttgart
+
+Nur die Suche wurde getestet in Stadtbibliotheken Augsburg, Bremen, Duisburg, Erlangen, Frankfurt am Main, Herne, Kiel, Köln, Neustadt, Neuss, Rostock, Saarbrücken, Wien und Wiesbaden; Staatsbibliothek Bremen; sowie Universitätsbibliotheken Erlangen-Nürnberg, Halle, Jena, Kiel, Osnabrück,  Magdeburg, Mannheim, München, Saarbrücken.
+
+Der Quellcode findet sich unter https://code.videlibri.de. Zudem gibt es eine Windows und Linuxversionen.  Da die Windowsversion von VideLibri – entwickelt in 2006 – die weltweit erste Bibliothek-App ist, ist jede weitere Bibliothek-App ein VideLibri-Raubplagiat.

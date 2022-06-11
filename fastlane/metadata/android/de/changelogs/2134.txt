@@ -1,0 +1,2 @@
+* Stadtbibliothek Linz; Hochschulbibliotheken Aschaffenburg, Coburg, Würzburg-Schweinfurt; WRB Lörrach: Anpassung an neuen Katalog.
+* VÖBB: Zweigstellenauswahl bei der Suche. Bessere Fehlermeldung, wenn der Katalog schon wieder für Wartungsarbeiten abgeschaltet ist.

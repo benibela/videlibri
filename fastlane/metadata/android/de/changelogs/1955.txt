@@ -1,0 +1,4 @@
+* Übersichtlicheres Debug-Log.
+* VÖBB: Anpassung an geänderte Links, die nicht mehr zum Login/Suche gefunden wurden.
+* Stadtbücherei Weimar: Neue OPAC-Adresse.
+* Beuth Hochschule, Hochschulbibliothek Würzburg-Schweinfort: Neue Info-Webadresse.

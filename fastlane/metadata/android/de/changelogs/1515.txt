@@ -1,0 +1,6 @@
+* Android-Version: behebt Crashes (v.a. beim Suchergebnisanzeigen und manuellem Verlängern)
+* Behebt Timeout, falls die neue Mediensuche zu lange geöffnet war
+* libero: verwendet die Kontozugriffsurl statt der Suchkatalogurl, wenn eine angegeben ist
+* sisis: Verlängerung geht wieder, korrekte Detailanzeige auch wenn kein Coverbild vorhanden, keine Ergebniswiederholungen, Vormerkungen/Bestellungen in mehr Katalogen (insbesondere UB Dortmund)
+* BSZ aDIS: Markiert Medien als nicht verlängerbar, wenn maximale Verlängerungsanzahl erreicht wurde
+* sisis: Zeigt Exemplarinformationen in Suchdetails an und parse die Verfügbarkeitsseite

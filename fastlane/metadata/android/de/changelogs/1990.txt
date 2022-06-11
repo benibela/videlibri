@@ -1,0 +1,11 @@
+* android: Zeige Wochentag bei Daten.
+* android: Wenn das Ausleihdatum eines Mediums nicht bekannt ist, verwende Datum der ersten Aktualisierung.
+* sisis/pica: Verwende holdings-System für Vormerkungen.
+* verbesserte Performance: Lade nur Bibliotheken, die auch verwendet werden in den Arbeitsspeicher; gebenchmarkte Pascal->Javadatenkonvertierung; speichere ein Datum nur im Pascalformat; Linux/Windows: Starte keine Aktualisierungsthreads, wenn keine Aktualisierung nötig ist.
+* FU/TU/HU Berlin: Anpassung an neues Primosystem 
+* Stadtbücherei Witten, Halle: Umstellung auf OPEN.
+* HSB Bochum: Umstellung auf HTTPS.
+* Aleph: Verarbeite nicht abbrechbare Vormerkungen.
+* sisis/RWTH Aachen/Chemnitz: Anpassung an geänderte Suchergebnisseiten. Korrigiere Vormerkungen
+* Universitätsbibliothek Mannheim.
+* Stadtbibliotheken Mitten, Paderborn.

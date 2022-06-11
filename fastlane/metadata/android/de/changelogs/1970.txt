@@ -1,0 +1,8 @@
+* Bibliotheca+/OPEN: Verwende holdings-System für Vormerkungen.
+* Variablename für Sigel-Codes für Suchen in benutzerdefinierte Bibliotheken der Digibib ist nun unabhängig von dem für Ausleihen verwendeten OPAC. 
+* Stadtbibliothek Darmstadt: Anpassung an OPEN-Änderung, um wieder Verlängerungen und Vormerkungen zu ermöglichen. Zeige nach Verlängerung den neuen Status an.
+* Hochschulbibliothek Amberg-Weiden: Neue OPAC-Url.
+* Wenn Ausleihen mit ISBN und ohne ISBN im Konto vorhanden sind, zeige nicht für die Ausleihen ohne ISBN eine falsche ISBN an.
+* Select-Elemente ohne Auswahl auf Webseitenformularen werden ignoriert, statt keine Auswahl an die Seite zu senden. 
+* Unterstütze Kontozugriff über den neuen Biber BIBDIA OPAX.
+* Liste Stadtbibliothek Duisburg, Essen und Bochum.

@@ -1,0 +1,9 @@
+* aDIS: Probleme beim Bestellen/Abbrechen mehrerer Vormerkungen auf einmal 
+* VOEBB: Anzeige der aufgesplitteten Kontotabelle bei mehr als 200 Ausleihen
+* UB FU/TU Berlin: Anpassung an geänderte Weiterleitungen nach Login
+* Stabi Berlin: Zeige die Titel/Autor-Informationen an, die neuerdings im Benutzerkonto stehen, statt sie im Katalog zu suchen
+* Verwende neue Kontonummer zum Login, wenn sie geändert wurde, statt bis zum nächsten Neustart die alte
+* pica: Zeige Vormerkungen mit Status "Vormerkregal" als Vormerkungen statt als Ausleihen
+* GVK: Zeige Verfügbarkeitsstatus in Suchdetails, lese marcXML statt Dublin Core
+* aDIS: Zeige Verfügbarkeitsstatus in Suchübersicht
+* Stadt/Landesbibliothek Dortmund, Stadtbücherei Witten, Universitäts/Landesbibliothek Bonn

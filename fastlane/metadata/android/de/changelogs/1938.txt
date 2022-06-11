@@ -1,0 +1,2 @@
+* Aktiviere TLS1.1 und TLS1.2 auf Android >= 4.1 und Android < 5.0 (für VÖBB)
+* Kompilierung erfolgt mittels FreePascal r37480, um auf Android 8.0 lauffähig zu werden.

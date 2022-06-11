@@ -1,0 +1,3 @@
+* netbiblio/Stadtbibliothek Biel: Breche die Kontoanzeige nicht ab, wenn erwartete Spalten fehlen.
+* Stadtbibliothek Darmstadt: Anpassung an geänderten Ausleihentabellennamen.
+* SLUB Dresden: korrigierte Suchfunktion (?)

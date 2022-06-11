@@ -1,0 +1,13 @@
+* android: Umprogrammierung der Benachrichtigungen: Verwende Regenbogen-Icon; setze einen einzigen tägliche Benachrichtigungs-Alarm, statt jeden Tag einen Benachrichtigungs-Alarm für den darauffolgenden Tag zu setzen; zeige die Benachrichtigung nach jeder Aktualisierung sofort an, statt auf den nächsten gesetzten Alarm zu warten. 
+* android: Zeige keine Fehlermeldung bei einem SSL-IO-Error/Timeout, sondern sende dieselbe Anfrage erneut an den Bibliotheksserver.
+* Aktualisiertes Webseiten-Layout. 
+* Erstelle Debian-Packages mit dpkg-deb statt checkinstall.
+* Es ist nun mit FreePascal r35800 und Lazarus 1.8 RC4 mit Patch #32258 kompiliert, da die LCL ohne Patch unter Unity abstürzt.
+* android: Verhindere, dass Abgabe-Benachrichtigungen vom App-Store-Update abgestellt werden.
+* Desktop: Zeige das Aktualisierungsdatum als ausgeliehen-bevor-Datum, wenn das exakte Ausleihdatum nicht bekannt ist.
+* android: Versuche nicht abzustürzen, wenn das Debug-Log geöffnet wird, aber das Gerät nicht genügend Speicher hat, um das Debug-Log anzuzeigen.
+* Universitätsbibliothek Düsseldorf, Stadtbibliothek Villingen-Schwenningen: Anpassung an neue Katalog-URL.
+* Stadtbücherei Erbach: Neue Bibliothekswebseite. 
+* Erstelle wieder Backups der Ausleihenhistory.
+* Stadtbibliothek Hamm, Stadtbibliothek Erlangen: Anpassung an geändertes Layout.
+* Wenn die Bibliothek nicht erlaubte Entities in ihrem OPAC verwendet, zeige ein ? statt den Webseitenaufruf abzubrechend. 

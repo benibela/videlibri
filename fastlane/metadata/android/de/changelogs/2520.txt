@@ -1,0 +1,3 @@
+* Teile die Androidversion in separate 32/64-Bit und arm/x86-Versionen.
+* Anpassung an geänderte Kataloge der Stadtbücherei Gaildorf und Universitätsbibliotheken Erfurt.
+* Anpassung an die Digibib Version 7 zur Suche in allen Bibliotheken in NRW.

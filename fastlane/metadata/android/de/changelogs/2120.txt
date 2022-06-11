@@ -1,0 +1,7 @@
+* RWTH Aachen: Erste Anpassungen für neues SISIS Katalogsystem.
+* TH Nürnberg: Anpassung an neue Adresse.
+* FH Münster: Anpassung an neues Digibibloginverfahren.
+* UB Ilmenau: Anpassung an neues Katalogsystem.
+* OCLC OPEN: Zeige Ausleihen auch von abgelaufenen Karten an 
+* Hochschulbibliothek HWR Berlin
+* Auf einem Ubuntu Computer statt einem OpenSUSE Computer erstellt

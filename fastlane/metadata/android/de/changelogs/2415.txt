@@ -1,0 +1,5 @@
+* Android 11 Kompatibilitätsänderungen; HTTPS-Zertifikate für ältere Androidversionen.
+* UB Chemitz: Liste alten und neuen Katalog.
+* libero: Gehe nicht davon aus, dass nach dem Login die Seite mit den Ausleihen kommt.
+* vufind: Änderungen für UB Chemnitz. Zeige mehr Bücher-Eigenschaften bei ULB HHU Düsseldorf an.
+* Anpassung an geändertes Katalogsystem der Stadtbücherei Düsseldorf und Stadtbibliothek Ulm.

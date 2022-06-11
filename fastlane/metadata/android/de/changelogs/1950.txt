@@ -1,0 +1,12 @@
+* neue Stadtbibliotheken Ludwigshafen, Dormagen, Grevenbroich, Meerbusch; sowie SWB-Verbundkatalog.
+* Bibliotheca+/OPEN: Korrigiere Anzeige von Teilbänden und vormerkbaren Medien.
+* aDIS (VÖBB, Düsseldorf, etc.): Anzeige von Autornamen, die nicht im ersten Div stehen.
+* Anzeige von Titelbildern; lade sie von Amazons Seite.
+* Bibliothek der HMT Leipzig: Umstellung auf Suche über SWB-Verbundkatalog.
+* Stadtbibliothek Wolfburg: Umstellung auf OPEN.
+* android: Zeitgemäßeres Layout: Seitennavigation, Kontowähler, Unicode-Status-Symbol, Ladeinformationen, Vormerkungs-Frist-Anzeige, ...
+* Ausführlichere Fehlermeldungen.
+* android: Deaktiviere Schlafmodus während Ausleihenaktualisierung, da manche Geräte die App killen, wenn das Gerät während einer Systemaktion einschläft.
+* android: Aktualisierte HTTPS-Zertifikate.
+* Windows: Installiere OpenSSL.
+* Debian: Behebe .deb-Warnungen.

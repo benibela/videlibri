@@ -1,0 +1,6 @@
+* android: Ersetze den Kontoauswahl-Spinner durch einen Button; verwende einen Standard Android-Einstellungsdialog anstatt einem selbstentwickelten; verbessertes Import/Export-Layout. 
+* Unterstützung für Koha/LMSCloud
+* Bibliothek Cottbus, Trier, HMT Leipzig, SLUB Dresden: Neues HTTPS-Zertifikat.
+* Stadtbibliothek Pforzheim: Umstellung auf Koha System.
+* sisis: Anzeige des Verlängerungsstatus.
+* dhbw-Heidenheim: neue Webseite.

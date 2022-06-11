@@ -199,6 +199,9 @@ downloadTable)
     }
 		xmledit $VIDELIBRIBASE/_meta/version/version.xml
 		xmledit $VIDELIBRIBASE/_meta/version/changelog.xml
+    xidel ./_meta/version/changelog.xml -e 'for $version in //build return $version!(file:write-text(x"fastlane/metadata/android/de/changelogs/{@version}.txt", join((.//fix|.//add|.//change)!concat("* ", .), $line-ending))) '
+    hg add fastlane/metadata/android/de/changelogs/*
+    
 		./manage.sh web
 		;;
 		

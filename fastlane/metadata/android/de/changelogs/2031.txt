@@ -1,0 +1,4 @@
+* Anpassung an neuen Katalog bei Stadtbibliothek Heilbronn und Stadtbibliothek Magdeburg.
+* Anpassung an neue Homepage bei Stadtbibliothek Linz.
+* teilweise Anpassung an neues Webseitenlayout bei allen Bibliotheken des Bibliotheksservice-Zentrum Baden-Württemberg.
+* Anpassung an neues HTTPS Zertifikat bei Bücherei Obertshausen

@@ -1,0 +1,7 @@
+* Speichert die für die Suche auswählbaren Zweigstellen jeder Bibliothek lokal, so dass eine neue Suche augenblicklich ohne Pause gestartet werden kann. ( Bisher wurde die Liste der Zweigstellen bei jedem Aufruf der Suchfunktionalität in VideLibri heruntergeladen, und wenn man währenddessen den Suchbutton drückt, hat die App gehangen, bis der Download abgeschlossen war )
+* Vollständig neues Vormerkungssystem, welches für jedes bestellbare Exemplar beliebige bibliografische Daten speichern kann. (alle auswählbaren Bibliothek verwenden jedoch noch die alten Systeme)
+* Desktopversion: Im Suchfenster auswählbare Städte sind nun nach Bundesland gruppiert statt nur in einer Liste gelistet zu sein. Es werden keine Hinweise mehr angezeigt, wie Titel/Autor in der Digibib verarbeitet werden, da VideLibri seit Jahren auch ohne Digibib suchen kann.
+* Neue HTTPS-Zertifikate für die Stadtbibliothek München, Düsseldorf, Braunschweig, Stolberg, Hannover und die Hochschulbibliotheken Zittau/Görlitz und Jena.
+* behebt Memory-Leaks
+* Neue Adressen für SLUB Dresden und Stadtbibliothek Erlangen (vermutlich jedoch sinnlos, da keine Anpassung an neue Katalog).
+* Allgemein optimiertes Downloadsystem, welches alle Webseiten etwas schneller aufrufen kann.

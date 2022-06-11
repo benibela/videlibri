@@ -1,0 +1,7 @@
+* Dortmund: Kontoverwaltung mit PAIA und Suche mit Digibib
+* Kiel, Koblenz, Hannover: Neues HTTPS Zertifikat
+* voebb: Suche an neues Layout angepasst
+* libero: Anpassung an libero 6 (für Saarbrücken ?)
+* München: Zeigt auch Konten mit Magazinbestellungen an
+* Templates: Verwendet eine andere Library für reguläre Ausdrücke (FLRE) (was im Best Case nichts ändert und im Worst Case zu zufälligen Abstürzen führt). Über hundert kleine Änderungen für verbesserte XPath-Standardkompatibilität
+* Darmstadt hinzugefügt

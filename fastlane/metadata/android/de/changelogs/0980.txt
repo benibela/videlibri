@@ -1,0 +1,9 @@
+* Eine deaktivierte Internetverbindung wird seltener als aktiv betrachtet.
+* Beim Autostart wird nicht mehr versucht nicht verlängerbare Medien zu verlängern.
+* Die Optionsbilder werden nun endlich angezeigt.
+* Das Programm bleibt beim Öffnen eines Dialoges in der Liste der laufenden Anwendungen.
+* Das Büchereiseiten-Auslesen wurde komplett überarbeitet.
+* Die Bücherdaten werden jetzt als UTF-8 gespeichert.
+* Die Spalten der Bücherliste können verschoben werden und die Zahl der Markierungen wird angezeigt
+* Das Erscheinungsjahr der Medien wird angezeigt (nur Universitäts- und Landesbibliothek Düsseldorf)
+* Es gibt eine BibTex-Exportroutine für Literaturverzeichnisse.

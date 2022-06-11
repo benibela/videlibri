@@ -1,0 +1,12 @@
+* Kompiliert mit FreePascal 3.3.1 r40721 und Lazarus 2.0 RC3 r55664.
+* Windows: Kein Update der Windows-Version, da es wegen zu vieler Bugs in der neuen FreePascal/Lazarus-Version bisher nicht mehr möglich war, eine funktionsfähige Windows-Version zu erstellen.
+* android: weitere Modernisierungen
+* android: Entferne "von" vor Autornamen in der Bücherliste, da man es mit einem Adelstitel verwechseln könnte.
+* android: Verwende Java JNI 1.6
+* Vollständige Entfernung des ursprünglichen Vormerkungssystem, bei dem versucht wurde, die Vormerkungsmöglichkeiten jedes  Bibliothekssystem in ein einheitliches semantisches, maschinenlesbare Format umzuwandeln, durch ein simpleres System, bei dem nur Frage-Antwort-Dialoge mit dem Text von der OPAC-Webseite angezeigt werden, ohne zu versuchen, in der Schnittstelle die Bedeutung des Text zu verstehen.
+* android: Behebe Crash, wenn Aktionen ausgeführt werden, bevor die App vollständig geladen ist.
+* android: Plötzliche Wechsel zur Standard-Geräte-Sprache, obwohl eine andere Sprache ausgewählt war.
+* Anpassung an geänderten OPAC der Universitätsbibliothek Lüneburg.
+* android: Behebe Absturz aus der 2.0 Version, wenn die Suche geöffnet wird ohne vorher ein (Such)-Konto anzulegen.
+* android: Anpassung an neues Serverzertifikat der Bücherei Cottbus.
+* android: Neue Funktion, um die Ausleihenhistorie als Merkliste zu missbrauchen.

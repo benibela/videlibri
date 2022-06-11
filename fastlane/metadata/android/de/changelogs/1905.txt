@@ -1,0 +1,5 @@
+* VideLibri ist nun mit Lazarus 1.8 RC 2 erstellt.
+* android: Zusätzlicher Zeilenumbruch für Teilen/Textexport.
+* android: Stadtbibliothek Koblenz: Neues Serverzertifikat.
+* aDIS: Behebt eine Art Crash, wenn die Suche nur einen Treffer liefert und der Suchbegriff Zahlen enthielt.
+* sisis/zones: Wenn die Suche keine Treffer lieferte, zeige statt einer Meldung eine leere Seite an.

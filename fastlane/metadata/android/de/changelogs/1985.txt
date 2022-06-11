@@ -1,0 +1,9 @@
+* android: Alles neuprogrammiert, um OkHttp statt Apache HttpComponents für den Internetzugriff zu verwenden.
+* Bibliotheca+/OPEN: Zeige mehr Informationen für Suchergebnisse, verfügbare Medien.
+* verbessertes Layout: Import/Export, XQuery-Suche, Exemplaranzeige unter Android.
+* Android: Einstellung für "bald ablaufende Medien warnen" ändert welche Medien rot markiert werden.
+* Linux/Windows: Strg+C kopiert den markierten Text, nicht immer nur das markierte Buch.
+* OPEN: Ignoriere unsichtbare Passwortdialoge beim Login.
+* Android: Falls der Import/Export mangels fehlenden Berechtigungen nicht möglich ist, frage nach den Berechtigungen, statt eine Fehlermeldung zu zeigen. Stürze nicht ab, wenn keine Datei ausgewählt wird.
+* Android: Gebe Wakelock per Timeout frei, auch wenn die Ausleihen-Aktualisierung noch nicht fertig ist, falls die Kommunikation mit dem Bibliotheksserver viel langsamer ist als sie sein sollte.
+* SRH Mediothek Neckargemünd, Stadtbibliothek Weißenfels

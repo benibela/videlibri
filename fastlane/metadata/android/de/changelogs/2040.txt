@@ -1,0 +1,5 @@
+* Kompiliert mit FreePascal 3.3.1 r40721 mit Patch #32961 und Lazarus 2.0 mit Patchs #35219 und #35223.
+* Falls die Einstellungen nicht gespeichert werden können, weil die Konfigdatei nicht geändert werden kann (weil Huawei-Android 9-Geräte anscheinend eine fehlerhafte Dateiverwaltung haben), lösche die Datei und versuche mehrmals sie erneut zu erstellen.
+* PICA LBS4: Unterstützung von Vormerkungen.
+* Anpassung an geänderten Campus-Katalog Hamburg.
+* Anpassung an geänderte OPAC-Adresse der Stadtbücherei Frankfurt.

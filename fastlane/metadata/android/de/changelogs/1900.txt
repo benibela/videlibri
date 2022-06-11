@@ -1,0 +1,14 @@
+* android: Wechsel automatisch zur Historien-Sicht, wenn ein Suchfilter eingegeben wurde.
+* verbesserte Auswahl von mehreren Optionen bei einer Vormerkung/Bestellung.
+* sisis: Akzeptiere Verlängerungs-Bestätigungen auch, wenn zwischen Worten im Titel mehrere Leerzeichen statt einem einzelnen stehen und ein langer Titel in der Verlängerungs-Bestätigung abgeschnitten ist.
+* paia (Universitätsbibliothek Dortmund): Sende nicht den Barcode bei einer Verlängerung mit.
+* aDIS (VÖBB Berlin): Keine Fehlermeldung bei Bestellungen ins Außenmagazin.
+* sisis: Zweigstellenauswahl funktioniert wieder bei der Suche.
+* Universitätsbibliothek Hannover, Technische Hochschulbibliothek Nürnberg: Neue Info-Webadresse.
+* pica: Akzeptiere Verlängerungs-Bestätigungen auch, wenn die Signatur des Buches ein Semikolon enthält (wie beispielsweise bei der Lübecker Lehrbuchsammlung).
+* android: Behebt Crash, wenn die Suche fehlschlägt, während die App nicht aktiv war.
+* android: Option zum Deaktivieren der Anzeige der bisherigen Verlängerungsanzahl wird nicht mehr ignoriert.
+* digibib: Zeige Exemplarstandortdaten.
+* android: Menüeintrag zum Teilen der angezeigten Daten.
+* android: Daten können mittels langem Drücken in die Zwischenablage kopiert werden.
+* android: Zwischenablage/Speicherfunktionen für Suchfilter, und XQuery-Beispiele.

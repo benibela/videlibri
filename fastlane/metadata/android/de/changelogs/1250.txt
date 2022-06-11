@@ -1,0 +1,4 @@
+* Beschreibung der aktuellen Templates in der Hilfe anstatt die fünf-Jahre alten
+* Digibibsuche nach weiteren Buch-Details kann das alte Buch immer überschreiben, nicht nur wenn Autor/Titel ähnlich sind
+* Generalisierte Templates, die in ihrer Syntax keinerlei Beziehung mehr zu Büchern haben
+* Unterstützung für Münchener Stadtbibliothek.

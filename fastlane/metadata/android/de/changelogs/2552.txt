@@ -1,0 +1,4 @@
+* Linux/Android: Zuverlässigeres Speichern von Einstellungen.
+* Windows: Aktualisiere OpenSSL zu 1.0.2u (neuste Version vom Indyprojekt)
+* Entferne Bibliotheken aus der Liste, die ihr Katalogsystem geändert haben und sich weigern Ausleihkarten zur Anpassung zur Verfügung zu stellen.
+* Anpassung an geändertes Katalogsystem der Stadtbibliothek Bruchsal, Gemeinde- und Schulbücherei Empfingen, Mediathek Gundelfingen, Stadtbücherei Haslach, Gemeindebücherei Neulußheim, und Stadtbücherei Rüsselheim.

@@ -1,0 +1,3 @@
+* Summon für Bonn
+* Das Interface zwischen VideLibri und installierten Templates wurde geändert, so dass VideLibri die Bücher vom Template 1 zu 1 übernimmt und nicht versucht, die Bücher mit den VideLibri bisher bekannten Büchern zu mergen/mischen. 
+* Verschiedene Anpassungen an geänderte Systeme: Linz, Münster, Bonn, HTW Dresden

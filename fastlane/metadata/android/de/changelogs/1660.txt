@@ -1,0 +1,4 @@
+* Neue Bibliothekliste (nach Bundesländern sortiert)
+* OCLC WebOPAC + Stadtbibliothek Stralsund
+* Nürnberg: Ausleihdatum
+* sisis: Suche geht auch mit stärkere neuen Typeprüfung

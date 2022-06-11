@@ -1,0 +1,7 @@
+* Import/Export-Funktionen für manuelle Synchronization mehrere Geräte und Backups
+* leichter verständliche Fehlermeldungen
+* Zuweisungen an VideLibris Spezialvariablen können auch in Templates statt nur in den enthaltenen Patterns durchgeführt werden
+* Patterns in Templates heißen jetzt Patterns (statt ebenfalls Templates) 
+* Beliebig viele Patterns können im Template auf eine Seite angewandt werden (statt nur einmalig nach dem Herunterladen der Seite), Templates können Fehler abfangen (try/catch)
+* aDIS: Medien mit mehreren Bänden können vorgemerkt werden
+* Stadtbücherei Düsseldorf, Stadtbücherei Steinfurt, Halle: Anpassung an geänderten Webkatalog

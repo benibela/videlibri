@@ -1,0 +1,3 @@
+* aDIS (VÖBB, ...): Korrigiere Ausleihen-Verlängerung; behandle komische Sonderfälle.
+* Anpassung an geänderte HTTPS-Zertifikate: Stadtbibliotheken Bonn, Hannover, Reutlingen-Ulm, und Universitätsbibliothek Aachen.
+* Anpassung an geändertes Seitenlayout: Universitätsbibliothek Bonn, TU-München.

@@ -1,0 +1,2 @@
+* aDIS: Wenn beim Anmelden auf der Seite "Ihre Sitzung wurde beendet." (...) auftritt, versuche die Anmeldung erneut.
+* Anpassung an geänderte Webadressen der Ortsbücherei Nordheim, Bibliothek der Jadehochschule Elsfleth, Landschaftsbibliothek Aurich und Johannes a Lasco Bibliothek Emden, Hochschulbibliothek Emden/Leer, Bibliothek der Jadehochschule Wilhelmshaven und Stadtbibliothek Delitzsch.

@@ -1,0 +1,4 @@
+* Neue Büchereien dank EDSync/Martin Kim Dung-Pham: Campus Katalog Hamburg (und prinzipiell alle anderen GBV-Bibliotheken)
+* Die Digibibsuche geht wieder
+* Die Verlängerung der FHB/Fachhochschulbibliothek Düsseldorf funktioniert wieder (sollte zumindest, aber ich gehe da nicht nochmal zum Testen hin)
+* Windows-Fehler behoben: Eine zweite Instanz öffnet wieder das Fenster der ersten.

@@ -1,0 +1,8 @@
+* Gruppierungs- und Sortierungsoptionen
+* Auflistung von ein paar Stadtbibliotheken, die mit dem bibliotheca Template suchbar sind: Halle (Westf), Trier, Villingen-Schwenningen, Wien, Heidelberg, Heilbronn, Pforzheim, Singen, Weinheim, Erlangen, Wiesbaden, Wolfsburg, Hamm, Steinfurt, Speyer
+* android: Darstellung von Zeiten verwendet nun das korrekte Format
+* Bibliotheca+/OPEN Stralsund für Zeitschriften ohne Bände
+* Stabi Berlin Login
+* SRU ohne Suchergebnisse
+* android: Behebt Crashes bei ungültigen UTF-8 Zeichen und Zeichen > 0xffff
+* Kiel/Lübeck Unibibliothek hat neuen Server

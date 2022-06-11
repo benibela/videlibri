@@ -1,0 +1,2 @@
+* Erstellt mit FreePascal r47006.
+* Anpassung an neues System in Magdeburg.

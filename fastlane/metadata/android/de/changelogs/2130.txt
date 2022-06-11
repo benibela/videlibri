@@ -1,0 +1,7 @@
+* bibliotheca: Zeige Verlängerungsanzahl im richtigen Feld.
+* koha: Korrigiere Login.
+* Behebt Android 9 Absturz, wenn die Aktivität geschlossen wird, während die Bücherei-Auswahlliste für die erste Konto-Erstellung geöffnet wird.
+* Behebt x86 64-Bit Android-Absturz.
+* Windows/Linux: Lade umsortiere Spalten korrekt.
+* Sisis/Touchpoint 6: Erkenne, ob man bereits auf der Katalogseite angemeldet ist.
+* Stadtbibliotheken Pfungstadt, Rastatt; Universitätsbibliotheken Osnabrück, Schmalkalden: Anpassungen an geänderte OPAC-Adresse.

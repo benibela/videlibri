@@ -1,0 +1,1 @@
+* Behebt Crash unter Android wegen einer uninitialisierten Variable

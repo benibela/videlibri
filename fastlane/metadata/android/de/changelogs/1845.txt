@@ -1,0 +1,4 @@
+* Anpassung an geänderte Kataloge in Düsseldorf, Berlin, Hamm
+* Stadtbibliothek Holzgerlingen
+* Desktopversion: Die Eigenschaften der Bücher in der Historie lassen sich editieren
+* Stabi Berlin: Behebt Fehler bei der Suche nach dem Titel für Ausleihen, die ohne Titel in der Katalogausleihenliste angezeigt werden

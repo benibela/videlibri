@@ -1,0 +1,7 @@
+* Geänderte Serveradressen für: Universitätsbibliotheken Weimar/Magdeburg/Bochum, Hochschulbibliothek Bochum, Stadtbücherei Gießen/Heidelberg
+* Templates können ersetzt werden, ohne die App neuzustarten
+* Geänderte gepinnte Serverzertifikate für Braunschweig/Berlin/München/Koblenz
+* aDIS: Ungültige String->Int-Konversion-Meldung bei Einzelsuchergebnis 
+* libero: Verwendung eines abgelaufenen Loginlinks nach Verlängerung oder bei erneuter Aktualisierung
+* aDIS: Zeige Ablaufdatum von Bestellungen
+* Umzug auf eine eigenen Domain: www.videlibri.de

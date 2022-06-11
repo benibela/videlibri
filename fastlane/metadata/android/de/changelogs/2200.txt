@@ -1,0 +1,4 @@
+* Anpassung an neue Kataloge der Mediathek Bühl, Stadtbibliothek Engen, Stadtbibliothek Ettlingen, Stadt- und Schulbücherei Haiterbach, Gemeindebücherei Ilsfeld, UB Hildesheim, Universitäts- und Landesbibliothek Halle, Hochschulbibliothek der Hochschule Merseburg, Universitäts- und Landesbibliothek Halle, und (für die Katalogsuche bei der) Universitätsbibliothek der FU-Berlin
+* lbs, Universitätsbibliothek Ilmenau: Verbesserte Ermittlung des Leihfristendes.
+* Windows/Linux: Man kann eine neue Bibliothek für ein Katalogsystem registrieren, ohne vorher eine andere Bibliothek mit dem Katalogsystem auswählen zu müssen.
+* Windows/Linux: Verbesserte XQuery-Suche: Export als XML/JSON/CSV und benutzerdefinierte Tabellenspalten.

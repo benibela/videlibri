@@ -1,0 +1,8 @@
+* Android: Neuentwickelte Titelbild-Verwaltung. Titelbilder von Ausleihen werden abgespeichert, anstatt bei jedem Aufruf neu heruntergeladen zu werden. Verwende nicht die Titelbilder der Bibliotheken, falls diese zu klein sind. 
+* Android: Aktualisiere veraltete Software: Kotlin 1.3.60 zu 1.3.61, Gradle 4.10.2 zu 6.1.1, Support Library zu AndroidX, ACRA 5.2.1 zu 5.5, OkHttp 3.10.0 zu 3.12.8.
+* Android: Verwende R8, um die App zu verkleinern.
+* Android: Anpassung an fehlerhafte HTTPS-Zertifikate der Stadtbüchereien Frankfurt am Main, Cottbus, und aller Kivbf-Bibliotheken in Baden-Württemberg.
+* Android: Korrigierte Sprachauswahl.
+* Anpassung an neue Kataloge bei Stadtbibliothek Schwäbisch Hall, Weinsberg und Bibliothek der Universität der Bundeswehr München.
+* OPEN: Zeige keinen unsichtbaren Text in Suchergebnissen an.
+* Gemeindebücherei Ganderkesee

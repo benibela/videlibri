@@ -1,0 +1,5 @@
+* Leicht verbesserte Templateverarbeitung (für die, die ihre eigenen Templates schreiben)
+* Angepasst an neuen WebOPAC der Stadtbüchereien Düsseldorf 
+* Universitäts- und Landesbibliothek Düsseldorf Verlängerungsfehler behoben
+* Neue Büchereien dank Leonid: Universitätsbibliothek der TU/HU/FU Berlin und die Staatsbibliothek zu Berlin
+* Kleinere Dinge

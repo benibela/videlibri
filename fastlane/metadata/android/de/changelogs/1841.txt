@@ -1,0 +1,1 @@
+* Behebt Crash beim Anzeigen von Fehlermeldungen unter Android, der in 1.836 entstand, weil die Javafunktion zum Ausgeben des Fehlermeldungstext nicht aufgerufen werden darf, solange eine Fehlermeldung vorhanden ist

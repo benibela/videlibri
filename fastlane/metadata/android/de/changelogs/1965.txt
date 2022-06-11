@@ -1,0 +1,7 @@
+* Verbesserte Fehlermeldungen: Bei fehlgeschlagener Weiterleitung bei Universitätsbibliotheken TU/FU/HU Berlin, SLUB Dresden; Bei Wartungsarbeiten beim VOEBB.
+* SISIS: Lösche alte Medien bei mehrfachen Aktualisierungen.
+* Stadtbücherei Pulheim: Neue OPAC-IP-Adresse.
+* Digibib/FH Münster, Stadtbibliothek Biel: Zeige wieder Bestandsexemplare an.
+* VuFind: Kontoanzeige.
+* Universitäts- und Landesbibliothek Düsseldorf: Zeige Vormerkungen an, und Kontozugriff über den neuen Katalog.
+* Liste Digibib NRW in Auswahlliste.

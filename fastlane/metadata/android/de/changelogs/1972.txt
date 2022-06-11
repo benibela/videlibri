@@ -1,0 +1,6 @@
+* aDIS: Verwende holdings-System für Vormerkungen.
+* Verbesserte Kompatibilität mit Xidel für Bibliothekszugriffe ohne GUI.
+* Barcode, Standort und Vormerkungszähler als unterstützte Bucheigenschaften statt zusätzlich angezeigte Eigenschaften.
+* netbiblio/Biel: Zeige Signaturen an.
+* TU Berlin: Suche funktioniert wieder.
+* Führe Datteln, Marl, Haltern am See, Recklinghausen in der Liste auf.

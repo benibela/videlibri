@@ -1,0 +1,8 @@
+* Bibliotheca: Suche nach Schlüsselwörtern, Systeme mit anderen Spalten in der Ausleihtabelle (Heidelberg), Vormerkungen ohne Zweigstellenauswahl
+* Bibliotheca+ (Stralsund Stb): Katalogsuche
+* Gruppenüberschriften werden nicht mehr als Ausleihen gezählt
+* android: Ablaufbenachrichtigungen werden entfernt, wenn sie nicht mehr nötig sind
+* aDIS BSZ-BW: Katalogsuche für die Bibliotheken in Baden-Würtenberg geht wieder
+* PICA LBS (Stralsund Hb): Kontozugriff bei geänderten Zeilenreihenfolgen 
+* Windows: Internetzugriff über Synapse
+* Bibliothek der Katholischen Hochschule für Sozialwesen Berlin

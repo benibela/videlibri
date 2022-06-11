@@ -1,0 +1,6 @@
+* android: x86-Version ist mit GNU ld (GNU Binutils) 2.21 und dem Android 4.0 NDK erstellt, da es mit neueren ld Versionen nicht mehr startet. 
+* Schnellere Verarbeitung von HTML-Seiten mit geringerem Speicherverbrauch.
+* android: Zeige keine veralteten Daten bei den Kontoinformationen und der "veralteten Daten"-Warnung.
+* SRH Neckargemünd: Anpassung an Katalogsystemänderungen.
+* OCLC Open/a|S|tec aDIS: Zeige Ausleihkartenablaufdatum.
+* android: Zeige eine Warnung, dass das Debug-Log erst ab Android 4.1 angezeigt wird.

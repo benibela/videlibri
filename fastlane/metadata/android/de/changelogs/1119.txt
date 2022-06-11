@@ -1,0 +1,5 @@
+* Behebt UBHU Weiterleitungsfehler
+* Zeigt Leerzeichen in der Digibibsuche an
+* Zeigt Vormerkungen in Hamburger GBV korrekt an
+* Kuerzere interne Templatesyntax, und 99% XPath 2 Unterstuetzung
+* Mediensucheergebnisse koennen wie in einer Literaturverwaltung gespeichert werden.

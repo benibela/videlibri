@@ -1,0 +1,5 @@
+* (Fachhochschulbibliothek: )Es wurde wieder ein Fehler mit dem nicht erkannten Umlaut "in März" beseitigt
+* Die xml-Dateien lassen sind nun valides xml.
+* HTTP-Cookies werden vom Programm selber und für jedes Konto einzeln verwaltet.
+* Stadtbüchereien Düsseldorf: Es gibt beim Verlängern keine Vermischungen mehr zwischen Konten
+* Stadtbüchereien Düsseldorf: Eine Bandnummer lässt nicht mehr den Titel verschwinden

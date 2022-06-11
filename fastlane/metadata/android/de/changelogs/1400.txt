@@ -1,0 +1,8 @@
+* Münchener Stadtbibliothek: Behebt Fehler bei genau einem ausgeliehenen Buch, behebt Verlängerungsfehler
+* FU Berlin: Behebt Fehler bei genau einem ausgeliehenen Buch
+* Universitätsbibliothek Düsseldorf: Anpassung an neuen Katalog
+* Reaktiviert die SSL-Zertifikatüberprüfung, mit einer zusätzlichen Option, um sie zu deaktivieren.
+* Templatesyntax: Die Syntax für Variablen in "-Strings wurde geändert, JSONiq wird nun unterstützt, "extend" und "limitDate" wurde in "renew" und "dueDate" umbenannt, um kompatibel zu PAIA zu sein 
+* Geändertes Auto-Update-System, sollte nun den Installer auch aufrufen können, wenn VideLibri nicht als Administrator gestartet wurde
+* Systeme: Unterstützung für das Primo-System der Berliner+Düsseldorf Büchereien, Unterstützung für PAIA (Patron Account Information API)
+* Unterstützung für die Universitätsbibliothek Hildesheim (über Webscraping, nicht PAIA)
