@@ -19,14 +19,15 @@ jobs:
     - name: Install NDK
       run: echo "y" | sudo /usr/local/lib/android/sdk/tools/bin/sdkmanager --install "ndk;23.2.8568313" "ndk;22.1.7171670" "tools" "build-tools;30.0.3"  "platforms;android-30"
     - name: debug github actions
-      run: find $ANDROID_HOME
+      run: echo $ANDROID_HOME
+           sudo bash -c echo '$ANDROID_HOME'
     - run: git clone https://github.com/benibela/xidel.git
     - run: xidel/.github/download-dependencies.sh && xidel/.github/setup-fpc-cfg.sh 
     - name: Install FreePascal for Android
       run: |
-        sudo $oldpath/android/manage.sh setupbinutils /usr/bin
-        sudo apt-get install fpc
         oldpath=$PWD;
+        sudo -E $oldpath/android/manage.sh setupbinutils /usr/bin
+        sudo apt-get install fpc
         git clone https://gitlab.com/freepascal.org/fpc/source.git --depth 1 --single-branch -b fixes_3_2 fpc
         cd fpc
         sudo $oldpath/android/manage.sh setupfpccrosscompile

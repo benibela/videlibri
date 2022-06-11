@@ -266,6 +266,8 @@ setupbinutils)
     ln -srv $path/*-strip $targetdir
     ln -srv $path/*-addr2line $targetdir
   }
+  echo Android home: $ANDROID_HOME
+  echo Possible toolchains: $ANDROID_HOME/ndk/*/toolchains
   singleplatform arm
   singleplatform x86-
   singleplatform aarch64
