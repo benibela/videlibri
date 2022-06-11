@@ -17,7 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Install NDK
-      run: echo "y" | sudo /usr/local/lib/android/sdk/tools/bin/sdkmanager --install "ndk;23.1.7779620" "tools" "build-tools;30.0.3"  "platforms;android-30"
+      run: echo "y" | sudo /usr/local/lib/android/sdk/tools/bin/sdkmanager --install "ndk;23.2.8568313" "ndk;22.1.7171670" "tools" "build-tools;30.0.3"  "platforms;android-30"
     - run: git clone https://github.com/benibela/xidel.git
     - run: xidel/.github/download-dependencies.sh && xidel/.github/setup-fpc-cfg.sh 
     - name: Install FreePascal for Android
@@ -44,11 +44,11 @@ jobs:
         which aarch64-linux-android-strip
         which arm-linux-androideabi-strip
         which x86_64-linux-android-strip
-        sudo mkdir -p /usr/local/lib/android/sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/
-        sudo ln -sr $(which i686-linux-android-strip) /usr/local/lib/android/sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/
-        sudo ln -sr $(which aarch64-linux-android-strip) /usr/local/lib/android/sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/
-        sudo ln -sr $(which arm-linux-androideabi-strip) /usr/local/lib/android/sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/
-        sudo ln -sr $(which x86_64-linux-android-strip) /usr/local/lib/android/sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/bin/
+        sudo mkdir -p /usr/local/lib/android/sdk/ndk/23.2.8568313/toolchains/llvm/prebuilt/linux-x86_64/bin/
+        sudo ln -srfv $(which i686-linux-android-strip) /usr/local/lib/android/sdk/ndk/23.2.8568313/toolchains/llvm/prebuilt/linux-x86_64/bin/
+        sudo ln -srfv $(which aarch64-linux-android-strip) /usr/local/lib/android/sdk/ndk/23.2.8568313/toolchains/llvm/prebuilt/linux-x86_64/bin/
+        sudo ln -srfv $(which arm-linux-androideabi-strip) /usr/local/lib/android/sdk/ndk/23.2.8568313/toolchains/llvm/prebuilt/linux-x86_64/bin/
+        sudo ln -srfv $(which x86_64-linux-android-strip) /usr/local/lib/android/sdk/ndk/23.2.8568313/toolchains/llvm/prebuilt/linux-x86_64/bin/
         #Start building
         android/manage.sh fakesignature
         cd android
