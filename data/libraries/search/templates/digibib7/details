@@ -11,12 +11,14 @@
         let $href := $a/@href
         where count($a) = 1 and starts-with($href, "https://lobid.org/organisations")
         let $lobidName := get("global-lobid-name-cache")?$href 
-                          otherwise (
-                            let $newname := json-doc($href || "?format=json")?name
+                          otherwise ( 
+                            let $newname := try { 
+                                json-doc($href || "?format=json")?name
+                              } catch * { $a }
                             return (
                               $global-lobid-name-cache := map:put(get("global-lobid-name-cache", {}), $href, $newname),
                               $newname
-                            ) [last()]
+                            ) [last()]                            
                           )
         return {"libraryBranch": $lobidName, 
                 "libraryLocation" ?: $a/following-sibling::node()/descendant-or-self::text()!normalize-space()[.],
