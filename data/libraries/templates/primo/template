@@ -16,7 +16,7 @@
 
 <action id="connect">
     <s>declare function local:raise($err){
-         string($err) ! (if (matches(., "Anmeldung fehlgeschlagen|The login credentials are incorrect|Benutzerkonto abgelaufen oder ungültige UserID und/oder Passwort|The username you entered cannot be identified|Wrong username or password|Ungültige Ausweisnummer und/oder Passwort")) then vl:raise-login(.)
+         string($err) ! (if (matches(., "Anmeldung|login credentials|Passwort|The username you entered cannot be identified|Wrong username or password|Ausweisnummer|Login-Angaben|Benutzername")) then vl:raise-login(.)
          else vl:raise(.))
        };
    $use-rest-api := matches($baseurl, '/primo-explore|/discovery/')
