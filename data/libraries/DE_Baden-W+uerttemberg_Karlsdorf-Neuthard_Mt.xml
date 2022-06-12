@@ -2,9 +2,10 @@
 <library>
   <longName value="Bibliothek Karlsdorf-Neuthard"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/karlsdorf-neuthard"/>	
-  <variable name="DB" value="Karlsdorf-Neuthard"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.komm.one/karlsdorf-neuthard/Konto-Verl%C3%A4ngerung"/>	
+  <variable name="urlsearch" value="https://bibliotheken.komm.one/karlsdorf-neuthard/Mediensuche/Erweiterte-Suche"/>
+  
   
   <homepage value="https://web-opac.kivbf.de/karlsdorf-neuthard/index.asp?DB=Karlsdorf-Neuthard"/>
   <testing-search value="unknown"/>
