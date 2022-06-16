@@ -29,12 +29,12 @@
         <t:siblings>
         <td>{$book.title := a, $prestatus[] := a/@href!("Details: "||resolve-uri(.)), $book("author") := join(a/following-sibling::node())}</td>
         <td>{$book.author}</td>
-        <td>{$book.duedate := parse-date(span/@title)}</td>
+        <td>{$book.duedate := parse-date( (span/@title[matches(., "^\d+-\d+-\d+")] otherwise extract(., "\d+[.-/]\d+[.-/]\d+") ) )}</td>
         <td>{$book.id := join(node() except span[1])}</td>
         <td>{$book._item := input/@value, $prestatus[] := span}</td>
         <td>{$prestatus[] := .}</td>
         
-        <td>{$book.issueDate := parse-date(span/@title) }</td>
+        <td>{$book.issueDate := parse-date( (span/@title[matches(., "^\d+-\d+-\d+")] otherwise extract(., "\d+[.-/]\d+[.-/]\d+") ) ) }</td>
         <td>{$prestatus[] := . }</td>
         <td>{$book.libraryBranch}</td>
         <td>{$prestatus[] := . }</td>
