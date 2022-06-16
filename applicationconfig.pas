@@ -270,6 +270,8 @@ resourcestring
     for i:=0 to ExceptFrameCount-1 do
       commondetails:=commondetails+#13#10+BackTraceStrFunc(ExceptFrames[i]);
 
+    commondetails:=commondetails+#13#10+'Referenceoffset: '+strFromPtr(@initApplicationConfig);
+
     for i := 0 to high(additionalStacktrace) do commondetails:=commondetails+#13#10 + additionalStacktrace[i];
 
     errordetails += #13#10 + commondetails;
