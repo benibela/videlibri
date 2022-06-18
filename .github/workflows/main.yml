@@ -28,7 +28,7 @@ jobs:
         oldpath=$PWD;
         sudo -E $oldpath/android/manage.sh setupbinutils /usr/bin
         sudo apt-get install fpc
-        git clone https://gitlab.com/freepascal.org/fpc/source.git --depth 1 --single-branch -b fixes_3_2 fpc
+        git clone https://gitlab.com/freepascal.org/benibela/fpc-source.git --depth 1 --single-branch -b fixes_3_2 fpc
         cd fpc
         sudo $oldpath/android/manage.sh setupfpccrosscompile
         cd $oldpath;
