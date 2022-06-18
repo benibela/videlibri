@@ -1,0 +1,7 @@
+* Wenn die Büchereiwebseite in mehreren Sprachen verfügbar ist, wähle explizit eine Sprache aus, statt die voreingestellte Sprache des Servers zu akzeptieren.
+* Anpassung an geänderte Webseiten der Hochschulbibliotheken in Baden-Württemberg.
+* Explizite Auswahloption für Benutzertyp (Hochschulangehörige oder Externe) in den Einstellungen für die Hochschulbibliothek Esslingen, Bibliotheken der Hochschule Furtwangen, Bibliothek der DHBW Lörrach, Bibliothek der Wissenschaftlichen Regionalbibliothek Lörrach, Hochschulbibliothek Mannheim, Hochschulbibliothek Offenburg, Bibliothek der Hochschule der Medien Stuttgart, Bibliothek der HFT Stuttgart, und Bibliothek der Hochschule Ulm. 
+* Anpassung an geänderte Kataloge der Universitätsbibliothek Greifswald, Hochschulbibliothek Stralsund
+und Bibliothek Karlsdorf-Neuthard
+* Digibib: Zeige bei Exemplaranzeigen den vollständigen Namen der besitzenden Bibliothek statt eine lobid-Abkürzung an.
+* koha/Duisburg: Zuverlässigere Suche nach Fristdaten.

@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="Bibliothek-App VideLibri">
-      <build version="2570" date="2022-06-06">
+      <build version="2580" date="2022-06-18">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <change>Wenn die Büchereiwebseite in mehreren Sprachen verfügbar ist, wähle explizit eine Sprache aus, statt die voreingestellte Sprache des Servers zu akzeptieren.</change>
+        <fix>Anpassung an geänderte Webseiten der Hochschulbibliotheken in Baden-Württemberg.</fix>
+        <fix>Explizite Auswahloption für Benutzertyp (Hochschulangehörige oder Externe) in den Einstellungen für die Hochschulbibliothek Esslingen, Bibliotheken der Hochschule Furtwangen, Bibliothek der DHBW Lörrach, Bibliothek der Wissenschaftlichen Regionalbibliothek Lörrach, Hochschulbibliothek Mannheim, Hochschulbibliothek Offenburg, Bibliothek der Hochschule der Medien Stuttgart, Bibliothek der HFT Stuttgart, und Bibliothek der Hochschule Ulm. </fix>
+        <fix>Anpassung an geänderte Kataloge der Universitätsbibliothek Greifswald, Hochschulbibliothek Stralsund
+und Bibliothek Karlsdorf-Neuthard</fix>
+        <fix>Digibib: Zeige bei Exemplaranzeigen den vollständigen Namen der besitzenden Bibliothek statt eine lobid-Abkürzung an.</fix>
+        <fix>koha/Duisburg: Zuverlässigere Suche nach Fristdaten.</fix>
+     </build>
+      <build version="2570" date="2022-06-06">
         <fix>Anpassung an geänderte Kataloge der Stadtbibliothek Stuttgart, München, Halle, Schotten, und Ingolstadt; und Stadtbücherei Pfungstadt, Steinfurt, Dieburg, Erbach, und Verl</fix>
      </build>
       <build version="2552" date="2022-04-26">
