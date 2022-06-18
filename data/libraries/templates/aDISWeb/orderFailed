@@ -1,0 +1,9 @@
+<t:switch prioritized="true">
+  <body>
+    <p class="warnung">{vl:raise("Vormerkungswarnung: " || .)}</p>
+    <div class="rTable_div"><table class="rTable_table"/></div>   
+  </body>
+  <body>
+    <vormerkungs-formular-missing/>
+  </body>
+</t:switch>
