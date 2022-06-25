@@ -33,10 +33,13 @@ jobs:
     - name: Setup signing
       run: |
         mkdir -p ~/.gradle
-        base64 -d <<<$KEYSTORE > /tmp/keystore
-        echo 'ANDROID_STORE_PASSWORD='$KEYSTORE_PASS > ~/.gradle/gradle.properties
-        echo 'ANDROID_KEY_PASSWORD='$KEYSTORE_PASS >> ~/.gradle/gradle.properties
+        base64 -d <<<$INPUT_KEYSTORE > /tmp/keystore
+        echo 'ANDROID_STORE_PASSWORD='$INPUT_KEYSTORE_PASS > ~/.gradle/gradle.properties
+        echo 'ANDROID_KEY_PASSWORD='$INPUT_KEYSTORE_PASS >> ~/.gradle/gradle.properties
         echo 'ANDROID_GLOBAL_KEYSTORE=/tmp/keystore' >> ~/.gradle/gradle.properties
+      with:
+        KEYSTORE: ${{ secrets.KEYSTORE }}
+        KEYSTORE_PASS: ${{ secrets.KEYSTORE_PASS }}
     - name: Build VideLibri
       run: |
         #Disable PasDblStrUtils
