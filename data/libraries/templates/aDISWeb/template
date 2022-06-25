@@ -57,8 +57,8 @@
         <h1>Sie sind angemeldet.</h1>
         </form>
   
+        <a t:condition="contains(., 'Ausleihe') and (contains(@href, '&amp;sp=SZA') or contains(., 'zeigen oder verlängern in:'))"></a>
         <td>Keine Ausleihen</td>
-        <a t:condition="contains(., 'Ausleihe') and contains(@href, '&amp;sp=SZA')"></a>
         
         <h1>Bitte auch das Passwort angeben<t:s>$error-login := .</t:s></h1>
         <h1>Sie sind nicht mit Ihren Angaben registriert<t:s>$error-login := .</t:s></h1>
@@ -80,7 +80,7 @@
          
         
         <form><select/><select/></form> <!-- munich ordering -->
-        <h1><strong>Mein Konto</strong>{error-login:="Ihre Sitzung wurde beendet. (2)"}</h1>
+        <h1 t:test="$sessions-reconnects > 0"><strong>Mein Konto</strong>{error-login:="Ihre Sitzung wurde beendet. (2)"}</h1>
       </template:switch>
     </pattern>
   </if>
@@ -123,7 +123,7 @@
         { $loginFormPost := form(., (.//*[@name="_eventId_proceed"])[1]), $idpSystem := true() }
         </form>
         <h1>Ihre Sitzung wurde beendet.<t:s>error-login:=.</t:s></h1>
-        <h1><strong>Mein Konto</strong>{error-login:="Ihre Sitzung wurde beendet. (2)"}</h1>
+        <h1><strong>Mein Konto</strong>{error-login:="Ihre Sitzung wurde beendet. (3)"}</h1>
       </t:switch></template>
     </page>
   </loop>
