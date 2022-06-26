@@ -19,7 +19,7 @@ import de.benibela.videlibri.components.BookOverviewAdapter
 import de.benibela.videlibri.jni.BookListDisplayOptions
 import de.benibela.videlibri.jni.Bridge
 import de.benibela.videlibri.utils.Clipboard
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import java.util.*
 
 @SuppressLint("Registered")

@@ -157,7 +157,7 @@ object CoverLoader {
                 if (memInfo.availMem > 0) availMemory = min(availMemory, memInfo.availMem / 20)
             }
         } else diskCache = DeadBitmapCache()
-        if (availMemory > 512*1024*1024) availMemory = 512*1024*1024
+        if (availMemory > 512*1024*1024L) availMemory = 512*1024*1024L
         memoryCache = MemoryBitmapCache(availMemory.toInt())
     }
 

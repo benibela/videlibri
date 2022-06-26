@@ -20,7 +20,7 @@ import de.benibela.videlibri.databinding.BookOverviewRowBinding
 import de.benibela.videlibri.databinding.DialogBookListLikeBinding
 import de.benibela.videlibri.jni.Bridge
 import de.benibela.videlibri.utils.*
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import java.lang.IndexOutOfBoundsException
 import java.util.*
 

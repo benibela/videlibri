@@ -30,7 +30,7 @@ import de.benibela.videlibri.jni.Bridge
 import de.benibela.videlibri.jni.globalOptionsAndroid
 import de.benibela.videlibri.jni.save
 import de.benibela.videlibri.utils.*
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import java.io.File
 import java.util.*
 import kotlin.math.abs

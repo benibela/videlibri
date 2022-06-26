@@ -25,7 +25,7 @@ import de.benibela.videlibri.jni.FormInput
 import de.benibela.videlibri.jni.FormParams
 import de.benibela.videlibri.jni.FormSelect
 import de.benibela.videlibri.utils.*
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import java.util.*
 import kotlin.math.roundToInt
 

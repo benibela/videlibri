@@ -13,7 +13,6 @@ import de.benibela.videlibri.databinding.NewliboptionBinding
 import de.benibela.videlibri.jni.Bridge
 import de.benibela.videlibri.jni.Bridge.LibraryDetails
 import de.benibela.videlibri.utils.*
-import kotlinx.android.synthetic.main.newlib.*
 
 data class LibraryVariable(val defaultValue: String, val editText: EditText?)
 
@@ -41,7 +40,7 @@ class NewLibrary : VideLibriBaseActivity() {
             val details = details ?: return
             for (i in details.variableNames.indices) variables[details.variableNames[i]] = LibraryVariable(details.variableValues[i], null)
             val templatePos = templates.indexOf(details.templateId)
-            if (templatePos >= 0) templateSpinner.setSelection(templatePos)
+            if (templatePos >= 0) binding.templateSpinner.setSelection(templatePos)
 
             binding.create.setText(R.string.change)
             binding.id.setText(id)
@@ -56,7 +55,7 @@ class NewLibrary : VideLibriBaseActivity() {
             val defaultId = if (existingUserLibraries.isEmpty()) "user"
                                  else run {
                 val oldIds = existingUserLibraries.map { it.substringAfterLast("user").toIntOrNull() ?: 0 }
-                "user${(oldIds.max() ?: existingUserLibraries.size) + 1}"
+                "user${(oldIds.maxOrNull() ?: existingUserLibraries.size) + 1}"
             }
             binding.id.setText(defaultId)
             binding.deleteButton.visibility = View.GONE
