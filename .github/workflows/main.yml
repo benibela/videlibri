@@ -79,3 +79,10 @@ jobs:
       with:
         name: android-symbols
         path: android/symbols/
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: |
+          android/android/build/outputs/apk/release/android-release.apk
+          android/android/build/outputs/bundle/release/android-release.aab
