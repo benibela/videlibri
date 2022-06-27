@@ -148,10 +148,10 @@ fun makePrimaryBookCache(addHistoryStart: Boolean,
     val addHistory = addHistoryStart && !renewableOnly //history is not renewable
     val bookCache = ArrayList<Bridge.Book>()
     accounts.let { accounts ->
-        for (facc in accounts) {
-            if (facc.isHidden)
+        for (acc in accounts) {
+            if (acc.isHidden)
                 continue
-            val books: Array<Bridge.Book> = Bridge.VLGetBooks(facc, false) ?: continue
+            val books: Array<Bridge.Book> = Bridge.VLGetBooks(acc, false) ?: continue
             if (!renewableOnly) {
                 bookCache.addAll(books)
             } else
@@ -159,7 +159,7 @@ fun makePrimaryBookCache(addHistoryStart: Boolean,
                     if (b.status == Bridge.Book.StatusEnum.Unknown || b.status == Bridge.Book.StatusEnum.Normal)
                         bookCache.add(b)
             if (addHistory)
-                bookCache.addAll(Bridge.VLGetBooks(facc, true) ?: continue)
+                bookCache.addAll(Bridge.VLGetBooks(acc, true) ?: continue)
         }
     }
 
@@ -167,28 +167,26 @@ fun makePrimaryBookCache(addHistoryStart: Boolean,
 }
 
 fun Bridge.Book.matchesFilter(filter: String, key: String): Boolean =
-    if (key.isNotEmpty()) getProperty(key).toLowerCase().contains(filter)
-    else author.toLowerCase().contains(filter) || title.toLowerCase().contains(filter)
+    if (key.isNotEmpty()) getProperty(key).contains(filter, true)
+    else author.contains(filter, true) || title.contains(filter, true)
 
 
 fun filterToSecondaryBookCache(oldBookCache: ArrayList<Bridge.Book>,
                                groupingKey: String, sortingKey: String,
-                               filterStart: String?, filterKey: String): ArrayList<Bridge.Book> {
-    var filter = filterStart
+                               filter: String?, filterKey: String): ArrayList<Bridge.Book> {
     val bookCache = ArrayList<Bridge.Book>()
 
     if (filter?.isNotEmpty() == true && "__disabled" != filterKey) {
-        filter = filter.toLowerCase()
         for (book in oldBookCache)
             if (book.matchesFilter(filter, filterKey))
                 bookCache.add(book)
     } else
         bookCache.addAll(oldBookCache)
 
-    bookCache.sortWith(Comparator { book, book2 ->
+    bookCache.sortWith { book, book2 ->
         val temp = compareForKey(book, book2, groupingKey)
         if (temp != 0) temp else compareForKey(book, book2, sortingKey)
-    })
+    }
 
     if ("" != groupingKey) {
         var lastGroup = ""

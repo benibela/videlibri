@@ -234,8 +234,8 @@ open class VideLibriBaseActivity: AppCompatActivity(){
         showMessage(tasks.joinToString("\n") { getString(it) })
     }
 
-    private val REQUESTED_LIBRARY_HOMEPAGE = 29324
-    private val REQUESTED_LIBRARY_CATALOGUE = 29325
+    private val requestCodeLibraryHomepage = 29324
+    private val requestCodeLibraryCatalogue = 29325
 
     open fun onOptionsItemIdSelected(id: Int): Boolean {
         when (id) {
@@ -251,8 +251,8 @@ open class VideLibriBaseActivity: AppCompatActivity(){
             R.id.renewlist -> startActivity<RenewList>()
             R.id.import_ -> startActivity<Import>()
             R.id.export -> startActivity<Export>()
-            R.id.libinfo -> startActivityForResult<LibraryList>(REQUESTED_LIBRARY_CATALOGUE,"reason" to getString(R.string.base_chooselibhomepage), "search" to true)
-            R.id.libcatalogue -> startActivityForResult<LibraryList>(REQUESTED_LIBRARY_CATALOGUE,"reason" to getString(R.string.base_chooselibcat), "search" to true)
+            R.id.libinfo -> startActivityForResult<LibraryList>(requestCodeLibraryCatalogue,"reason" to getString(R.string.base_chooselibhomepage), "search" to true)
+            R.id.libcatalogue -> startActivityForResult<LibraryList>(requestCodeLibraryCatalogue,"reason" to getString(R.string.base_chooselibcat), "search" to true)
             R.id.newlib -> startActivityForResult<NewLibrary>(RETURNED_FROM_NEW_LIBRARY)
             R.id.feedback -> startActivity<Feedback>()
             R.id.debuglog -> startActivity<DebugLogViewer>()
@@ -263,9 +263,9 @@ open class VideLibriBaseActivity: AppCompatActivity(){
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if ((requestCode == REQUESTED_LIBRARY_CATALOGUE || requestCode == REQUESTED_LIBRARY_HOMEPAGE) && resultCode == RESULT_OK) {
+        if ((requestCode == requestCodeLibraryCatalogue || requestCode == requestCodeLibraryHomepage) && resultCode == RESULT_OK) {
             Bridge.VLGetLibraryDetails(LibraryList.lastSelectedLibId ?: return)?.apply {
-                var uri = if (requestCode == REQUESTED_LIBRARY_HOMEPAGE) homepageBase else homepageCatalogue
+                var uri = if (requestCode == requestCodeLibraryHomepage) homepageBase else homepageCatalogue
                 if (uri == "") uri = homepageBase
                 if (uri == "") uri = homepageCatalogue
                 showUriInBrowser(uri)

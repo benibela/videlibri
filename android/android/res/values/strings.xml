@@ -53,7 +53,7 @@
     <string name="book_year">Jahr</string>
     <string name="booklist_noselection">noch keine Auswahl</string>
     <string name="booklist_loading">Ergebnisse werden geladen...</string>
-    <string name="booklist_from"></string>
+    <string name="booklist_from" />
     <string name="feedback_feedbacktitle">VideLibri Feedback</string>
     <string name="feedback_acraheader">Per ACRA für Fehlerberichte:</string>
     <string name="feedback_send_ok">Feedback wurde erfolgreich abgeschickt.</string>
@@ -233,7 +233,7 @@
     </string-array>
 
     <string-array name="sortable_properties">
-        <item></item>
+        <item />
         <item>_account</item>
         <item>_dueWeek</item>
         <item>dueDate</item>
@@ -262,7 +262,7 @@
 
     <string-array name="filterable_properties">
         <item>__disabled</item>
-        <item></item>
+        <item />
         <item>libraryBranch</item>
         <item>id</item>
         <item>category</item>
@@ -272,7 +272,7 @@
     </string-array>
 
     <string-array name="languages">
-        <item></item>
+        <item />
         <item>de</item>
         <item>en</item>
     </string-array>

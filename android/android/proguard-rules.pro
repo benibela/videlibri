@@ -8,7 +8,7 @@
 
 -keep class android.content.Context { *; }
 
--keep class Landroid.content.res.AssetManager { *; }
+-keep class android.content.res.AssetManager { *; }
 
 # parcelable
 -keepclassmembers class * implements android.os.Parcelable {

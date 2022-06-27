@@ -24,7 +24,7 @@ import java.util.*
 
 @SuppressLint("Registered")
 open class BookListActivity: VideLibriBaseActivity(){
-    internal var port_mode: Boolean = false
+    internal var isPortraitMode: Boolean = false
 
     internal lateinit var list: BookListFragment
     internal lateinit var details: BookDetails
@@ -42,10 +42,10 @@ open class BookListActivity: VideLibriBaseActivity(){
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("VL", "onCreate: $port_mode")
+        Log.d("VL", "onCreate: $isPortraitMode")
         setVideLibriView(R.layout.booklistactivity)
         registerState(::state)
-        port_mode = resources.getBoolean(R.bool.port_mode)
+        isPortraitMode = resources.getBoolean(R.bool.port_mode)
         list = BookListFragment(this)
         details = BookDetails(this)
 
@@ -62,7 +62,7 @@ open class BookListActivity: VideLibriBaseActivity(){
             }
         }
 
-        if (port_mode) {
+        if (isPortraitMode) {
             detailsPortHolder = findViewById(R.id.bookdetailslayout)
             listPortHolder = findViewById(R.id.booklistlayout)
         }
@@ -76,7 +76,7 @@ open class BookListActivity: VideLibriBaseActivity(){
 
     override fun onResume() {
         super.onResume()
-        port_mode = resources.getBoolean(R.bool.port_mode) //should not have changed
+        isPortraitMode = resources.getBoolean(R.bool.port_mode) //should not have changed
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -150,7 +150,7 @@ open class BookListActivity: VideLibriBaseActivity(){
     private fun showDetails(startBookPos: Int) {
         val bookPos = (startBookPos until bookCache.size).find { !bookCache[it].isGroupingHeader } ?: return
         state.currentBookPos = bookPos
-        if (port_mode) {
+        if (isPortraitMode) {
             detailsPortHolder?.visibility = View.VISIBLE
             listPortHolder?.visibility = View.INVISIBLE
             state.portInDetailMode = true
@@ -167,7 +167,7 @@ open class BookListActivity: VideLibriBaseActivity(){
             state.selectedBooksIndices = null
             list.adapter?.notifyDataSetChanged()
         }
-        if (!port_mode || ( state.portInDetailMode && state.currentBookPos in bookCache.indices ) )
+        if (!isPortraitMode || ( state.portInDetailMode && state.currentBookPos in bookCache.indices ) )
             showDetails(state.currentBookPos)
         else
             showList()
@@ -196,7 +196,7 @@ open class BookListActivity: VideLibriBaseActivity(){
 
     //shows the list. returns if the list was already visible
     fun showList(): Boolean =
-        if (!port_mode) true
+        if (!isPortraitMode) true
         else if (detailsVisible()) {
             listPortHolder?.visibility = View.VISIBLE
             detailsPortHolder?.visibility = View.INVISIBLE
@@ -213,11 +213,11 @@ open class BookListActivity: VideLibriBaseActivity(){
     }
 
     fun detailsVisible(): Boolean =
-            if (!port_mode) true else detailsPortHolder?.visibility == View.VISIBLE
+            if (!isPortraitMode) true else detailsPortHolder?.visibility == View.VISIBLE
 
 
     fun listVisible(): Boolean =
-            if (!port_mode) true else !detailsVisible()
+            if (!isPortraitMode) true else !detailsVisible()
 
 
     @JvmField var bookCache = ArrayList<Bridge.Book>()

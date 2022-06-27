@@ -64,7 +64,7 @@ class RenewList : BookListActivity() {
         }
         updateRenewButton()
         list.adapter?.notifyDataSetChanged()
-        if (!port_mode) super.viewDetails(bookpos)
+        if (!isPortraitMode) super.viewDetails(bookpos)
     }
 
 

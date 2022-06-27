@@ -106,7 +106,7 @@ class Feedback : VideLibriBaseActivity() {
             val anonymousDetails = includeErrors && findViewById<CheckBox>(R.id.feedbackIncludeErrorAnonymousDetails).isChecked
             val errCache = VideLibriApp.errors
 
-            Thread(Runnable {
+            Thread {
 
                 val system = systemInfo
                 val rep = if (errCache.size == 0) 1 else errCache.size
@@ -146,13 +146,16 @@ class Feedback : VideLibriBaseActivity() {
                         showDialog {
                             message(if (ok == rep) R.string.feedback_send_ok else R.string.feedback_send_failed)
                             okButton {
-                                currentActivity<Feedback>()?.findViewById<View>(R.id.button)?.postDelayed({ finish() }, 100) //delayed to avoid  "android.view.WindowManager$BadTokenException: Unable to add window -- token android.os.BinderProxy@40b47bd8 is not valid" error.
+                                currentActivity<Feedback>()?.findViewById<View>(R.id.button)?.postDelayed(
+                                    { finish() },
+                                    100
+                                ) //delayed to avoid  "android.view.WindowManager$BadTokenException: Unable to add window -- token android.os.BinderProxy@40b47bd8 is not valid" error.
                             }
                         }
                     } else
                         showMessage("${getString(R.string.feedback_send_failedconnect)}\n$err")
                 }
-            }).start()
+            }.start()
         }
 
         findViewById<View>(R.id.textViewMail).setOnClickListener {

@@ -10,8 +10,8 @@ import java.io.*
 import de.benibela.videlibri.utils.*
 
 class SourceEdit : VideLibriBaseActivity() {
-    private val BASEDIR_TEMPLATES = "libraries/templates/"
-    private val BASEDIR_LIBRARIES = "libraries/"
+    private val constPathTemplates = "libraries/templates/"
+    private val constPathLibraries = "libraries/"
 
     private lateinit var libraryIds: List<String>
     private lateinit var templateIds: Array<String>
@@ -46,7 +46,7 @@ class SourceEdit : VideLibriBaseActivity() {
     internal fun showSelection2(positionOfSelection1: Int, defaultSelectionText: String? = null) {
         when (positionOfSelection1) {
             0 -> {
-                baseDir = BASEDIR_LIBRARIES
+                baseDir = constPathLibraries
                 selection2 = libraryIds.toTypedArray()
             }
             selection1.size - 1 -> {
@@ -73,7 +73,7 @@ class SourceEdit : VideLibriBaseActivity() {
 
 </actions>
 """
-                            writeToNewFile("$BASEDIR_TEMPLATES$text/template", emptyDefaultSystem)
+                            writeToNewFile("$constPathTemplates$text/template", emptyDefaultSystem)
                             makeTemplateIds()
                             templateIds.indexOf(text).takeIf { it >= 0 }?.let { spinner.setSelection(it + 1) }
                         }
@@ -83,7 +83,7 @@ class SourceEdit : VideLibriBaseActivity() {
             }
             else -> {
                 selection2 = arrayOf()
-                baseDir = BASEDIR_TEMPLATES + templateIds[positionOfSelection1 - 1]
+                baseDir = constPathTemplates + templateIds[positionOfSelection1 - 1]
                 val files = assets.list(baseDir)?.toMutableList() ?: return
                 try {
                     val userFiles = userFile(baseDir).takeIf { it.exists() }?.list()?.filter { !files.contains(it)  }

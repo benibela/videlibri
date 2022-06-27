@@ -1,7 +1,6 @@
 package de.benibela.videlibri.internet
 
 import android.util.Base64
-import android.util.Log
 import de.benibela.internettools.X509TrustManagerWrapper.CustomTrustManagerFactory
 import java.security.MessageDigest
 import java.security.cert.CertificateException

@@ -62,7 +62,7 @@ class MaxHeightListView : ListView {
 @SuppressLint("Registered")
 open class ImportExportBase : VideLibriBaseActivity() {
 
-    lateinit var OPTIONS: Array<String>
+    lateinit var trOptions: Array<String>
 
     protected lateinit var flagAdapter: ArrayAdapter<String>
     internal var data: Bridge.ImportExportData? = null
@@ -92,7 +92,7 @@ open class ImportExportBase : VideLibriBaseActivity() {
         var optionI = 0
         for (i in 0 until flagAdapter.count)
             if (flagListView.isItemChecked(i)) {
-                while (OPTIONS[optionI] != flagAdapter.getItem(i)) {
+                while (trOptions[optionI] != flagAdapter.getItem(i)) {
                     optionI++
                 }
                 //assert i == optionI ???
@@ -106,11 +106,11 @@ open class ImportExportBase : VideLibriBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = setVideLibriView(ImportexportBinding::inflate)
-        OPTIONS = arrayOf(getString(R.string.lay_options_option_current), getString(R.string.history), getString(R.string.configuration), getString(R.string.passwords))
+        trOptions = arrayOf(getString(R.string.lay_options_option_current), getString(R.string.history), getString(R.string.configuration), getString(R.string.passwords))
 
 
 
-        flagAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, OPTIONS)
+        flagAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, trOptions)
         binding.listView1.let {
             it.adapter = flagAdapter
             it.checkAll()
@@ -298,9 +298,9 @@ class Import : ImportExportBase() {
         }
 
         val newOptions = ArrayList<String>()
-        for (i in OPTIONS.indices)
+        for (i in trOptions.indices)
             if (data.flags and (1 shl i) != 0)
-                newOptions.add(OPTIONS[i])
+                newOptions.add(trOptions[i])
         flagAdapter = ArrayAdapter(this@Import, android.R.layout.simple_list_item_multiple_choice, newOptions)
         binding.listView1.let { lv ->
             lv.adapter = flagAdapter
@@ -377,7 +377,7 @@ class Export : ImportExportBase() {
         }
         setButtonText()
 
-        flagAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, OPTIONS)
+        flagAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, trOptions)
         binding.listView1.let {
             it.adapter = flagAdapter
             it.checkAll()

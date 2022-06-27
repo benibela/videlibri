@@ -129,7 +129,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
         }
     }
 
-    private val REQUEST_CHOOSE_LIBRARY = 1234
+    private val requestCodeChooseLibrary = 1234
 
 
     private var searcher: Bridge.SearcherAccess? = null
@@ -198,9 +198,9 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         for (s in state.editState)
-            searchParamHolders.get(s.key)?.edit?.onRestoreInstanceState(s.value)
+            searchParamHolders[s.key]?.edit?.onRestoreInstanceState(s.value)
         for (s in state.spinnerState)
-            searchParamHolders.get(s.key)?.spinner?.onRestoreInstanceState(s.value)
+            searchParamHolders[s.key]?.spinner?.onRestoreInstanceState(s.value)
 
     }
 
@@ -217,7 +217,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
 
 
     private fun changeSearchLib() {
-        startActivityForResult<LibraryList>(REQUEST_CHOOSE_LIBRARY,
+        startActivityForResult<LibraryList>(requestCodeChooseLibrary,
                 "defaultLibId" to state.libId,
                 "reason" to getString(R.string.search_selectlib),
                 "search" to true
@@ -297,7 +297,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_CHOOSE_LIBRARY) {
+        if (requestCode == requestCodeChooseLibrary) {
             if (resultCode == Activity.RESULT_OK) {
                 state.libId = LibraryList.lastSelectedLibId ?: ""
                 state.libName = LibraryList.lastSelectedLibName ?: ""

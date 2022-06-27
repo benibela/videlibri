@@ -75,7 +75,7 @@ class VideLibriApp : Application() {
             get() {
                 //Log.i("VIDELIBRI MAINICON", "Cached: " + mainIconCache);
                 if (mainIconCache != 0) return mainIconCache
-                if (accounts.isNullOrEmpty()) return R.drawable.icon
+                if (accounts.isEmpty()) return R.drawable.icon
                 val book = Bridge.VLGetCriticalBook()
                 mainIconCache = R.drawable.icong
                 if (book != null) {

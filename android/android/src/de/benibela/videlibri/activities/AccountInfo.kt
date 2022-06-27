@@ -235,7 +235,7 @@ class AccountInfo : VideLibriBaseActivity() {
                 setActiveLibrary(LibraryList.lastSelectedLibId) ?: return
                 accountPrettyName.setText(libshortname)
             } else if (libdetails == null) {
-                if (mode == MODE_ACCOUNT_CREATION_INITIAL && accounts.isNullOrEmpty()) {
+                if (mode == MODE_ACCOUNT_CREATION_INITIAL && accounts.isEmpty()) {
                     //    updateLibrary();
                     return
                 }

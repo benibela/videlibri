@@ -49,7 +49,7 @@
     <string name="book_year">Year</string>
     <string name="booklist_noselection">no selection</string>
     <string name="booklist_loading">loading...</string>
-    <string name="booklist_from"></string>
+    <string name="booklist_from" />
     <string name="feedback_feedbacktitle">VideLibri Feedback</string>
     <string name="feedback_acraheader">Application Crash Report:</string>
     <string name="feedback_send_ok">Feedback has been sent successfully.</string>
@@ -260,7 +260,7 @@
     </string-array>
 
     <string-array name="languages">
-        <item></item>
+        <item />
         <item>de</item>
         <item>en</item>
     </string-array>
