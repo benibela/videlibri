@@ -5,7 +5,7 @@
   <longName value="Stadtbibliothek Biel"/>
   
   <template value="netbiblio"/>  
-  <variable name="baseurl" value="https://opac.bibliobiel.ch/"/>
+  <variable name="baseurl" value="https://www.bibliobiel.online/NetBiblio/"/>
 
   <homepage value="https://www.bibliobiel.ch/"/>
   <testing-search value="yes"/>  <testing-account value="yes"/></library>
