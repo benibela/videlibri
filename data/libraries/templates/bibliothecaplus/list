@@ -3,6 +3,7 @@
      $element/normalize-space(string-join(node() except span[contains(@class, "oclc-module-label")])) 
    };
   culture := (//input[contains(@name, "Culture")]/@value, "de-DE")[1], 
+  userRndId := //input[ends-with(@name, "PatronRndId")]/@value otherwise $username,
   vl:delete-current-books() 
   }
   <link t:condition="contains(@href, 'PatronAccountModule')">{extendableCheck := extract(resolve-uri(@href), "^.*PatronAccountModule[/\\]") || "PatronAccountService.asmx/IsCatalogueCopyExtendable"}</link>

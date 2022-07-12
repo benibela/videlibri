@@ -44,7 +44,7 @@ function __doPostBack(eventTarget, eventArgument) {
     <header>Accept: application/json, text/javascript, */*; q=0.01</header>
     <header>Content-Type: application/json;charset=utf-8</header>
     <header>X-Requested-With: XMLHttpRequest</header>
-    <post>{{'portalId':'{$portalId}', 'userName': '{$username}', 'copyId': '{$book._copyId}', 'copyIds': '{$book._copyId}', 'culture':'{$culture}', 'localResourceFile':'{$localResourceFile}'}}</post>
+    <post>{{'portalId':'{$portalId}', 'userName': '{$userRndId}', 'copyId': '{$book._copyId}', 'copyIds': '{$book._copyId}', 'culture':'{$culture}', 'localResourceFile':'{$localResourceFile}'}}</post>
     <template><t:s>
       let $d := json($raw).d 
       let $d := if ($d instance of array()) then $d(1) else $d
