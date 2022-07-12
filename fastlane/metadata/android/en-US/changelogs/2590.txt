@@ -1,0 +1,5 @@
+Biel new url, Stadtbibliothek Gaggenau
+OPEN: fix extendable check
+lbs: fix date day count
+aDIS: fix split table. do not turn pattern match errors into session failures
+update gradle to 7.4.2, update Kotlin to 1.5.31, Java 11, com.android plugins to 7.2.1

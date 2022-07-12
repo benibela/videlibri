@@ -1,0 +1,5 @@
+* Erstellt mit Kotlin 1.5.31, Java 11, Gradle 7.4.2, und Android Plugin 7.2.1.
+* Anpassung an geänderte Kataloge in Stadtbibliothek Biel und Gaggenau. 
+* OPEN/Linz: Korrigiere Ermittlung von verlängerbar-Status.
+* lbs/UB Ilmenau: Korrigiere Datumserkennung.
+* VÖBB: Zeige keine imaginäre "Sitzung wurde beendet"-Fehlermeldung an.
