@@ -9,7 +9,7 @@
    head(//tr[ends-with(normalize-space(th[1]), "Ausweis gültig bis")])!($account-expiration := join(td)) }
   <t:switch>
   <td>Keine Ausleihen<t:s>kontoPage:=""</t:s></td>
-  <a t:condition="contains(., 'Ausleihe') and contains(@href, '&amp;sp=SZA')">{kontoPage := @href}</a>
+  <a t:condition="contains(., 'Ausleihe') and contains(@href, '&amp;sp=SZ')">{kontoPage := @href}</a>
   </t:switch>
 
   <t:element 
