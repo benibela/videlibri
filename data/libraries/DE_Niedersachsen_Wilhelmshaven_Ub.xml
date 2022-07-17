@@ -6,7 +6,7 @@
   <shortName value="HS Wilhelmshaven"/>
   
   <template value="lbs"/>
-  <variable name="server" value="https://lhemd.gbv.de/"/>	
+  <variable name="server" value="https://opac.lbs-emden.gbv.de/"/>	
   <variable name="picadb" value="4"/>	
   <variable name="borrower" value="USR=1140"/>
 
