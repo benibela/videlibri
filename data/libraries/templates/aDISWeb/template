@@ -260,6 +260,7 @@
 </action>
 
 <action id="search-connect">
+  <call action="connect"/>
   <s>connect-target := "search", connectPage := ()</s>  
   <page url="https://{$server}/aDISWeb/app{get('startparams', '')}" templateFile="connected"/> 
   <!-- some libraries log in directly, some redirect -->
