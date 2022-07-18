@@ -57,7 +57,7 @@
         <h1>Sie sind angemeldet.</h1>
         </form>
   
-        <a t:condition="contains(., 'Ausleihe') and (contains(@href, '&amp;sp=SZA') or contains(., 'zeigen oder verlängern in:'))"></a>
+        <a t:condition="contains(., 'Ausleihe') and contains(@href, '&amp;sp=SZ')"></a>
         <td>Keine Ausleihen</td>
         
         <h1>Bitte auch das Passwort angeben<t:s>$error-login := .</t:s></h1>
