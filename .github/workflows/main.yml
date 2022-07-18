@@ -15,6 +15,8 @@ on:
 jobs:
   build-android:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # for softprops/action-gh-release to create GitHub release
     steps:
     - uses: actions/checkout@v3
     - name: Install NDK
