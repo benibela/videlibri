@@ -1,0 +1,2 @@
+* VÖBB: repariere Vormerkungen, und Anzeige der Ausleihen bei Aufteilung nach Zweigstellen.
+* Anpassung an geänderten Katalog der Hochschulbibliotheken Elsfleth/Emden/Aurich/Leer/Wilhelmshaven.
