@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Viersen"/>
+  
+  <template value="aDISWeb"/>
+  <variable name="server" value="opac.krzn.de"/>
+  <variable name="startparams" value="?service=direct/0/Home/$DirectLink&amp;sp=SOPAC270"/>
+ 
+  
+  <homepage value="https://www.stadtbibliothek-viersen.de/"/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>  
+</library>
