@@ -272,7 +272,7 @@ setupbinutils)
   }
   echo Android home: $ANDROID_HOME
   echo Possible toolchains: $ANDROID_HOME/ndk/*/toolchains
-  echo $ANDROID_HOME/ndk-bundle/toolchains
+  echo $ANDROID_HOME/ndk-*/toolchains
   
   singleplatform arm
   singleplatform x86-
@@ -320,7 +320,7 @@ setupfpccrosscfg)
   }
 
   if [[ -e $ANDROID_HOME/ndk-bundle/platforms ]]; then androidpaths=($ANDROID_HOME/ndk-bundle/platforms/android-*)
-  else if [[ -e $ANDROID_HOME/ndk ]]; then androidpaths=($ANDROID_HOME/ndk/*/platforms/android-*)
+  else if [[ -e $ANDROID_HOME/ndk ]]; then androidpaths=($ANDROID_HOME/ndk/19*/platforms/android-*)
   else echo FAILED TO FIND ANDROID NDK;
   fi fi
   androidpath=${androidpaths[-1]}

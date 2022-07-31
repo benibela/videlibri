@@ -20,7 +20,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Install NDK
-      run: echo "y" | sudo /usr/local/lib/android/sdk/tools/bin/sdkmanager --install "ndk;24.0.8215888"  "tools" "build-tools;30.0.3"  "platforms;android-30"
+      run: echo "y" | sudo /usr/local/lib/android/sdk/tools/bin/sdkmanager --install "ndk;19.2.5345600"  "tools" "build-tools;30.0.3"  "platforms;android-30"
     - run: git clone https://github.com/benibela/xidel.git
     - run: xidel/.github/download-dependencies.sh && xidel/.github/setup-fpc-cfg.sh 
     - name: Install FreePascal for Android

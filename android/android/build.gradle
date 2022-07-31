@@ -13,8 +13,8 @@ android
   compileSdkVersion 30
   buildToolsVersion "30.0.3"
   viewBinding.enabled = true
-
-
+  ndkVersion "19.2.5345600"
+  
   defaultConfig
   {
     minSdkVersion 14
