@@ -29,12 +29,12 @@
      )
      case "Körperschaft" return
        if ($book.author = "Zeitschrift") then book.author := concat($value, " (Zeitschrift)") else ()
-     case "Standort" case "Signatur" case "status" case "Ausleihstatus" case "Bestand"  return (
+     case "Standort" case "Signatur" case "status" case "Ausleihstatus" case "Bestand" case "Vorhanden in" return (
        if ($holding-keys = $name ) then ( $book.holdings[] := $holding, $holding-keys := (), $holding := {"orderable": false()} )
        else if (empty($holding)) then $holding := {"orderable": false()} else (),
        $holding-keys := ($holding-keys, $name),
        switch ($name) 
-         case "Standort" return $holding.libraryBranch := $value
+         case "Standort" case "Vorhanden in" return $holding.libraryBranch := $value
          case "Signatur" return $holding.id := $value
          case "Anmerkung"  return $holding("Anmerkung!") := $value
          case "Bestand"  return $holding("Bestand!") := $value
