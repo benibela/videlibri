@@ -53,8 +53,12 @@
      case "Anmerkung" return 
        if (exists($holding)) then $holding("Anmerkung!") := $value else $book("Anmerkung!") := $value
      case "" return ()
-     default  
-      return $book($name||"!") := $value,
+     default return
+       $book($name||"!") :=  (
+         let $link := $value-td//a
+         return if ($link and (starts-with($name, "URL") or starts-with($name, "URN") or contains($value, "Volltext") )) then x"{$value} ( {resolve-html($link)} )"
+         else $value
+       ),
      if (exists($holding)) then $book.holdings[] := $holding else ()
   ),
   
