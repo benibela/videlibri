@@ -1,8 +1,9 @@
 book := {}
-goBackPage := ""
+requestedPage := ""
 orderedPage := ""
+providedPage := ""
 orderedMagazinePage := ""
+goBackPage := ""
 account-expiration := "23.12.2023"
 kontoPage := "/aDISWeb/app;?sp=SRGLINK_5&amp;sp=SZA&amp;requestCount=4"
-providedPage := ""
 requestedPage := "/fakeurl2"

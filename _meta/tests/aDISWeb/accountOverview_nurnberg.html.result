@@ -1,8 +1,8 @@
 book := {}
-goBackPage := ""
+requestedPage := ""
 orderedPage := ""
+providedPage := ""
 orderedMagazinePage := ""
+goBackPage := ""
 account-expiration := "23.12.2023"
 kontoPage := ""
-providedPage := ""
-requestedPage := ""

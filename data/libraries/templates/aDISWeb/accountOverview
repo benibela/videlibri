@@ -1,6 +1,6 @@
 <t:switch prioritized="true">
 <html>
-  {goBackPage := "", orderedPage:="", orderedMagazinePage:="", 
+  {goBackPage := $orderedMagazinePage := $providedPage := $orderedPage := $requestedPage := "",
    if (get("first-login", false())) then (
      videlibri:delete-current-books(), 
      first-login := false()
@@ -16,18 +16,18 @@
      t:optional="true"
      t:condition="(self::a or self::td) and contains(., 'Bestellung') and contains(., 'Magazin')">{orderedMagazinePage := descendant-or-self::a/@href}</t:element>
   
-  <t:switch>
-  <td>Keine Bereitstellung<t:s>providedPage:=""</t:s></td>
+  <t:switch t:optional="true">
+  <td>Keine Bereitstellung</td>
   <a t:condition="contains(., 'Bereitstellung')">{providedPage := @href}</a>
   </t:switch>
   
   <t:switch t:optional="true">
-  <td>Keine Bestellwünsche<t:s>orderedPage:=""</t:s></td>
+  <td>Keine Bestellwünsche</td>
   <a t:condition="contains(., 'Bestellw')">{orderedPage := @href}</a>
   </t:switch>
 
-  <t:switch>
-  <td>Keine Vormerkung<t:s>requestedPage:=""</t:s></td>
+  <t:switch t:optional="true">
+  <td>Keine Vormerkung</td>
   <a t:condition="contains(., 'Vormerkung')"><t:s>requestedPage := @href</t:s></a>
   </t:switch>
   
