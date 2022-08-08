@@ -31,10 +31,11 @@ function __doPostBack(eventTarget, eventArgument) {
 }-->
 
 <action id="update-all">
+  <s>pendingLoginError := ()</s>
   <call action="internal-login"/>
   <page url="{$loginForm}"><template><html>{
     for $message in //span[ends-with(@id, "lblMessage")][ancestor::div[ends-with(@id, "Login_UP") or contains(@class, "dnnFormValidationSummary")]] 
-    return vl:raise-login(normalize-space($message))
+    return $pendingLoginError := normalize-space($message)
   }</html></template></page>
   <page url="{$urlaccount}" templateFile="list"/>
 </action>

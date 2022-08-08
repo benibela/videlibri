@@ -1,4 +1,5 @@
-<html>
+<t:switch prioritized="true">
+  <html>
   {declare function local:parse-column($element){ 
      $element/normalize-space(string-join(node() except span[contains(@class, "oclc-module-label")])) 
    };
@@ -7,8 +8,6 @@
   vl:delete-current-books() 
   }
   <link t:condition="contains(@href, 'PatronAccountModule')">{extendableCheck := extract(resolve-uri(@href), "^.*PatronAccountModule[/\\]") || "PatronAccountService.asmx/IsCatalogueCopyExtendable"}</link>
-  
-  <t:switch prioritized="true">
   
   <form>
     { $user-form := form(., {"": {"kind": "submit"}}),
@@ -101,11 +100,16 @@
   	</table>
     
   </form>
+  </html>
   
-    <div t:condition="contains(@id, 'dnnSkinMessage')" class="dnnFormMessage dnnFormWarning">
-      <span id="contains(@id, 'lblMessage')">
-      {vl:raise(.)}
-      </span>
-    </div>
-  </t:switch>
-</html>
+  <form t:test="exists(get('pendingLoginError', ()))">
+    <input t:condition="ends-with(@name, 'txtUsername')"/>
+    {vl:raise-login(get('pendingLoginError', ()))}
+  </form>
+  
+  <div t:condition="contains(@id, 'dnnSkinMessage')" class="dnnFormMessage dnnFormWarning">
+    <span id="contains(@id, 'lblMessage')">
+    {vl:raise(.)}
+    </span>
+  </div>
+</t:switch>
