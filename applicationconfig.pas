@@ -74,6 +74,7 @@ var programPath,userPath:string;
 
     appFullTitle:string='VideLibri';
     versionNumber:integer=2592;
+    versionBuildId: string = 'unknown';
     //=>versionNumber/1000
     newVersionInstalled: boolean=false;
 
@@ -350,7 +351,7 @@ resourcestring
     page:=internet.post('http','www.benibela.de','/autoFeedback.php',
                   'app='+internet.urlEncodeData('VideLibri')+
                   '&ver='+inttostr(versionNumber)+
-                  '&data='+internet.urlEncodeData(data));
+                  '&data='+internet.urlEncodeData(data)+internet.urlEncodeData(#10'buildid: '+versionBuildId));
     result := trim(page) = 'PHPOK';
     internet.free;
   end;
@@ -460,6 +461,15 @@ resourcestring
   type EInitializationError = class(Exception);
 
   procedure initApplicationConfig;
+    procedure setVersionBuildId();
+    begin
+
+    end;
+    procedure setVersionBuildId(const s: string);
+    begin
+      versionBuildId := s;
+    end;
+
   var i:integer;
       {$IFDEF WIN32}window,proc:THANDLE;{$endif}
 
@@ -590,6 +600,7 @@ resourcestring
     end;
     versionNumber:=userConfig.ReadInteger('updates','lastVersion',versionNumber);
     if logging then log('DATA-Version ist nun bekannt: '+inttostr(versionNumber));
+    setVersionBuildId({$I videlibribuildid.inc});
 
     RefreshInterval:=userConfig.ReadInteger('access','refresh-interval',1);
     WarnInterval:=userConfig.ReadInteger('base','warn-interval',0);

@@ -43,6 +43,8 @@ jobs:
         KEYSTORE_PASS: ${{ secrets.KEYSTORE_PASS }}
     - name: Build VideLibri
       run: |
+        #config
+        echo "'gh'" > videlibribuildid.inc
         #Disable PasDblStrUtils
         sed -e '/PASDBL/d' -i internettools/internettoolsconfig.inc
         #Set additional path

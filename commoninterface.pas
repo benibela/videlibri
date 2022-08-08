@@ -73,7 +73,7 @@ end;
 type 
 TVersionInfoClass = class of TVersionInfo;
 TVersionInfo = class
-  version, platform: string;
+  version, platform, buildId: string;
 public
   {$ifdef android}
   function toJava: jobject; virtual;
@@ -894,15 +894,17 @@ begin
 end;
  
 function TVersionInfo.toJava: jobject;
-var temp: array[0..1] of jvalue;
+var temp: array[0..2] of jvalue;
 begin
   with j do begin
     temp[0].l := stringToJString(self.version);
     temp[1].l := stringToJString(self.platform);
+    temp[2].l := stringToJString(self.buildId);
 
     result := newObject(VersionInfoClass, VersionInfoClassInit, @temp[0]); 
     deleteLocalRef(temp[0].l);
     deleteLocalRef(temp[1].l);
+    deleteLocalRef(temp[2].l);
 
  end;
 end;
@@ -1068,7 +1070,7 @@ begin
     FormParamsClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/FormParams'));
     FormParamsClassInit := getmethod(FormParamsClass, '<init>', '([Lde/benibela/videlibri/jni/FormInput;)V'); 
     VersionInfoClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/VersionInfo'));
-    VersionInfoClassInit := getmethod(VersionInfoClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;)V'); 
+    VersionInfoClassInit := getmethod(VersionInfoClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V'); 
     BookListDisplayOptionsClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/BookListDisplayOptions'));
     BookListDisplayOptionsClassInit := getmethod(BookListDisplayOptionsClass, '<init>', '(ZZZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V');
     BookListDisplayOptionsFields.showHistoryZ := getfield(BookListDisplayOptionsClass, 'showHistory', 'Z');
@@ -1104,4 +1106,3 @@ begin
 end;
 {$endif}
 end.
-

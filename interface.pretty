@@ -24,6 +24,7 @@ class FormParams: FastInterfacedObject {
 class VersionInfo {
   version: String
   platform: String
+  buildId: String
 }
 
 

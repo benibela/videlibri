@@ -20,6 +20,7 @@
   <class id="VersionInfo" pascal-jvm="">
     <string name="version"/>
     <string name="platform"/>
+    <string name="buildId"/>
   </class>
   <class id="BookListDisplayOptions" serialize-json="" kotlin-var="var" kotlin-class="data" jvm-pascal="" pascal-jvm="">
     <boolean name="showHistory"/>

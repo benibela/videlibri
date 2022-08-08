@@ -30,10 +30,11 @@ package de.benibela.videlibri.jni
   } 
   open class VersionInfo( 
     val version: String = "",
-    val platform: String = ""
+    val platform: String = "",
+    val buildId: String = ""
   )   {
     override fun equals(other: Any?): Boolean =
-       other != null && javaClass == other.javaClass && other is VersionInfo && version == other.version && platform == other.platform
+       other != null && javaClass == other.javaClass && other is VersionInfo && version == other.version && platform == other.platform && buildId == other.buildId
 
   } 
   data class BookListDisplayOptions( 

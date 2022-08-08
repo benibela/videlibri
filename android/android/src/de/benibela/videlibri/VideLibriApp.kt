@@ -324,6 +324,7 @@ class VideLibriApp : Application() {
             Bridge.initialize(context)
             globalOptionsShared = Bridge.VLGetOptions()
             globalOptionsAndroid = Bridge.VLGetOptionsAndroidOnly()
+            ACRA.getErrorReporter().putCustomData("VL-VERSION", Bridge.VLGetVersion().platform + " " + Bridge.VLGetVersion().buildId)
             importDeprecatedPreferences(prefs)
             UserKeyStore.loadUserCertificates(globalOptionsAndroid.additionalCertificatesBase64)
             accounts.refreshAll()

@@ -2152,6 +2152,7 @@ begin
     vi := TVersionInfo.Create;
     vi.version := FloatToStr(versionNumber / 1000);
     vi.platform := CPU_PLATFORM;
+    vi.buildId := versionBuildId;
     result := vi.toJava;
     vi.free;
   except
