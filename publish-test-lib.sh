@@ -59,7 +59,7 @@ xidel --html --variable libDataNew,templateIdNew,name,publishId,message,libDataN
 
 <p>Installationshinweise für: <a href="/help/templateinstallation.html#android">Android</a> und <a href="/help/templateinstallation.html#desktop">Desktop</a>-Version.</p>
 
-<p>Die Adresse, die als "Template-Adresse" zur Installation in VideLibri eingegeben werden muss: <code style="font-weight: bold">http://www.videlibri.de/test/{$publishId}.html</code></p>
+<p>Die Adresse, die als "Template-Adresse" zur Installation in VideLibri eingegeben werden muss: <code style="font-weight: bold">https://www.videlibri.de/test/{$publishId}.html</code></p>
 
 <p>{$message}</p>
 
@@ -118,4 +118,4 @@ if [[ -n "$templateIdNew" ]]; then
 webUpload $templateIdNew/* /test/$templateIdNew/
 fi
 
-echo here you go: http://www.videlibri.de/test/$publishId.html
+echo here you go: https://www.videlibri.de/test/$publishId.html

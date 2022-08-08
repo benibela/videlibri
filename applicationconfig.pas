@@ -348,7 +348,7 @@ resourcestring
     internetReact := default(TInternetAccessReact);
     internet:=createVideLibriInternetAccess;
     internet.OnTransferReact:=@internetReact.internetReact;
-    page:=internet.post('http','www.benibela.de','/autoFeedback.php',
+    page:=internet.post('https','www.benibela.de','/autoFeedback.php',
                   'app='+internet.urlEncodeData('VideLibri')+
                   '&ver='+inttostr(versionNumber)+
                   '&data='+internet.urlEncodeData(data)+internet.urlEncodeData(#10'buildid: '+versionBuildId));
