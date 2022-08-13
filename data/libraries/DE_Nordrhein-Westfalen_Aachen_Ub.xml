@@ -5,8 +5,8 @@
   <longName value="Universitätsbibliothek der RWTH Aachen"/>
   <shortName value="UB Aachen"/>
 
-  <template value="sisis"/>
-  <variable name="server" value="https://index.ub.rwth-aachen.de/TouchPointClient_touchpoint/"/>
+  <template value="primo"/>
+  <variable name="baseurl" value="https://katalog.ub.rwth-aachen.de/discovery/search?vid=49HBZ_UBA:VU1"/>
   
   <template value="digibib">
     <variable name="location" value="052"/>
