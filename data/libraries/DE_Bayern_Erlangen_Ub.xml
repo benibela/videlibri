@@ -10,5 +10,5 @@
   <homepage value="https://ub.fau.de"/>
   
   <testing-search value="yes"/> 
-  <testing-account value="unknown"/>
+  <testing-account value="yes"/>
 </library>
