@@ -16,7 +16,7 @@ TLibrarySearcherAccess = class;
 
 { TLibrarySearcherAccess }
 
-TSearcherMessageTyp=(smtNone, smtFree, smtConnect, smtSearch, smtSearchNext, smtDetails, smtOrder, smtCompletePendingMessage, smtDisconnect);
+TSearcherMessageTyp=(smtNone, smtFreeSearcher, smtFreeSearcherAndAccess, smtConnect, smtSearch, smtSearchNext, smtDetails, smtOrder, smtCompletePendingMessage, smtDisconnect);
 
 { TSearcherMessage }
 
@@ -86,7 +86,6 @@ public
   function operationActive: boolean;
 
   constructor create();
-  destructor destroy; override;
 
   procedure beginBookReading; //to access any searched book
   procedure endBookReading;
@@ -104,6 +103,7 @@ public
   procedure orderAsync(account: TCustomAccountAccess; book: TBook);
   procedure completePendingMessage(book: TBook; pm: TPendingMessage; result: integer);
   procedure disconnectAsync;
+  procedure freeAsync;
 
   property OnException: TNotifyEvent read FOnException write FOnException;
   property OnConnected: TNotifyEvent read FOnConnected write FOnConnected;
@@ -225,11 +225,12 @@ constructor TLibrarySearcherAccess.create();
 begin
 end;
 
-destructor TLibrarySearcherAccess.destroy;
+procedure TLibrarySearcherAccess.freeAsync;
 begin
-  if assigned(fthread) then fthread.messages.storeMessage(TSearcherMessage.Create(smtFree));
-  inherited destroy;
+  if assigned(fthread) then fthread.messages.storeMessage(TSearcherMessage.Create(smtFreeSearcherAndAccess))
+  else free;
 end;
+
 
 procedure TLibrarySearcherAccess.beginBookReading;
 begin
@@ -276,7 +277,7 @@ end;
 procedure TLibrarySearcherAccess.newSearch(template: TMultiPageTemplate);
 begin
   if (operationActive) or not Assigned(fthread) or (ftemplate <> template) then begin
-    if assigned(fthread) then fthread.messages.storeMessage(TSearcherMessage.Create(smtFree));
+    if assigned(fthread) then fthread.messages.storeMessage(TSearcherMessage.Create(smtFreeSearcher));
     ftemplate := template;
     fthread:=TSearcherThread.Create(ftemplate,self);
     ReadWriteBarrier;
@@ -286,7 +287,7 @@ begin
 end;
 
 procedure TLibrarySearcherAccess.prepareNewSearchWithoutDisconnect;
-const ALLOWED_ACTIONS = [smtNone, smtFree, smtConnect, smtDisconnect];
+const ALLOWED_ACTIONS = [smtNone, smtFreeSearcher, smtFreeSearcherAndAccess, smtConnect, smtDisconnect];
 var
   list: TFPList;
   i: Integer;
@@ -374,6 +375,7 @@ begin
   removeOldMessageOf(smtDisconnect);
   fthread.messages.storeMessage(TSearcherMessage.Create(smtDisconnect));
 end;
+
 
 { TSearcherThread }
 
@@ -488,8 +490,9 @@ begin
       mes:=TSearcherMessage(messages.waitForMessage);
       if logging then log('Searcher thread: got message'+strFromPtr(mes));
       if mes=nil then continue;
-      if mes.typ=smtFree then begin
+      if mes.typ in [smtFreeSearcher, smtFreeSearcherAndAccess] then begin
         if logging then log('Searcher thread: message typ smtFree');
+        if mes.typ = smtFreeSearcherAndAccess then access.Free;
         mes.free;
         break;
       end;

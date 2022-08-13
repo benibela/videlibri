@@ -240,7 +240,7 @@ begin
 
   if newSearcherAccess <> nil then begin
     if (searcherAccess <> nil) then begin
-      searcherAccess.free;;
+      searcherAccess.freeAsync;
     end;
     searcherAccess := newSearcherAccess;
     newSearcherAccess := nil;
@@ -704,9 +704,9 @@ procedure TbookSearchFrm.FormDestroy(Sender: TObject);
 begin
   bookList.free;
   detaillist.free;
-  searcherAccess.free;
+  searcherAccess.freeAsync;
   coverLoader.shutdownAndFree;
-  newSearcherAccess.free;
+  newSearcherAccess.freeAsync;
   //locations.searchTemplates.free;
   locations.locations.Free;
   locations.regions.Free;
@@ -849,7 +849,7 @@ begin
   result.OnPendingMessageCompleted:=@searcherAccessPendingMessageCompleted;
   result.OnException:=@searcherAccessException;
   result.OnConnected:=@searcherAccessConnected;
-  if newSearcherAccess <> nil then newSearcherAccess.free;
+  if newSearcherAccess <> nil then newSearcherAccess.freeAsync;
   newSearcherAccess := result;
 
   i := locations.locations.IndexOf(searchLocation.Text);

@@ -1837,7 +1837,7 @@ begin
   if logging then log('Bridge_VLSearchEnd started');
   try
     sa := unwrapSearcher(searcher);
-    sa.free;
+    sa.freeAsync;
     j.SetLongField(searcher, searcherFields.nativePtrJ, 0);
   except
     on e: Exception do throwExceptionToJava(e);
