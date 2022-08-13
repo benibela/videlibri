@@ -131,6 +131,7 @@
         <p t:test="$datasend" style="color:red;">{local:raise(.)}<!--fu--></p>
         <p t:test="$datasend" class="error">{local:raise(.)}<!--hu intern--></p>
         <p t:test="$datasend" class="text-danger">{local:raise(.)}<!--hu intern new--></p>
+        <div t:test="$datasend" class="alert-danger alert-dismissible" role="alert">{local:raise(.)}<!--rwth--></div>
                         
         <form>
           <input name="username"/>
