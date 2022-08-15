@@ -227,6 +227,7 @@ end;
 
 procedure TLibrarySearcherAccess.freeAsync;
 begin
+  if self = nil then exit;
   if assigned(fthread) then fthread.messages.storeMessage(TSearcherMessage.Create(smtFreeSearcherAndAccess))
   else free;
 end;
