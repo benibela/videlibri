@@ -10,6 +10,6 @@
 
   <homepage value="http://www.blb-karlsruhe.de/"/>
   <testing-search value="yes"/>
-  <testing-account value="unknown"/>
+  <testing-account value="yes"/>
   
 </library>
