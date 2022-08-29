@@ -32,8 +32,8 @@ class NewLibrary : VideLibriBaseActivity() {
             }
             override fun onNothingSelected(adapterView: AdapterView<*>?) {}
         }
+        binding.checkBoxSetId.setOnCheckedChangeListener { _, checked -> binding.idLayout.isVisibleNotGone = checked }
         val mode = intent.getIntExtra("mode", 0)
-        val existingUserLibraries = Bridge.VLGetOptions().userLibIds
         if (mode == MODE_LIBRARY_MODIFY) {
             val id = intent.getStringExtra("libId") ?: return
             details = Bridge.VLGetLibraryDetails(id)
@@ -43,7 +43,7 @@ class NewLibrary : VideLibriBaseActivity() {
             if (templatePos >= 0) binding.templateSpinner.setSelection(templatePos)
 
             binding.create.setText(R.string.change)
-            binding.id.setText(id)
+            viewId = id
             binding.name.setText(details.prettyName)
             binding.deleteButton.setOnClickListener {
                 showMessageYesNo(getString(R.string.delete_library_confirmation, binding.name.text.toString())) {
@@ -52,21 +52,12 @@ class NewLibrary : VideLibriBaseActivity() {
                 }
             }
         } else {
-            val defaultId = if (existingUserLibraries.isEmpty()) "user"
-                                 else run {
-                val oldIds = existingUserLibraries.map { it.substringAfterLast("user").toIntOrNull() ?: 0 }
-                "user${(oldIds.maxOrNull() ?: existingUserLibraries.size) + 1}"
-            }
-            binding.id.setText(defaultId)
+            viewId = ""
             binding.deleteButton.visibility = View.GONE
-        }
-        if (existingUserLibraries.isEmpty()) {
-            binding.textViewId.visibility = View.GONE
-            binding.id.visibility = View.GONE
         }
         binding.create.setOnClickListener {
             val oldId = if (mode == MODE_LIBRARY_MODIFY) intent.getStringExtra("libId") else null
-            val newId = getNewId()
+            val newId = viewId
             val details = this.details ?: LibraryDetails()
             details.prettyName = binding.name.text.toString()
             details.id = newId
@@ -86,10 +77,29 @@ class NewLibrary : VideLibriBaseActivity() {
         //binding.name.requestFocus() //or use scrollView.requestChildFocus(target, target); ??
     }
 
-    private fun getNewId() =
-        binding.id.text.toString().let { newId ->
-            (newId.countOf('_') until 3).joinToString("") { "-_" } + newId
+    private var viewId
+        get() = arrayOf(binding.idCountry, binding.idState, binding.idCity, binding.idId).joinToString("_") {
+            it.text.toString().replace('_', '-').trim().takeNonEmpty() ?: "-"
         }
+        set(value){
+            val sid = value.split("_").toMutableList()
+            if (sid.size > 4) sid[3] = sid.drop(3).joinToString("_")
+            while (sid.size < 4) sid.add(0, "")
+            if (sid[3].isEmpty()) {
+                val existingUserLibraries = Bridge.VLGetOptions().userLibIds
+                sid[3] = if (existingUserLibraries.isEmpty()) "user"
+                else run {
+                    val oldIds = existingUserLibraries.map { it.substringAfterLast("user").toIntOrNull() ?: 0 }
+                    "user${(oldIds.maxOrNull() ?: existingUserLibraries.size) + 1}"
+                }
+            }
+            arrayOf(binding.idCountry, binding.idState, binding.idCity, binding.idId).zip(sid).forEach { it.first.setText(it.second) }
+        }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        binding.idLayout.isVisibleNotGone = binding.checkBoxSetId.isChecked
+    }
 
     private fun addTemplateVariable(linearLayout: LinearLayout, inflater: LayoutInflater, name: String, desc: String?, defaultValue: String?): EditText {
         val value = defaultValue ?: ""

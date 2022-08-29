@@ -145,7 +145,11 @@
     <string name="lay_feedback_label_includepagesanonymized">Include structure of the last opened webpages</string>
     <string name="lay_feedback_label_includepagesfull">Include text on the last opened webpages</string>
     <string name="lay_newlib_caption_ownlib">Own library description:</string>
-    <string name="lay_newlib_label_id">Internal Id: (random number)</string>
+    <string name="lay_newlib_check_set_countryid">Use custom id with country and city:</string>
+    <string name="lay_newlib_label_id">Id:</string>
+    <string name="lay_newlib_label_id_country">Country:</string>
+    <string name="lay_newlib_label_id_state">State:</string>
+    <string name="lay_newlib_label_id_city">City:</string>
     <string name="lay_newlib_label_name">Name: (to show it in the list)</string>
     <string name="lay_newlib_edit_newlib">my library</string>
     <string name="lay_newlib_label_template">Template: (the catalogue system used by the library)</string>

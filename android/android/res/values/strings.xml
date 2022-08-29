@@ -157,7 +157,11 @@
     </string>
     <string name="lay_feedback_label_includepagesfull">zuletzt aufgerufene Katalogseiten unverändert mitsenden</string>
     <string name="lay_newlib_caption_ownlib">Eigene Bibliothek :</string>
-    <string name="lay_newlib_label_id">Interne Id: (eindeutige Zufallszahl, um die Bibliothek zu identifizieren)</string>
+    <string name="lay_newlib_check_set_countryid">Interne Id mit Land und Stadt festlegen:</string>
+    <string name="lay_newlib_label_id">Id:</string>
+    <string name="lay_newlib_label_id_country">Staat:</string>
+    <string name="lay_newlib_label_id_state">Land:</string>
+    <string name="lay_newlib_label_id_city">Stadt:</string>
     <string name="lay_newlib_label_name">Name: (irgendeine Bezeichnung, die dann in der Liste angezeigt wird)</string>
     <string name="lay_newlib_edit_newlib">meine neue Bib</string>
     <string name="lay_newlib_label_template">Zugrunde liegendes Template: (das verwendete Katalogsystem)</string>

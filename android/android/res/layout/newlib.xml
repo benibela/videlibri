@@ -7,69 +7,168 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-<LinearLayout
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/lay_newlib_caption_ownlib"
-              android:id="@+id/textView1"
-              android:padding="@dimen/optionheaderpadding" android:background="@color/optionHeaderBackgroundColor"
-              android:textStyle="bold" android:layout_marginTop="@dimen/optionheaderpadding"/>
-    <TextView
+        <TextView
+            android:id="@+id/textView1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/lay_newlib_label_args_description"
-            android:id="@+id/textView7" android:padding="@dimen/defborder"/>
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/lay_newlib_label_name"
-        android:labelFor="@id/name"
-        android:id="@+id/textView5" android:padding="@dimen/defborder"/>
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/lay_newlib_edit_newlib"
-        android:id="@+id/name" android:singleLine="true" android:selectAllOnFocus="true"
-        android:autofillHints="" android:inputType="text"/>
-    <TextView
+            android:layout_marginTop="@dimen/optionheaderpadding"
+            android:background="@color/optionHeaderBackgroundColor"
+            android:padding="@dimen/optionheaderpadding"
+            android:text="@string/lay_newlib_caption_ownlib"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView7"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/lay_newlib_label_id"
-            android:labelFor="@id/id"
-            android:id="@+id/textViewId" android:padding="@dimen/defborder"/>
-    <EditText
+            android:padding="@dimen/defborder"
+            android:text="@string/lay_newlib_label_args_description" />
+
+        <TextView
+            android:id="@+id/textView5"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/id" android:text="user" android:singleLine="true" android:selectAllOnFocus="true"
-        android:autofillHints="" android:inputType="text"/>
-    <TextView
+            android:labelFor="@id/name"
+            android:padding="@dimen/defborder"
+            android:text="@string/lay_newlib_label_name" />
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:inputType="text"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:text="@string/lay_newlib_edit_newlib" />
+
+        <CheckBox
+            android:id="@+id/checkBoxSetId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/lay_newlib_check_set_countryid" />
+
+        <LinearLayout
+            android:id="@+id/idLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/defborder"
+                android:text="@string/lay_newlib_label_id_country" />
+
+            <EditText
+                android:id="@+id/idCountry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/defborder"
+                android:text="@string/lay_newlib_label_id_state" />
+
+            <EditText
+                android:id="@+id/idState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/defborder"
+                android:text="@string/lay_newlib_label_id_city" />
+
+            <EditText
+                android:id="@+id/idCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name" />
+
+            <TextView
+                android:id="@+id/textViewId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:labelFor="@id/idId"
+                android:padding="@dimen/defborder"
+                android:text="@string/lay_newlib_label_id" />
+
+            <EditText
+                android:id="@+id/idId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:autofillHints=""
+                android:inputType="text"
+                android:selectAllOnFocus="true"
+                android:singleLine="true"
+                android:text="user" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/lay_newlib_label_template"
+            android:layout_gravity="left|center_vertical"
             android:labelFor="@id/templateSpinner"
-            android:id="@+id/textView3" android:layout_gravity="left|center_vertical"
-            android:padding="@dimen/defborder"/>
-    <Spinner
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/templateSpinner"/>
-    <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" android:id="@+id/options">
-    </LinearLayout>
-    <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/create"
-            android:id="@+id/create"/>
-    <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/delete"
-            android:id="@+id/deleteButton"/>
+            android:padding="@dimen/defborder"
+            android:text="@string/lay_newlib_label_template" />
 
-</LinearLayout>
+        <Spinner
+            android:id="@+id/templateSpinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/options"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:orientation="vertical"></LinearLayout>
+
+        <Button
+            android:id="@+id/create"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/create" />
+
+        <Button
+            android:id="@+id/deleteButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/delete" />
+
+    </LinearLayout>
     </ScrollView>
