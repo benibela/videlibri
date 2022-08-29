@@ -9,7 +9,7 @@
 
   <homepage value="https://stadtbibliothek.ulm.de/"/>
   <testing-search value="yes"/>
-  <testing-account value="unknown"/>
+  <testing-account value="yes"/>
   
 </library>
 
