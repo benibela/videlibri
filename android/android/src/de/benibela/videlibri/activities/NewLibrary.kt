@@ -27,7 +27,7 @@ class NewLibrary : VideLibriBaseActivity() {
         val templates = Bridge.VLGetTemplates()
         binding.templateSpinner.setItems(templates)
         binding.templateSpinner.onItemSelectedListener = object : OnItemSelectedListener {
-            override fun onItemSelected(adapterView: AdapterView<*>?, view: View, i: Int, l: Long) {
+            override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, i: Int, l: Long) {
                 templates.getOrNull(i)?.let(::selectTemplate)
             }
             override fun onNothingSelected(adapterView: AdapterView<*>?) {}

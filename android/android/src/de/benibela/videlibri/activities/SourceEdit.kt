@@ -128,7 +128,7 @@ class SourceEdit : VideLibriBaseActivity() {
         }
 
         fileSpinner.onItemSelectedListener = object : OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 restoredStateBundle?.let { oldState ->
                     if (position == oldState.getInt("file") && spinner.selectedItemPosition == oldState.getInt("base")) {
                         restoreEditText(oldState)
