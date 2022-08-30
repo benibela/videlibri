@@ -21,6 +21,10 @@ type
     Button13: TButton;
     cbCopyAccountLimits: TCheckBox;
     accountType: TComboBox;
+    templateList: TComboBox;
+    templateFile: TComboBox;
+    Label36: TLabel;
+    Label37: TLabel;
     openSSLCAStore: TEdit;
     groupingProperty: TComboBox;
     Label34: TLabel;
@@ -33,6 +37,7 @@ type
     Panel6: TPanel;
     internetAccessW32: TRadioButton;
     internetAccessSynapse: TRadioButton;
+    Panel7: TPanel;
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
     TabSheet3: TTabSheet;
@@ -47,7 +52,6 @@ type
     Label30: TLabel;
     Label31: TLabel;
     libList: TListView;
-    templateList: TListBox;
     libxml: TMemo;
     templatexml: TMemo;
     pageLibs: TPage;
@@ -173,6 +177,7 @@ type
     procedure Button11Click({%H-}Sender: TObject);
     procedure Button12Click({%H-}Sender: TObject);
     procedure Button13Click({%H-}Sender: TObject);
+    procedure templateFileChange(Sender: TObject);
     procedure internetAccessChange({%H-}Sender: TObject);
     procedure internetProxyChange({%H-}Sender: TObject);
     procedure libAddClick({%H-}Sender: TObject);
@@ -198,7 +203,7 @@ type
     procedure Shape1MouseUp(Sender: TOBject; {%H-}Button: TMouseButton;
       {%H-}Shift: TShiftState; {%H-}X, {%H-}Y: Integer);
     procedure SpeedButton1Click(Sender: TObject);
-    procedure templateListSelectionChange({%H-}Sender: TObject; {%H-}User: boolean);
+    procedure templateListSelectionChange({%H-}Sender: TObject);
     procedure TrackBar1Change({%H-}Sender: TObject);
     procedure TrackBar2Change({%H-}Sender: TObject);
 
@@ -633,14 +638,23 @@ begin
   Notebook1.Height:=Notebook1.Height-1;
 end;
 
-procedure ToptionForm.templateListSelectionChange(Sender: TObject; User: boolean);
+procedure ToptionForm.templateListSelectionChange(Sender: TObject);
 var
   temp: String;
+  sl: TStringList;
 begin
   temp := templateList.Items[templateList.ItemIndex];
+  templateFile.Clear;
+  templateFile.Text:='template';
+  sl := TStringList.Create;
+  libraryManager.enumerateFilesInDir(assetPath+'libraries/templates/'+temp, sl);
+  libraryManager.enumerateFilesInDir(userPath+'libraries/templates/'+temp, sl);
+  sl.Sort();
+  templateFile.Items.Assign(sl);
+  sl.free;
+
   templateName.text:=temp;
-  temp := 'libraries/templates/'+temp+'/template';
-  templatexml.Lines.text := assetFileAsString(temp);
+  templateFileChange(sender);
 end;
 
 procedure ToptionForm.TrackBar1Change(Sender: TObject);
@@ -872,6 +886,19 @@ begin
   downloadAndInstallTemplate;
 end;
 
+procedure ToptionForm.templateFileChange(Sender: TObject);
+var
+  temp: String;
+begin
+  temp := templateList.Items[templateList.ItemIndex];
+  temp := 'libraries/templates/'+temp+'/'+templateFile.Text;
+  try
+    templatexml.Lines.text := assetFileAsString(temp);
+  except
+    on e: Exception do ;
+  end;
+end;
+
 procedure ToptionForm.internetAccessChange(Sender: TObject);
 begin
   internetWindows.Enabled := internetAccessW32.Checked;
@@ -992,9 +1019,13 @@ procedure ToptionForm.templateDefineClick(Sender: TObject);
 begin
   if not DirectoryExists(userPath+'libraries/templates/'+templateName.Text) then
     ForceDirectories(userPath+'libraries/templates/'+templateName.Text+'');
-  templatexml.Lines.SaveToFile(userPath+'libraries/templates/'+templateName.Text+'/template');
+  templatexml.Lines.SaveToFile(userPath+'libraries/templates/'+templateName.Text+'/'+templateFile.Text);
   if templateList.Items.IndexOf(templateName.Text) < 0 then
     templateList.Items.add(templateName.Text);
+  templateList.Text := templateName.Text;
+  if templateFile.Items.IndexOf(templateFile.Text) < 0 then
+    templateFile.Items.Add(templateFile.Text);
+
 
   libraryManager.reloadTemplate(templateName.Text);
 end;

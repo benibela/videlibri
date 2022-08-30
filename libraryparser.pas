@@ -101,6 +101,7 @@ type
 
     function enumerateLibraryMetaData: TLibraryMetaDataEnumerator;
 
+    procedure enumerateFilesInDir(const dir: string; s: TStrings);
     procedure enumerateBuiltInTemplates(s: TStrings);
     procedure enumerateUserTemplates(s: TStrings);
 
@@ -1038,7 +1039,7 @@ begin
   result.i := -1;
 end;
 
-procedure enumerateTemplatesInDir(const dir: string; s: TStrings);
+procedure TLibraryManager.enumerateFilesInDir(const dir: string; s: TStrings);
 var searchResult: TSearchRec;
 begin
   if DirectoryExists(dir) then begin
@@ -1052,6 +1053,7 @@ begin
   end;
 end;
 
+
 procedure TLibraryManager.enumerateBuiltInTemplates(s: TStrings);
 var
   i: Integer;
@@ -1060,13 +1062,13 @@ begin
     if not strContains(templates[i], '|') and (s.IndexOf(templates[i])<0)  then
       s.Add(templates[i]);
   {$ifndef android}
-  enumerateTemplatesInDir(assetPath+'libraries/templates', s);
+  enumerateFilesInDir(assetPath+'libraries/templates', s);
   {$endif}
 end;
 
 procedure TLibraryManager.enumerateUserTemplates(s: TStrings);
 begin
-  enumerateTemplatesInDir(userPath+'libraries/templates', s);
+  enumerateFilesInDir(userPath+'libraries/templates', s);
 end;
 
 function TLibraryManager.get(id: string): TLibrary;
