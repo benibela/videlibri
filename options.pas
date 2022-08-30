@@ -937,7 +937,8 @@ begin
       end;
     end;
   end;
-
+  result += '  <testing-search value="yes"/>'+LineEnding;
+  result += '  <testing-account value="yes"/>'+LineEnding;
 
   result += '</library>' + LineEnding;
 

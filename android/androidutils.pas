@@ -573,6 +573,7 @@ begin
         if getBooleanField(details, segregatedAccountsZ) then
           libXml += '  <segregated-accounts value="true"/>';
 
+        libXml += '  <testing-search value="yes"/><testing-account value="yes"/>';
         libXml += '</library>';
         libraryManager.setUserLibrary(libid, libXml);
       end;
