@@ -6,14 +6,12 @@
   <longName value="Stadtbibliothek Villingen-Schwenningen"/>
   <shortName value="Stb Villingen-Schwenningen"/>
   
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://opac.villingen-schwenningen.de/wwwopac"/>	
-  <variable name="DB" value="wopac"/>	
+  <template value="koha"/>
+  <variable name="baseurl" value="https://sb-villschwenn.lmscloud.net/"/>
   
   <!--<template value="pica"/>-->
 
  
-  <homepage value="http://www.villingen-schwenningen.de/bildung/stadtbibliothek.html"/>
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
   

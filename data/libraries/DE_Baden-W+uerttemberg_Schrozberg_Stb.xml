@@ -2,11 +2,10 @@
 <library>
   <longName value="Stadtbücherei Schrozberg"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/schrozberg"/>	
-  <variable name="DB" value="Schrozberg"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.komm.one/schrozberg/Meine-Bibliothek"/>	
+  <variable name="urlsearch" value="https://bibliotheken.komm.one/schrozberg/Mediensuche/Erweiterte-Suche"/>
   
-  <homepage value="https://web-opac.kivbf.de/schrozberg/index.asp?DB=Schrozberg"/>
   <testing-search value="unknown"/>
   <testing-account value="unknown"/>
 </library>
