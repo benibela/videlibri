@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Heidenau"/>
+  
+  <template value="sisis"/>  
+  <variable name="server" value="https://bibliothekskatalog.heidenau.de/webOPACClient/"/>
+  
+  <homepage value="https://www.heidenau.de/Freizeit-Tourismus/Freizeit/Stadtbibliothek/"/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
+</library>
