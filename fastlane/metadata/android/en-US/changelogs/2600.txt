@@ -1,0 +1,4 @@
+* aDIS: do not require ordering links
+* pica: show ebook download link
+* update Bibliothek Karlsdorf-Neuthard, Stadtbücherei Schrozberg, Stadtbibliothek Villingen-Schwenningen, RWTH Aachen ; Stadtbücherei Öhringen dead
+* add Stadtbibliothek Viersen, Stadtbibliothek Heidenau

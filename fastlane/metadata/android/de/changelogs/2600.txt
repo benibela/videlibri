@@ -1,0 +1,4 @@
+* aDIS: keine Fehlermeldung, wenn kein Button zu Vormerkungen oder Bestellungen gefunden werden kann.
+* pica: Zeige ebook download Links.
+* Anpassung an geänderte OPACs der Bibliothek Karlsdorf-Neuthard, Stadtbücherei Schrozberg, Stadtbibliothek Villingen-Schwenningen und RWTH Aachen.
+* Stadtbibliothek Viersen, Stadtbibliothek Heidenau.

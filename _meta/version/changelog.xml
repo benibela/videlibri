@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="Bibliothek-App VideLibri">
-      <build version="2592" date="2022-07-18">
+      <build version="2600" date="2022-09-04">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <change>aDIS: keine Fehlermeldung, wenn kein Button zu Vormerkungen oder Bestellungen gefunden werden kann.</change>
+        <change>pica: Zeige ebook download Links.</change>
+        <fix>Anpassung an geänderte OPACs der Bibliothek Karlsdorf-Neuthard, Stadtbücherei Schrozberg, Stadtbibliothek Villingen-Schwenningen und RWTH Aachen.</fix>
+        <add>Stadtbibliothek Viersen, Stadtbibliothek Heidenau.</add>
+     </build>
+      <build version="2592" date="2022-07-18">
         <fix>VÖBB: repariere Vormerkungen, und Anzeige der Ausleihen bei Aufteilung nach Zweigstellen.</fix>
         <fix>Anpassung an geänderten Katalog der Hochschulbibliotheken Elsfleth/Emden/Aurich/Leer/Wilhelmshaven.</fix>
      </build>
