@@ -9,7 +9,7 @@ Features:
 - Gleichzeitig Anzeige aller Ausleihen von mehreren Konten bei unterschiedlichen Bibliotheken in einer gemeinsamen Liste
 - Warnung vor bald fälligen Medien; zuverlässiger als Benachrichtigungsmails der Bibliothek, da ein einmal auf dem Handy gespeichertes Abgabedatum immer gespeichert bleibt, während man bei E-Mails nie weiß, ob sie ankommen
 - Verlängerung der Bücher, manuell oder automatisch vor Fristablauf
-- Speichern einer Historie aller jemals ausgeliehenen Bücher, damit man in 100 Jahren noch weiß, wann man was ausgeliehen hatte
+- Speichern einer Historie aller jemals ausgeliehenen Bücher, damit man in 100 Jahren noch weiß, wann man was aus der Bücherei ausgeliehen hatte
 - XQuery-Suche in der Historie, z.B. nach dem am häufigsten ausgeliehenen Autor und der durchschnittlichen Ausleihdauer
 - Katalog-Suche
 - Bestellung und Vormerkung von nicht ausgeliehenen Medien
@@ -22,7 +22,7 @@ Von 2006 bis 2013 wurden nur Bibliotheken aufgelistet, bei denen eine Ausleihkar
 
 Einige Stadtbibliotheken bei denen der Kontozugriff getestet wurde: Stadtbibliothek Aachen,  Verbund der Öffentlichen Bibliotheken Berlin (VÖBB) und Staatsbibliothek, Stadtbibliothek Biel, Bielefeld, Braunschweig, Chemnitz, Darmstadt, Stadtbüchereien Düsseldorf, Städtische Bibliotheken Dresden, Stadtbücherei Gießen, Stadtbibliothek Hannover, Koblenz, Linz, Leipzig, Lübeck, Münchener Stadtbibliothek,  Stadtbücherei Rüsselheim, Stadtbibliothek Nürnberg, Stralsund, Bibliothek Verl
 
-Wissenschaftliche Bibliotheken: Unibibliothek der RWTH Aachen, Berliner Universitätsbibliotheken, Universitäts- und Landesbibliothek Düsseldorf (HHU), Hochschulbibliothek Düsseldorf, Universitätsbibliothek Dortmund, Campus-Katalog Hamburg, Fachhochschulbibliothek Erfurt, Universitätsbibliothek Hildesheim, Zentrale Hochschulbibliothek Lübeck, Hochschulbibliothek der Fachhochschule Münster, Bibliothek der Hochschule Hannover, Universitätsbibliothek Ilmenau, Bibliotheken der Hochschulen Stuttgart
+Wissenschaftliche Bibliotheken: Unibibliothek der RWTH Aachen, Berliner Universitätsbibliotheken, Universitäts- und Landesbibliothek Düsseldorf (HHU), Campus-Katalog Hamburg, Fachhochschulbibliothek Erfurt, Universitätsbibliothek Hildesheim, Zentrale Hochschulbibliothek Lübeck, Hochschulbibliothek der Fachhochschule Münster, Bibliothek der Hochschule Hannover, Universitätsbibliothek Ilmenau, Bibliotheken der Hochschulen Stuttgart
 
 Nur die Suche wurde getestet in Stadtbibliotheken Augsburg, Bremen, Duisburg, Erlangen, Frankfurt am Main, Herne, Kiel, Köln, Neustadt, Neuss, Rostock, Saarbrücken, Wien und Wiesbaden; Staatsbibliothek Bremen; sowie Universitätsbibliotheken Erlangen-Nürnberg, Halle, Jena, Kiel, Osnabrück,  Magdeburg, Mannheim, München, Saarbrücken.
 
