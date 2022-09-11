@@ -9,5 +9,5 @@
   <variable name="server" value="opac-neuss.itk-rheinland.de/"/>
 
   <homepage value="http://www.stadtbibliothek-neuss.de"/>
-  <testing-search value="yes"/>  <testing-account value="unknown"/></library>
+  <testing-search value="yes"/>  <testing-account value="yes"/></library>
 

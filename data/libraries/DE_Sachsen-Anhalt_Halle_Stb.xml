@@ -8,6 +8,6 @@
   <variable name="urlsearch" value="https://katalog.halle.de/Mediensuche/Erweiterte-Suche"/>
 
   <homepage value="http://www.stadtbibliothek-halle.de/stadtbibliothek/startseite/"/>
-  <testing-search value="yes"/>  <testing-account value="unknown"/></library>
+  <testing-search value="yes"/>  <testing-account value="yes"/></library>
 
 
