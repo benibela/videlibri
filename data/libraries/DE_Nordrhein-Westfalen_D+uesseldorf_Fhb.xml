@@ -6,19 +6,10 @@
   <deprecatedName value="100"/>
   <longName value="Hochschulbibliothek der Hochschule Düsseldorf"/>
   <shortName value="FHB Düsseldorf"/>
-  <catalogue value="http://katalog.bibl.fh-duesseldorf.de/libero/WebOpac.cls"/>
 
-  <maxRenewCount value="3"/>
-
-  <template value="libero5"/>
-  <variable name="baseurl" value="http://katalog.bibl.fh-duesseldorf.de/libero/"/>
-
-  <template value="digibib">
-    <variable name="location" value="DUEBIB"/>
-    <variable name="view" value="DUEBIB:SGduebib"/>
-    <variable name="searchid" value="SERVICEGROUP1.SERVICE.SEARCH_FHBDUE"/>
-  </template>
+  <template value="digibib7"/> 
+  <variable name="baseurl" value="https://hs-duesseldorf.digibib.net/search/katalog"/>
 
   <homepage value="https://bib.hs-duesseldorf.de/"/>
-  <testing-search value="yes"/>  <testing-account value="yes"/></library>
+  <testing-search value="yes"/>  <testing-account value="no"/></library>
 

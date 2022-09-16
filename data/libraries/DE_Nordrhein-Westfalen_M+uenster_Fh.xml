@@ -2,13 +2,12 @@
 <library>
   <longName value="Hochschulbibliothek der Fachhochschule Münster"/>
   
-  <template value="digibib"/>
-  <segregated-accounts value="true"/>
-  <variable name="location" value="836"/>
-  <variable name="view" value="836:BiblKat"/>
-  <variable name="searchid" value="SERVICEGROUP1.SERVICE.SEARCH_FHBM-x"/>
+  <template value="digibib7"/>
+<!--  <segregated-accounts value="true"/>-->
+  <variable name="baseurl" value="https://fhb-muenster.digibib.net/search/katalog"/>
+
   
-  <homepage value="http://www.fh-muenster.de/BIBL/index.php"/>
+  <homepage value="https://www.fh-muenster.de/BIBL/index.php"/>
   <testing-search value="yes"/>
   <testing-account value="yes"/>
   
