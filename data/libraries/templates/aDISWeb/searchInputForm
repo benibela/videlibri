@@ -3,7 +3,12 @@
     t:if makes it a valid xml file -->
   
 {
-let $search-keys-regex := {"author": "Person|Autor", "title": "Titel", "free": "Freie *Suche", "keywords": "Schlag|Thema", "isbn": "ISBN", "id": "Signatur"}
+let $search-keys-regex := {"author": "Person|Autor", 
+                           "title": ("Titelwort", "Titel"), 
+                           "free": "Freie *Suche", 
+                           "keywords": "Schlag|Thema", 
+                           "isbn": "ISBN", 
+                           "id": "Signatur"}
 let $inputs := //input
 let $selects := //select
 let $elements := $inputs | $selects
@@ -23,8 +28,9 @@ return (
   if (count($search-basic-selects) lt 3 or count($search-basic-selects) ne count($search-basic-inputs)) then
     vl:raise-internal("Zu wenig Suchfelder oder die Suchfelder wurden nicht erkannt.")
   else (),
-  search-basic-options := map:merge( for $key in jn:keys($search-keys-regex) let $r :=  $search-keys-regex($key)
-                                     return  {$key: head($options[matches(., $r)]/@value)}
+  search-basic-options := map:merge( for $key in jn:keys($search-keys-regex) 
+                                     let $r :=  $search-keys-regex($key)
+                                     return  {$key: head(for $r in $r return $options[matches(., $r)]/@value)}
                                    ),
 
   search-basic-input-year := $inputs[@id = "GEJAHR_1"]/@name,
