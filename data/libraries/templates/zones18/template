@@ -70,8 +70,10 @@
   <page url="{$request}" templateFile="searchList">
   
   </page>
-  <s>search-next-page-available := $search-result-count > 0 </s>
-  <s>requestId := 1</s>  
+  <s>search-next-page-available := $search-result-count > 0,
+     requestId := 1,
+     need-to-login := true()
+     </s>  
 </action>
 
 <action id="search-next-page"> 
@@ -90,6 +92,7 @@
     <template>
       <t:switch-prioritized>
         <form name="LoginForm">  {form := form(., {"BRWR": $username, "PIN": $password})} </form>
+        <form name="MainForm">   {form := form(., {"BRWR": $username, "PIN": $password})} </form>
         <h2>Das System ist gerade offline<t:s>vl:raise(.)</t:s></h2>
         <a t:condition="contains(@href, 'MyLoans')">{form := $accountUrl}</a> <!-- are already logged in-->
         <table>
@@ -108,9 +111,12 @@
 
 
 <action id="order-single"> 
-  <call action="internal-login"/>
-  
   <page url="{$book._order-url}" templateFile="orderConfirmation"/> 
+  <if test="$need-to-login">
+    <s>$accountUrl := $book._order-url, $need-to-login := false() </s>
+    <call action="internal-login"/>
+    <pattern href="orderConfirmation"/>
+  </if>
 </action> 	
 
 <action id="internal-order-confirmed">

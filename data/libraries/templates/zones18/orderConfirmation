@@ -3,6 +3,13 @@
     {confirm-form := form((//form)[last()]), (: page is broken, select not in form :)
      vl:choose("internal-order-confirmed", "Wohin soll das Buch geliefert werden?", option, option/@value)}
   </SELECT>
+
+  <body>
+    <input name="BRWR"/>{$need-to-login := true()}
+    <table>
+      <td width="100%">Ihre Eingabe ist ungültig.<t:s>vl:raise-login(.)</t:s></td>
+    </table>?
+  </body>
   
   <td class="advice">
     {vl:raise(.)}
