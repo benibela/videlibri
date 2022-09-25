@@ -4,8 +4,9 @@
 <library>
   <longName value="Hochschulbibliothek Bochum"/>
 
-  <template value="libero5"/>
-  <variable name="baseurl" value="https://opac.hs-bochum.de/libero/"/>
+  <template value="digibib7"/>
+<!--  <segregated-accounts value="true"/>-->
+  <variable name="baseurl" value="https://hsb-bochum.digibib.net/search/katalog"/>
 
   <homepage value="http://www.hochschule-bochum.de/bib.html"/>
   <testing-search value="yes"/>
