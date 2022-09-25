@@ -1,0 +1,5 @@
+* aDIS: Wenn man auf der Webseite nach "Titelwort" oder "Titel" suchen kann, verwende die Suche nach "Tittelwort" für Titelsuchen.
+* Erstellt mit FreePascal 3.2.3 (47e90d7d)
+* Hochschulbibliothek Bochum, Düsseldorf, Münster, Westfälische Hochschule: Umstellung auf Digibib 7
+* Anpassung an neuen Katalog UB Passau.
+* Stadtbibliothek Köln: Änderung der Vormerkungsmöglichkeit

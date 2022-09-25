@@ -1,0 +1,5 @@
+* Created with FreePascal 3.2.3 (47e90d7d)
+* Scientific college libraries Bochum, Düsseldorf, Münster, Westfälischen Hochschule: move to digibib 7
+* aDIS: search key: prefer titelwort over titel
+* new catalog Passau UB
+* Cologne: zones: login on ordering page not account page
