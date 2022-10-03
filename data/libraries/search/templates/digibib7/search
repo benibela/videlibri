@@ -56,4 +56,11 @@
 
 <div class="badge d7-relatedview-hitcount"><span aria-hidden="true">0</span>{$search-result-count:=0}</div>
 
+
+<div class="media-body">
+  <h1 class="alert-heading"></h1>
+  <p class="lead">{vl:raise(.)}</p>
+</div>
+
+      
 </t:switch>
