@@ -83,7 +83,7 @@ dependencies {
     implementation 'androidx.preference:preference:1.1.1'
     implementation "ch.acra:acra-http:$acraVersion"
     implementation "ch.acra:acra-dialog:$acraVersion"
-    implementation 'com.squareup.okhttp3:okhttp:3.12.8'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.13'
     implementation "com.getkeepsafe.relinker:relinker:1.4.4"
 }
 
