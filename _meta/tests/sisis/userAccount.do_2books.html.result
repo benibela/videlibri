@@ -6,6 +6,7 @@ orderedUrl := ()
 requestedUrl := ()
 mode := 1
 delete-current-books() := ()
+nextPage := ()
 default-book := {"_onPage": "vltest://sisis/userAccount.do_2books.html", "_onPageStart": "", "statusId": "critical"}
 book := {"_onPage": "vltest://sisis/userAccount.do_2books.html", "_onPageStart": "", "author": "Delfs, Hans", "duedate": "2011-01-05", "id": "BP1357  ", "issuedate": "2010-08-19", "status": "Dieses Medium wurde bereits 5 mal verlängert.", "statusId": "critical", "title": "Introduction to cryptography"}
 book := {"_onPage": "vltest://sisis/userAccount.do_2books.html", "_onPageStart": "", "actionURI": "vltest://sisis/InfoGuideClient/userAccount.do?methodToCall=renewalPossible&actPos=1", "author": "Demtröder, Wolfgang", "duedate": "2011-01-10", "id": "(1)003187  ", "issuedate": "2010-12-09", "status": "Eine Verlängerung ist möglich.", "statusId": "curious", "title": "Experimentalphysik/2"}

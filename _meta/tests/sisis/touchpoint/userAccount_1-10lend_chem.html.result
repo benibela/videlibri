@@ -7,6 +7,7 @@ orderedUrl := ()
 requestedUrl := ()
 mode := 1
 books-deleted := true()
+nextPage := ()
 default-book := {"_onPage": "vltest://sisis/touchpoint/userAccount_1-10lend_chem.html", "_onPageStart": "", "statusId": "critical"}
 book := {"_onPage": "vltest://sisis/touchpoint/userAccount_1-10lend_chem.html", "_onPageStart": "", "actionURI": "vltest://sisis/TouchPoint/renewal.do?methodToCall=renewal&pos=0", "author": "Kipp, Angelika", "cancelable": false, "duedate": "2015-09-17", "id": "A9034165 ", "statusId": "curious", "title": "Lustige Frühlings-Minis"}
 book := {"_onPage": "vltest://sisis/touchpoint/userAccount_1-10lend_chem.html", "_onPageStart": "", "actionURI": "vltest://sisis/TouchPoint/renewal.do?methodToCall=renewal&pos=1", "author": "Altmeyer, Maria-Regina", "cancelable": false, "duedate": "2015-09-17", "id": "A3766447 ", "statusId": "curious", "title": "Österlich geschmückt"}

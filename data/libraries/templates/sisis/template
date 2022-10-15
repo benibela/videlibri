@@ -83,19 +83,19 @@
   </s>
   
   <page url="{$startUrl}"  templateFile="loggedIn"/>
-  <loop test="$nextPage != ''">
+  <loop test="exists($nextPage)">
     <page url="{$nextPage}"  templateFile="loggedIn"/>
   </loop>
 
   <variable name="startUrl">resolve-uri($requestedUrl)</variable>
   <page url="{$startUrl}"  templateFile="loggedIn"/>
-  <loop test="$nextPage != ''">
+  <loop test="exists($nextPage)">
     <page url="{$nextPage}"  templateFile="loggedIn"/>
   </loop>
 
   <variable name="startUrl">resolve-uri($orderedUrl)</variable>
   <page url="{$startUrl}"  templateFile="loggedIn"/>
-  <loop test="$nextPage != ''">
+  <loop test="exists($nextPage)">
     <page url="{$nextPage}"  templateFile="loggedIn"/>
   </loop>
   <!--  <error templateFile="loginError"/>-->

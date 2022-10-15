@@ -6,5 +6,6 @@ orderedUrl := "http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/userAccount.
 requestedUrl := ()
 mode := 1
 delete-current-books() := ()
+nextPage := ()
 default-book := {"_onPage": "vltest://sisis/userAccount.do_empty.html", "_onPageStart": "", "statusId": "critical"}
 nextPage := ()

@@ -6,5 +6,6 @@ touchpoint := true()
 orderedUrl := ()
 requestedUrl := ()
 mode := 2
+nextPage := ()
 default-book := {"_onPage": "vltest://sisis/touchpoint/userAccount_0provided_chem.html", "_onPageStart": "", "cancelable": false, "statusId": "provided"}
 nextPage := ()

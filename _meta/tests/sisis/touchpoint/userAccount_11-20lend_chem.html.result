@@ -7,6 +7,7 @@ orderedUrl := ()
 requestedUrl := ()
 mode := 1
 books-deleted := true()
+nextPage := ()
 default-book := {"_onPage": "vltest://sisis/touchpoint/userAccount_11-20_chem.html", "_onPageStart": "", "statusId": "critical"}
 book := {"_onPage": "vltest://sisis/touchpoint/userAccount_11-20_chem.html", "_onPageStart": "", "author": "Scheib, Asta", "duedate": "2015-10-19", "id": "B0559651 ", "status": "Eine Verlängerung ist noch nicht möglich.", "statusId": "critical", "title": "Schwere Reiter"}
 book := {"_onPage": "vltest://sisis/touchpoint/userAccount_11-20_chem.html", "_onPageStart": "", "author": "Cornwell, Bernard", "duedate": "2015-10-19", "id": "B1200884 ", "status": "Eine Verlängerung ist noch nicht möglich.", "statusId": "critical", "title": "Sharpes Trafalgar"}
