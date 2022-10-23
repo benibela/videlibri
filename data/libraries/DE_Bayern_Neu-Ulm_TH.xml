@@ -6,10 +6,10 @@
   <shortName value="HNU"/> 
   
   <template value="sisis"/>  
-  <variable name="server" value="https://opac.hs-neu-ulm.de/TouchPoint/"/>
+  <variable name="server" value="https://opac.hnu.de/TouchPoint/"/>
   <variable name="startparams" value="?View=fnu"/>
 
-  <homepage value="https://www.hs-neu-ulm.de/studium/bibliothek//"/>
+  <homepage value="https://www.hnu.de/studium/bibliothek//"/>
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
   

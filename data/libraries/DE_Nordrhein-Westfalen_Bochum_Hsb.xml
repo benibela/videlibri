@@ -8,7 +8,7 @@
 <!--  <segregated-accounts value="true"/>-->
   <variable name="baseurl" value="https://hsb-bochum.digibib.net/search/katalog"/>
 
-  <homepage value="http://www.hochschule-bochum.de/bib.html"/>
+  <homepage value="https://www.hochschule-bochum.de/bib"/>
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
   

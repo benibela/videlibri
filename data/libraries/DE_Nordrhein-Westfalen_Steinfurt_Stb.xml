@@ -12,9 +12,9 @@
   <!--<template value="pica"/>-->
 
 
-  <homepage value="http://stadtbuecherei.steinfurt.de/"/>
+  <homepage value="https://stadtbuecherei.steinfurt.de/"/>
   <testing-search value="yes"/>
-  <testing-account value="unknown"/>
+  <testing-account value="yes"/>
   
 </library>
 
