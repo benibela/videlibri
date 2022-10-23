@@ -1,0 +1,66 @@
+diff --git a/rtl/android/sysandroid.inc b/rtl/android/sysandroid.inc
+index d0a5afae70..bca5d94cf8 100644
+--- a/rtl/android/sysandroid.inc
++++ b/rtl/android/sysandroid.inc
+@@ -23,7 +23,7 @@ var
+ 
+   GetIcuProc: pointer; public name 'ANDROID_GET_ICU_PROC';
+ 
+-procedure CommonMainAndroid;
++procedure CommonMainAndroid(conjureArgs: boolean);
+ const
+   EmptyEnv: array[0..2] of PAnsiChar = (nil, nil, nil);
+   EmptyCmdLine: array[0..0] of PAnsiChar = ( '' );
+@@ -33,13 +33,17 @@ var
+ begin
+   // Get the current stack pointer, adjust and save it
+   __stkptr:=pointer(ptruint(Sptr) or $FFFF);
++  //safe initialization
++  operatingsystem_parameter_envp:=@EmptyEnv;
++  operatingsystem_parameter_argc:=1;
++  operatingsystem_parameter_argv:=@EmptyCmdLine;
++
+   // Get the environment from the environ variable of libc
+   p:=_environ;
+-  if p = nil then
+-    operatingsystem_parameter_envp:=@EmptyEnv
+-  else
++  if p <> nil then
++    operatingsystem_parameter_envp:=p;
++  if (p <> nil) and (conjureArgs) then
+     begin
+-      operatingsystem_parameter_envp:=p;
+       // Finding argc and argv. They are placed before envp
+       Dec(p);
+       if p^ = nil then
+@@ -59,20 +63,13 @@ begin
+             end;
+         end;
+     end;
+-
+-  if operatingsystem_parameter_argc = 0 then
+-    begin
+-      // argc and argv are not available
+-      operatingsystem_parameter_argc:=1;
+-      operatingsystem_parameter_argv:=@EmptyCmdLine;
+-    end;
+ end;
+ 
+ // ************* Program startup code
+ 
+ procedure ProgMainAndroid; cdecl; [public, alias:'FPC_PROG_START_ANDROID'];
+ begin
+-  CommonMainAndroid;
++  CommonMainAndroid(true);
+ end;
+ 
+ // ************* Shared library startup code
+@@ -114,7 +111,7 @@ end;
+ 
+ procedure AndroidLibStart; cdecl; [public, alias:'FPC_LIB_START_ANDROID'];
+ begin
+-  CommonMainAndroid;
++  CommonMainAndroid(false);
+   // Call main code FPC_LIB_MAIN_ANDROID of the library.
+   // It points either to a standard PASCALMAIN or FPC_JNI_LIB_MAIN_ANDROID if JNI_OnLoad is exported by the library
+   // The linker makes all the magic.

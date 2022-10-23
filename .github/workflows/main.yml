@@ -28,6 +28,7 @@ jobs:
         sudo apt-get install fpc
         git clone https://gitlab.com/benibela/fpc-source.git --depth 1 --single-branch -b fixes_3_2 fpc
         cd fpc
+        git apply -v $oldpath/patches/fpc*patch
         sudo $oldpath/android/manage.sh setupfpccrosscompile
         cd $oldpath;
         android/manage.sh setupfpccrosscfg >> ~/.fpc.cfg
