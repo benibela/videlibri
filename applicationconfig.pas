@@ -503,6 +503,7 @@ resourcestring
     commandLine.declareString('on', rsParamPattern, '');
     commandLine.declareString('user-path', rsParamConfig, '');
     commandLine.declareFlag('debug', rsParamDebug);
+    {$ifdef android}commandLine.parse('');{$endif}
 
     //Überprüft, ob das Programm schon gestart ist, und wenn ja, öffnet dieses
     {$IFDEF WIN32}
