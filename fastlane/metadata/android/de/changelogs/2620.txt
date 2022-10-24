@@ -1,0 +1,7 @@
+* Stadtbibliothek Chemnitz: Zeige mehrere Seiten von Ausleihen.
+* digibib7: Zeige "Datenbank nicht erreichbar"-Meldung von der Webseite als Fehlerdialog. 
+* Stadtbibliothek Verl/koha: Keine Fehlermeldung für 0 Suchergebnisse.
+* bibdia: Verwende auch die login.C Adresse, um auf die Ausleihenwebseite zu kommen.
+* Verhindere theoretische Android Crashs: Update okhttp:3.12.8 zu okhttp:3.12.13, und suche nicht nach Kommandozeilenparameter.
+* Android. Reskaliere Titelbilder, um besser auf das Display zu passen, nur wenn sich die Größe mehr als 20% ändert.
+* Anpassung an neue Adresse der Hochschulbibliothek Neu Ulm.

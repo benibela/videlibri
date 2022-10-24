@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="Bibliothek-App VideLibri">
-      <build version="2610" date="2022-09-25">
+      <build version="2620" date="2022-10-24">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <fix>Stadtbibliothek Chemnitz: Zeige mehrere Seiten von Ausleihen.</fix>
+        <fix>digibib7: Zeige "Datenbank nicht erreichbar"-Meldung von der Webseite als Fehlerdialog. </fix>
+        <fix>Stadtbibliothek Verl/koha: Keine Fehlermeldung für 0 Suchergebnisse.</fix>
+        <fix>bibdia: Verwende auch die login.C Adresse, um auf die Ausleihenwebseite zu kommen.</fix>
+        <fix>Verhindere theoretische Android Crashs: Update okhttp:3.12.8 zu okhttp:3.12.13, und suche nicht nach Kommandozeilenparameter.</fix>
+        <fix>Android. Reskaliere Titelbilder, um besser auf das Display zu passen, nur wenn sich die Größe mehr als 20% ändert.</fix>
+        <fix>Anpassung an neue Adresse der Hochschulbibliothek Neu Ulm.</fix>
+     </build>
+      <build version="2610" date="2022-09-25">
         <change>aDIS: Wenn man auf der Webseite nach "Titelwort" oder "Titel" suchen kann, verwende die Suche nach "Tittelwort" für Titelsuchen.</change>
         <change>Erstellt mit FreePascal 3.2.3 (47e90d7d)</change>
 	<fix>Hochschulbibliothek Bochum, Düsseldorf, Münster, Westfälische Hochschule: Umstellung auf Digibib 7</fix>

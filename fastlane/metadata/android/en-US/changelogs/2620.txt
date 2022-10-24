@@ -1,0 +1,7 @@
+chemnitz/sisis: fix multi pages
+digibib7: show  error messages if search has errors
+verl/koha: do not show useless error message when there are no search results
+bibdia: if accessing lendings through user.C fails, try login.C, too
+fix possible Android crashes: update okhttp:3.12.8 to okhttp:3.12.13, do not try to parse command line
+do not rescale images by less than 20%
+fix TH Neu Ulm
