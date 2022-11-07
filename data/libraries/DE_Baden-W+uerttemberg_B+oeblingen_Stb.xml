@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Böblingen"/>
+  
+  <template value="koha"/>
+  <variable name="baseurl" value="https://sb-boeblingen.lmscloud.net"/>	
+
+
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
+</library>
+

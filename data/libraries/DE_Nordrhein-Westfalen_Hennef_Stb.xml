@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Hennef"/>
+  
+  <template value="koha"/>
+  <variable name="baseurl" value="https://sb-hennef.lmscloud.net"/>
+
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+</library>
+
