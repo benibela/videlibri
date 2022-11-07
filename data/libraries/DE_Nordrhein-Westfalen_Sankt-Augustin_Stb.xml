@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbücherei Sankt Augustin"/>
+    
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://biblio.sankt-augustin.de/Mein-Konto"/>	
+  <variable name="urlsearch" value="https://biblio.sankt-augustin.de/Mediensuche/Erweiterte-Suche"/>
+  
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+</library>
