@@ -5,7 +5,7 @@
   <longName value="Stadtbibliothek Wuppertal"/>
   
   <template value="sisis"/>  
-  <variable name="server" value="https://webopac.wuppertal.de/webOPACClient.sisis/"/>
+  <variable name="server" value="https://webopac.wuppertal.de/webOPACClient/"/>
 
   <homepage value="http://www.wuppertal.de/kultur-bildung/stadtbibliothek/index.php"/>
   <testing-search value="yes"/>
