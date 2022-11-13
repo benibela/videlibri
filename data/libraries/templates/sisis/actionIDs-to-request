@@ -1,0 +1,7 @@
+
+<form name="UserAccountForm">{
+  $request := 
+(:  let $actionIDs := ("B259291X", "B2616018", "B2118329"):)
+  let $mediaNrEntries := //input[starts-with(@name, "mediaNrEntries") and @value = $actionIDs]
+  return form(., ($mediaNrEntries/preceding-sibling::input, {"methodToCall": "renewSelected"}) )
+}</form>

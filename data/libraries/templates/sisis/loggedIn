@@ -67,13 +67,19 @@ touchpoint := get('touchpoint', false())
         <template:loop>      
   
         <tr>
+          {book := $default-book,
+           let $selectionInputs := td[1]//input
+           where $selectionInputs
+           let $sel := $selectionInputs[starts-with(@name, "selectedMediaListentries")]
+           where empty($sel/@disabled)
+           let $id := $selectionInputs[starts-with(@name, "mediaNrEntries") ]
+           return $book.actionID := $id/@value}
           <t:if test="$touchpoint">
             <td/><td><img/></td>
           </t:if>
           <t:else>
             <th scope="row"></th>
           </t:else>
-          {book := $default-book}
           <td>
             <t:switch> 
               <strong>{$book.title}</strong>

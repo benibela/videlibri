@@ -105,6 +105,7 @@
 <action id="internal-action-list">
   <s>
      need-update := false(),
+     actionIDs := $list?actionID,
      switch ($action-mode) 
        case "renew"  return ( $last-pair := $lastRenew )
        case "cancel" return ( $last-pair := $lastCancel )
@@ -121,13 +122,21 @@
   </if>
   
   <loop var="p" list="$pages">
-    <loop var="b" list="for $book in $list[?_onPage eq $p] order by $book.actionURI descending return $book">
+    <if test="exists($actionIDs)">
       <page url="{$b._onPageStart}"/> 
-      <page test="$b._onPage != $b._onPageStart" url="{$b._onPage}"/> 
-      
-      <page url="{$b.actionURI}"/> 
-      <if test="$action-mode eq 'renew'"><pattern href="singleExtended"/></if>
-    </loop>
+      <page test="$b._onPage != $b._onPageStart" url="{$b._onPage}"/>  <!--???-->
+      <pattern href="actionIDs-to-request"/>
+      <page url="{$request}"/>
+    </if>
+    <else>
+      <loop var="b" list="for $book in $list[?_onPage eq $p] order by $book.actionURI descending return $book">
+        <page url="{$b._onPageStart}"/> 
+        <page test="$b._onPage != $b._onPageStart" url="{$b._onPage}"/> 
+        
+        <page url="{$b.actionURI}"/> 
+        <if test="$action-mode eq 'renew'"><pattern href="singleExtended"/></if>
+      </loop>
+    </else>
   </loop>
   
   <s>
