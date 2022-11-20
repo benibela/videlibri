@@ -123,6 +123,7 @@
   
   <loop var="p" list="$pages">
     <if test="exists($actionIDs)">
+      <s>b := $list[?_onPage eq $p][1] </s>
       <page url="{$b._onPageStart}"/> 
       <page test="$b._onPage != $b._onPageStart" url="{$b._onPage}"/>  <!--???-->
       <pattern href="actionIDs-to-request"/>
