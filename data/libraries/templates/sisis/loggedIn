@@ -104,7 +104,11 @@ touchpoint := get('touchpoint', false())
               }
             </a>
             <t:if test="not($book.actionURI) and not($book.status)">
-              {$book.status := (br[last()]/following-sibling::text())[last()], $book.statusId := "critical"}
+              {if ($book.actionID) then $book.statusId := "normal" 
+               else (
+                 $book.status := (br[last()]/following-sibling::text())[last()], 
+                 $book.statusId := "critical" 
+               )}
             </t:if>
            </td>
 
