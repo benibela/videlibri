@@ -1,0 +1,15 @@
+<t:switch prioritized="true">
+<table class="data">
+
+<tr> 
+  <td>
+    <strong>Titel:</strong>
+    <strong>neues Leihfristende:</strong>
+  </td>
+  {$need-update:=true}
+</tr>
+       
+</table>
+
+<div class="alert message-error ">{vl:raise(.)}</div>
+</t:switch>

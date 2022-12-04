@@ -90,26 +90,22 @@ touchpoint := get('touchpoint', false())
             {$book.id := extract(matched-text(), "^[^/]*")}
             <a template:optional="true">
               {$book.actionURI := resolve-html(.)}
-              <span>
-                {$book.status := ., $book.statusId := "curious"}
-              </span>
+              <span>{$book.status}</span>
             </a>
-            <span template:optional="true">
-              {$book.status := ., $book.statusId := "critical"}
-            </span>
+            <span template:optional="true">{$book.status}</span>
             <a template:optional="true">
               {book.actionURI := resolve-html(.),
-               if ($mode = (2,3)) then () else book.statusId := "curious",
                book.cancelable := $mode eq 3
               }
             </a>
-            <t:if test="not($book.actionURI) and not($book.status)">
-              {if ($book.actionID) then $book.statusId := "normal" 
-               else (
-                 $book.status := (br[last()]/following-sibling::text())[last()], 
-                 $book.statusId := "critical" 
-               )}
-            </t:if>
+            {
+              if ($book.actionURI or $book.actionID) then (
+                if ($mode = (2,3)) then () 
+                else $book.statusId := "curious"
+              ) else if (not($book.status)) then
+                $book.status := (br[last()]/following-sibling::text())[last()]
+              else ()              
+            }
            </td>
 
            <template:switch>        
