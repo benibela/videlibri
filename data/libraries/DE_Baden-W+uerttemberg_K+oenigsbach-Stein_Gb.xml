@@ -7,6 +7,6 @@
   <variable name="DB" value="Koenigsbach-Stein"/>	
   
   <homepage value="https://web-opac.kivbf.de/koenigsbach-stein/index.asp?DB=Koenigsbach-Stein"/>
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

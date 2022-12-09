@@ -7,6 +7,6 @@
   <variable name="DB" value="Hirschberg"/>	
   
   <homepage value="https://web-opac.kivbf.de/hirschberg/index.asp?DB=Hirschberg"/>
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

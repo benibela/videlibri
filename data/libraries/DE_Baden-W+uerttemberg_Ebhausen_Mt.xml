@@ -7,6 +7,6 @@
   <variable name="DB" value="Ebhausen"/>	
   
   <homepage value="https://web-opac.kivbf.de/ebhausen/index.asp?DB=Ebhausen"/>
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

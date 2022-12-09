@@ -7,6 +7,6 @@
   <variable name="DB" value="Schwetzingen"/>	
   
   <homepage value="https://web-opac.kivbf.de/schwetzingen/index.asp?DB=Schwetzingen"/>
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

@@ -7,6 +7,6 @@
   <variable name="DB" value="Niefern-Oeschelbronn"/>	
   
   <homepage value="https://web-opac.kivbf.de/niefern-oeschelbronn/index.asp?DB=Niefern-Oeschelbronn"/>
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

@@ -7,6 +7,6 @@
   <variable name="urlsearch" value="https://bibliotheken.kivbf.de/neuenburg/Medien/Erweiterte-Suche"/>
   
   <homepage value="https://bibliotheken.kivbf.de/neuenburg/"/>
-  <testing-search value="unknown"/> 
+  <testing-search value="yes"/> 
   <testing-account value="unknown"/>
 </library>

@@ -7,6 +7,6 @@
   <variable name="DB" value="Linkenheim-Hochstetten"/>	
   
   <homepage value="https://web-opac.kivbf.de/linkenheim-hochstetten/index.asp?DB=Linkenheim-Hochstetten"/>
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

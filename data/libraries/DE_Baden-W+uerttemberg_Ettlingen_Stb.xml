@@ -7,6 +7,6 @@
   <variable name="urlsearch" value="https://bibliotheken.kivbf.de/ettlingen/Suche-Konto/Erweiterte-Suche"/>
   
   <homepage value="https://web-opac.kivbf.de/ettlingen/index.asp?DB=Ettlingen"/>
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

@@ -7,6 +7,6 @@
   <variable name="DB" value="Ispringen"/>	
   
   <homepage value="https://web-opac.kivbf.de/ispringen/index.asp?DB=Ispringen"/>
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

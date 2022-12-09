@@ -6,6 +6,6 @@
   <variable name="urlaccount" value="https://bibliotheken.komm.one/schrozberg/Meine-Bibliothek"/>	
   <variable name="urlsearch" value="https://bibliotheken.komm.one/schrozberg/Mediensuche/Erweiterte-Suche"/>
   
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

@@ -7,6 +7,6 @@
   <variable name="DB" value="st-leon-rot"/>	
   
   <homepage value="https://web-opac.kivbf.de/st-leon-rot/index.asp?DB=st-leon-rot"/>
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

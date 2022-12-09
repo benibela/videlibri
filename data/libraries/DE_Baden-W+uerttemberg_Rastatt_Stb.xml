@@ -9,6 +9,6 @@
   
   
   <homepage value="https://web-opac.kivbf.de/rastatt/index.asp?DB=Rastatt"/>
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

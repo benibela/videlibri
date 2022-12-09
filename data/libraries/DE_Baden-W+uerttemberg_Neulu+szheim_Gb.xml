@@ -6,6 +6,6 @@
   <variable name="urlaccount" value="https://bibliotheken.komm.one/neulussheim/Konto"/>	
   <variable name="urlsearch" value="https://bibliotheken.komm.one/neulussheim/Mediensuche/Erweiterte-Suche"/>
   
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

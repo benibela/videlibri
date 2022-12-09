@@ -7,6 +7,6 @@
   <variable name="DB" value="Gottmadingen"/>	
   
   <homepage value="https://web-opac.kivbf.de/gottmadingen/index.asp?DB=Gottmadingen"/>
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

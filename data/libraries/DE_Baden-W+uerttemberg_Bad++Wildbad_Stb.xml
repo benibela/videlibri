@@ -7,6 +7,6 @@
   <variable name="DB" value="Bad-Wildbad"/>	
   
   <homepage value="https://web-opac.kivbf.de/bad-wildbad/index.asp?DB=Bad-Wildbad"/>
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

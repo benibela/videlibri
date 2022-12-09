@@ -7,6 +7,6 @@
   <variable name="DB" value="SZF-Neuenburg"/>	
   
   <homepage value="https://web-opac.kivbf.de/szf/index.asp?DB=SZF-Neuenburg"/>
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

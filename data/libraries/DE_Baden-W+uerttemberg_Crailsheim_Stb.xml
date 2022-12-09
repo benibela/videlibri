@@ -7,6 +7,6 @@
   <variable name="urlsearch" value="https://bibliotheken.kivbf.de/crailsheim/Mediensuche/Erweiterte-Suche"/>
   
   <homepage value="https://bibliotheken.kivbf.de/crailsheim/"/>
-  <testing-search value="unknown"/> 
+  <testing-search value="yes"/> 
   <testing-account value="unknown"/>
 </library>

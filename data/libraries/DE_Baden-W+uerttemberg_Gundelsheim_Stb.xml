@@ -7,6 +7,6 @@
   <variable name="urlsearch" value="https://bibliotheken.kivbf.de/gundelsheim/Mediensuche/ErweiterteSuche.aspx"/>
   
   <homepage value="https://bibliotheken.kivbf.de/gundelsheim/"/>
-  <testing-search value="unknown"/> 
+  <testing-search value="yes"/> 
   <testing-account value="unknown"/>
 </library>

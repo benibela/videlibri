@@ -7,6 +7,6 @@
   <variable name="DB" value="Breisach"/>	
   
   <homepage value="https://web-opac.kivbf.de/breisach/index.asp?DB=Breisach"/>
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

@@ -7,6 +7,6 @@
   <variable name="urlsearch" value="https://bibliotheken.kivbf.de/buchen/Mediensuche.aspx"/>
   
   <homepage value="https://bibliotheken.kivbf.de/buchen/"/>
-  <testing-search value="unknown"/> 
+  <testing-search value="yes"/> 
   <testing-account value="unknown"/>
 </library>

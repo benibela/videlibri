@@ -7,6 +7,6 @@
   <variable name="DB" value="Schwaigern"/>	
   
   <homepage value="https://web-opac.kivbf.de/schwaigern/index.asp?DB=Schwaigern"/>
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

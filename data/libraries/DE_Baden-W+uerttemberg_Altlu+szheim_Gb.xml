@@ -7,6 +7,6 @@
   <variable name="DB" value="Altlussheim"/>	
   
   <homepage value="https://web-opac.kivbf.de/altlussheim/index.asp?DB=Altlussheim"/>
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

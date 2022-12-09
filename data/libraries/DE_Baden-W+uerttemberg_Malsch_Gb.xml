@@ -7,6 +7,6 @@
   <variable name="DB" value="Malsch"/>	
   
   <homepage value="https://web-opac.kivbf.de/malsch/index.asp?DB=Malsch"/>
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

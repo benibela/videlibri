@@ -7,6 +7,6 @@
   <variable name="DB" value="Kuenzelsau"/>	
   
   <homepage value="https://web-opac.kivbf.de/kuenzelsau/index.asp?DB=Kuenzelsau"/>
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

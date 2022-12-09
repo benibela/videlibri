@@ -7,6 +7,6 @@
   <variable name="DB" value="Wiesloch"/>	
   
   <homepage value="https://web-opac.kivbf.de/wiesloch/index.asp?DB=Wiesloch"/>
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

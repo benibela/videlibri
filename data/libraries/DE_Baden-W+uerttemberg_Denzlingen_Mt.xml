@@ -7,6 +7,6 @@
   <variable name="urlsearch" value="https://bibliotheken.kivbf.de/denzlingen/Mediensuche-Medientipps/Erweiterte-Suche"/>
   
   <homepage value="https://bibliotheken.kivbf.de/denzlingen/"/>
-  <testing-search value="unknown"/> 
+  <testing-search value="yes"/> 
   <testing-account value="unknown"/>
 </library>

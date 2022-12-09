@@ -7,6 +7,6 @@
   <variable name="DB" value="Brackenheim"/>	
   
   <homepage value="https://web-opac.kivbf.de/brackenheim/index.asp?DB=Brackenheim"/>
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

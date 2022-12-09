@@ -7,6 +7,6 @@
   <variable name="DB" value="Kirchzarten"/>	
   
   <homepage value="https://web-opac.kivbf.de/kirchzarten/index.asp?DB=Kirchzarten"/>
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

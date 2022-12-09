@@ -7,6 +7,6 @@
   <variable name="DB" value="Bad-Schoenborn"/>	
   
   <homepage value="https://web-opac.kivbf.de/bad-schoenborn/index.asp?DB=Bad-Schoenborn"/>
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

@@ -7,6 +7,6 @@
   <variable name="DB" value="Mauer"/>	
   
   <homepage value="https://web-opac.kivbf.de/mauer/index.asp?DB=Mauer"/>
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

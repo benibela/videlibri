@@ -7,6 +7,6 @@
   <variable name="DB" value="Lauda-Koenigshofen"/>	
   
   <homepage value="https://web-opac.kivbf.de/lauda-koenigshofen/index.asp?DB=Lauda-Koenigshofen"/>
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

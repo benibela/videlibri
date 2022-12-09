@@ -7,6 +7,6 @@
   <variable name="urlsearch" value="https://bibliotheken.komm.one/gaggenau/Mediensuche/Erweiterte-Suche"/>
   
   <homepage value="https://web-opac.kivbf.de/gaggenau/index.asp?DB=Gaggenau"/>
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

@@ -7,6 +7,6 @@
   <variable name="DB" value="Bad-Friedrichshall"/>	
   
   <homepage value="https://web-opac.kivbf.de/bad-friedrichshall/index.asp?DB=Bad-Friedrichshall"/>
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

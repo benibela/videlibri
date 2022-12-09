@@ -6,6 +6,6 @@
   <variable name="urlaccount" value="https://bibliotheken.komm.one/bruchsal/Mein-Konto"/>	
   <variable name="urlsearch" value="https://bibliotheken.komm.one/bruchsal/Mediensuche/Erweiterte-Suche"/>
   
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

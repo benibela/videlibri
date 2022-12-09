@@ -7,6 +7,6 @@
   <variable name="DB" value="Bammental"/>	
   
   <homepage value="https://web-opac.kivbf.de/bammental/index.asp?DB=Bammental"/>
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

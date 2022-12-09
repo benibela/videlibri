@@ -7,6 +7,6 @@
   <variable name="DB" value="Boxberg"/>	
   
   <homepage value="https://web-opac.kivbf.de/boxberg/index.asp?DB=Boxberg"/>
-  <testing-search value="unknown"/>
+  <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>
