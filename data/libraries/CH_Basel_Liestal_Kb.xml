@@ -6,7 +6,7 @@
   <shortName value="Kb Baselland"/> 
   
   <template value="sisis"/>  
-  <variable name="server" value="http://xaikb01.bl.ch/InfoGuideClient/"/>
+  <variable name="server" value="http://xaikb14.bl.ch/InfoGuideClient/"/>
   
   <homepage value="http://www.kbl.ch/"/>
   <testing-search value="yes"/>
