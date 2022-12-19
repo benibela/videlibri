@@ -53,5 +53,7 @@
    <a title="Zur Startseite">{$connectPage}</a>
    <a><t:s>$connectPage</t:s>Neue Sitzung</a>
    
+   <h1>Fehler<t:s>vl:raise( join((//title/concat(., ":"), ..)) => normalize-space() )</t:s></h1>
+   
 <!--   <h1>{vl:raise(..)}</h1>-->
 </template:switch>
