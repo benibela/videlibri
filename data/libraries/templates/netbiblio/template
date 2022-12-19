@@ -67,11 +67,12 @@
          "Request.SearchOperator=AND",
          (tempcount := $tempcount + 1)[0]
          ) else (), 
-         for $filler in 1 to 2 - $tempcount return ("Request.SearchTerm=", "Request.SearchField=W", "Request.SearchOperator=AND"[$tempcount = 0]), (:500 error without 2 search terms:)
+         for $filler in 1 to 4 - $tempcount return ("Request.SearchTerm=", "Request.SearchField=W", "Request.SearchOperator=AND"[$tempcount = 0]), (:500 error without 2 search terms:)
          if (boolean($book.year)) then (
            "Filter.StartDate="||$book.year,
            "Filter.EndDate="||$book.year
-         ) else ()  ), $amp)
+         ) else (),
+         "Request.PageSize=25"  ), $amp)
   }</s>
   <page url="{$request}" templateFile="searchList"/>
 </action>
