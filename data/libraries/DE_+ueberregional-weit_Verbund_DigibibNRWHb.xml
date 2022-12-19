@@ -4,7 +4,7 @@
 
   <template value="digibib7"/>
   
-  <variable name="baseurl" value="https://nrw.digibib.net/search/hbzvk"/>
+  <variable name="searchurl" value="https://nrw.digibib.net/search/hbzvk"/>
 
   <homepage value="https://www.digibib.net"/>
   <testing-search value="yes"/>  <testing-account value="no"/></library>

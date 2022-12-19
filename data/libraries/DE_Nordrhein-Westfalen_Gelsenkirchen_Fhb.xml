@@ -6,7 +6,7 @@
 
   <template value="digibib7"/>
 <!--  <segregated-accounts value="true"/>-->
-  <variable name="baseurl" value="https://w-hs.digibib.net/search/katalog"/>
+  <variable name="searchurl" value="https://w-hs.digibib.net/search/katalog"/>
 
   <homepage value="http://bibliothek.w-hs.de/"/>
   <testing-search value="yes"/>

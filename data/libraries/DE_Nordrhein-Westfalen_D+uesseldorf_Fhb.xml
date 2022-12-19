@@ -8,7 +8,7 @@
   <shortName value="FHB Düsseldorf"/>
 
   <template value="digibib7"/> 
-  <variable name="baseurl" value="https://hs-duesseldorf.digibib.net/search/katalog"/>
+  <variable name="searchurl" value="https://hs-duesseldorf.digibib.net/search/katalog"/>
 
   <homepage value="https://bib.hs-duesseldorf.de/"/>
   <testing-search value="yes"/>  <testing-account value="no"/></library>

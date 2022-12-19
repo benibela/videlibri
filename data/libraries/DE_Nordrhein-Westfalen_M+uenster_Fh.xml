@@ -4,7 +4,7 @@
   
   <template value="digibib7"/>
 <!--  <segregated-accounts value="true"/>-->
-  <variable name="baseurl" value="https://fhb-muenster.digibib.net/search/katalog"/>
+  <variable name="searchurl" value="https://fhb-muenster.digibib.net/search/katalog"/>
 
   
   <homepage value="https://www.fh-muenster.de/BIBL/index.php"/>

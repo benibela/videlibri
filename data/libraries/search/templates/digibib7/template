@@ -3,7 +3,7 @@
 
 <meta>
   <description>Schnittstelle für die Digibib Version 7</description>
-  <variable name="baseurl"><description>Adresse des Katalog</description></variable>
+  <variable name="searchurl"><description>Adresse des Katalog</description></variable>
 </meta>
 
 
@@ -11,7 +11,7 @@
 </action>
 
 <action id="search">
-  <s>starturl := request-combine($baseurl || "/list?defaults=on&amp;start=1", {"q-ti": $book.title, "q-au": $book.author, "q-yr": $book.year, "q-ky": $book.keywords, "q-ib": $book.isbn, "q-is": $book.issn}) </s>
+  <s>starturl := request-combine($searchurl || "/list?defaults=on&amp;start=1", {"q-ti": $book.title, "q-au": $book.author, "q-yr": $book.year, "q-ky": $book.keywords, "q-ib": $book.isbn, "q-is": $book.issn}) </s>
   <page url="{$starturl}"/>
   <pattern href="search"/>  
   
