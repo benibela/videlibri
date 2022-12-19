@@ -6,12 +6,10 @@
   <template value="bibdia"/>
   <variable name="baseurl" value="https://katalog.stadtbibliothek.essen.de/opax/"/>
 
-  <template value="digibib">
-    <variable name="location" value="BIBDIA"/>
-    <variable name="view" value="BIBDIA:BasisExt"/>
-    <variable name="searchid" value="SERVICEGROUP1.SERVICE.SEARCH_SBES"/>
+  <template value="digibib7">
+    <variable name="searchurl" value="https://stb-essen.digibib.net/search/bibkataloge"/>
   </template>
 
   <homepage value="https://www.stadtbibliothek-essen.de"/>
-  <testing-search value="yes"/>  <testing-account value="yes"/></library>
+  <testing-search value="unknown"/>  <testing-account value="yes"/></library>
 

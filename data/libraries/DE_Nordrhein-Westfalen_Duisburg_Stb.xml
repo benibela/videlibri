@@ -9,11 +9,6 @@
   <template value="koha"/>
   <variable name="baseurl" value="https://sb-duisburg.lmscloud.net/"/>
 
-  <template value="digibib">
-    <variable name="location" value="BIBDIA"/>
-    <variable name="view" value="BIBDIA:BasisExt"/>
-    <variable name="searchid" value="SERVICEGROUP1.SERVICE.SEARCH_SBDB"/>
-  </template>
 
   <homepage value="https://www.duisburg.de/bildungwissenschaft/stadtbibliothek/stadtbibliothek.php"/>
   <testing-search value="yes"/>  <testing-account value="unknown"/></library>

@@ -9,12 +9,10 @@
   <template value="bibdia"/>
   <variable name="baseurl" value="https://stadtbuecherei.bochum.de/opax/"/>
 
-  <template value="digibib">
-    <variable name="location" value="BIBDIA"/>
-    <variable name="view" value="BIBDIA:BasisExt"/>
-    <variable name="searchid" value="SERVICEGROUP1.SERVICE.SEARCH_SBBO"/>
+  <template value="digibib7">
+    <variable name="searchurl" value="https://stb-bochum.digibib.net/search/bibkataloge"/>
   </template>
 
   <homepage value="http://www.bochum.de/stadtbuecherei"/>
-  <testing-search value="yes"/>  <testing-account value="unknown"/></library>
+  <testing-search value="unknown"/>  <testing-account value="unknown"/></library>
 
