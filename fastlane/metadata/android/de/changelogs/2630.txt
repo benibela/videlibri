@@ -1,0 +1,3 @@
+* Anpassung an geänderten Katalog bei Stadtbibliothek Wuppertal, Stadtbücherei Brackenheim, und Kantonsbibliothek Baselland.
+* Stadtbibliothek Chemnitz: Ermögliche wieder Verlängerungen.
+* neu: Stadtbibliothek Hennef, Stadtbibliothek Böblingen, Stadtbücherei Sankt Augustin

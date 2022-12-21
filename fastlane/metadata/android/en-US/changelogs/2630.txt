@@ -1,0 +1,3 @@
+* Update for public libraries Wuppertal, Brackenheim, and Baselland.
+* Public library Chemnitz: Fix renewing.
+* new: Update for public libraries Hennef, Böblingen and Sankt Augustin
