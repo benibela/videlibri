@@ -345,8 +345,8 @@ fakesignature)
 symbols)
   rm -rf symbols
   mkdir -p symbols symbols/armeabi-v7a/ symbols/arm64-v8a/ symbols/x86 symbols/x86_64
-  ln liblclapp.unstripped.release.arm64-v8a.so symbols/armeabi-v7a/liblclapp.so
-  ln liblclapp.unstripped.release.armeabi.so   symbols/arm64-v8a/liblclapp.so
+  ln liblclapp.unstripped.release.arm64-v8a.so symbols/arm64-v8a/liblclapp.so
+  ln liblclapp.unstripped.release.armeabi.so   symbols/armeabi-v7a/liblclapp.so
   ln liblclapp.unstripped.release.x86_64.so    symbols/x86/liblclapp.so
   ln liblclapp.unstripped.release.x86.so       symbols/x86_64/liblclapp.so
   cd symbols
