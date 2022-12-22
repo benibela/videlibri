@@ -25,7 +25,8 @@
         <activity android:name=".activities.LendingList"
                   android:configChanges="keyboardHidden"
                   android:label="@string/app_name"
-                  android:launchMode="singleTop">
+                  android:launchMode="singleTop"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -120,7 +121,8 @@
         <service android:name=".notifications.jobs.NotificationJobServiceNoUpdate" android:permission="android.permission.BIND_JOB_SERVICE"  />
 
         <receiver android:name=".notifications.NotificationOnBootCompleted"
-                android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+                android:permission="android.permission.RECEIVE_BOOT_COMPLETED"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>

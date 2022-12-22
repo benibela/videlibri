@@ -86,10 +86,14 @@ public class NotificationService extends Service{
 
 
     static private PendingIntent getBroadcast(Context context, int requestCode) {
+        int flags =
+         (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) ?
+            PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT :
+            PendingIntent.FLAG_UPDATE_CURRENT;
         return PendingIntent.getBroadcast(
                 context, requestCode,
                 new Intent(context, NotificationShowNow.class),
-                PendingIntent.FLAG_UPDATE_CURRENT);
+                flags);
     }
 
     static private void sheduleDailyCheck(Context context){

@@ -93,11 +93,14 @@ object Notifier {
 
         initChannels(context)
 
+        val pendingIntentFlags =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0
+
         val builder = NotificationCompat.Builder(context, DUEDATE_CHANNEL)
                 .setSmallIcon(VideLibriApp.mainIcon)
                 .setContentTitle(notification[0])
                 .setContentText(notification[1])
-                .setContentIntent(PendingIntent.getActivity(context, 0, Intent(context, LendingList::class.java), 0))
+                .setContentIntent(PendingIntent.getActivity(context, 0, Intent(context, LendingList::class.java), pendingIntentFlags))
                 .setAutoCancel(true)
 
         // Set the info for the views that show in the notification panel.
