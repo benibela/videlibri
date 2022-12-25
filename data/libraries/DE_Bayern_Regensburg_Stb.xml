@@ -2,11 +2,12 @@
 <library>
   <longName value="Stadtbücherei Regensburg"/>
   
-  <template value="bibdia"/>
-  <variable name="baseurl" value="https://srv17.regensburg.de/opax"/>
+  
+  <template value="aDISWeb"/>
+  <variable name="server" value="srv17.regensburg.de"/>
 
   <homepage value="https://www.regensburg.de/stadtbuecherei/"/>
-  <testing-search value="no"/>  
+  <testing-search value="yes"/>  
   <testing-account value="unknown"/>
 </library>
 
