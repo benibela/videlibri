@@ -1,0 +1,2 @@
+* Als Android 12 kompatibel markiert.
+* Anpassung für Stadtbücherei Regensburg.

@@ -1,0 +1,2 @@
+* Target Android 12 
+* Fix public library Regensburg.
