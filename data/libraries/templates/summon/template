@@ -9,20 +9,17 @@
 
 <action id="connect">
   <page url="{$baseurl}/MyResearch/Home"/>
-  <pattern><form id="loginForm">{loginForm := form(.), max-password-length := (.//input[@name="password"]/@maxlength, 100)[1] }</form></pattern>
+  <pattern><form name="loginForm">{loginForm := form(.), max-password-length := (.//input[@name="password"]/@maxlength, 100)[1] }</form></pattern>
 </action>
 
 <action id="internal-login">
   <s>login := request-combine($loginForm, {'username': $username, 'password': substring($password, 1, $max-password-length), 'processLogin': 'Log+In'})</s>
   <page url="{$login}"/>
   <pattern><t:switch prioritized="true">
-    <a class="logout" t:condition="not(x:split-equal(../@class, 'hide'))"></a>
-    <div id="loginMaskForm">
-      <div class="error"><t:s>
-       string() ! (if (matches(., "Ungültige Loginangaben")) then vl:raise-login(.)
-       else vl:raise(.))
-      </t:s></div>
-      <form name="loginForm" id="loginForm"/>
+    <a class="logout" t:condition="not(.//@aria-hidden = 'true')"></a>
+    <div id="content">
+      <div class="alert-danger">{vl:raise-login(.)}</div>
+      <form name="loginForm"/>
     </div>
     </t:switch>
   </pattern>
