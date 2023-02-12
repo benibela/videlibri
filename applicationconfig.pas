@@ -194,7 +194,7 @@ resourcestring
   rsErrorBacktrace = 'Detaillierte Informationen über die entsprechende Quellcodestelle:';
   rsErrorBookListReaderFromWebpage = 'Die Bibliothek zeigt diese Nachricht auf der Katalogwebseite an: '+LineEnding;
   rsErrorLoginException = 'Die Kontonummer bzw. das Passwort wurden vom Bibliothekskatalog nicht akzeptiert. Der Bibliothekskatalog erläutert dazu: '+LineEnding;
-  rsErrorBookListReaderInternal = 'Internet Fehler: '+LineEnding;
+  rsErrorBookListReaderInternal = 'Interner Fehler: '+LineEnding;
 
 
   procedure addErrorMessage(kind: TExceptionKind; errorStr,errordetails, anonymouseDetails, libraryId, searchQuery:string;lib:TCustomAccountAccess=nil);
