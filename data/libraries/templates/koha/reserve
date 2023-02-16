@@ -1,5 +1,23 @@
-    <form t:condition="contains(@action, 'reserve')">
-     {let $input := css("td.barcode")[contains(., $holding.id)]/..//input[starts-with(@name, "checkitem_")]
-      return if (exists($input)) then reserve := form(., $input)
-      else vl:raise-internal("Dieses Exemplar konnte nicht vorgemerkt werden.")
-    }</form>
+<t:switch prioritized="true">
+  <form t:condition="contains(@action, 'reserve')">
+    <t:switch prioritized="true">
+      <table class="table">
+        <tr>
+          <input t:condition="starts-with(@name, 'checkitem_')">
+            {reserve := form(ancestor::form[1], .)}
+          </input>
+          <td class="barcode" t:condition="contains(., $holding.id)">
+          </td>
+        </tr>
+      </table>
+      
+      <input type="radio" class="confirmbox checkitem">
+        {reserve := form(ancestor::form[1], .)}
+      </input>       
+   </t:switch>
+  </form>
+  
+  <div class="alert" t:condition="normalize-space()">{vl:raise(.)}</div>
+  <div id="userdetails">{$reserve := ()}</div>
+  <body t:condition="contains(base-uri(), 'opac-user')">{$reserve := ()}</body>
+</t:switch>
