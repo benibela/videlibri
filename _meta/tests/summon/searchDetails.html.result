@@ -1,22 +1,2 @@
 book := {}
-option := "Band:"
-option := "Autor:"
-option := "Format:"
-option := "Sprache:"
-option := "Erscheinungsdaten:"
-option := "Umfang:"
-option := "ISBN:"
-option := "ULB Notation:"
-option := "RVK Notation:"
-option := "Fach:"
-option := "Schriftenreihe:"
-option := "Schlagwortfolge:"
-option := "Schlagwort(e):"
-option := "Links:"
-option := "HBZ-ID:"
-option := "Datenbank:"
-option := "Tags:"
-temp := ""
-temp := " Bibliothek: Abt. Nussallee /ZB MED Bonn / Freihandmagazin"
-temp := " Bibliothek: Abt. Nussallee /ZB MED Bonn / Freihandmagazin Signatur: 2005/27246"
-book := {"Band!": "eXamen.press", "Datenbank!": "Katalog der ULB Bonn", "Erscheinungsdaten!": "Berlin [u.a.]\t\t\t\t\t\t\t\t : Springer\t\t\t\t\t\t\t\t, 2006 ", "Exemplar!": " Bibliothek: Abt. Nussallee /ZB MED Bonn / Freihandmagazin Signatur: 2005/27246", "Fach!": "Computer Science", "Format!": " Buch ", "HBZ-ID!": "HT014313509\t\t\t\t» weitere Bestände in NRW ( http://193.30.112.134/F/?func=find-c&ccl_term=IDN=HT014313509 )", "ISBN!": "3-540-23805-0 978-3-540-23805-8 ", "Links!": "Inhaltsbeschreibung ( http://digitool.hbz-nrw.de:1801/webclient/DeliveryManager?pid=1504959&custom_att_2=simple_viewer )", "RVK Notation!": " ST 260", "Schlagwort(e)!": "  Betriebssystem    Computer Science    LINUX  ", "Schlagwortfolge!": " Betriebssystem  LINUX  ", "Schriftenreihe!": " eXamen.press ", "Sprache!": "German", "Tags!": "  Tag hinzufügen   Keine Tags, Fügen Sie den ersten Tag hinzu! ", "ULB Notation!": "INF G ( /Summon/Search?join=AND&bool0%5B%5D=AND&lookfor0%5B%5D=INF+G&type0%5B%5D=ClassificationCodes_ULB http://www.ulb.uni-bonn.de/literatursuche/Systematische%20Suche%20der%20ULB )", "Umfang!": "XV, 290 S. : graph. Darst.", "_order-url": null, "author": "Achilles, Albrecht", "image-url": "file:///Cover/Show?size=medium&isn=3540238050&contenttype=Book", "orderable": true}
+book := {"Autor:!!": "Achilles, Albrecht", "Band:!!": "eXamen.press", "Datenbank:!!": "Katalog der ULB Bonn", "Erscheinungsdaten:!!": "Berlin [u.a.]\t\t\t\t\t\t\t\t : Springer\t\t\t\t\t\t\t\t, 2006", "Fach:!!": "Computer Science", "Format:!!": "Buch", "HBZ-ID:!!": "HT014313509\t\t\t\t» weitere Bestände in NRW", "ISBN:!!": "3-540-23805-0\n\t\t\t\t\t\t\t\t\t978-3-540-23805-8", "Links:!!": "Inhaltsbeschreibung", "RVK Notation:!!": "ST 260", "Schlagwort(e):!!": "Betriebssystem\n                              \n                \n                                            \t                \tComputer Science\n                              \n                \n                                            \t                \tLINUX", "Schlagwortfolge:!!": "Betriebssystem        LINUX", "Schriftenreihe:!!": "eXamen.press", "Sprache:!!": "German", "Tags:!!": "Tag hinzufügen\n        \n        \n                      Keine Tags, Fügen Sie den ersten Tag hinzu!", "ULB Notation:!!": "INF G", "Umfang:!!": "XV, 290 S. : graph. Darst.", "image-url": "file:///Cover/Show?size=medium&isn=3540238050&contenttype=Book"}

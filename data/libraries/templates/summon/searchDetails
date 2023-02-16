@@ -1,36 +1,14 @@
 <body>
-<DIV id="record" class="record recordId sourceSummon">
-  <DIV>
-    <TABLE class="citation">
+  <div class="record sourceSummon">
+    <TABLE>
       <t:loop>
-        <TR>
-          <TH>{$option}</TH>
-          <TD>{switch (@class) 
-            case "recordAuthor" return $book.author := .
-            case "recordSecAuthor" return $book.author := $book.author || ", " || .
-          (:  case "recordLanguage" return $book.language := .:)
-            default return $book(translate($option, ":", "") || "!") := if (.//a[starts-with(@href, "http")]) then x"{.} ( {.//a/@href} )" else join(.//text())
-          }</TD>
-        </TR>
+        <TR>{
+          vl:set-book-property(th, td)
+        }</TR>
       </t:loop>
-    </TABLE>
+    </TABLE> 
   </DIV>
-  
-  <img class="recordcover">{$book.image-url := resolve-html(.)}</img>?
-</DIV>
-
-<div class="recordsubcontent">
-  <table class="citation"> {temp := ""}
-    <t:loop>
-    <tr><th></th>
-      {if (@id = "exeStatus") then (
-        $book("Exemplar!") := join(($temp, td/a)),
-        $book._order-url := resolve-html(td/a),
-        $book.orderable := true()
-       ) else $temp := join(($temp,th,td)) }
-    </tr>
-    </t:Loop>
-  </table>?
-</div>
-  
+{
+  $book.image-url := resolve-html(css("img.recordcover"))
+} 
 </body>

@@ -1,21 +1,2 @@
 book := {}
-option := "Band:"
-option := "Autor:"
-option := "Format:"
-option := "Sprache:"
-option := "Abweichender Titel:"
-option := "Erscheinungsdaten:"
-option := "Umfang:"
-option := "ISBN:"
-option := "Fach:"
-option := "Schriftenreihe:"
-option := "Schlagwortfolge:"
-option := "Schlagwort(e):"
-option := "Links:"
-option := "HBZ-ID:"
-option := "Datenbank:"
-option := "Tags:"
-temp := ""
-temp := " Bibliothek: Hauptbibliothek Adenauerallee"
-temp := " Bibliothek: Hauptbibliothek Adenauerallee Signatur: P 2014/921"
-book := {"Abweichender Titel!": "Practical Vim <dt.> ", "Band!": "¬The pragmatic programmers", "Datenbank!": "Katalog der ULB Bonn", "Erscheinungsdaten!": "Beijing ; Köln [u.a.]\t\t\t\t\t\t\t\t : O'Reilly\t\t\t\t\t\t\t\t, 2014 ", "Exemplar!": " Bibliothek: Hauptbibliothek Adenauerallee Signatur: P 2014/921 bestellbar aus dem Magazin - hier bestellen!", "Fach!": "Computer Science", "Format!": " Buch ", "HBZ-ID!": "HT018093037\t\t\t\t» weitere Bestände in NRW ( http://193.30.112.134/F/?func=find-c&ccl_term=IDN=HT018093037 )", "ISBN!": "978-3-95561-578-9 ", "Links!": "Inhaltsbeschreibung\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tInhaltsbeschreibung ( http://digitool.hbz-nrw.de:1801/webclient/DeliveryManager?pid=5464006&custom_att_2=simple_viewer http://digitool.hbz-nrw.de:1801/webclient/DeliveryManager?pid=5464005&custom_att_2=simple_viewer )", "Schlagwort(e)!": "  Vim  ", "Schlagwortfolge!": " Vim  ", "Schriftenreihe!": " The pragmatic programmers ", "Sprache!": "German\t\t\t\t    (Aus dem Engl. übers.)", "Tags!": "  Tag hinzufügen   Keine Tags, Fügen Sie den ersten Tag hinzu! ", "Umfang!": "XXVII, 353 S. : graph. Darst.", "_order-url": "file:///SummonRecord/FETCH-bonn_catalog_39734832/OrderSISIS?mnr=P2014%2F921&cir=loanableStack", "author": "Neil, Drew", "image-url": "file:///Cover/Show?size=medium&isn=3955615782&contenttype=Book", "orderable": true}
+book := {"Abweichender Titel:!!": "Practical Vim <dt.>", "Autor:!!": "Neil, Drew", "Band:!!": "¬The pragmatic programmers", "Datenbank:!!": "Katalog der ULB Bonn", "Erscheinungsdaten:!!": "Beijing ; Köln [u.a.]\t\t\t\t\t\t\t\t : O'Reilly\t\t\t\t\t\t\t\t, 2014", "Fach:!!": "Computer Science", "Format:!!": "Buch", "HBZ-ID:!!": "HT018093037\t\t\t\t» weitere Bestände in NRW", "ISBN:!!": "978-3-95561-578-9", "Links:!!": "Inhaltsbeschreibung\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tInhaltsbeschreibung", "Schlagwort(e):!!": "Vim", "Schlagwortfolge:!!": "Vim", "Schriftenreihe:!!": "The pragmatic programmers", "Sprache:!!": "German\t\t\t\t    (Aus dem Engl. übers.)", "Tags:!!": "Tag hinzufügen\n        \n        \n                      Keine Tags, Fügen Sie den ersten Tag hinzu!", "Umfang:!!": "XXVII, 353 S. : graph. Darst.", "image-url": "file:///Cover/Show?size=medium&isn=3955615782&contenttype=Book"}

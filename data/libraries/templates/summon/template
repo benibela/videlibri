@@ -44,7 +44,7 @@
   <s>
     i := 0,
     request := uri-combine(x"{$baseurl}/Summon/Search?join=AND&amp;", 
-      (for $key in jn:keys($book) return if (boolean($book($key)) and exists($search-keys($key))) then (
+      (for $key in jn:keys($book) return if (boolean(normalize-space($book($key))) and exists($search-keys($key))) then (
               {x"bool{$i}[]": "AND", x"lookfor{$i}[]": $book($key), x"type{$i}[]": $search-keys($key)},
               (i := $i + 1)[2]
             ) else () ) )

@@ -1,0 +1,24 @@
+book := {}
+search-result-count := 9074975
+book := {"author": "", "home-url": "file:///SummonRecord/FETCH-bonn_catalog_25654783", "title": "TEST: an official journal of the Spanish Society of Statistics and Operations Research", "year": ""}
+book := {"author": "", "home-url": "file:///SummonRecord/FETCH-bonn_catalog_39525483", "title": "IEEE design & test: D & T", "year": ""}
+book := {"author": "Qiu, Juntao", "home-url": "file:///SummonRecord/FETCH-bonn_catalog_50216263", "title": "Test-Driven Development with React: Apply Test-Driven Development in Your Applications", "year": "2021"}
+book := {"author": "Seidl, Richard; Baumgartner, Manfred; Gwihs, Stefan; Steirer, Thomas; Wendland, Marc-Florian; Seidl, Julian", "home-url": "file:///SummonRecord/FETCH-bonn_catalog_49617463", "title": "Test Automation Fundamentals: A Study Guide for the Certified Test Automation Engineer Exam – Advanced Level Specialist – ISTQB® Compliant", "year": "2022"}
+book := {"author": "Shojima, Kojiro", "home-url": "file:///SummonRecord/FETCH-bonn_catalog_49569233", "title": "Test Data Engineering: Latent Rank Analysis, Biclustering, and Bayesian Network", "year": "2022"}
+book := {"author": "Pajankar, Ashwin", "home-url": "file:///SummonRecord/FETCH-bonn_catalog_50218213", "title": "Python Unit Test Automation: Automate, Organize, and Execute Unit Tests in Python", "year": "2022"}
+book := {"author": "\"Mürtz, Tassilo\"", "home-url": "file:///SummonRecord/FETCH-bonn_catalog_51003663", "title": "\"Meca-Medina-Test des EuGH\"", "year": "2023"}
+book := {"author": "Sharpe, Pamela J", "home-url": "file:///SummonRecord/FETCH-bonn_catalog_41504002", "title": "Barron's TOEFL iBT: internet-based test ; [most up-to-date review and practice tests currently available ...]", "year": "2013"}
+book := {"author": "Corder, Gregory W; Foreman, Dale I", "home-url": "file:///SummonRecord/FETCH-LOGICAL-a39303-409f320d4fb0da1bda5afe6ea64ab847eddfee3113da632bbfa4cc499a941e7e0", "title": "Nonparametric Statistics for Non-Statisticians: A Step-by-Step Approach", "year": "2011"}
+book := {"author": "University, HeadSpin", "home-url": "file:///SummonRecord/FETCH-bonn_catalog_47594013", "title": "Test Automation with Python: 2 Python for Testers", "year": "2021"}
+book := {"author": "Wenz, Christian", "home-url": "file:///SummonRecord/FETCH-bonn_catalog_48220813", "title": "C# Test-Driven Development", "year": "2021"}
+book := {"author": "", "home-url": "file:///SummonRecord/FETCH-bonn_catalog_50867683", "title": "VLSI Design and Test: 26th International Symposium, VDAT 2022, Jammu, India, July 17–19, 2022, Revised Selected Papers", "year": ""}
+book := {"author": "Educational Testing Service", "home-url": "file:///SummonRecord/FETCH-bonn_catalog_41757702", "title": "Official TOEFL iBT tests", "year": ""}
+book := {"author": "", "home-url": "file:///SummonRecord/FETCH-bonn_catalog_47993142", "title": "TOEFL iBT Prep", "year": ""}
+book := {"author": "Lecoutre, Bruno", "home-url": "file:///SummonRecord/FETCH-bonn_catalog_50131093", "title": "The Significance Test Controversy Revisited: The Fiducial Bayesian Alternative", "year": "2022"}
+book := {"author": "Management, Michael", "home-url": "file:///SummonRecord/FETCH-bonn_catalog_50349663", "title": "Test Driven Development with ABAP", "year": "2022"}
+book := {"author": "", "home-url": "file:///SummonRecord/FETCH-bonn_catalog_3831572", "title": "Test", "year": ""}
+book := {"author": "Matsinopoulos, Panos", "home-url": "file:///SummonRecord/FETCH-bonn_catalog_50213663", "title": "Practical Test Automation: Learn to Use Jasmine, RSpec, and Cucumber Effectively for Your TDD and BDD", "year": "2020"}
+book := {"author": "Spiers, T.", "home-url": "file:///SummonRecord/FETCH-hal_primary_oai_HAL_hal_03695729v10", "title": "Test", "year": "2022"}
+book := {"author": "Bennell, Kim; Dobson, Fiona; Hinman, Rana", "home-url": "file:///SummonRecord/FETCH-LOGICAL-c2318-b9fc50ea7b93a889084bde4bf0069812301f112e08faeb8bc3b4f493d38e01573", "title": "Measures of physical performance assessments: Self‐Paced Walk Test (SPWT), Stair Climb Test (SCT), Six‐Minute Walk Test (6MWT), Chair Stand Test (CST), Timed Up & Go (TUG), Sock Te...", "year": ""}
+next-page := ()
+next-page := "file:///Summon/Search?join=AND&amp;bool0%5B%5D=AND&amp;lookfor0%5B%5D=test&amp;type0%5B%5D=Title&amp;page=2"

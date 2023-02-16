@@ -1,47 +1,34 @@
 <BODY>
  <t:switch prioritized="true">
-      <DIV class="main">
-        <DIV>
-          <DIV class="resulthead">
-            <DIV class="floatleft">
-              <STRONG/>
-              <STRONG/>
-              <STRONG>{$search-result-count}</STRONG>
-            </DIV>
-          </DIV>
-          <FORM name="bulkActionForm">
-            <UL class="recordSet">
-              <t:loop>
-                <DIV>
-                  <DIV>
-                    <LI class="result">
-                        <DIV class="result sourceSummon recordId">
-                          <DIV>{.}</DIV>
-                          <DIV>
-                            <DIV>
-                              <DIV>
-                                <A class="title">{$book := {"title": ., "home-url": resolve-html(.) } }</A>
-                              </DIV>
-                              <DIV class="resultItemLine2">
-                              {$book.author := join( if (./br) then ./br/preceding-sibling::a else ./a, ", " ),
-                               $book.year := extract((.//text())[last()], "[0-9]{4}") 
-                              }
-                              </DIV>
-                            </DIV>
-                          </DIV>
-                        </DIV>
-                    </LI>
-                  </DIV>
-                </DIV>
-              </t:loop>
-            </UL>
-            <DIV id="paginationResultlist">{$next-page := resolve-html(.//a[matches(., "nächste Seite|»")])}</DIV>
-          </FORM>
-        </DIV>
-      </DIV>
+    <DIV class="main">
+      <div class="search-stats">
+        <strong/>
+        <strong>{$search-result-count := translate(., ".,", "") -> xs:integer()}</strong>+
+      </div>
  
-  <h3>No Results!<t:s>$search-result-count:=0, $next-page := ()</t:s></h3>
-  <h3>Ihre Suche erzielte keine Treffer!<t:s>$search-result-count:=0, $next-page := ()</t:s></h3>
+        <UL class="recordSet">
+          <t:loop> 
+            <LI class="result">
+              <div class="result-body">
+                 <A class="title">{$book := {"title": normalize-space(), "home-url": resolve-html(.) } }</A>
+                 {let $authors := .//A[contains(@href, "type=Author")]
+                  return ($book.author := join($authors, "; "),
+                    $book.year := extract($authors[last()]/following-sibling::br/following-sibling::text()[1], "[0-9]+\s*$")
+                  ) }
+              </div>
+            </LI>
+
+          </t:loop>
+        </UL>
+        <ul class="pagination">
+          {$next-page := ()}
+          <li><a class="page-next">{$next-page := resolve-html(.)}</a></li>?
+        </ul>
+ 
+    </DIV>
+ 
+
+  <h2>Keine Ergebnisse!<t:s>$search-result-count:=0, $next-page := ()</t:s></h2>
   <div class="error">{vl:raise(.)}</div>
  </t:switch>
 </BODY>

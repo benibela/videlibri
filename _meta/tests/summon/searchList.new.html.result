@@ -1,0 +1,11 @@
+book := {}
+search-result-count := 8
+book := {"author": "Lecoutre, Bruno", "home-url": "file:///SummonRecord/FETCH-bonn_catalog_50131093", "title": "The Significance Test Controversy Revisited: The Fiducial Bayesian Alternative", "year": "2022"}
+book := {"author": "Lecoutre, Bruno; Poitevineau, Jacques", "home-url": "file:///SummonRecord/FETCH-LOGICAL-b1168-6aa838a24655cf3c7238b8fdc7d36ba6951e439e2fcc857fd05e979764f407870", "title": "The Significance Test Controversy Revisited : The Fiducial Bayesian Alternative", "year": "2022"}
+book := {"author": "Lecoutre, Bruno; Poitevineau, Jacques", "home-url": "file:///SummonRecord/FETCH-uclouvain_repository_oai_dial_uclouvain_be_ebook_2745080", "title": "The Significance Test Controversy Revisited The Fiducial Bayesian Alternative", "year": "2022"}
+book := {"author": "Lecoutre, Bruno; Poitevineau, Jacques", "home-url": "file:///SummonRecord/FETCH-usaintlouis_repository_oai_dial_uclouvain_be_ebook_2745080", "title": "The Significance Test Controversy Revisited The Fiducial Bayesian Alternative", "year": "2022"}
+book := {"author": "Lecoutre, Bruno; Poitevineau, Jacques", "home-url": "file:///SummonRecord/FETCH-LOGICAL-a730x-3a2fa503cba367306f1b659693bf76e1974f6153ae8bb448b6cd54f2ca48d823", "title": "The Significance Test Controversy Revisited: The Fiducial Bayesian Alternative", "year": "2022"}
+book := {"author": "Lecoutre, Bruno; Poitevineau, Jacques", "home-url": "file:///SummonRecord/FETCH-springer_books_10_1007_978_3_662_65705_8_50", "title": "The Significance Test Controversy Revisited", "year": ""}
+book := {"author": "Lecoutre, Bruno; Poitevineau, Jacques", "home-url": "file:///SummonRecord/FETCH-springer_books_10_1007_978_3_662_65705_8_30", "title": "Three Views of Statistical Tests", "year": ""}
+book := {"author": "Lecoutre, Bruno; Poitevineau, Jacques", "home-url": "file:///SummonRecord/FETCH-biblioboard_primary_oai_biblioboard_com_f8029eea_4b6b_11ed_bbd2_0a9b31268bf50", "title": "Three Views of Statistical Tests - Chapter 3", "year": "2022"}
+next-page := ()
