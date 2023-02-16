@@ -8,6 +8,7 @@
 
   <template value="digibib7">
     <variable name="searchurl" value="https://stb-moenchengladbach.digibib.net/search/bibkataloge"/>
+    <variable name="searchparams" value="srvgroup=rheinruhr&amp;s-sbmgl=on"/>
   </template>
 
 

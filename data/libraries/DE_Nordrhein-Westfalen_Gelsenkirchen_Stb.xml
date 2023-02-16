@@ -11,6 +11,7 @@
 
   <template value="digibib7">
     <variable name="searchurl" value="https://stb-gelsenkirchen.digibib.net/search/bibkataloge"/>
+    <variable name="searchparams" value="srvgroup=rheinruhr&amp;s-sbgel=on"/>
   </template>
 
 

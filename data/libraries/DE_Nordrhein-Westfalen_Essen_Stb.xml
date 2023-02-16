@@ -8,6 +8,7 @@
 
   <template value="digibib7">
     <variable name="searchurl" value="https://stb-essen.digibib.net/search/bibkataloge"/>
+    <variable name="searchparams" value="srvgroup=rheinruhr&amp;s-sbes=on"/>
   </template>
 
   <homepage value="https://www.stadtbibliothek-essen.de"/>

@@ -1,58 +1,46 @@
 <t:switch prioritized="true">
-<body>
-<!--  <header class="d7-result-header">
-    <h3 id="h-result-hbzfix">
-      <strong>{$search-result-count := replace(., "[^0-9]", "") => xs:integer()}</strong>
-    </h3>
-  </header>-->
-  
-  <li class="page-item">
-    <a class="page-link">
-      <svg class="icon-arrow-right"/>
-      {search-next-page-available := true(),
-       next-page := resolve-html()}
-    </a>
-  </li>?
-  
-  
-  <ol class="d7-result-itemlist">
-    <li>
-      {get("search-result-count") otherwise ($search-result-count := @aria-setsize!xs:integer(.) ),
-       $book := {}}
-      <div class="d7-item-body">
-        <div class="d7-item-main">
-          <div class="d7-item-info">
-            <div class="d7-item-title">
-              <a data-result-full-link="">
-                <span data-d7-truncate="medium">{$book.title}</span>
-                {book.digibib-url := resolve-html()}
-              </a> 
-            </div>
-          <div class="d7-item-desc">
-            <div class="d7-item-shortdesc">
-              <div class="d7-item-author">{$book.author}</div>?
-              <div>{
-                let $split := extract(., "((.* )- )?(([^:]+): )?(([^:]+): )?([0-9]+)$", (2,4,6,7))
-                return (
-                  $book.year := $split[4],
-                  $book.publisher := $split[3] ! (if (contains(., $book.year)) then replace(., "[(]?[0-9]+[)]?", "") else .) => normalize-space(),
-                  $book.location := $split[2] ! (if (contains(., ";")) then substring-after(., ";") else .) => normalize-space()
-                )
-              }</div>
-              <!--6./7. Aufl.. - Berlin: Schuster &amp; Loeffler: 1905</div>*-->
-              <span class="d7-item-typeinfo">
-                <svg/>
-                <span>{$book.category}</span>
-              </span>
-             </div>
+<ol t:condition="contains(@class, 'd7-result-itemlist') or @d7-result-itemlist">
+  <li>
+    {get("search-result-count") otherwise ($search-result-count := @aria-setsize!xs:integer(.) ),
+     $book := {}}
+    <div class="d7-item-body">
+      <div class="d7-item-main">
+        <div class="d7-item-info">
+          <div class="d7-item-title">
+            <a data-result-full-link="">
+              <span data-d7-truncate="medium">{$book.title}</span>
+              {book.digibib-url := resolve-html()}
+            </a> 
+          </div>
+        <div class="d7-item-desc">
+          <div class="d7-item-shortdesc">
+            <div class="d7-item-author">{$book.author}</div>?
+            <div>{
+              let $split := extract(., "((.* )- )?(([^:]+): )?(([^:]+): )?([0-9]+)$", (2,4,6,7))
+              return (
+                $book.year := $split[4],
+                $book.publisher := $split[3] ! (if (contains(., $book.year)) then replace(., "[(]?[0-9]+[)]?", "") else .) => normalize-space(),
+                $book.location := $split[2] ! (if (contains(., ";")) then substring-after(., ";") else .) => normalize-space()
+              )
+            }</div>
+            <!--6./7. Aufl.. - Berlin: Schuster &amp; Loeffler: 1905</div>*-->
+            <span class="d7-item-typeinfo">
+              <svg/>
+              <span>{$book.category}</span>
+            </span>?
            </div>
          </div>
        </div>
-      </div>
-     </li>+
-   </ol>
-</body>
+     </div>
+    </div>
+   </li>+
+ </ol>
 
+
+<div class="d7-section" t:condition="exists(@data-d7-result) and exists(@data-metasearch-resulturl)">
+  {$search-next-page-available := true(),
+   next-page := @data-metasearch-resulturl}
+</div> 
 
 <div class="badge d7-relatedview-hitcount"><span aria-hidden="true">0</span>{$search-result-count:=0}</div>
 
