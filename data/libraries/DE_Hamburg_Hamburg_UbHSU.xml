@@ -5,7 +5,7 @@
   <longName value="Universitätsbibliothek der Helmut-Schmidt-Universität Hamburg"/>
   <shortName value="HSU Hamburg"/>
   
-  <template value="pica"/>  
+  <template value="lbs"/>  
   <variable name="server" value="https://ub.hsu-hh.de/"/>
 
 

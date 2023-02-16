@@ -6,9 +6,9 @@
   <shortName value="BeuthHS Berlin"/> 
   
   <template value="sisis"/>  
-  <variable name="server" value="https://webopac.beuth-hochschule.de/webOPACClient.bhssis/"/>
+  <variable name="server" value="https://webopac.bht-berlin.de/webOPACClient.bhssis/"/>
   
-  <homepage value="http://www.beuth-hochschule.de/bibliothek/"/>
+  <homepage value="https://www.bht-berlin.de/bibliothek/"/>
   <testing-search value="yes"/>
   <testing-account value="yes"/>
   

@@ -7,8 +7,8 @@
   <shortName value="Stabue Holzgerlingen"/>
   
   <template value="bibliothecaplus"/>
-  <variable name="urlaccount" value="https://open.rz-kiru.de/holzgerlingen/MeinKonto.aspx"/>	
-  <variable name="urlsearch" value="https://open.rz-kiru.de/holzgerlingen/Mediensuche/ErweiterteSuche.aspx"/>
+  <variable name="urlaccount" value="https://bibliothek.komm.one/holzgerlingen/Mein-Konto"/>	
+  <variable name="urlsearch" value="https://bibliothek.komm.one/holzgerlingen/Mediensuche/Erweiterte-Suche"/>
 
 
   <homepage value="http://www.stabue-holzgerlingen.de"/>
