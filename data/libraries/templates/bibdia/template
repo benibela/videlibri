@@ -3,6 +3,7 @@
 
 <meta>
   <description>Biber BIBDIA</description>
+  <variable name="baseurl"><description>Adresse des Katalogs</description></variable>
 </meta>
 
 
@@ -10,38 +11,33 @@
 </action>
 
 <action id="update-all"> 
+  <s>login := request-combine({"method": "POST", "url": get("loginurl", $baseurl || "/login.S") },
+                              {
+                                "BENUTZER": $username, 
+                                "FUNC": "login",
+                                "DUM1": "",
+                                "LANG": "de",
+                                "PASSWORD": $password
+                              }),
+     user-medk := (), 
+     user-vorm := ()</s>
+  <page url="{$login}"/>
+  <pattern><t:switch prioritized="true">
+    <form> 
+      <input name="FUNC" value="medk"/>
+      {user-medk := form(., {"FUNC": "medk"}), $user-medk.url :=  $baseurl || "/user.C",
+       user-vorm := form(., {"FUNC": "vorm"}), $user-vorm.url :=  $baseurl || "/user.C"
+      }
+    </form>
+    <form name="medkl">{user-medk := $login}<!--somehow the login to login.C lead to the list of lend books--></form>
+    <td>Benutzernummer ungültig<t:s>vl:raise-login(.)</t:s> </td>
+    <td>Benutzernummer / Password ungültig<t:s>vl:raise-login(.)</t:s> </td>
+    <form name="errorl">{vl:raise(join(//table))}</form>
+  </t:switch></pattern>
   <s>vl:delete-current-books()</s>
-  <try>
-    <loop list="('medk', 'vorm')" var="func">
-      <page url="{$baseurl}/user.C" templateFile="update">
-        <post name="BENUTZER" value="{$username}"/>
-        <post name="FUNC" value="{$func}"/>
-        <post name="LANG" value="de"/>
-        <post name="PASSWORD" value="{$password}"/>
-      </page>
-    </loop>
-  <catch errors="*"><!--The following is primarily for checking invalid passwords: -->
-    <page url="{$baseurl}/login.C">
-      <post name="BENUTZER" value="{$username}"/>
-      <post name="FUNC" value="login"/>
-      <post name="DUM1" value=""/>
-      <post name="LANG" value="de"/>
-      <post name="PASSWORD" value="{$password}"/>
-    </page>
-    <pattern><t:switch prioritized="true">
-      <form> 
-        <input name="FUNC" value="medk"/>
-        {next := form(., {"FUNC": "medk"})}
-      </form>
-      <form name="medkl">{next := ()}<!--somehow the login to login.C lead to the list of lend books--></form>
-      <td>Benutzernummer ungültig<t:s>vl:raise-login(.)</t:s> </td>
-      <td>Benutzernummer / Password ungültig<t:s>vl:raise-login(.)</t:s> </td>
-      <form name="errorl">{vl:raise(join(//table))}</form>
-    </t:switch></pattern>
-    <page url="{$next}"/> 
-    <pattern href="update"/>
-  </catch>
-  </try>
+  
+  <page url="{$user-medk}" pattern-href="update"/> 
+  <page url="{$user-vorm}" pattern-href="update"/> 
 </action>
 
 <action id="update-single">
