@@ -1,0 +1,5 @@
+* bibdia: Mache einen normalen Login, statt direkt die Liste der Ausleihen zu öffnen.
+* Anpassung an geänderte Kataloge der Gemeindebücherei Hirschberg, Stabue Holzgerlingen, Stadtbibliothek Blankenloch, Städtischen Bibliotheken Singen, BeuthHS Berlin, Universitätsbibliothek Bonn, und Universitätsbibliothek der Helmut-Schmidt-Universität Hamburg.
+* koha/Verl: Breche die Vormerkung nicht ab, wenn kein Exemplar ausgewählt werden kann.
+* sisis/Leipzig: Änderung des erwarteten Textes bei einer Verlängerungsbestätigung.
+* Kontoansicht bei dem Arena-Bibliothekssystem von Axiell.

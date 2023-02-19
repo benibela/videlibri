@@ -1,0 +1,7 @@
+* bibdia: always call login page rather than skipping to user page
+* new urls for Gemeindebücherei Hirschberg, Stadtbibliothek Blankenloch, Stabue Holzgerlingen, Städtischen Bibliotheken Singen, BeuthHS Berlin, ULB Bonn, and Universitätsbibliothek der Helmut-Schmidt-Universität Hamburg
+* koha/Verl: try to fix reserving of single items
+* sisis/Leipzig: check for Leihfristende not "neues Leihfristende"
+* Kontoansicht bei dem Arena-Bibliothekssystem von Axiell.
+* Digibib 7: fixes for Bochum/Essen/Gelsenkirchen/Mönchengladbach
+* Account viewing in Arena OPAC by Axiell
