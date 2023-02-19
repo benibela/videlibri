@@ -1,0 +1,62 @@
+<body>
+
+<div class="portlet" id="portlet_loansWicket_WAR_arenaportlet"> 
+  <div class="portlet-content"> 
+    <form t:condition="contains(@action, 'p_p_id=loansWicket_WAR_arenaportlet')">  
+    <table id="loansTable"> 
+     <thead> 
+       <tr> <th class="arena-renewal-checkbox"/>
+            <th class="arena-renewal-loan"></th> 
+            <th class="arena-renewal-date"></th> 
+            <th class="arena-renewal-status"></th> 
+       </tr> 
+     </thead>
+     <tr>
+         <th>{$book := {"_internalId": ./input/concat(@name, "=", @value)}}</th>  
+         <td>
+         <span class="arena-record-id">{$book.id}</span>?
+         <div class="arena-record-author"> <span/> <span>{$book.author}</span> </div>?
+         <div class="arena-record-year"> <span/> <span>{$book.year}</span> </div>?
+         <!--
+         <div class="arena-record-media"> <span/> <span>{$book.mediaType}</span> </div> 
+         <div class="arena-record-branch"> <span/> <span>{$book.libraryLocation}</span> </div> 
+         -->
+         </td>
+         <td>{$book.dueDate := parse-date(.)}</td>
+         <td>{normalize-space()! ( $book.status := . )}</td>
+		   </tr>+
+     </table>
+     </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+		
+<div class="portlet" id="portlet_reservationsWicket_WAR_arenaportlet">
+  <div class="portlet-content">
+<!--
+
+	<div class="portlet-body">
+
+    	<div class="arena-feedback" role="alert">
+    		<ul class="feedbackPanel">
+				<li class="feedbackPanelINFO">
+					<span class="feedbackPanelINFO">Keine Reservierungen vorhanden</span>
+				</li>
+			</ul>	        		
+        	</div>			
+       
+-->        
+    </div>
+</div>
+    
+</body>

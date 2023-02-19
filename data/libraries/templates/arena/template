@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+
+<meta>
+  <description>Arena von Axiell (nur Kontoansicht, keine Suche)</description>
+  <variable name="baseurl"><description>Adresse des Katalogs</description></variable>
+</meta>
+
+<action id="connect">
+</action>
+
+<action id="update-all"> 
+  <page url="{$baseurl}/web/arena/protected/my-account/overview"/>
+  <pattern href="login-form"/>
+  
+  <page url="{$login-form}"/>
+  <pattern href="overview"/>
+  
+</action>
+
+<action id="renew-list">
+</action>
+
+<action id="cancel-list">
+</action>
+
+
+</actions>
