@@ -4,7 +4,8 @@
 <tr> 
   <td>
     <strong>Titel:</strong>
-    <strong>neues Leihfristende:</strong>
+     <template:meta default-text-matching="contains"/>
+    <strong>Leihfristende:</strong>
   </td>
   {$need-update:=true}
 </tr>
