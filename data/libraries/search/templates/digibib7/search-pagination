@@ -1,0 +1,8 @@
+
+<li class="page-item" t:optional="true" t:condition="not(contains-token(@class, 'disabled'))">
+  <a class="page-link">
+    <svg class="icon-arrow-right"/>
+    {search-next-page-available := true(),
+     next-page := resolve-html()}
+  </a>
+</li>
