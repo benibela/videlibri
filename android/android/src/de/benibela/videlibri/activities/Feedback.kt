@@ -172,7 +172,7 @@ class Feedback : VideLibriBaseActivity() {
         }
 
         findViewById<View>(R.id.acra).setOnClickListener {
-            ACRA.getErrorReporter().apply {
+            ACRA.errorReporter.apply {
                 if (findViewById<CheckBox>(R.id.feedbackACRAIncludeErrors).isChecked) {
                     val details = findViewById<CheckBox>(R.id.feedbackACRAIncludeErrorDetails).isChecked
                     val anonymousDetails = findViewById<CheckBox>(R.id.feedbackACRAIncludeErrorAnonymousDetails).isChecked

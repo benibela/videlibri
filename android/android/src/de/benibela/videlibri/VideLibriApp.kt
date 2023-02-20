@@ -15,39 +15,25 @@ import android.util.Log
 import de.benibela.internettools.Config
 import de.benibela.internettools.X509TrustManagerWithAdditionalKeystores
 import de.benibela.videlibri.activities.*
-import de.benibela.videlibri.activities.SearchEventHandler
 import de.benibela.videlibri.internet.UserKeyStore
 import de.benibela.videlibri.internet.VideLibriKeyStore
-import de.benibela.videlibri.jni.*
+import de.benibela.videlibri.jni.Bridge
+import de.benibela.videlibri.jni.globalOptionsAndroid
+import de.benibela.videlibri.jni.globalOptionsShared
+import de.benibela.videlibri.jni.save
 import de.benibela.videlibri.notifications.NotificationScheduling
 import de.benibela.videlibri.notifications.Notifier
 import de.benibela.videlibri.utils.*
-import de.benibela.videlibri.utils.DialogEvent
 import org.acra.ACRA
-import org.acra.BuildConfig
-import org.acra.annotation.AcraCore
-import org.acra.annotation.AcraDialog
-import org.acra.annotation.AcraHttpSender
-import org.acra.config.HttpSenderConfigurationBuilder
+import org.acra.config.dialog
+import org.acra.config.httpSender
 import org.acra.data.StringFormat
+import org.acra.ktx.initAcra
 import org.acra.sender.HttpSender
 import org.json.JSONArray
 import org.json.JSONException
 import java.util.*
 
-@AcraCore(buildConfigClass = BuildConfig::class,
-        reportFormat = StringFormat.KEY_VALUE_LIST,
-        resReportSendSuccessToast = R.string.crash_dialog_ok_toast,
-        resReportSendFailureToast = R.string.crash_dialog_fail_toast
-        )
-@AcraHttpSender(uri = "https://www.benibela.de/autoFeedback.php?app=VideLibriACRA",
-        httpMethod = HttpSender.Method.POST,
-        socketTimeout = 5*60*1000,
-        connectionTimeout = 2*60*1000
-        )
-@AcraDialog(resText = R.string.crash_dialog_text,
-        resCommentPrompt = R.string.crash_dialog_comment_prompt
-        )
 class VideLibriApp : Application() {
     override fun onCreate() {
         super.onCreate()
@@ -55,9 +41,23 @@ class VideLibriApp : Application() {
         instance = this
         staticApplicationContext = applicationContext
 
-        val builder = org.acra.config.CoreConfigurationBuilder(this)
-        builder.getPluginConfigurationBuilder(HttpSenderConfigurationBuilder::class.java).setUri("https://www.benibela.de/autoFeedback.php?app=VideLibriA"+ Build.VERSION.SDK_INT)
-        ACRA.init(this, builder)
+        //or attachBaseContext?
+        initAcra {
+            buildConfigClass = de.benibela.videlibri.BuildConfig::class.java
+            reportFormat = StringFormat.KEY_VALUE_LIST
+            httpSender {
+                uri = "https://www.benibela.de/autoFeedback.php?app=VideLibriA${Build.VERSION.SDK_INT}"
+                httpMethod = HttpSender.Method.POST
+                socketTimeout = 5*60*1000
+                connectionTimeout = 2*60*1000
+                reportSendSuccessToast = getString(R.string.crash_dialog_ok_toast)
+                reportSendFailureToast = getString(R.string.crash_dialog_fail_toast)
+            }
+            dialog {
+                text = getString(R.string.crash_dialog_text)
+                commentPrompt = getString(R.string.crash_dialog_comment_prompt)
+            }
+        }
 
         initializeAll(null)
 
@@ -324,7 +324,7 @@ class VideLibriApp : Application() {
             Bridge.initialize(context)
             globalOptionsShared = Bridge.VLGetOptions()
             globalOptionsAndroid = Bridge.VLGetOptionsAndroidOnly()
-            ACRA.getErrorReporter().putCustomData("VL-VERSION", Bridge.VLGetVersion().platform + " " + Bridge.VLGetVersion().buildId)
+            ACRA.errorReporter.putCustomData("VL-VERSION", Bridge.VLGetVersion().platform + " " + Bridge.VLGetVersion().buildId)
             importDeprecatedPreferences(prefs)
             UserKeyStore.loadUserCertificates(globalOptionsAndroid.additionalCertificatesBase64)
             accounts.refreshAll()
