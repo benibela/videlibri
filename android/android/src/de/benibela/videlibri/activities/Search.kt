@@ -437,6 +437,7 @@ internal class SearchDebugTester(private var query: Bridge.Book, startId: String
                 endComplete()
                 VideLibriApp.showPendingExceptions()
             }
+            else -> {}
         }
         return true
     }
