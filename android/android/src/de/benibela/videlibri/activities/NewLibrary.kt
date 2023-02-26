@@ -20,11 +20,13 @@ class NewLibrary : VideLibriBaseActivity() {
     private lateinit var binding: NewlibBinding
 
     var details: LibraryDetails? = null
+    private var trChooseATemplate: String? = null
     private var variables = HashMap<String, LibraryVariable>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = setVideLibriView(NewlibBinding::inflate)
-        val templates = Bridge.VLGetTemplates()
+        trChooseATemplate = getString(R.string.lay_newlib_list_choosesystem)
+        val templates = Bridge.VLGetTemplates().toMutableList().run { add(0, trChooseATemplate); toTypedArray() }
         binding.templateSpinner.setItems(templates)
         binding.templateSpinner.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, i: Int, l: Long) {
@@ -56,23 +58,28 @@ class NewLibrary : VideLibriBaseActivity() {
             binding.deleteButton.visibility = View.GONE
         }
         binding.create.setOnClickListener {
-            val oldId = if (mode == MODE_LIBRARY_MODIFY) intent.getStringExtra("libId") else null
-            val newId = viewId
-            val details = this.details ?: LibraryDetails()
-            details.prettyName = binding.name.text.toString()
-            details.id = newId
-            details.templateId = binding.templateSpinner.selectedItem.toString()
-            details.variableNames = arrayOfNulls(variables.size)
-            details.variableValues = arrayOfNulls(variables.size)
-            var i = 0
-            for ((key, value) in variables) {
-                details.variableNames[i] = key
-                details.variableValues[i] = value.editText?.text?.toString() ?: value.defaultValue
-                i += 1
+            val templateId = binding.templateSpinner.selectedItem.toString()
+            if (templateId == trChooseATemplate) showMessage(R.string.lay_newlib_error_choosesystem)
+            else if (variables.all { it.value.editText?.text?.isBlank() ?: true }) showMessage(R.string.lay_newlib_error_no_parameters)
+            else {
+                val oldId = if (mode == MODE_LIBRARY_MODIFY) intent.getStringExtra("libId") else null
+                val newId = viewId
+                val details = this.details ?: LibraryDetails()
+                details.prettyName = binding.name.text.toString()
+                details.id = newId
+                details.templateId = templateId
+                details.variableNames = arrayOfNulls(variables.size)
+                details.variableValues = arrayOfNulls(variables.size)
+                var i = 0
+                for ((key, value) in variables) {
+                    details.variableNames[i] = key
+                    details.variableValues[i] = value.editText?.text?.toString() ?: value.defaultValue
+                    i += 1
+                }
+                Bridge.VLSetLibraryDetails(newId, details)
+                if (newId != oldId && oldId != null) Bridge.VLSetLibraryDetails(oldId, null)
+                finish()
             }
-            Bridge.VLSetLibraryDetails(newId, details)
-            if (newId != oldId && oldId != null) Bridge.VLSetLibraryDetails(oldId, null)
-            finish()
         }
         //binding.name.requestFocus() //or use scrollView.requestChildFocus(target, target); ??
     }
@@ -111,6 +118,7 @@ class NewLibrary : VideLibriBaseActivity() {
     }
 
     fun selectTemplate(template: String) {
+        if (template == trChooseATemplate) return
         val details =
             try {
                 Bridge.VLGetTemplateDetails(template) ?: return

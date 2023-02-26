@@ -468,5 +468,8 @@
     <string name="xquery_book_tracking_example_regex_dialog">Regex Suche nach:\n(Verwende | um mehrere Suchbegriffe aufzulisten)</string>
     <string name="menu_filter">Filter</string>
     <string name="loading">Lade</string>
+    <string name="lay_newlib_list_choosesystem" >Katalog-System auswählen</string>
+    <string name="lay_newlib_error_choosesystem">Es muss ein Bibliothekssystem ausgewählt werden.</string>
+    <string name="lay_newlib_error_no_parameters">Es muss die Adresse der Bibliothekswebseite eingegeben werden.</string>
 </resources>
 
