@@ -311,7 +311,7 @@
     <string name="passwords">Passwörter</string>
     <string name="lay_booklist_searchfilter_hint">(Offlinesuche in den eigenen Medien und XQuery)</string>
     <string name="menu_debuglog">Debug-Log</string>
-    <string name="debuglog_disabled">Debug-Log ist deaktiviert. Es muss in den Einstellungen aktiviert werden, damit hier
+    <string name="debuglog_disabled">Debug-Log ist deaktiviert für den maximalen Datenschutz. Es muss in den Einstellungen aktiviert werden, damit hier
         etwas sinnvolles angezeigt werden kann.
     </string>
     <string name="notificationNoAccounts">Ohne registrierte Konten können keine Ausleihwarnungen angezeigt werden.</string>

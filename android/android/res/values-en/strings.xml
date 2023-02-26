@@ -298,7 +298,7 @@
     <string name="passwords">Passwords</string>
     <string name="lay_booklist_searchfilter_hint">offline search in own borrowed items and xquery</string>
     <string name="menu_debuglog">Debug-Log</string>
-    <string name="debuglog_disabled">Debug-Log is disabled. You need to enable it in the configuration before anything is shown here.</string>
+    <string name="debuglog_disabled">Debug-Log is disabled for maximal privacy. You need to enable it in the configuration before anything is shown here.</string>
     <string name="notificationNoAccounts">Without registered library cards no due dates can be reported. </string>
     <string name="notificationNoAccountsTitle">VideLibri: No accounts</string>
     <string name="notificationOutdatedData">The lending list has not been synced in a week. Check if all settings are correct and you have an internet connection.</string>
@@ -440,7 +440,7 @@
     <string name="warning_duplicate_account">This account has already been registered in the app. To change the account information, select the account in the options (to open the options use the drawer menu).</string>
     <string name="internalVersion">Internal Version</string>
     <string name="needReadExternalStoragePermissionForImport">Ohne Lese-Berechtigung können keine Daten zum Importieren geladen werden.</string>
-    <string name="delete_library_confirmation">Do you want to delete the library \\\"%s\\\"?</string>
+    <string name="delete_library_confirmation">Do you want to delete the library \"%s\"?</string>
     <string name="lay_options_btn_installupdate">Download and install an update...</string>
     <string name="library_update_dialog_url">Enter the URL of an update providing website:</string>
     <string name="import_file_open_failed">Failed to open file</string>
