@@ -30,6 +30,6 @@
 <strong>Keine Treffer gefunden<t:s>search-result-count:=0</t:s></strong>
 <strong>No results found!<t:s>search-result-count:=0</t:s></strong>
 <h1>Keine Treffer bei der Suche im Bibliothekskatalog<t:s>search-result-count:=0</t:s></h1>
-
+<h1>No results found!<t:s>search-result-count:=0</t:s></h1>
 
 </t:switch>

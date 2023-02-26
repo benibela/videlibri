@@ -15,8 +15,8 @@
  <div id="holdings">
  <table t:condition="contains-token(@class, 'holdingst') or @id = 'holdingst'">
  <tbody>
-  {$book.holdings := tr!{| for $td in td return tokenize($td/@class, " ")!(switch(.)
-    case "itype" return {"Medientyp": $td}
+  {$book.holdings := tr!map:merge(for $td in td return tokenize($td/@class, " ")!(switch(.)
+    case "itype" return {"mediaType": $td}
     case "location" return {"libraryBranch": normalize-space(join($td/node()[not(contains-token(@class, "branch-info-tooltip"))]))}
     case "collection" return {"Sammlung!": $td}
     case "call_no" return {"Regal!": string($td) ! (if (contains(., "(")) then normalize-space(substring-before(., "(")) else . )}
@@ -24,7 +24,7 @@
     case "date_due" return let $duedate := string($td/span[1]/@title) where boolean($duedate) return {"dueDate": parse-date($duedate)}
     case "barcode" return {"barcode": $td}
     case "holds_count" return  let $holds := extract($td,"[0-9]+") where $holds return {"Vormerkungen!": $holds}
-    default return ()) |}
+    default return ()))
   }</tbody></table>?
   </div>
   {$book.orderTitle:="vormerken"}
