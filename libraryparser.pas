@@ -976,7 +976,7 @@ begin
   else begin
     Result:=TMultiPageTemplate.Create();
     try
-      result.loadTemplateWithCallback(@assetFileAsString, 'libraries/templates'+DirectorySeparator+templateName+DirectorySeparator,templateName);
+      result.loadTemplateWithCallback(@assetFileAsString, 'libraries/templates'+DirectorySeparator+templateName+DirectorySeparator,templateName, localeLanguage);
     except
       result.free;
       raise

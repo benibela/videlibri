@@ -1,9 +1,18 @@
 <actions>
 
 <meta>
-  <description>Template für Bibliotheca Plus/OPEN</description>
-  <variable name="urlaccount"><description>Vollständige URL der Seite für den Kontozugriff</description></variable>
-  <variable name="urlsearch"><description>Vollständige URL der Seite für die erweiterte Suche</description></variable>
+  <description lang="de">Schnittstelle für Bibliotheca+ (OPEN)</description>
+  <description lang="en">Interface for Bibliotheca+ (OPEN)</description>
+  <variable name="urlaccount">
+    <description lang="de">Vollständige URL der Seite für den Kontozugriff 
+(beginnt mit "http" und endet meistens mit "Konto" oder "Konto.aspx")</description>
+    <description lang="en">URL to access a library account</description>
+  </variable>
+  <variable name="urlsearch">
+    <description lang="de">Vollständige URL der Seite für die erweiterte Suche 
+(beginnt mit "http" und endet meistens mit "Erweiterte-Suche" oder "Erweiterte-Suche.aspx")</description>
+    <description lang="en">URL for the advanced search in the library OPAC</description>
+  </variable>
 </meta>
 
 <action id="connect"></action>

@@ -3,8 +3,12 @@
 
 
 <meta>
-  <description>Template für die standardisierte SRU-API für Suche in Katalogen</description>
-  <variable name="baseurl"><description>Url des Servers, inklusive Protokoll</description></variable>
+  <description lang="de">Schnittstelle für die standardisierte SRU-API für Suche in Katalogen</description>
+  <description lang="en">Interface for the SRU API for searching in libraries</description>
+  <variable name="baseurl">
+    <description lang="de">URL des Servers, inklusive https:// Protokoll</description>
+    <description lang="en">URL of the library server, including protocol</description>
+  </variable>
 <!--  <variable name="searchKeys"><description>zu verwendende Suchschlüssel (optional)</description></variable>  
   <variable name="recordSchema"><description>zu verwendendes Schema (optional)</description></variable>-->
   <!--<variable name="daiabaseurl"><description>Url für einen DAIA-Server für Bestandsanzeigen</description></variable>-->

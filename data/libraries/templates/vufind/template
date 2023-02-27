@@ -2,9 +2,16 @@
 <actions>
 
 <meta>
-  <description>Template für das VuFind-System</description>
-  <variable name="baseurl"><description>Web-URI der Bibliothek (inklusive Protokoll)</description></variable>
-  <variable name="loginParams"><description>Eventuell benötigte zusätzliche Parameter für den Login</description></variable>
+  <description lang="de">Schnittstelle zum VuFind-System</description>
+  <description lang="en">VuFind-System interface</description>
+  <variable name="baseurl">
+    <description lang="de">Internetadresse der Bibliothek (inklusive https:// Protokoll)</description>
+    <description lang="en">URL of the library OPAC (starting with https://)</description>
+  </variable>
+  <variable name="loginParams">
+    <description lang="de">Eventuell benötigte zusätzliche Parameter für den Login</description>
+    <description lang="en">Optional parameters for login</description>
+  </variable>
   
 </meta>
 

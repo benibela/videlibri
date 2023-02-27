@@ -3,8 +3,10 @@
 
 <meta>
   <description>Schnittstelle für die Webseite des aDIS-Systems.</description>
-  <variable name="server"><description>reiner Servername, (z.B.: ssl.muenchen.de) </description></variable>
-  <variable name="startparams" default=""><description>Parameter in der URL nach aDISWeb/app für Server, auf denen mehrere Bibliothekssysteme laufen</description></variable>
+  <variable name="fullurl"><description>Vollständige Internet-Adresse der Bibliothek 
+(mit https:// und meistens mit aDISWeb/app)</description></variable>
+  <variable name="server" default=""><description>Alternative zur vollständigen Adresse: reiner Servername, (z.B.: ssl.muenchen.de) </description></variable>
+  <variable name="startparams" default=""><description>Alternative zur vollständigen Adresse: Parameter in der URL nach aDISWeb/app für Server, auf denen mehrere Bibliothekssysteme laufen</description></variable>
 </meta>
 
 

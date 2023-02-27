@@ -1,7 +1,8 @@
 <actions>
 
 <meta>
-  <description>Template für OCLC Bibliotheca WebOPACs</description>
+  <description>Template für die alten OCLC Bibliotheca WebOPACs
+(für die neuen OPEN Bibliotheca OPACs, wähle System bibliothecaplus) </description>
   <variable name="baseurl"><description>Serveraddresse, inklusive Protokoll, ohne trailing /</description></variable>
   <variable name="DB" default=""><description>Datenbank</description></variable>
 </meta>

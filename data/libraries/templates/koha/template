@@ -1,8 +1,12 @@
 <actions>
 
 <meta>
-  <description>Template für Koha-System</description>
-  <variable name="baseurl"><description>Web-URI der Bibliothek</description></variable>  
+  <description lang="de">Schnittstelle für Koha-System</description>
+  <description lang="en">Koha Library Software interface</description>
+  <variable name="baseurl">
+    <description lang="de">Internetadresse der Bibliothek (inklusive https:// Protokoll)</description>
+    <description lang="en">URL of the library OPAC (starting with https://)</description>
+  </variable>  
 </meta>
 
 
