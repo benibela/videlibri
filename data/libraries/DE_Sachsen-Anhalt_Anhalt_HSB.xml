@@ -5,8 +5,8 @@
   <longName value="Hochschulbibliothek Anhalt"/>
   <shortName value="HSB Anhalt"/>
   
-  <template value="pica"/>
-  <variable name="server" value="https://lhanh.gbv.de/"/>	
+  <template value="lbs"/>
+  <variable name="server" value="https://opac.lbs-anhalt.gbv.de/"/>	
 
 
   <homepage value="http://www.hs-anhalt.de/hochschulbibliothek"/>

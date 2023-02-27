@@ -4,8 +4,8 @@
 <library>
   <longName value="Universitäts- und Landesbibliothek Münster"/>
   
-  <template value="sisis"/>  
-  <variable name="server" value="https://katalogix.uni-muenster.de/Katalog/"/>
+  <template value="primo"/>
+  <variable name="baseurl" value="https://katalogplus.uni-muenster.de/discovery/search?vid=49HBZ_ULM:VU2"/>
   
   <homepage value="http://www.ulb.uni-muenster.de/bibliothek/"/>
   <testing-search value="yes"/>
