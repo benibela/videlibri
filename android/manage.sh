@@ -320,8 +320,8 @@ setupfpccrosscfg)
     echo "#ENDIF"
   }
 
-  if [[ -e $ANDROID_HOME/ndk-bundle/platforms ]]; then androidpaths=($ANDROID_HOME/ndk-bundle/platforms/android-*)
-  else if [[ -e $ANDROID_HOME/ndk ]]; then androidpaths=($ANDROID_HOME/ndk/19*/platforms/android-*)
+  if [[ -e $ANDROID_HOME/ndk-bundle/platforms ]]; then androidpaths=($ANDROID_HOME/ndk-bundle/platforms/android-21)
+  else if [[ -e $ANDROID_HOME/ndk ]]; then androidpaths=($ANDROID_HOME/ndk/19*/platforms/android-21)
   else echo FAILED TO FIND ANDROID NDK;
   fi fi
   androidpath=${androidpaths[-1]}
