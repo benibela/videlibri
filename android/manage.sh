@@ -7,8 +7,9 @@ if [ -z "$ANDROID_HOME" ]; then
 fi
 if [ -z "$JAVA_HOME" ]; then
   if [ -d ~/opt/android/studio/jre ]; then JAVA_HOME=~/opt/android/studio/jre 
+  else if [ -d ~/opt/android/studio/jbr ]; then JAVA_HOME=~/opt/android/studio/jbr
   else echo Failed to find java. Set JAVA_HOME variable; exit 2
-  fi
+  fi fi
 fi
 
 ADB=$ANDROID_HOME/platform-tools/adb
