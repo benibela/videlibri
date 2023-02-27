@@ -10,7 +10,11 @@
 </meta>
 
 
-<action id="connect"><s>$sessions-reconnects := 3</s></action>
+<action id="connect">
+  <s>$sessions-reconnects := 3,
+     $fullurl := get("fullurl", ()) otherwise concat("https://", get("server"), "/aDISWeb/app", get('startparams'))
+  </s>
+</action>
 
 <action id="internal-login"> 
   <s>error-login := ()</s>
@@ -92,7 +96,7 @@
 <action id="internal-update-login">
   <s>connect-target := "account", connectPage := ()</s>
   <try>
-    <page url="https://{$server}/aDISWeb/app{get('startparams', '')}" templateFile="connected"/>
+    <page url="{$fullurl}" templateFile="connected"/>
     <page url="{$connectPage}" templateFile="connected"/>
     <catch errors="http:503"><s>vl:raise("Der Bibliothekskatalog ist momentan temporär nicht erreichbar. Vermutlich werden Wartungsarbeiten durchgeführt (insbesondere bei den VÖBB)")</s></catch>
   </try>
@@ -264,7 +268,7 @@
 <action id="search-connect">
   <call action="connect"/>
   <s>connect-target := "search", connectPage := ()</s>  
-  <page url="https://{$server}/aDISWeb/app{get('startparams', '')}" templateFile="connected"/> 
+  <page url="{$fullurl}" templateFile="connected"/> 
   <!-- some libraries log in directly, some redirect -->
   <page url="{$connectPage}" templateFile="connected"/>
   
@@ -433,7 +437,8 @@
 </action>
 
 <action id="catalogue">
-  <variable name="url" value="https://{$server}/aDISWeb/app{get('startparams', '')}"/>
+  <call action="connect"/>
+  <variable name="url" value="{$fullurl}"/>
 </action>
 
 

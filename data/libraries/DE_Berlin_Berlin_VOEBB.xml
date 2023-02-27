@@ -6,7 +6,7 @@
   <shortName value="VÖBB"/> 
   
   <template value="aDISWeb"/>
-  <variable name="server" value="www.voebb.de/#"/>
+  <variable name="fullurl" value="https://www.voebb.de/"/>
  
   
   <homepage value="https://www.voebb.de/"/>
