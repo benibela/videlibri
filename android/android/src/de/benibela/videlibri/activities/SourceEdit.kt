@@ -1,5 +1,6 @@
 package de.benibela.videlibri.activities
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.*
@@ -241,6 +242,7 @@ class SourceEdit : VideLibriBaseActivity() {
         loadFile()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun loadFile() {
         val f = userFile(fileName)
         try {

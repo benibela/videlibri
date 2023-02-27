@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<ScrollView android:layout_width="fill_parent"
+<ScrollView xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:id="@+id/scrollView"
     xmlns:android="http://schemas.android.com/apk/res/android">
@@ -132,7 +133,8 @@
                 android:inputType="text"
                 android:selectAllOnFocus="true"
                 android:singleLine="true"
-                android:text="user" />
+                android:text="user"
+                tools:ignore="HardcodedText" />
 
         </LinearLayout>
 

@@ -22,13 +22,8 @@ object Accounts: Collection<Bridge.Account> {
 
     val toArray get() = accounts
 
-    @JvmStatic fun get(libId: String, userName: String): Bridge.Account? {
-        accounts.forEach { acc ->
-            if (acc.libId == libId && acc.name == userName)
-                return acc
-        }
-        return null
-    }
+    @JvmStatic fun get(libId: String, userName: String): Bridge.Account?
+        = accounts.find { it.libId == libId && it.name == userName }
 
 
     @JvmStatic fun add(acc: Bridge.Account) {
@@ -96,7 +91,7 @@ object Accounts: Collection<Bridge.Account> {
         forEach { hiddenAccounts[it] = true }
         refreshDisplay()
     }
-    fun filterHidden() = hiddenAccounts.keys
+    fun filterHidden(): MutableSet<Bridge.Account> = hiddenAccounts.keys
 }
 val accounts = Accounts
 

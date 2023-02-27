@@ -219,7 +219,7 @@ object CoverLoader {
                     scale = min(maxWidth * 1.0 / cover.width, maxHeight * 1.0 / cover.height)
                 }
                 Log.i("IMAGE SIZING", "${cover.width}x${cover.height}    ---  ${maxWidth}x${maxHeight}     ${minWidth}x${minHeight}  --- $scale")
-                val epsilon = 0.2;
+                val epsilon = 0.2
                 if (scale < 1.0 - epsilon && scale > 1 + epsilon) try {
                     bestCover = Bitmap.createScaledBitmap(cover, (cover.width * scale).toInt(), (cover.height * scale).toInt(), true)
                     if (bestCover != cover) cover.recycle()

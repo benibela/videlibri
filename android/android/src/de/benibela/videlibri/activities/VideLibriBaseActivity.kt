@@ -43,7 +43,7 @@ open class VideLibriBaseActivity: AppCompatActivity(){
     }
 
     override fun attachBaseContext(base: Context?) {
-        val newBase = base?.let { VideLibriApp.overrideResourcesLocale(it) } ?: base
+        val newBase = base?.let { VideLibriApp.overrideResourcesLocale(it) }
         super.attachBaseContext(newBase)
     }
 

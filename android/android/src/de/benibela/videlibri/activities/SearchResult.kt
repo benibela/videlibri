@@ -101,7 +101,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
                             book.account = null
                             showToast(R.string.search_copied_to_wishlist)
                         }
-		    return true
+                    return true
                 }
         }
         return super.onOptionsItemIdSelected(id)

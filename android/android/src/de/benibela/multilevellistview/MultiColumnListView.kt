@@ -90,7 +90,7 @@ open class MultiColumnListView @JvmOverloads constructor(context: Context, attrs
                 else adapter.childId(bits, p, 0)
             }
         }
-	    return expandedCount
+        return expandedCount
     }
 
     override var autoExpandSingleChildren: Boolean = true
