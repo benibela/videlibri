@@ -38,7 +38,7 @@ procedure lazyLoad(item: TTreeListItem);
 begin
   if (item.SubItems.Count = 0) and (item.data.obj = nil) and (item.RecordItems.Count > 1) then begin
     item.data.obj := libraryManager.get(item.RecordItemsText[1]);
-    if item.data.obj <> nil then item.Text := (item.data.obj as TLibrary).prettyNameLong;
+    if item.data.obj <> nil then item.Text := (item.data.obj as TLibrary).prettyName;
   end;
 end;
 

@@ -94,6 +94,33 @@ object LibraryTestingInfo {
        other != null && javaClass == other.javaClass && other is OptionsShared && nearTime == other.nearTime && refreshInterval == other.refreshInterval && userLibIds.contentEquals(other.userLibIds)
 
   } 
+  open class LibraryVariable( 
+    @JvmField val name: String = "",
+    @JvmField val value: String = ""
+  )   {
+    override fun equals(other: Any?): Boolean =
+       other != null && javaClass == other.javaClass && other is LibraryVariable && name == other.name && value == other.value
+
+  } 
+  open class LibraryDetails( 
+    @JvmField var id: String = "",
+    @JvmField var prettyName: String = "",
+    @JvmField var prettyNameShort: String = "",
+    @JvmField var fhomepageUrl: String = "",
+    @JvmField var fcatalogueUrl: String = "",
+    @JvmField var fcatalogueUrlFromTemplate: String = "",
+    @JvmField var tableComment: String = "",
+    @JvmField var accountComment: String = "",
+    @JvmField var templateId: String = "",
+    @JvmField var variables: Array<LibraryVariable> = emptyArray(),
+    @JvmField var segregatedAccounts: Boolean = false,
+    @JvmField var testingSearch: LibraryTestingInfoInt = 0,
+    @JvmField var testingAccount: LibraryTestingInfoInt = 0
+  )   {
+    override fun equals(other: Any?): Boolean =
+       other != null && javaClass == other.javaClass && other is LibraryDetails && id == other.id && prettyName == other.prettyName && prettyNameShort == other.prettyNameShort && fhomepageUrl == other.fhomepageUrl && fcatalogueUrl == other.fcatalogueUrl && fcatalogueUrlFromTemplate == other.fcatalogueUrlFromTemplate && tableComment == other.tableComment && accountComment == other.accountComment && templateId == other.templateId && variables.contentEquals(other.variables) && segregatedAccounts == other.segregatedAccounts && testingSearch == other.testingSearch && testingAccount == other.testingAccount
+
+  } 
   open class TemplateDetails( 
     val description: String = "",
     val variablesNames: Array<String> = emptyArray(),

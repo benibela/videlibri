@@ -6,7 +6,7 @@ unit commoninterface;
 interface
  uses sysutils, xquery.internals.common, xquery, fastjsonreader {$ifdef android}, jni, bbjniutils{$endif};
  type EVideLibriInterfaceException = class(Exception);
- type TFormInput = class; TFormInputArray = array of TFormInput; 
+ type TFormInput = class; TFormInputArray = array of TFormInput;  TLibraryVariable = class; TLibraryVariableArray = array of TLibraryVariable; 
  TLibraryTestingInfo = ( tiUnknown = 0, tiYes = 1, tiNo = 2, tiBroken = 3 );
  
 type 
@@ -191,6 +191,37 @@ public
   function toJava: jobject; virtual;
   class function fromJava(jvm: jobject): TOptionsShared; virtual;
   class function fromJavaAndDelete(jvm: jobject): TOptionsShared; virtual;
+  
+  {$endif}
+
+end;  
+type 
+TLibraryVariableClass = class of TLibraryVariable;
+TLibraryVariable = class
+  name, value: string;
+public
+  {$ifdef android}
+  function toJava: jobject; virtual;
+  class function fromJava(jvm: jobject): TLibraryVariable; virtual;
+  class function fromJavaAndDelete(jvm: jobject): TLibraryVariable; virtual;
+  
+  {$endif}
+
+end;  
+type 
+TLibraryDetailsClass = class of TLibraryDetails;
+TLibraryDetails = class
+  id, prettyName, prettyNameShort, fhomepageUrl, fcatalogueUrl, fcatalogueUrlFromTemplate, tableComment, accountComment, templateId: string;
+  segregatedAccounts: boolean;
+  variables: array of TLibraryVariable;
+  testingSearch: TLibraryTestingInfo;
+  testingAccount: TLibraryTestingInfo;
+  destructor destroy; override;
+public
+  {$ifdef android}
+  function toJava: jobject; virtual;
+  class function fromJava(jvm: jobject): TLibraryDetails; virtual;
+  class function fromJavaAndDelete(jvm: jobject): TLibraryDetails; virtual;
   
   {$endif}
 
@@ -775,7 +806,12 @@ begin
   result := classFromTypeId(typ).fromJSON(json);
 end;
 
-
+ destructor TLibraryDetails.destroy;
+var i: integer;
+begin 
+  for i := 0 to high(variables) do variables[i].free;
+  inherited;
+end;
 
 {$ifdef android}
 
@@ -788,6 +824,19 @@ begin
     SetLength(sa, getArrayLength(jvm));
     for i := 0 to high(sa) do
       sa[i] := getStringArrayElement(jvm, i);
+    deleteLocalRef(jvm);
+  end;
+end;
+
+ 
+procedure fromJavaArrayAndDelete(var sa: TLibraryVariableArray; jvm: jarray); //does not support inheritance
+var
+  i: sizeint;
+begin
+  with j do begin
+    SetLength(sa, getArrayLength(jvm));
+    for i := 0 to high(sa) do
+      sa[i] := TLibraryVariable.fromJava(getObjectArrayElement(jvm, i));
     deleteLocalRef(jvm);
   end;
 end;
@@ -828,6 +877,14 @@ var
   OptionsSharedClassInit: jmethodID;
  
 var
+  LibraryVariableClass: jclass;
+  LibraryVariableClassInit: jmethodID;
+ 
+var
+  LibraryDetailsClass: jclass;
+  LibraryDetailsClassInit: jmethodID;
+ 
+var
   TemplateDetailsClass: jclass;
   TemplateDetailsClassInit: jmethodID;
  
@@ -846,6 +903,14 @@ var
   OptionsSharedFields: record
     nearTimeI, refreshIntervalI, userLibIdsA: jfieldID;
   end;
+ 
+  LibraryVariableFields: record
+    nameS, valueS: jfieldID;
+  end;
+ 
+  LibraryDetailsFields: record
+    idS, prettyNameS, prettyNameShortS, fhomepageUrlS, fcatalogueUrlS, fcatalogueUrlFromTemplateS, tableCommentS, accountCommentS, templateIdS, variablesA, segregatedAccountsZ, testingSearchI, testingAccountI: jfieldID;
+  end;
 
 
 
@@ -855,6 +920,17 @@ var
 begin
   with j do begin
     result := newObjectArray(length(a), FormInputClass, nil);
+    for i := 0 to high(a) do
+      setObjectArrayElementAndDelete(result, i, a[i].toJava);
+  end;
+end;
+ 
+function arrayToJArrayCI(const a: TLibraryVariableArray): jobject; overload;
+var
+  i: Integer;
+begin
+  with j do begin
+    result := newObjectArray(length(a), LibraryVariableClass, nil);
     for i := 0 to high(a) do
       setObjectArrayElementAndDelete(result, i, a[i].toJava);
   end;
@@ -1004,6 +1080,53 @@ begin
  end;
 end;
  
+function TLibraryVariable.toJava: jobject;
+var temp: array[0..1] of jvalue;
+begin
+  with j do begin
+    temp[0].l := stringToJString(self.name);
+    temp[1].l := stringToJString(self.value);
+
+    result := newObject(LibraryVariableClass, LibraryVariableClassInit, @temp[0]); 
+    deleteLocalRef(temp[0].l);
+    deleteLocalRef(temp[1].l);
+
+ end;
+end;
+ 
+function TLibraryDetails.toJava: jobject;
+var temp: array[0..12] of jvalue;
+begin
+  with j do begin
+    temp[0].l := stringToJString(self.id);
+    temp[1].l := stringToJString(self.prettyName);
+    temp[2].l := stringToJString(self.prettyNameShort);
+    temp[3].l := stringToJString(self.fhomepageUrl);
+    temp[4].l := stringToJString(self.fcatalogueUrl);
+    temp[5].l := stringToJString(self.fcatalogueUrlFromTemplate);
+    temp[6].l := stringToJString(self.tableComment);
+    temp[7].l := stringToJString(self.accountComment);
+    temp[8].l := stringToJString(self.templateId);
+    temp[9].l := arrayToJArrayCI(self.variables);
+    temp[10].z := booleanToJboolean(self.segregatedAccounts);
+    temp[11].i := ord(self.testingSearch);
+    temp[12].i := ord(self.testingAccount);
+
+    result := newObject(LibraryDetailsClass, LibraryDetailsClassInit, @temp[0]); 
+    deleteLocalRef(temp[0].l);
+    deleteLocalRef(temp[1].l);
+    deleteLocalRef(temp[2].l);
+    deleteLocalRef(temp[3].l);
+    deleteLocalRef(temp[4].l);
+    deleteLocalRef(temp[5].l);
+    deleteLocalRef(temp[6].l);
+    deleteLocalRef(temp[7].l);
+    deleteLocalRef(temp[8].l);
+    deleteLocalRef(temp[9].l);
+
+ end;
+end;
+ 
 function TTemplateDetails.toJava: jobject;
 var temp: array[0..3] of jvalue;
 begin
@@ -1096,6 +1219,47 @@ begin
   result := fromJava(jvm);
   j.deleteLocalRef(jvm);
 end;
+ 
+class function TLibraryVariable.fromJava(jvm: jobject): TLibraryVariable;
+begin
+  result := TLibraryVariable.create;
+  with j, result, LibraryVariableFields do begin
+    name := getstringField( jvm, nameS );
+    value := getstringField( jvm, valueS );
+
+ end;
+end;
+class function TLibraryVariable.fromJavaAndDelete(jvm: jobject): TLibraryVariable;
+begin
+  result := fromJava(jvm);
+  j.deleteLocalRef(jvm);
+end;
+ 
+class function TLibraryDetails.fromJava(jvm: jobject): TLibraryDetails;
+begin
+  result := TLibraryDetails.create;
+  with j, result, LibraryDetailsFields do begin
+    id := getstringField( jvm, idS );
+    prettyName := getstringField( jvm, prettyNameS );
+    prettyNameShort := getstringField( jvm, prettyNameShortS );
+    fhomepageUrl := getstringField( jvm, fhomepageUrlS );
+    fcatalogueUrl := getstringField( jvm, fcatalogueUrlS );
+    fcatalogueUrlFromTemplate := getstringField( jvm, fcatalogueUrlFromTemplateS );
+    tableComment := getstringField( jvm, tableCommentS );
+    accountComment := getstringField( jvm, accountCommentS );
+    templateId := getstringField( jvm, templateIdS );
+    fromJavaArrayAndDelete(variables, getObjectField( jvm, variablesA ));
+    segregatedAccounts := getbooleanField( jvm, segregatedAccountsZ );
+    testingSearch := TLibraryTestingInfo(getIntField( jvm, testingSearchI ));
+    testingAccount := TLibraryTestingInfo(getIntField( jvm, testingAccountI ));
+
+ end;
+end;
+class function TLibraryDetails.fromJavaAndDelete(jvm: jobject): TLibraryDetails;
+begin
+  result := fromJava(jvm);
+  j.deleteLocalRef(jvm);
+end;
 
 
 
@@ -1141,6 +1305,25 @@ begin
     OptionsSharedFields.nearTimeI := getfield(OptionsSharedClass, 'nearTime', 'I');
     OptionsSharedFields.refreshIntervalI := getfield(OptionsSharedClass, 'refreshInterval', 'I');
     OptionsSharedFields.userLibIdsA := getfield(OptionsSharedClass, 'userLibIds', '[Ljava/lang/String;'); 
+    LibraryVariableClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/LibraryVariable'));
+    LibraryVariableClassInit := getmethod(LibraryVariableClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;)V');
+    LibraryVariableFields.nameS := getfield(LibraryVariableClass, 'name', 'Ljava/lang/String;');
+    LibraryVariableFields.valueS := getfield(LibraryVariableClass, 'value', 'Ljava/lang/String;'); 
+    LibraryDetailsClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/LibraryDetails'));
+    LibraryDetailsClassInit := getmethod(LibraryDetailsClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;[Lde/benibela/videlibri/jni/LibraryVariable;ZII)V');
+    LibraryDetailsFields.idS := getfield(LibraryDetailsClass, 'id', 'Ljava/lang/String;');
+    LibraryDetailsFields.prettyNameS := getfield(LibraryDetailsClass, 'prettyName', 'Ljava/lang/String;');
+    LibraryDetailsFields.prettyNameShortS := getfield(LibraryDetailsClass, 'prettyNameShort', 'Ljava/lang/String;');
+    LibraryDetailsFields.fhomepageUrlS := getfield(LibraryDetailsClass, 'fhomepageUrl', 'Ljava/lang/String;');
+    LibraryDetailsFields.fcatalogueUrlS := getfield(LibraryDetailsClass, 'fcatalogueUrl', 'Ljava/lang/String;');
+    LibraryDetailsFields.fcatalogueUrlFromTemplateS := getfield(LibraryDetailsClass, 'fcatalogueUrlFromTemplate', 'Ljava/lang/String;');
+    LibraryDetailsFields.tableCommentS := getfield(LibraryDetailsClass, 'tableComment', 'Ljava/lang/String;');
+    LibraryDetailsFields.accountCommentS := getfield(LibraryDetailsClass, 'accountComment', 'Ljava/lang/String;');
+    LibraryDetailsFields.templateIdS := getfield(LibraryDetailsClass, 'templateId', 'Ljava/lang/String;');
+    LibraryDetailsFields.variablesA := getfield(LibraryDetailsClass, 'variables', '[Lde/benibela/videlibri/jni/LibraryVariable;');
+    LibraryDetailsFields.segregatedAccountsZ := getfield(LibraryDetailsClass, 'segregatedAccounts', 'Z');
+    LibraryDetailsFields.testingSearchI := getfield(LibraryDetailsClass, 'testingSearch', 'I');
+    LibraryDetailsFields.testingAccountI := getfield(LibraryDetailsClass, 'testingAccount', 'I'); 
     TemplateDetailsClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/TemplateDetails'));
     TemplateDetailsClassInit := getmethod(TemplateDetailsClass, '<init>', '(Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;)V');
   end;

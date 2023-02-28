@@ -63,24 +63,26 @@
     </array>
   </class>
   <intenum id="LibraryTestingInfo" jvm-pascal="" pascal-jvm="" pascal-prefix="ti" values="Unknown Yes No Broken"/>
-  <class id="LibraryDetails" pascal-type="class" jvm-pascal="" pascal-jvm="">
+  <class id="LibraryVariable" pascal-type="class" jvm-pascal="" pascal-jvm="">
+    <string name="name"/>
+    <string name="value"/>
+  </class>
+  <class id="LibraryDetails" pascal-type="class" jvm-pascal="" pascal-jvm="" kotlin-var="var">
     <string name="id"/>
     <string name="prettyName"/>
     <string name="prettyNameShort"/>
-    <string name="homepageBase"/>
-    <string name="homepageCatalogue"/>
-    <string name="templateId"/>
+    <string name="fhomepageUrl"/>
+    <string name="fcatalogueUrl"/>
+    <string name="fcatalogueUrlFromTemplate"/>
     <string name="tableComment"/>
     <string name="accountComment"/>
-    <array name="variableNames">
-      <string/>
-    </array>
-    <array name="variableValues">
-      <string/>
+    <string name="templateId"/>
+    <array name="variables">
+      <classref ref="LibraryVariable"/>
     </array>
     <boolean name="segregatedAccounts"/>
-    <intenumref name="testingStateSearch" ref="LibraryTestingInfo"/>
-    <intenumref name="testingStateAccount" ref="LibraryTestingInfo"/>
+    <intenumref name="testingSearch" ref="LibraryTestingInfo"/>
+    <intenumref name="testingAccount" ref="LibraryTestingInfo"/>
   </class>
   <class id="TemplateDetails" pascal-jvm="">
     <string name="description"/>
@@ -100,6 +102,17 @@
     </arg>
     <return-type>
       <classref ref="TemplateDetails"/>
+    </return-type>
+  </function>
+  <function id="VLGetLibraryDetails">
+    <arg name="id">
+      <string/>
+    </arg>
+    <arg name="needCatalogUrl">
+      <boolean/>
+    </arg>
+    <return-type>
+      <classref ref="LibraryDetails"/>
     </return-type>
   </function>
   <function id="VLGetVersion">

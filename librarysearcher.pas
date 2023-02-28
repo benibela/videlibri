@@ -243,9 +243,9 @@ var
 begin
   flibsToSearch.Add(lib);
   vars := bookListReader.parser.variableChangeLog;
-  for j := 0 to lib.variables.Count-1 do begin
-    name := lib.variables.Names[j];
-    newvalue := lib.variables.ValueFromIndex[j];
+  for j := 0 to high(lib.variables) do begin
+    name := lib.variables[j].name;
+    newvalue := lib.variables[j].value;
     if vars.hasVariable(name, value) then vars.add(name, xqvalueSeqAppend(value, xqvalue(newvalue)))
     else vars.ValuesString[name] := newvalue;
   end;

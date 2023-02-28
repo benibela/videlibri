@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, ComCtrls,
   Buttons, StdCtrls, bookWatchMain, libraryParser, ExtCtrls,{$ifdef win32}registry,{$endif}
-   EditBtn,Themes, xquery,applicationformconfig;
+   EditBtn,Themes, xquery,applicationformconfig, commoninterface;
 //TODO: Fix resizing bug (LCL)
 //TODO2: Offenen Einstellungsfenster => Verschwinden aus Programmauswahl
 type
@@ -290,6 +290,7 @@ var
   vars: String;
   i: Integer;
   li: TListItem;
+  vpair: TLibraryVariable;
 begin
   if lib = nil then exit;
   li := nil;
@@ -302,12 +303,12 @@ begin
     if strBeginsWith(temp, '-_-_-_') then system.delete(temp, 1, 6);
     Caption:=temp;
     data := lib;
-    SubItems.Add(lib.prettyNameLong);
+    SubItems.Add(lib.prettyName);
     if lib.template <> nil then SubItems.add(lib.template.name);
     vars := '';
-    for i := 0 to lib.variables.count-1 do
-      if vars = '' then vars := lib.variables[i]
-      else vars += ', '+lib.variables[i];
+    for vpair in lib.variables do
+      if vars = '' then vars := vpair.name
+      else vars += ', '+vpair.name;
     SubItems.add(vars);
   end;
 end;
@@ -698,7 +699,7 @@ begin
   currentSelectedItem := item;
   currentSelectedAccount:=TCustomAccountAccess(item.data);
   lib := currentSelectedAccount.getLibrary();
-  lblAccountLibrary.Caption:=lib.prettyNameLong;
+  lblAccountLibrary.Caption:=lib.prettyName;
   edtAccountPrettyName.Text:=item.Caption;
   edtAccountUser.Text:=item.SubItems[0];
   edtAccountPass.Text:=item.SubItems[1];

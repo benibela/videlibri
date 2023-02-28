@@ -756,10 +756,10 @@ begin
         libs.Delete(i);
         continue;
       end;
-      libs[i] := searchTarget.lib.prettyNameLong;
+      libs[i] := searchTarget.lib.prettyName;
       searchTarget.template := searchTarget.lib.template;
       if strContains(searchTarget.template.name, 'digibib') and not strContains(searchTarget.template.name, 'digibib7')  then begin
-        libs.AddObject(searchTarget.lib.prettyNameLong + ' (digibib)', TSearchTarget.create(searchTarget.lib.prettyNameLong+ ' (digibib)', searchTarget.lib, digibibtemplate));
+        libs.AddObject(searchTarget.lib.prettyName + ' (digibib)', TSearchTarget.create(searchTarget.lib.prettyName+ ' (digibib)', searchTarget.lib, digibibtemplate));
       end;
     end;
     inc(i);

@@ -7,6 +7,7 @@ import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
 import de.benibela.videlibri.*
 import de.benibela.videlibri.jni.Bridge
+import de.benibela.videlibri.jni.LibraryDetails
 import java.io.*
 import de.benibela.videlibri.utils.*
 
@@ -150,10 +151,10 @@ class SourceEdit : VideLibriBaseActivity() {
                                         instance?.onCancel?.invoke(this@editWithOkButton)
                                     } else {
                                         val libid = text.replace(".xml", "")
-                                        Bridge.VLSetLibraryDetails(libid, Bridge.LibraryDetails().apply {
-                                            prettyName = getString(R.string.source_edit_new_library_default_name)
+                                        Bridge.VLSetLibraryDetails(libid, LibraryDetails(
+                                            prettyName = getString(R.string.source_edit_new_library_default_name),
                                             templateId = "sru"
-                                        })
+                                        ))
                                         makeLibraryIds()
                                         showSelection2("$libid.xml")
                                     }

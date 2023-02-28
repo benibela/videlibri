@@ -19,6 +19,8 @@ import de.benibela.videlibri.*
 import de.benibela.videlibri.databinding.BookOverviewRowBinding
 import de.benibela.videlibri.databinding.DialogBookListLikeBinding
 import de.benibela.videlibri.jni.Bridge
+import de.benibela.videlibri.jni.LibraryDetails
+import de.benibela.videlibri.jni.decodeIdEscapes
 import de.benibela.videlibri.utils.*
 import kotlinx.parcelize.Parcelize
 import java.lang.IndexOutOfBoundsException
@@ -70,9 +72,9 @@ class LibraryListAdapter: MultiLevelListView.Adapter<LibraryListAdapter.Holder>(
         @SuppressLint("SetTextI18n")
         holder.text.text = "MISSING"
     }
-    private val detailCache = mutableMapOf<String, Bridge.LibraryDetails>()
-    internal fun getLibraryDetails(id: String): Bridge.LibraryDetails =
-            detailCache.getOrPut(id) { Bridge.VLGetLibraryDetails(id) ?: Bridge.LibraryDetails() }
+    private val detailCache = mutableMapOf<String, LibraryDetails>()
+    internal fun getLibraryDetails(id: String): LibraryDetails =
+            detailCache.getOrPut(id) { Bridge.VLGetLibraryDetails(id) ?: LibraryDetails() }
     internal fun getLibraryId(position: IntArray) =
             localLibs[position[0]][position[1]][position[2]]
     private fun getLibraryText(id: String): String{
@@ -103,13 +105,13 @@ class LibraryListAdapter: MultiLevelListView.Adapter<LibraryListAdapter.Holder>(
             if (split.size < 3) continue
             if (states.isEmpty() || split[0] != lastIdSplit[0] || split[1] != lastIdSplit[1]) {
                 if (localMetaCatalogs < 0 && id.contains("ueberregional")) localMetaCatalogs = states.size
-                states.add(Bridge.LibraryDetails.decodeIdEscapes(split[0] + " - " + split[1]))
+                states.add(decodeIdEscapes(split[0] + " - " + split[1]))
                 cities.add(ArrayList())
                 localLibs.add(ArrayList())
             }
             val curCities = cities[cities.size - 1]
             if (curCities.isEmpty() || split[2] != lastIdSplit[2]) {
-                curCities.add(Bridge.LibraryDetails.decodeIdEscapes(split[2]))
+                curCities.add(decodeIdEscapes(split[2]))
                 if ("-" == split[2] && localAutoExpand < 2) localAutoExpand += 1
                 localLibs[localLibs.size - 1].add(ArrayList())
             }

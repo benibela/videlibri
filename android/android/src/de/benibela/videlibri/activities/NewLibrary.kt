@@ -11,7 +11,7 @@ import de.benibela.videlibri.R
 import de.benibela.videlibri.databinding.NewlibBinding
 import de.benibela.videlibri.databinding.NewliboptionBinding
 import de.benibela.videlibri.jni.Bridge
-import de.benibela.videlibri.jni.Bridge.LibraryDetails
+import de.benibela.videlibri.jni.LibraryDetails
 import de.benibela.videlibri.utils.*
 
 data class LibraryVariable(val defaultValue: String, val editText: EditText?)
@@ -40,7 +40,7 @@ class NewLibrary : VideLibriBaseActivity() {
             val id = intent.getStringExtra("libId") ?: return
             details = Bridge.VLGetLibraryDetails(id)
             val details = details ?: return
-            for (i in details.variableNames.indices) variables[details.variableNames[i]] = LibraryVariable(details.variableValues[i], null)
+            details.variables.forEach { variables[it.name] = LibraryVariable(it.value, null) }
             val templatePos = templates.indexOf(details.templateId)
             if (templatePos >= 0) binding.templateSpinner.setSelection(templatePos)
 
@@ -68,14 +68,7 @@ class NewLibrary : VideLibriBaseActivity() {
                 details.prettyName = binding.name.text.toString()
                 details.id = newId
                 details.templateId = templateId
-                details.variableNames = arrayOfNulls(variables.size)
-                details.variableValues = arrayOfNulls(variables.size)
-                var i = 0
-                for ((key, value) in variables) {
-                    details.variableNames[i] = key
-                    details.variableValues[i] = value.editText?.text?.toString() ?: value.defaultValue
-                    i += 1
-                }
+                details.variables = variables.map { (key, value) -> de.benibela.videlibri.jni.LibraryVariable(key, value.editText?.text?.toString() ?: value.defaultValue) }.toTypedArray()
                 Bridge.VLSetLibraryDetails(newId, details)
                 if (newId != oldId && oldId != null) Bridge.VLSetLibraryDetails(oldId, null)
                 finish()

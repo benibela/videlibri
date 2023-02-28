@@ -10,9 +10,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.*
 import de.benibela.videlibri.*
-import de.benibela.videlibri.jni.Bridge
-import de.benibela.videlibri.jni.globalOptionsAndroid
-import de.benibela.videlibri.jni.save
+import de.benibela.videlibri.jni.*
 import de.benibela.videlibri.utils.*
 
 internal open class EmptyTextWatcher : TextWatcher {
@@ -26,7 +24,7 @@ internal open class EmptyTextWatcher : TextWatcher {
 class AccountInfo : VideLibriBaseActivity() {
 
     private var mode: Int = 0
-    private var libdetails: Bridge.LibraryDetails? = null
+    private var libdetails: LibraryDetails? = null
     private var libshortname: String = ""
 
     private lateinit var lib: TextView
@@ -41,7 +39,7 @@ class AccountInfo : VideLibriBaseActivity() {
     private val accountAutoExtendDays: Int
         get() = findViewById<EditText>(R.id.autoExtendDaysEdit).text.toString().toIntOrNull() ?: 7
 
-    private fun setActiveLibrary(libid: String?): Bridge.LibraryDetails? = libid?.let { id ->
+    private fun setActiveLibrary(libid: String?): LibraryDetails? = libid?.let { id ->
         Bridge.VLGetLibraryDetails(id)?.also {
             libshortname = it.prettyNameShort
             lib.text = it.prettyName

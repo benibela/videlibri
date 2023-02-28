@@ -99,8 +99,6 @@ resourcestring
   rsFinishedRefreshConfirm = 'Das Konto %s wurde erstellt.%sSollen jetzt die Mediendaten heruntergeladen werden?';
   rsConnectionFailedTryAgain = 'Internetverbindung fehlgeschlagen, bitte versuchen Sie es später noch einmal.';
   rsAnotherAccountConfirm = 'Wollen Sie noch ein anderes Konto registrieren?';
-  rsAccountGuessInvalid = 'Die eingegebe Kontonummer ist wahrscheinlich ungültig ';
-  rsPasswordGuessInvalid = 'Das eingegeben %s ist wahrscheinlich ungültig';
   rsBtnCreate = '&Erstellen >';
 
 
@@ -195,7 +193,7 @@ begin
     else selectedExtendTypeItemIndex:=1;
   end;
   extendTypeRG.OnClick(extendTypeRG);
-  LabelSelectedLib.Caption := selectedLibrary.prettyNameLong;
+  LabelSelectedLib.Caption := selectedLibrary.prettyName;
 end;
 
 procedure TnewAccountWizard.locationListChange(Sender: TObject);
@@ -222,7 +220,7 @@ begin
       finalPage.Items[0].RecordItemsText[1]:=rsNoLibChosen;
       exit;
     end;
-    finalPage.Items[0].RecordItemsText[1]:=libs.selectedLibrary.prettyNameLong ;//libraryList.Items[libraryList.ItemIndex];
+    finalPage.Items[0].RecordItemsText[1]:=libs.selectedLibrary.prettyName ;//libraryList.Items[libraryList.ItemIndex];
     finalPage.Items[1].RecordItemsText[1]:=accountName.text;
     finalPage.Items[2].RecordItemsText[1]:=accountPass.text;
     finalPage.Items[3].RecordItemsText[1]:=accountPrettyName.text;
@@ -395,12 +393,6 @@ begin
   selectedLibrary:=libs.selectedLibrary;
   if selectedLibrary = nil then exit;
   accountPrettyName.text:=accountName.text;
-  identificarionInvalid.Caption:='';
-  if (selectedLibrary<>nil) and (selectedLibrary.template<>nil) then
-    if (accountPass.Text<>'') and (not selectedLibrary.usernameRegEx.Exec(accountName.Text)) then
-      identificarionInvalid.Caption:=rsAccountGuessInvalid
-    else if (accountPass.Text<>'') and (not selectedLibrary.passwordRegEx.Exec(accountPass.Text)) then
-      identificarionInvalid.Caption:=Format(rsPasswordGuessInvalid, [copy(passLabel.Caption, 1, length(passLabel.Caption)-1)]);
 end;
 
 procedure TnewAccountWizard.Button3Click(Sender: TObject);

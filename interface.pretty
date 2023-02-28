@@ -105,20 +105,28 @@ enum LibraryTestingInfo {
 
 @PascalClass
 @Pascal<->Kotlin
+class LibraryVariable {
+  name: String
+  value: String
+}
+
+@PascalClass
+@Pascal<->Kotlin
+@KotlinVar
 class LibraryDetails {
   id: String
   prettyName: String
   prettyNameShort: String
-  homepageBase: String
-  homepageCatalogue: String
-  templateId: String
+  fhomepageUrl: String
+  fcatalogueUrl: String
+  fcatalogueUrlFromTemplate: String
   tableComment: String
   accountComment: String
-  variableNames: String[]
-  variableValues: String[]
+  templateId: String
+  variables: LibraryVariable[]
   segregatedAccounts: Boolean
-  testingStateSearch: LibraryTestingInfo
-  testingStateAccount: LibraryTestingInfo
+  testingSearch: LibraryTestingInfo
+  testingAccount: LibraryTestingInfo
 }
 
 @Pascal->Kotlin
@@ -133,7 +141,8 @@ class TemplateDetails {
 
 
 fun VLGetTemplateDetails(name: String): TemplateDetails
-
+fun VLGetLibraryDetails(id: String, needCatalogUrl: Boolean): LibraryDetails
+ 
 fun VLGetVersion(): VersionInfo
 fun VLSetOptions(options: OptionsShared)
 fun VLGetOptions(): OptionsShared

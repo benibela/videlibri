@@ -1176,7 +1176,7 @@ begin
     lib := UIntToObj(UIntPtr(TMenuItem(sender).Tag)) as TLibrary;
     if lib = nil then lib := libraryManager.get(TMenuItem(sender).Caption);
     if lib = nil then exit;
-    baseURL:=lib.homepageCatalogue;
+    baseURL:=lib.catalogUrl;
     //if not lib.allowHomepageNavigation then extraParams:=extraParams+' /no-navigation';
     //if lib.bestHomepageWidth>0 then extraParams:=extraParams+' /pagewidth='+InttoStr(lib.bestHomepageWidth);
     //if lib.bestHomepageHeight>0 then extraParams:=extraParams+' /pageheight='+InttoStr(lib.bestHomepageHeight);
@@ -1279,7 +1279,7 @@ begin
     if menuitem[i].Tag = 0 then begin
       lib := libraryManager.get(menuitem[i].Caption);
       if lib = nil then continue;
-      menuitem[i].Caption := lib.prettyNameLong;
+      menuitem[i].Caption := lib.prettyName;
       menuitem[i].Tag := PtrInt(ObjToUInt(lib));
     end;
 end;

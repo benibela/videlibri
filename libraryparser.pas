@@ -4,7 +4,7 @@ unit libraryParser;
 interface
 
 uses
-  Classes, SysUtils, simplehtmlparser, extendedhtmlparser, simplexmlparser, inifilessafe,internetaccess,regexpr,booklistreader,multipagetemplate,bbutils,simplehtmltreeparser,vlmaps;
+  Classes, SysUtils, simplehtmlparser, extendedhtmlparser, simplexmlparser, inifilessafe,internetaccess,regexpr,booklistreader,multipagetemplate,bbutils,simplehtmltreeparser,vlmaps,commoninterface;
 
 
 type
@@ -13,40 +13,24 @@ type
 
   { TLibrary }
 
-  TTestingInfo = (tiUnknown = 0, tiYes, tiNo, tiBroken);
-  TLibrary=class
+  TLibrary=class(TLibraryDetails)
   protected
-    ftestingSearch, ftestingAccount: TTestingInfo;
-    defaultVariables:TStringList;
-    fhomepageCatalogue: string;
     function readProperty(tagName: string; properties: TProperties):TParsingResult;
+    procedure addVariable(n, v: string);
   public
     template:TMultiPageTemplate;
 
-
     canModifySingleBooks:boolean;
-    segregatedAccounts: boolean;
     //function getPrettyNameShort():string;virtual;
-    homepageBase:string;
-    prettyNameLong:string;
-    prettyNameShort:string;
-    tableComment, accountComment: string;
-    id:string;
     deprecatedId: string;
     maxRenewCount: integer;
-
-    usernameRegEx,passwordRegEx: TRegExpr;
 
     procedure loadFromFile(fileName:string);
     procedure loadFromString(data, fileName:string); //fileName is used for id
     function getAccountObject():TCustomAccountAccess;virtual;
     constructor create;
     destructor destroy;override;
-    
-    property variables: TStringList read defaultVariables;
-    property testingSearch: TTestingInfo read ftestingSearch;
-    property testingAccount: TTestingInfo read ftestingAccount;
-    function homepageCatalogue: string;
+
     function location: string;
     function state: string;
     function country: string;
@@ -54,7 +38,9 @@ type
     function prettyState: string;
     function prettyCountry: string;
     function prettyCountryState: string;
-    function prettyNameLongWithComment: string; inline;
+    function prettyNameWithComment: string; inline;
+    function homepageUrl: string;
+    function catalogUrl: string;
     class function pretty(const l: string): string;
     class function unpretty(const l: string): string;
   end;
@@ -716,7 +702,7 @@ end;
 
 function TLibrary.readProperty(tagName: string; properties: TProperties):TParsingResult;
 var value:string;
-  function parseTesting: TTestingInfo;
+  function parseTesting: TLibraryTestingInfo;
   begin
     case value of
       'yes': result := tiYes;
@@ -730,27 +716,32 @@ var value:string;
 begin
   tagName:=LowerCase(tagName);
   value:=getProperty('value',properties);
-  if  tagName='homepage' then homepageBase:=value
-  else if  tagName='catalogue' then fhomepageCatalogue:=value
-  else if tagName='longname' then prettyNameLong:=value
+  if  tagName='homepage' then fhomepageUrl:=value
+  else if  tagName='catalogue' then fcatalogueUrl:=value
+  else if tagName='longname' then prettyName:=value
   else if tagName='shortname' then prettyNameShort:=value
-  else if tagName='longname' then prettyNameLong:=value
-  else if tagName='singlebookrenew' then canModifySingleBooks:=StrToBool(value) //deprecated, will be overriden at the end of loadFromFile
-  else if tagName='template' then template:=libraryManager.getCombinedTemplate(template, value)
-  else if tagName='variable' then begin
-    defaultVariables.NameValueSeparator:='=';
-    defaultVariables.Add(getProperty('name',properties)+defaultVariables.NameValueSeparator+value);
-  end else if tagName='username' then usernameRegEx.Expression:=getProperty('matches',properties)
-  else if tagName='password' then passwordRegEx.Expression:=getProperty('matches',properties)
+  else if tagName='template' then begin
+    template:=libraryManager.getCombinedTemplate(template, value);
+    if template <> nil then templateId := template.name;
+  end
+  else if tagName='variable' then addVariable(getProperty('name',properties), value)
   else if tagName='maxrenewcount' then maxRenewCount:=StrToInt(value)
   else if tagName='deprecatedname' then deprecatedId:=value
   else if tagName='table-comment' then tableComment:=value
   else if tagName='account-comment' then accountComment:=value
   else if tagName='segregated-accounts' then segregatedAccounts:=StrToBool(value)
-  else if tagName='testing-search' then ftestingSearch:=parseTesting
-  else if tagName='testing-account' then ftestingAccount:=parseTesting
+  else if tagName='testing-search' then testingSearch:=parseTesting
+  else if tagName='testing-account' then testingAccount:=parseTesting
   ;
   Result:=prContinue;
+end;
+
+procedure TLibrary.addVariable(n, v: string);
+begin
+  SetLength(variables, length(variables) + 1);
+  variables[high(variables)] := TLibraryVariable.Create;
+  variables[high(variables)].name := n;
+  variables[high(variables)].value := v;
 end;
 
 procedure TLibrary.loadFromFile(fileName: string);
@@ -762,8 +753,8 @@ procedure TLibrary.loadFromString(data, fileName: string);
 begin
   id:=ChangeFileExt(ExtractFileName(fileName),'');
   maxRenewCount:=-1;
-  ftestingAccount := tiUnknown;
-  ftestingSearch := tiUnknown;
+  testingAccount := tiUnknown;
+  testingSearch := tiUnknown;
   parseXML(data,@readProperty,nil,nil,CP_UTF8);
   if template<>nil then begin
     canModifySingleBooks:=(template.findAction('renew-single')<>nil)  or
@@ -773,14 +764,14 @@ begin
     prettyNameShort:=strCopyFrom(id, strRpos('_', id)+1) + ' '+ prettyLocation;
   if id.StartsWith('_') or id.StartsWith('-_') then
     exit; //do not show testing information for user-defined libraries. But here we do not know if it is a user-defined library. But the default id starts with -_-_-_
-  if (ftestingSearch = tiBroken) and (ftestingAccount = tiBroken) then begin
+  if (testingSearch = tiBroken) and (testingAccount = tiBroken) then begin
     if tableComment = '' then tableComment := 'Da die Bibliothek ihren Webkatalog geändert hat, funktioniert es nicht mehr';
-    prettyNameLong += ' (kaputt)';
-  end else if (ftestingSearch = tiYes) and (ftestingAccount in [tiBroken, tiNo]) then prettyNameLong += ' (nur Suche)'
-  else if (ftestingSearch = tiYes) and (ftestingAccount = tiUnknown) then prettyNameLong += ' (nur Suche getestet)'
-  else if (ftestingSearch in [tiBroken, tiNo]) and (ftestingAccount = tiYes) then prettyNameLong += ' (nur Konto)'
-  else if (ftestingSearch = tiUnknown) and (ftestingAccount = tiUnknown) then prettyNameLong += ' (nicht getestet)'
-  else if (ftestingSearch in [tiBroken, tiNo]) and (ftestingAccount = tiUnknown) then prettyNameLong += ' (keine Suche, nicht getestet)'
+    prettyName += ' (kaputt)';
+  end else if (testingSearch = tiYes) and (testingAccount in [tiBroken, tiNo]) then prettyName += ' (nur Suche)'
+  else if (testingSearch = tiYes) and (testingAccount = tiUnknown) then prettyName += ' (nur Suche getestet)'
+  else if (testingSearch in [tiBroken, tiNo]) and (testingAccount = tiYes) then prettyName += ' (nur Konto)'
+  else if (testingSearch = tiUnknown) and (testingAccount = tiUnknown) then prettyName += ' (nicht getestet)'
+  else if (testingSearch in [tiBroken, tiNo]) and (testingAccount = tiUnknown) then prettyName += ' (keine Suche, nicht getestet)'
 end;
 
 //==============================================================================
@@ -793,40 +784,35 @@ end;
 
 constructor TLibrary.create;
 begin
-  defaultVariables:=TStringList.Create;
-  usernameRegEx:=TRegExpr.Create('.');
-  passwordRegEx:=TRegExpr.Create('.');
 end;
 
 destructor TLibrary.destroy;
 begin
-  usernameRegEx.Free;
-  passwordRegEx.Free;
-  defaultVariables.free;
   inherited destroy;
 end;
 
 type TInternetAccessNonSense = TMockInternetAccess;
 
-function TLibrary.homepageCatalogue: string;
+function TLibrary.catalogUrl: string;
 var
   parser: TMultipageTemplateReader;
-  i: Integer;
   tempinternet: TInternetAccess;
+  vpair: TLibraryVariable;
 begin
-  if (fhomepageCatalogue = '') and (template.findAction('catalogue') <> nil)  then begin
+  if (fcatalogueUrl = '') and (fcatalogueUrlFromTemplate = '') and (template.findAction('catalogue') <> nil)  then begin
     tempinternet := TInternetAccessNonSense.create(); //will crash if used
     parser := TMultipageTemplateReader.create(template,tempinternet, nil);
     parser.parser.KeepPreviousVariables:=kpvKeepValues; //used in book list reader. needed here, too?
-    for i:=0 to defaultVariables.count-1 do
-      parser.parser.variableChangeLog.ValuesString[defaultVariables.Names[i]]:=defaultVariables.ValueFromIndex[i];
+    for vpair in variables do
+      parser.parser.variableChangeLog.ValuesString[vpair.name]:=vpair.value;
     parser.callAction('catalogue');
-    fhomepageCatalogue:=parser.parser.variableChangeLog['url'].toString;
+    fcatalogueUrlFromTemplate:=parser.parser.variableChangeLog['url'].toString;
     parser.free;
     tempinternet.free;
   end;
-  if fhomepageCatalogue = '' then fhomepageCatalogue := homepageBase;
-  result := fhomepageCatalogue;
+  result := fcatalogueUrl;
+  if result = '' then result := fcatalogueUrlFromTemplate;
+  if result = '' then result := fhomepageUrl;
 end;
 
 function TLibrary.location: string;
@@ -864,10 +850,16 @@ begin
   result := prettycountry + ' - ' + prettyState;
 end;
 
-function TLibrary.prettyNameLongWithComment: string;
+function TLibrary.prettyNameWithComment: string;
 begin
-  if tableComment = '' then exit(prettyNameLong);
-  result := prettyNameLong + LineEnding + tableComment;
+  if tableComment = '' then exit(prettyName);
+  result := prettyName + LineEnding + tableComment;
+end;
+
+function TLibrary.homepageUrl: string;
+begin
+  result := fhomepageUrl;
+  if result = '' then result := catalogUrl;
 end;
 
 class function TLibrary.pretty(const l: string): string;
@@ -1216,9 +1208,11 @@ end;
 procedure TLibraryManager.reloadLibrary(lib: TLibrary; data: string);
 var
   acc: TCustomAccountAccess;
+  vpair: TLibraryVariable;
 begin
   lib.template:=nil; //todo: race condition?
-  lib.variables.Clear;
+  for vpair in lib.variables do vpair.free;
+  lib.variables := nil;
   lib.loadFromString(data, 'libraries/'+lib.id+'.xml');
   for acc in accounts do
     if acc.getLibrary().id = lib.id then
@@ -1854,10 +1848,10 @@ procedure TTemplateAccountAccess.setVariables(parser: THtmlTemplateParser);
       parser.variableChangeLog.ValuesString[name] := value;
   end;
 
-var i:longint;
+var vpair: TLibraryVariable;
 begin
-  for i:=0 to lib.defaultVariables.count-1 do
-    setVar(lib.defaultVariables.Names[i], lib.defaultVariables.ValueFromIndex[i]);
+  for vpair in lib.variables do
+    setVar(vpair.name, vpair.value);
   parser.variableChangeLog.ValuesString['username'] := user;       //force account variables, since a missing password change is really annoying
   parser.variableChangeLog.ValuesString['password'] := passWord;
   parser.variableChangeLog.add('type', xqvalue(accountType));

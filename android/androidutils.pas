@@ -129,8 +129,8 @@ var
     bridgeClass: jclass;
     bridgeFields: record userPath: jfieldID; end;
     bridgeCallbackMethods: record VLAllThreadsDone, VLInstallationDone: jmethodID; end;
-    accountClass, bookClass, libraryDetailsClass: jobject;
-    accountClassInitWithData, bookClassInit, bookClassInitWithTitle, bookClassInitWithData, libraryDetailsClassInitWithData: jmethodID;
+    accountClass, bookClass: jobject;
+    accountClassInitWithData, bookClassInit, bookClassInitWithTitle, bookClassInitWithData: jmethodID;
     accountFields: record
       LibIdS, NameS, PassS, TypeI, PrettyNameS, ExtendDaysI, ExtendZ, HistoryZ: jfieldID;
 //      internalIdMethod: jmethodID;
@@ -314,9 +314,6 @@ begin
         statusI := getfield(bookClass, 'status', 'I');
       end;
 
-      libraryDetailsClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/Bridge$LibraryDetails'));
-      libraryDetailsClassInitWithData := getmethod(libraryDetailsClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;I)V');
-
 
 
       searcherClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/Bridge$SearcherAccess'));
@@ -439,33 +436,12 @@ begin
 end;
 
 
-type TLibraryDetails = record
-  homepageBase, homepageCatalogue, prettyName, prettyNameShort, id, templateId, tableComment, variableNames, variableValues, segregatedAccountsZ: jfieldID;
-end;
-function getLibraryDetailsFields(c: jclass): TLibraryDetails;
-begin
-   with result, j do begin
-     homepageBase := getfield(c, 'homepageBase', 'Ljava/lang/String;');
-     homepageCatalogue := getfield(c, 'homepageCatalogue', 'Ljava/lang/String;');
-     prettyName := getfield(c, 'prettyName', 'Ljava/lang/String;');
-     prettyNameShort := getfield(c, 'prettyNameShort', 'Ljava/lang/String;');
-     id := getfield(c, 'id', 'Ljava/lang/String;');
-     templateId := getfield(c, 'templateId', 'Ljava/lang/String;');
-     tableComment := getfield(c, 'tableComment', 'Ljava/lang/String;');
-     variableNames := getfield(c, 'variableNames', '[Ljava/lang/String;');
-     variableValues := getfield(c, 'variableValues', '[Ljava/lang/String;');
-     segregatedAccountsZ := getfield(c, 'segregatedAccounts', 'Z');
-   end;
-end;
 
-function Java_de_benibela_VideLibri_Bridge_VLGetLibraryDetails(env:PJNIEnv; this:jobject; id: jstring): jobject; cdecl;
+function Java_de_benibela_VideLibri_Bridge_VLGetLibraryDetails(env:PJNIEnv; this:jobject; id: jobject ; needCatalogUrl: jboolean): jobject; cdecl;
+
 var
   lib: TLibrary;
-  i: Integer;
-  namesArray: jobject;
-  valuesArray: jobject;
   libId: String;
-  args: array[0..10] of jvalue;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetLibraryDetails (started)');
   //bbdebugtools.log(strFromPtr(libraryManager));
@@ -476,30 +452,8 @@ begin
     try
       lib := libraryManager.get(libId);
       if lib = nil then exit(nil);
-
-      with j do begin
-        args[0].l := stringToJString(lib.homepageBase);
-        args[1].l := stringToJString(lib.homepageCatalogue);
-        args[2].l := stringToJString(lib.prettyNameLong);
-        args[3].l := stringToJString(lib.prettyNameShort);
-        args[4].l := stringToJString(lib.id);
-        if lib.template <> nil then args[5].l := stringToJString(lib.template.name)
-        else args[5].l := stringToJString('');
-        args[6].l := stringToJString(lib.tableComment);
-        args[7].l := stringToJString(lib.accountComment);
-        args[10].i := (ord(lib.segregatedAccounts) and 1) or (ord(lib.testingAccount) shl 1) or (ord(lib.testingSearch) shl 3);
-
-        namesArray := newStringArray(lib.variables.count);
-        valuesArray := newStringArray(lib.variables.count);
-        for i := 0 to lib.variables.count-1 do begin
-          setStringArrayElement(namesArray, i, lib.variables.Names[i]);
-          setStringArrayElement(valuesArray, i, lib.variables.ValueFromIndex[i]);
-        end;
-        args[8].l := namesArray;
-        args[9].l := valuesArray;
-        result := newObject(libraryDetailsClass, libraryDetailsClassInitWithData, @args[0]);
-        for i := 0 to 9 do deleteLocalRef(args[i].l);
-      end;
+      if needCatalogUrl <> JNI_FALSE then lib.catalogUrl;
+      result := lib.toJava;
     except
       on e: Exception do begin
         storeException(e, nil, libid, '');
@@ -512,47 +466,40 @@ begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetLibraryDetails (ended)');
 end;
 
-procedure Java_de_benibela_VideLibri_Bridge_VLSetLibraryDetails(env:PJNIEnv; this:jobject; id: jstring; details: jobject); cdecl;
+procedure Java_de_benibela_VideLibri_Bridge_VLSetLibraryDetails(env:PJNIEnv; this:jobject; id: jstring; jdetails: jobject); cdecl;
 var
-  i: Integer;
-  names: jobject;
-  values: jobject;
   libid: String;
   libXml: String;
-  temp: string;
+  libDetails: TLibraryDetails;
+  vpair: TLibraryVariable;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLSetLibraryDetails (started)');
   //bbdebugtools.log(strFromPtr(libraryManager));
   //bbdebugtools.log(IntToStr(libraryManager.count));
   try
     libid := j.jStringToString(id);
-    if details = nil then begin
+    if jdetails = nil then begin
       //null means delete
       libraryManager.deleteUserLibrary(libid);
     end else begin
-      with getLibraryDetailsFields(libraryDetailsClass), j do begin
-        libXml := '<?xml version="1.0" encoding="UTF-8"?>'+LineEnding;
-        libXml += '<library>'+LineEnding;
-        libXml += '   <longName value="'+xmlStrEscape(getStringField(details, prettyName))+'"/>'+LineEnding;
-        if getStringField(details, homepageBase) <> '' then
-          libXml += '   <homepage value="'+xmlStrEscape(getStringField(details, homepageBase))+'"/>'+LineEnding;
-        if getStringField(details, homepageCatalogue) <> '' then
-          libXml += '   <catalogue value="'+xmlStrEscape(getStringField(details, homepageCatalogue))+'"/>'+LineEnding;
-        libXml += '   <template value="'+xmlStrEscape(getStringField(details, templateId))+'"/>'+LineEnding;
-        temp := getStringField(details, tableComment);
-        if temp <> '' then libXml += '   <table-comment value="'+xmlStrEscape(temp)+'"/>'+LineEnding;
-        names := getObjectField(details, variableNames);
-        values:= getObjectField(details, variableValues);
-        for i := 0 to getArrayLength(names) - 1 do
-          libXml += '   <variable name="'+xmlStrEscape(jStringToStringAndDelete(getObjectArrayElement(names, i)))+'" '+
-                                 'value="'+xmlStrEscape(jStringToStringAndDelete(getObjectArrayElement(values, i)))+'"/>'+LineEnding;
-        if getBooleanField(details, segregatedAccountsZ) then
-          libXml += '  <segregated-accounts value="true"/>';
+      libDetails := TLibraryDetails.fromJava(jdetails);
+      libXml := '<?xml version="1.0" encoding="UTF-8"?>'+LineEnding;
+      libXml += '<library>'+LineEnding;
+      libXml += '   <longName value="'+xmlStrEscape(libDetails.prettyName)+'"/>'+LineEnding;
+      if libDetails.fhomepageUrl <> '' then
+        libXml += '   <homepage value="'+xmlStrEscape(libDetails.fhomepageUrl)+'"/>'+LineEnding;
+      if libDetails.fcatalogueUrl <> '' then
+        libXml += '   <catalogue value="'+xmlStrEscape(libDetails.fcatalogueUrl)+'"/>'+LineEnding;
+      libXml += '   <template value="'+xmlStrEscape(libDetails.templateId)+'"/>'+LineEnding;
+      if libDetails.tableComment <> '' then libXml += '   <table-comment value="'+xmlStrEscape(libDetails.tableComment)+'"/>'+LineEnding;
+      for vpair in libDetails.variables do
+        libXml += '   <variable name="'+xmlStrEscape(vpair.name)+'" '+ 'value="'+xmlStrEscape(vpair.value)+'"/>'+LineEnding;
+      if libDetails.segregatedAccounts then
+        libXml += '  <segregated-accounts value="true"/>';
 
-        libXml += '  <testing-search value="yes"/><testing-account value="yes"/>';
-        libXml += '</library>';
-        libraryManager.setUserLibrary(libid, libXml);
-      end;
+      libXml += '  <testing-search value="yes"/><testing-account value="yes"/>';
+      libXml += '</library>';
+      libraryManager.setUserLibrary(libid, libXml);
     end;
   except
     on e: Exception do throwExceptionToJava(e);
@@ -2145,8 +2092,8 @@ const nativeMethods: array[1..40] of JNINativeMethod=
    ,(name:'VLFinalize';      signature:'()V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLFInit)
 
    ,(name:'VLGetLibraryIds'; signature:'()[Ljava/lang/String;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetLibraryIds)
-   ,(name:'VLGetLibraryDetails'; signature:'(Ljava/lang/String;)Lde/benibela/videlibri/jni/Bridge$LibraryDetails;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetLibraryDetails)
-   ,(name:'VLSetLibraryDetails'; signature:'(Ljava/lang/String;Lde/benibela/videlibri/jni/Bridge$LibraryDetails;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLSetLibraryDetails)
+   ,(name:'VLGetLibraryDetails'; signature: '(Ljava/lang/String;Z)Lde/benibela/videlibri/jni/LibraryDetails;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetLibraryDetails)
+   ,(name:'VLSetLibraryDetails'; signature:'(Ljava/lang/String;Lde/benibela/videlibri/jni/LibraryDetails;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLSetLibraryDetails)
    ,(name:'VLInstallLibrary'; signature:'(Ljava/lang/String;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInstallLibrary)
    ,(name:'VLGetTemplates'; signature:'()[Ljava/lang/String;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetTemplates)
    ,(name:'VLGetTemplateDetails'; signature: '(Ljava/lang/String;)Lde/benibela/videlibri/jni/TemplateDetails;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetTemplateDetails)

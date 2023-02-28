@@ -68,7 +68,7 @@ var
 
 implementation
 
-uses booklistreader, applicationconfig, internetaccess, bbutils, Clipbrd, librarySearcher,math, simplehtmltreeparser,strutils, xquery.internals.common;
+uses booklistreader, applicationconfig, internetaccess, bbutils, Clipbrd, librarySearcher,math, simplehtmltreeparser,strutils, xquery.internals.common,commoninterface;
 { TlibraryTesterForm }
 
 
@@ -192,7 +192,7 @@ begin
   memo1.Lines.Clear;
   for i := 0 to libraryManager.count - 1 do
     if libraryManager[i] <> nil then
-      Memo1.Lines.Add(libraryManager[i].id+':§: '+libraryManager[i].prettyNameShort+':§: '+libraryManager[i].homepageCatalogue);
+      Memo1.Lines.Add(libraryManager[i].id+':§: '+libraryManager[i].prettyNameShort+':§: '+libraryManager[i].catalogUrl);
 end;
 
 procedure TlibraryTesterForm.Button4Click(Sender: TObject);
@@ -217,7 +217,7 @@ begin
   for i := 0 to TreeListView1.Items.Count - 1 do
     if  CheckBox1.Checked or TreeListView1.Items[i].Selected then
       tocp += TTestData(TreeListView1.Items[i].data.obj).lib.id +'.xml' + LineEnding +TreeListView1.Items[i].RecordItemsText[1] + LineEnding
-              + TTestData(TreeListView1.Items[i].data.obj).lib.homepageCatalogue + LineEnding
+              + TTestData(TreeListView1.Items[i].data.obj).lib.catalogUrl + LineEnding
               + TreeListView1.Items[i].RecordItemsText[2] +LineEnding+TreeListView1.Items[i].RecordItemsText[3] + LineEnding+TreeListView1.Items[i].RecordItemsText[4]
               + LineEnding+LineEnding+ LineEnding+LineEnding;
   Clipboard.AsText := tocp;
@@ -290,8 +290,8 @@ begin
   for i := 0 to libraryManager.count - 1 do begin
     lib := libraryManager[i];
     if lib = nil then continue;
-    ListBox1.Items.Add(lib.prettyNameLong);
-    TreeListView1.Items.Add([lib.prettyCountryState, lib.prettyNameLong]).data.obj := TTestData.create(lib);
+    ListBox1.Items.Add(lib.prettyName);
+    TreeListView1.Items.Add([lib.prettyCountryState, lib.prettyName]).data.obj := TTestData.create(lib);
     TreeListView1.Items[TreeListView1.Items.Count-1].RecordItemsText[5] := lib.template.name;
   end;
   TreeListView1.EndUpdate;
@@ -435,9 +435,9 @@ begin
         resultSearch := '2-UNHANDLED EXCEPTION: '+e.Message;
     end;
   end;
-  if (homepage) and (lib.homepageBase <> '') then begin
+  if (homepage) and (lib.fhomepageUrl <> '') then begin
     try
-      createVideLibriInternetAccess.get(lib.homepageBase);
+      createVideLibriInternetAccess.get(lib.fhomepageUrl);
       resultHomepage := 'ok';
     except
       on e: EInternetException do

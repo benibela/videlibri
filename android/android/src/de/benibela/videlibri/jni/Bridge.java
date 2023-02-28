@@ -22,63 +22,6 @@ import java.util.*;
 
 @SuppressWarnings( {"JniMissingFunction", "unused"} )
 public class Bridge {
-    public static class LibraryDetails {
-        @NotNull public String homepageBase, homepageCatalogue;
-        @NotNull public String prettyName, prettyNameShort;
-        @NotNull public String id;
-        @NotNull public String templateId;
-        @NotNull public String tableComment, accountComment;
-        @NotNull public String variableNames[];
-        @NotNull public String variableValues[];
-        public boolean segregatedAccounts;
-        private int testingStateSearch, testingStateAccount;
-
-        public LibraryDetails(){
-            homepageBase = homepageCatalogue = prettyName = prettyNameShort = id = templateId = tableComment = accountComment = "";
-            variableNames = variableValues = new String[0];
-        }
-        public LibraryDetails(@NotNull String homepageBase, @NotNull String homepageCatalogue,
-                              @NotNull String prettyName, @NotNull String prettyNameShort,
-                              @NotNull String id,
-                              @NotNull String templateId,
-                              @NotNull String tableComment,
-                              @NotNull String accountComment,
-                              @NotNull String variableNames[],
-                              @NotNull String variableValues[],
-                              int flags
-        ){
-            this.homepageBase = homepageBase;
-            this.homepageCatalogue = homepageCatalogue;
-            this.prettyName = prettyName;
-            this.prettyNameShort = prettyNameShort;
-            this.id = id;
-            this.templateId = templateId;
-            this.variableNames = variableNames;
-            this.variableValues = variableValues;
-            this.tableComment = tableComment;
-            this.accountComment = accountComment;
-            this.segregatedAccounts = (flags & 1) != 0;
-            this.testingStateAccount = (flags >> 1) & 3;
-            this.testingStateSearch = (flags >> 3) & 3;
-        }
-
-        public static @NotNull String decodeIdEscapes(@NotNull String s) {
-            if (!s.contains("+")) return s;
-            return s.replace("+ue", "ü")
-                    .replace("+oe", "ö")
-                    .replace("+ae", "ä")
-                    .replace("+sz", "ß")
-                    .replace("++", " ");
-        }
-
-        public boolean getSearchMightWork(){
-            return testingStateSearch <= 1;
-        }
-        public boolean getAccountMightWork(){
-            return testingStateAccount <= 1;
-        }
-    }
-
     public static class Account implements Serializable{
         @NotNull public String libId, name, pass, prettyName;
         public int type;
@@ -337,7 +280,10 @@ public class Bridge {
 
     static private native void VLInit(@NotNull Context context);
     static public native @NotNull String[] VLGetLibraryIds();
-    static public native @Nullable LibraryDetails VLGetLibraryDetails(@NotNull String id);
+    static public native @Nullable LibraryDetails VLGetLibraryDetails(@NotNull String id, boolean needCatalogUrl);
+    static public @Nullable LibraryDetails VLGetLibraryDetails(@NotNull String id){
+        return VLGetLibraryDetails(id, false);
+    }
     static public native void VLSetLibraryDetails(@NotNull String id, @Nullable LibraryDetails details);
     static public native void VLInstallLibrary(@NotNull String url);
     static public native @NotNull String[] VLGetTemplates(); //array of ids
