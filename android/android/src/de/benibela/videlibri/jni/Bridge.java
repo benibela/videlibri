@@ -335,12 +335,6 @@ public class Bridge {
         @NotNullLateInit public String firstAccountUser, firstAccountLib;
     }
 
-    public static class TemplateDetails{
-        @NotNullLateInit public String variablesNames[];
-        @NotNullLateInit public String variablesDescription[];
-        @NotNullLateInit public String variablesDefault[];
-    }
-
     static private native void VLInit(@NotNull Context context);
     static public native @NotNull String[] VLGetLibraryIds();
     static public native @Nullable LibraryDetails VLGetLibraryDetails(@NotNull String id);

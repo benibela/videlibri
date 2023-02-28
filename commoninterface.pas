@@ -191,6 +191,20 @@ public
   
   {$endif}
 
+end;  
+type 
+TTemplateDetailsClass = class of TTemplateDetails;
+TTemplateDetails = class
+  description: string;
+  variablesNames: array of string;
+  variablesDescription: array of string;
+  variablesDefault: array of string;
+public
+  {$ifdef android}
+  function toJava: jobject; virtual;
+  
+  {$endif}
+
 end; 
  {$ifdef android}
  procedure initBridge;
@@ -810,6 +824,10 @@ var
   OptionsSharedClass: jclass;
   OptionsSharedClassInit: jmethodID;
  
+var
+  TemplateDetailsClass: jclass;
+  TemplateDetailsClassInit: jmethodID;
+ 
   BookListDisplayOptionsFields: record
     showHistoryZ, noBorrowedBookDetailsZ, showRenewCountZ, groupingKeyS, sortingKeyS, filterKeyS, alwaysFilterOnHistoryZ: jfieldID;
   end;
@@ -982,6 +1000,24 @@ begin
 
  end;
 end;
+ 
+function TTemplateDetails.toJava: jobject;
+var temp: array[0..3] of jvalue;
+begin
+  with j do begin
+    temp[0].l := stringToJString(self.description);
+    temp[1].l := arrayToJArrayCI(self.variablesNames);
+    temp[2].l := arrayToJArrayCI(self.variablesDescription);
+    temp[3].l := arrayToJArrayCI(self.variablesDefault);
+
+    result := newObject(TemplateDetailsClass, TemplateDetailsClassInit, @temp[0]); 
+    deleteLocalRef(temp[0].l);
+    deleteLocalRef(temp[1].l);
+    deleteLocalRef(temp[2].l);
+    deleteLocalRef(temp[3].l);
+
+ end;
+end;
 
 class function TBookListDisplayOptions.fromJava(jvm: jobject): TBookListDisplayOptions;
 begin
@@ -1101,7 +1137,9 @@ begin
     OptionsSharedClassInit := getmethod(OptionsSharedClass, '<init>', '(II[Ljava/lang/String;)V');
     OptionsSharedFields.nearTimeI := getfield(OptionsSharedClass, 'nearTime', 'I');
     OptionsSharedFields.refreshIntervalI := getfield(OptionsSharedClass, 'refreshInterval', 'I');
-    OptionsSharedFields.userLibIdsA := getfield(OptionsSharedClass, 'userLibIds', '[Ljava/lang/String;');
+    OptionsSharedFields.userLibIdsA := getfield(OptionsSharedClass, 'userLibIds', '[Ljava/lang/String;'); 
+    TemplateDetailsClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/TemplateDetails'));
+    TemplateDetailsClassInit := getmethod(TemplateDetailsClass, '<init>', '(Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;)V');
   end;
 end;
 {$endif}

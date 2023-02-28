@@ -4,7 +4,7 @@
 <meta>
   <description>Template für das Primo-System</description>
 
-  <variable name="baseurl"><description>volle Serverurl, inklusive trailing slash (z.B.: http://portal.ub.tu-berlin.de/primo_library/libweb/action/)</description></variable>
+  <variable name="baseurl"><description>volle Serverurl</description></variable>
 
   <variable name="login-url-1"><description>Login-URL für Interne (Studenten)</description></variable>
   <variable name="login-url-2"><description>Login-URL für Externe</description></variable>

@@ -59,6 +59,26 @@
       <string/>
     </array>
   </class>
+  <class id="TemplateDetails" pascal-jvm="">
+    <string name="description"/>
+    <array name="variablesNames">
+      <string/>
+    </array>
+    <array name="variablesDescription">
+      <string/>
+    </array>
+    <array name="variablesDefault">
+      <string/>
+    </array>
+  </class>
+  <function id="VLGetTemplateDetails">
+    <arg name="name">
+      <string/>
+    </arg>
+    <return-type>
+      <classref ref="TemplateDetails"/>
+    </return-type>
+  </function>
   <function id="VLGetVersion">
     <return-type>
       <classref ref="VersionInfo"/>

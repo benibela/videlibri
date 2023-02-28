@@ -127,6 +127,7 @@ class NewLibrary : VideLibriBaseActivity() {
                 return
             }
 
+        binding.textViewTemplateDescription.text = details.description
         val oldVariables = variables
         variables = HashMap()
         val oldValues = HashMap<String, String>()

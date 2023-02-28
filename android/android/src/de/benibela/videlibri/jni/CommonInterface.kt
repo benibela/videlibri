@@ -84,3 +84,13 @@ package de.benibela.videlibri.jni
        other != null && javaClass == other.javaClass && other is OptionsShared && nearTime == other.nearTime && refreshInterval == other.refreshInterval && userLibIds.contentEquals(other.userLibIds)
 
   } 
+  open class TemplateDetails( 
+    val description: String,
+    val variablesNames: Array<String>,
+    val variablesDescription: Array<String>,
+    val variablesDefault: Array<String>
+  )   {
+    override fun equals(other: Any?): Boolean =
+       other != null && javaClass == other.javaClass && other is TemplateDetails && description == other.description && variablesNames.contentEquals(other.variablesNames) && variablesDescription.contentEquals(other.variablesDescription) && variablesDefault.contentEquals(other.variablesDefault)
+
+  } 

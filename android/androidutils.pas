@@ -399,27 +399,12 @@ begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetLibraryIds (ended)');
 end;
 
-type TTemplateDetails = record
-  variablesNames, variablesDescription, variablesDefault: jfieldID;
-end;
-function getTemplateDetailsFields(c: jclass): TTemplateDetails;
-begin
-  with result, j do begin
-    variablesNames := getfield(c, 'variablesNames', '[Ljava/lang/String;');
-    variablesDescription := getfield(c, 'variablesDescription', '[Ljava/lang/String;');
-    variablesDefault := getfield(c, 'variablesDefault', '[Ljava/lang/String;');
-  end;
-end;
-
 function Java_de_benibela_VideLibri_Bridge_VLGetTemplateDetails(env:PJNIEnv; this:jobject; id: jstring): jobject; cdecl;
 var
   i: Integer;
   template: TMultiPageTemplate;
   meta: TTemplateActionMeta;
-  detailClass: jclass;
-  names: jobject;
-  defs: jobject;
-  desc: jobject;
+  details: TTemplateDetails;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetTemplateDetails (started)');
   //bbdebugtools.log(strFromPtr(libraryManager));
@@ -435,27 +420,19 @@ begin
 
     if meta = nil then exit(nil);
 
-    detailClass := j.getclass('de/benibela/videlibri/jni/Bridge$TemplateDetails');
-    result := j.newObject(detailClass, j.getmethod(detailClass, '<init>', '()V'));
-    with getTemplateDetailsFields(detailClass), j do begin
-      names := newStringArray(length(meta.variables));
-      defs := newStringArray(length(meta.variables));
-      desc := newStringArray(length(meta.variables));
-      SetObjectField(result, variablesNames, names);
-      SetObjectField(result, variablesDefault, defs);
-      SetObjectField(result, variablesDescription, desc);
-
-      for i:=0 to high(meta.variables) do begin
-        setStringArrayElement(names, i, meta.variables[i].name);
-        setStringArrayElement(desc, i, meta.variables[i].description);
-        if meta.variables[i].hasDef then
-          setStringArrayElement(defs, i, meta.variables[i].def);
-      end;
-
-      deleteLocalRef(names);
-      deleteLocalRef(defs);
-      deleteLocalRef(desc);
+    details := TTemplateDetails.Create;
+    details.description := meta.description;
+    SetLength(details.variablesDefault, length(meta.variables));
+    SetLength(details.variablesDescription, length(meta.variables));
+    SetLength(details.variablesNames, length(meta.variables));
+    for i:=0 to high(meta.variables) do begin
+      details.variablesNames[i] := meta.variables[i].name;
+      details.variablesDescription[i] :=  meta.variables[i].description;
+      if meta.variables[i].hasDef then details.variablesDefault[i] := meta.variables[i].def
+      //else details.variablesDefault[i] := ''
     end;
+    result := details.toJava;
+    details.Free;
   except
     on e: Exception do throwExceptionToJava(e);
   end;
@@ -2174,7 +2151,7 @@ const nativeMethods: array[1..40] of JNINativeMethod=
    ,(name:'VLSetLibraryDetails'; signature:'(Ljava/lang/String;Lde/benibela/videlibri/jni/Bridge$LibraryDetails;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLSetLibraryDetails)
    ,(name:'VLInstallLibrary'; signature:'(Ljava/lang/String;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInstallLibrary)
    ,(name:'VLGetTemplates'; signature:'()[Ljava/lang/String;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetTemplates)
-   ,(name:'VLGetTemplateDetails'; signature:'(Ljava/lang/String;)Lde/benibela/videlibri/jni/Bridge$TemplateDetails;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetTemplateDetails)
+   ,(name:'VLGetTemplateDetails'; signature: '(Ljava/lang/String;)Lde/benibela/videlibri/jni/TemplateDetails;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetTemplateDetails)
    ,(name:'VLReloadLibrary'; signature:'(Ljava/lang/String;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLReloadLibrary)
    ,(name:'VLReloadTemplate'; signature:'(Ljava/lang/String;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLReloadTemplate)
 
