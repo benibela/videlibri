@@ -1,3 +1,5 @@
+//This file has been generated automatically. Do not edit it, do not read it.
+//Refer to the interface.pretty file
 unit commoninterface;
 {$mode objfpc}{$H+}
 {$ModeSwitch typehelpers}{$ModeSwitch advancedrecords}{$ModeSwitch autoderef}

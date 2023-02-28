@@ -366,6 +366,20 @@ begin
   end;
 end;
 
+",
+distinct-values($r/api/class[@jvm-pascal]//array/classref/@ref)!x"
+procedure fromJavaArrayAndDelete(var sa: T{.}Array; jvm: jarray); //does not support inheritance
+var
+  i: sizeint;
+begin
+  with j do begin
+    SetLength(sa, getArrayLength(jvm));
+    for i := 0 to high(sa) do
+      sa[i] := T{.}.fromJava(getObjectArrayElement(jvm, i));
+    deleteLocalRef(jvm);
+  end;
+end;
+
 " }
 
 {$r/api/class[@pascal-jvm or @jvm-pascal]/x"
@@ -428,7 +442,7 @@ begin
      return x"   {@name} := get{name()}Field( jvm, {@name}{ig:jni-pascal-suffix(.)} );&#x0A;"
      case element(array)   return x"   fromJavaArrayAndDelete({@name}, getObjectField( jvm, {@name}{ig:jni-pascal-suffix(.)} ));&#x0A;"
      case element(classref)   return x"   {@name} := T{@ref}.fromJavaAndDelete(getObjectField( jvm, {@name}{ig:jni-pascal-suffix(.)} ));&#x0A;"
-     case element(intenumref)   return x"   {@name} := getIntField( jvm, {@name}I ));&#x0A;"
+     case element(intenumref)   return x"   {@name} := T{@ref}(getIntField( jvm, {@name}I ));&#x0A;"
      default return ig:error("unknown property type.")
    )}
  end;
@@ -481,6 +495,7 @@ declare function ig:kotlin-prop-default($s){
     case element(long) return "0" 
     case element(double) return "0" 
     case element(boolean) return "false"
+    case element(array) return "emptyArray()"
     case element(intenumref) return "0"
     default return "" 
   )
@@ -514,7 +529,7 @@ object {@id} {{
 declare function ig:kotlin-make-class($s){
   let $a := ig:ancestors($s)
   let $fieldtype := (if ($s/@jvm-pascal) then  "@JvmField " else "") ||  ($s/@kotlin-var, "val")[1] || " "
-  let $addDefault := empty(($s//classref, $s//array))
+  let $addDefault := empty(($s/classref))
   let $aprops := ig:properties($a)
   return
   $s/(x"
@@ -571,7 +586,7 @@ declare function ig:pascal-native-arg-type($arg){
 };
  
 declare function ig:pascal-make-function-native-declaration($f){ 
-  $f/x",(name:'{@id}'; signature: '({arg/ig:jni-full-name(*)}){(return-type/ig:jni-full-name(*),"V")[1]}'; fnPtr: @Java_de_benibela_VideLibri_Bridge_{@id})"
+  $f/x",(name:'{@id}'; signature: '({string-join(arg/ig:jni-full-name(*))}){(return-type/ig:jni-full-name(*),"V")[1]}'; fnPtr: @Java_de_benibela_VideLibri_Bridge_{@id})"
 };
  
 declare function ig:pascal-make-function($f){ 

@@ -1,3 +1,5 @@
+//This file has been generated automatically. Do not edit it, do not read it.
+//Refer to the interface.pretty file
 @file:Suppress("EqualsOrHashCode", "unused")
 package de.benibela.videlibri.jni
 typealias LibraryTestingInfoInt = Int
@@ -19,18 +21,18 @@ object LibraryTestingInfo {
 
   } 
   open class FormSelect( 
-    name: String,
-    caption: String,
-    value: String,
-    val optionCaptions: Array<String>,
-    val optionValues: Array<String>
+    name: String = "",
+    caption: String = "",
+    value: String = "",
+    val optionCaptions: Array<String> = emptyArray(),
+    val optionValues: Array<String> = emptyArray()
   ) : FormInput(name, caption, value)  {
     override fun equals(other: Any?): Boolean =
        other != null && javaClass == other.javaClass && other is FormSelect && optionCaptions.contentEquals(other.optionCaptions) && optionValues.contentEquals(other.optionValues) && name == other.name && caption == other.caption && value == other.value
 
   } 
   open class FormParams( 
-    val inputs: Array<FormInput>
+    val inputs: Array<FormInput> = emptyArray()
   )   {
     override fun equals(other: Any?): Boolean =
        other != null && javaClass == other.javaClass && other is FormParams && inputs.contentEquals(other.inputs)
@@ -84,19 +86,19 @@ object LibraryTestingInfo {
 
   } 
   open class OptionsShared( 
-    @JvmField var nearTime: Int,
-    @JvmField var refreshInterval: Int,
-    @JvmField var userLibIds: Array<String>
+    @JvmField var nearTime: Int = 0,
+    @JvmField var refreshInterval: Int = 0,
+    @JvmField var userLibIds: Array<String> = emptyArray()
   )   {
     override fun equals(other: Any?): Boolean =
        other != null && javaClass == other.javaClass && other is OptionsShared && nearTime == other.nearTime && refreshInterval == other.refreshInterval && userLibIds.contentEquals(other.userLibIds)
 
   } 
   open class TemplateDetails( 
-    val description: String,
-    val variablesNames: Array<String>,
-    val variablesDescription: Array<String>,
-    val variablesDefault: Array<String>
+    val description: String = "",
+    val variablesNames: Array<String> = emptyArray(),
+    val variablesDescription: Array<String> = emptyArray(),
+    val variablesDefault: Array<String> = emptyArray()
   )   {
     override fun equals(other: Any?): Boolean =
        other != null && javaClass == other.javaClass && other is TemplateDetails && description == other.description && variablesNames.contentEquals(other.variablesNames) && variablesDescription.contentEquals(other.variablesDescription) && variablesDefault.contentEquals(other.variablesDefault)

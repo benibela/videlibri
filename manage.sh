@@ -156,8 +156,8 @@ downloadTable)
     
   create-common-interface)
     xidel interface.pretty --module interface-generator-pretty-to-xml.xqm -e 'serialize(igp:make($raw), {"indent": true()})' | tee interface.xml
-    xidel interface.xml --module interface-generator.xqm -e 'ig:pascal-make(/)' | tee commoninterface.pas
-    xidel interface.xml --module interface-generator.xqm -e 'ig:kotlin-make(/)' | tee android/android/src/de/benibela/videlibri/jni/CommonInterface.kt
+    xidel interface.xml --module interface-generator.xqm -e '"//This file has been generated automatically. Do not edit it, do not read it.", "//Refer to the interface.pretty file", ig:pascal-make(/)' | tee commoninterface.pas
+    xidel interface.xml --module interface-generator.xqm -e '"//This file has been generated automatically. Do not edit it, do not read it.", "//Refer to the interface.pretty file", ig:kotlin-make(/)' | tee android/android/src/de/benibela/videlibri/jni/CommonInterface.kt
     xidel interface.xml --module interface-generator.xqm -e 'ig:code-to-add-manually(/)' 
 #    xidel interface.xml --module interface-generator.xqm -e 'ig:pascal-kotlin-make-bridge(/)'
 

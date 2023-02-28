@@ -1,4 +1,7 @@
 <api>
+  <!-- This file has been generated automatically. Do not edit it, do not read it.
+         Refer to the corresponding .pretty file
+    -->
   <class id="FormInput" serialize-json="" pascal-jvm="" pascal-type="class">
     <string name="name"/>
     <string name="caption"/>

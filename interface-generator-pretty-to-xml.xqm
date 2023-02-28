@@ -79,6 +79,9 @@ declare function igp:make-enum($annotations, $name, $children){
 declare function igp:make($input) {
   let $firstPass := 
     <api>
+    <!-- This file has been generated automatically. Do not edit it, do not read it.
+         Refer to the corresponding .pretty file
+    -->
     {
     for tumbling window $w in x:lines($input)!normalize-space() 
        start $s when $s ne "" 
