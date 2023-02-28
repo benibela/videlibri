@@ -439,50 +439,23 @@ public class Bridge {
             VLSearchEnd(this);
         }
 
-        private @NotNull SearchEvent newEvent(@NotNull SearchEventKind kind) {  return newEvent(kind, 0, null, null); }
-        private @NotNull SearchEvent newEvent(@NotNull SearchEventKind kind, @Nullable Object obj) {  return newEvent(kind, 0, obj, null); }
-        private @NotNull SearchEvent newEvent(@NotNull SearchEventKind kind, int arg1, @Nullable Object obj1, @Nullable Object obj2) {
-            SearchEvent event = new SearchEvent(kind);
-            event.arg1 = arg1;
-            event.obj1 = obj1;
-            event.obj2 = obj2;
-            return event;
-        }
         private void send(SearchEvent event) {
             if (searchEventHandler == null) return;
-            event.searcherAccess = this;
+            event.setSearcherAccess(this);
             searchEventHandler.sendMessage(searchEventHandler.obtainMessage(0, event));
         }
 
 
-        public void onConnected(@NotNull FormParams params){ send(newEvent(SearchEventKind.CONNECTED, params)); }
-        public void onSearchFirstPageComplete(@NotNull Book[] books) { send(newEvent(SearchEventKind.FIRST_PAGE, books)); }
-        public void onSearchNextPageComplete(@NotNull Book[] books) { send(newEvent(SearchEventKind.NEXT_PAGE, books)); }
-        public void onSearchDetailsComplete(@NotNull Book book) { send(newEvent(SearchEventKind.DETAILS, book)); }
-        public void onOrderComplete(@NotNull Book book) { send(newEvent(SearchEventKind.ORDER_COMPLETE, book)); }
-        public void onTakePendingMessage(int kind, @NotNull String caption, @NotNull String[] options) { send(newEvent(SearchEventKind.TAKE_PENDING_MESSAGE, kind, caption, options)); }
-        public void onPendingMessageCompleted() { send(newEvent(SearchEventKind.PENDING_MESSAGE_COMPLETE)); }
-        public void onException() { send(newEvent(SearchEventKind.EXCEPTION)); }
-    }
-
-    public enum SearchEventKind {
-        CONNECTED, //obj1 = params
-        FIRST_PAGE, //obj1 = Book[] books
-        NEXT_PAGE,  //obj1 = Book[] books
-        DETAILS,    //obj1 = Book book
-        ORDER_COMPLETE, //obj1 = Book book
-        TAKE_PENDING_MESSAGE, //arg1 = int kind, obj1 = String caption, obj2 = String[] options
-        PENDING_MESSAGE_COMPLETE,
-        EXCEPTION
-    }
-    public static class SearchEvent{
-        @Nullable public SearcherAccess searcherAccess;
-        @NotNull public SearchEventKind kind;
-        public int arg1;
-        @Nullable public Object obj1, obj2;
-        SearchEvent(@NotNull SearchEventKind kind) {
-            this.kind = kind;
+        public void onConnected(@NotNull FormParams params){ send(new SearchEvent.Connected(params)); }
+        public void onSearchFirstPageComplete(@NotNull Book[] books) { send(new SearchEvent.FirstPage(books)); }
+        public void onSearchNextPageComplete(@NotNull Book[] books) { send(new SearchEvent.NextPage(books)); }
+        public void onSearchDetailsComplete(@NotNull Book book) { send(new SearchEvent.Details(book)); }
+        public void onOrderComplete(@NotNull Book book) { send(new SearchEvent.OrderComplete(book)); }
+        public void onTakePendingMessage(int kind, @NotNull String caption, @NotNull String[] options) {
+            send(new SearchEvent.TakePendingMessage(kind, caption, options));
         }
+        public void onPendingMessageCompleted() { send(new SearchEvent.PendingMessageComplete()); }
+        public void onException() { send(new SearchEvent.Exception()); }
     }
 
 

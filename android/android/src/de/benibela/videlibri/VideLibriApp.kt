@@ -17,10 +17,7 @@ import de.benibela.internettools.X509TrustManagerWithAdditionalKeystores
 import de.benibela.videlibri.activities.*
 import de.benibela.videlibri.internet.UserKeyStore
 import de.benibela.videlibri.internet.VideLibriKeyStore
-import de.benibela.videlibri.jni.Bridge
-import de.benibela.videlibri.jni.globalOptionsAndroid
-import de.benibela.videlibri.jni.globalOptionsShared
-import de.benibela.videlibri.jni.save
+import de.benibela.videlibri.jni.*
 import de.benibela.videlibri.notifications.NotificationScheduling
 import de.benibela.videlibri.notifications.Notifier
 import de.benibela.videlibri.utils.*
@@ -311,10 +308,10 @@ class VideLibriApp : Application() {
             Bridge.searchEventHandler =
             object : Handler(Looper.getMainLooper()) {
                 override fun handleMessage(msg: Message) {
-                    val event = msg.obj as Bridge.SearchEvent
+                    val event = msg.obj as SearchEvent
                     if (currentActivity<SearchEventHandler>()?.onSearchEvent(event) == true)
                         return
-                    event.searcherAccess!!.pendingEvents.add(event)
+                    event.searcherAccess?.pendingEvents?.add(event)
                 }
             }
 

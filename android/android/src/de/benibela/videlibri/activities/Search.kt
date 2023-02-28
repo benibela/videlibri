@@ -20,10 +20,7 @@ import de.benibela.videlibri.R
 import de.benibela.videlibri.VideLibriApp
 import de.benibela.videlibri.databinding.SearchlayoutRowEditBinding
 import de.benibela.videlibri.databinding.SearchlayoutRowSpinnerBinding
-import de.benibela.videlibri.jni.Bridge
-import de.benibela.videlibri.jni.FormInput
-import de.benibela.videlibri.jni.FormParams
-import de.benibela.videlibri.jni.FormSelect
+import de.benibela.videlibri.jni.*
 import de.benibela.videlibri.utils.*
 import kotlinx.parcelize.Parcelize
 import java.util.*
@@ -31,7 +28,7 @@ import kotlin.math.roundToInt
 
 
 internal interface SearchEventHandler {
-    fun onSearchEvent(event: Bridge.SearchEvent): Boolean
+    fun onSearchEvent(event: SearchEvent): Boolean
 }
 private class SearchParamHolder(
         val input: FormInput,
@@ -310,20 +307,20 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
             super.onActivityResult(requestCode, resultCode, data)
     }
 
-    override fun onSearchEvent(event: Bridge.SearchEvent): Boolean {
+    override fun onSearchEvent(event: SearchEvent): Boolean {
         if (debugTester?.onSearchEvent(event) == true) return true
         if (event.searcherAccess !== searcher) return false
         event.searcherAccess?.let { s ->
-            when (event.kind) {
-                Bridge.SearchEventKind.CONNECTED -> {
+            when (event) {
+                is SearchEvent.Connected ->  {
                     s.heartBeat = System.currentTimeMillis()
                     s.state = SEARCHER_STATE_CONNECTED
-                    s.searchParams = event.obj1 as? FormParams
+                    s.searchParams = event.params
                     updateSearchParamsViews()
                     refreshLoadingIcon()
                     return true
                 }
-                Bridge.SearchEventKind.EXCEPTION -> {
+                is SearchEvent.Exception -> {
                     s.state = SEARCHER_STATE_FAILED
                     searcher = null
                     gcSearchers()
@@ -407,12 +404,12 @@ internal class SearchDebugTester(private var query: Bridge.Book, startId: String
         }
     }
 
-    fun onSearchEvent(event: Bridge.SearchEvent): Boolean {
+    fun onSearchEvent(event: SearchEvent): Boolean {
         if (event.searcherAccess !== searcher) return false
         val currentSearcher = searcher ?: return false
-        when (event.kind) {
-            Bridge.SearchEventKind.CONNECTED -> currentSearcher.start(query)
-            Bridge.SearchEventKind.FIRST_PAGE -> {
+        when (event) {
+            is SearchEvent.Connected -> currentSearcher.start(query)
+            is SearchEvent.FirstPage -> {
                 if (currentSearcher.nextPageAvailable) {
                     currentSearcher.nextPage()
                 } else {
@@ -424,7 +421,7 @@ internal class SearchDebugTester(private var query: Bridge.Book, startId: String
                         endComplete()
                 }
             }
-            Bridge.SearchEventKind.NEXT_PAGE -> {
+            is SearchEvent.NextPage -> {
                 currentSearcher.free()
                 pos++
                 if (pos < libs.size)
@@ -432,7 +429,7 @@ internal class SearchDebugTester(private var query: Bridge.Book, startId: String
                 else
                     endComplete()
             }
-            Bridge.SearchEventKind.EXCEPTION -> {
+            is SearchEvent.Exception -> {
                 currentSearcher.free()
                 endComplete()
                 VideLibriApp.showPendingExceptions()

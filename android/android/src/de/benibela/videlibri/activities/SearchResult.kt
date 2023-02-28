@@ -6,7 +6,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import de.benibela.videlibri.*
 import de.benibela.videlibri.jni.Bridge
-import de.benibela.videlibri.jni.FormParams
+import de.benibela.videlibri.jni.SearchEvent
 import de.benibela.videlibri.utils.*
 import kotlin.math.max
 
@@ -108,51 +108,51 @@ class SearchResult : BookListActivity(), SearchEventHandler {
     }
 
 
-    override fun onSearchEvent(event: Bridge.SearchEvent): Boolean {
+    override fun onSearchEvent(event: SearchEvent): Boolean {
         val access = event.searcherAccess
         if (access !== searcher || access == null) return false
         access.heartBeat = System.currentTimeMillis()
-        when (event.kind) {
-            Bridge.SearchEventKind.CONNECTED -> {
+        when (event) {
+            is SearchEvent.Connected -> {
                 access.state = Search.SEARCHER_STATE_CONNECTED
-                access.searchParams = event.obj1 as? FormParams
+                access.searchParams = event.params
                 access.waitingForDetails = -1
                 access.nextDetailsRequested = -1
                 access.start(intent.getSerializableExtra("searchQuery") as Bridge.Book)
             }
-            Bridge.SearchEventKind.FIRST_PAGE //obj1 = Book[] books
+            is SearchEvent.FirstPage
             -> {
                 access.loadingTaskList = false
                 access.state = Search.SEARCHER_STATE_SEARCHING
-                onSearchFirstPageComplete(event.obj1 as Array<Bridge.Book>)
+                onSearchFirstPageComplete(event.books)
             }
-            Bridge.SearchEventKind.NEXT_PAGE  //obj1 = Book[] books
+            is SearchEvent.NextPage
             -> {
                 access.loadingTaskList = false
-                onSearchNextPageComplete(event.obj1 as Array<Bridge.Book>)
+                onSearchNextPageComplete(event.books)
             }
-            Bridge.SearchEventKind.DETAILS    //obj1 = Book book
-            -> onSearchDetailsComplete(event.obj1 as Bridge.Book)
-            Bridge.SearchEventKind.ORDER_COMPLETE //obj1 = Book book
+            is SearchEvent.Details
+            -> onSearchDetailsComplete(event.book)
+            is SearchEvent.OrderComplete
             -> {
                 access.loadingTaskOrder = false
                 access.loadingTaskOrderHolding = false
                 access.loadingTaskMessage = false
-                onOrderComplete(event.obj1 as Bridge.Book)
+                onOrderComplete(event.book)
             }
-            Bridge.SearchEventKind.TAKE_PENDING_MESSAGE //arg1 = int kind, obj1 = String caption, obj2 = String[] options
+            is SearchEvent.TakePendingMessage
             -> {
                 access.loadingTaskMessage = false
-                onTakePendingMessage(event.arg1, event.obj1 as String, event.obj2 as Array<String>)
+                onTakePendingMessage(event.kind, event.caption, event.options)
             }
-            Bridge.SearchEventKind.PENDING_MESSAGE_COMPLETE -> {
+            is SearchEvent.PendingMessageComplete -> {
                 onOrderFailed()
                 access.loadingTaskOrder = false
                 access.loadingTaskOrderHolding = false
                 access.loadingTaskMessage = false
                 details.setOrderButtonsClickable()
             }
-            Bridge.SearchEventKind.EXCEPTION -> {
+            is SearchEvent.Exception -> {
                 onOrderFailed()
                 access.state = Search.SEARCHER_STATE_FAILED
                 setTitle()
