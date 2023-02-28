@@ -59,6 +59,26 @@
       <string/>
     </array>
   </class>
+  <intenum id="LibraryTestingInfo" jvm-pascal="" pascal-jvm="" pascal-prefix="ti" values="Unknown Yes No Broken"/>
+  <class id="LibraryDetails" pascal-type="class" jvm-pascal="" pascal-jvm="">
+    <string name="id"/>
+    <string name="prettyName"/>
+    <string name="prettyNameShort"/>
+    <string name="homepageBase"/>
+    <string name="homepageCatalogue"/>
+    <string name="templateId"/>
+    <string name="tableComment"/>
+    <string name="accountComment"/>
+    <array name="variableNames">
+      <string/>
+    </array>
+    <array name="variableValues">
+      <string/>
+    </array>
+    <boolean name="segregatedAccounts"/>
+    <intenumref name="testingStateSearch" ref="LibraryTestingInfo"/>
+    <intenumref name="testingStateAccount" ref="LibraryTestingInfo"/>
+  </class>
   <class id="TemplateDetails" pascal-jvm="">
     <string name="description"/>
     <array name="variablesNames">

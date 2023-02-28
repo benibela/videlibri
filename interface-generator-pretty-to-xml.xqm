@@ -33,9 +33,16 @@ declare function igp:make-function($f){
   </function>
 };
 
-declare function igp:make-class($c){
-  let $annotations := $c[starts-with(., "@")]
-  let $nameAndParent := extract($c[count($annotations) + 1], "class ([^:\s]+)( *: *([^{]+))? *\{", (1,3))!normalize-space()
+declare function igp:annotation-to-attribute($a){
+  switch ($a) 
+    case "@Kotlin->Pascal" return attribute jvm-pascal {} 
+    case "@Pascal->Kotlin" return attribute pascal-jvm {} 
+    case "@Kotlin<->Pascal" case "@Pascal<->Kotlin" return (attribute jvm-pascal {}, attribute pascal-jvm {} )
+    default return igp:error("invalid annotation", $a)
+};
+
+declare function igp:make-class($annotations, $nameAndParent, $children){
+  let $nameAndParent := extract($nameAndParent, "^([^:\s]+)( *: *([^{]+))?$", (1,3))!normalize-space()
   return
     <class id="{$nameAndParent[1]}">{
  if ($nameAndParent[2]) then attribute extends {$nameAndParent[2]} else (),
@@ -44,12 +51,9 @@ declare function igp:make-class($c){
       case "@SerializeJson" return attribute serialize-json {} 
       case "@KotlinVar" return attribute kotlin-var {"var"} 
       case "@KotlinDataClass" return attribute kotlin-class {"data"} 
-      case "@Kotlin->Pascal" return attribute jvm-pascal {} 
-      case "@Pascal->Kotlin" return attribute pascal-jvm {} 
       case "@PascalClass" return attribute pascal-type {"class"} 
-      case "@Kotlin<->Pascal" case "@Pascal<->Kotlin" return (attribute jvm-pascal {}, attribute pascal-jvm {} )
-      default return igp:error("invalid annotation", $a),
-  for $x in subsequence($c, count($annotations) + 2, count($c) - count($annotations) - 2)!translate(., " ", "") 
+      default return igp:annotation-to-attribute($a),
+  for $x in $children!translate(., " ", "") 
   let $split := extract($x, "([^:]+):([^=]+)(=\s*(.*))?", (1,2,4) )
   let $name := $split[1]!normalize-space()
   let $type := $split[2]!normalize-space()
@@ -61,14 +65,38 @@ declare function igp:make-class($c){
   </class>
 };
 
+declare function igp:make-enum($annotations, $name, $children){
+  <intenum id="{$name}">{
+    $annotations ! (
+      if (starts-with(., "@PascalPrefix")) then attribute pascal-prefix { extract(., "\(\s*([a-zA-Z]+)", 1) }
+      else igp:annotation-to-attribute(.)
+    ),
+    attribute values { string-join($children ! normalize-space(.), " ") }
+    
+  }</intenum>
+};
+
 declare function igp:make($input) {
-<api>
-{
-  for tumbling window $w in x:lines($input)!normalize-space() 
-     start $s when $s ne "" 
-     end $e when $e eq "}" or starts-with($s, "fun ")
-  return if (starts-with($s, "fun")) then igp:make-function($w)
-  else igp:make-class($w)
-}
-</api>
+  let $firstPass := 
+    <api>
+    {
+    for tumbling window $w in x:lines($input)!normalize-space() 
+       start $s when $s ne "" 
+       end $e when $e eq "}" or starts-with($s, "fun ")
+    return if (starts-with($s, "fun")) then igp:make-function($w)
+    else 
+      let $annotations := $w[starts-with(., "@")]
+      let $typeName := extract($w[count($annotations) + 1], "([a-z]+)\s+([^{]+)\{", (1,2))!normalize-space()
+      let $children := subsequence($w, count($annotations) + 2, count($w) - count($annotations) - 2)
+      return switch ($typeName[1]) 
+        case "class" return igp:make-class($annotations, $typeName[2], $children)
+        case "enum" return igp:make-enum($annotations, $typeName[2], $children)
+        default return ""
+    } 
+    </api>
+  let $enumTypes := $firstPass//intenum/@id!string()
+  return x:replace-nodes( $firstPass, $firstPass//classref, function($ref){
+    if ($ref/@ref = $enumTypes) then <intenumref>{$ref/@*,$ref/*}</intenumref>
+    else $ref
+  } )
 };

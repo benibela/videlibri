@@ -5,6 +5,7 @@ interface
  uses sysutils, xquery.internals.common, xquery, fastjsonreader {$ifdef android}, jni, bbjniutils{$endif};
  type EVideLibriInterfaceException = class(Exception);
  type TFormInput = class; TFormInputArray = array of TFormInput; 
+ TLibraryTestingInfo = ( tiUnknown = 0, tiYes = 1, tiNo = 2, tiBroken = 3 );
  
 type 
 TFormInputClass = class of TFormInput;

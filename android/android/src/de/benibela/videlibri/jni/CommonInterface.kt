@@ -1,5 +1,13 @@
 @file:Suppress("EqualsOrHashCode", "unused")
 package de.benibela.videlibri.jni
+typealias LibraryTestingInfoInt = Int
+object LibraryTestingInfo {
+    const val Unknown = 0
+    const val Yes = 1
+    const val No = 2
+    const val Broken = 3
+}
+
 
   open class FormInput( 
     val name: String = "",

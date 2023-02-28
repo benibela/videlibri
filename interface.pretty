@@ -94,8 +94,32 @@ class OptionsShared {
 
 
 
+@Pascal<->Kotlin
+@PascalPrefix(ti)
+enum LibraryTestingInfo {
+  Unknown
+  Yes
+  No
+  Broken
+}
 
-
+@PascalClass
+@Pascal<->Kotlin
+class LibraryDetails {
+  id: String
+  prettyName: String
+  prettyNameShort: String
+  homepageBase: String
+  homepageCatalogue: String
+  templateId: String
+  tableComment: String
+  accountComment: String
+  variableNames: String[]
+  variableValues: String[]
+  segregatedAccounts: Boolean
+  testingStateSearch: LibraryTestingInfo
+  testingStateAccount: LibraryTestingInfo
+}
 
 @Pascal->Kotlin
 class TemplateDetails { 

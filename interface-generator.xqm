@@ -44,7 +44,7 @@ declare function ig:jni-pascal-suffix($c){
       case element(string) return "S" 
       case element(array) return "A"
       case element(classref) return "L"
-      case element(int) return "I"
+      case element(int) | element(intenumref) return "I" 
       case element(long) return "J"
       case element(double) return "D"
       case element(boolean) return "Z"
@@ -56,6 +56,7 @@ declare function ig:jni-full-name($c){
       case element(string) return "Ljava/lang/String;" 
       case element(array) return concat("[L", ig:jni-name(*), ";")
       case element(classref) return concat("L", ig:jni-name(.), ";")
+      case element(intenumref) return "I"
       default return ig:jni-pascal-suffix(.))
 };
 
@@ -81,11 +82,19 @@ declare function ig:pascal-make-fields($s, $prefix){
   ig:pascal-make-fields-of-type($s/double, $prefix || "double"),
   ig:pascal-make-fields-of-type($s/boolean, $prefix || "boolean"),
   $s/array/(@name || ig:pascal-make-fields(., "array of ")),
-  $s/classref/ig:pascal-make-fields-of-type(., $prefix||"T"||@ref)
+  $s/classref/ig:pascal-make-fields-of-type(., $prefix||"T"||@ref),
+  $s/intenumref/ig:pascal-make-fields-of-type(., $prefix||"T"||@ref)
 };
 
 declare function ig:pascal-make-fields($s){
   ig:pascal-make-fields($s, "")  
+};
+
+declare function ig:pascal-make-intenum($e){ $e/ (
+  let $values := tokenize(@values)
+  let $prefix := @pascal-prefix
+  return x"T{@id} = ( {string-join($values ! x"{$prefix}{.} = {position() - 1}" , ", ")} );"
+)
 };
 
 declare function ig:pascal-make-class($s){
@@ -140,6 +149,7 @@ interface
    where exists($arrayrefs)
    return ("type " || join($arrayrefs ! x"T{.} = class; T{.}Array = array of T{.}; "))
  }
+ { $r/api/intenum/ig:pascal-make-intenum(.) }
  { $r/api/class/ig:pascal-make-class(.) }
  {{$ifdef android}}
  procedure initBridge;
@@ -399,6 +409,7 @@ begin
      case element(boolean) return x"   temp[{$i}].z := booleanToJboolean(self.{$p/@name});&#x0A;"
      case element(array)   return x"   temp[{$i}].l := arrayToJArrayCI(self.{$p/@name});&#x0A;"
      case element(classref)   return x"   temp[{$i}].l := self.{$p/@name}.toJava;&#x0A;"
+     case element(intenumref) return x"   temp[{$i}].i := ord(self.{$p/@name});&#x0A;"
      default return ig:error("unknown property type")
    }
     result := newObject({@id}Class, {@id}ClassInit, @temp[0]); 
@@ -417,6 +428,7 @@ begin
      return x"   {@name} := get{name()}Field( jvm, {@name}{ig:jni-pascal-suffix(.)} );&#x0A;"
      case element(array)   return x"   fromJavaArrayAndDelete({@name}, getObjectField( jvm, {@name}{ig:jni-pascal-suffix(.)} ));&#x0A;"
      case element(classref)   return x"   {@name} := T{@ref}.fromJavaAndDelete(getObjectField( jvm, {@name}{ig:jni-pascal-suffix(.)} ));&#x0A;"
+     case element(intenumref)   return x"   {@name} := getIntField( jvm, {@name}I ));&#x0A;"
      default return ig:error("unknown property type.")
    )}
  end;
@@ -456,6 +468,7 @@ declare function ig:kotlin-make-prop-type($s, $prefix, $suffix){
     case element(double) return "Double" 
     case element(boolean) return "Boolean" 
     case element(classref) return @ref
+    case element(intenumref) return @ref || "Int"
     case element(array) return ig:kotlin-make-prop-type(*, "Array<", ">")
     default return () 
   ) || $suffix
@@ -468,13 +481,14 @@ declare function ig:kotlin-prop-default($s){
     case element(long) return "0" 
     case element(double) return "0" 
     case element(boolean) return "false"
+    case element(intenumref) return "0"
     default return "" 
   )
 };
 
 declare function ig:kotlin-make-prop($s, $default){
   $s/(typeswitch (.) 
-    case element(string)|element(int)|element(long)|element(double)|element(boolean)|element(array)|element(classref) 
+    case element(string)|element(int)|element(long)|element(double)|element(boolean)|element(array)|element(classref)|element(intenumref) 
     return x"{@name}: " || ig:kotlin-make-prop-type(., "", 
       if (@default) then  
         if (self::string) then x' = "{@default}"'
@@ -483,6 +497,18 @@ declare function ig:kotlin-make-prop($s, $default){
       else "" )
     default return () 
   )
+};
+
+declare function ig:kotlin-make-intenum($s){
+  let $id := $s/@id
+  let $values := tokenize($s/@values)
+  return
+  $s/x"typealias {@id}Int = Int
+object {@id} {{
+{join($values ! x"    const val {.} = {position() - 1}", "&#xA;") }
+}}
+"
+
 };
 
 declare function ig:kotlin-make-class($s){
@@ -502,7 +528,7 @@ declare function ig:kotlin-make-class($s){
     override fun equals(other: Any?): Boolean =
        other != null &amp;&amp; {join(("javaClass == other.javaClass", "other is " || @id, (*,$aprops)/(
          typeswitch (.)
-           case element(string)|element(int)|element(long)|element(double)|element(boolean)|element(classref) return concat(@name, " == other.", @name)
+           case element(string)|element(int)|element(long)|element(double)|element(boolean)|element(classref)|element(intenumref) return concat(@name, " == other.", @name)
            case element(array) return concat(@name, ".contentEquals(other.", @name,")")
            default return ()
        )), " &amp;&amp; ")}
@@ -512,6 +538,7 @@ declare function ig:kotlin-make-class($s){
 declare function ig:kotlin-make($r){
   x"@file:Suppress(""EqualsOrHashCode"", ""unused"")
 package de.benibela.videlibri.jni
+{ $r/api/intenum/ig:kotlin-make-intenum(.)}
 { $r/api/class/ig:kotlin-make-class(.)} "
 };
 
@@ -535,6 +562,7 @@ declare function ig:pascal-native-arg-type($arg){
       case element(string) return "jobject" 
       case element(array) return "jobject"
       case element(classref) return "jobject"
+      case element(intenumref) return "jint"
       case element(int) return "jint"
       case element(long) return "jlong"
       case element(double) return "jdouble"
