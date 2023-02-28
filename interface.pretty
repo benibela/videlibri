@@ -1,6 +1,7 @@
 
 @SerializeJson
 @Pascal->Kotlin
+@PascalClass
 class FormInput {
   name: String
   caption: String
@@ -9,6 +10,7 @@ class FormInput {
 
 @SerializeJson
 @Pascal->Kotlin
+@PascalClass
 class FormSelect: FormInput {
   optionCaptions: String[]
   optionValues: String[]
@@ -16,6 +18,7 @@ class FormSelect: FormInput {
 
 @SerializeJson
 @Pascal->Kotlin
+@PascalClass
 class FormParams: FastInterfacedObject {
   inputs: FormInput[]
 }
@@ -38,6 +41,7 @@ class VersionInfo {
 @KotlinVar
 @KotlinDataClass
 @Pascal<->Kotlin
+@PascalClass
 class BookListDisplayOptions {
   showHistory: Boolean
   noBorrowedBookDetails: Boolean
@@ -51,6 +55,7 @@ class BookListDisplayOptions {
 @SerializeJson
 @KotlinVar
 @Pascal<->Kotlin
+@PascalClass
 class NotificationConfig {
   enabled: Boolean = true
   serviceDelay: Int = 15
@@ -62,6 +67,7 @@ class NotificationConfig {
 @SerializeJson
 @KotlinVar
 @Pascal<->Kotlin
+@PascalClass
 class OptionsAndroidOnly {
   logging: Boolean
   bookListDisplayOptions: BookListDisplayOptions
@@ -79,6 +85,7 @@ class OptionsAndroidOnly {
 @SerializeJson
 @KotlinVar
 @Pascal<->Kotlin
+@PascalClass
 class OptionsShared {
   nearTime: Int
   refreshInterval: Int

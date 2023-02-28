@@ -1,10 +1,10 @@
 <api>
-  <class id="FormInput" serialize-json="" pascal-jvm="">
+  <class id="FormInput" serialize-json="" pascal-jvm="" pascal-type="class">
     <string name="name"/>
     <string name="caption"/>
     <string name="value"/>
   </class>
-  <class id="FormSelect" extends="FormInput" serialize-json="" pascal-jvm="">
+  <class id="FormSelect" extends="FormInput" serialize-json="" pascal-jvm="" pascal-type="class">
     <array name="optionCaptions">
       <string/>
     </array>
@@ -12,7 +12,7 @@
       <string/>
     </array>
   </class>
-  <class id="FormParams" extends="FastInterfacedObject" serialize-json="" pascal-jvm="">
+  <class id="FormParams" extends="FastInterfacedObject" serialize-json="" pascal-jvm="" pascal-type="class">
     <array name="inputs">
       <classref ref="FormInput"/>
     </array>
@@ -22,7 +22,7 @@
     <string name="platform"/>
     <string name="buildId"/>
   </class>
-  <class id="BookListDisplayOptions" serialize-json="" kotlin-var="var" kotlin-class="data" jvm-pascal="" pascal-jvm="">
+  <class id="BookListDisplayOptions" serialize-json="" kotlin-var="var" kotlin-class="data" jvm-pascal="" pascal-jvm="" pascal-type="class">
     <boolean name="showHistory"/>
     <boolean name="noBorrowedBookDetails"/>
     <boolean name="showRenewCount" default="true"/>
@@ -31,14 +31,14 @@
     <string name="filterKey"/>
     <boolean name="alwaysFilterOnHistory" default="true"/>
   </class>
-  <class id="NotificationConfig" serialize-json="" kotlin-var="var" jvm-pascal="" pascal-jvm="">
+  <class id="NotificationConfig" serialize-json="" kotlin-var="var" jvm-pascal="" pascal-jvm="" pascal-type="class">
     <boolean name="enabled" default="true"/>
     <int name="serviceDelay" default="15"/>
     <long name="lastTime"/>
     <string name="lastTitle"/>
     <string name="lastText"/>
   </class>
-  <class id="OptionsAndroidOnly" serialize-json="" kotlin-var="var" jvm-pascal="" pascal-jvm="">
+  <class id="OptionsAndroidOnly" serialize-json="" kotlin-var="var" jvm-pascal="" pascal-jvm="" pascal-type="class">
     <boolean name="logging"/>
     <classref name="bookListDisplayOptions" ref="BookListDisplayOptions"/>
     <array name="filterHistory">
@@ -52,7 +52,7 @@
     <boolean name="hasBeenStartedAtLeastOnce"/>
     <int name="accountCountBackup" default="-1"/>
   </class>
-  <class id="OptionsShared" serialize-json="" kotlin-var="var" jvm-pascal="" pascal-jvm="">
+  <class id="OptionsShared" serialize-json="" kotlin-var="var" jvm-pascal="" pascal-jvm="" pascal-type="class">
     <int name="nearTime"/>
     <int name="refreshInterval"/>
     <array name="userLibIds">

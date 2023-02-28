@@ -46,6 +46,7 @@ declare function igp:make-class($c){
       case "@KotlinDataClass" return attribute kotlin-class {"data"} 
       case "@Kotlin->Pascal" return attribute jvm-pascal {} 
       case "@Pascal->Kotlin" return attribute pascal-jvm {} 
+      case "@PascalClass" return attribute pascal-type {"class"} 
       case "@Kotlin<->Pascal" case "@Pascal<->Kotlin" return (attribute jvm-pascal {}, attribute pascal-jvm {} )
       default return igp:error("invalid annotation", $a),
   for $x in subsequence($c, count($annotations) + 2, count($c) - count($annotations) - 2)!translate(., " ", "") 

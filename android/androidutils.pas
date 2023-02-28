@@ -420,7 +420,7 @@ begin
 
     if meta = nil then exit(nil);
 
-    details := TTemplateDetails.Create;
+    details := default(TTemplateDetails);
     details.description := meta.description;
     SetLength(details.variablesDefault, length(meta.variables));
     SetLength(details.variablesDescription, length(meta.variables));
@@ -432,7 +432,6 @@ begin
       //else details.variablesDefault[i] := ''
     end;
     result := details.toJava;
-    details.Free;
   except
     on e: Exception do throwExceptionToJava(e);
   end;
@@ -2127,12 +2126,11 @@ begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetVersion (started)');
   result := nil;
   try
-    vi := TVersionInfo.Create;
+    vi := default(TVersionInfo);
     vi.version := FloatToStr(versionNumber / 1000);
     vi.platform := CPU_PLATFORM;
     vi.buildId := versionBuildId;
     result := vi.toJava;
-    vi.free;
   except
     on e: Exception do throwExceptionToJava(e);
   end;

@@ -61,6 +61,14 @@ declare function ig:jni-full-name($c){
 
 
 
+
+declare function ig:pascal-call-constructor($e){ $e / (
+  switch (@pascal-type)
+    case "class" return x"T{@id}.create"
+    default return x"default(T{@id})"
+  )
+};
+
 declare function ig:pascal-make-fields-of-type($s, $type){
   if (empty($s)) then () 
   else join($s/@name, ", ") || ": " || $type || ";"
@@ -81,12 +89,17 @@ declare function ig:pascal-make-fields($s){
 };
 
 declare function ig:pascal-make-class($s){
-$s/(let $virtual := if (ig:parent(.)) then "override;" else "virtual;" return x"
+$s/(
+let $type := (@pascal-type, "record")[1]
+let $virtual := if ($type = "record") then "" else if (ig:parent(.)) then "override;" else "virtual;" 
+return x"
 type 
-T{@id}Class = class of T{@id};
-T{@id} = class{@extends!concat("(T",.,")")}
+{x"T{@id}Class = class of T{@id};"[$type="class"]}
+T{@id} = {$type}{@extends!concat("(T",.,")")}
   {join(
     (ig:pascal-make-fields(.),
+     
+      if ($type ne "class" and exists((@serialize-json, .//classref, .//@default))) then ig:error("JSON and non-POD types require Pascal class type") else (),
      
       if (@serialize-json and not(ig:parent(.))) then "procedure toJSON(var builder: TJSONXHTMLStrBuilder);
   function toJSON(): string;" else (),
@@ -396,7 +409,7 @@ end;
 }{ $r/api/class[@jvm-pascal]/(let $allprops := ig:ancestor-and-self-properties(.) return x"
 class function T{@id}.fromJava(jvm: jobject): T{@id};
 begin
-  result := T{@id}.create;
+  result := {ig:pascal-call-constructor(.)};
   with j, result, {@id}Fields do begin
  {for $p at $i1 in $allprops return    
    $p/(typeswitch (.) 

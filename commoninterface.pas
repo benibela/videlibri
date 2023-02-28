@@ -71,12 +71,12 @@ public
 
 end;  
 type 
-TVersionInfoClass = class of TVersionInfo;
-TVersionInfo = class
+
+TVersionInfo = record
   version, platform, buildId: string;
 public
   {$ifdef android}
-  function toJava: jobject; virtual;
+  function toJava: jobject; 
   
   {$endif}
 
@@ -193,15 +193,15 @@ public
 
 end;  
 type 
-TTemplateDetailsClass = class of TTemplateDetails;
-TTemplateDetails = class
+
+TTemplateDetails = record
   description: string;
   variablesNames: array of string;
   variablesDescription: array of string;
   variablesDefault: array of string;
 public
   {$ifdef android}
-  function toJava: jobject; virtual;
+  function toJava: jobject; 
   
   {$endif}
 
