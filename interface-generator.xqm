@@ -4,6 +4,9 @@ module namespace ig="ig";
 declare function ig:error($e){
   error(QName("interface"), $e)
 };
+declare function ig:error($e, $at){
+  error(QName("interface"), $e || " at: " || $at)
+};
 
 declare function ig:properties($e){
   $e/*
@@ -545,13 +548,19 @@ declare function ig:kotlin-make-class($s){
          typeswitch (.)
            case element(string)|element(int)|element(long)|element(double)|element(boolean)|element(classref)|element(intenumref) return concat(@name, " == other.", @name)
            case element(array) return concat(@name, ".contentEquals(other.", @name,")")
-           default return ()
+           default return ig:error("Unknown field type", .)
        )), " &amp;&amp; ")}
-
+    override fun hashCode(): Int =
+      super.hashCode() { */concat("xor ",
+        typeswitch (.)
+          case element(string)|element(int)|element(long)|element(double)|element(boolean)|element(classref)|element(intenumref) return @name || ".hashCode()"
+          case element(array) return concat(@name, ".contentHashCode()")
+          default return ig:error("Unknown field type", .)
+      , ".rotateLeft(",position(),")" ) }
   }}")
 };
 declare function ig:kotlin-make($r){
-  x"@file:Suppress(""EqualsOrHashCode"", ""unused"")
+  x"@file:Suppress(""unused"")
 package de.benibela.videlibri.jni
 { $r/api/intenum/ig:kotlin-make-intenum(.)}
 { $r/api/class/ig:kotlin-make-class(.)} "
