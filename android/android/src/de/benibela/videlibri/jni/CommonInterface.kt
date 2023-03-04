@@ -2,14 +2,10 @@
 //Refer to the interface.pretty file
 @file:Suppress("unused")
 package de.benibela.videlibri.jni
-typealias LibraryTestingInfoInt = Int
-object LibraryTestingInfo {
-    const val Unknown = 0
-    const val Yes = 1
-    const val No = 2
-    const val Broken = 3
-}
 
+
+
+//Classes to represent input elements of an HTML form
 
   open class FormInput( 
     val name: String = "",
@@ -20,7 +16,8 @@ object LibraryTestingInfo {
        other != null && javaClass == other.javaClass && other is FormInput && name == other.name && caption == other.caption && value == other.value
     override fun hashCode(): Int =
       super.hashCode() xor name.hashCode().rotateLeft(1) xor caption.hashCode().rotateLeft(2) xor value.hashCode().rotateLeft(3)
-  } 
+  }
+
   open class FormSelect( 
     name: String = "",
     caption: String = "",
@@ -32,7 +29,8 @@ object LibraryTestingInfo {
        other != null && javaClass == other.javaClass && other is FormSelect && optionCaptions.contentEquals(other.optionCaptions) && optionValues.contentEquals(other.optionValues) && name == other.name && caption == other.caption && value == other.value
     override fun hashCode(): Int =
       super.hashCode() xor optionCaptions.contentHashCode().rotateLeft(1) xor optionValues.contentHashCode().rotateLeft(2)
-  } 
+  }
+
   open class FormParams( 
     val inputs: Array<FormInput> = emptyArray()
   )   {
@@ -40,7 +38,8 @@ object LibraryTestingInfo {
        other != null && javaClass == other.javaClass && other is FormParams && inputs.contentEquals(other.inputs)
     override fun hashCode(): Int =
       super.hashCode() xor inputs.contentHashCode().rotateLeft(1)
-  } 
+  }
+
   open class VersionInfo( 
     val version: String = "",
     val platform: String = "",
@@ -50,7 +49,11 @@ object LibraryTestingInfo {
        other != null && javaClass == other.javaClass && other is VersionInfo && version == other.version && platform == other.platform && buildId == other.buildId
     override fun hashCode(): Int =
       super.hashCode() xor version.hashCode().rotateLeft(1) xor platform.hashCode().rotateLeft(2) xor buildId.hashCode().rotateLeft(3)
-  } 
+  }
+
+
+//Classes to store user configuration options
+
   data class BookListDisplayOptions( 
     @JvmField var showHistory: Boolean = false,
     @JvmField var noBorrowedBookDetails: Boolean = false,
@@ -64,7 +67,8 @@ object LibraryTestingInfo {
        other != null && javaClass == other.javaClass && other is BookListDisplayOptions && showHistory == other.showHistory && noBorrowedBookDetails == other.noBorrowedBookDetails && showRenewCount == other.showRenewCount && groupingKey == other.groupingKey && sortingKey == other.sortingKey && filterKey == other.filterKey && alwaysFilterOnHistory == other.alwaysFilterOnHistory
     override fun hashCode(): Int =
       super.hashCode() xor showHistory.hashCode().rotateLeft(1) xor noBorrowedBookDetails.hashCode().rotateLeft(2) xor showRenewCount.hashCode().rotateLeft(3) xor groupingKey.hashCode().rotateLeft(4) xor sortingKey.hashCode().rotateLeft(5) xor filterKey.hashCode().rotateLeft(6) xor alwaysFilterOnHistory.hashCode().rotateLeft(7)
-  } 
+  }
+
   open class NotificationConfig( 
     @JvmField var enabled: Boolean = true,
     @JvmField var serviceDelay: Int = 15,
@@ -76,7 +80,8 @@ object LibraryTestingInfo {
        other != null && javaClass == other.javaClass && other is NotificationConfig && enabled == other.enabled && serviceDelay == other.serviceDelay && lastTime == other.lastTime && lastTitle == other.lastTitle && lastText == other.lastText
     override fun hashCode(): Int =
       super.hashCode() xor enabled.hashCode().rotateLeft(1) xor serviceDelay.hashCode().rotateLeft(2) xor lastTime.hashCode().rotateLeft(3) xor lastTitle.hashCode().rotateLeft(4) xor lastText.hashCode().rotateLeft(5)
-  } 
+  }
+
   open class OptionsAndroidOnly( 
     @JvmField var logging: Boolean,
     @JvmField var bookListDisplayOptions: BookListDisplayOptions,
@@ -91,7 +96,8 @@ object LibraryTestingInfo {
        other != null && javaClass == other.javaClass && other is OptionsAndroidOnly && logging == other.logging && bookListDisplayOptions == other.bookListDisplayOptions && filterHistory.contentEquals(other.filterHistory) && importExportFileName == other.importExportFileName && additionalCertificatesBase64.contentEquals(other.additionalCertificatesBase64) && notifications == other.notifications && hasBeenStartedAtLeastOnce == other.hasBeenStartedAtLeastOnce && accountCountBackup == other.accountCountBackup
     override fun hashCode(): Int =
       super.hashCode() xor logging.hashCode().rotateLeft(1) xor bookListDisplayOptions.hashCode().rotateLeft(2) xor filterHistory.contentHashCode().rotateLeft(3) xor importExportFileName.hashCode().rotateLeft(4) xor additionalCertificatesBase64.contentHashCode().rotateLeft(5) xor notifications.hashCode().rotateLeft(6) xor hasBeenStartedAtLeastOnce.hashCode().rotateLeft(7) xor accountCountBackup.hashCode().rotateLeft(8)
-  } 
+  }
+
   open class OptionsShared( 
     @JvmField var nearTime: Int = 0,
     @JvmField var refreshInterval: Int = 0,
@@ -101,7 +107,19 @@ object LibraryTestingInfo {
        other != null && javaClass == other.javaClass && other is OptionsShared && nearTime == other.nearTime && refreshInterval == other.refreshInterval && userLibIds.contentEquals(other.userLibIds)
     override fun hashCode(): Int =
       super.hashCode() xor nearTime.hashCode().rotateLeft(1) xor refreshInterval.hashCode().rotateLeft(2) xor userLibIds.contentHashCode().rotateLeft(3)
-  } 
+  }
+
+
+//Classes to represent metadata of a library
+typealias LibraryTestingInfoInt = Int
+object LibraryTestingInfo {
+    const val Unknown = 0
+    const val Yes = 1
+    const val No = 2
+    const val Broken = 3
+}
+
+
   open class LibraryVariable( 
     @JvmField val name: String = "",
     @JvmField val value: String = ""
@@ -110,7 +128,8 @@ object LibraryTestingInfo {
        other != null && javaClass == other.javaClass && other is LibraryVariable && name == other.name && value == other.value
     override fun hashCode(): Int =
       super.hashCode() xor name.hashCode().rotateLeft(1) xor value.hashCode().rotateLeft(2)
-  } 
+  }
+
   open class LibraryDetails( 
     @JvmField var id: String = "",
     @JvmField var prettyName: String = "",
@@ -130,7 +149,11 @@ object LibraryTestingInfo {
        other != null && javaClass == other.javaClass && other is LibraryDetails && id == other.id && prettyName == other.prettyName && prettyNameShort == other.prettyNameShort && fhomepageUrl == other.fhomepageUrl && fcatalogueUrl == other.fcatalogueUrl && fcatalogueUrlFromTemplate == other.fcatalogueUrlFromTemplate && tableComment == other.tableComment && accountComment == other.accountComment && templateId == other.templateId && variables.contentEquals(other.variables) && segregatedAccounts == other.segregatedAccounts && testingSearch == other.testingSearch && testingAccount == other.testingAccount
     override fun hashCode(): Int =
       super.hashCode() xor id.hashCode().rotateLeft(1) xor prettyName.hashCode().rotateLeft(2) xor prettyNameShort.hashCode().rotateLeft(3) xor fhomepageUrl.hashCode().rotateLeft(4) xor fcatalogueUrl.hashCode().rotateLeft(5) xor fcatalogueUrlFromTemplate.hashCode().rotateLeft(6) xor tableComment.hashCode().rotateLeft(7) xor accountComment.hashCode().rotateLeft(8) xor templateId.hashCode().rotateLeft(9) xor variables.contentHashCode().rotateLeft(10) xor segregatedAccounts.hashCode().rotateLeft(11) xor testingSearch.hashCode().rotateLeft(12) xor testingAccount.hashCode().rotateLeft(13)
-  } 
+  }
+
+
+//Information about a support library system
+
   open class TemplateDetails( 
     val description: String = "",
     val variablesNames: Array<String> = emptyArray(),
@@ -141,4 +164,4 @@ object LibraryTestingInfo {
        other != null && javaClass == other.javaClass && other is TemplateDetails && description == other.description && variablesNames.contentEquals(other.variablesNames) && variablesDescription.contentEquals(other.variablesDescription) && variablesDefault.contentEquals(other.variablesDefault)
     override fun hashCode(): Int =
       super.hashCode() xor description.hashCode().rotateLeft(1) xor variablesNames.contentHashCode().rotateLeft(2) xor variablesDescription.contentHashCode().rotateLeft(3) xor variablesDefault.contentHashCode().rotateLeft(4)
-  } 
+  }

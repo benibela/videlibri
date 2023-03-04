@@ -2,6 +2,7 @@
   <!-- This file has been generated automatically. Do not edit it, do not read it.
          Refer to the corresponding .pretty file
     -->
+  <comment>Classes to represent input elements of an HTML form</comment>
   <class id="FormInput" serialize-json="" pascal-jvm="" pascal-type="class">
     <string name="name"/>
     <string name="caption"/>
@@ -25,6 +26,7 @@
     <string name="platform"/>
     <string name="buildId"/>
   </class>
+  <comment>Classes to store user configuration options</comment>
   <class id="BookListDisplayOptions" serialize-json="" kotlin-var="var" kotlin-class="data" jvm-pascal="" pascal-jvm="" pascal-type="class">
     <boolean name="showHistory"/>
     <boolean name="noBorrowedBookDetails"/>
@@ -62,6 +64,7 @@
       <string/>
     </array>
   </class>
+  <comment>Classes to represent metadata of a library</comment>
   <intenum id="LibraryTestingInfo" jvm-pascal="" pascal-jvm="" pascal-prefix="ti" values="Unknown Yes No Broken"/>
   <class id="LibraryVariable" pascal-type="class" jvm-pascal="" pascal-jvm="">
     <string name="name"/>
@@ -84,6 +87,7 @@
     <intenumref name="testingSearch" ref="LibraryTestingInfo"/>
     <intenumref name="testingAccount" ref="LibraryTestingInfo"/>
   </class>
+  <comment>Information about a support library system</comment>
   <class id="TemplateDetails" pascal-jvm="">
     <string name="description"/>
     <array name="variablesNames">

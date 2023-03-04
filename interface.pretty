@@ -1,3 +1,4 @@
+//Classes to represent input elements of an HTML form
 
 @SerializeJson
 @Pascal->Kotlin
@@ -34,6 +35,8 @@ class VersionInfo {
 
 
 
+
+//Classes to store user configuration options
 
 
 
@@ -93,6 +96,8 @@ class OptionsShared {
 }
 
 
+//Classes to represent metadata of a library
+
 
 @Pascal<->Kotlin
 @PascalPrefix(ti)
@@ -129,6 +134,8 @@ class LibraryDetails {
   testingAccount: LibraryTestingInfo
 }
 
+//Information about a support library system
+
 @Pascal->Kotlin
 class TemplateDetails { 
   description: String
@@ -136,6 +143,7 @@ class TemplateDetails {
   variablesDescription: String[]
   variablesDefault: String[]
 }
+
 
 
 

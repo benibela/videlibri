@@ -85,8 +85,12 @@ declare function igp:make($input) {
     {
     for tumbling window $w in x:lines($input)!normalize-space() 
        start $s when $s ne "" 
-       end $e when $e eq "}" or starts-with($s, "fun ")
-    return if (starts-with($s, "fun")) then igp:make-function($w)
+       end $e next $f when ( $e eq "}" or starts-with($s, "fun ") )
+                         or (starts-with($s, "//") and not(starts-with($f, "//")))
+                            
+    return 
+    if (starts-with($s, "//")) then <comment>{$w!replace(., "^//", "")}</comment>
+    else if (starts-with($s, "fun")) then igp:make-function($w)
     else 
       let $annotations := $w[starts-with(., "@")]
       let $typeName := extract($w[count($annotations) + 1], "([a-z]+)\s+([^{]+)\{", (1,2))!normalize-space()

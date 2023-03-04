@@ -5,7 +5,7 @@ declare function ig:error($e){
   error(QName("interface"), $e)
 };
 declare function ig:error($e, $at){
-  error(QName("interface"), $e || " at: " || $at)
+  error(QName("interface"), $e || " at: " || serialize($at))
 };
 
 declare function ig:properties($e){
@@ -562,9 +562,16 @@ declare function ig:kotlin-make-class($s){
 declare function ig:kotlin-make($r){
   x"@file:Suppress(""unused"")
 package de.benibela.videlibri.jni
-{ $r/api/intenum/ig:kotlin-make-intenum(.)}
-{ $r/api/class/ig:kotlin-make-class(.)} "
-};
+
+{ string-join(($r/api/*/(
+  typeswitch(.)
+    case element(intenum) return ig:kotlin-make-intenum(.)
+    case element(class) return ig:kotlin-make-class(.)
+    case element(comment) return ("", "", x:lines(.)!concat("//", .))
+    case element(function) return ()
+    default return ig:error("unknown element: ", .)
+  )), "&#x0A;") }
+"};
 
 
 
