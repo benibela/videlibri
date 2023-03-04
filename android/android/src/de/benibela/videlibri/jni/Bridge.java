@@ -63,12 +63,6 @@ public class Bridge {
     }
 
     public static int currentPascalDate;
-    static private final Calendar referenceCalendar = new GregorianCalendar(1899, 11, 30); //1899-12-30
-    public static Date pascalDateToDate(int pascalDate){
-        Calendar c = (Calendar)(referenceCalendar.clone());
-        c.add(Calendar.DATE, pascalDate);
-        return c.getTime();
-    }
 
     private static class Util{
         static boolean equalStrings(@Nullable String s, @Nullable String t) {

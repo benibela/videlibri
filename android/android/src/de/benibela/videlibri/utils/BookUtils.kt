@@ -4,29 +4,61 @@ import de.benibela.videlibri.*
 import de.benibela.videlibri.jni.Bridge
 import java.util.*
 
-private fun dateToWeek(pascalDate: Int): Int {
-    return (pascalDate - 2) / 7
-}
+@JvmInline value class PascalDate(private val daysSinceEpoch: Int) {
+    val date: Date get() = (beginOfEpoch.clone() as Calendar).also{
+        it.add(Calendar.DATE, daysSinceEpoch)
+    }.time
 
-private fun getWeekString(pascalDate: Int): String {
-    if (pascalDate == 0) return getString(R.string.unknown_date)
+    operator fun minus (shift: Int) = PascalDate(daysSinceEpoch - shift)
+    operator fun plus (shift: Int) = PascalDate(daysSinceEpoch + shift)
 
-    val week = dateToWeek(pascalDate)
-    if (Bridge.currentPascalDate > 0)
-        when (week - dateToWeek(Bridge.currentPascalDate)) {
-            -1 -> return getString(R.string.last_week)
-            0 -> return getString(R.string.this_week)
-            1 -> return getString(R.string.next_week)
+
+    private fun formatRelative(full: Boolean): String {
+        if (daysSinceEpoch == 0) return BookFormatter.tr(R.string.unknown_date)
+        if (Bridge.currentPascalDate > 0 && VideLibriApp.currentContext() != null) {
+            when (daysSinceEpoch - Bridge.currentPascalDate) {
+                -2 -> return BookFormatter.tr(R.string.daybeforeyesterday)
+                -1 -> return BookFormatter.tr(R.string.yesterday)
+                0 -> return BookFormatter.tr(R.string.today)
+                1 -> return BookFormatter.tr(R.string.tomorrow)
+                2 -> return BookFormatter.tr(R.string.dayaftertomorrow)
+            }
         }
-    val delta = pascalDate - 2 - week * 7
-    return String.format(getString(R.string.week_from_to),
-            Bridge.pascalDateToDate(pascalDate - delta).formatShort(),
-            Bridge.pascalDateToDate(pascalDate - delta + 6).formatShort())
+        return if (full) date.formatFull() else date.formatShort()
+    }
+
+    fun formatShortRelative(): String = formatRelative(false)
+    fun formatFullRelative(): String = formatRelative(true)
+
+
+    val week: Int get() =  (daysSinceEpoch - 2) / 7
+
+    fun formatWeekRelative(): String {
+        if (daysSinceEpoch == 0) return getString(R.string.unknown_date)
+
+        val week = week
+        if (Bridge.currentPascalDate > 0)
+            when (week - PascalDate(Bridge.currentPascalDate).week) {
+                -1 -> return getString(R.string.last_week)
+                0 -> return getString(R.string.this_week)
+                1 -> return getString(R.string.next_week)
+            }
+        val delta = daysSinceEpoch - 2 - week * 7
+        return String.format(getString(R.string.week_from_to),
+            (this - delta).date.formatShort(),
+            (this - delta + 6).date.formatShort())
+    }
+
+
+    companion object {
+        val beginOfEpoch = GregorianCalendar(1899, 11, 30) //1899-12-30
+    }
 }
+
 
 private fun Bridge.Book?.getExtendedProperty(key: String): String = this?.run{
     when (key) {
-        "_dueWeek" -> getWeekString(dueDate)
+        "_dueWeek" -> PascalDate(dueDate).formatWeekRelative()
         "_account" -> account?.prettyName
         "dueDate" -> BookFormatter.formatDate(dueDate)
         "_status" -> when (status) {
@@ -40,8 +72,8 @@ private fun Bridge.Book?.getExtendedProperty(key: String): String = this?.run{
             val date = if (issueDate != 0) issueDate else firstExistsDate
             when {
                 date == 0 -> getString(R.string.unknown_date)
-                "issueDate" == key -> BookFormatter.formatDate(date)
-                else -> getWeekString(date)
+                "issueDate" == key -> PascalDate(date).formatShortRelative()
+                else -> PascalDate(date).formatWeekRelative()
             }
         }
         "" -> return ""
@@ -100,7 +132,7 @@ private fun compareForKey(book: Bridge.Book?, book2: Bridge.Book?, key: String):
         "_dueWeek" -> {
             val temp = compareForStateMismatch(book, book2)
             if (temp != 0 || book.dueDate == 0) temp
-            else compare(dateToWeek(book.dueDate), dateToWeek(book2.dueDate))
+            else compare(PascalDate(book.dueDate).week, PascalDate(book2.dueDate).week)
         }
         "_account" -> {
             val a = book.account
@@ -131,8 +163,8 @@ private fun compareForKey(book: Bridge.Book?, book2: Bridge.Book?, key: String):
                 if (temp != 0 || d1 == 0) temp
                 else {
                     if ("_issueWeek" == key) {
-                        d1 = dateToWeek(d1)
-                        d2 = dateToWeek(d2)
+                        d1 = PascalDate(d1).week
+                        d2 = PascalDate(d2).week
                     }
                     compare(d1, d2)
                 }

@@ -35,25 +35,9 @@ internal object BookFormatter {
             if (s.length < 300) s
             else s.substring(0, 300) + "..."
 
+    @JvmStatic fun formatDate(pascalDate: Int): String = PascalDate(pascalDate).formatShortRelative()
+    @JvmStatic fun formatDateFull(pascalDate: Int): String = PascalDate(pascalDate).formatFullRelative()
 
-    @JvmStatic
-    private fun formatDate(pascalDate: Int, full: Boolean): String {
-        if (pascalDate == 0) return tr(R.string.unknown_date)
-        if (Bridge.currentPascalDate > 0 && VideLibriApp.currentContext() != null) {
-            when (pascalDate - Bridge.currentPascalDate) {
-                -2 -> return tr(R.string.daybeforeyesterday)
-                -1 -> return tr(R.string.yesterday)
-                0 -> return tr(R.string.today)
-                1 -> return tr(R.string.tomorrow)
-                2 -> return tr(R.string.dayaftertomorrow)
-            }
-        }
-        val date = Bridge.pascalDateToDate(pascalDate)
-        return if (full) date.formatFull() else date.formatShort()
-    }
-
-    @JvmStatic fun formatDate(pascalDate: Int): String = formatDate(pascalDate, false)
-    @JvmStatic fun formatDateFull(pascalDate: Int): String = formatDate(pascalDate, true)
 }
 
 fun Bridge.Book.getMoreText(): String =
