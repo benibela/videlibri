@@ -42,7 +42,7 @@ object Notifier {
 
 
     private fun getNotifications(context: Context): Array<String>? =
-            if (Accounts.size == 0)
+            if (Accounts.isEmpty())
                 with(context) {
                     if (globalOptionsAndroid.hasBeenStartedAtLeastOnce && globalOptionsAndroid.accountCountBackup <= 0) null
                     else arrayOf(getString(R.string.notificationNoAccountsTitle), getString(R.string.notificationNoAccounts))

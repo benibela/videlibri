@@ -166,7 +166,7 @@
             android:layout_height="fill_parent"
             android:layout_marginStart="25dp"
             android:layout_marginLeft="25dp"
-            android:orientation="vertical"></LinearLayout>
+            android:orientation="vertical" />
 
         <Button
             android:id="@+id/create"

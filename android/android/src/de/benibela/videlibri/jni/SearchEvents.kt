@@ -10,6 +10,6 @@ sealed class SearchEvent {
     class Details(val book: Bridge.Book): SearchEvent()
     class OrderComplete(val book: Bridge.Book): SearchEvent()
     class TakePendingMessage(val kind: Int, val caption: String, val options: Array<String>): SearchEvent()
-    class PendingMessageComplete(): SearchEvent()
-    class Exception(): SearchEvent()
+    class PendingMessageComplete: SearchEvent()
+    class Exception: SearchEvent()
 }

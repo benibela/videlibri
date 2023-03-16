@@ -92,7 +92,7 @@ class LibraryListAdapter: MultiLevelListView.Adapter<LibraryListAdapter.Holder>(
 
         val libs = Bridge.VLGetLibraryIds()
 
-        if (Accounts.size > 0) {
+        if (Accounts.isNotEmpty()) {
             localAutoExpand = 1
             states.add(getString(R.string.liblist_withaccounts))
             cities.add(mutableListOf(getString(R.string.liblist_withaccounts)))
