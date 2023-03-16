@@ -499,6 +499,7 @@ begin
 
       libXml += '  <testing-search value="yes"/><testing-account value="yes"/>';
       libXml += '</library>';
+      libdetails.free;
       libraryManager.setUserLibrary(libid, libXml);
     end;
   except
