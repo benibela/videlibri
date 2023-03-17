@@ -235,7 +235,8 @@ procedure TbookSearchFrm.startSearchClick(Sender: TObject);
   end;
 var i:longint;
 begin
-  displayedBook:=nil;
+  if Assigned(displayedBook) and not assigned(displayedBook.owningAccount) then
+    displayedBook:=nil; //do not nil it for borrowed books since ít might be loading the cover in the background and should show it once it is loaded
   nextPageAvailable:=false;
 
   if newSearcherAccess <> nil then begin
@@ -1137,10 +1138,7 @@ begin
   if book = nil then
     exit;
 
-  if (displayDetails(book) < 2) and (displayImage.Checked) then begin
-    //like in searcherAccessDetailsComplete()
-    StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:=rsSearchingCover;
-  end;
+  displayDetails(book);
 
   if book.owningAccount is TCustomAccountAccess then begin
     lib := TCustomAccountAccess(book.owningAccount).getLibrary();
@@ -1165,8 +1163,6 @@ begin
     tempc.Text := strTrimAndNormalize(wregexprReplaceAll(r, book.title, '', true));
     wregexprFree(r);
   end;
-
-  displayedBook := researchedBook;
 end;
 
 procedure TbookSearchFrm.loadDefaults;
