@@ -5,7 +5,7 @@ Features:
 
 - Getestet mit 200 Bibliotheken
 - Unterstützt 20 Bibliothekssysteme
-- Man kann beliebige Webseiten-URLs und XPath-Ausdrücke eingeben, um die Daten jeder beliebigen Webseite und jeder Büchereiwebseite anzeigen zu lassen, damit man es mit allen Büchereien verwenden kann
+- Erlaubt benutzerdefinierte URLs, CSS-Selektoren und XPath-Ausdrücke, damit man die Daten jeder Webseite anzeigen lassen kann
 - Gleichzeitig Anzeige aller Ausleihen von mehreren Konten bei unterschiedlichen Bibliotheken in einer gemeinsamen Liste
 - Warnung vor bald fälligen Medien; zuverlässiger als Benachrichtigungsmails der Bibliothek, da ein einmal auf dem Handy gespeichertes Abgabedatum immer gespeichert bleibt, während man bei E-Mails nie weiß, ob sie ankommen
 - Verlängerung der Bücher, manuell oder automatisch vor Fristablauf

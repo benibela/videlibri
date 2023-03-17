@@ -199,10 +199,26 @@ downloadTable)
     }
 		xmledit $VIDELIBRIBASE/_meta/version/version.xml
 		xmledit $VIDELIBRIBASE/_meta/version/changelog.xml
-    xidel ./_meta/version/changelog.xml -e 'for $version in //build return $version!(file:write-text(x"fastlane/metadata/android/de/changelogs/{@version}.txt", join((.//fix|.//add|.//change)!concat("* ", .), $line-ending))) '
-    cp fastlane/metadata/android/de/changelogs/$INTVERSION.txt fastlane/metadata/android/en-US/changelogs/$INTVERSION.txt
-    kate fastlane/metadata/android/en-US/changelogs/$INTVERSION.txt
-    hg add fastlane/metadata/android/*/changelogs/*
+    export fastlane=fastlane/metadata/android
+    xidel ./_meta/version/changelog.xml --variable fastlane -e '
+       for $version in //build 
+       let $filename := x"{$fastlane}/de/changelogs/{@version}.txt"
+       where not(file:exists($filename))
+       return $version!(file:write-text($filename, join((.//fix|.//add|.//change)!concat("* ", .), $line-ending))) '
+    while [[ $( stat $fastlane/de/changelogs/$INTVERSION.txt -c %s ) > 500 ]]; do 
+      echo changelog too big;
+      stat $fastlane/de/changelogs/$INTVERSION.txt -c %s
+      kate $fastlane/de/changelogs/$INTVERSION.txt
+    done
+    if [[ ! -f $fastlane/en-US/changelogs/$INTVERSION.txt ]]; then
+      cp $fastlane/de/changelogs/$INTVERSION.txt $fastlane/en-US/changelogs/$INTVERSION.txt
+    fi
+    while [[ $( stat $fastlane/en-US/changelogs/$INTVERSION.txt -c %s ) > 500 ]]; do 
+      echo changelog too big;
+      stat $fastlane/en-US/changelogs/$INTVERSION.txt -c %s
+      kate $fastlane/en-US/changelogs/$INTVERSION.txt
+    done
+    hg add $fastlane/*/changelogs/*
         
 		./manage.sh web
 		;;
