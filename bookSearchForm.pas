@@ -1139,7 +1139,6 @@ begin
 
   if (displayDetails(book) < 2) and (displayImage.Checked) then begin
     //like in searcherAccessDetailsComplete()
-    screen.Cursor := crHourGlass;
     StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:=rsSearchingCover;
   end;
 
