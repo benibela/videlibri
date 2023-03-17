@@ -1103,21 +1103,27 @@ procedure TbookSearchFrm.selectBookToReSearch(book: TBook);
   function selectLibrary(location: string; lib: TLibrary): boolean;
   var
     state: String;
-    i: Integer;
+    i, indexOfLibrary: Integer;
+    notFound: Boolean;
   begin
     if searchLocation.Items.IndexOf(location) < 0 then exit(false);
     searchLocation.Text:=location;
     searchLocationSelect(self);
 
-    state := '';
-    for i:=0 to searchSelectionList.items.Count-1 do begin
-      searchSelectionList.Checked[i]:=TSearchTarget(searchSelectionList.items.Objects[i]).lib=lib;
-      if searchSelectionList.Checked[i] then state += '+'
-      else state += '-';
-    end;
-    selectedLibrariesPerLocation.Values[searchLocation.Text]:=state;
+    indexOfLibrary := -1;
+    for i:=0 to searchSelectionList.items.Count-1 do
+      if TSearchTarget(searchSelectionList.items.Objects[i]).lib=lib then begin
+        indexOfLibrary := i;
+        break;
+      end;
+    result := indexOfLibrary >= 0;
+    if not result then exit;
+    for i:=0 to searchSelectionList.items.Count-1 do
+      searchSelectionList.Checked[i] := i = indexOfLibrary;
 
-    result := pos('+', state) > 0;
+    state := strDup('-', searchSelectionList.items.Count);
+    state[indexOfLibrary + 1] := '+';
+    selectedLibrariesPerLocation.Values[searchLocation.Text]:=state;
 
     makeSearcherAccess;
   end;
