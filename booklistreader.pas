@@ -476,6 +476,11 @@ var
   i, pos: Integer;
 begin
   result := trim(aisbn);
+  for i := 1 to length(result) do
+    if result[i] in ['0'..'9'] then begin
+      delete(result, 1, i - 1);
+      break;
+    end;
   if length(result) >= 5 then begin
     //see https://en.wikipedia.org/wiki/List_of_ISBN_identifier_groups
     //X can mean 0
