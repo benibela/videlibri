@@ -73,22 +73,35 @@ uses booklistreader, applicationconfig, internetaccess, bbutils, Clipbrd, librar
 
 
 procedure testISBN;
-const test: array[1..3] of string = (
-  '346204567X', '3462045679', '978-3-462-04567-3'
+const testTo10: array[1..6] of string = (
+  '978-3-462-04567-3', '3-462-04567-9', '3462045679',
+  '978342104810X', '342104810X', '342104810X'
+);
+const testTo13: array[1..6] of string = (
+  '346204567X', '978-3462045673', '9783462045673', //'978-3-462-04567-3'
+  '0-13-085198-1', '978-0-13-085198-7', '9780130851987'
 );
 var
-  temp: TBook;
   i: Integer;
+  temp: tbook;
 begin
-  exit;
   i := 1;
   temp := tbook.create;
-  while i <= high(test) do begin
-    temp.isbn := test[i];
-    if  temp.getNormalizedISBN(false, 0) <> test[i+1] then
-      raise Exception.Create('Failed: '+temp.isbn + ': ' + temp.getNormalizedISBN(false, 0) +'<>' +test[i+1]);
-    if  temp.getNormalizedISBN(false, 13) <> test[i+2] then
-      raise Exception.Create('Failed: '+temp.isbn + ': ' + temp.getNormalizedISBN(false, 13) +'<>' +test[i+2]);
+  while i <= high(testTo10) do begin
+    temp.isbn := testTo10[i];
+    if  temp.getNormalizedISBN(false, 10) <> testTo10[i+1] then
+      raise Exception.Create('Failed: '+temp.isbn + ': ' + temp.getNormalizedISBN(false, 10) +'<>' +testTo10[i+1]);
+    if  temp.getNormalizedISBN(true, 10) <> testTo10[i+2] then
+      raise Exception.Create('Failed: '+temp.isbn + ': ' + temp.getNormalizedISBN(true, 10) +'<>' +testTo10[i+2]);
+    i += 3;
+  end;
+  i := 1;
+  while i <= high(testTo13) do begin
+    temp.isbn := testTo13[i];
+    if  temp.getNormalizedISBN(false, 13) <> testTo13[i+1] then
+      raise Exception.Create('Failed: '+temp.isbn + ': ' + temp.getNormalizedISBN(false, 13) +'<>' +testTo13[i+1]);
+    if  temp.getNormalizedISBN(true, 13) <> testTo13[i+2] then
+      raise Exception.Create('Failed: '+temp.isbn + ': ' + temp.getNormalizedISBN(true, 13) +'<>' +testTo13[i+2]);
     i += 3;
   end;
   temp.free;

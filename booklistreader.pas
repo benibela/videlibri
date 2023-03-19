@@ -469,59 +469,78 @@ begin
   result := getNormalizedISBN(isbn, removeSeps, conversion);
 end;
 
-class function TBook.getNormalizedISBN(const aisbn: string; const removeSeps: boolean; conversion: integer): string;
+function extractISBN(const input: string; out digitCount: integer; out hasDashes: boolean): string;
 var
-  check: Integer;
-  multiplier: Integer;
-  i, pos: Integer;
+  i, len: Integer;
 begin
-  result := trim(aisbn);
+  result := trim(input);
   for i := 1 to length(result) do
     if result[i] in ['0'..'9'] then begin
       delete(result, 1, i - 1);
       break;
     end;
-  if length(result) >= 5 then begin
+  digitCount := 0;
+  hasDashes := false;
+  len := 0;
+  for i := 1 to length(result) do begin
+    case result[i] of
+      '0'..'9','X': inc(digitCount);
+      '-': hasDashes := true;
+      ' ': if hasDashes or (digitCount in [10,13]) then break;
+      else break;
+    end;
+    inc(len);
+  end;
+  delete(result, len + 1, length(result));
+  while (result <> '') and (result[length(result)] = '-') do delete(result, length(result), 1);
+end;
+
+class function TBook.getNormalizedISBN(const aisbn: string; const removeSeps: boolean; conversion: integer): string;
+var
+  check: Integer;
+  multiplier: Integer;
+  i, pos, digitCount: Integer;
+  hasDashes: boolean;
+begin
+  result := extractISBN(aisbn, digitCount, hasDashes);
+  if length(result) < 5 then exit;
+  if (digitCount <> 10) and (digitCount <> 13) then //try some recovery from invalid inputs.
+    if result[2] = '-' then digitCount := 10 //e.g. isbn10: 3-680-08783-7
+    else if result[4] in ['-', ' '] then digitCount := 13; //isbn13: 978-3-7657-2781-8
+
+  if digitCount <> conversion then begin  //only calculate checkcode when converting the ISBN to prevent it from breaking valid ISBNs
     //see https://en.wikipedia.org/wiki/List_of_ISBN_identifier_groups
     //X can mean 0
-
-    //e.g. isbn10: 3-680-08783-7
-    if result[2] = '-' then begin
-      result := copy(result, 1, 13);
-      if conversion = 13 then begin
-        if strBeginsWith(result, '1') and ( strBeginsWith(result, '10-') or strBeginsWith(result, '11-') or strBeginsWith(result, '12-') ) then
-          result := '979-' + result
-         else
-          result := '978-' + result;
-        check := 0;
-        multiplier := 1;
-        for i := 1 to length(result) - 1 do
-          if result[i] in ['0'..'9'] then begin
-            check += multiplier * (ord(result[i]) - ord('0'));
-            multiplier := (multiplier + 2) and 3;
-          end;
-        result[length(result)] := chr(ord('0') + (10 - check mod 10) mod 10);
-      end;
+    if conversion = 13 then begin
+      if strBeginsWith(result, '1') and ( strBeginsWith(result, '10-') or strBeginsWith(result, '11-') or strBeginsWith(result, '12-') ) then
+        result := '979-' + result
+       else
+        result := '978-' + result;
+      check := 0;
+      multiplier := 1;
+      for i := 1 to length(result) - 1 do
+        if result[i] in ['0'..'9'] then begin
+          check += multiplier * (ord(result[i]) - ord('0'));
+          multiplier := (multiplier + 2) and 3;
+        end;
+      result[length(result)] := chr(ord('0') + (10 - check mod 10) mod 10);
     end;
-    //isbn13: 978-3-7657-2781-8
-    if result[4] in ['-', ' '] then begin
-      result := copy(result, 1, 17);
-      if conversion = 10 then begin
-        delete(result, 1, 4);
-        i := 1;
-        check := 0;
-        for pos := 1 to length(result) do
-          if result[pos] in ['0'..'9'] then begin
-            if i = 10 then begin
-              check := check mod 11;
-              if check = 10 then result[pos] := 'X'
-              else result[pos] := chr(check + ord('0'));
-              break;
-            end;
-            check += (ord(result[pos]) - ord('0')) * i;
-            inc(i);
+    if conversion = 10 then begin
+      if result[4] = '-' then delete(result, 1, 4)
+      else delete(result, 1, 3);
+      i := 1;
+      check := 0;
+      for pos := 1 to length(result) do
+        if result[pos] in ['0'..'9'] then begin
+          if i = 10 then begin
+            check := check mod 11;
+            if check = 10 then result[pos] := 'X'
+            else result[pos] := chr(check + ord('0'));
+            break;
           end;
-      end;
+          check += (ord(result[pos]) - ord('0')) * i;
+          inc(i);
+        end;
     end;
   end;
 
