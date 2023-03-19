@@ -80,7 +80,8 @@ procedure TCoverThread.Execute;
     imageInfo.request := request;
     images := strSplit(request.imageUrl, LineEnding);
     if request.isbn <> '' then begin
-        arrayAdd(images, 'http://covers.openlibrary.org/b/isbn/'+tbook.getNormalizedISBN(request.isbn, false, 10)+'-M.jpg?default=false');
+      arrayAdd(images, 'http://covers.openlibrary.org/b/isbn/'+tbook.getNormalizedISBN(request.isbn, false, 10)+'-M.jpg?default=false');
+        arrayAdd(images, 'https://images-eu.ssl-images-amazon.com/images/P/'+tbook.getNormalizedISBN(request.isbn, true, 10)+'.03.L.jpg');
         arrayAdd(images, 'http://images-eu.amazon.com/images/P/'+tbook.getNormalizedISBN(request.isbn, true, 10)+'.03.L.jpg');
         temp := tbook.getNormalizedISBN(request.isbn, true, 13);
         //arrayAdd(images, 'http://vlb.de/GetBlob.aspx?strIsbn='+book.getNormalizedISBN(true, 13)+'&size=M');
