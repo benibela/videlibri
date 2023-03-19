@@ -173,9 +173,9 @@ test bibliothecaplus searchDetails'{\$search-reverse-keys:=\(\)}' searchDetails.
 mkdir -p $OUTPATH/summon
 test summon loans loans-none.html loans-orders.html loans-orders-none.html loans-renewable.html loans-renewconfirmed.html 
 
-test summon searchList searchList0.html searchList.html
+test summon searchList searchList0.new.html searchList.new.html searchList2.new.html
 
-test summon searchDetails searchDetails.html searchDetails_multiex.html searchDetails_orderable.html
+test summon searchDetails searchDetails.html searchDetails_multiex.html searchDetails_orderable.html searchDetails.new.html
 
 #=============netbiblio==============
 mkdir -p $OUTPATH/netbiblio
