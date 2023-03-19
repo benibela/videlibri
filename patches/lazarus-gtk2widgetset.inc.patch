@@ -1,0 +1,22 @@
+diff --git a/lcl/interfaces/gtk2/gtk2widgetset.inc b/lcl/interfaces/gtk2/gtk2widgetset.inc
+index c93a55a2ea..399481422d 100644
+--- a/lcl/interfaces/gtk2/gtk2widgetset.inc
++++ b/lcl/interfaces/gtk2/gtk2widgetset.inc
+@@ -1278,15 +1278,8 @@ begin
+          (Flags and GDK_WINDOW_STATE_ICONIFIED = 0) then
+       begin
+         gdk_window_set_keep_above(W^.Window, False);
+-        if Assigned(nact) then
+-        begin
+-          gdk_window_restack(W^.Window, act, False);
+-          nact:=W^.Window;
+-        end
+-        else begin
+-          gdk_window_lower(W^.Window); // send to the bottom
+-          gdk_window_raise(W^.Window); // restore back
+-        end;
++        gdk_window_lower(W^.Window); // send to the bottom
++        gdk_window_raise(W^.Window); // restore back
+         if not StayOnTopList.HasId(W) then
+           StayOnTopList.Add(W, W);
+       end;
