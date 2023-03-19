@@ -49,8 +49,10 @@
       <t:loop>
         <TR>{book:={}}
           <t:siblings>
-          <TD>{$book.image-url := .//(img,input[type="image"])!(@src, tokenize(@sources, "[|]")[contains(.,"://")]),
-               $book.image-url!extract(., "(amazon.*/(ASIN|P)/|isbn=|cover/)([-0-9]{8,})([./&amp;]|[.]jpg)", 3)[.][1]!($book.ISBN := .)
+          <TD>{$book.image-url := .//(img,input[type="image"])
+                 !(@src,@sources,@data-sources)
+                 !tokenize(., "[|]")[contains(.,"://")],
+               $book.image-url!extract(., "(amazon.*/(ASIN|P)/|isbn=|cover/)([-0-9X]{8,})([./&amp;]|[.]jpg)", 3)[.][1]!($book.ISBN := .)
            }</TD>
           <TD>{book.title := local:parse-column(.)}</TD>
           <TD>{book.author := local:parse-column(.)}</TD>
