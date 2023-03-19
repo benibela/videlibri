@@ -623,8 +623,24 @@ end;
   "
 };
 
+
+declare function ig:java-make-type($s){
+  $s/(typeswitch (.) 
+    case element(string) return "String" 
+    case element(int) return "int" 
+    case element(long) return "long" 
+    case element(double) return "double" 
+    case element(boolean) return "boolean" 
+    case element(classref) return @ref
+    case element(intenumref) return @ref || "Int"
+    case element(array) return ig:java-make-type(*) || "[]"
+    default return ig:error("ig:java-make-type: unknown type", $s) 
+  ) 
+};
+
+
 declare function ig:java-make-function-native-declaration($f){ 
-  $f/x"static public native {if (empty(return-type)) then "void" else return-type/classref/@ref} {@id}({join(arg/classref/@ref, ", ")});"
+  $f/x"static public native {if (empty(return-type)) then "void" else ig:java-make-type(return-type/*)} {@id}({join(arg/ig:java-make-type(*), ", ")});"
 };
  
  
