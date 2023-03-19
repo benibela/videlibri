@@ -3,6 +3,12 @@
     <input t:condition="contains(@name, 'loansExtensionPopup$btnDefault')">{$confirm-button}</input>
     <input value="Verlängerung durchführen">{$confirm-button}</input>
     <input t:condition="contains(@name, 'ucLoansView')">{$confirm-button}</input>
+
+    <div t:condition="ends-with(@id, 'dnnSkinMessage')" class="dnnFormMessage dnnFormValidationSummary">
+      <span id="ends-with(@id, 'lblMessage')">
+      {vl:raise(..)}
+      </span>
+    </div>
   </t:switch>
 {
   let $target := $confirm-button/@name/string()
