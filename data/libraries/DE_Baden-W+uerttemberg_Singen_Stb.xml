@@ -7,7 +7,7 @@
   <shortName value="Stb Singen"/>
   
   <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://wwwopac.komm.one"/>	
+  <variable name="baseurl" value="https://wwwopac.komm.one/singen"/>	
   <variable name="DB" value="singen"/>	
   
   <!--<template value="pica"/>-->
