@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="Bibliothek-App VideLibri">
-      <build version="2651" date="2023-02-19">
+      <build version="2700" date="2023-03-19">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <change>Android: Update Kotlin zu 1.8.10, ACRA zu 5.9.7, Gradle zu 7.5, Android plugin zu 7.4.1.</change>
+        <change>Android: Portiere Bibliotheksmetadatenklassen, Suchereignisse und Datumsberechnung von Java zu Kotlin.</change>
+        <change>Android: Vereinfache benutzerdefinierte Bibliothekseinstellungen, Übersetzung auf englisch.</change>
+        <fix>Android: Neue HTTPS-Zertifikate für Digicert CA, wwwopac.rz-kiru.de, Stadtbibliotheken Linz, Hannover, Cottbus, Lübeck, Koblenz, und Universitätsbibliothek RWTH Aachen.</fix>
+        <fix>Neue URLS für Universitäts- und Landesbibliothek Münster, Stadtbücherei Sankt Augustin, Stadtbibliothek Singen, Hochschule Trier Katalog, Hochschulbibliothek Anhalt.</fix>
+        <fix>Neue URL für Titelbilder von Amazon.</fix>
+        <fix>OPEN: Anpassung an neue ISBN/Titelbildern.</fix>
+        <fix>HS Offenburg: Erkenne Loginfehler.</fix>
+        <fix>Windows/Linux: Verbesserte Suche nach Ausleihen.</fix>
+        <fix>Linux: Patch für Lazarus/gtk2 Bug, der jeden Dialog abstürzen lassen konnte.</fix>
+     </build>
+      <build version="2651" date="2023-02-19">
         <change>bibdia: Mache einen normalen Login, statt direkt die Liste der Ausleihen zu öffnen.</change>
         <fix>Anpassung an geänderte Kataloge der Gemeindebücherei Hirschberg, Stabue Holzgerlingen, Stadtbibliothek Blankenloch, Städtischen Bibliotheken Singen, BeuthHS Berlin, Universitätsbibliothek Bonn, und Universitätsbibliothek der Helmut-Schmidt-Universität Hamburg.</fix>
         <fix>koha/Verl: Breche die Vormerkung nicht ab, wenn kein Exemplar ausgewählt werden kann.</fix>

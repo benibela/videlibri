@@ -202,7 +202,7 @@ downloadTable)
     export fastlane=fastlane/metadata/android
     xidel ./_meta/version/changelog.xml --variable fastlane -e '
        for $version in //build 
-       let $filename := x"{$fastlane}/de/changelogs/{@version}.txt"
+       let $filename := x"{$fastlane}/de/changelogs/{$version/@version}.txt"
        where not(file:exists($filename))
        return $version!(file:write-text($filename, join((.//fix|.//add|.//change)!concat("* ", .), $line-ending))) '
     while [[ $( stat $fastlane/de/changelogs/$INTVERSION.txt -c %s ) > 500 ]]; do 

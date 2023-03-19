@@ -1,0 +1,7 @@
+* Update to Kotlin 1.8.10, ACRA 5.9.7, Gradle 7.5.
+* Port some classes to Kotlin.
+* Simpler user-defined library config with English translations.
+* HTTPS certificates for Digicert CA, rz-kiru.de, public libraries of Linz, Hannover, Cottbus, Lübeck, Koblenz, university library RWTH Aachen
+* new urls for Unibib Münster, Stadtbücherei Sankt Augustin, Singen, Hochschule Trier, Anhalt.
+* update Amazon cover url
+* OPEN: update cover url detection

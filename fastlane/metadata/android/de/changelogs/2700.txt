@@ -1,0 +1,7 @@
+* Update zu Kotlin 1.8.10, ACRA 5.9.7, Gradle 7.5.
+* Portiere einiges zu Kotlin.
+* Vereinfache benutzerdefinierte Bibliothekseinstellungen, Übersetzung auf englisch.
+* HTTPS-Zertifikate für Digicert CA, rz-kiru.de, Stadtbibliotheken Linz, Hannover, Cottbus, Lübeck, Koblenz, und Universitätsbibliothek RWTH Aachen.
+* URLs für Unibib Münster, Stadtbücherei Sankt Augustin, Singen, Hochschule Trier, Anhalt.
+* URL für Titelbilder von Amazon.
+* OPEN: Anpassung an neue Titelbildern
