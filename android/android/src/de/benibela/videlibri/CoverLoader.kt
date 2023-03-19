@@ -46,13 +46,9 @@ class CoverLoadingTask(val book: Bridge.Book, val size: CoverLoadingSize){
         }
 
         if (isbn.isNotEmpty()) {
-            val isbn10 = Bridge.VLNormalizeISBN(isbn, true, 10)
-            load("https://images-eu.ssl-images-amazon.com/images/P/$isbn10.03.${if (size.maxHeight > 150) "L" else "M"}.jpg")?.let { return it }
-            load("http://images-eu.amazon.com/images/P/$isbn10.03.${if (size.maxHeight > 150) "L" else "M"}.jpg")?.let { return it }
-            load("http://covers.openlibrary.org/b/isbn/$isbn10-${if (size.maxWidth > 180) "L" else "M"}.jpg?default=false")?.let { return it }
-
-            val isbn13 = Bridge.VLNormalizeISBN(isbn, true, 13)
-            load("https://www.buchhandel.de/cover/$isbn13/$isbn13-cover-${if (size.maxWidth > 200) "l" else "m"}.jpg")?.let { return it }
+            Bridge.VLGetCoverURLs(isbn, size.maxWidth, size.maxHeight)?.forEach {
+                load(it)?.let { return@forEachCoverUrl it }
+            }
         }
         return null
     }

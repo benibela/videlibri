@@ -82,6 +82,7 @@ type
 
     function getNormalizedISBN(const removeSeps: boolean; conversion: integer): string;
     class function getNormalizedISBN(const aisbn: string; const removeSeps: boolean; conversion: integer): string;
+    class function getCoverURLs(const aisbn: string; maxWidth, maxHeight: integer): TStringArray;
 
     function toSimpleString():string;
     function toLimitString():string;
@@ -546,6 +547,28 @@ begin
 
   if removeSeps then
     Result := StringReplace(StringReplace(result, '-', '', [rfReplaceAll]), ' ', '', [rfReplaceAll]);
+  //no code to insert dashes since that needs complicated tables
+end;
+
+class function TBook.getCoverURLS(const aisbn: string; maxWidth, maxHeight: integer): TStringArray;
+var
+  isbn10, isbn13: String;
+  size: Char;
+begin
+  result := nil;
+  isbn10 := getNormalizedISBN(aisbn, true, 10);
+  //if logging then log('isbn10: '+isbn10);
+  isbn13 := getNormalizedISBN(aisbn, true, 13);
+  //if logging then log('isbn13: '+isbn13);
+  SetLength(result, 3);
+  if maxHeight > 150 then size := 'L' else size := 'M';
+  result[0] := 'https://images-eu.ssl-images-amazon.com/images/P/'+isbn10+'.03.'+size+'.jpg';
+//  result[1] := 'http://images-eu.amazon.com/images/P/'+isbn10+'.03.'+size+'.jpg';
+  if maxWidth > 180 then size := 'L' else size := 'M';
+  result[1] := 'http://covers.openlibrary.org/b/isbn/'+isbn10+'-'+size+'.jpg?default=false';
+  if maxWidth > 200 then size := 'l' else size := 'm';
+  result[2] := 'https://www.buchhandel.de/cover/'+isbn13+'/'+isbn13+'-cover-'+size+'.jpg';
+  //arrayAdd(images, 'http://vlb.de/GetBlob.aspx?strIsbn='+book.getNormalizedISBN(true, 13)+'&size=M');
 end;
 
 function TBook.toSimpleString():string;

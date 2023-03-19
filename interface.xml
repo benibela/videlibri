@@ -145,4 +145,20 @@
       <classref ref="OptionsAndroidOnly"/>
     </arg>
   </function>
+  <function id="VLGetCoverURLs">
+    <arg name="ISBN">
+      <string/>
+    </arg>
+    <arg name="maxWidth">
+      <int/>
+    </arg>
+    <arg name="maxHeight">
+      <int/>
+    </arg>
+    <return-type>
+      <array>
+        <string/>
+      </array>
+    </return-type>
+  </function>
 </api>

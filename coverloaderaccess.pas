@@ -73,47 +73,44 @@ procedure TCoverThread.Execute;
   procedure doRequest(const request: TCoverRequestData);
   var imageInfo: TCoverImageInfo;
     temp, imageUrl, contentType: String;
-    images: TStringArray;
+    images, covers: TStringArray;
   begin
     if logging then log('Cover thread: message typ cmtImage '+request.isbn);
     imageInfo := TCoverImageInfo.Create;
     imageInfo.request := request;
     images := strSplit(request.imageUrl, LineEnding);
     if request.isbn <> '' then begin
-      arrayAdd(images, 'http://covers.openlibrary.org/b/isbn/'+tbook.getNormalizedISBN(request.isbn, false, 10)+'-M.jpg?default=false');
-        arrayAdd(images, 'https://images-eu.ssl-images-amazon.com/images/P/'+tbook.getNormalizedISBN(request.isbn, true, 10)+'.03.L.jpg');
-        arrayAdd(images, 'http://images-eu.amazon.com/images/P/'+tbook.getNormalizedISBN(request.isbn, true, 10)+'.03.L.jpg');
-        temp := tbook.getNormalizedISBN(request.isbn, true, 13);
-        //arrayAdd(images, 'http://vlb.de/GetBlob.aspx?strIsbn='+book.getNormalizedISBN(true, 13)+'&size=M');
-        arrayAdd(images, 'https://www.buchhandel.de/cover/'+temp+'/'+temp+'-cover-m.jpg');
+      covers := TBook.getCoverURLS(request.isbn, 1000, 1000);
+      images := Concat(images, covers);
+    end;
+
+    if logging then log('image candidate urls: '+strJoin(images, LineEnding));
+    for temp in images do begin
+      imageUrl := strTrimAndNormalize(temp);
+      if imageUrl = '' then continue;
+      try
+        imageinfo.image:=internet.get(imageUrl);
+
+        contentType := internet.getLastContentType;
+        if striContains(contentType, 'image/jpeg') or striContains(contentType, 'image/jpg') then imageInfo.imageExtension := '.jpg'
+        else if striContains(contentType, 'image/png') then imageInfo.imageExtension := '.png'
+        else if striContains(contentType, 'image/gif') then imageInfo.imageExtension := '.gif'
+        else imageInfo.imageExtension := ExtractFileExt(imageUrl);
+
+      except
+        on e: EInternetException do imageinfo.image := '';
       end;
-      if logging then log('image candidate urls: '+strJoin(images, LineEnding));
-      for temp in images do begin
-        imageUrl := strTrimAndNormalize(temp);
-        if imageUrl = '' then continue;
-        try
-          imageinfo.image:=internet.get(imageUrl);
+      if imageinfo.image <> '' then break;
+    end;
 
-          contentType := internet.getLastContentType;
-          if striContains(contentType, 'image/jpeg') or striContains(contentType, 'image/jpg') then imageInfo.imageExtension := '.jpg'
-          else if striContains(contentType, 'image/png') then imageInfo.imageExtension := '.png'
-          else if striContains(contentType, 'image/gif') then imageInfo.imageExtension := '.gif'
-          else imageInfo.imageExtension := ExtractFileExt(imageUrl);
+    outputAccessSection.enter;
+    SetLength(outputImageInfo, length(outputImageInfo) + 1);
+    outputImageInfo[high(outputImageInfo)] := imageInfo;
+    outputAccessSection.leave;
 
-        except
-          on e: EInternetException do imageinfo.image := '';
-        end;
-        if imageinfo.image <> '' then break;
-      end;
-
-      outputAccessSection.enter;
-      SetLength(outputImageInfo, length(outputImageInfo) + 1);
-      outputImageInfo[high(outputImageInfo)] := imageInfo;
-      outputAccessSection.leave;
-
-      if assigned(OnImageReceived) then
-        Synchronize(OnImageReceived);
-      if logging then log('end image');
+    if assigned(OnImageReceived) then
+      Synchronize(OnImageReceived);
+    if logging then log('end image');
   end;
 
 var

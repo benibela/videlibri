@@ -2050,18 +2050,25 @@ begin
 end;
 
 
-function Java_de_benibela_VideLibri_Bridge_VLNormalizeISBN(env:PJNIEnv; this:jobject; isbn: jstring; removeSep: jboolean; conversion: jint): jobject; cdecl;
+function Java_de_benibela_VideLibri_Bridge_VLGetCoverURLs(env:PJNIEnv; this:jobject; ISBN: jobject ; maxWidth: jint ; maxHeight: jint): jobject; cdecl;
+var
+  covers: TStringArray;
+  pisbn: String;
 begin
-  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLNormalizeISBN (started)');
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetCoverURLs (started)');
   result := nil;
   try
-    with needJ do
-      result := stringToJString(TBook.getNormalizedISBN(jStringToString(isbn), removeSep <> JNI_FALSE, conversion));
+    pisbn := needJ.jStringToString(ISBN);
+    //if logging then log('ISBN: '+pisbn);
+    covers := tbook.getCoverURLs(pisbn, maxWidth, maxHeight);
+    //if logging then log('covers');
+    result := j.arrayToJArray(covers);
   except
     on e: Exception do throwExceptionToJava(e);
   end;
-  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLNormalizeISBN (ended)');
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetCoverURLs (ended)');
 end;
+
 
 function Java_de_benibela_VideLibri_Bridge_VLGetVersion(env:PJNIEnv; this:jobject ): jobject; cdecl;
 const CPU_PLATFORM = {$ifdef CPUARM}{$ifdef CPU32}'arm 32-bit'{$endif}{$endif}
@@ -2136,7 +2143,7 @@ const nativeMethods: array[1..40] of JNINativeMethod=
 
    ,(name:'VLXQuery'; signature: '(Ljava/lang/String;)[Lde/benibela/videlibri/jni/Bridge$Book;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLXQuery)
 
-   ,(name:'VLNormalizeISBN'; signature: '(Ljava/lang/String;ZI)Ljava/lang/String;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLNormalizeISBN)
+   ,(name:'VLGetCoverURLs'; signature: '(Ljava/lang/String;II)[Ljava/lang/String;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetCoverURLs)
 
    ,(name:'VLGetVersion'; signature: '()Lde/benibela/videlibri/jni/VersionInfo;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetVersion)
    );

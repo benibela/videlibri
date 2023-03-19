@@ -159,3 +159,4 @@ fun VLGetOptionsAndroidOnly(): OptionsAndroidOnly
 fun VLSetOptionsAndroidOnly(options: OptionsAndroidOnly)
 
 
+fun VLGetCoverURLs(ISBN: String, maxWidth: Int, maxHeight: Int ): String[]

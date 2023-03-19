@@ -204,19 +204,6 @@ public class Bridge {
         }
 
 
-        public enum ISBNNormalization { ISBN_NO_CONVERSION, ISBN_CONVERT_TO_10, ISBN_CONVERT_TO_13}
-        public String getNormalizedISBN(boolean removeSeps, ISBNNormalization normalize) {
-            String isbn = getProperty("isbn");
-            if (Util.isEmptyString(isbn)) return "";
-            int normalizationCode;
-            switch (normalize) {
-                case ISBN_CONVERT_TO_10: normalizationCode = 10; break;
-                case ISBN_CONVERT_TO_13: normalizationCode = 13; break;
-                case ISBN_NO_CONVERSION: default: normalizationCode = 0; break;
-            }
-            return VLNormalizeISBN(isbn, removeSeps, normalizationCode);
-        }
-
         public boolean equalsBook(@NotNull Book q) {
             if (!Util.equalStrings(id, q.id)) return false;
             if (!Util.equalStrings(title, q.title)) return false;
@@ -291,7 +278,7 @@ public class Bridge {
     static public native @Nullable Book[] VLGetBooks(@NotNull Account acc, boolean history);
     //pass null for old/new to create/delete a book
     static public native void VLChangeBook(@Nullable Book oldBook, @Nullable Book newBook);
-    static public native @NotNull String VLNormalizeISBN(@NotNull String isbn, boolean removeSep, int conversion);
+    static public native @NotNull String[] VLGetCoverURLs(@NotNull String isbn, int maxWidth, int maxHeight);
     static public native @Nullable Book VLGetCriticalBook();
     static public native boolean VLUpdateAccount(@NotNull Account acc, boolean autoUpdate, boolean forceExtend);
     public static final int BOOK_OPERATION_RENEW = 1;
