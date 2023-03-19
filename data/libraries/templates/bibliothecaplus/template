@@ -40,7 +40,7 @@ function __doPostBack(eventTarget, eventArgument) {
 }-->
 
 <action id="update-all">
-  <s>pendingLoginError := ()</s>
+  <s>pendingLoginError := (), all-copyIds := (), last-extendable-check := ()</s>
   <call action="internal-login"/>
   <page url="{$loginForm}"><template><html>{
     for $message in //span[ends-with(@id, "lblMessage")][ancestor::div[ends-with(@id, "Login_UP") or contains(@class, "dnnFormValidationSummary")]] 
@@ -50,19 +50,29 @@ function __doPostBack(eventTarget, eventArgument) {
 </action>
 
 <action id="update-single"> <!--todo: parallize? -->
-  <page url="{$extendableCheck}" test="exists($book._copyId)">
-    <header>Accept: application/json, text/javascript, */*; q=0.01</header>
-    <header>Content-Type: application/json;charset=utf-8</header>
-    <header>X-Requested-With: XMLHttpRequest</header>
-    <post>{{'portalId':'{$portalId}', 'userName': '{$userRndId}', 'copyId': '{$book._copyId}', 'copyIds': '{$book._copyId}', 'culture':'{$culture}', 'localResourceFile':'{$localResourceFile}'}}</post>
-    <template><t:s>
-      let $d := json($raw).d 
-      let $d := if ($d instance of array()) then $d(1) else $d
-      return
-        if ($d.IsExtendable) then (book.statusId := "normal")
-        else (book.status := $d.StatusMessages, book.statusId := "critical")
-    </t:s></template> <!-- answer looks like: {"d":{"__type":"OCLC.OPEN.PL.DNN.PatronAccountModule.PatronAccountService+ExtendableResponse","IsExtendable":false,"StatusMessages":"(Verlängerungsintervall ist auf 0 Tage eingestellt) Bitte wenden Sie sich an die Bibliothek."}}-->
-  </page>
+  <if test="exists($book._copyId)">
+    <s>$info := $last-extendable-check[?CopyId = $book._copyId]</s>
+    <if test="empty($info)">
+      <json url="{$extendableCheck}">
+        <header>Accept: application/json, text/javascript, */*; q=0.01</header>
+        <header>Content-Type: application/json;charset=utf-8</header>
+        <header>X-Requested-With: XMLHttpRequest</header>
+        <post>{{'portalId':'{$portalId}', 'userName': '{$userRndId}', 'copyId': '{$book._copyId}', 'copyIds': '{if ($book._copyId = $all-copyIds) then join($all-copyIds, ",") else $book._copyId}', 'culture':'{$culture}', 'localResourceFile':'{$localResourceFile}'}}</post>
+        <!-- answer looks like: {"d":{"__type":"OCLC.OPEN.PL.DNN.PatronAccountModule.PatronAccountService+ExtendableResponse","IsExtendable":false,"StatusMessages":"(Verlängerungsintervall ist auf 0 Tage eingestellt) Bitte wenden Sie sich an die Bibliothek."}}-->
+      </json>
+      <s>
+      let $d := $json?d return 
+      if ($json?d instance of array()) then (
+        $last-extendable-check := $d?*,
+        $info := $last-extendable-check[?CopyId = $book._copyId]
+      ) else $info := $d
+      </s>
+    </if>
+    <s>
+    if ($info.IsExtendable) then (book.status := $info.ExtendText[.]!concat("Info: ", .), book.statusId := "curious")
+    else (book.status := $info.StatusMessages, book.statusId := "critical")
+    </s>
+  </if>
 <!-- on the webpage:
             var copyId = $(this).find('input[name$="CopyId"]').attr('value');
             var culture = regC.find('input[name$="Culture"]').attr('value');

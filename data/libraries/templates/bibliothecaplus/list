@@ -60,11 +60,11 @@
           <TD>{book.libraryBranch := local:parse-column(.)}</TD>
           <TD>{book.duedate := parse-date(extract(., "[0-9./-]{6,}"))}</TD>
           <td>{
-          .//input/(
-            if (@type = "checkbox") then $book._renewid := @name
-            else if (contains(@name, 'CopyId')) then (
-              book._copyId := @value, book.id := @value
-            ) else ()
+          .//input!(
+            if (@type = "checkbox") then $book._renewid := string(@name)
+            else if (contains(@name, 'CopyId')) then 
+              $all-copyIds[] := $book._copyId := $book.id := string(@value)
+            else ()
           )
           }
           </td>
