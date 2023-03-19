@@ -84,6 +84,7 @@
       <classref ref="LibraryVariable"/>
     </array>
     <boolean name="segregatedAccounts"/>
+    <string name="email"/>
     <intenumref name="testingSearch" ref="LibraryTestingInfo"/>
     <intenumref name="testingAccount" ref="LibraryTestingInfo"/>
   </class>

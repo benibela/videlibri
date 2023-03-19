@@ -142,13 +142,14 @@ object LibraryTestingInfo {
     @JvmField var templateId: String = "",
     @JvmField var variables: Array<LibraryVariable> = emptyArray(),
     @JvmField var segregatedAccounts: Boolean = false,
+    @JvmField var email: String = "",
     @JvmField var testingSearch: LibraryTestingInfoInt = 0,
     @JvmField var testingAccount: LibraryTestingInfoInt = 0
   )   {
     override fun equals(other: Any?): Boolean =
-       other != null && javaClass == other.javaClass && other is LibraryDetails && id == other.id && prettyName == other.prettyName && prettyNameShort == other.prettyNameShort && fhomepageUrl == other.fhomepageUrl && fcatalogueUrl == other.fcatalogueUrl && fcatalogueUrlFromTemplate == other.fcatalogueUrlFromTemplate && tableComment == other.tableComment && accountComment == other.accountComment && templateId == other.templateId && variables.contentEquals(other.variables) && segregatedAccounts == other.segregatedAccounts && testingSearch == other.testingSearch && testingAccount == other.testingAccount
+       other != null && javaClass == other.javaClass && other is LibraryDetails && id == other.id && prettyName == other.prettyName && prettyNameShort == other.prettyNameShort && fhomepageUrl == other.fhomepageUrl && fcatalogueUrl == other.fcatalogueUrl && fcatalogueUrlFromTemplate == other.fcatalogueUrlFromTemplate && tableComment == other.tableComment && accountComment == other.accountComment && templateId == other.templateId && variables.contentEquals(other.variables) && segregatedAccounts == other.segregatedAccounts && email == other.email && testingSearch == other.testingSearch && testingAccount == other.testingAccount
     override fun hashCode(): Int =
-      super.hashCode() xor id.hashCode().rotateLeft(1) xor prettyName.hashCode().rotateLeft(2) xor prettyNameShort.hashCode().rotateLeft(3) xor fhomepageUrl.hashCode().rotateLeft(4) xor fcatalogueUrl.hashCode().rotateLeft(5) xor fcatalogueUrlFromTemplate.hashCode().rotateLeft(6) xor tableComment.hashCode().rotateLeft(7) xor accountComment.hashCode().rotateLeft(8) xor templateId.hashCode().rotateLeft(9) xor variables.contentHashCode().rotateLeft(10) xor segregatedAccounts.hashCode().rotateLeft(11) xor testingSearch.hashCode().rotateLeft(12) xor testingAccount.hashCode().rotateLeft(13)
+      super.hashCode() xor id.hashCode().rotateLeft(1) xor prettyName.hashCode().rotateLeft(2) xor prettyNameShort.hashCode().rotateLeft(3) xor fhomepageUrl.hashCode().rotateLeft(4) xor fcatalogueUrl.hashCode().rotateLeft(5) xor fcatalogueUrlFromTemplate.hashCode().rotateLeft(6) xor tableComment.hashCode().rotateLeft(7) xor accountComment.hashCode().rotateLeft(8) xor templateId.hashCode().rotateLeft(9) xor variables.contentHashCode().rotateLeft(10) xor segregatedAccounts.hashCode().rotateLeft(11) xor email.hashCode().rotateLeft(12) xor testingSearch.hashCode().rotateLeft(13) xor testingAccount.hashCode().rotateLeft(14)
   }
 
 

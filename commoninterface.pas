@@ -211,7 +211,7 @@ end;
 type 
 TLibraryDetailsClass = class of TLibraryDetails;
 TLibraryDetails = class
-  id, prettyName, prettyNameShort, fhomepageUrl, fcatalogueUrl, fcatalogueUrlFromTemplate, tableComment, accountComment, templateId: string;
+  id, prettyName, prettyNameShort, fhomepageUrl, fcatalogueUrl, fcatalogueUrlFromTemplate, tableComment, accountComment, templateId, email: string;
   segregatedAccounts: boolean;
   variables: array of TLibraryVariable;
   testingSearch: TLibraryTestingInfo;
@@ -909,7 +909,7 @@ var
   end;
  
   LibraryDetailsFields: record
-    idS, prettyNameS, prettyNameShortS, fhomepageUrlS, fcatalogueUrlS, fcatalogueUrlFromTemplateS, tableCommentS, accountCommentS, templateIdS, variablesA, segregatedAccountsZ, testingSearchI, testingAccountI: jfieldID;
+    idS, prettyNameS, prettyNameShortS, fhomepageUrlS, fcatalogueUrlS, fcatalogueUrlFromTemplateS, tableCommentS, accountCommentS, templateIdS, variablesA, segregatedAccountsZ, emailS, testingSearchI, testingAccountI: jfieldID;
   end;
 
 
@@ -1095,7 +1095,7 @@ begin
 end;
  
 function TLibraryDetails.toJava: jobject;
-var temp: array[0..12] of jvalue;
+var temp: array[0..13] of jvalue;
 begin
   with j do begin
     temp[0].l := stringToJString(self.id);
@@ -1109,8 +1109,9 @@ begin
     temp[8].l := stringToJString(self.templateId);
     temp[9].l := arrayToJArrayCI(self.variables);
     temp[10].z := booleanToJboolean(self.segregatedAccounts);
-    temp[11].i := ord(self.testingSearch);
-    temp[12].i := ord(self.testingAccount);
+    temp[11].l := stringToJString(self.email);
+    temp[12].i := ord(self.testingSearch);
+    temp[13].i := ord(self.testingAccount);
 
     result := newObject(LibraryDetailsClass, LibraryDetailsClassInit, @temp[0]); 
     deleteLocalRef(temp[0].l);
@@ -1123,6 +1124,7 @@ begin
     deleteLocalRef(temp[7].l);
     deleteLocalRef(temp[8].l);
     deleteLocalRef(temp[9].l);
+    deleteLocalRef(temp[11].l);
 
  end;
 end;
@@ -1250,6 +1252,7 @@ begin
     templateId := getstringField( jvm, templateIdS );
     fromJavaArrayAndDelete(variables, getObjectField( jvm, variablesA ));
     segregatedAccounts := getbooleanField( jvm, segregatedAccountsZ );
+    email := getstringField( jvm, emailS );
     testingSearch := TLibraryTestingInfo(getIntField( jvm, testingSearchI ));
     testingAccount := TLibraryTestingInfo(getIntField( jvm, testingAccountI ));
 
@@ -1310,7 +1313,7 @@ begin
     LibraryVariableFields.nameS := getfield(LibraryVariableClass, 'name', 'Ljava/lang/String;');
     LibraryVariableFields.valueS := getfield(LibraryVariableClass, 'value', 'Ljava/lang/String;'); 
     LibraryDetailsClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/LibraryDetails'));
-    LibraryDetailsClassInit := getmethod(LibraryDetailsClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;[Lde/benibela/videlibri/jni/LibraryVariable;ZII)V');
+    LibraryDetailsClassInit := getmethod(LibraryDetailsClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;[Lde/benibela/videlibri/jni/LibraryVariable;ZLjava/lang/String;II)V');
     LibraryDetailsFields.idS := getfield(LibraryDetailsClass, 'id', 'Ljava/lang/String;');
     LibraryDetailsFields.prettyNameS := getfield(LibraryDetailsClass, 'prettyName', 'Ljava/lang/String;');
     LibraryDetailsFields.prettyNameShortS := getfield(LibraryDetailsClass, 'prettyNameShort', 'Ljava/lang/String;');
@@ -1322,6 +1325,7 @@ begin
     LibraryDetailsFields.templateIdS := getfield(LibraryDetailsClass, 'templateId', 'Ljava/lang/String;');
     LibraryDetailsFields.variablesA := getfield(LibraryDetailsClass, 'variables', '[Lde/benibela/videlibri/jni/LibraryVariable;');
     LibraryDetailsFields.segregatedAccountsZ := getfield(LibraryDetailsClass, 'segregatedAccounts', 'Z');
+    LibraryDetailsFields.emailS := getfield(LibraryDetailsClass, 'email', 'Ljava/lang/String;');
     LibraryDetailsFields.testingSearchI := getfield(LibraryDetailsClass, 'testingSearch', 'I');
     LibraryDetailsFields.testingAccountI := getfield(LibraryDetailsClass, 'testingAccount', 'I'); 
     TemplateDetailsClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/TemplateDetails'));

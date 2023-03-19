@@ -130,6 +130,7 @@ class LibraryDetails {
   templateId: String
   variables: LibraryVariable[]
   segregatedAccounts: Boolean
+  email: String
   testingSearch: LibraryTestingInfo
   testingAccount: LibraryTestingInfo
 }
