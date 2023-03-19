@@ -26,6 +26,7 @@
         <pattern><t:switch prioritized="true">
           <p class="form-error">{$error-login := ., i := 1000}</p><!-- blb karlsruhe -->
           <div class="error"><i class="fas"></i>{$error-login := ., i := 1000}</div>
+          <p class="output-message output--error">{$error-login := ., i := 1000}</p><!--HS Offenburg-->
 
           <!-- seems we already are on the correct page, send request again (not tested with any library) -->
           <td>Keine Ausleihen<t:s>i:=1000</t:s></td>
