@@ -58,38 +58,7 @@
   <s>$loginFormPost := ()</s>
   
   <if test="empty($error-login)">
-    <pattern>
-      <template:switch prioritized="true">
-        <form>{loginFormPost:=form(.)}
-        <h1>Sie sind angemeldet.</h1>
-        </form>
-  
-        <a t:condition="contains(., 'Ausleihe') and contains(@href, '&amp;sp=SZ')"></a>
-        <td>Keine Ausleihen</td>
-        
-        <h1>Bitte auch das Passwort angeben<t:s>$error-login := .</t:s></h1>
-        <h1>Sie sind nicht mit Ihren Angaben registriert<t:s>$error-login := .</t:s></h1>
-        <li>Benutzernummer oder Passwort falsch?<t:s>$error-login := .</t:s></li>
-        <h1>Das System kann Sie derzeit nicht anmelden! Angaben sind fehlerhaft!<t:s>$error-login := .</t:s></h1>
-        <h1>Anmeldung fehlgeschlagen. Bitte überprüfen Sie Ihre Eingabe.<t:s>$error-login := .</t:s></h1>
-        <h1>Die angegebene Lesernummer oder das Passwort ist falsch.<t:s>$error-login := .</t:s></h1>
-        
-        <h1>Ihre Sitzung wurde beendet<t:s>$error-login := .</t:s></h1>
-        
-         
-        <span class="bnzeig" t:condition="contains(text(), 'Sie sind angemeldet')" /> <!-- sind schon angemeldet. (neuess, ordering!) -->
-        
-        <div class="message"><div id="R01"><h1>{$error-login}</h1></div></div>
-        <div class="hinweis fehler">{$error-login}<!--new vöbb--></div>
-        <span class="alert">{$error-login}</span>
-        <span class="warnung">{$error-login}<!--stuttgart--></span>
-        <input type="password" class="errstate">{$error-login}</input>
-         
-        
-        <form><select/><select/></form> <!-- munich ordering -->
-        <h1 t:test="$sessions-reconnects > 0"><strong>Mein Konto</strong>{error-login:="Ihre Sitzung wurde beendet. (2)"}</h1>
-      </template:switch>
-    </pattern>
+    <pattern href="afterLogin"/>
   </if>
   <if test="exists($loginFormPost)"><page url="{$loginFormPost}"/></if>
 </action>
