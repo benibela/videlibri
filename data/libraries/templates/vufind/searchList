@@ -1,24 +1,25 @@
  
   <div role="main">
-    {$singleMode:=false()}
-    <t:switch prioritized="true">
-      <div id="search-counter"><strong>{$search-result-count}</strong></div>
-      <span class="numResult">{$search-result-count}</span>
-      <t:element t:condition="(self::div or self::span) and exists(text()[matches(., 'Treffer|Showing')])">
-      {$search-result-count := extract(.,"[0-9.,]+",0,"*")[position() le 3]}
-      </t:element>
-      <h2>Keine Ergebnisse<t:s>$search-result-count:=0</t:s></h2>
-      <h2>No results<t:s>$search-result-count:=0</t:s></h2>
-      <div class="limiter">
-        {$search-result-count := extract(join(//script/node()[contains(., "piwik")]), "trackSiteSearch.*?, *([0-9]+)", 1, "s")}<!-- ub leipzig-->
-      </div>
-      <t:element t:test="contains($url, '/Record/')">{
-        singleMode := true(),
-        singleModeRecordId:=substring-after($url, "/Record/"), 
-        $new-books := ()
-      }</t:element>
-       <span class="sr-only">vl:raise(.)</span>
-    </t:switch>
+    {$singleMode:=contains($url, '/Record/'),
+     if ($singleMode) then (
+       singleModeRecordId:=substring-after($url, "/Record/"), 
+       $new-books := ()
+     ) else (),
+     $ubLeipzig := contains($url, 'ub.uni-leipzig.de'),
+     if ($ubLeipzig) then $search-result-count := extract(join(//script/node()[contains(., "piwik")]), "trackSiteSearch.*?, *([0-9]+)", 1, "s") else ()
+    }
+    <t:if test="not($singleMode) and not($ubLeipzig)">
+      <t:switch prioritized="true">
+        <div id="search-counter"><strong>{$search-result-count}</strong></div>
+        <span class="numResult">{$search-result-count}</span>
+        <t:element t:condition="(self::div or self::span) and exists(text()[matches(., 'Treffer|Showing')])">
+        {$search-result-count := extract(.,"[0-9.,]+",0,"*")[position() le 3]}
+        </t:element>
+        <h2>Keine Ergebnisse<t:s>$search-result-count:=0</t:s></h2>
+        <h2>No results<t:s>$search-result-count:=0</t:s></h2>
+        <span class="sr-only">vl:raise(.)</span>
+      </t:switch>
+    </t:if>
     
     <t:if test="not($singleMode)">
     
