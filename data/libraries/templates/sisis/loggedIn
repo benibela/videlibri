@@ -182,9 +182,9 @@ touchpoint := get('touchpoint', false())
               else
                 let $account-form := form(ancestor::form[1])
                 let $account-form-params := request-decode($account-form)?params
-                let $size := $account-form-params?size ! xs:integer(.)
-                let $startPos := $account-form-params?startPos ! xs:integer(.)
-                let $countPos := $account-form-params?countPos ! xs:integer(.) otherwise 10
+                let $size := $account-form-params?size[.] ! xs:integer(.)
+                let $startPos := $account-form-params?startPos[.] ! xs:integer(.)
+                let $countPos := $account-form-params?countPos[.] ! xs:integer(.) otherwise 10
                 where exists($size) and exists($startPos) and ($startPos + $countPos le $size)
                 return request-combine($account-form, {"methodToCall": "pos", "anzPos": $startPos + $countPos})
          )
