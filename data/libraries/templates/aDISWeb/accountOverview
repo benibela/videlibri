@@ -7,31 +7,44 @@
      
    ) else (), 
    head(//tr[ends-with(normalize-space(th[1]), "Ausweis gültig bis")])!($account-expiration := join(td)) }
-  <t:switch>
-  <td>Keine Ausleihen<t:s>kontoPage:=""</t:s></td>
-  <a t:condition="contains(., 'Ausleihe') and contains(@href, '&amp;sp=SZ')">{kontoPage := @href}</a>
-  </t:switch>
-
-  <t:element 
-     t:optional="true"
-     t:condition="(self::a or self::td) and contains(., 'Bestellung') and contains(., 'Magazin')">{orderedMagazinePage := descendant-or-self::a/@href}</t:element>
+  <t:switch prioritized="true">
+  <body>
+    <t:switch>
+    <td>Keine Ausleihen<t:s>kontoPage:=""</t:s></td>
+    <a t:condition="contains(., 'Ausleihe') and contains(@href, '&amp;sp=SZ')">{kontoPage := @href}</a>
+    </t:switch>
   
-  <t:switch t:optional="true">
-  <td>Keine Bereitstellung</td>
-  <a t:condition="contains(., 'Bereitstellung')">{providedPage := @href}</a>
-  </t:switch>
+    <t:element 
+       t:optional="true"
+       t:condition="(self::a or self::td) and contains(., 'Bestellung') and contains(., 'Magazin')">{orderedMagazinePage := descendant-or-self::a/@href}</t:element>
+    
+    <t:switch t:optional="true">
+    <td>Keine Bereitstellung</td>
+    <a t:condition="contains(., 'Bereitstellung')">{providedPage := @href}</a>
+    </t:switch>
+    
+    <t:switch t:optional="true">
+    <td>Keine Bestellwünsche</td>
+    <a t:condition="contains(., 'Bestellw')">{orderedPage := @href}</a>
+    </t:switch>
   
-  <t:switch t:optional="true">
-  <td>Keine Bestellwünsche</td>
-  <a t:condition="contains(., 'Bestellw')">{orderedPage := @href}</a>
-  </t:switch>
-
-  <t:switch t:optional="true">
-  <td>Keine Vormerkung</td>
-  <a t:condition="contains(., 'Vormerkung')"><t:s>requestedPage := @href</t:s></a>
-  </t:switch>
+    <t:switch t:optional="true">
+    <td>Keine Vormerkung</td>
+    <a t:condition="contains(., 'Vormerkung')">{requestedPage := @href}</a>
+    </t:switch>
   
+  </body>
   
+  <div id="konto-services">
+    <t:switch>
+      <li><a t:condition="contains(., 'Ausleihe') and contains(@href, '&amp;sp=S*S')">{kontoPage := @href}</a></li>
+      <li>Keine Ausleihe</li>
+    </t:switch>
+<!--    {.//li/a[contains(@href, '&amp;sp=S*S' )]}-->
+    
+  </div>
+  
+  </t:switch>
       <!--<t:s>kontoPage := extract(@href, "(.*)&amp;requestCount", 1),
            requestCount := extract(@href, "requestCount=([0-9]+)", 1)
       </t:s>-->

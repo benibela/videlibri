@@ -5,6 +5,7 @@
 
   <a t:condition="contains(., 'Ausleihe') and contains(@href, '&amp;sp=SZ')"></a>
   <td>Keine Ausleihen</td>
+  <div id="konto-services"><li/></div>
   
   <h1>Bitte auch das Passwort angeben<t:s>$error-login := .</t:s></h1>
   <h1>Sie sind nicht mit Ihren Angaben registriert<t:s>$error-login := .</t:s></h1>
