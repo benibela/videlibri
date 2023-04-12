@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbücherei Rottweil"/>
+  
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliothek.komm.one/rottweil/Leserkonto"/>
+  <variable name="urlsearch" value="https://bibliothek.komm.one/rottweil/Mediensuche/Erweiterte-Suche"/>
+  
+  <homepage value="https://bibliothek.komm.one/rottweil/"/>
+  <testing-search value="yes"/> 
+  <testing-account value="unknown"/>
+</library>

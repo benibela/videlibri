@@ -2,11 +2,13 @@
 <library>
   <longName value="Mediathek Möckmühl"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/moeckmuehl"/>	
-  <variable name="DB" value="Moeckmuehl"/>	
+
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.komm.one/moeckmuehl/Mein-Konto"/>
+  <variable name="urlsearch" value="https://bibliotheken.komm.one/moeckmuehl/Mediensuche/Erweiterte-Suche"/>
   
-  <homepage value="https://web-opac.kivbf.de/moeckmuehl/index.asp?DB=Moeckmuehl"/>
+  <homepage value="https://www.mediathek-moeckmuehl.de/"/>
+    
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>
