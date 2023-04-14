@@ -1,5 +1,6 @@
 book := {}
 singleMode := false()
+ubLeipzig := false()
 search-result-count := "115"
 search-result-count := 115
 new-books := ({"_recordId": "ai-55-aHR0cHM6Ly93d3cuanN0b3Iub3JnL3N0YWJsZS83Mjg3NDU", "author": "Einstein, A.", "image-url": null, "title": "Review: Die mehrstimmige Spielmusik das 17. Jahrhunderts in Nord-und Mittel Europa", "year": null}, 

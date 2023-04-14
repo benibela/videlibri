@@ -1,5 +1,6 @@
 book := {}
 singleMode := false()
+ubLeipzig := false()
 search-result-count := ("1", 
 "20", 
 "8.582")
