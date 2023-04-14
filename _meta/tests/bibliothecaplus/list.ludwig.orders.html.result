@@ -12,5 +12,8 @@ extendableCheck := "/DesktopModules/OCLC.OPEN.PL.DNN.PatronAccountModule/PatronA
 portalId := "0"
 localResourceFile := "~/DesktopModules/OCLC.OPEN.PL.DNN.PatronAccountModule/App_LocalResources/PatronAccountModule.resx"
 account-expiration := ""
-book := {"ISBN": "3127185200", "_copyId": "0696171001", "_renewid": "dnn$ctr376$View$UcNormalView$tpnlLoans$ucLoansView$grdViewLoans$ctl02$chkSelect", "author": "Stöckle, Stefan", "category": "Buch Erwachsene", "duedate": "2018-01-02", "id": "0696171001", "image-url": ["/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/StyleSheets/Images/Fallbacks/emptyURL.gif?4.4.0.0", "http://images-eu.amazon.com/images/P/3127185200.03.MZZZZZZZ.jpg", "http://www.amazon.de/exec/obidos/ASIN/3127185200/bondonline-21"], "title": "Alle Formeln kompakt"}
+all-copyIds := "0696171001"
+book := {"ISBN": "3127185200", "_copyId": "0696171001", "_renewid": "dnn$ctr376$View$UcNormalView$tpnlLoans$ucLoansView$grdViewLoans$ctl02$chkSelect", "author": "Stöckle, Stefan", "category": "Buch Erwachsene", "duedate": "2018-01-02", "id": "0696171001", "image-url": ["http://images-eu.amazon.com/images/P/3127185200.03.MZZZZZZZ.jpg", "http://www.amazon.de/exec/obidos/ASIN/3127185200/bondonline-21"], "title": "Alle Formeln kompakt"}
+all-copyIds := ("0696171001", 
+"0696171001")
 book := {"_cancelid": "dnn$ctr376$View$UcNormalView$tpnlReservations$ucReservationsView$grdViewReservations$ctl02$chkSelect", "author": " ", "cancelable": true, "statusId": "ordered", "title": "test Spezial"}
