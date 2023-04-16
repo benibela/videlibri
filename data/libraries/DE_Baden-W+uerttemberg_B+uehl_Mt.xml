@@ -5,8 +5,7 @@
   <template value="bibliothecaplus"/>
   <variable name="urlaccount" value="https://bibliotheken.kivbf.de/buehl/Mein-Konto"/>	
   <variable name="urlsearch" value="https://bibliotheken.kivbf.de/buehl/Mediensuche/Erweiterte-Suche"/>
-  
-  <homepage value="https://web-opac.kivbf.de/buehl/index.asp?DB=Buehl"/>
+
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

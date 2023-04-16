@@ -6,9 +6,6 @@
 
   <template value="koha"/>
   <variable name="baseurl" value="https://sb-schotten.lmscloud.net/"/>
-
-
-  <homepage value="http://www.schotten.de/index_main.php?unid=740"/>
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
   

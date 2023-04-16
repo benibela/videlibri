@@ -6,8 +6,7 @@
   <variable name="urlaccount" value="https://bibliotheken.kivbf.de/eberbach/Mein-Konto"/>
   <variable name="urlsearch" value="https://bibliotheken.kivbf.de/eberbach/Mediensuche/Mediensuche"/>
   
-  
-  <homepage value="https://web-opac.kivbf.de/eberbach/index.asp?DB=Eberbach"/>
+
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

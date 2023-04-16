@@ -5,8 +5,7 @@
   <template value="bibliothecaplus"/>
   <variable name="urlaccount" value="https://bibliotheken.komm.one/rot-am-see/Mein-Konto"/>	
   <variable name="urlsearch" value="https://bibliotheken.komm.one/rot-am-see/Mediensuche/Erweiterte-Suche"/>
-  
-  <homepage value="https://web-opac.kivbf.de/rot-am-see/index.asp?DB=Rot-am-See"/>
+
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

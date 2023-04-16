@@ -5,8 +5,7 @@
   <template value="bibliothecaplus"/>
   <variable name="urlaccount" value="https://bibliotheken.komm.one/bretten/Mediensuche-Benutzerkonto/Benutzerkonto"/>	
   <variable name="urlsearch" value="https://bibliotheken.komm.one/bretten/Mediensuche-Benutzerkonto/Erweiterte-Suche"/>
-  
-  <homepage value="https://web-opac.kivbf.de/bretten/index.asp?DB=Bretten"/>
+
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

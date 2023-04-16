@@ -5,8 +5,7 @@
   <template value="bibliothecaplus"/>
   <variable name="urlaccount" value="https://bibliotheken.komm.one/karlsbad/Mein-Konto"/>	
   <variable name="urlsearch" value="https://bibliotheken.komm.one/karlsbad/Mediensuche/Erweiterte-Suche"/>
-  
-  <homepage value="https://web-opac.kivbf.de/karlsbad/index.asp?DB=Karlsbad"/>
+
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

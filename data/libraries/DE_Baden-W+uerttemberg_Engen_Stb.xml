@@ -5,8 +5,7 @@
   <template value="bibliothecaplus"/>
   <variable name="urlaccount" value="https://bibliotheken.kivbf.de/engen/Mein-Konto"/>	
   <variable name="urlsearch" value="https://bibliotheken.kivbf.de/engen/Mediensuche/Erweiterte-Suche"/>
-  
-  <homepage value="https://web-opac.kivbf.de/engen/index.asp?DB=Engen"/>
+
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

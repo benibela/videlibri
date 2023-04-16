@@ -6,9 +6,7 @@
 
   <template value="bibliothecaplus"/>
   <variable name="urlaccount" value="https://bibliothek.komm.one/erbach/Konto"/>	
-  <variable name="urlsearch" value="https://bibliothek.komm.one/erbach/Mediensuche/Erweiterte-Suche"/>
-
-  <homepage value="http://www.erbach.de/index.php?id=53"/>
+  <variable name="urlsearch" value="https://bibliothek.komm.one/erbach/Mediensuche/Erweiterte-Suche"/
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
   

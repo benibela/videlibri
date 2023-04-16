@@ -5,7 +5,7 @@ unit libraryaccesstester;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, ComCtrls, Spin, TreeListView,
+  Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, ComCtrls, Spin, Menus, TreeListView,
   libraryParser;
 
 type
@@ -37,9 +37,11 @@ type
     Label3: TLabel;
     ListBox1: TListBox;
     Memo1: TMemo;
+    MenuItem1: TMenuItem;
     PageControl1: TPageControl;
     Panel1: TPanel;
     Panel2: TPanel;
+    PopupMenu1: TPopupMenu;
     SpinEdit1: TSpinEdit;
     SpinEdit2: TSpinEdit;
     TabSheet1: TTabSheet;
@@ -54,6 +56,7 @@ type
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
+    procedure MenuItem1Click(Sender: TObject);
     procedure TreeListView1CustomRecordItemDraw(sender: TObject; eventTyp_cdet: TCustomDrawEventTyp; recordItem: TTreeListRecordItem;
       var defaultDraw: Boolean);
     procedure TreeListView1Select(sender: TObject; item: TTreeListItem);
@@ -68,7 +71,7 @@ var
 
 implementation
 
-uses booklistreader, applicationconfig, internetaccess, bbutils, Clipbrd, librarySearcher,math, simplehtmltreeparser,strutils, xquery.internals.common,commoninterface;
+uses booklistreader, applicationconfig, internetaccess, bbutils, Clipbrd, librarySearcher,math, simplehtmltreeparser,strutils, xquery.internals.common,commoninterface, xquery;
 { TlibraryTesterForm }
 
 
@@ -312,6 +315,30 @@ begin
   TreeListView1.UpdateScrollSize;
 end;
 
+procedure TlibraryTesterForm.MenuItem1Click(Sender: TObject);
+var
+  i: Integer;
+  fn, f: String;
+  fview: TStringView;
+  h, e: pchar;
+begin
+  for i := 0 to TreeListView1.Items.Count - 1 do
+    if TreeListView1.Items[i].Selected then begin
+      fn := 'data/libraries/' + TTestData(TreeListView1.Items[i].data.obj).lib.id+'.xml';
+      f := strLoadFromFile(fn);
+      //ShowMessage(f);
+      fview := f.view;
+      h := fview.find('<homepage');
+      e := fview.viewRightOf(h).find('/>');
+      repeat dec(h) until not (h^ in [' ',#9]);
+      if h^ = #10 then dec(h);
+      if h^ = #13 then dec(h);
+      delete(f, h - pchar(f), e + 3 - h);
+      //ShowMessage(f);
+      strSaveToFile(fn, f);
+    end;
+end;
+
 procedure TlibraryTesterForm.TreeListView1CustomRecordItemDraw(sender: TObject; eventTyp_cdet: TCustomDrawEventTyp;
   recordItem: TTreeListRecordItem; var defaultDraw: Boolean);
 begin
@@ -368,9 +395,12 @@ type EDoNotTestThis = class(Exception);
 procedure TTestThread.Execute;
 var t: TTemplateAccountAccessTester;
   i, acctype: Integer;
-  internet: TInternetAccess;
+  internet: TInternetAccess = nil;
   searcher: TLibrarySearcher;
   critSection: TRTLCriticalSection;
+  tree: TTreeDocument;
+  tp: TTreeParser;
+  temp: String;
 begin
   while pending do begin
     sleep(500);
@@ -450,14 +480,20 @@ begin
   end;
   if (homepage) and (lib.fhomepageUrl <> '') then begin
     try
-      createVideLibriInternetAccess.get(lib.fhomepageUrl);
-      resultHomepage := 'ok';
+      tp := TTreeParser.Create;
+      tp.parsingModel := pmHTML;
+      if internet = nil then internet := createVideLibriInternetAccess;
+      temp := internet.get(lib.fhomepageUrl);
+      tree := tp.parseTree(temp, lib.fhomepageUrl, internet.getLastContentType);
+      resultHomepage := 'ok ' + tree.findNext(tetOpen, 'title', []).innerHTML();
+      tp.free;
     except
       on e: EInternetException do
         resultHomepage := '2- '+ e.Message + ' '+e.details;
     end
   end;
   Synchronize(@showResult);
+  freeThreadVars;
 end;
 
 procedure TTestThread.showResult;

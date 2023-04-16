@@ -5,8 +5,6 @@
   <template value="bibliothecaplus"/>
   <variable name="urlaccount" value="https://bibliotheken.komm.one/gaildorf/Mediensuche-Mein-Konto/Konto"/>	
   <variable name="urlsearch" value="https://bibliotheken.komm.one/gaildorf/Mediensuche-Mein-Konto/Erweiterte-Suche"/>
- 
-  <homepage value="https://web-opac.kivbf.de/gaildorf/index.asp?DB=Gaildorf"/>
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>
