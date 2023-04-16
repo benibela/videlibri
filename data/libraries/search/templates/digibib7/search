@@ -50,5 +50,7 @@
   <p class="lead">{vl:raise(.)}</p>
 </div>
 
+<p class="alert alert-danger">{vl:raise(.)}</p>
+
       
 </t:switch>
