@@ -1,0 +1,6 @@
+* Update for changed OPAC of public libraries Stuttgart, Möckmühl, and Rottweil. 
+* OPEN: fast extendable check
+* fix ISBN conversion expecting dashes in the input
+* fix UB Leipzig search result count detection
+* sisis: do not cast empty fields to integer
+

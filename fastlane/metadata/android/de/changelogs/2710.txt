@@ -1,0 +1,6 @@
+* OPEN: Schnellere Ermittlung des Verlängerbar-Status.
+* Anpassung an geänderte Katalog der Stadtbibĺiothek Stuttgart. 
+* Umwandlung zwischen ISBN-10 und ISBN-13. 
+* Neue URL für Mediathek Möckmühl.
+* Zeige Anzahl Suchergebnisse der UB Leipzig.
+* Stadtbücherei Rottweil
