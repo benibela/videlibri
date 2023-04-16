@@ -65,7 +65,12 @@
     </array>
   </class>
   <comment>Classes to represent metadata of a library</comment>
-  <intenum id="LibraryTestingInfo" jvm-pascal="" pascal-jvm="" pascal-prefix="ti" values="Unknown Yes No Broken"/>
+  <intenum id="LibraryTestingInfo" jvm-pascal="" pascal-jvm="" pascal-prefix="ti">
+    <value name="Unknown"/>
+    <value name="Yes"/>
+    <value name="No"/>
+    <value name="Broken"/>
+  </intenum>
   <class id="LibraryVariable" pascal-type="class" jvm-pascal="" pascal-jvm="">
     <string name="name"/>
     <string name="value"/>
@@ -88,7 +93,7 @@
     <intenumref name="testingSearch" ref="LibraryTestingInfo"/>
     <intenumref name="testingAccount" ref="LibraryTestingInfo"/>
   </class>
-  <comment>Information about a support library system</comment>
+  <comment>Information about a supported library system</comment>
   <class id="TemplateDetails" pascal-jvm="">
     <string name="description"/>
     <array name="variablesNames">
@@ -101,6 +106,20 @@
       <string/>
     </array>
   </class>
+  <comment>Book information</comment>
+  <intenum id="BookStatus" jvm-pascal="" pascal-jvm="" pascal-prefix="bs">
+    <value name="Unknown" value="0"/>
+    <value name="Problematic" value="5"/>
+    <value name="Normal" value="6"/>
+    <value name="Ordered" value="8"/>
+    <value name="Provided" value="9"/>
+    <value name="Reserved" value="10"/>
+    <value name="Available" value="100"/>
+    <value name="Lend" value="101"/>
+    <value name="Virtual" value="102"/>
+    <value name="Presentation" value="103"/>
+    <value name="InterLoan" value="104"/>
+  </intenum>
   <function id="VLGetTemplateDetails">
     <arg name="name">
       <string/>

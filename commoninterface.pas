@@ -8,6 +8,8 @@ interface
  type EVideLibriInterfaceException = class(Exception);
  type TFormInput = class; TFormInputArray = array of TFormInput;  TLibraryVariable = class; TLibraryVariableArray = array of TLibraryVariable; 
  TLibraryTestingInfo = ( tiUnknown = 0, tiYes = 1, tiNo = 2, tiBroken = 3 );
+ TBookStatus = ( bsUnknown = 0, bsProblematic = 5, bsNormal = 6, bsOrdered = 8, bsProvided = 9, bsReserved = 10, bsAvailable = 100, bsLend = 101, bsVirtual = 102, bsPresentation = 103, bsInterLoan = 104 );
+
  
 type 
 TFormInputClass = class of TFormInput;

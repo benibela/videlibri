@@ -153,7 +153,7 @@ object LibraryTestingInfo {
   }
 
 
-//Information about a support library system
+//Information about a supported library system
 
   open class TemplateDetails( 
     val description: String = "",
@@ -166,3 +166,21 @@ object LibraryTestingInfo {
     override fun hashCode(): Int =
       super.hashCode() xor description.hashCode().rotateLeft(1) xor variablesNames.contentHashCode().rotateLeft(2) xor variablesDescription.contentHashCode().rotateLeft(3) xor variablesDefault.contentHashCode().rotateLeft(4)
   }
+
+
+//Book information
+typealias BookStatusInt = Int
+object BookStatus {
+    const val Unknown = 0
+    const val Problematic = 5
+    const val Normal = 6
+    const val Ordered = 8
+    const val Provided = 9
+    const val Reserved = 10
+    const val Available = 100
+    const val Lend = 101
+    const val Virtual = 102
+    const val Presentation = 103
+    const val InterLoan = 104
+}
+

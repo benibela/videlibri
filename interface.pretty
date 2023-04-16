@@ -135,7 +135,7 @@ class LibraryDetails {
   testingAccount: LibraryTestingInfo
 }
 
-//Information about a support library system
+//Information about a supported library system
 
 @Pascal->Kotlin
 class TemplateDetails { 
@@ -146,7 +146,23 @@ class TemplateDetails {
 }
 
 
+//Book information
 
+@Pascal<->Kotlin
+@PascalPrefix(bs)
+enum BookStatus {
+  Unknown = 0
+  Problematic = 5
+  Normal = 6
+  Ordered = 8
+  Provided = 9
+  Reserved = 10
+  Available = 100
+  Lend = 101
+  Virtual = 102
+  Presentation = 103
+  InterLoan = 104
+}
 
 
 fun VLGetTemplateDetails(name: String): TemplateDetails

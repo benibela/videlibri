@@ -71,7 +71,11 @@ declare function igp:make-enum($annotations, $name, $children){
       if (starts-with(., "@PascalPrefix")) then attribute pascal-prefix { extract(., "\(\s*([a-zA-Z]+)", 1) }
       else igp:annotation-to-attribute(.)
     ),
-    attribute values { string-join($children ! normalize-space(.), " ") }
+    for $c in $children ! normalize-space(.)[.] 
+    let $hasValue := contains($c, "=")
+    let $n := if ($hasValue) then substring-before($c, "=") => normalize-space() else $c
+    let $v := if ($hasValue) then substring-after($c, "=") => normalize-space() else ()
+    return <value name="{$n}">{$v ! attribute value {.} }</value>
     
   }</intenum>
 };

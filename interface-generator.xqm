@@ -94,9 +94,10 @@ declare function ig:pascal-make-fields($s){
 };
 
 declare function ig:pascal-make-intenum($e){ $e/ (
-  let $values := tokenize(@values)
+  let $values := ./value
   let $prefix := @pascal-prefix
-  return x"T{@id} = ( {string-join($values ! x"{$prefix}{.} = {position() - 1}" , ", ")} );"
+  return x"T{@id} = ( {string-join($values ! x"{$prefix}{@name} = {(data(@value), position() - 1)[1]}" , ", ")} );
+"
 )
 };
 
@@ -519,11 +520,11 @@ declare function ig:kotlin-make-prop($s, $default){
 
 declare function ig:kotlin-make-intenum($s){
   let $id := $s/@id
-  let $values := tokenize($s/@values)
+  let $values := $s/value
   return
   $s/x"typealias {@id}Int = Int
 object {@id} {{
-{join($values ! x"    const val {.} = {position() - 1}", "&#xA;") }
+{join($values ! x"    const val {@name} = {(data(@value), position() - 1)[1]}", "&#xA;") }
 }}
 "
 

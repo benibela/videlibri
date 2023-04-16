@@ -1584,6 +1584,24 @@ initialization
     isbn := wregexprParse('ISBN', [wrfIgnoreCase]);
     year := wregexprParse('Creation Date|Jahr', [wrfIgnoreCase]);
   end;
+
+writeln(bsNormal, ' ', ord(bsNormal));
+writeln(bsUnknown, ' ', ord(bsUnknown));
+writeln(bsIsSearchedDONTUSETHIS, ' ', ord(bsIsSearchedDONTUSETHIS));
+writeln(bsEarMarkedDONTUSETHIS, ' ', ord(bsEarMarkedDONTUSETHIS));
+writeln(bsMaxLimitReachedDONTUSETHIS, ' ', ord(bsMaxLimitReachedDONTUSETHIS));
+writeln(bsProblematicInStr, ' ', ord(bsProblematicInStr));
+writeln(bsCuriousInStr, ' ', ord(bsCuriousInStr));
+writeln(bsAccountExpiredDONTUSETHIS, ' ', ord(bsAccountExpiredDONTUSETHIS));
+writeln(bsOrdered, ' ', ord(bsOrdered));
+writeln(bsProvided, ' ', ord(bsProvided));
+writeln(bsReserved, ' ', ord(bsReserved));
+writeln(bsAvailable, ' ', ord(bsAvailable));
+writeln(bsLend, ' ', ord(bsLend));
+writeln(bsVirtual, ' ', ord(bsVirtual));
+writeln(bsPresentation, ' ', ord(bsPresentation));
+writeln(bsInterLoan, ' ', ord(bsInterLoan));
+
 finalization
   vl.free;
   XMlNamespaceVideLibri._Release;
