@@ -40,7 +40,13 @@
       <li><a t:condition="contains(., 'Ausleihe') and contains(@href, '&amp;sp=S*S')">{kontoPage := @href}</a></li>
       <li>Keine Ausleihe</li>
     </t:switch>
-<!--    {.//li/a[contains(@href, '&amp;sp=S*S' )]}-->
+    {.//li/a[contains(@href, '&amp;sp=S*S' ) and not(contains(., "Ausleihe")) and matches(., "[0-9]")]/(
+      if (contains(., "Vormerkung")) then $requestedPage := @href
+      else if (contains(., "Magazin")) then $orderedMagazinePage := @href
+      else if (contains(., "Bereitstellung")) then $providedPage := @href
+      else if (contains(., "Bestellw")) then $orderedPage := @href
+      else ()
+    )}
     
   </div>
   
