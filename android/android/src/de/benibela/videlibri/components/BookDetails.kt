@@ -26,8 +26,8 @@ import de.benibela.videlibri.activities.SearchResult
 import de.benibela.videlibri.databinding.BookDetailsCoverBinding
 import de.benibela.videlibri.databinding.BookDetailsHoldingBinding
 import de.benibela.videlibri.databinding.BookDetailsPropertyBinding
+import de.benibela.videlibri.jni.BookStatus
 import de.benibela.videlibri.jni.Bridge
-import de.benibela.videlibri.jni.Bridge.Book.StatusEnum
 import de.benibela.videlibri.utils.*
 import de.benibela.videlibri.utils.BookFormatter.formatDate
 import de.benibela.videlibri.utils.BookFormatter.formatDateFull
@@ -182,8 +182,8 @@ class BookDetails internal constructor(activity: BookListActivity) : VideLibriFa
             isSearchedBook && book.isOrderable ->
                 book["orderTitle"].takeNonEmpty() ?: getString(R.string.book_order)
             !isSearchedBook && !book.history && activity !is RenewList -> when (book.status) {
-                StatusEnum.Unknown, StatusEnum.Normal -> getString(R.string.book_renew)
-                StatusEnum.Ordered, StatusEnum.Provided -> getString(R.string.book_cancel).takeIf { book.isCancelable }
+                BookStatus.Unknown, BookStatus.Normal -> getString(R.string.book_renew)
+                BookStatus.Ordered, BookStatus.Provided, BookStatus.Reserved -> getString(R.string.book_cancel).takeIf { book.isCancelable }
                 else -> null
             }
             else -> null

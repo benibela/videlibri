@@ -5,15 +5,10 @@ unit booklistreader;
 interface
 
 uses
-  Classes, SysUtils,bbutils,extendedhtmlparser,simplehtmltreeparser,simplexmlparser, xquery, internetaccess, multipagetemplate, xquery__regex;
+  Classes, SysUtils,bbutils,extendedhtmlparser,simplehtmltreeparser,simplexmlparser, xquery, internetaccess, multipagetemplate, xquery__regex, commoninterface;
   
 type
   TBookList = class;
-  TBookStatus=(
-    //self lend
-    bsNormal,bsUnknown,bsIsSearchedDONTUSETHIS,bsEarMarkedDONTUSETHIS, bsMaxLimitReachedDONTUSETHIS,bsProblematicInStr,bsCuriousInStr,bsAccountExpiredDONTUSETHIS,bsOrdered,bsProvided,bsReserved,
-    //availability
-    bsAvailable, bsLend, bsVirtual, bsPresentation, bsInterLoan);
   trilean = (tUnknown, tFalse, tTrue);
 
   { TBook }
@@ -178,8 +173,8 @@ type
     function clone: TXQStaticContext; override;
   end;
 
-const BOOK_NOT_EXTENDABLE=[bsProblematicInStr,bsEarMarkedDONTUSETHIS,bsMaxLimitReachedDONTUSETHIS,bsAccountExpiredDONTUSETHIS];
-      BOOK_EXTENDABLE=[bsNormal,bsCuriousInStr];
+const BOOK_NOT_EXTENDABLE=[bsProblematic];
+      BOOK_EXTENDABLE=[bsNormal];
       BOOK_CANCELABLE=[bsOrdered, bsReserved, bsProvided];
       BOOK_NOT_LEND=BOOK_CANCELABLE;
 
@@ -213,14 +208,14 @@ function BookStatusToStr(book: TBook;verbose:boolean=false): string;
 begin
   if book.lend  then begin
     case book.Status of
-      bsNormal: if verbose then exit(rsBookStatusNormalRenewable) else exit('');
+      bsUnknown: if verbose then exit(rsBookStatusNormalRenewable) else exit('');
   //    bsUnknown: exit('Ausleihstatus unbekannt');
   //    bsIsSearchedDONTUSETHIS: exit('Ausleihstatus wird ermittelt... (sollte nicht vorkommen, bitte melden!)');
   //    bsEarMarked:exit('vorgemerkt');
   //    bsMaxLimitReached: exit('maximale Ausleihfrist erreicht');
   //    bsAccountExpired: exit('Büchereikarte ist abgelaufen');
-      bsCuriousInStr: if verbose then exit(rsRenewable + ': '+book.statusStr) else exit(book.statusStr);
-      bsProblematicInStr: if verbose then exit(rsBookStatusNonRenewable + ': '+book.statusStr) else exit(book.statusStr);
+      bsNormal: if verbose then exit(rsRenewable + ': '+book.statusStr) else exit(book.statusStr);
+      bsProblematic: if verbose then exit(rsBookStatusNonRenewable + ': '+book.statusStr) else exit(book.statusStr);
       bsOrdered: if book.statusStr <> '' then exit(book.statusStr) else exit(rsBookStatusOrdered);
       bsProvided: if book.statusStr <> '' then exit(book.statusStr) else exit(rsBookStatusProvided);
       bsReserved: if book.statusStr <> '' then exit(book.statusStr) else exit(rsBookStatusReserved);
@@ -230,7 +225,7 @@ begin
     if verbose then exit(rsBookStatusNotLend) else exit('');
   end else
     case book.Status of
-      bsNormal, bsUnknown, bsCuriousInStr: exit(book.statusStr);
+      bsNormal, bsUnknown: exit(book.statusStr);
       bsAvailable: exit(rsBookStatusAvailable);
       bsLend: exit(rsBookStatusLend);
       bsVirtual: exit(rsBookStatusVirtual);
@@ -245,8 +240,7 @@ begin
   case status of
     bsNormal: exit('normal');
     bsUnknown: exit('unknown');
-    bsProblematicInStr: exit('critical');
-    bsCuriousInStr: exit('curious');
+    bsProblematic: exit('critical');
     bsOrdered: exit('ordered');
     bsProvided: exit('provided');
     bsReserved: exit('reserved');
@@ -594,8 +588,8 @@ begin
     'isbn': isbn:=value;
     'statusid':
         case value of
-          'curious': status:=bsCuriousInStr;
-          'critical': status:=bsProblematicInStr;
+          'curious': status:=bsNormal;
+          'critical': status:=bsProblematic;
           'ordered': status:=bsOrdered;
           'provided': status:=bsProvided;
           'reserved', 'requested': status:=bsReserved;
@@ -609,7 +603,7 @@ begin
 
           'history', '': status := bsUnknown; //these are invalid statuses (not occuring during serialization, however history is used by xquery offline search )
           else begin
-            status := bsProblematicInStr;
+            status := bsProblematic;
             statusStr := Format(rsBookStatusInvalid, [value]);
           end;
         end;
@@ -1147,13 +1141,10 @@ begin
   variable := LowerCase(variable);
   if (variable <> 'statusid') and strlibeginswith(@variable[1],length(variable),'status') then begin
     book.StatusStr:=strconv();
-    if variable='status:problematic' then book.Status:=bsProblematicInStr
-    else if variable='status:curious' then book.Status:=bsCuriousInStr
+    if variable='status:problematic' then book.Status:=bsProblematic
+    else if variable='status:curious' then book.Status:=bsNormal
     else if pos(':', variable) > 0 then book.statusStr:=book.statusStr + ' Achtung: Ungültige Statusvariable "' + variable + '" in Template'
-    else if book.status in [bsNormal,bsUnknown] then begin
-      if book.statusStr <> '' then book.Status:=bsCuriousInStr
-      else book.status := bsNormal;
-    end;
+    else if book.status = bsUnknown then book.Status:=bsNormal
   end else if striEqual(variable, 'issuedate') then book.issueDate:=trunc(value.toDateTime)
   else if striEqual(variable, 'duedate') then book.dueDate:=trunc(value.toDateTime)
   else if strlibeginswith(@variable[1],length(variable),'issuedate') then
@@ -1587,12 +1578,6 @@ initialization
 
 writeln(bsNormal, ' ', ord(bsNormal));
 writeln(bsUnknown, ' ', ord(bsUnknown));
-writeln(bsIsSearchedDONTUSETHIS, ' ', ord(bsIsSearchedDONTUSETHIS));
-writeln(bsEarMarkedDONTUSETHIS, ' ', ord(bsEarMarkedDONTUSETHIS));
-writeln(bsMaxLimitReachedDONTUSETHIS, ' ', ord(bsMaxLimitReachedDONTUSETHIS));
-writeln(bsProblematicInStr, ' ', ord(bsProblematicInStr));
-writeln(bsCuriousInStr, ' ', ord(bsCuriousInStr));
-writeln(bsAccountExpiredDONTUSETHIS, ' ', ord(bsAccountExpiredDONTUSETHIS));
 writeln(bsOrdered, ' ', ord(bsOrdered));
 writeln(bsProvided, ' ', ord(bsProvided));
 writeln(bsReserved, ' ', ord(bsReserved));

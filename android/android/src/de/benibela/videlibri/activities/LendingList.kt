@@ -18,10 +18,7 @@ import androidx.fragment.app.DialogFragment
 import de.benibela.videlibri.*
 import de.benibela.videlibri.databinding.OptionsLendingsAccountrowBinding
 import de.benibela.videlibri.databinding.OptionsLendingsBinding
-import de.benibela.videlibri.jni.BookListDisplayOptions
-import de.benibela.videlibri.jni.Bridge
-import de.benibela.videlibri.jni.globalOptionsAndroid
-import de.benibela.videlibri.jni.save
+import de.benibela.videlibri.jni.*
 import de.benibela.videlibri.utils.*
 import kotlinx.parcelize.Parcelize
 import java.util.*
@@ -294,7 +291,7 @@ class LendingList: BookListActivity(){
 
     override fun onBookActionButtonClicked(book: Bridge.Book) {
         when (book.status) {
-            Bridge.Book.StatusEnum.Normal -> showDialog {
+            BookStatus.Normal -> showDialog {
                 message(R.string.renew_single_confirm)
                 negativeButton(android.R.string.cancel)
                 positiveButton(R.string.renew) {
@@ -302,7 +299,7 @@ class LendingList: BookListActivity(){
                     withActivity<LendingList> { showList() }
                 }
             }
-            Bridge.Book.StatusEnum.Ordered, Bridge.Book.StatusEnum.Provided -> showMessageYesNo(R.string.main_cancelconfirm) {
+            BookStatus.Ordered, BookStatus.Provided, BookStatus.Reserved -> showMessageYesNo(R.string.main_cancelconfirm) {
                 book.account?.isUpdating = true
                 Bridge.VLBookOperation(arrayOf(book), Bridge.BOOK_OPERATION_CANCEL) //cancel
                 withActivity<LendingList> { showList() }

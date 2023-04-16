@@ -88,7 +88,7 @@ resourcestring
 
 implementation
 
-uses applicationdesktopconfig, applicationconfig,  Graphics, bookproperties, StrUtils;
+uses applicationdesktopconfig, applicationconfig,  Graphics, bookproperties, StrUtils, commoninterface;
 //  ,windows {for the search only};
 
 
@@ -350,9 +350,9 @@ begin
       if not book.lend then group := rsBookStatusNotLend
       else begin
         case book.status of
-          bsNormal, bsCuriousInStr: group := rsBookStatusNormalRenewable;
+          bsNormal: group := rsBookStatusNormalRenewable;
           bsUnknown: group := rsBookStatusUnknown;
-          bsProblematicInStr: group := rsBookStatusNonRenewable;
+          bsProblematic: group := rsBookStatusNonRenewable;
           bsOrdered: group := rsBookStatusOrdered;
           bsProvided: group := rsBookStatusProvided;
           else group := '???';

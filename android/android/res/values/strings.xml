@@ -31,7 +31,8 @@
     <string name="book_status_unknown">unbekannter Status</string>
     <string name="book_status_normal">normal/verlängerbar</string>
     <string name="book_status_problematic">nicht verlängerbar</string>
-    <string name="book_status_ordered">vorgemerkt</string>
+    <string name="book_status_ordered">bestellt</string>
+    <string name="book_status_reserved">vorgemerkt</string>
     <string name="book_status_provided">abholbereit</string>
     <string name="book_status">Bemerkung</string>
     <string name="book_lenddate">Ausleihdatum</string>

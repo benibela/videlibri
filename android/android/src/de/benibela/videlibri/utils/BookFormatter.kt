@@ -6,6 +6,7 @@ import android.graphics.Color
 import androidx.annotation.StringRes
 import de.benibela.videlibri.*
 import de.benibela.videlibri.jni.BookListDisplayOptions
+import de.benibela.videlibri.jni.BookStatus
 
 import de.benibela.videlibri.jni.Bridge
 import de.benibela.videlibri.jni.globalOptionsShared
@@ -17,6 +18,7 @@ internal object BookFormatter {
         internal object bookStatus {
             lateinit var provided: String
             lateinit var ordered: String
+            lateinit var reserved: String
             lateinit var problematic: String
         }
         operator fun invoke(@StringRes id: Int): String = getString(id)
@@ -26,6 +28,7 @@ internal object BookFormatter {
             ?: return
             bookStatus.provided = c.getString(R.string.book_status_provided)
             bookStatus.ordered = c.getString(R.string.book_status_ordered)
+            bookStatus.reserved = c.getString(R.string.book_status_reserved)
             bookStatus.problematic = c.getString(R.string.book_status_problematic)
         }
     }
@@ -48,8 +51,8 @@ fun Bridge.Book.getMoreText(): String =
 fun Bridge.Book.getDateText(options: BookListDisplayOptions): String =
         if (account != null && !history) { //lend book
             when (status) {
-                Bridge.Book.StatusEnum.Provided -> BookFormatter.tr.bookStatus.provided
-                Bridge.Book.StatusEnum.Ordered -> BookFormatter.tr.bookStatus.ordered
+                BookStatus.Provided -> BookFormatter.tr.bookStatus.provided
+                BookStatus.Ordered, BookStatus.Reserved -> BookFormatter.tr.bookStatus.ordered
                 else -> {
                     val fd = BookFormatter.formatDate(dueDate)
                     if (options.showRenewCount) {
@@ -60,11 +63,11 @@ fun Bridge.Book.getDateText(options: BookListDisplayOptions): String =
                 }
             }
         } else when (status) {
-            Bridge.Book.StatusEnum.Available ->  "\u2713"
-            Bridge.Book.StatusEnum.Lend -> "\u2717"
-            Bridge.Book.StatusEnum.Virtual ->  "?"
-            Bridge.Book.StatusEnum.Presentation -> "\u2717"
-            Bridge.Book.StatusEnum.InterLoan ->  "\u2717"
+            BookStatus.Available ->  "\u2713"
+            BookStatus.Lend -> "\u2717"
+            BookStatus.Virtual ->  "?"
+            BookStatus.Presentation -> "\u2717"
+            BookStatus.InterLoan ->  "\u2717"
             else -> ""
         }
 
@@ -78,16 +81,16 @@ fun Bridge.Book.getStatusColor(): Int =
         else
             when (status) {
                 //lend
-                Bridge.Book.StatusEnum.Normal -> Color.GREEN
-                Bridge.Book.StatusEnum.Problematic -> Color.YELLOW
-                Bridge.Book.StatusEnum.Ordered -> Color.CYAN
-                Bridge.Book.StatusEnum.Provided -> Color.MAGENTA
+                BookStatus.Normal -> Color.GREEN
+                BookStatus.Problematic -> Color.YELLOW
+                BookStatus.Ordered, BookStatus.Reserved -> Color.CYAN
+                BookStatus.Provided -> Color.MAGENTA
                 //search
-                Bridge.Book.StatusEnum.Available -> Color.GREEN
-                Bridge.Book.StatusEnum.Lend -> Color.RED
-                Bridge.Book.StatusEnum.Virtual -> Color.CYAN
-                Bridge.Book.StatusEnum.Presentation -> Color.RED
-                Bridge.Book.StatusEnum.InterLoan -> Color.RED
+                BookStatus.Available -> Color.GREEN
+                BookStatus.Lend -> Color.RED
+                BookStatus.Virtual -> Color.CYAN
+                BookStatus.Presentation -> Color.RED
+                BookStatus.InterLoan -> Color.RED
 
 
                 else -> Color.YELLOW //Template did not set status. Assume not renewable
@@ -96,9 +99,9 @@ fun Bridge.Book.getStatusColor(): Int =
 fun Bridge.Book.getStatusText(): String =
         getProperty("status").takeNonEmpty() ?:
         when (status) {
-            Bridge.Book.StatusEnum.Problematic -> BookFormatter.tr.bookStatus.problematic
-            Bridge.Book.StatusEnum.Ordered -> BookFormatter.tr.bookStatus.ordered
-            Bridge.Book.StatusEnum.Provided -> BookFormatter.tr.bookStatus.provided
+            BookStatus.Problematic -> BookFormatter.tr.bookStatus.problematic
+            BookStatus.Ordered -> BookFormatter.tr.bookStatus.ordered
+            BookStatus.Provided -> BookFormatter.tr.bookStatus.provided
             else -> ""
         }
 

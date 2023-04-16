@@ -27,6 +27,7 @@
     <string name="book_status_unknown">status unknown</string>
     <string name="book_status_normal">normal/renewable</string>
     <string name="book_status_problematic">not renewable</string>
+    <string name="book_status_reserved">reserved</string>
     <string name="book_status_ordered">ordered</string>
     <string name="book_status_provided">provided</string>
     <string name="book_status">Status</string>

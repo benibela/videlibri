@@ -845,8 +845,7 @@ const INIT_STR = 2;
 
 
 var
-  i: Integer;
-  tempi: integer;
+  i, tempi: Integer;
   jholdings, tempbook: jobject;
   args: array[0..INIT_STR+3] of jvalue;
 
@@ -892,23 +891,7 @@ begin
       SetIntField(jbook, bookFields.firstExistsDateI, firstExistsDate);
     end;
 
-    tempi := 0;
-    case book.status of
-      bsNormal, bsCuriousInStr: tempi := 1;
-      bsProblematicInStr: tempi := 2;
-      bsOrdered: tempi := 3;
-      bsProvided: tempi := 4;
-      bsReserved: tempi := 3; //todo
-
-      bsAvailable: tempi := 100;
-      bsLend: tempi := 101;
-      bsVirtual: tempi := 102;
-      bsPresentation: tempi := 103;
-      bsInterLoan: tempi := 104;
-
-      else ;
-    end;
-    SetIntField(jbook, bookFields.statusI, tempi);
+    SetIntField(jbook, bookFields.statusI, ord(book.status));
 
   end;
   with j do

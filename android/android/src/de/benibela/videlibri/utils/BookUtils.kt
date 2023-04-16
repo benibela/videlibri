@@ -1,6 +1,8 @@
 package de.benibela.videlibri.utils
 
 import de.benibela.videlibri.*
+import de.benibela.videlibri.jni.BookStatus
+import de.benibela.videlibri.jni.BookStatusInt
 import de.benibela.videlibri.jni.Bridge
 import java.util.*
 
@@ -62,10 +64,11 @@ private fun Bridge.Book?.getExtendedProperty(key: String): String = this?.run{
         "_account" -> account?.prettyName
         "dueDate" -> BookFormatter.formatDate(dueDate)
         "_status" -> when (status) {
-            Bridge.Book.StatusEnum.Unknown, Bridge.Book.StatusEnum.Normal -> getString(R.string.book_status_normal)
-            Bridge.Book.StatusEnum.Problematic -> getString(R.string.book_status_problematic)
-            Bridge.Book.StatusEnum.Ordered -> getString(R.string.book_status_ordered)
-            Bridge.Book.StatusEnum.Provided -> getString(R.string.book_status_provided)
+            BookStatus.Unknown, BookStatus.Normal -> getString(R.string.book_status_normal)
+            BookStatus.Problematic -> getString(R.string.book_status_problematic)
+            BookStatus.Ordered -> getString(R.string.book_status_ordered)
+            BookStatus.Provided -> getString(R.string.book_status_provided)
+            BookStatus.Reserved -> getString(R.string.book_status_reserved)
             else -> getString(R.string.book_status_unknown)
         }
         "_issueWeek", "issueDate" -> {
@@ -100,28 +103,31 @@ fun compareForStateMismatch(book: Bridge.Book, book2: Bridge.Book): Int =
             1
         else
             -1
-    } else if ((book.status == Bridge.Book.StatusEnum.Ordered || book.status == Bridge.Book.StatusEnum.Provided) !=
-              (book2.status == Bridge.Book.StatusEnum.Ordered || book2.status == Bridge.Book.StatusEnum.Provided)) {
-        if (book.status == Bridge.Book.StatusEnum.Ordered || book.status == Bridge.Book.StatusEnum.Provided)
+    } else if (book.hasOrderedStatus() != book2.hasOrderedStatus()) {
+        if (book.hasOrderedStatus())
             1
         else
             -1
     } else compare(book.dueDate != 0, book2.dueDate != 0)
 
 //order: ordered normal provided problematic
-private fun compareStatus(s1: Bridge.Book.StatusEnum, s2: Bridge.Book.StatusEnum): Int =
+private fun statusToOrderedStatus(s: BookStatusInt) = when (s) {
+    BookStatus.Unknown -> 2
+    BookStatus.Problematic -> 99 //highest
+    BookStatus.Normal -> 3
+    BookStatus.Ordered -> 0
+    BookStatus.Provided -> 77
+    BookStatus.Reserved -> 1
+    else -> 4
+}
+private fun compareStatus(s1: BookStatusInt, s2: BookStatusInt): Int =
     if (s1 == s2) 0
-    else when (s1) {
-        Bridge.Book.StatusEnum.Unknown, Bridge.Book.StatusEnum.Normal -> when (s2) {
-            Bridge.Book.StatusEnum.Problematic, Bridge.Book.StatusEnum.Provided -> 1
-            else -> -1
-        }
-        Bridge.Book.StatusEnum.Problematic -> -1 //problematic is the highest
-        Bridge.Book.StatusEnum.Ordered -> 1 //ordered the lowest
-        Bridge.Book.StatusEnum.Provided -> {
-            if (s2 == Bridge.Book.StatusEnum.Problematic) 1 else -1
-        }
-        else -> 0
+    else {
+        val o1 = statusToOrderedStatus(s1)
+        val o2 = statusToOrderedStatus(s2)
+        if (o1 < o2) 1
+        else if (o1 > o2) -1
+        else 0
     }
 
 
@@ -188,7 +194,7 @@ fun makePrimaryBookCache(addHistoryStart: Boolean,
                 bookCache.addAll(books)
             } else
                 for (b in books)
-                    if (b.status == Bridge.Book.StatusEnum.Unknown || b.status == Bridge.Book.StatusEnum.Normal)
+                    if (b.status == BookStatus.Unknown || b.status == BookStatus.Normal)
                         bookCache.add(b)
             if (addHistory)
                 bookCache.addAll(Bridge.VLGetBooks(acc, true) ?: continue)
@@ -235,7 +241,7 @@ fun filterToSecondaryBookCache(oldBookCache: ArrayList<Bridge.Book>,
                 }
                 groupHeader.title = newGroup
                 groupHeader.history = true
-                groupHeader.status = Bridge.Book.StatusEnum.Ordered
+                groupHeader.status = BookStatus.Ordered
                 bookCache.add(i, groupHeader)
                 lastGroup = newGroup
                 i++

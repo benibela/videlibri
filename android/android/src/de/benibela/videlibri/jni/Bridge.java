@@ -1,5 +1,8 @@
 package de.benibela.videlibri.jni;
 
+import static de.benibela.videlibri.jni.BookStatus.Provided;
+import static de.benibela.videlibri.jni.BookStatus.Reserved;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
@@ -102,7 +105,7 @@ public class Bridge {
         public boolean history;
         @NotNull public ArrayList<String> additionalProperties;
 
-        private int status;
+        public int status;
 
         @Nullable public Book [] holdings;
 
@@ -113,40 +116,9 @@ public class Bridge {
             return title; //used for copy to clipboard. where else? todo: probably add author
         }
 
-        public enum StatusEnum { Unknown, Normal, Problematic, Ordered, Provided,
-                          Available, Lend, Virtual, Presentation, InterLoan}
-
-        @NotNull
-        final public StatusEnum getStatus() {
-            switch (status) {
-                case 1: return StatusEnum.Normal;
-                case 2: return StatusEnum.Problematic;
-                case 3: return StatusEnum.Ordered;
-                case 4: return StatusEnum.Provided;
-                case 100: return StatusEnum.Available;
-                case 101: return StatusEnum.Lend;
-                case 102: return StatusEnum.Virtual;
-                case 103: return StatusEnum.Presentation;
-                case 104: return StatusEnum.InterLoan;
-                default: return account == null ? StatusEnum.Unknown : StatusEnum.Problematic;
-            }
-        }
-        final public void setStatus(StatusEnum se) {
-            switch (se) {
-                case Normal: status = 1; break;
-                case Problematic: status = 2; break;
-                case Ordered: status = 3; break;
-                case Provided: status = 4; break;
-                case Available: status = 100; break;
-                case Lend: status = 101; break;
-                case Virtual: status = 102; break;
-                case Presentation: status = 103; break;
-                case InterLoan: status = 104; break;
-            }
-        }
         final public boolean hasOrderedStatus(){
-            switch (getStatus()) {
-                case Ordered: case Provided: return true;
+            switch (status) {
+                case BookStatus.Ordered: case BookStatus.Provided: case BookStatus.Reserved: return true;
                 default: return false;
             }
         }
