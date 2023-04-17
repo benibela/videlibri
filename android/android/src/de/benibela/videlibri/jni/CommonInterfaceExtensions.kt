@@ -23,3 +23,23 @@ val LibraryDetails.searchMightWork
 val LibraryDetails.accountMightWork
     get() = testingAccount <= 1
 
+
+open class InternalError : RuntimeException {
+    constructor(msg: String? = null, cause: Throwable? = null) : super(msg, cause)
+    constructor(cause: Throwable? = null) : super(null, cause)
+}
+
+open class InternalErrorJNI : InternalError {
+    constructor(msg: String? = null, cause: Throwable? = null) : super(msg, cause)
+    constructor(cause: Throwable? = null) : super(null, cause)
+}
+
+open class InternalErrorFile : InternalError {
+    constructor(msg: String? = null, cause: Throwable? = null) : super(msg, cause)
+    constructor(cause: Throwable? = null) : super(null, cause)
+}
+
+open class InternalErrorExternal : InternalError {
+    constructor(msg: String? = null, cause: Throwable? = null) : super(msg, cause)
+    constructor(cause: Throwable? = null) : super(null, cause)
+}

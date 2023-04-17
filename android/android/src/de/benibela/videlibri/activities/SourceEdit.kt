@@ -183,7 +183,7 @@ class SourceEdit : VideLibriBaseActivity() {
                         Bridge.VLReloadLibrary(selection2[fileSpinner.selectedItemPosition].replace(".xml", ""))
                     else
                         Bridge.VLReloadTemplate(templateIds[pos - 1])
-                } catch (e: Bridge.InternalError) {
+                } catch (e: InternalError) {
                     showMessage(e.localizedMessage)
                 }
 

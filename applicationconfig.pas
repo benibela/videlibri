@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, libraryparser,inifiles, inifilessafe, rcmdline, bbutils, internetaccess, {$IFNDEF ANDROID}autoupdate,{$ENDIF}extendedhtmlparser,
-accountlist{$IFNDEF ANDROID}, LMessages{$endif};
+accountlist{$IFNDEF ANDROID}, LMessages{$endif}, commoninterface;
 
 {$IFNDEF ANDROID}
 const
@@ -28,14 +28,13 @@ EVideLibriHTMLMatchingException = class(EHTMLParseMatchingException)
 end;
 
 type
-  TExceptionKind = (ekUnknown = 0, ekInternet = 1, ekLogin = 2);
   TVideLibriExceptionDetails = record
     account: TCustomAccountAccess;
     details, anonymouseDetails, libraryId, searchQuery: string;
   end;
   TVideLibriException = record
     error: string;
-    kind: TExceptionKind;
+    kind: TPendingExceptionKind;
     details: array of TVideLibriExceptionDetails;
   end;
   TErrorArray = array of TVideLibriException;
@@ -103,8 +102,8 @@ const localeCountry: string = 'DE'; //for http and sorting libraries
   procedure initApplicationConfig;
   procedure finalizeApplicationConfig;
 
-  procedure addErrorMessage(kind: TExceptionKind; errorStr,errordetails, anonymouseDetails, libraryId, searchQuery:string;lib:TCustomAccountAccess=nil);
-  procedure createErrorMessageStr(exception:exception; out kind: TExceptionKind; out errorStr,errordetails, anonymousDetails:string;account:TCustomAccountAccess; additionalStacktrace: bbutils.TStringArray);
+  procedure addErrorMessage(kind: TPendingExceptionKind; errorStr,errordetails, anonymouseDetails, libraryId, searchQuery:string;lib:TCustomAccountAccess=nil);
+  procedure createErrorMessageStr(exception:exception; out kind: TPendingExceptionKind; out errorStr,errordetails, anonymousDetails:string;account:TCustomAccountAccess; additionalStacktrace: bbutils.TStringArray);
 
   procedure storeException(ex: exception; account:TCustomAccountAccess; libraryId, searchQuery: string; additionalStacktrace: bbutils.TStringArray = nil); //thread safe
 
@@ -197,7 +196,7 @@ resourcestring
   rsErrorBookListReaderInternal = 'Interner Fehler: '+LineEnding;
 
 
-  procedure addErrorMessage(kind: TExceptionKind; errorStr,errordetails, anonymouseDetails, libraryId, searchQuery:string;lib:TCustomAccountAccess=nil);
+  procedure addErrorMessage(kind: TPendingExceptionKind; errorStr,errordetails, anonymouseDetails, libraryId, searchQuery:string;lib:TCustomAccountAccess=nil);
   var i:integer;
     currentDT: String;
   begin
@@ -227,7 +226,7 @@ resourcestring
     errorMessageList[high(errorMessageList)].details[0].searchQuery:=searchQuery;
   end;
 
-  procedure createErrorMessageStr(exception: exception; out kind: TExceptionKind; out errorStr, errordetails, anonymousDetails: string; account: TCustomAccountAccess; additionalStacktrace: TStringArray);
+  procedure createErrorMessageStr(exception: exception; out kind: TPendingExceptionKind; out errorStr, errordetails, anonymousDetails: string; account: TCustomAccountAccess; additionalStacktrace: TStringArray);
   var i:integer;
     moreLineBreak, commondetails: string;
   begin
@@ -294,7 +293,7 @@ resourcestring
 
   procedure storeException(ex: exception; account:TCustomAccountAccess; libraryId, searchQuery: string; additionalStacktrace: bbutils.TStringArray);
   var  errorstr, errordetails, anonymouseDetails: string;
-       kind: TExceptionKind;
+       kind: TPendingExceptionKind;
   begin
     createErrorMessageStr(ex,kind,errorstr,errordetails,anonymouseDetails, account, additionalStacktrace);
     system.EnterCriticalSection(exceptionStoring);

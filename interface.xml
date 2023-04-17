@@ -120,6 +120,28 @@
     <value name="Presentation" value="103"/>
     <value name="InterLoan" value="104"/>
   </intenum>
+  <comment>Error handling</comment>
+  <intenum id="PendingExceptionKind" jvm-pascal="" pascal-jvm="" pascal-prefix="ek">
+    <value name="Unknown" value="0"/>
+    <value name="Internet" value="1"/>
+    <value name="Login" value="2"/>
+  </intenum>
+  <class id="PendingException" pascal-jvm="">
+    <intenumref name="kind" ref="PendingExceptionKind"/>
+    <string name="accountPrettyNames"/>
+    <string name="error"/>
+    <string name="libraryIds"/>
+    <string name="searchQuery"/>
+    <string name="details"/>
+    <string name="anonymousDetails"/>
+    <string name="firstAccountUser"/>
+    <string name="firstAccountLib"/>
+  </class>
+  <class id="PendingExceptions" pascal-jvm="">
+    <array name="exceptions">
+      <classref ref="PendingException"/>
+    </array>
+  </class>
   <function id="VLGetTemplateDetails">
     <arg name="name">
       <string/>
@@ -178,6 +200,11 @@
       <array>
         <string/>
       </array>
+    </return-type>
+  </function>
+  <function id="VLTakePendingExceptions">
+    <return-type>
+      <classref ref="PendingExceptions"/>
     </return-type>
   </function>
 </api>

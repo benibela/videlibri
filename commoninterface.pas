@@ -6,9 +6,9 @@ unit commoninterface;
 interface
  uses sysutils, xquery.internals.common, xquery, fastjsonreader {$ifdef android}, jni, bbjniutils{$endif};
  type EVideLibriInterfaceException = class(Exception);
- type TFormInput = class; TFormInputArray = array of TFormInput;  TLibraryVariable = class; TLibraryVariableArray = array of TLibraryVariable; 
  TLibraryTestingInfo = ( tiUnknown = 0, tiYes = 1, tiNo = 2, tiBroken = 3 );
  TBookStatus = ( bsUnknown = 0, bsProblematic = 5, bsNormal = 6, bsOrdered = 8, bsProvided = 9, bsReserved = 10, bsAvailable = 100, bsLend = 101, bsVirtual = 102, bsPresentation = 103, bsInterLoan = 104 );
+ TPendingExceptionKind = ( ekUnknown = 0, ekInternet = 1, ekLogin = 2 );
 
  
 type 
@@ -241,7 +241,31 @@ public
   
   {$endif}
 
+end;  
+type 
+
+TPendingException = record
+  accountPrettyNames, error, libraryIds, searchQuery, details, anonymousDetails, firstAccountUser, firstAccountLib: string;
+  kind: TPendingExceptionKind;
+public
+  {$ifdef android}
+  function toJava: jobject; 
+  
+  {$endif}
+
+end;  
+type 
+
+TPendingExceptions = record
+  exceptions: array of TPendingException;
+public
+  {$ifdef android}
+  function toJava: jobject; 
+  
+  {$endif}
+
 end; 
+ type TFormInputArray = array of TFormInput; TLibraryVariableArray = array of TLibraryVariable; TPendingExceptionArray = array of TPendingException;
  {$ifdef android}
  procedure initBridge;
  {$endif}
@@ -890,6 +914,14 @@ var
   TemplateDetailsClass: jclass;
   TemplateDetailsClassInit: jmethodID;
  
+var
+  PendingExceptionClass: jclass;
+  PendingExceptionClassInit: jmethodID;
+ 
+var
+  PendingExceptionsClass: jclass;
+  PendingExceptionsClassInit: jmethodID;
+ 
   BookListDisplayOptionsFields: record
     showHistoryZ, noBorrowedBookDetailsZ, showRenewCountZ, groupingKeyS, sortingKeyS, filterKeyS, alwaysFilterOnHistoryZ: jfieldID;
   end;
@@ -933,6 +965,17 @@ var
 begin
   with j do begin
     result := newObjectArray(length(a), LibraryVariableClass, nil);
+    for i := 0 to high(a) do
+      setObjectArrayElementAndDelete(result, i, a[i].toJava);
+  end;
+end;
+ 
+function arrayToJArrayCI(const a: TPendingExceptionArray): jobject; overload;
+var
+  i: Integer;
+begin
+  with j do begin
+    result := newObjectArray(length(a), PendingExceptionClass, nil);
     for i := 0 to high(a) do
       setObjectArrayElementAndDelete(result, i, a[i].toJava);
   end;
@@ -1148,6 +1191,45 @@ begin
 
  end;
 end;
+ 
+function TPendingException.toJava: jobject;
+var temp: array[0..8] of jvalue;
+begin
+  with j do begin
+    temp[0].i := ord(self.kind);
+    temp[1].l := stringToJString(self.accountPrettyNames);
+    temp[2].l := stringToJString(self.error);
+    temp[3].l := stringToJString(self.libraryIds);
+    temp[4].l := stringToJString(self.searchQuery);
+    temp[5].l := stringToJString(self.details);
+    temp[6].l := stringToJString(self.anonymousDetails);
+    temp[7].l := stringToJString(self.firstAccountUser);
+    temp[8].l := stringToJString(self.firstAccountLib);
+
+    result := newObject(PendingExceptionClass, PendingExceptionClassInit, @temp[0]); 
+    deleteLocalRef(temp[1].l);
+    deleteLocalRef(temp[2].l);
+    deleteLocalRef(temp[3].l);
+    deleteLocalRef(temp[4].l);
+    deleteLocalRef(temp[5].l);
+    deleteLocalRef(temp[6].l);
+    deleteLocalRef(temp[7].l);
+    deleteLocalRef(temp[8].l);
+
+ end;
+end;
+ 
+function TPendingExceptions.toJava: jobject;
+var temp: array[0..0] of jvalue;
+begin
+  with j do begin
+    temp[0].l := arrayToJArrayCI(self.exceptions);
+
+    result := newObject(PendingExceptionsClass, PendingExceptionsClassInit, @temp[0]); 
+    deleteLocalRef(temp[0].l);
+
+ end;
+end;
 
 class function TBookListDisplayOptions.fromJava(jvm: jobject): TBookListDisplayOptions;
 begin
@@ -1331,7 +1413,11 @@ begin
     LibraryDetailsFields.testingSearchI := getfield(LibraryDetailsClass, 'testingSearch', 'I');
     LibraryDetailsFields.testingAccountI := getfield(LibraryDetailsClass, 'testingAccount', 'I'); 
     TemplateDetailsClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/TemplateDetails'));
-    TemplateDetailsClassInit := getmethod(TemplateDetailsClass, '<init>', '(Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;)V');
+    TemplateDetailsClassInit := getmethod(TemplateDetailsClass, '<init>', '(Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;)V'); 
+    PendingExceptionClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/PendingException'));
+    PendingExceptionClassInit := getmethod(PendingExceptionClass, '<init>', '(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V'); 
+    PendingExceptionsClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/PendingExceptions'));
+    PendingExceptionsClassInit := getmethod(PendingExceptionsClass, '<init>', '([Lde/benibela/videlibri/jni/PendingException;)V');
   end;
 end;
 {$endif}

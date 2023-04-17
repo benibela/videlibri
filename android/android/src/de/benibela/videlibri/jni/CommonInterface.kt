@@ -184,3 +184,39 @@ object BookStatus {
     const val InterLoan = 104
 }
 
+
+
+//Error handling
+typealias PendingExceptionKindInt = Int
+object PendingExceptionKind {
+    const val Unknown = 0
+    const val Internet = 1
+    const val Login = 2
+}
+
+
+  open class PendingException( 
+    val kind: PendingExceptionKindInt = 0,
+    val accountPrettyNames: String = "",
+    val error: String = "",
+    val libraryIds: String = "",
+    val searchQuery: String = "",
+    val details: String = "",
+    val anonymousDetails: String = "",
+    val firstAccountUser: String = "",
+    val firstAccountLib: String = ""
+  )   {
+    override fun equals(other: Any?): Boolean =
+       other != null && javaClass == other.javaClass && other is PendingException && kind == other.kind && accountPrettyNames == other.accountPrettyNames && error == other.error && libraryIds == other.libraryIds && searchQuery == other.searchQuery && details == other.details && anonymousDetails == other.anonymousDetails && firstAccountUser == other.firstAccountUser && firstAccountLib == other.firstAccountLib
+    override fun hashCode(): Int =
+      super.hashCode() xor kind.hashCode().rotateLeft(1) xor accountPrettyNames.hashCode().rotateLeft(2) xor error.hashCode().rotateLeft(3) xor libraryIds.hashCode().rotateLeft(4) xor searchQuery.hashCode().rotateLeft(5) xor details.hashCode().rotateLeft(6) xor anonymousDetails.hashCode().rotateLeft(7) xor firstAccountUser.hashCode().rotateLeft(8) xor firstAccountLib.hashCode().rotateLeft(9)
+  }
+
+  open class PendingExceptions( 
+    val exceptions: Array<PendingException> = emptyArray()
+  )   {
+    override fun equals(other: Any?): Boolean =
+       other != null && javaClass == other.javaClass && other is PendingExceptions && exceptions.contentEquals(other.exceptions)
+    override fun hashCode(): Int =
+      super.hashCode() xor exceptions.contentHashCode().rotateLeft(1)
+  }

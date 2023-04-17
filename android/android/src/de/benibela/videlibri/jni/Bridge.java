@@ -200,37 +200,6 @@ public class Bridge {
         }
     }
 
-    public static class InternalError extends RuntimeException {
-        public InternalError() {}
-        public InternalError(String msg) { super(msg); }
-        public InternalError(String msg, Throwable cause) { super(msg, cause); }
-    }
-    public static class InternalErrorJNI extends InternalError {
-        public InternalErrorJNI() {}
-        public InternalErrorJNI(String msg) { super(msg); }
-        public InternalErrorJNI(String msg, Throwable cause) { super(msg, cause); }
-    }
-    public static class InternalErrorFile extends InternalError {
-        public InternalErrorFile() {}
-        public InternalErrorFile(String msg) { super(msg); }
-        public InternalErrorFile(String msg, Throwable cause) { super(msg, cause); }
-    }
-    public static class InternalErrorExternal extends InternalError {
-        public InternalErrorExternal() {}
-        public InternalErrorExternal(String msg) { super(msg); }
-        public InternalErrorExternal(String msg, Throwable cause) { super(msg, cause); }
-    }
-
-    public static class PendingException{
-        static final public int KIND_UNKNOWN = 0;
-        static final public int KIND_INTERNET = 1;
-        static final public int KIND_LOGIN = 2;
-
-        public int kind;
-        @NotNullLateInit public String accountPrettyNames, error, library, searchQuery, details, anonymousDetails;
-        @NotNullLateInit public String firstAccountUser, firstAccountLib;
-    }
-
     static private native void VLInit(@NotNull Context context);
     static public native @NotNull String[] VLGetLibraryIds();
     static public native @Nullable LibraryDetails VLGetLibraryDetails(@NotNull String id, boolean needCatalogUrl);
@@ -256,7 +225,7 @@ public class Bridge {
     public static final int BOOK_OPERATION_RENEW = 1;
     public static final int BOOK_OPERATION_CANCEL = 2;
     static public native void VLBookOperation(@NotNull Book[] books, int operation);
-    static public native @Nullable PendingException[] VLTakePendingExceptions();
+    static public native @Nullable PendingExceptions VLTakePendingExceptions();
     static public native boolean VLSendFeedback(String[] feedBack);
 
 

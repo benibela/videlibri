@@ -115,7 +115,7 @@ class Feedback : VideLibriBaseActivity() {
                 for (i in 0 until rep) { //send each error separately to avoid running out of memory
                     val postData = mutableListOf(commonData)
                     errCache.getOrNull(i)?.let { e ->
-                        postData.add("Error $i: ${e.error} bei ${e.library}\n")
+                        postData.add("Error $i: ${e.error} bei ${e.libraryIds}\n")
                         when {
                             details -> {
                                 postData.add("errorDetails$i")
@@ -177,7 +177,7 @@ class Feedback : VideLibriBaseActivity() {
                     val details = findViewById<CheckBox>(R.id.feedbackACRAIncludeErrorDetails).isChecked
                     val anonymousDetails = findViewById<CheckBox>(R.id.feedbackACRAIncludeErrorAnonymousDetails).isChecked
                     VideLibriApp.errors.forEachIndexed { i, e ->
-                        putCustomData("error$i", "Error: ${e.error} bei ${e.library}\n")
+                        putCustomData("error$i", "Error: ${e.error} bei ${e.libraryIds}\n")
                         if (details)
                             putCustomData("errorDetails$i", e.details)
                         else if (anonymousDetails)

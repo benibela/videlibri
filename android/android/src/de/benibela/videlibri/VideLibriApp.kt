@@ -103,7 +103,7 @@ class VideLibriApp : Application() {
         var uiHandler: Handler? = null
 
 
-        @JvmField var errors = ArrayList<Bridge.PendingException>()
+        @JvmField var errors = ArrayList<PendingException>()
 
         @JvmField internal var pendingDialogs = ArrayList<Bundle>()
 
@@ -151,7 +151,7 @@ class VideLibriApp : Application() {
 
 
         @JvmStatic fun showPendingExceptions() {
-            val exceptions = Bridge.VLTakePendingExceptions() ?: return
+            val exceptions = Bridge.VLTakePendingExceptions()?.exceptions ?: return
             if (errors.size > 3) { //errors eat a lot of memory
                 while (errors.size > 3)
                     errors.removeAt(0)
@@ -166,7 +166,7 @@ class VideLibriApp : Application() {
                 else showDialog {
                     val msg = ex.accountPrettyNames + ": " + ex.error
                     val sendErrorReport: DialogEvent = {
-                        val queries = errors.map { it.searchQuery }.filterNot { it.isNullOrEmpty() }.joinToString(separator = "\n") { q ->
+                        val queries = errors.map { it.searchQuery }.filterNot { it.isEmpty() }.joinToString(separator = "\n") { q ->
                             getString(R.string.app_error_searchedfor) + q
                         }
                         startActivity<Feedback>(
@@ -175,12 +175,12 @@ class VideLibriApp : Application() {
                     }
 
                     when (ex.kind) {
-                        Bridge.PendingException.KIND_LOGIN, Bridge.PendingException.KIND_INTERNET -> {
+                        PendingExceptionKind.Login, PendingExceptionKind.Internet -> {
                             message(ex.accountPrettyNames + ": " + ex.error)
                             negativeButton(R.string.app_error_report_btn, sendErrorReport)
                             neutralButton(R.string.ok)
                             when (ex.kind) {
-                                Bridge.PendingException.KIND_LOGIN -> {
+                                PendingExceptionKind.Login -> {
                                     positiveButton(R.string.app_error_check_passwd_btn) {
                                         startActivity<AccountInfo>(
                                                 "mode" to AccountInfo.MODE_ACCOUNT_MODIFY,
@@ -188,7 +188,7 @@ class VideLibriApp : Application() {
                                         )
                                     }
                                 }
-                                Bridge.PendingException.KIND_INTERNET -> {
+                                PendingExceptionKind.Internet -> {
                                     positiveButton(R.string.app_error_check_internet_btn) {
                                         currentContext()?.startActivity(Intent(Settings.ACTION_WIRELESS_SETTINGS))
                                     }

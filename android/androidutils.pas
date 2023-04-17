@@ -224,18 +224,18 @@ procedure throwExceptionToJava(e: Exception);
 begin
   with j do begin
     if e is EJNIException then
-      Throw('de/benibela/videlibri/jni/Bridge$InternalError', e as EJNIException)
+      Throw('de/benibela/videlibri/jni/InternalError', e as EJNIException)
     else if (e is EFileNotFoundException)
          or (e is EDirectoryNotFoundException)
          or (e is EPathNotFoundException)
          or (e is EInOutError)
          or (e is EStreamError)
     then
-      ThrowNew('de/benibela/videlibri/jni/Bridge$InternalErrorFile', e.Message)
+      ThrowNew('de/benibela/videlibri/jni/InternalErrorFile', e.Message)
     else if e is EExternal then
-      ThrowNew('de/benibela/videlibri/jni/Bridge$InternalErrorExternal', e.Message)
+      ThrowNew('de/benibela/videlibri/jni/InternalErrorExternal', e.Message)
     else
-      ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', e.Message)
+      ThrowNew('de/benibela/videlibri/jni/InternalError', e.Message)
   end
 end;
 
@@ -374,7 +374,7 @@ begin
     j.deleteGlobalRef(jContextObject);
     jContextObject:=nil;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/InternalError', 'Interner Fehler: '+e.Message);
   end;            }
 end;
 
@@ -816,7 +816,7 @@ function getRealAccountChecked(acc: jobject): TCustomAccountAccess;
 begin
   result := getRealAccount(acc);
   if result = nil then
-    needJ.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Konto nicht gefunden: '+needj.getStringField(acc, accountFields.LibIdS)+':'+ j.getStringField(acc, accountFields.NameS));
+    needJ.ThrowNew('de/benibela/videlibri/jni/InternalError', 'Konto nicht gefunden: '+needj.getStringField(acc, accountFields.LibIdS)+':'+ j.getStringField(acc, accountFields.NameS));
 end;
 
 function bookToJBook(book: TBook; jaccount: jobject; includeDates: boolean = true; includeAllStrings: boolean = false): jobject;
@@ -1206,84 +1206,50 @@ end;
 
 function Java_de_benibela_VideLibri_Bridge_VLGetPendingExceptions(env:PJNIEnv; this:jobject): jobject;
 var
-  pendingExceptionClass: jclass;
-  pendingExceptionClassInit: jmethodID;
-  pendingExceptionFields: record
-    kindI, accountPrettyNamesS, errorS, libraryS, searchQueryS, detailsS, anonymousDetailsS, firstAccountUserS, firstAccountLibS: jfieldID;
-  end;
-
-
-var
-  details, anonymousDetails, libs, queries: String;
-  names, firstAccountUser, firstAccountLib: String;
-  i: Integer;
-  temp: jobject;
-  k: Integer;
+  pendingExceptions: TPendingExceptions;
+  i, k: Integer;
 begin
   if logging then bbdebugtools.log('Bridge_VLGetPendingExceptions started');
   result := nil;
 
   try
-    pendingExceptionClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/jni/Bridge$PendingException'));
-    pendingExceptionClassInit := j.getmethod(pendingExceptionClass, '<init>', '()V');
-    with pendingExceptionFields do begin
-      kindI := j.getfield(pendingExceptionClass, 'kind', 'I');
-      accountPrettyNamesS := j.getfield(pendingExceptionClass, 'accountPrettyNames', 'Ljava/lang/String;');
-      errorS := j.getfield(pendingExceptionClass, 'error', 'Ljava/lang/String;');
-      detailsS := j.getfield(pendingExceptionClass, 'details', 'Ljava/lang/String;');
-      libraryS := j.getfield(pendingExceptionClass, 'library', 'Ljava/lang/String;');
-      searchQueryS := j.getfield(pendingExceptionClass, 'searchQuery', 'Ljava/lang/String;');
-      anonymousDetailsS := j.getfield(pendingExceptionClass, 'anonymousDetails', 'Ljava/lang/String;');
-      firstAccountLibS := j.getfield(pendingExceptionClass, 'firstAccountLib', 'Ljava/lang/String;');
-      firstAccountUserS := j.getfield(pendingExceptionClass, 'firstAccountUser', 'Ljava/lang/String;');
-    end;
-
     system.EnterCriticalSection(exceptionStoring);
     try
-      result := j.newObjectArray(length(errorMessageList), pendingExceptionClass, nil);
+      pendingExceptions := Default(TPendingExceptions);
       for i :=  0 to high(errorMessageList) do begin
-        temp := j.newObject(pendingExceptionClass, pendingExceptionClassInit);
-        with pendingExceptionFields do begin
+        with pendingExceptions.exceptions[i] do begin
           details := '';
           anonymousDetails := '';
-          names := '';
-          libs := '';
-          queries := '';
+          accountPrettyNames := '';
+          libraryIds := '';
+          searchQuery := '';
           firstAccountUser := '';
           for k := 0 to high(errorMessageList[i].details) do begin
             details += errorMessageList[i].details[k].details+LineEnding+LineEnding;
             anonymousDetails += errorMessageList[i].details[k].anonymouseDetails+LineEnding+LineEnding;
-            if not strContains(libs, errorMessageList[i].details[k].libraryId) then
-              libs += errorMessageList[i].details[k].libraryId + ' ';
+            if not strContains(libraryIds, errorMessageList[i].details[k].libraryId) then
+              libraryIds += errorMessageList[i].details[k].libraryId + ' ';
             if errorMessageList[i].details[k].searchQuery <> '' then
-              queries += errorMessageList[i].details[k].searchQuery + ' ';
-            if names <> '' then names += ', ';
+              searchQuery += errorMessageList[i].details[k].searchQuery + ' ';
+            if accountPrettyNames <> '' then accountPrettyNames += ', ';
             with errorMessageList[i].details[k] do
               if account <> nil then begin
-                names += account.prettyName;
+                accountPrettyNames += account.prettyName;
                 if firstAccountUser = '' then begin
                   firstAccountUser := account.getUser();
                   firstAccountLib := account.getLibrary().id;
                 end;
               end;
           end;
-          temp.SetIntField(kindI, ord(errorMessageList[i].kind));
-          temp.SetStringField(detailsS, details);
-          temp.SetStringField(anonymousDetailsS, anonymousDetails);
-          temp.SetStringField(accountPrettyNamesS, names);
-          temp.SetStringField(errorS, errorMessageList[i].error);
-          temp.SetStringField(libraryS, libs);
-          temp.SetStringField(searchQueryS, queries);
-          temp.SetStringField(firstAccountLibS, firstAccountLib);
-          temp.SetStringField(firstAccountUserS, firstAccountUser);
+          kind := errorMessageList[i].kind;
+          error := errorMessageList[i].error;
         end;
-        j.SetObjectArrayElement(result, i, temp);
-        j.deleteLocalRef(temp);
       end;
       SetLength(errorMessageList, 0);
     finally
       system.LeaveCriticalSection(exceptionStoring);
     end;
+    result := pendingExceptions.toJava;
   except
     on e: Exception do throwExceptionToJava(e);
   end;
@@ -1368,7 +1334,7 @@ begin
     try
       userConfig.WriteInteger('base','last-warn-date',currentDate);
     except
-      on e: EStreamError do ; //bug report: de.benibela.videlibri.Bridge$InternalError: Interner Fehler: Stream write error at de.benibela.videlibri.Bridge.VLGetNotifications(Native Method)
+      on e: EStreamError do ; //bug report: de.benibela.videlibri.InternalError: Interner Fehler: Stream write error at de.benibela.videlibri.Bridge.VLGetNotifications(Native Method)
 
     end;
   except
@@ -2101,7 +2067,7 @@ const nativeMethods: array[1..40] of JNINativeMethod=
 
    ,(name:'VLUpdateAccount'; signature:'(Lde/benibela/videlibri/jni/Bridge$Account;ZZ)Z'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLUpdateAccounts)
    ,(name:'VLBookOperation'; signature:'([Lde/benibela/videlibri/jni/Bridge$Book;I)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLBookOperation)
-   ,(name:'VLTakePendingExceptions'; signature: '()[Lde/benibela/videlibri/jni/Bridge$PendingException;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetPendingExceptions)
+   ,(name:'VLTakePendingExceptions'; signature: '()Lde/benibela/videlibri/jni/PendingExceptions;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetPendingExceptions)
    ,(name:'VLSendFeedback'; signature: '([Ljava/lang/String;)Z'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSendFeedback)
 
    ,(name:'VLGetNotifications'; signature: '()[Ljava/lang/String;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetNotifications)

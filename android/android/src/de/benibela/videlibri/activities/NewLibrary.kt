@@ -115,7 +115,7 @@ class NewLibrary : VideLibriBaseActivity() {
         val details =
             try {
                 Bridge.VLGetTemplateDetails(template) ?: return
-            } catch (e: Bridge.InternalError) {
+            } catch (e: InternalError) {
                 showMessage(e.localizedMessage)
                 return
             }

@@ -164,6 +164,34 @@ enum BookStatus {
   InterLoan = 104
 }
 
+//Error handling
+@Pascal<->Kotlin
+@PascalPrefix(ek)
+enum PendingExceptionKind{
+  Unknown = 0
+  Internet = 1
+  Login = 2
+}
+
+@Pascal->Kotlin
+class PendingException {
+  kind: PendingExceptionKind
+  accountPrettyNames: String
+  error: String
+  libraryIds: String
+  searchQuery: String
+  details: String
+  anonymousDetails: String
+  firstAccountUser: String
+  firstAccountLib: String
+}
+
+@Pascal->Kotlin
+class PendingExceptions {
+  exceptions: PendingException[]
+}
+
+
 
 fun VLGetTemplateDetails(name: String): TemplateDetails
 fun VLGetLibraryDetails(id: String, needCatalogUrl: Boolean): LibraryDetails
@@ -176,3 +204,5 @@ fun VLSetOptionsAndroidOnly(options: OptionsAndroidOnly)
 
 
 fun VLGetCoverURLs(ISBN: String, maxWidth: Int, maxHeight: Int ): String[]
+
+fun VLTakePendingExceptions(): PendingExceptions

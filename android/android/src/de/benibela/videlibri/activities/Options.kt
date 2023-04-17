@@ -17,10 +17,7 @@ import de.benibela.videlibri.components.PreferenceSeekBar
 import de.benibela.videlibri.databinding.OptionsLendingsBinding
 import de.benibela.videlibri.internet.DownloadCertificate
 import de.benibela.videlibri.internet.UserKeyStore
-import de.benibela.videlibri.jni.Bridge
-import de.benibela.videlibri.jni.globalOptionsAndroid
-import de.benibela.videlibri.jni.globalOptionsShared
-import de.benibela.videlibri.jni.save
+import de.benibela.videlibri.jni.*
 import de.benibela.videlibri.notifications.NotificationScheduling
 import de.benibela.videlibri.utils.*
 import java.util.regex.Pattern
@@ -263,7 +260,7 @@ class Options : VideLibriBaseActivity() {
                 title(R.string.lay_options_btn_newcertificate)
                 onClick {
                     val defaultServer: String? = VideLibriApp.errors.asSequence().map { e ->
-                        if (e.kind == Bridge.PendingException.KIND_INTERNET && e.error?.contains("https://") == true) {
+                        if (e.kind == PendingExceptionKind.Internet && e.error.contains("https://") == true) {
                             val matcher = Pattern.compile("https://([^/]+)").matcher(e.error)
                             if (matcher.find()) matcher.group(1) else null
                         } else null

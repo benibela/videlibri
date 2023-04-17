@@ -101,6 +101,8 @@ declare function ig:pascal-make-intenum($e){ $e/ (
 )
 };
 
+declare variable $ig:pascal-true-classes := /api/class[@pascal-type="class"]/@id;
+
 declare function ig:pascal-make-class($s){
 $s/(
 let $type := (@pascal-type, "record")[1]
@@ -112,12 +114,12 @@ T{@id} = {$type}{@extends!concat("(T",.,")")}
   {join(
     (ig:pascal-make-fields(.),
      
-      if ($type ne "class" and exists((@serialize-json, .//classref, .//@default))) then ig:error("JSON and non-POD types require Pascal class type") else (),
+      if ($type ne "class" and exists((@serialize-json, .//classref[@ref=$ig:pascal-true-classes], .//@default))) then ig:error("JSON and non-POD types require Pascal class type") else (),
      
       if (@serialize-json and not(ig:parent(.))) then "procedure toJSON(var builder: TJSONXHTMLStrBuilder);
   function toJSON(): string;" else (),
       if (./classref,.//@default) then "constructor create; " || $virtual  else (),
-      if (.//classref) then "destructor destroy; override;" else (),
+      if (.//classref/@ref = $ig:pascal-true-classes) then "destructor destroy; override;" else (),
   if (@serialize-json) then
   x"class function fromJSON(const json: string): T{@id}; {$virtual}
   class function fromJSON(const json: IXQValue): T{@id}; {$virtual}
@@ -149,12 +151,12 @@ x"unit commoninterface;
 interface
  uses sysutils, xquery.internals.common, xquery, fastjsonreader {{$ifdef android}}, jni, bbjniutils{{$endif}};
  type EVideLibriInterfaceException = class(Exception);
- { let $arrayrefs := distinct-values($r/api//array/classref/@ref)
-   where exists($arrayrefs)
-   return ("type " || join($arrayrefs ! x"T{.} = class; T{.}Array = array of T{.}; "))
- }
  { $r/api/intenum/ig:pascal-make-intenum(.) }
  { $r/api/class/ig:pascal-make-class(.) }
+ { let $arrayrefs := distinct-values($r/api//array/classref/@ref)
+   where exists($arrayrefs)
+   return ("type " || join($arrayrefs ! ((:x"T{.} = class;"[. = $r/$ig:pascal-true-classes], :)x"T{.}Array = array of T{.};")))
+ }
  {{$ifdef android}}
  procedure initBridge;
  {{$endif}}
@@ -346,10 +348,10 @@ begin
 end;
 "
 ),
- .[.//classref]/(
-x"destructor T{@id}.destroy;{if (./array[classref]) then "&#x0A;var i: integer;" else ()}
-begin {./array[classref]/x"&#x0A;  for i := 0 to high({@name}) do {@name}[i].free;"}{
-  ./classref/x"&#x0A;  {@name}.free;"}
+ .[.//classref/@ref = $ig:pascal-true-classes]/(
+x"destructor T{@id}.destroy;{if (./array/classref/@ref = $ig:pascal-true-classes) then "&#x0A;var i: integer;" else ()}
+begin {./array[classref/@ref = $ig:pascal-true-classes]/x"&#x0A;  for i := 0 to high({@name}) do {@name}[i].free;"}{
+  ./classref[@ref = $ig:pascal-true-classes]/x"&#x0A;  {@name}.free;"}
   inherited;
 end;"
 ))
