@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  Buttons, applicationconfig, applicationformconfig;
+  Buttons, applicationconfig, applicationformconfig, commoninterface;
 
 type
 
@@ -31,7 +31,7 @@ type
     procedure arrangeLayout;
   public
     { public declarations }
-    class procedure showError(kind: TExceptionKind; title,error: string;detailStr: string;sendError, acheckPasswordEvent: TNotifyEvent);
+    class procedure showError(kind: TPendingExceptionKind; title,error: string;detailStr: string;sendError, acheckPasswordEvent: TNotifyEvent);
   end;
 
 var
@@ -45,7 +45,7 @@ uses applicationdesktopconfig, math, LazUTF8;
 
 { TshowErrorForm }
 
-class procedure TshowErrorForm.showError(kind: TExceptionKind; title,error: string;detailStr: string;sendError, acheckPasswordEvent:TNotifyEvent);
+class procedure TshowErrorForm.showError(kind: TPendingExceptionKind; title,error: string;detailStr: string;sendError, acheckPasswordEvent:TNotifyEvent);
 var errorForm: TShowErrorForm;
 begin
   UTF8FixBroken(error); //invalid utf-8 is invisible on gtk2

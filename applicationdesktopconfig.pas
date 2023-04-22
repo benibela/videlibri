@@ -48,7 +48,7 @@ resourcestring
 
 implementation
 
-uses bookWatchMain,booklistreader,libraryAccess, bbutils,bbdebugtools,LCLType,Dialogs, Controls, errorDialog, autoupdate, FileUtil, androidutils;
+uses bookWatchMain,booklistreader,libraryAccess, bbutils,bbdebugtools,LCLType,Dialogs, Controls, errorDialog, autoupdate, FileUtil, androidutils, commoninterface;
 
 resourcestring
   rsUpdateBeingInstalled = 'Bitte warten, Update wird installiert...';
@@ -199,9 +199,9 @@ begin
   end;
   for i:=0 to sl_title.Count-1 do begin
     if mainForm <> nil then
-      TshowErrorForm.showError(TExceptionKind(ObjToUInt(sl_message.Objects[i])), sl_title[i],sl_message[i],sl_messagedetails[i],@mainForm.MenuItem16Click,@mainform.ShowOptionsClick)
+      TshowErrorForm.showError(TPendingExceptionKind(ObjToUInt(sl_message.Objects[i])), sl_title[i],sl_message[i],sl_messagedetails[i],@mainForm.MenuItem16Click,@mainform.ShowOptionsClick)
      else
-      TshowErrorForm.showError(TExceptionKind(ObjToUInt(sl_message.Objects[i])),sl_title[i],sl_message[i],sl_messagedetails[i],nil,nil);
+      TshowErrorForm.showError(TPendingExceptionKind(ObjToUInt(sl_message.Objects[i])), sl_title[i],sl_message[i],sl_messagedetails[i],nil,nil);
   end;
   sl_title.free; sl_message.free; sl_messagedetails.free
 end;
