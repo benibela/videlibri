@@ -349,7 +349,7 @@ begin
 
     proc := TProcess.Create(nil);
     proc.Options := [poUsePipes];
-    prog :=StringReplace(prog, '$from', ' Videlibri <benito@benibela.de>', [rfReplaceAll, rfIgnoreCase]);
+    prog :=StringReplace(prog, '$from', 'Videlibri <videlibri@benibela.de>', [rfReplaceAll, rfIgnoreCase]);
     prog := StringReplace(prog, '$to', receiver, [rfReplaceAll,rfIgnoreCase]);
     prog := StringReplace(prog, '$subject', subject, [rfReplaceAll,rfIgnoreCase]);
     proc.CommandLine := prog;
