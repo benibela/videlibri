@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Dombibliothek Limburg"/>
+  
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://dombibliothek.bibliotheca-open.de/Mein-Konto"/>
+  <variable name="urlsearch" value="https://dombibliothek.bibliotheca-open.de/Mediensuche/Erweiterte-Suche"/>
+  
+  <homepage value="https://dombibliothek.bibliotheca-open.de/"/>
+  <testing-search value="yes"/> 
+  <testing-account value="yes"/>
+</library>
