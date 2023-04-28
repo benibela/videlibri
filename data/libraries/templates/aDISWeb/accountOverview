@@ -1,6 +1,6 @@
 <t:switch prioritized="true">
 <html>
-  {goBackPage := $orderedMagazinePage := $providedPage := $orderedPage := $requestedPage := "",
+  {goBackPage := $kontoPage := $orderedMagazinePage := $providedPage := $orderedPage := $requestedPage := "",
    if (get("first-login", false())) then (
      videlibri:delete-current-books(), 
      first-login := false()
@@ -10,7 +10,7 @@
   <t:switch prioritized="true">
   <body>
     <t:switch>
-    <td>Keine Ausleihen<t:s>kontoPage:=""</t:s></td>
+    <td>Keine Ausleihen</td>
     <a t:condition="contains(., 'Ausleihe') and contains(@href, '&amp;sp=SZ')">{kontoPage := @href}</a>
     </t:switch>
   
