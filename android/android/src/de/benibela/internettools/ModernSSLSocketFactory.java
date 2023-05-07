@@ -1,5 +1,7 @@
 package de.benibela.internettools;
 
+import android.net.SSLCertificateSocketFactory;
+import android.os.Build;
 import android.util.Log;
 
 import java.io.IOException;
@@ -9,9 +11,12 @@ import java.net.Socket;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.regex.Pattern;
 
+import javax.net.ssl.SNIHostName;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLParameters;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
@@ -108,11 +113,19 @@ public class ModernSSLSocketFactory extends SSLSocketFactory {
     }
 
     private Socket setSocketHostName(Socket somesocket, String host){
-        if (somesocket instanceof SSLSocket) {
+        if (!(somesocket instanceof SSLSocket)) return somesocket;
+        SSLSocket socket = (SSLSocket)somesocket;
+        if (baseFactory() instanceof android.net.SSLCertificateSocketFactory && Build.VERSION.SDK_INT >= 17) {
+            ((SSLCertificateSocketFactory) baseFactory()).setHostname(socket, host);
+        } else if (Build.VERSION.SDK_INT >= 24) {
+            SSLParameters sslParameters = socket.getSSLParameters();
+            sslParameters.setServerNames(Collections.singletonList(new SNIHostName(host)));
+            socket.setSSLParameters(sslParameters);
+        } else {
             //Activate SNI
             //see https://stackoverflow.com/questions/35782882/how-do-we-enable-sni-in-httpclient-4-4-on-android
             //this is required for Stb Gelsenkirchen with Apache HTTPClient on my smartbook table. todo: check if this is still needed for newer http libraries
-            SSLSocket socket = (SSLSocket)somesocket;
+
             try {
                 //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 Method method = socket.getClass().getMethod("setHostname", String.class);
