@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="11"/>
+    <Version Value="12"/>
     <PathDelim Value="\"/>
     <General>
+      <Flags>
+        <CompatibilityMode Value="True"/>
+      </Flags>
       <SessionStorage Value="InProjectDir"/>
-      <MainUnit Value="0"/>
       <Title Value="videlibriandroid"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
@@ -65,16 +67,16 @@
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       <SrcPath Value="..\..\..\..\components\pascal\import\synapse"/>
     </SearchPaths>
-    <Conditionals Value="if TargetCPU = 'arm' then
-   CustomOptions += '-oandroid/libs/armeabi/liblclapp.so'
-else if TargetCPU = 'aarch64' then
-   CustomOptions += '-oandroid/libs/arm64-v8a/liblclapp.so'
-else if TargetCPU = 'i386' then
-   CustomOptions += '-oandroid/libs/x86/liblclapp.so'
-else if TargetCPU = 'x86_64' then
-   CustomOptions += '-oandroid/libs/x86_64/liblclapp.so'
+    <Conditionals Value="if TargetCPU = &apos;arm&apos; then
+   CustomOptions += &apos;-oandroid/libs/armeabi/liblclapp.so&apos;
+else if TargetCPU = &apos;aarch64&apos; then
+   CustomOptions += &apos;-oandroid/libs/arm64-v8a/liblclapp.so&apos;
+else if TargetCPU = &apos;i386&apos; then
+   CustomOptions += &apos;-oandroid/libs/x86/liblclapp.so&apos;
+else if TargetCPU = &apos;x86_64&apos; then
+   CustomOptions += &apos;-oandroid/libs/x86_64/liblclapp.so&apos;
 else
-   CustomOptions += '-oandroid/libs/unknowntarget/liblclapp.so'"/>
+   CustomOptions += &apos;-oandroid/libs/unknowntarget/liblclapp.so&apos;"/>
     <BuildMacros>
       <Count Value="1"/>
       <Item1>
