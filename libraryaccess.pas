@@ -503,21 +503,21 @@ end;
 
 function queryHistory(reader: TBookListReader; q: string): ixqvalue;
 var
-  list: TXQVList;
+  list: TXQValueList;
 
   procedure addBook(b: TBook);
   var
-    obj: TXQValueStringMap;
+    obj: TXQBoxedStringMap;
   begin
     obj := reader.bookToPXP(b);
     obj.setMutable('_accountPtr', xqvalue(PtrInt(b.owningAccount)));
-    list.add(obj);
+    list.add(obj.boxInIXQValue);
   end;
 
 var
   i, j: Integer;
 begin
-  list:=TXQVList.create();
+  list:=TXQValueList.create();
   for i := 0 to accounts.Count-1 do
   begin
     for j := 0 to accounts[i].books.old.count-1 do
@@ -525,7 +525,7 @@ begin
     for j := 0 to accounts[i].books.current.count-1 do
       addBook(accounts[i].books.current[j]);
   end;
-  reader.parser.variableChangeLog.add('books', TXQValueSequence.create(list));
+  reader.parser.variableChangeLog.add('books', list.toXQValueSequenceSqueezed);
   result:=reader.parser.QueryEngine.evaluate(q, xqpmXQuery3_1);
 end;
 

@@ -226,12 +226,12 @@ end;
 
 function xqvalueSeqAppend(const v1, v2: ixqvalue): ixqvalue;
 var
-  templist: TXQVList;
+  templist: TXQValueList;
 begin
-  templist := TXQVList.create(2);
+  templist := TXQValueList.create(2);
   templist.add(v1);
   templist.add(v2);
-  xqvalueSeqSqueezed(result, templist);
+  result := templist.toXQValueSequenceSqueezed;
 end;
 
 function TLibrarySearcher.addLibrary(lib: tlibrary): boolean;
@@ -345,7 +345,7 @@ var
 begin
   owningBook := book.owningBook;
   if book <> owningBook then begin
-    bookListReader.parser.variableChangeLog.add('holding', TBookListReader.bookToPXP(book));
+    bookListReader.parser.variableChangeLog.add('holding', TBookListReader.bookToPXP(book).boxInIXQValue);
     book := owningBook;
   end;
   bookListReader.selectBook(book);

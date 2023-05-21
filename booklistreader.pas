@@ -141,7 +141,7 @@ type
   private
     currentBook,defaultBook: TBook;
     class procedure setAllBookProperties(book:TBook; const value:IXQValue); static;
-    class procedure setBookProperty(book:TBook;variable: string; const value:TXQValue); static;
+    class procedure setBookProperty(book:TBook;variable: string; const value:IXQValue); static;
     procedure parserVariableRead(variable: string; book: IXQValue);
     procedure logall(sender: TMultipageTemplateReader; logged: string; debugLevel: integer=0);
     procedure TraceEvent(sender: TXQueryEngine; value, info: IXQValue);
@@ -154,12 +154,12 @@ type
     books: TBookList;
     bookListHasBeenClearedAndMightNeedSingleUpdate: boolean;
     pendingMessage: TPendingMessage;
-    cache: TXQValueStringMap;
+    cache: TXQBoxedStringMap;
     accountExpiration: string;
     constructor create(atemplate:TMultiPageTemplate);
     destructor destroy();override;
 
-    class function bookToPXP(book:TBook): TXQValueStringMap; static;
+    class function bookToPXP(book:TBook): TXQBoxedStringMap; static;
     procedure selectBook(book:TBook);
   end;
 
@@ -1012,14 +1012,17 @@ begin
 end;
 
 function TBookList.toXQuery: IXQValue;
-var l: TXQVList;
+var
   i: Integer;
+  outlist: TXQValueList;
 begin
-  l:=TXQVList.create();
-  for i := 0 to Count - 1 do
-    l.add(TBookListReader.bookToPXP(books[i]));
-  result := TXQValueSequence.create(l);
+  outlist := TXQValueList.create(Count);
+  for i:=0 to Count-1 do
+    outlist.add(TBookListReader.bookToPXP(books[i]).boxInIXQValue);
+  result := outlist.toXQValueSequenceSqueezed;
 end;
+
+
 
 function TBookList.lastCheck: longint;
 var i:longint;
@@ -1117,7 +1120,7 @@ begin
     setBookProperty(book, pp.key, pp.value);
 end;
 
-class procedure TBookListReader.setBookProperty(book: TBook; variable: string; const value:TXQValue);
+class procedure TBookListReader.setBookProperty(book: TBook; variable: string; const value:IXQValue);
 function strconv():string;
 begin
   result:=strTrimAndNormalize(value.toString);
@@ -1175,7 +1178,7 @@ procedure TBookListReader.parserVariableRead(variable: string; book: IXQValue);
 var
  i : Integer;
  temp2: IXQValue;
- temp: TXQValue;
+ temp: IXQValue;
  s, k: string;
  keyset: TXQHashsetStr;
  pp: TXQProperty;
@@ -1185,7 +1188,7 @@ begin
   case variable of
     'book': begin
       if book.kind <> pvkObject then raise EBookListReader.Create('Buch ohne Eigenschaften');
-      if book.hasProperty('_select', @temp) then begin
+      if book.hasProperty('_select', temp) then begin
         currentBook := nil;
         case temp.kind of
           pvkObject: begin
@@ -1210,7 +1213,7 @@ begin
           if logging then for i:=0 to books.Count-1 do log('Book: "'+books[i].toLimitString() + '" <> "'+temp.toXQuery()+'"');
           raise EBookListReader.create('Template wants to select book '+temp.toXQuery()+', but it doesn''t exist');
         end;
-      end else if book.hasProperty('select(id)', @temp) then begin
+      end else if book.hasProperty('select(id)', temp) then begin
         s := temp.toString;
         currentBook := nil;
         for i:=0 to books.Count-1 do
@@ -1220,9 +1223,9 @@ begin
           if logging then for i:=0 to books.Count-1 do log('Book-Id: "'+books[i].id + '" <> "'+s+'"');
           raise EBookListReader.create('Template wants to select book '+s+', but it doesn''t exist');
         end;
-      end else if book.hasProperty('select(new)', @temp) or book.hasProperty('select(current)', @temp) then
+      end else if book.hasProperty('select(new)', temp) or book.hasProperty('select(current)', temp) then
         raise EBookListReader.Create('Das Template hat die Bucheigenschaften select(new) oder select(current) gesetzt, aber in der neuesten Version, werden sie nicht länger benötigt)')
-      else if book.hasProperty('_existing', @temp) then begin
+      else if book.hasProperty('_existing', temp) then begin
         if not temp.toBoolean then raise EBookListReader.create('Das Buch hat einen _existing Marker, aber er sagt, das Buch existiere nicht : '+temp.toXQuery());
         if currentBook = nil then raise EBookListReader.Create('Das Template will ein existierendes Buch verändert, aber mir ist kein Buch bekannt.');
       end else begin
@@ -1241,7 +1244,7 @@ begin
           .add(currentBook.Id,currentBook.Title,currentBook.Author,currentBook.Year)
              .assign(currentBook);
       end;
-      temp2:=nil;
+      temp2.clear;
     end;
     'account-expiration': accountExpiration := strTrimAndNormalize(book.toString);
     else if strEndsWith(variable, ')') then case variable of
@@ -1268,7 +1271,7 @@ begin
       'raise-internal()': raise EBookListReader.create(LineEnding + LineEnding + book.toString);
       'cache-set()': begin
         if book.kind <> pvkObject then raise EBookListReader.Create('Invalid cache-set()');
-        if cache = nil then cache := TXQValueStringMap.create();
+        if cache = nil then cache := TXQBoxedStringMap.create();
         cache.setMutable(book.getProperty('name').toString, book.getProperty('value'));
       end;
     end;
@@ -1306,7 +1309,7 @@ begin
 end;
 
 type TXQueryBookSerializer = object
-  obj: TXQValueStringMap;
+  obj: TXQBoxedStringMap;
   procedure writeStr(const name, value: string);
   procedure writeDate(const name: string; date: integer);
 end;
@@ -1319,19 +1322,19 @@ end;
 procedure TXQueryBookSerializer.writeDate(const name: string; date: integer);
   function xqvalueDate(const i: integer): IXQValue;
   begin
-    result := TXQValueDateTime.create(baseSchema.date, i);
+    result := xqvalue(TXQBoxedDateTime.create(baseSchema.date, i));
   end;
 begin
   if date <> 0 then
     obj.setMutable(name, xqvalueDate(date));
 end;
 
-class function TBookListReader.bookToPXP(book: TBook): TXQValueStringMap;
+class function TBookListReader.bookToPXP(book: TBook): TXQBoxedStringMap;
 var
   ser: TXQueryBookSerializer;
   i: Integer;
 begin
-  ser.obj := TXQValueStringMap.create();
+  ser.obj := TXQBoxedStringMap.create();
   result := ser.obj;
   book.serialize(@ser.writeStr, @ser.writeDate);
   if not book.lend then //result.setMutable('statusId', BookStatusToSerializationStr(book.status))
@@ -1345,7 +1348,7 @@ end;
 
 procedure TBookListReader.selectBook(book: TBook);
 begin
-  parser.variableChangeLog.add('book', bookToPXP(book));
+  parser.variableChangeLog.add('book', bookToPXP(book).boxInIXQValue);
   currentBook:=book;
 end;
 
@@ -1398,16 +1401,16 @@ end;
 // ATTENTION: Only eq can be used to test for 0, not =. Or use value instance of xs:decimal
 function xqFunctionChoose(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
 var
-  temp: TXQValueStringMap;
+  temp: TXQBoxedStringMap;
 begin
   requiredArgCount(argc, 4, 4);
-  temp := TXQValueStringMap.create();
+  temp := TXQBoxedStringMap.create();
   temp.setMutable('kind', 'choose');
   temp.setMutable('callback', argv[0].toString);
   temp.setMutable('caption', argv[1].toString);
   temp.setMutable('options', argv[2]);
   temp.setMutable('option-values', argv[3]);
-  context.staticContext.sender.VariableChangelog.add('message()', temp);
+  context.staticContext.sender.VariableChangelog.add('message()', temp.boxInIXQValue);
   result := xqvalue();
 end;
 
@@ -1416,14 +1419,14 @@ end;
 //callback action is called with confirm-result := true/false
 function xqFunctionConfirm(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
 var
-  temp: TXQValueStringMap;
+  temp: TXQBoxedStringMap;
 begin
   requiredArgCount(argc, 2, 2);
-  temp := TXQValueStringMap.create();
+  temp := TXQBoxedStringMap.create();
   temp.setMutable('kind', 'confirm');
   temp.setMutable('callback', argv[0].toString);
   temp.setMutable('caption', argv[1].toString);
-  context.staticContext.sender.VariableChangelog.add('message()', temp);
+  context.staticContext.sender.VariableChangelog.add('message()', temp.boxInIXQValue);
   result := xqvalue();
 end;
 
@@ -1445,7 +1448,7 @@ begin
   if book = nil then
     raise EBookListReader.create('Failed to find book: ' + query.jsonSerialize(tnsText) +
                                   LineEnding + 'Perhaps it was returned?');
-  result := reader.bookToPXP(book);
+  result := reader.bookToPXP(book).boxInIXQValue;
 end;
 
 //function vl:log-immediately(  data )
@@ -1521,14 +1524,14 @@ end;
 
 function xqFunctionCache_Set(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
 var
-  temp: TXQValueStringMap;
+  temp: TXQBoxedStringMap;
 begin
   requiredArgCount(argc, 2, 2);
-  temp := TXQValueStringMap.create();
+  temp := TXQBoxedStringMap.create();
   temp.setMutable('name', argv[0].toString);
   if argv[1].hasNodes then temp.setMutable('value', argv[1].stringifyNodes)
   else temp.setMutable('value', argv[1]);
-  context.staticContext.sender.VariableChangelog.add('cache-set()', temp);
+  context.staticContext.sender.VariableChangelog.add('cache-set()', temp.boxInIXQValue);
   result := xqvalue();
 end;
 
@@ -1536,10 +1539,10 @@ end;
 function xqFunctionCache_Get(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
 var
   reader: TBookListReader;
-  temp: TXQValue;
+  temp: IXQValue;
 begin
   reader := (context.staticContext as TXQVideLibriStaticContext).bookListReader;
-  if assigned(reader.cache) and reader.cache.hasProperty(argv[0].toString, @temp) then result := temp
+  if assigned(reader.cache) and reader.cache.hasProperty(argv[0].toString, temp) then result := temp
   else if argc = 2 then result := argv[1]
   else result := xqvalue;
 end;

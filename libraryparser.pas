@@ -1969,14 +1969,6 @@ begin
     log('leave TTemplateAccountAccess.extendAll');
 end;
 
-function xqvalueBookList(reader: TBookListReader; list: TBookList): TXQValueSequence;
-var
-  i: Integer;
-begin
-  result := TXQValueSequence.create(list.Count);
-  for i:=0 to list.Count-1 do
-    result.add(reader.bookToPXP(list[i]));
-end;
 
 procedure TTemplateAccountAccess.extendList(booksToExtend: TBookList);
 var i:longint;
@@ -2000,7 +1992,7 @@ begin
   if extendAction<>nil then begin
     if logging then log('use extendList Template');
     //if logging then log('bookList (count: '+inttostr(extendBookList.seq.count)+') is: '+extendBookList.debugAsStringWithTypeAnnotation());
-    reader.parser.variableChangeLog.add('renew-books', xqvalueBookList(reader, booksToExtend));
+    reader.parser.variableChangeLog.add('renew-books', booksToExtend.toXQuery);
     reader.callAction(extendAction);
   end else if reader.findAction('renew-all')<>nil then begin
     if logging then log('use renew-all Template');
@@ -2045,7 +2037,7 @@ begin
   setVariables();
   action := reader.findAction('cancel-list');
   if action <> nil then begin
-    reader.parser.variableChangeLog.add('cancel-books', xqvalueBookList(reader, booklist));
+    reader.parser.variableChangeLog.add('cancel-books', booklist.toXQuery);
     reader.callAction(action);
   end else if reader.findAction('cancel-single') <> nil then begin
     action := reader.findAction('cancel-single');

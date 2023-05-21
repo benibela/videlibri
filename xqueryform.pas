@@ -89,7 +89,7 @@ begin
   if MenuItemUserColumns.Checked then begin
     hasNoObjectItem := false;
     for b in lastResults do
-      if (b.kind = pvkObject) and b.hasProperty('_accountPtr', nil) then
+      if (b.kind = pvkObject) and b.hasProperty('_accountPtr') then
         showDefaultColumns := true
       else if b.kind = pvkObject then begin
         b.enumeratePropertyKeys(userColumns);
@@ -186,7 +186,7 @@ var keys: TXQHashsetStr;
   k: string;
   csvw: TCSVBuilder;
 begin
-  if (v = nil) or (v.getSequenceCount = 0) then exit('');
+  if (v.getSequenceCount = 0) then exit('');
   keys.init;
   for w in v do
     if w.kind = pvkObject then w.enumeratePropertyKeys(keys);
@@ -238,7 +238,7 @@ var
   book: TBook;
   p: TXQProperty;
 begin
-  if lastResults = nil then exit;
+  if lastResults.isUndefined then exit;
   book := TBook.create;
   try
     for b in lastResults do begin
