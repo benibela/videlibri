@@ -1216,6 +1216,7 @@ begin
     system.EnterCriticalSection(exceptionStoring);
     try
       pendingExceptions := Default(TPendingExceptions);
+      Setlength(pendingExceptions.exceptions, length(errorMessageList));
       for i :=  0 to high(errorMessageList) do begin
         with pendingExceptions.exceptions[i] do begin
           details := '';
