@@ -39,8 +39,8 @@
      $eventStreamText := unparsed-text($next-page),
      let $eventStream := x:lines($eventStreamText)
      for tumbling window $w in $eventStream start when true end $line when $line eq ""
-     let $id := $w[starts-with(., "id")] -> substring-after(":") => string-join() => normalize-space()
-     let $data := $w[starts-with(., "data")] -> substring-after(":") => string-join()
+     let $id := ($w[starts-with(., "id")] ! substring-after(., ":")) => string-join() => normalize-space()
+     let $data := ($w[starts-with(., "data")] ! substring-after(., ":")) => string-join()
      where string-length($data) > 5
      let $json := parse-json($data)
      where string-length($json?html) > 5

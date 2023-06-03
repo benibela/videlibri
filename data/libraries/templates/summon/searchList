@@ -3,7 +3,7 @@
     <DIV class="main">
       <div class="search-stats">
         <strong/>
-        <strong>{$search-result-count := translate(., ".,", "") -> xs:integer()}</strong>+
+        <strong>{$search-result-count := translate(., ".,", "") ! xs:integer(.)}</strong>+
       </div>
  
         <UL class="recordSet">
