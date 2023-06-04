@@ -2,13 +2,11 @@
 <library>
   <longName value="Stadtbibliothek Paderborn"/>
   
-  <template value="bibliothecaplus"/>
-  <variable name="urlaccount" value="https://www.stadtbibliothek-paderborn.de/Konto"/>
-  <variable name="urlsearch" value="https://www.stadtbibliothek-paderborn.de/Mediensuche/Erweiterte-Suche"/>
+  <template value="arena"/>
+  <variable name="baseurl" value="https://www.bibliothek.live"/>
 
   <homepage value="https://www.stadtbibliothek-paderborn.de"/>
   <testing-search value="no"/>  
-  <testing-account value="no"/>
+  <testing-account value="unknown"/>
 </library>
 
-https://www.bibliothek.live/Konto

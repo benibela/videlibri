@@ -1,3 +1,5 @@
+<t:switch prioritized="true">
+
 <body>
 
 <div class="portlet" id="portlet_loansWicket_WAR_arenaportlet"> 
@@ -60,3 +62,10 @@
 </div>
     
 </body>
+
+<div class="arena-feedback" role="alert" id="id__patronLogin__WAR__arenaportlet____2"> 
+<!--<ul class="feedbackPanel"> <li class="feedbackPanelWARNING"> <span class="feedbackPanelWARNING">Ungültige Login-Daten. Bitte überprüfen Sie Ihre Daten oder wenden Sie sich an Ihre Bibliothek.</span> </li> </ul>-->
+ {vl:raise-login(.)}
+ </div> 
+
+</t:switch>
