@@ -344,7 +344,7 @@
     <call action="internal-login"/>
     <if test="exists($error-login)">
       <s>error := $error-login</s>
-      <pattern><form>{$goBackPage}</form></pattern> <!-- this only will lead back to the login page. but if there is a trefferliste-link like on voebb, internal-get-go-back-step will find its way -->
+      <pattern><form>{$goBackPage := form(., //input[@value="Abbrechen"])}</form></pattern> <!-- this only will lead back to the login page. but if there is a trefferliste-link like on voebb, internal-get-go-back-step will find its way -->
     </if>
     <else>
       <variable name="internal-loggedin">true()</variable>
