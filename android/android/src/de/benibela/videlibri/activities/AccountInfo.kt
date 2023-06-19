@@ -10,6 +10,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.*
 import de.benibela.videlibri.*
+import de.benibela.videlibri.databinding.AccountinfoBinding
 import de.benibela.videlibri.jni.*
 import de.benibela.videlibri.utils.*
 
@@ -27,25 +28,24 @@ class AccountInfo : VideLibriBaseActivity() {
     private var libdetails: LibraryDetails? = null
     private var libshortname: String = ""
 
-    private lateinit var lib: TextView
-    private lateinit var accountId: EditText
-    private lateinit var accountPassword: EditText
-    private lateinit var accountPrettyName: EditText
+    protected lateinit var binding: AccountinfoBinding
+
+
 
     private val oldAccount: Bridge.Account
         get() = intent.getSerializableExtra("account") as? Bridge.Account ?: accounts[0] ?: Bridge.Account()
     private val accountAutoExtend: Boolean
-        get() = findViewById<CheckBox>(R.id.autoExtendButton).isChecked
+        get() = binding.autoExtendButton.isChecked
     private val accountAutoExtendDays: Int
-        get() = findViewById<EditText>(R.id.autoExtendDaysEdit).text.toString().toIntOrNull() ?: 7
+        get() = binding.autoExtendDaysEdit.text.toString().toIntOrNull() ?: 7
 
     private fun setActiveLibrary(libid: String?): LibraryDetails? = libid?.let { id ->
         Bridge.VLGetLibraryDetails(id)?.also {
             libshortname = it.prettyNameShort
-            lib.text = it.prettyName
-            findViewById<View>(R.id.typeLayout).isVisibleNotGone = it.segregatedAccounts
+            binding.libraryTextView.text = it.prettyName
+            binding.typeLayout.isVisibleNotGone = it.segregatedAccounts
             libdetails = it
-            val accountComment = findViewById<TextView>(R.id.textViewAccountComment)
+            val accountComment = binding.textViewAccountComment
             accountComment.isVisibleNotGone = it.accountComment.isNotEmpty()
             accountComment.text = it.accountComment
         }
@@ -53,20 +53,15 @@ class AccountInfo : VideLibriBaseActivity() {
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setVideLibriView(R.layout.accountinfo)
-
-        lib = findViewById(R.id.libraryTextView)
-        accountId = findViewById(R.id.accountId)
-        accountPassword = findViewById(R.id.accountPassword)
-        accountPrettyName = findViewById(R.id.accountPrettyName)
+        binding = setVideLibriView(AccountinfoBinding::inflate)
 
         mode = intent.getIntExtra("mode", MODE_ACCOUNT_CREATION)
         setActiveLibrary(savedInstanceState?.getString("libId") ?: intent.getStringExtra("libId") ?: "") ?:
             setActiveLibrary(LibraryList.lastSelectedFallbackLibraryId())
 
 
-        findViewById<CheckBox>(R.id.autoExtendButton).setOnCheckedChangeListener { _, b ->
-            findViewById<View>(R.id.autoExtendDaysEdit).isEnabled = b
+        binding.autoExtendButton.setOnCheckedChangeListener { _, b ->
+            binding.autoExtendDaysEdit.isEnabled = b
         }
 
 
@@ -74,12 +69,12 @@ class AccountInfo : VideLibriBaseActivity() {
             val oldAccount = oldAccount
             setActiveLibrary(oldAccount.libId)
 
-            accountId.setText(oldAccount.name)
-            accountPassword.setText(oldAccount.pass)
-            accountPrettyName.setText(oldAccount.prettyName)
-            findViewById<CheckBox>(R.id.autoExtendButton).isChecked = oldAccount.extend
-            findViewById<EditText>(R.id.autoExtendDaysEdit).setText(oldAccount.extendDays.toString())
-            findViewById<CheckBox>(R.id.saveHistoryButton).isChecked = oldAccount.history
+            binding.accountId.setText(oldAccount.name)
+            binding.accountPassword.setText(oldAccount.pass)
+            binding.accountPrettyName.setText(oldAccount.prettyName)
+            binding.autoExtendButton.isChecked = oldAccount.extend
+            binding.autoExtendDaysEdit.setText(oldAccount.extendDays.toString())
+            binding.saveHistoryButton.isChecked = oldAccount.history
             if (libdetails?.segregatedAccounts == true)
                 findViewById<RadioButton>(if (oldAccount.type == 2) R.id.radioButtonExtern else R.id.radioButtonIntern).isChecked = true
 
@@ -98,18 +93,18 @@ class AccountInfo : VideLibriBaseActivity() {
 
             }
         } else {
-            lib.paintFlags = lib.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-            lib.setOnClickListener { updateLibrary() }
+            binding.libraryTextView.paintFlags = binding.libraryTextView.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+            binding.libraryTextView.setOnClickListener { updateLibrary() }
 
             findViewById<View>(R.id.deleteButton).visibility = View.GONE
             findViewById<View>(R.id.completeAccountButton).setOnClickListener(View.OnClickListener { _ ->
                 if (!checkInputConstraints())
                     return@OnClickListener
-                if (accountId.text.isEmpty())
+                if (binding.accountId.text.isNullOrEmpty())
                     addAccountNow()
                 else {
                     if (Accounts.get(libdetails?.id
-                                    ?: "", accountId.text.toString()) != null) {
+                                    ?: "", binding.accountId.text.toString()) != null) {
                         showMessage(getString(R.string.warning_duplicate_account))
                         return@OnClickListener
                     }
@@ -129,14 +124,14 @@ class AccountInfo : VideLibriBaseActivity() {
                     }
                 }
             })
-            accountPrettyName.setText(libshortname)
+            binding.accountPrettyName.setText(libshortname)
         }
 
-        if (mode != MODE_ACCOUNT_MODIFY || accountId.text.toString() + " " + libshortname == accountPrettyName.text.toString())
-            accountId.addTextChangedListener(object : EmptyTextWatcher() {
+        if (mode != MODE_ACCOUNT_MODIFY || binding.accountId.text.toString() + " " + libshortname == binding.accountPrettyName.text.toString())
+            binding.accountId.addTextChangedListener(object : EmptyTextWatcher() {
                 @SuppressLint("SetTextI18n")
                 override fun afterTextChanged(editable: Editable) {
-                    accountPrettyName.setText(accountId.text.toString() + " " + libshortname)
+                    binding.accountPrettyName.setText(binding.accountId.text.toString() + " " + libshortname)
                 }
             })
 
@@ -171,9 +166,9 @@ class AccountInfo : VideLibriBaseActivity() {
     private fun inputToAccount(): Bridge.Account? {
         val acc = Bridge.Account()
         acc.libId = libdetails?.id ?: return null
-        acc.name = accountId.text.toString()
-        acc.pass = accountPassword.text.toString()
-        acc.prettyName = accountPrettyName.text.toString()
+        acc.name = binding.accountId.text.toString()
+        acc.pass = binding.accountPassword.text.toString()
+        acc.prettyName = binding.accountPrettyName.text.toString()
         acc.extend = accountAutoExtend
         acc.extendDays = accountAutoExtendDays
         acc.history = findViewById<CompoundButton>(R.id.saveHistoryButton).isChecked
@@ -186,8 +181,8 @@ class AccountInfo : VideLibriBaseActivity() {
         val errorMessage =
             if (libdetails == null)
                 R.string.error_nolibselected
-            else if (accountId.text.isEmpty()) {
-                if (accountPassword.text.isNotEmpty())
+            else if (binding.accountId.text.isNullOrEmpty()) {
+                if (!binding.accountPassword.text.isNullOrEmpty())
                     R.string.warning_unnecessary_password
                 else if (!libdetails.searchMightWork)
                     R.string.warning_search_is_broken
@@ -195,9 +190,9 @@ class AccountInfo : VideLibriBaseActivity() {
                     null
             } else if (!libdetails.accountMightWork)
                 R.string.warning_account_is_broken
-            else if (accountPassword.text.isEmpty())
+            else if (binding.accountPassword.text.isNullOrEmpty())
                 R.string.warning_need_password
-            else if (accountPassword.text.matches(Regex("^[ \t\n\r].*|.*[ \t\n\r]$")))
+            else if (binding.accountPassword.text?.matches(Regex("^[ \t\n\r].*|.*[ \t\n\r]$"))?:false)
                 R.string.warning_whitespace_password
             else null
         errorMessage?.let { showMessage(it) }
@@ -231,7 +226,7 @@ class AccountInfo : VideLibriBaseActivity() {
         if (requestCode == REQUEST_LIBRARY_FOR_ACCOUNT_CREATION) {
             if (resultCode == Activity.RESULT_OK) {
                 setActiveLibrary(LibraryList.lastSelectedLibId) ?: return
-                accountPrettyName.setText(libshortname)
+                binding.accountPrettyName.setText(libshortname)
             } else if (libdetails == null) {
                 if (mode == MODE_ACCOUNT_CREATION_INITIAL && accounts.isEmpty()) {
                     //    updateLibrary();
