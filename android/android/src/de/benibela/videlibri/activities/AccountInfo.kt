@@ -64,8 +64,8 @@ class AccountInfo : VideLibriBaseActivity() {
             binding.autoExtendDaysEdit.isEnabled = b
         }
 
-
-        if (mode == MODE_ACCOUNT_MODIFY) {
+        val modifyingExistingAccount = mode == MODE_ACCOUNT_MODIFY || mode == MODE_ACCOUNT_MODIFY_INVALID_PASSWORD
+        if (modifyingExistingAccount) {
             val oldAccount = oldAccount
             setActiveLibrary(oldAccount.libId)
 
@@ -90,8 +90,9 @@ class AccountInfo : VideLibriBaseActivity() {
                 possiblyWarnAboutShortExtendDays {
                     withActivity<AccountInfo> { changeAccountNow() }
                 }
-
             }
+            if (mode == MODE_ACCOUNT_MODIFY_INVALID_PASSWORD)
+                binding.accountPassword.transformationMethod = null
         } else {
             binding.libraryTextView.paintFlags = binding.libraryTextView.paintFlags or Paint.UNDERLINE_TEXT_FLAG
             binding.libraryTextView.setOnClickListener { updateLibrary() }
@@ -127,7 +128,7 @@ class AccountInfo : VideLibriBaseActivity() {
             binding.accountPrettyName.setText(libshortname)
         }
 
-        if (mode != MODE_ACCOUNT_MODIFY || binding.accountId.text.toString() + " " + libshortname == binding.accountPrettyName.text.toString())
+        if (modifyingExistingAccount || binding.accountId.text.toString() + " " + libshortname == binding.accountPrettyName.text.toString())
             binding.accountId.addTextChangedListener(object : EmptyTextWatcher() {
                 @SuppressLint("SetTextI18n")
                 override fun afterTextChanged(editable: Editable) {
@@ -263,6 +264,7 @@ class AccountInfo : VideLibriBaseActivity() {
         internal const val MODE_ACCOUNT_CREATION = 134390
         internal const val MODE_ACCOUNT_CREATION_INITIAL = 134391
         internal const val MODE_ACCOUNT_MODIFY = 134392
+        internal const val MODE_ACCOUNT_MODIFY_INVALID_PASSWORD = 134393
         private const val REQUEST_LIBRARY_FOR_ACCOUNT_CREATION = 1236
     }
 }

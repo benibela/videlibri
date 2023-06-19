@@ -183,7 +183,7 @@ class VideLibriApp : Application() {
                                 PendingExceptionKind.Login -> {
                                     positiveButton(R.string.app_error_check_passwd_btn) {
                                         startActivity<AccountInfo>(
-                                                "mode" to AccountInfo.MODE_ACCOUNT_MODIFY,
+                                                "mode" to AccountInfo.MODE_ACCOUNT_MODIFY_INVALID_PASSWORD,
                                                 "account" to accounts.get(ex.firstAccountLib, ex.firstAccountUser)
                                         )
                                     }
