@@ -7,10 +7,9 @@
   <variable name="baseurl" value="https://alephino.katho-nrw.de/alipac/-/bor-info"/>
     
    
-  <template value="digibib">
-    <variable name="location" value="1032"/>
-    <variable name="view" value="1032:GesamtExt"/>
-    <variable name="searchid" value="SERVICEGROUP1.SERVICE.SEARCH_KHNRW"/>
+  <template value="digibib7">
+    <variable name="searchurl" value="https://katho-nrw.digibib.net/search/gesamt"/>
+    <variable name="searchparams" value="srvgroup=sgkfh_ac&amp;s-khnrw=on"/>   
   </template>
 
 

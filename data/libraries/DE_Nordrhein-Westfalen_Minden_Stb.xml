@@ -5,10 +5,9 @@
   <template value="bibdia"/>
   <variable name="baseurl" value="https://minden.bibdia-hosts.de/opax1/"/>
 
-  <template value="digibib">
-    <variable name="location" value="249"/>
-    <variable name="view" value="249:ExtEinstieg"/>
-    <variable name="searchid" value="SERVICEGROUP1.SERVICE.SEARCH_SBMNDN"/>
+  <template value="digibib7">
+    <variable name="searchurl" value="https://stb-minden.digibib.net/search/kataloge"/>
+    <variable name="searchparams" value="srvgroup=owl&amp;s-sbmndn=on"/>   
   </template>
 
   <homepage value="https://www.minden.de/stadt_minden/de/Bildung,%20Kultur,%20Sport/Kultur/Bibliothek/"/>

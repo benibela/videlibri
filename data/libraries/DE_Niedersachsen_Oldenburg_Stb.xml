@@ -2,8 +2,8 @@
 <library>
   <longName value="Stadtbibliothek Oldenburg"/>
   
-  <template value="bibdia"/>
-  <variable name="baseurl" value="https://opac.oldenburg.de//opax/"/>
+  <template value="arena"/>
+  <variable name="baseurl" value="https://www.stadtbibliothek.oldenburg.de/"/>
 
   <homepage value="https://www.oldenburg.de/startseite/kultur/bibliothek.html"/>
   <testing-search value="no"/>  

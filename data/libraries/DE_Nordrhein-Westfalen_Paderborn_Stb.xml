@@ -4,9 +4,15 @@
   
   <template value="arena"/>
   <variable name="baseurl" value="https://www.bibliothek.live"/>
+  
+  <template value="digibib7">
+    <variable name="searchurl" value="https://stb-paderborn.digibib.net/search/paderborn"/>
+    <variable name="searchparams" value="s-sbpb=on"/>   
+  </template>
+  
 
   <homepage value="https://www.stadtbibliothek-paderborn.de"/>
-  <testing-search value="no"/>  
+  <testing-search value="yes"/>  
   <testing-account value="unknown"/>
 </library>
 
