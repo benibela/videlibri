@@ -482,7 +482,7 @@ begin
     try
       tp := TTreeParser.Create;
       tp.parsingModel := pmHTML;
-      if internet = nil then internet := createVideLibriInternetAccess;
+      internet := createVideLibriInternetAccess;  //need new internet. above on is freed by the account class
       temp := internet.get(lib.fhomepageUrl);
       tree := tp.parseTree(temp, lib.fhomepageUrl, internet.getLastContentType);
       resultHomepage := 'ok ' + tree.findNext(tetOpen, 'title', []).innerHTML();
