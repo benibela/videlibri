@@ -76,15 +76,15 @@ class AccountInfo : VideLibriBaseActivity() {
             binding.autoExtendDaysEdit.setText(oldAccount.extendDays.toString())
             binding.saveHistoryButton.isChecked = oldAccount.history
             if (libdetails?.segregatedAccounts == true)
-                findViewById<RadioButton>(if (oldAccount.type == 2) R.id.radioButtonExtern else R.id.radioButtonIntern).isChecked = true
+                (if (oldAccount.type == 2) binding.radioButtonExtern else binding.radioButtonIntern).isChecked = true
 
-            findViewById<View>(R.id.deleteButton).setOnClickListener {
+            binding.deleteButton.setOnClickListener {
                 showMessageYesNo(R.string.account_delete) {
                     withActivity<AccountInfo> { deleteAccountNow() }
                 }
             }
-            findViewById<Button>(R.id.completeAccountButton).text = getString(R.string.change)
-            findViewById<View>(R.id.completeAccountButton).setOnClickListener {
+            binding.completeAccountButton.text = getString(R.string.change)
+            binding.completeAccountButton.setOnClickListener {
                 if (!checkInputConstraints())
                     return@setOnClickListener
                 possiblyWarnAboutShortExtendDays {
@@ -96,8 +96,8 @@ class AccountInfo : VideLibriBaseActivity() {
             binding.libraryTextView.paintFlags = binding.libraryTextView.paintFlags or Paint.UNDERLINE_TEXT_FLAG
             binding.libraryTextView.setOnClickListener { updateLibrary() }
 
-            findViewById<View>(R.id.deleteButton).visibility = View.GONE
-            findViewById<View>(R.id.completeAccountButton).setOnClickListener(View.OnClickListener { _ ->
+            binding.deleteButton.visibility = View.GONE
+            binding.completeAccountButton.setOnClickListener(View.OnClickListener { _ ->
                 if (!checkInputConstraints())
                     return@OnClickListener
                 if (binding.accountId.text.isNullOrEmpty())
@@ -155,7 +155,7 @@ class AccountInfo : VideLibriBaseActivity() {
     }
 
     private fun updateLibrary() {
-        findViewById<View>(R.id.libraryTextView).postDelayed({
+        binding.libraryTextView.postDelayed({
             startActivityForResult<LibraryList>(
                     REQUEST_LIBRARY_FOR_ACCOUNT_CREATION,
                     "reason" to getString( if (mode == MODE_ACCOUNT_CREATION_INITIAL) R.string.account_createinitial else R.string.account_create)
@@ -171,8 +171,8 @@ class AccountInfo : VideLibriBaseActivity() {
         acc.prettyName = binding.accountPrettyName.text.toString()
         acc.extend = accountAutoExtend
         acc.extendDays = accountAutoExtendDays
-        acc.history = findViewById<CompoundButton>(R.id.saveHistoryButton).isChecked
-        acc.type = if (findViewById<CompoundButton>(R.id.radioButtonExtern).isChecked) 2 else 1
+        acc.history = binding.saveHistoryButton.isChecked
+        acc.type = if (binding.radioButtonExtern.isChecked) 2 else 1
         return acc
     }
 
