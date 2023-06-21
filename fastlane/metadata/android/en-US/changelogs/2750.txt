@@ -1,0 +1,5 @@
+* New memory management with 48-Bit pointers.
+* android: password edit view with material design and visibility toggle eye symbol
+* Update for libraries Bammental, UB Halle, Katholische Hochschule, Oldenburg, Mühlheim, Minden, Stuttgart, and Paderborn.
+* add Dombibliothek Limburg
+* improve support for Axiell Arena OPAC.

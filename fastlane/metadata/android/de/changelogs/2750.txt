@@ -1,0 +1,6 @@
+* android: Entferne viel Javacode. Setze HTTPS SNI für neue Androidversionen.
+* Neue Speicherverwaltung mit 48-Bit Pointern.
+* android: Passworteingabefeld im Material-Design mit Augen-Symbol, um zwischen unsichtbar und sichtbar zu wechseln.
+* Anpassung an geänderte Kataloge der Gemeindebücherei Bammental, UB Halle, Katholische Hochschule, Stadtbibliothek Oldenburg, Mühlheim, Minden, Stuttgart, und Paderborn.
+* Dombibliothek Limburg
+* Verbesserte Unterstützung für Axiell Arena Kataloge.
