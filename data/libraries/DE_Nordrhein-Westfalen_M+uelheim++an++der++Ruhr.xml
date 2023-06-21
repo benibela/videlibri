@@ -10,5 +10,5 @@
   </template>
 
   <homepage value="https://www.muelheim-ruhr.de/cms/stadtbibliothek.html"/>
-  <testing-search value="yes"/>  <testing-account value="no"/></library>
+  <testing-search value="yes"/>  <testing-account value="unknown"/></library>
 
