@@ -1,0 +1,7 @@
+<div class="arena-new-paging arena-renewal-result-captions clearfix"> 
+  <t:switch>
+    <span class="arena-renewal-success"/>
+    
+    <span class="arena-renewal-fail">{vl:raise(.)}</span> 
+  </t:switch>
+</div>
