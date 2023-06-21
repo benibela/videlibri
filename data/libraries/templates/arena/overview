@@ -1,11 +1,12 @@
 <t:switch prioritized="true">
 
 <body>
-
+{vl:delete-current-books()}
 <div class="portlet" id="portlet_loansWicket_WAR_arenaportlet"> 
   <t:switch>
     <div class="portlet-content"> 
       <form t:condition="contains(@action, 'p_p_id=loansWicket_WAR_arenaportlet')">  
+        <input name="renewLoansSubmit">{renewForm := form(ancestor::form[1], .)}</input>?
         <table id="loansTable"> 
          <thead> 
            <tr> <th class="arena-renewal-checkbox"/>
@@ -15,15 +16,16 @@
            </tr> 
          </thead>
          <tr>
-           <th>{$book := {"_internalId": ./input/concat(@name, "=", @value)}}</th>  
+           <th>{$book := {"_internalId": ./input/concat(@name, "=", @value),
+                          "_ajax": ./input/@onclick/extract(., "wicketAjaxGet[(]'([^']+)", 1 )
+           }}</th>  
            <td>
            <span class="arena-record-id">{$book.id}</span>?
+           <div class="arena-record-title"> <a>{$book.title}</a> </div>
            <div class="arena-record-author"> <span/> <span>{$book.author}</span> </div>?
            <div class="arena-record-year"> <span/> <span>{$book.year}</span> </div>?
-           <!--
-           <div class="arena-record-media"> <span/> <span>{$book.mediaType}</span> </div> 
-           <div class="arena-record-branch"> <span/> <span>{$book.libraryLocation}</span> </div> 
-           -->
+<!--           <div class="arena-record-media"> <span/> <span>{$book.mediaType}</span> </div>?
+           <div class="arena-renewal-branch"> <span/> <span>{$book.libraryLocation}</span> </div>?-->
            </td>
            <td>{$book.dueDate := parse-date(.)}</td>
            <td>{normalize-space()! ( $book.status := . )}</td>
@@ -35,7 +37,7 @@
     <div class="arena-feedback" role="alert">
       <ul class="feedbackPanel">
 				<li class="feedbackPanelINFO">
-				  <span class="feedbackPanelINFO">Keine Reservierungen vorhanden</span>
+				  <span class="feedbackPanelINFO">Keine Entleihungen vorhanden</span>
 				</li>
 			</ul>	   
     </div>
@@ -57,27 +59,56 @@
 		
 <div class="portlet" id="portlet_reservationsWicket_WAR_arenaportlet">
   <div class="portlet-content">
-<!--
+  	
+    <t:switch prioritized="true">
+      <div class="portlet-body">
+        <div class="arena-record-container arena-library-record">                                                      
+          <div class="arena-record">
+            {$book:={"cancelable":false(),"statusId": "ordered"}}
+              <span class="arena-record-id">282637</span>
+              <div class="arena-record-cover">
+                <img>{$book.image-url:=resolve-html(.)}</img>?
+              </div>
+              <div class="arena-record-details">
+                <div class="arena-record-title"> <span>{$book.title}</span> </div>
+                <div class="arena-record-author"> <span/> <span>{$book.author}</span> </div>?
+                <div class="arena-record-year"> <span/> <span>{$book.year}</span> </div>?
+<!--           <div class="arena-record-media"> <span/> <span>{$book.mediaType}</span> </div>? -->
+              </div>
+            <table class="arena-reservation-details">
+              <td class="arena-record-branch"> <span/> <span>{$book.libraryLocation}</span> </td>?
+              <!--<td class="arena-record-queue"> <span class="arena-field">Warteposition</span> <span class="arena-value">1</span> </td>-->
+              <td class="arena-reservation-from-container"> <span/> <span>{$book.issueDate:=parse-date(.)}</span> </td>
+              <td class="arena-reservation-to-container"> <span/> <span>{$book.dueDate:=parse-date(.)}</span> </td>?
+              <td class="arena-result-info"> <span/>  <span>{$book.status}</span> </td>
+            </table>
+          </div>+
+        </div>
+      </div>
 
-	<div class="portlet-body">
+      <div class="portlet-body">
+      	<div class="arena-feedback" role="alert">
+      		<ul class="feedbackPanel">
+  				<li class="feedbackPanelINFO">
+  					<span class="feedbackPanelINFO">Keine Reservierungen vorhanden</span>
+  				</li>
+    			</ul>	 
+        </div> 
+      </div>
 
-    	<div class="arena-feedback" role="alert">
-    		<ul class="feedbackPanel">
-				<li class="feedbackPanelINFO">
-					<span class="feedbackPanelINFO">Keine Reservierungen vorhanden</span>
-				</li>
-			</ul>	        		
-        	</div>			
-       
--->        
+    </t:switch>
     </div>
-</div>
+  </div>
+  
     
 </body>
 
-<div class="arena-feedback" role="alert" id="id__patronLogin__WAR__arenaportlet____2"> 
-<!--<ul class="feedbackPanel"> <li class="feedbackPanelWARNING"> <span class="feedbackPanelWARNING">Ungültige Login-Daten. Bitte überprüfen Sie Ihre Daten oder wenden Sie sich an Ihre Bibliothek.</span> </li> </ul>-->
- {vl:raise-login(.)}
+<div class="arena-feedback" role="alert"> 
+  <ul class="feedbackPanel"> <li class="feedbackPanelWARNING"> <span class="feedbackPanelWARNING">
+  <!--Ungültige Login-Daten. Bitte überprüfen Sie Ihre Daten oder wenden Sie sich an Ihre Bibliothek.-->
+  {vl:raise-login(.)}
+  </span> </li> </ul>
+ 
  </div> 
 
 </t:switch>

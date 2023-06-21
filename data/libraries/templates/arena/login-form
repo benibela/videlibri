@@ -1,5 +1,18 @@
-<form t:condition="contains(@action, 'patronLogin_WAR_arenaportlet')">
-  <input class="arena-login-username" name="openTextUsernameContainer:openTextUsername"/>
-  <input class="arena-login-password" name="textPassword"/>
-  {$login-form := form(., {"openTextUsernameContainer:openTextUsername": $username, "textPassword": $password})}
-</form>
+<t:switch prioritized="true">
+
+  <form t:condition="contains(@action, 'patronLogin_WAR_arenaportlet')">
+    <input class="arena-login-username" name="openTextUsernameContainer:openTextUsername"/>
+    <input class="arena-login-password" name="textPassword"/>
+    {$login-form := form(., {"openTextUsernameContainer:openTextUsername": $username, "textPassword": $password})}
+  </form>
+  
+  <div class="portlet" id="portlet_loansWicket_WAR_arenaportlet"> 
+    <div class="portlet-content"> 
+      <table id="loansTable"> 
+        <th class="arena-renewal-loan"></th> 
+        {$login-form := () (:already logged in:)}
+      </table>
+    </div>
+  </div>
+
+</t:switch>

@@ -12,13 +12,21 @@
 <action id="update-all"> 
   <page url="{$baseurl}/web/arena/protected/my-account/overview"/>
   <pattern href="login-form"/>
-  
-  <page url="{$login-form}"/>
+
+  <if test="exists($login-form)"> <!-- no if causes "No HTML tree error" -->
+    <page url="{$login-form}"/>
+  </if>
   <pattern href="overview"/>
   
 </action>
 
 <action id="renew-list">
+  <s>renew-request := request-combine($renewForm, $renew-books?_internalId)</s>
+  <page url="{$renew-books[1]?_ajax}"/> <!-- todo: does this need to be called for all of them?-->
+  <page url="{$renew-request}"/>
+  <pattern href="renewal"/>
+  
+  <call action="update-all"/>
 </action>
 
 <action id="cancel-list">
