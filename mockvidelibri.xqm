@@ -8,6 +8,9 @@ declare function vl:raise($x) {
 declare function vl:raise-login($x) { 
   vl:raise("login error: " || $x)
 }; 
+declare function vl:raise-login() { 
+  vl:raise("login error")
+}; 
 declare function vl:raise-timeout($x) { 
   vl:raise("Timeout: " || $x)
 }; 
