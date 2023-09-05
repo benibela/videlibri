@@ -285,7 +285,7 @@ class Import : ImportExportBase() {
         if (data == null)
             data = try {
                 Bridge.VLImportAccountsPrepare(filename)
-            } catch (e: InternalError){
+            } catch (e: de.benibela.videlibri.jni.InternalError){
                 showMessage(getString(R.string.import_file_open_failed) + ":\n" + e.message)
                 null
             }
@@ -330,7 +330,7 @@ class Import : ImportExportBase() {
                 File(state.fileName).delete()
             state.fileName = ""
             this.data = null
-        } catch (e: InternalError) {
+        } catch (e: de.benibela.videlibri.jni.InternalError) {
             showMessage(e.message)
         }
     }

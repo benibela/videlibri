@@ -115,7 +115,7 @@ class NewLibrary : VideLibriBaseActivity() {
         val details =
             try {
                 Bridge.VLGetTemplateDetails(template) ?: return
-            } catch (e: InternalError) {
+            } catch (e: de.benibela.videlibri.jni.InternalError) {
                 showMessage(e.localizedMessage)
                 return
             }
