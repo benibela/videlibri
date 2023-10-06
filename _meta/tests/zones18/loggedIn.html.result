@@ -1,3 +1,4 @@
 book := {}
 delete-current-books() := ()
 bookListUrl := "APS_ZONES?fn=MyLoans&amp;Lang=GER&amp;Parent=Obj_201391375532601%3FStyle%3DPortal2%26SubStyle%3D%26Lang%3DGER%26ResponseEncoding%3Dutf-8"
+bulkRenew := "APS_ZONES?fn=RenewMyLoans&amp;Lang=GER&amp;Parent=Obj_201391375532601%3FStyle%3DPortal2%26SubStyle%3D%26Lang%3DGER%26ResponseEncoding%3Dutf-8"

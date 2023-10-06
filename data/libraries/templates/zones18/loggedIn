@@ -8,6 +8,7 @@
   <body>
     <t:read var="delete-current-books()"/>
     <a t:condition="contains(@href, 'MyLoans')">{bookListUrl := @href}</a>? <!-- first column of table: Verbuchungen | Entliehene Medien :: second: KEINE or link -->
+    <a t:condition="contains(@href, 'RenewMyLoans')">{bulkRenew := @href}</a>? 
     <a t:condition="contains(@href, 'MyReservations')">{ordersListUrl := @href}</a>?
   </body>
   </t:switch-prioritized>
