@@ -1,0 +1,6 @@
+<body>
+{ 
+bFoundBottom := (./text())[1]/matches(., "bFoundBottom *= *1"),
+//input[@value = $renew-ids]/($options(@NAME) := @VALUE) 
+}
+</body>

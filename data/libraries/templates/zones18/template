@@ -152,7 +152,7 @@ s
   <loop test="not($bFoundBottom)">
     <page url="{$baseurl}/{$obj}?Style={$style}&SubStyle=&Lang=GER&ResponseEncoding=utf-8&ResponseEncoding=utf-8&Method=FetchIncrementalBrowseDown&RequestId={$requestId}&" templateFile="listOrders"/>
     <s>requestId := $requestId + 1</s>
-  </loop>-->
+  </loop>
   
 </action>
 
@@ -166,6 +166,13 @@ s
   )</s>
   
   <page url="{$bulkRenew}" templateFile="bulkRenew"/>
+
+  <s>requestId := 1</s>  
+  <loop test="not($bFoundBottom)">
+    <page url="{$baseurl}/{$obj}?Style={$style}&SubStyle=&Lang=GER&ResponseEncoding=utf-8&BulkRenew=1&ResponseEncoding=utf-8&Method=FetchIncrementalBrowseDown&RequestId={$requestId}&" templateFile="bulkRenew2"/>
+    <s>requestId := $requestId + 1</s>
+  </loop>
+
 
   <s>renewConfirm := form-combine($baseForm, $options)</s>  
   <page url="{$renewConfirm}">
@@ -181,7 +188,7 @@ s
     </page>
     <s>$i := $i + 1</s>
   </loop> 
-  
+
   <call action="update-all"/>  
   
 </action>
