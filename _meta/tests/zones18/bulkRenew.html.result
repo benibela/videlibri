@@ -1,3 +1,4 @@
+renew-ids := item:IN=M01 923 717 2;AT=Butcher, Jim/Wolfsjagd
 book := {}
 obj := "Obj_582291377438929"
 bFoundBottom := false()

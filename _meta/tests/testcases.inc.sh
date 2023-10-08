@@ -133,8 +133,9 @@ test zones18 loggedIn loggedIn.html
 
 test zones18 'list{requestId:=0}' list.html list10.html
 test zones18 'list{requestId:=1}' listIncremental.html
+#\ 923\ 717\ 2;AT=Butcher,\ Jim/Wolfsjagd
 
-test zones18 bulkRenew bulkRenew.html bulkRenew2.html
+test zones18 'bulkRenew{renew-ids:=uri-decode\(\"item:IN=M01+923+717+2\;AT=Butcher,+Jim/Wolfsjagd\"\)}' bulkRenew.html bulkRenew2.html
 
 test zones18 'listOrders{requestId:=0}' orderList1.html orderList1unterwegs.html orderList2.html orderList2canceled.html orderList3+canceled.html orderList3+canceled_real.html 
 test zones18 cancelConfirm cancelConfirm.html
