@@ -30,12 +30,11 @@
       }
     </table>
     
-    <table class="data">
-    <td>
+    <t:element t:condition="(self::table and contains(@class, 'data') ) or (self::div and contains(@class, 'container-fluid'))">
     <template:loop><template:switch>
       <strong>^Titelzusatz<t:s>$book.title:= concat($book.title, " ", (./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1])</t:s></strong>
       <strong>^(Titel|Title)<t:s>$book.title:=       (./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1]</t:s></strong>
-      <strong>^Autor|^Verfasser<t:s>$book.author:=      (./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1]</t:s></strong>
+      <strong>^Autor|^Verfasser|Person<t:s>$book.author:=      (./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1]</t:s></strong>
       <strong>^Ort<t:s>$book.location:=      (./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1]</t:s></strong>
       <strong>^Verlag<t:s>$book.publisher:=  (./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1]</t:s></strong>
       <strong>^Jahr<t:s>$book.year:=         (./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1]</t:s></strong>
@@ -43,8 +42,7 @@
       <h1>{$book.title}</h1>
       <strong>{$book(. || "!") := (./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1]/(if (exists(@href) and contains(@href, '://')) then x'{.} ( {@href} )' else .)}</strong>
     </template:switch></template:loop>
-    </td>
-    </table>
+    </t:element>
   </template:switch>
 </div>
 </html>
