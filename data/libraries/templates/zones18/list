@@ -17,13 +17,17 @@
         <TABLE>
           <TR>
             <TD>
-              <A>{book := {"title": ., "statusId": "normal"}}</A>
+              <A>{book := {"title": ., "statusId": if (exists($bulkRenew)) then "normal" else "critical"}}</A>
             </TD>
             <TD>{$book.author}</TD>
             <TD/>
             <TD>{$book.id}</TD>
             <TD>{$book.issuedate := parse-date(., "dd/mm/yyyy")}</TD>
             <TD>{$book.duedate := parse-date(., "dd/mm/yyyy")}</TD>
+            <td><a t:condition="contains(@onclick, 'renewItem')">{
+              $book._renewLink := extract(@onclick, "renewItem\(['""](.*)['""]\)", 1),
+              $book.statusId :=  "normal"
+            }</a></td>?
           </TR>
           <tr>
             <td>{$book.status := normalize-space(),

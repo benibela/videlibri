@@ -157,40 +157,47 @@ s
 </action>
 
 <action id="renew-list">  
-  <if test="not(get('bulkRenew', ()))">
-    <s>vl:raise("Keinen Verlängerungslink gefunden. Vermutlich ist das Konto gesperrt, z.B.: wegen der Jahresgebühr der Bibliothek.")</s>
+  <if test="exists($renew-books?_renewLink)">
+    <loop var="link" list="$renew-books?_renewLink">
+      <page url="{$link}" templateFile="renewConfirm"/>
+      <page url="{$renew-form}"/>
+    </loop>
   </if>
-
-  <s>renew-ids := for $book in $renew-books return ( x"item:IN={$book.id};AT={$book.author}/{$book.title}" ! 
-          (if (contains(., "'")) then (., substring-before(., "'")) else . )
-  )</s>
+  <else>
+    <if test="not(get('bulkRenew', ()))">
+      <s>vl:raise("Keinen Verlängerungslink gefunden. Vielleicht ist das Konto gesperrt, z.B.: wegen der Jahresgebühr der Bibliothek.")</s>
+    </if>
   
-  <page url="{$bulkRenew}" templateFile="bulkRenew"/>
-
-  <s>requestId := 1</s>  
-  <loop test="not($bFoundBottom)">
-    <page url="{$baseurl}/{$obj}?Style={$style}&SubStyle=&Lang=GER&ResponseEncoding=utf-8&BulkRenew=1&ResponseEncoding=utf-8&Method=FetchIncrementalBrowseDown&RequestId={$requestId}&" templateFile="bulkRenew2"/>
-    <s>requestId := $requestId + 1</s>
-  </loop>
-
-
-  <s>renewConfirm := form-combine($baseForm, $options)</s>  
-  <page url="{$renewConfirm}">
-    <template><META NAME="ZonesObjName">{progressObj := @CONTENT}</META></template>
-  </page>
+    <s>renew-ids := for $book in $renew-books return ( x"item:IN={$book.id};AT={$book.author}/{$book.title}" ! 
+            (if (contains(., "'")) then (., substring-before(., "'")) else . )
+    )</s>
+    
+    <page url="{$bulkRenew}" templateFile="bulkRenew"/>
   
-  <s>i := 0</s>
-  <loop test="$i < 10">
-    <page url="{$baseurl}/{$progressObj}?Style={$style}&SubStyle=&Lang=GER&ResponseEncoding=utf-8&Method=BGTasks&Frame=Progress&BrowseAsHloc=-2&random={random()}&">
-      <template><html>{
-        if ( //script[matches(., 'finishedHere *= *[(] *"0" *== *"1" *[)]')]) then sleep(1000) else $i := 1000 
-      }</html></template>
+    <s>requestId := 1</s>  
+    <loop test="not($bFoundBottom)">
+      <page url="{$baseurl}/{$obj}?Style={$style}&SubStyle=&Lang=GER&ResponseEncoding=utf-8&BulkRenew=1&ResponseEncoding=utf-8&Method=FetchIncrementalBrowseDown&RequestId={$requestId}&" templateFile="bulkRenew2"/>
+      <s>requestId := $requestId + 1</s>
+    </loop>
+  
+  
+    <s>renewConfirm := form-combine($baseForm, $options)</s>  
+    <page url="{$renewConfirm}">
+      <template><META NAME="ZonesObjName">{progressObj := @CONTENT}</META></template>
     </page>
-    <s>$i := $i + 1</s>
-  </loop> 
-
-  <call action="update-all"/>  
+    
+    <s>i := 0</s>
+    <loop test="$i < 10">
+      <page url="{$baseurl}/{$progressObj}?Style={$style}&SubStyle=&Lang=GER&ResponseEncoding=utf-8&Method=BGTasks&Frame=Progress&BrowseAsHloc=-2&random={random()}&">
+        <template><html>{
+          if ( //script[matches(., 'finishedHere *= *[(] *"0" *== *"1" *[)]')]) then sleep(1000) else $i := 1000 
+        }</html></template>
+      </page>
+      <s>$i := $i + 1</s>
+    </loop> 
+  </else>  
   
+  <call action="update-all"/>  
 </action>
 
 
