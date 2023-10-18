@@ -97,7 +97,11 @@ begin
       if OpenDialog1.Execute then begin
         Edit1.Text := OpenDialog1.FileName;
         FreeAndNil(importParser);
-        importAccountsPrepare(edit1.Text, importParser, importAccounts, importFlags);
+        try
+          importAccountsPrepare(edit1.Text, importParser, importAccounts, importFlags);
+        except
+          on e: ETreeParseException do ShowMessage(e.Message);
+        end;
         viewCurrentAccounts;
       end;
     end;

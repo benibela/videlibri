@@ -317,6 +317,7 @@ end;
 resourcestring
   rsCustomLibrary = 'selbst definierte';
   rsAllLibraries = 'alle';
+  rsInvalidImportFile = 'Die Import-Datei ist ungültig. Nur mit "Export" erstellte Dateien können zum Import geladen werden.';
 
 
 implementation
@@ -486,9 +487,12 @@ begin
       xq.free;
     end;
   except
-    parser.free;
-    parser := nil;
-    raise;
+    on e: Exception do begin
+      parser.free;
+      parser := nil;
+      if e is ETreeParseException then e.Message := rsInvalidImportFile + ': '+LineEnding+e.Message;
+      raise;
+    end;
   end;
 end;
 
