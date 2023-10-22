@@ -132,7 +132,7 @@ mkdir -p $OUTPATH/zones18
 test zones18 loggedIn loggedIn.html
 
 test zones18 'list{requestId:=0}' list.html list10.html
-test zones18 'list{requestId:=1}' listIncremental.html
+test zones18 'list{requestId:=1,bulkRenew:=\"fake-renew\"}' listIncremental.html
 #\ 923\ 717\ 2;AT=Butcher,\ Jim/Wolfsjagd
 
 test zones18 'bulkRenew{renew-ids:=uri-decode\(\"item:IN=M01+923+717+2\;AT=Butcher,+Jim/Wolfsjagd\"\)}' bulkRenew.html bulkRenew2.html
