@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbücherei Landshut"/>
+  
+  <template value="arena"/>
+  <variable name="baseurl" value="https://medienportal.landshut.de/"/>
+  
+  <testing-search value="no"/>  
+  <testing-account value="unknown"/>
+</library>
+
