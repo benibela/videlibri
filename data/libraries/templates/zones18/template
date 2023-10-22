@@ -160,7 +160,6 @@ s
   <if test="exists($renew-books?_renewLink)">
     <loop var="link" list="$renew-books?_renewLink">
       <page url="{$link}" templateFile="renewConfirm"/>
-      <page url="{$renew-form}"/>
     </loop>
   </if>
   <else>
