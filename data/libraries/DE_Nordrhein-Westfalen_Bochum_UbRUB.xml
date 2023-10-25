@@ -3,10 +3,11 @@
 
 <library>
   <longName value="Unibibliothek Bochum"/>
-  <shortName value="Ub Bochum"/> 
+  <shortName value="RUB Bochum"/> 
   
-  <template value="sisis"/>  
-  <variable name="server" value="https://opac.ub.ruhr-uni-bochum.de/webOPACClient/"/>
+  <template value="primo"/>
+  <variable name="baseurl" value="https://hbz-ubo.primo.exlibrisgroup.com/discovery/search?vid=49HBZ_UBO:VU1"/>
+  
   
   <homepage value="http://www.ub.rub.de/"/>
   <testing-search value="yes"/>
