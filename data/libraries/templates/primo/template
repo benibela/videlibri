@@ -132,6 +132,8 @@
         <p t:test="$datasend" class="error">{local:raise(.)}<!--hu intern--></p>
         <p t:test="$datasend" class="text-danger">{local:raise(.)}<!--hu intern new--></p>
         <div t:test="$datasend" class="alert-danger alert-dismissible" role="alert">{local:raise(.)}<!--rwth--></div>
+        <p t:test="$datasend" class="output-message output--error">{local:raise(.)}<!--uni münster,mannheim--></p>
+        <p class="form-element form-error">{local:raise(.)}<!--uni bochum--></p>
                         
         <form>
           <input name="username"/>
