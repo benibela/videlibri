@@ -1,0 +1,6 @@
+* Neue Unicode Version 15 und FLRE-Version.
+* Als Android 13 kompatibel markiert (ohne Änderungen dazu)
+* Stadtbibliothek Hannover, Köln: Anpassung für Verlängerungen.
+* Stadtbibliothek Bremen: Anpassung an neues System
+* Anpassung an neue URLs der Stadtbücherei Lauda-Königshofen, GemeindeBücherei Laudenbach, Universitäts- und Landesbibliothek Bonn, Mediothek Boxberg, Universitätsbibliothek Clausthal, Unibibliothek RUB Bochum, und Stadtbibliothek Solingen
+* Stadtbücherei Landshut
