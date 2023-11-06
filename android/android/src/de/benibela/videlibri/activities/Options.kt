@@ -260,7 +260,7 @@ class Options : VideLibriBaseActivity() {
                 title(R.string.lay_options_btn_newcertificate)
                 onClick {
                     val defaultServer: String? = VideLibriApp.errors.asSequence().map { e ->
-                        if (e.kind == PendingExceptionKind.Internet && e.error.contains("https://") == true) {
+                        if (e.kind == PendingExceptionKind.Internet && e.error.contains("https://")) {
                             val matcher = Pattern.compile("https://([^/]+)").matcher(e.error)
                             if (matcher.find()) matcher.group(1) else null
                         } else null
