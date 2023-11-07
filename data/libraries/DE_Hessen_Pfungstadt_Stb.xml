@@ -5,7 +5,7 @@
   <longName value="Stadtbibliothek Pfungstadt"/>
 
   <template value="koha"/>
-  <variable name="baseurl" value="https://sb-pfungstadt.lmscloud.net/"/
+  <variable name="baseurl" value="https://sb-pfungstadt.lmscloud.net/"/>
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
   
