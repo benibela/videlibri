@@ -19,6 +19,7 @@ import de.benibela.videlibri.internet.DownloadCertificate
 import de.benibela.videlibri.internet.UserKeyStore
 import de.benibela.videlibri.jni.*
 import de.benibela.videlibri.notifications.NotificationScheduling
+import de.benibela.videlibri.notifications.checkForRequiredNotificationPermission
 import de.benibela.videlibri.utils.*
 import java.util.regex.Pattern
 
@@ -102,6 +103,7 @@ class Options : VideLibriBaseActivity() {
                         onChanged { _, v ->
                             seekBarToToggle?.isEnabled = v
                             globalOptionsAndroid.save()
+                            VideLibriApp.currentActivity?.let(::checkForRequiredNotificationPermission)
                         }
                     }
                     seekBarToToggle = seekBar(PreferenceSeekBar(ctw)) {
