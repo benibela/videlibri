@@ -183,7 +183,6 @@ touchpoint := get('touchpoint', false())
 
 
 
-        
         <div class="container-fluid"> <!-- bremen -->
           <div class="tableheader row border-bottom py-2">
             <div class="d-none"> </div>    
@@ -222,10 +221,12 @@ touchpoint := get('touchpoint', false())
           </div>+
         </div>
 
-
+       
         
         
         <div>Ausgewähltes Unterkonto enthält keine Daten|Selected sub-account does not contain any data</div>
+
+        <div class="container-fluid"><div class="row"><div class="alert message-info"></div></div></div>
       </t:switch>
       
       
