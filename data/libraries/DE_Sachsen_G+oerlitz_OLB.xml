@@ -5,7 +5,7 @@
   <shortName value="OLB"/>
 
   <template value="sru"/>
-  <variable name="baseurl" value="http://sru.gbv.de/opac-de-gl2"/>
+  <variable name="baseurl" value="http://sru.k10plus.de/opac-de-gl2"/>
 
   <homepage value="https://www.goerlitzer-sammlungen.de/olb/"/>
   <testing-search value="yes"/>  <testing-account value="no"/></library>

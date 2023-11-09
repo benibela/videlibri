@@ -20,7 +20,7 @@
   
 
   <template value="sru"/>
-  <variable name="baseurl" value="http://sru.gbv.de/opac-de-hil2"/>-->
+  <variable name="baseurl" value="http://sru.k10plus.de/opac-de-hil2"/>-->
 	
 
   <homepage value="http://www.uni-hildesheim.de/index.php?id=bibliothek"/>
