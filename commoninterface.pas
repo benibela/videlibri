@@ -116,7 +116,7 @@ type
 TNotificationConfigClass = class of TNotificationConfig;
 TNotificationConfig = class
   lastTitle, lastText: string;
-  serviceDelay: int32;
+  serviceDelay, lastAskedForPermission: int32;
   lastTime: int64;
   enabled: boolean;
   procedure toJSON(var builder: TJSONXHTMLStrBuilder);
@@ -624,7 +624,8 @@ begin
     appendJSONObjectKeyColon('serviceDelay'); appendNumber(self.serviceDelay); appendJSONObjectComma;
     appendJSONObjectKeyColon('lastTime'); appendNumber(self.lastTime); appendJSONObjectComma;
     appendJSONObjectKeyColon('lastTitle'); appendJSONString(self.lastTitle); appendJSONObjectComma;
-    appendJSONObjectKeyColon('lastText'); appendJSONString(self.lastText);
+    appendJSONObjectKeyColon('lastText'); appendJSONString(self.lastText); appendJSONObjectComma;
+    appendJSONObjectKeyColon('lastAskedForPermission'); appendNumber(self.lastAskedForPermission);
     
   end;
 end;
@@ -646,6 +647,7 @@ begin
     lastTime := json.getProperty('lastTime').toInt64();
     lastTitle := json.getProperty('lastTitle').toString();
     lastText := json.getProperty('lastText').toString();
+    lastAskedForPermission := json.getProperty('lastAskedForPermission').toInt64();
   
 end;
 
@@ -927,7 +929,7 @@ var
   end;
  
   NotificationConfigFields: record
-    enabledZ, serviceDelayI, lastTimeJ, lastTitleS, lastTextS: jfieldID;
+    enabledZ, serviceDelayI, lastTimeJ, lastTitleS, lastTextS, lastAskedForPermissionI: jfieldID;
   end;
  
   OptionsAndroidOnlyFields: record
@@ -1072,7 +1074,7 @@ begin
 end;
  
 function TNotificationConfig.toJava: jobject;
-var temp: array[0..4] of jvalue;
+var temp: array[0..5] of jvalue;
 begin
   with j do begin
     temp[0].z := booleanToJboolean(self.enabled);
@@ -1080,6 +1082,7 @@ begin
     temp[2].j := self.lastTime;
     temp[3].l := stringToJString(self.lastTitle);
     temp[4].l := stringToJString(self.lastText);
+    temp[5].i := self.lastAskedForPermission;
 
     result := newObject(NotificationConfigClass, NotificationConfigClassInit, @temp[0]); 
     deleteLocalRef(temp[3].l);
@@ -1260,6 +1263,7 @@ begin
     lastTime := getlongField( jvm, lastTimeJ );
     lastTitle := getstringField( jvm, lastTitleS );
     lastText := getstringField( jvm, lastTextS );
+    lastAskedForPermission := getintField( jvm, lastAskedForPermissionI );
 
  end;
 end;
@@ -1371,12 +1375,13 @@ begin
     BookListDisplayOptionsFields.filterKeyS := getfield(BookListDisplayOptionsClass, 'filterKey', 'Ljava/lang/String;');
     BookListDisplayOptionsFields.alwaysFilterOnHistoryZ := getfield(BookListDisplayOptionsClass, 'alwaysFilterOnHistory', 'Z'); 
     NotificationConfigClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/NotificationConfig'));
-    NotificationConfigClassInit := getmethod(NotificationConfigClass, '<init>', '(ZIJLjava/lang/String;Ljava/lang/String;)V');
+    NotificationConfigClassInit := getmethod(NotificationConfigClass, '<init>', '(ZIJLjava/lang/String;Ljava/lang/String;I)V');
     NotificationConfigFields.enabledZ := getfield(NotificationConfigClass, 'enabled', 'Z');
     NotificationConfigFields.serviceDelayI := getfield(NotificationConfigClass, 'serviceDelay', 'I');
     NotificationConfigFields.lastTimeJ := getfield(NotificationConfigClass, 'lastTime', 'J');
     NotificationConfigFields.lastTitleS := getfield(NotificationConfigClass, 'lastTitle', 'Ljava/lang/String;');
-    NotificationConfigFields.lastTextS := getfield(NotificationConfigClass, 'lastText', 'Ljava/lang/String;'); 
+    NotificationConfigFields.lastTextS := getfield(NotificationConfigClass, 'lastText', 'Ljava/lang/String;');
+    NotificationConfigFields.lastAskedForPermissionI := getfield(NotificationConfigClass, 'lastAskedForPermission', 'I'); 
     OptionsAndroidOnlyClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/OptionsAndroidOnly'));
     OptionsAndroidOnlyClassInit := getmethod(OptionsAndroidOnlyClass, '<init>', '(ZLde/benibela/videlibri/jni/BookListDisplayOptions;[Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;Lde/benibela/videlibri/jni/NotificationConfig;ZI)V');
     OptionsAndroidOnlyFields.loggingZ := getfield(OptionsAndroidOnlyClass, 'logging', 'Z');

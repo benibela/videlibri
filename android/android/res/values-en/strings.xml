@@ -459,4 +459,5 @@
     <string name="lay_newlib_list_choosesystem" >Choose a library system</string>
     <string name="lay_newlib_error_choosesystem">You need to choose a library system to register a custom library.</string>
     <string name="lay_newlib_error_no_parameters">You need to enter an URL or server parameters to register a custom library.</string>
+    <string name="notifications_duedate_permission_missing">Due date reminders cannot be shown without allowing notifications.</string>
 </resources>

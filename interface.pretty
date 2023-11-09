@@ -65,6 +65,7 @@ class NotificationConfig {
   lastTime: Long
   lastTitle: String
   lastText: String
+  lastAskedForPermission: Int
 }
 
 @SerializeJson

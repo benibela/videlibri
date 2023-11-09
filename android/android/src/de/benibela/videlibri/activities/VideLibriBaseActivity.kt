@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Build
@@ -11,6 +12,7 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.view.*
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +22,9 @@ import androidx.viewbinding.ViewBinding
 import com.google.android.material.navigation.NavigationView
 import de.benibela.videlibri.*
 import de.benibela.videlibri.jni.Bridge
+import de.benibela.videlibri.jni.globalOptionsAndroid
+import de.benibela.videlibri.jni.save
+import de.benibela.videlibri.notifications.PERMISSION_REQUEST_CODE_NOTIFICATIONS
 import de.benibela.videlibri.utils.*
 import kotlin.reflect.KMutableProperty0
 
@@ -276,6 +281,18 @@ open class VideLibriBaseActivity: AppCompatActivity(){
 
         super.onActivityResult(requestCode, resultCode, data)
     }
+
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == PERMISSION_REQUEST_CODE_NOTIFICATIONS) {
+            if (grantResults.isNotEmpty()) {
+                if (grantResults[0] == PackageManager.PERMISSION_DENIED)
+                    showToast(getString(R.string.notifications_duedate_permission_missing), length = Toast.LENGTH_LONG)
+            }
+        }
+    }
+
 
     private fun showUriInBrowser(uri: String) {
         try {

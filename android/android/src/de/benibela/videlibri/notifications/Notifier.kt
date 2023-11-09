@@ -123,13 +123,15 @@ object Notifier {
 }
 
 
-
+const val PERMISSION_REQUEST_CODE_NOTIFICATIONS = 789
 fun checkForRequiredNotificationPermission(context: Activity ){
    with (context) {
        if (!globalOptionsAndroid.notifications.enabled) return
        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-               ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), 0)
+               globalOptionsAndroid.notifications.lastAskedForPermission = Bridge.currentPascalDate
+               globalOptionsAndroid.save()
+               ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), PERMISSION_REQUEST_CODE_NOTIFICATIONS)
            }
        }
        Notifier.initChannels(context)

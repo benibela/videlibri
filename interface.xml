@@ -42,6 +42,7 @@
     <long name="lastTime"/>
     <string name="lastTitle"/>
     <string name="lastText"/>
+    <int name="lastAskedForPermission"/>
   </class>
   <class id="OptionsAndroidOnly" serialize-json="" kotlin-var="var" jvm-pascal="" pascal-jvm="" pascal-type="class">
     <boolean name="logging"/>

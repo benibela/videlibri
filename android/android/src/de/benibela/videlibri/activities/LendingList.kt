@@ -19,7 +19,6 @@ import de.benibela.videlibri.*
 import de.benibela.videlibri.databinding.OptionsLendingsAccountrowBinding
 import de.benibela.videlibri.databinding.OptionsLendingsBinding
 import de.benibela.videlibri.jni.*
-import de.benibela.videlibri.notifications.Notifier
 import de.benibela.videlibri.notifications.checkForRequiredNotificationPermission
 import de.benibela.videlibri.utils.*
 import kotlinx.parcelize.Parcelize
@@ -95,7 +94,8 @@ class LendingList: BookListActivity(){
                 if (VideLibriApp.currentActivity is LendingList) //do not open the list, if the user navigated away
                     startActivity<AccountInfo>("mode" to AccountInfo.MODE_ACCOUNT_CREATION_INITIAL)
             }, 200) //without delay it has crashed on old android (android 3 or something) in onresume
-        } else checkForRequiredNotificationPermission(this)
+        } else if (globalOptionsAndroid.notifications.lastAskedForPermission < Bridge.currentPascalDate)
+            checkForRequiredNotificationPermission(this)
     }
 
     private fun updateViewFilters() {

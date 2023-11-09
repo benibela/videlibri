@@ -74,12 +74,13 @@ package de.benibela.videlibri.jni
     @JvmField var serviceDelay: Int = 15,
     @JvmField var lastTime: Long = 0,
     @JvmField var lastTitle: String = "",
-    @JvmField var lastText: String = ""
+    @JvmField var lastText: String = "",
+    @JvmField var lastAskedForPermission: Int = 0
   )   {
     override fun equals(other: Any?): Boolean =
-       other != null && javaClass == other.javaClass && other is NotificationConfig && enabled == other.enabled && serviceDelay == other.serviceDelay && lastTime == other.lastTime && lastTitle == other.lastTitle && lastText == other.lastText
+       other != null && javaClass == other.javaClass && other is NotificationConfig && enabled == other.enabled && serviceDelay == other.serviceDelay && lastTime == other.lastTime && lastTitle == other.lastTitle && lastText == other.lastText && lastAskedForPermission == other.lastAskedForPermission
     override fun hashCode(): Int =
-      super.hashCode() xor enabled.hashCode().rotateLeft(1) xor serviceDelay.hashCode().rotateLeft(2) xor lastTime.hashCode().rotateLeft(3) xor lastTitle.hashCode().rotateLeft(4) xor lastText.hashCode().rotateLeft(5)
+      super.hashCode() xor enabled.hashCode().rotateLeft(1) xor serviceDelay.hashCode().rotateLeft(2) xor lastTime.hashCode().rotateLeft(3) xor lastTitle.hashCode().rotateLeft(4) xor lastText.hashCode().rotateLeft(5) xor lastAskedForPermission.hashCode().rotateLeft(6)
   }
 
   open class OptionsAndroidOnly( 
