@@ -19,6 +19,7 @@
         <th><a t:condition="contains(@href,'Circulations.RenewalDate')"></a></th>?
         <th><a t:condition="contains(@href,'Reservations.CreationDate')"></a></th>?
         <th></th>*
+        <td></td>*
       </t:siblings-header>
     </tr></thead><tbody><tr>{$book := {}}
       <t:siblings>
@@ -31,6 +32,7 @@
         <td>{$book.renewCount}</td>
         <td>{normalize-space()[.] ! ( $book.status := "Letzte Verlängerung: " || .)}</td>
         <td>{$book.issueDate := parse-date(.), $book.statusId := "ordered"}</td>
+        <td></td>
         <td></td>
       </t:siblings></tr>+
 		</tbody>

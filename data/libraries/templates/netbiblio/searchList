@@ -16,9 +16,9 @@
 <table class="wo-grid-table"> <thead>
   <tr>
     <t:siblings-header>
-    <th><input type="checkbox" class="wo-grid-chkall" /></th>
+    <t:element t:condition="self::td or self::th"><input type="checkbox" class="wo-grid-chkall" /></t:element>
     <th><a t:condition="contains(@href,'sort=Notices.Author')"></a> 
-        <a t:condition="contains(@href,'sort=Notices.Title')"></a></th>?
+        <a t:condition="contains(@href,'sort=Notices.Title')"></a></th>
     <th><a t:condition="contains(@href,'sort=Notices.Title')"></a>
         <a t:condition="contains(@href,'sort=Notices.Author')"></a></th>?
     <th><a t:condition="contains(@href,'sort=Notices.Date1')"></a></th>
@@ -26,7 +26,7 @@
     <th><a t:condition="contains(@href,'sort=Notices.AgeKey')"></a></th>?
     <th><a t:condition="contains(@href,'sort=Notices.MediaType1Code')"></a>
         <a t:condition="contains(@href,'sort=Notices.MediaType2Code')"></a></th>
-    <th>  </th>*
+    <t:element t:condition="self::td or self::th"/>
     </t:siblings-header>
   </tr>
  </thead>
