@@ -1,0 +1,6 @@
+* Android 13: Frage nach Benachrichtungs-Rechten für Leihfristerinnerungen.
+* Neue Internetadressen bei Stadtbibliothek Bonn, Mannheim; GKV, Hochschulbibliotheken Hildesheim, Görlitz, Leipzig, Osnabrück und Braunschweig
+
+* Stadtbibliothek Bremen: Akzeptiere Tabellen ohne Ausleihen
+* Aktualisiere HTTPS-Zertifikate
+* Biel: Anpassung an geänderte Suchwebseite

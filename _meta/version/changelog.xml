@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="Bibliothek-App VideLibri">
-      <build version="2760" date="2023-10-26">
+      <build version="2765" date="2023-11-10">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <fix>Android 13: Frage nach Benachrichtungs-Rechten für Leihfristerinnerungen.</fix>
+        <fix>Neue Internetadressen bei Stadtbibliothek Bonn, Mannheim; GKV, Hochschulbibliotheken Hildesheim, Görlitz, Leipzig, Osnabrück und Braunschweig
+</fix>
+        <fix>Stadtbibliothek Bremen: Akzeptiere Tabellen ohne Ausleihen</fix>
+        <fix>Aktualisiere HTTPS-Zertifikate</fix>
+        <fix>Biel: Anpassung an geänderte Suchwebseite</fix>
+     </build>
+      <build version="2760" date="2023-10-26">
         <change>Unterstützt Unicode Version 15.</change>
         <change>Aktualisiere FLRE (für reguläre Ausdrücke) von Version 21316f2dd2 zu 643bac</change>
         <change>Als Android 13 kompatibel markiert (ohne Änderungen dazu)</change>
