@@ -5,12 +5,15 @@ import android.content.Intent
 import android.graphics.Paint
 import android.graphics.Point
 import android.graphics.Typeface
+import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.text.InputType
 import android.util.Log
+import android.util.Size
 import android.view.Menu
 import android.view.View
+import android.view.WindowInsets
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Spinner
@@ -221,6 +224,30 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
         )
     }
 
+    private fun getDisplaySize(): Size {
+        //see https://stackoverflow.com/questions/1016896/how-to-get-screen-dimensions-as-pixels-in-android/1016941#1016941
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val metrics = windowManager.currentWindowMetrics
+            val windowInsets = metrics.windowInsets
+            val insets = windowInsets.getInsetsIgnoringVisibility(
+                WindowInsets.Type.navigationBars() or WindowInsets.Type.displayCutout()
+            )
+
+            val insetsWidth = insets.right + insets.left
+            val insetsHeight = insets.top + insets.bottom
+            val bounds = metrics.bounds
+            return Size(
+                bounds.width() - insetsWidth,
+                bounds.height() - insetsHeight
+            )
+        } else @Suppress("DEPRECATION") {
+            val display = windowManager.defaultDisplay
+            val size = Point()
+            display.getSize(size)
+            return Size(size.x, size.y)
+        }
+    }
+
     private fun updateSearchParamsViews() {
         val searcher = searcher ?: return
         val lay = findViewById<LinearLayout>(R.id.layout)
@@ -264,14 +291,8 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
 
 
         val portMode = resources.getBoolean(R.bool.port_mode)
-        var displayWidth = 0
+        val displayWidth = getDisplaySize().width
         var minimumWidth = 0
-        if (portMode) {
-            val display = windowManager.defaultDisplay
-            val size = Point()
-            display.getSize(size)
-            displayWidth = size.x
-        }
         for (h in searchParamHolders.values) {
             val captionWidth = h.caption.paint.measureText(h.caption.text.toString()).roundToInt()
             if (portMode || (displayWidth > 0 && captionWidth > displayWidth / 3) ) {
