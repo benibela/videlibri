@@ -81,6 +81,11 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
         findViewById<View>(R.id.library).setOnClickListener { changeSearchLib() }
 
         val searchStartClickListener = View.OnClickListener {
+            if (searchParamHolders.entries.all { it.value.edit?.text?.isBlank() ?: true }) {
+                showMessage(R.string.search_no_terms)
+                return@OnClickListener
+            }
+
             obtainSearcher()
 
             if ("debug" == searchParamHolders["year"]?.edit?.text?.toString()) {

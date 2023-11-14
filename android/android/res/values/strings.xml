@@ -472,5 +472,6 @@
     <string name="lay_newlib_error_choosesystem">Es muss ein Bibliothekssystem ausgewählt werden.</string>
     <string name="lay_newlib_error_no_parameters">Es muss die Adresse der Bibliothekswebseite eingegeben werden.</string>
     <string name="notifications_duedate_permission_missing">Leihfristerinnerungen können nur angezeigt werden, wenn Benachrichtigungen erlaubt sind.</string>
+    <string name="search_no_terms">Für die Suche muss mindestens ein Suchbegriff eingegeben werden.</string>
 </resources>
 
