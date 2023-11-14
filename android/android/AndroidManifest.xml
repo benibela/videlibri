@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="de.benibela.videlibri"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="de.benibela.videlibri"
       android:versionCode="2765"
       android:versionName="2.765">
     <!--<uses-permission android:name="android.permission.VIBRATE" />
@@ -21,7 +22,7 @@
         android:hasFragileUserData="true"
         android:restoreAnyVersion="true"
         android:supportsRtl="false"
-        >
+        tools:ignore="UnusedAttribute">
 <!--        <uses-library android:name="org.apache.http.legacy" android:required="false" /> < !- - reactivated httpclient removed with 23 -->
         <activity android:name=".activities.LendingList"
                   android:configChanges="keyboardHidden"

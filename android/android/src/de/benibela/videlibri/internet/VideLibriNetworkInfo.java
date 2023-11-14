@@ -5,8 +5,10 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.os.Build;
 
+import org.jetbrains.annotations.NotNull;
+
 public class VideLibriNetworkInfo {
-    public static boolean isNetworkConnected(Context context){
+    public static boolean isNetworkConnected(@NotNull Context context){
         try {
             ConnectivityManager cmanager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             if (cmanager == null) return false;
@@ -16,7 +18,7 @@ public class VideLibriNetworkInfo {
                     return true;
             }
             if (Build.VERSION.SDK_INT < 23) {
-                android.net.NetworkInfo networkInfos[] = cmanager.getAllNetworkInfo();
+                android.net.NetworkInfo []networkInfos = cmanager.getAllNetworkInfo();
                 for (android.net.NetworkInfo networkInfo: networkInfos) {
                     if (networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnectedOrConnecting())
                         return true;

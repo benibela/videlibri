@@ -28,7 +28,7 @@ class AccountInfo : VideLibriBaseActivity() {
     private var libdetails: LibraryDetails? = null
     private var libshortname: String = ""
 
-    protected lateinit var binding: AccountinfoBinding
+    private lateinit var binding: AccountinfoBinding
 
 
 

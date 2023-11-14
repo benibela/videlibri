@@ -22,8 +22,6 @@ import androidx.viewbinding.ViewBinding
 import com.google.android.material.navigation.NavigationView
 import de.benibela.videlibri.*
 import de.benibela.videlibri.jni.Bridge
-import de.benibela.videlibri.jni.globalOptionsAndroid
-import de.benibela.videlibri.jni.save
 import de.benibela.videlibri.notifications.PERMISSION_REQUEST_CODE_NOTIFICATIONS
 import de.benibela.videlibri.utils.*
 import kotlin.reflect.KMutableProperty0

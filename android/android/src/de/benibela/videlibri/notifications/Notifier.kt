@@ -19,7 +19,6 @@ import de.benibela.videlibri.activities.LendingList
 import de.benibela.videlibri.isReal
 import de.benibela.videlibri.jni.Bridge
 import de.benibela.videlibri.jni.globalOptionsAndroid
-import de.benibela.videlibri.jni.globalOptionsShared
 import de.benibela.videlibri.jni.save
 import de.benibela.videlibri.utils.notificationManager
 
