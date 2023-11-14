@@ -26,9 +26,7 @@ import de.benibela.videlibri.Accounts
 import de.benibela.videlibri.R
 import de.benibela.videlibri.accounts
 import de.benibela.videlibri.databinding.ImportexportBinding
-import de.benibela.videlibri.jni.Bridge
-import de.benibela.videlibri.jni.globalOptionsAndroid
-import de.benibela.videlibri.jni.save
+import de.benibela.videlibri.jni.*
 import de.benibela.videlibri.utils.*
 import kotlinx.parcelize.Parcelize
 import java.io.File
@@ -62,10 +60,11 @@ class MaxHeightListView : ListView {
 @SuppressLint("Registered")
 open class ImportExportBase : VideLibriBaseActivity() {
 
-    lateinit var trOptions: Array<String>
+    lateinit var options: Map<Int, String>
+    //val optionFlags = arrayOf(ImportExportFlag.Current,ImportExportFlag.History,ImportExportFlag.Config,ImportExportFlag.Password)
 
     protected lateinit var flagAdapter: ArrayAdapter<String>
-    internal var data: Bridge.ImportExportData? = null
+    internal var data: ImportExportData? = null
 
 
     protected lateinit var binding: ImportexportBinding
@@ -86,30 +85,27 @@ open class ImportExportBase : VideLibriBaseActivity() {
 
 
     protected fun getSelectedImportExportFlags(): Int = run {
-        val flagListView = binding.listView1
-        var flags = 0
-        var optionI = 0
-        for (i in 0 until flagAdapter.count)
-            if (flagListView.isItemChecked(i)) {
-                while (trOptions[optionI] != flagAdapter.getItem(i)) {
-                    optionI++
-                }
-                //assert i == optionI ???
-                flags = flags or (1 shl optionI)
-            }
-        if (flags and Bridge.ImportExportData.PASSWORD != 0)
-            flags = flags or Bridge.ImportExportData.CONFIG
+        var flags = (0 until flagAdapter.count)
+            .filter { binding.listView1.isItemChecked(it) }
+            .map { flagAdapter.getItem(it) }
+            .map { options.filter { entry -> entry.value == it }.keys.first() }
+            .reduce(Int::or)
+        if (flags and ImportExportFlag.Password != 0)
+            flags = flags or ImportExportFlag.Config
         flags
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = setVideLibriView(ImportexportBinding::inflate)
-        trOptions = arrayOf(getString(R.string.lay_options_option_current), getString(R.string.history), getString(R.string.configuration), getString(R.string.passwords))
+
+        options = mapOf(ImportExportFlag.Current to getString(R.string.lay_options_option_current),
+              ImportExportFlag.History to getString(R.string.history),
+              ImportExportFlag.Config to getString(R.string.configuration),
+              ImportExportFlag.Password to getString(R.string.passwords))
 
 
-
-        flagAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, trOptions)
+        flagAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, options.values.toTypedArray())
         binding.listView1.let {
             it.adapter = flagAdapter
             it.checkAll()
@@ -283,16 +279,13 @@ class Import : ImportExportBase() {
         val data = data ?: return
 
         binding.listView.let { lv ->
-            val accounts: Array<String> = data.accountsToImport!!
+            val accounts: Array<String> = data.accountsToImport
             lv.adapter = ArrayAdapter(this@Import, android.R.layout.simple_list_item_multiple_choice, accounts)
             lv.checkAll()
         }
 
-        val newOptions = ArrayList<String>()
-        for (i in trOptions.indices)
-            if (data.flags and (1 shl i) != 0)
-                newOptions.add(trOptions[i])
-        flagAdapter = ArrayAdapter(this@Import, android.R.layout.simple_list_item_multiple_choice, newOptions)
+        val newOptions = options.filter { data.flags and it.key != 0 }
+        flagAdapter = ArrayAdapter(this@Import, android.R.layout.simple_list_item_multiple_choice, newOptions.values.toTypedArray())
         binding.listView1.let { lv ->
             lv.adapter = flagAdapter
             lv.checkAll()
@@ -311,7 +304,7 @@ class Import : ImportExportBase() {
         val data = data ?: return
         try {
             val oldWithEmptyPass = accounts.count { it.name.isNotEmpty() && it.pass.isEmpty() }
-            data.accountsToImport = data.accountsToImport?.filterIndexed { i, _ -> accountListView.isItemChecked(i) }?.toTypedArray()
+            data.accountsToImport = data.accountsToImport.filterIndexed { i, _ -> accountListView.isItemChecked(i) }.toTypedArray()
             data.flags = getSelectedImportExportFlags()
             Bridge.VLImportAccounts(data)
             Accounts.refreshAll()
@@ -368,7 +361,7 @@ class Export : ImportExportBase() {
         }
         setButtonText()
 
-        flagAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, trOptions)
+        flagAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, options.values.toTypedArray())
         binding.listView1.let {
             it.adapter = flagAdapter
             it.checkAll()

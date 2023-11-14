@@ -97,6 +97,29 @@ class OptionsShared {
 }
 
 
+
+@Pascal<->Kotlin
+@PascalPrefix(eif)
+enum ImportExportFlag {
+  Current = 1
+  History = 2
+  Config = 4
+  Password = 8
+}
+
+
+//nativePtr is a very large object which must be destroyed with a call to  VLImportAccounts  
+@Pascal<->Kotlin
+@KotlinVar
+class ImportExportData {
+  accountsToImport: String[]
+  flags: Int  
+  nativePtr: Long
+}
+
+
+
+
 //Classes to represent metadata of a library
 
 
