@@ -70,7 +70,6 @@ open class ImportExportBase : VideLibriBaseActivity() {
 
     protected lateinit var binding: ImportexportBinding
 
-    fun hasPermissionReadExternalFiles() = true
     fun hasPermissionWriteExternalFiles() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
 
 
@@ -191,7 +190,7 @@ open class ImportExportBase : VideLibriBaseActivity() {
 
 
 class Import : ImportExportBase() {
-    enum class ImportPhase {Init, RequestedPermission, OpenedFileChooser, SelectedFile, Done}
+    enum class ImportPhase {Init, OpenedFileChooser, SelectedFile, Done}
     @Parcelize
     class State(
             var phase: ImportPhase = ImportPhase.Init,
@@ -231,12 +230,7 @@ class Import : ImportExportBase() {
             return
         }
         when (state.phase) {
-            ImportPhase.Init ->
-                if (!hasPermissionReadExternalFiles()) {
-                    state.phase = ImportPhase.RequestedPermission
-                    ActivityCompat.requestPermissions(this@Import, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1)
-                } else startChooseImportFileActivity()
-            ImportPhase.RequestedPermission -> {} //for these two we wait for the on... event.  Makes the phase enum rather pointless
+            ImportPhase.Init -> startChooseImportFileActivity()
             ImportPhase.OpenedFileChooser -> {}
             ImportPhase.SelectedFile -> showPreparedImport(state.fileName)
             ImportPhase.Done -> {}
@@ -251,10 +245,7 @@ class Import : ImportExportBase() {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (!hasPermissionReadExternalFiles())
-            showFinalMessage(R.string.needReadExternalStoragePermissionForImport)
-        else
-            startChooseImportFileActivity()
+        startChooseImportFileActivity()
 
     }
 
