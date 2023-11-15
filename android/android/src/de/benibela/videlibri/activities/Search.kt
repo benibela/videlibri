@@ -229,7 +229,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
         )
     }
 
-    private fun getDisplaySize(): Size {
+    private fun getDisplaySize(): Point {
         //see https://stackoverflow.com/questions/1016896/how-to-get-screen-dimensions-as-pixels-in-android/1016941#1016941
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val metrics = windowManager.currentWindowMetrics
@@ -241,7 +241,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
             val insetsWidth = insets.right + insets.left
             val insetsHeight = insets.top + insets.bottom
             val bounds = metrics.bounds
-            return Size(
+            return Point(
                 bounds.width() - insetsWidth,
                 bounds.height() - insetsHeight
             )
@@ -249,7 +249,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
             val display = windowManager.defaultDisplay
             val size = Point()
             display.getSize(size)
-            return Size(size.x, size.y)
+            return size
         }
     }
 
@@ -296,7 +296,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
 
 
         val portMode = resources.getBoolean(R.bool.port_mode)
-        val displayWidth = getDisplaySize().width
+        val displayWidth = getDisplaySize().x
         var minimumWidth = 0
         for (h in searchParamHolders.values) {
             val captionWidth = h.caption.paint.measureText(h.caption.text.toString()).roundToInt()
