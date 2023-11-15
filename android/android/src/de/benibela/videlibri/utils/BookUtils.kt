@@ -17,8 +17,8 @@ import java.util.*
 
     private fun formatRelative(full: Boolean): String {
         if (daysSinceEpoch == 0) return BookFormatter.tr(R.string.unknown_date)
-        if (Bridge.currentPascalDate > 0 && VideLibriApp.currentContext() != null) {
-            when (daysSinceEpoch - Bridge.currentPascalDate) {
+        if (PascalDate.todayInt > 0 && VideLibriApp.currentContext() != null) {
+            when (daysSinceEpoch - PascalDate.todayInt) {
                 -2 -> return BookFormatter.tr(R.string.daybeforeyesterday)
                 -1 -> return BookFormatter.tr(R.string.yesterday)
                 0 -> return BookFormatter.tr(R.string.today)
@@ -39,8 +39,8 @@ import java.util.*
         if (daysSinceEpoch == 0) return getString(R.string.unknown_date)
 
         val week = week
-        if (Bridge.currentPascalDate > 0)
-            when (week - PascalDate(Bridge.currentPascalDate).week) {
+        if (PascalDate.todayInt > 0)
+            when (week - PascalDate.today.week) {
                 -1 -> return getString(R.string.last_week)
                 0 -> return getString(R.string.this_week)
                 1 -> return getString(R.string.next_week)
@@ -54,6 +54,8 @@ import java.util.*
 
     companion object {
         val beginOfEpoch = GregorianCalendar(1899, 11, 30) //1899-12-30
+        val today inline get() = PascalDate(todayInt)
+        val todayInt inline get() = Bridge.currentPascalDate
     }
 }
 
