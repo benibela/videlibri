@@ -201,6 +201,7 @@ end;
 type 
 
 TImportExportData = record
+  //nativePtr is a very large object which must be destroyed with a call to VLImportAccounts
   flags: int32;
   nativePtr: int64;
   accountsToImport: array of string;

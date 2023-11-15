@@ -9,7 +9,7 @@ declare function ig:error($e, $at){
 };
 
 declare function ig:properties($e){
-  $e/*
+  $e/*[not(self::comment)]
 };
 
 declare function ig:parent($e){
@@ -79,6 +79,7 @@ declare function ig:pascal-make-fields-of-type($s, $type){
 };
 
 declare function ig:pascal-make-fields($s, $prefix){
+  $s/comment/x"//{.}", 
   ig:pascal-make-fields-of-type($s/string, $prefix || "string"),
   ig:pascal-make-fields-of-type($s/int, $prefix || "int32"),
   ig:pascal-make-fields-of-type($s/long, $prefix || "int64"),
@@ -430,7 +431,8 @@ begin
      case element(array)   return x"   temp[{$i}].l := arrayToJArrayCI(self.{$p/@name});&#x0A;"
      case element(classref)   return x"   temp[{$i}].l := self.{$p/@name}.toJava;&#x0A;"
      case element(intenumref) return x"   temp[{$i}].i := ord(self.{$p/@name});&#x0A;"
-     default return ig:error("unknown property type")
+     case element(comment) return ()
+     default return ig:error("unknown property type (toJava)")
    }
     result := newObject({@id}Class, {@id}ClassInit, @temp[0]); 
  {for $p at $i in $allprops where $p[self::array or self::string or self::classref] return x"   deleteLocalRef(temp[{$i - 1}].l);&#x0A;"}
@@ -449,7 +451,8 @@ begin
      case element(array)   return x"   fromJavaArrayAndDelete({@name}, getObjectField( jvm, {@name}{ig:jni-pascal-suffix(.)} ));&#x0A;"
      case element(classref)   return x"   {@name} := T{@ref}.fromJavaAndDelete(getObjectField( jvm, {@name}{ig:jni-pascal-suffix(.)} ));&#x0A;"
      case element(intenumref)   return x"   {@name} := T{@ref}(getIntField( jvm, {@name}I ));&#x0A;"
-     default return ig:error("unknown property type.")
+     case element(comment) return ()
+     default return ig:error("unknown property type. (fromJava)")
    )}
  end;
 end;
@@ -542,7 +545,10 @@ declare function ig:kotlin-make-class($s){
   {(@kotlin-class, "open")[1]} class {@id}( 
     { join ((
     $aprops!ig:kotlin-make-prop(., $addDefault),
-    */ig:kotlin-make-prop(., $addDefault)!concat($fieldtype,.)
+    */(
+      if (self::comment) then x"//{.}"
+      else ig:kotlin-make-prop(., $addDefault)!concat($fieldtype,.)
+    )
   ), ",&#x0A;    ") 
   }
   ) {ig:parent(.)!x": {.}({join($aprops!@name, ", ")})"}  {{
@@ -551,13 +557,15 @@ declare function ig:kotlin-make-class($s){
          typeswitch (.)
            case element(string)|element(int)|element(long)|element(double)|element(boolean)|element(classref)|element(intenumref) return concat(@name, " == other.", @name)
            case element(array) return concat(@name, ".contentEquals(other.", @name,")")
+           case element(comment) return ()
            default return ig:error("Unknown field type", .)
        )), " &amp;&amp; ")}
     override fun hashCode(): Int =
-      super.hashCode() { */concat("xor ",
+      super.hashCode() { ig:properties(.)/concat("xor ",
         typeswitch (.)
           case element(string)|element(int)|element(long)|element(double)|element(boolean)|element(classref)|element(intenumref) return @name || ".hashCode()"
           case element(array) return concat(@name, ".contentHashCode()")
+          case element(comment) return ()
           default return ig:error("Unknown field type", .)
       , ".rotateLeft(",position(),")" ) }
   }}")

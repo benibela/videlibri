@@ -118,12 +118,10 @@ object ImportExportFlag {
 }
 
 
-
-//nativePtr is a very large object which must be destroyed with a call to VLImportAccounts
-
   open class ImportExportData( 
     @JvmField var accountsToImport: Array<String> = emptyArray(),
     @JvmField var flags: Int = 0,
+    //nativePtr is a very large object which must be destroyed with a call to VLImportAccounts,
     @JvmField var nativePtr: Long = 0
   )   {
     override fun equals(other: Any?): Boolean =

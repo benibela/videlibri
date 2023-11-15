@@ -71,12 +71,12 @@
     <value name="Config" value="4"/>
     <value name="Password" value="8"/>
   </intenum>
-  <comment>nativePtr is a very large object which must be destroyed with a call to VLImportAccounts</comment>
   <class id="ImportExportData" jvm-pascal="" pascal-jvm="" kotlin-var="var">
     <array name="accountsToImport">
       <string/>
     </array>
     <int name="flags"/>
+    <comment>nativePtr is a very large object which must be destroyed with a call to VLImportAccounts</comment>
     <long name="nativePtr"/>
   </class>
   <comment>Classes to represent metadata of a library</comment>

@@ -108,12 +108,12 @@ enum ImportExportFlag {
 }
 
 
-//nativePtr is a very large object which must be destroyed with a call to  VLImportAccounts  
 @Pascal<->Kotlin
 @KotlinVar
 class ImportExportData {
   accountsToImport: String[]
   flags: Int  
+  //nativePtr is a very large object which must be destroyed with a call to  VLImportAccounts  
   nativePtr: Long
 }
 
