@@ -7,12 +7,13 @@ import android.view.MenuInflater
 import de.benibela.videlibri.*
 import de.benibela.videlibri.jni.Bridge
 import de.benibela.videlibri.jni.SearchEvent
+import de.benibela.videlibri.jni.SearcherAccess
 import de.benibela.videlibri.utils.*
 import kotlin.math.max
 
 class SearchResult : BookListActivity(), SearchEventHandler {
 
-    var searcher: Bridge.SearcherAccess? = null
+    var searcher: SearcherAccess? = null
         private set
     internal var libId = ""
 

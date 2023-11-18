@@ -137,7 +137,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
     private val requestCodeChooseLibrary = 1234
 
 
-    private var searcher: Bridge.SearcherAccess? = null
+    private var searcher: SearcherAccess? = null
 
 
     private fun gcSearchers() {
@@ -163,7 +163,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
                     }
                 }
         }
-        searcher = Bridge.SearcherAccess(state.libId)
+        searcher = SearcherAccess(state.libId)
         searcher?.let {
             it.heartBeat = System.currentTimeMillis()
             it.state = SEARCHER_STATE_INIT
@@ -260,37 +260,38 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
         val inflater = layoutInflater
         val oldSearchParamHolders = searchParamHolders.toMap()
         searchParamHolders.clear()
-        for (param in searcher.searchParams.inputs){
-            if (param.name in searchParamHolders) continue
-            val old = oldSearchParamHolders[param.name]?.takeIf { it.input == param }
-            if (old != null) {
-                lay.addView(old.layout)
-                searchParamHolders[param.name] = old
-            } else {
-                val holder: SearchParamHolder
-                if (param is FormSelect) {
-                    val rowBinding = SearchlayoutRowSpinnerBinding.inflate(inflater, lay, true)
-                    holder = SearchParamHolder(param, rowBinding.innerLayout, rowBinding.textView, rowBinding.spinner)
-                    rowBinding.spinner.setItems(param.optionCaptions)
-                    val i = param.optionValues.indexOf(param.value)
-                    rowBinding.spinner.setSelection(if (i >= 0) i else 0)
+        searcher.searchParams?.inputs?.forEach { param ->
+            if (param.name !in searchParamHolders) {
+                val old = oldSearchParamHolders[param.name]?.takeIf { it.input == param }
+                if (old != null) {
+                    lay.addView(old.layout)
+                    searchParamHolders[param.name] = old
                 } else {
-                    val rowBinding = SearchlayoutRowEditBinding.inflate(inflater, lay, true)
-                    holder = SearchParamHolder(param, rowBinding.innerLayout, rowBinding.textView, rowBinding.edit)
-                    when (param.name) {
-                        "year" -> rowBinding.edit.setRawInputType(InputType.TYPE_CLASS_NUMBER)
+                    val holder: SearchParamHolder
+                    if (param is FormSelect) {
+                        val rowBinding = SearchlayoutRowSpinnerBinding.inflate(inflater, lay, true)
+                        holder = SearchParamHolder(param, rowBinding.innerLayout, rowBinding.textView, rowBinding.spinner)
+                        rowBinding.spinner.setItems(param.optionCaptions)
+                        val i = param.optionValues.indexOf(param.value)
+                        rowBinding.spinner.setSelection(if (i >= 0) i else 0)
+                    } else {
+                        val rowBinding = SearchlayoutRowEditBinding.inflate(inflater, lay, true)
+                        holder = SearchParamHolder(param, rowBinding.innerLayout, rowBinding.textView, rowBinding.edit)
+                        when (param.name) {
+                            "year" -> rowBinding.edit.setRawInputType(InputType.TYPE_CLASS_NUMBER)
+                        }
                     }
+                    holder.layout.isSaveEnabled = false
+                    holder.view.isSaveEnabled = false
+                    holder.view.id = ViewCompat.generateViewId()
+                    holder.caption.isSaveEnabled = false
+                    holder.caption.text = param.caption
+                    when (param.name) {
+                        "title", "author", "free" -> holder.caption.setTypeface(null, Typeface.BOLD)
+                    }
+                    searchParamHolders[param.name] = holder
+                    if (param.name == state.focusedChild && param.name != "title") holder.view.requestFocus()
                 }
-                holder.layout.isSaveEnabled = false
-                holder.view.isSaveEnabled = false
-                holder.view.id = ViewCompat.generateViewId()
-                holder.caption.isSaveEnabled = false
-                holder.caption.text = param.caption
-                when (param.name) {
-                    "title", "author", "free" -> holder.caption.setTypeface(null, Typeface.BOLD)
-                }
-                searchParamHolders[param.name] = holder
-                if (param.name == state.focusedChild && param.name != "title") holder.view.requestFocus()
             }
         }
 
@@ -386,7 +387,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
     }
 
     companion object {
-        internal var searchers = ArrayList<Bridge.SearcherAccess>()
+        internal var searchers = ArrayList<SearcherAccess>()
 
         internal const val SEARCHER_HEARTH_BEAT_TIMEOUT = 5 * 60 * 1000
         internal const val SEARCHER_STATE_INIT = 0 //connecting
@@ -402,7 +403,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
 internal class SearchDebugTester(private var query: Bridge.Book, startId: String) {
     private var libs: Array<String> = Bridge.VLGetLibraryIds()
     var pos: Int = 0
-    private var searcher: Bridge.SearcherAccess? = null
+    private var searcher: SearcherAccess? = null
 
     init {
         pos = 0
@@ -420,7 +421,7 @@ internal class SearchDebugTester(private var query: Bridge.Book, startId: String
         Log.i("VIDELIBRI", "============================================================")
         Log.i("VIDELIBRI", "Testing search: " + libs[pos])
         Log.i("VIDELIBRI", "============================================================")
-        searcher = Bridge.SearcherAccess(libs[pos])
+        searcher = SearcherAccess(libs[pos])
         searcher?.connect()
         withActivity<Search> {
             state.libId = libs[pos]

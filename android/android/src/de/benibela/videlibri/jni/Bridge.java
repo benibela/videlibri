@@ -20,9 +20,6 @@ import java.util.*;
 
 
 
-@Retention(RetentionPolicy.SOURCE)
-@interface NotNullLateInit {}
-
 @SuppressWarnings( {"JniMissingFunction", "unused"} )
 public class Bridge {
     public static class Account implements Serializable{
@@ -231,14 +228,14 @@ public class Bridge {
 
     static public native @Nullable String[] VLGetNotifications();
 
-    static public native void VLSearchConnect(@NotNull SearcherAccess searcher, @NotNull String libId);
-    static public native void VLSearchStart(@NotNull SearcherAccess searcher, @NotNull Book query);
-    static public native void VLSearchNextPage(@NotNull SearcherAccess searcher);
-    static public native void VLSearchDetails(@NotNull SearcherAccess searcher, @NotNull Book book);
-    static public native void VLSearchOrder(@NotNull SearcherAccess searcher, @NotNull Book[] book);
-    static public native void VLSearchOrder(@NotNull SearcherAccess searcher, @NotNull Book[] book, @NotNull int[] holding);
-    static public native void VLSearchCompletePendingMessage(@NotNull SearcherAccess searcher, int result);
-    static public native void VLSearchEnd(@NotNull SearcherAccess searcher);
+    static public native void VLSearchConnect(@NotNull SearcherAccessPascal searcher, @NotNull String libId);
+    static public native void VLSearchStart(@NotNull SearcherAccessPascal searcher, @NotNull Book query);
+    static public native void VLSearchNextPage(@NotNull SearcherAccessPascal searcher);
+    static public native void VLSearchDetails(@NotNull SearcherAccessPascal searcher, @NotNull Book book);
+    static public native void VLSearchOrder(@NotNull SearcherAccessPascal searcher, @NotNull Book[] book);
+    static public native void VLSearchOrder(@NotNull SearcherAccessPascal searcher, @NotNull Book[] book, @NotNull int[] holding);
+    static public native void VLSearchCompletePendingMessage(@NotNull SearcherAccessPascal searcher, int result);
+    static public native void VLSearchEnd(@NotNull SearcherAccessPascal searcher);
 
     static public native void VLSetOptions(@NotNull OptionsShared options);
     static public native @NotNull OptionsShared VLGetOptions();
@@ -252,79 +249,6 @@ public class Bridge {
     static public native void VLFinalize();
 
 
-    //SearcherAccess helper class like in Pascal-VideLibri
-    //All methods run asynchronously in a Pascal Thread
-    //All events are called in the same thread ()
-    public static class SearcherAccess{
-        //set from Pascal side
-        public long nativePtr;
-        public volatile int totalResultCount;
-        public volatile boolean nextPageAvailable;
-        @NotNullLateInit public volatile FormParams searchParams; //from java and pascal
-
-        //set in Java
-        @NotNull public final String libId;
-        @NotNull public final ArrayList<SearchEvent> pendingEvents = new ArrayList<>();
-
-        //set in (Java) activity
-        public int state;
-        public long heartBeat;
-        public boolean nextPageSearchPending;
-        @NotNull public final ArrayList<Bridge.Book> bookCache = new ArrayList<>();
-        public boolean loadingTaskList, loadingTaskDetails, loadingTaskOrder, loadingTaskOrderHolding, loadingTaskMessage;
-        //The detail search runs in the background, for a single book.
-        //But the user might request other detail searches, before the search is complete.
-        //Then wait for the old search to complete, and then start the newest search, unless the user has closed the view
-        public int waitingForDetails;    //nr of book currently searched. Only set when the search is started or has ended (-1 if no search is running)
-        public int nextDetailsRequested; //nr of the book that *should* be searched. Set when requesting a new search, or to -1 to cancel the current search
-        @Nullable public Bridge.Account orderingAccount;
-
-        public SearcherAccess(@NotNull String libId){
-            this.libId = libId;
-        }
-        public void connect(){
-            VLSearchConnect(this, libId);
-        }
-        public void start(@NotNull Book query){
-            VLSearchStart(this, query);
-        }
-        public void nextPage(){
-            VLSearchNextPage(this);
-        }
-        public void details(@NotNull Book book){
-            VLSearchDetails(this, book);
-        }
-        public void order(@NotNull Book book){
-            VLSearchOrder(this, new Book[]{book});
-        }
-        public void order(@NotNull Book book, int holdingId){
-            VLSearchOrder(this, new Book[]{book}, new int[]{holdingId});
-        }
-        public void completePendingMessage(int result){
-            VLSearchCompletePendingMessage(this, result);
-        }
-        public void free(){
-            VLSearchEnd(this);
-        }
-
-        private void send(SearchEvent event) {
-            if (searchEventHandler == null) return;
-            event.setSearcherAccess(this);
-            searchEventHandler.sendMessage(searchEventHandler.obtainMessage(0, event));
-        }
-
-
-        public void onConnected(@NotNull FormParams params){ send(new SearchEvent.Connected(params)); }
-        public void onSearchFirstPageComplete(@NotNull Book[] books) { send(new SearchEvent.FirstPage(books)); }
-        public void onSearchNextPageComplete(@NotNull Book[] books) { send(new SearchEvent.NextPage(books)); }
-        public void onSearchDetailsComplete(@NotNull Book book) { send(new SearchEvent.Details(book)); }
-        public void onOrderComplete(@NotNull Book book) { send(new SearchEvent.OrderComplete(book)); }
-        public void onTakePendingMessage(int kind, @NotNull String caption, @NotNull String[] options) {
-            send(new SearchEvent.TakePendingMessage(kind, caption, options));
-        }
-        public void onPendingMessageCompleted() { send(new SearchEvent.PendingMessageComplete()); }
-        public void onException() { send(new SearchEvent.Exception()); }
-    }
 
 
 
