@@ -21,6 +21,7 @@ import android.widget.TextView
 import androidx.core.view.ViewCompat
 import de.benibela.videlibri.R
 import de.benibela.videlibri.VideLibriApp
+import de.benibela.videlibri.databinding.SearchlayoutBinding
 import de.benibela.videlibri.databinding.SearchlayoutRowEditBinding
 import de.benibela.videlibri.databinding.SearchlayoutRowSpinnerBinding
 import de.benibela.videlibri.jni.*
@@ -52,11 +53,12 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
     ): Parcelable
 
     var state = State()
+    lateinit var binding: SearchlayoutBinding
     private val searchParamHolders = mutableMapOf<String, SearchParamHolder>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setVideLibriView(R.layout.searchlayout)
+        binding = setVideLibriView(SearchlayoutBinding::inflate)
         registerState(::state)
 
         state.apply {
@@ -68,7 +70,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
             if (libName.isEmpty() && libId != "")
                 libName = Bridge.VLGetLibraryDetails(libId)?.prettyName ?: ""
 
-            val lib = findViewById<TextView>(R.id.library)
+            val lib = binding.library
             lib.text = "$libName (${getString(R.string.change)})"
             lib.paintFlags = lib.paintFlags or Paint.UNDERLINE_TEXT_FLAG
             if (libId.isEmpty() || (intent?.getBooleanExtra("showLibList", false) == true) && savedInstanceState == null) {
@@ -78,7 +80,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
             }
         }
 
-        findViewById<View>(R.id.library).setOnClickListener { changeSearchLib() }
+        binding.library.setOnClickListener { changeSearchLib() }
 
         val searchStartClickListener = View.OnClickListener {
             if (searchParamHolders.entries.all { it.value.edit?.text?.isBlank() ?: true }) {
@@ -112,7 +114,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
             intent.putExtra("searchQuery", book)
             startActivity(intent)
         }
-        findViewById<View>(R.id.button).setOnClickListener(searchStartClickListener)
+        binding.button.setOnClickListener(searchStartClickListener)
 
         title = ""
         supportActionBar?.let {
@@ -255,7 +257,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
 
     private fun updateSearchParamsViews() {
         val searcher = searcher ?: return
-        val lay = findViewById<LinearLayout>(R.id.layout)
+        val lay = binding.layout
         lay.removeAllViews()
         val inflater = layoutInflater
         val oldSearchParamHolders = searchParamHolders.toMap()
@@ -325,7 +327,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
             if (resultCode == Activity.RESULT_OK) {
                 state.libId = LibraryList.lastSelectedLibId ?: ""
                 state.libName = LibraryList.lastSelectedLibName ?: ""
-                findViewById<TextView>(R.id.library).text = state.libName
+                binding.library.text = state.libName
 
                 obtainSearcher()
                 updateSearchParamsViews()
@@ -426,7 +428,7 @@ internal class SearchDebugTester(private var query: Bridge.Book, startId: String
         withActivity<Search> {
             state.libId = libs[pos]
             state.libName = libs[pos]
-            findViewById<TextView>(R.id.library).text = state.libName
+            binding.library.text = state.libName
             refreshLoadingIcon()
         }
     }
