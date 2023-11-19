@@ -108,6 +108,7 @@ declare function ig:pascal-make-class($s){
 $s/(
 let $type := (@pascal-type, "record")[1]
 let $virtual := if ($type = "record") then "" else if (ig:parent(.)) then "override;" else "virtual;" 
+let $record-static := if ($type = "record") then "static;" else ()
 return x"
 type 
 {x"T{@id}Class = class of T{@id};"[$type="class"]}
@@ -122,14 +123,14 @@ T{@id} = {$type}{@extends!concat("(T",.,")")}
       if (./classref,.//@default) then "constructor create; " || $virtual  else (),
       if (.//classref/@ref = $ig:pascal-true-classes) then "destructor destroy; override;" else (),
   if (@serialize-json) then
-  x"class function fromJSON(const json: string): T{@id}; {$virtual}
-  class function fromJSON(const json: IXQValue): T{@id}; {$virtual}
+  x"class function fromJSON(const json: string): T{@id}; {$virtual, $record-static}
+  class function fromJSON(const json: IXQValue): T{@id}; {$virtual, $record-static}
 protected
   procedure appendToJSON(var builder: TJSONXHTMLStrBuilder); {$virtual}
   procedure setPropertiesFromJSON(const json: IXQValue); {$virtual}
-  class function typeId: string; {$virtual}
-{ if (ig:parent(.)) then () else x"  class function classFromTypeId(const id: string): T{@id}Class;
-  class function fromJSONWithType(const typ: string; const json: IXQValue): TObject;
+  class function typeId: string; {$virtual, $record-static}
+{ if (ig:parent(.)) then () else x"  class function classFromTypeId(const id: string): T{@id}Class;{$record-static}
+  class function fromJSONWithType(const typ: string; const json: IXQValue): TObject;{$record-static}
 "
 }" else ()
 ), "&#x0A;  ")
@@ -137,8 +138,8 @@ protected
 public
   {{$ifdef android}}
   {if (@pascal-jvm) then x"function toJava: jobject; {$virtual}" else ()}
-  {if (@jvm-pascal) then x"class function fromJava(jvm: jobject): T{@id}; {$virtual}
-  class function fromJavaAndDelete(jvm: jobject): T{@id}; {$virtual}
+  {if (@jvm-pascal) then x"class function fromJava(jvm: jobject): T{@id}; {$virtual,$record-static}
+  class function fromJavaAndDelete(jvm: jobject): T{@id}; {$virtual,$record-static}
   " else ()}
   {{$endif}}
 " else ()

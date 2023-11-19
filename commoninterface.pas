@@ -208,7 +208,7 @@ TImportExportData = record
 public
   {$ifdef android}
   function toJava: jobject; 
-  class function fromJava(jvm: jobject): TImportExportData; static;
+  class function fromJava(jvm: jobject): TImportExportData;  static;
   class function fromJavaAndDelete(jvm: jobject): TImportExportData;  static;
   
   {$endif}
