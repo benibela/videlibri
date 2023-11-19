@@ -136,7 +136,12 @@ open class ImportExportBase : VideLibriBaseActivity() {
             addCategory(Intent.CATEGORY_OPENABLE)
             type = "*/*"
         }
-        startActivityForResult(intent, FILENAME_ACTIVITY_REQUEST_CODE)
+        startActivityForResult(intent) { resultCode, data ->
+            when (resultCode) {
+                Activity.RESULT_CANCELED -> currentActivity<Import>()?.finish()
+                else -> data?.data?.let { uri -> currentActivity<ImportExportBase>()?.onFileNameChosen(uri) }
+            }
+        }
     }
 
     open fun onFileNameChosen(uri: Uri){
@@ -144,14 +149,6 @@ open class ImportExportBase : VideLibriBaseActivity() {
         globalOptionsAndroid.save()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        val uri = data?.data
-        if (requestCode == FILENAME_ACTIVITY_REQUEST_CODE && resultCode != Activity.RESULT_CANCELED && uri != null) {
-            onFileNameChosen(uri)
-            return
-        }
-        super.onActivityResult(requestCode, resultCode, data)
-    }
 
 
     protected open fun showFinalMessage(@StringRes message: Int){
@@ -164,7 +161,6 @@ open class ImportExportBase : VideLibriBaseActivity() {
     }
 
     companion object {
-        const val FILENAME_ACTIVITY_REQUEST_CODE = 30017
         //https://stackoverflow.com/questions/1109022/close-hide-the-android-soft-keyboard
         fun hideKeyboard(activity: Activity) {
             val imm = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as? InputMethodManager ?: return
@@ -231,12 +227,6 @@ class Import : ImportExportBase() {
             ImportPhase.SelectedFile -> showPreparedImport(state.fileName)
             ImportPhase.Done -> {}
         }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == FILENAME_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_CANCELED)
-            finish()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

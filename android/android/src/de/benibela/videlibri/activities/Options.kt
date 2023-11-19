@@ -291,14 +291,6 @@ class Options : VideLibriBaseActivity() {
         }
     }
 
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == NEW_ACCOUNT_CREATION_RESULT && resultCode == Activity.RESULT_OK)
-            finish()
-        else
-            super.onActivityResult(requestCode, resultCode, data)
-    }
-
     fun updatePreferences() {
         for (f in supportFragmentManager.fragments)
             (f as? SettingsFragment)?.updatePreferences()
@@ -311,9 +303,6 @@ class Options : VideLibriBaseActivity() {
     }
 
     companion object {
-
-
-        internal const val NEW_ACCOUNT_CREATION_RESULT = 1235
 
         internal fun showLendingOptionsInView(activity: Activity, binding: OptionsLendingsBinding) {
             binding.viewHistory.isChecked = globalOptionsAndroid.bookListDisplayOptions.showHistory

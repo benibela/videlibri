@@ -65,6 +65,7 @@ open class VideLibriBaseActivity: AppCompatActivity(){
     override fun onPostResume() {
         super.onPostResume()
         VideLibriApp.currentActivity = this
+        handlePendingActivityResults()
         for (b in VideLibriApp.pendingDialogs)
             showPreparedDialog(this, b)
         VideLibriApp.pendingDialogs.clear()
@@ -254,9 +255,9 @@ open class VideLibriBaseActivity: AppCompatActivity(){
             R.id.renewlist -> startActivity<RenewList>()
             R.id.import_ -> startActivity<Import>()
             R.id.export -> startActivity<Export>()
-            R.id.libinfo -> startActivityForResult<LibraryList>(requestCodeLibraryCatalogue,"reason" to getString(R.string.base_chooselibhomepage), "search" to true)
-            R.id.libcatalogue -> startActivityForResult<LibraryList>(requestCodeLibraryCatalogue,"reason" to getString(R.string.base_chooselibcat), "search" to true)
-            R.id.newlib -> startActivityForResult<NewLibrary>(RETURNED_FROM_NEW_LIBRARY)
+            R.id.libinfo -> startActivityForResultOk<LibraryList>("reason" to getString(R.string.base_chooselibhomepage), "search" to true) { showLibraryPageInBrowser(true) }
+            R.id.libcatalogue -> startActivityForResultOk<LibraryList>("reason" to getString(R.string.base_chooselibcat), "search" to true)  { showLibraryPageInBrowser(false) }
+            R.id.newlib -> startActivityForResultOk<NewLibrary> { withActivity<LibraryList> { refreshLibraryList() } }
             R.id.feedback -> startActivity<Feedback>()
             R.id.debuglog -> startActivity<DebugLogViewer>()
             R.id.about -> startActivity<About>()
@@ -266,17 +267,7 @@ open class VideLibriBaseActivity: AppCompatActivity(){
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if ((requestCode == requestCodeLibraryCatalogue || requestCode == requestCodeLibraryHomepage) && resultCode == RESULT_OK) {
-            Bridge.VLGetLibraryDetails(LibraryList.lastSelectedLibId ?: return, true)?.apply {
-                var uri = if (requestCode == requestCodeLibraryHomepage) fhomepageUrl else fcatalogueUrl
-                if (uri == "") uri = fcatalogueUrl
-                if (uri == "") uri = fcatalogueUrlFromTemplate
-                if (uri == "") uri = fhomepageUrl
-                showUriInBrowser(uri)
-            }
-            return
-        }
-
+        handleActivityResult(requestCode, resultCode, data)
         super.onActivityResult(requestCode, resultCode, data)
     }
 
@@ -291,6 +282,15 @@ open class VideLibriBaseActivity: AppCompatActivity(){
         }
     }
 
+    private fun showLibraryPageInBrowser(homepage: Boolean) {
+        Bridge.VLGetLibraryDetails(LibraryList.lastSelectedLibId ?: return, true)?.apply {
+            var uri = if (homepage) fhomepageUrl else fcatalogueUrl
+            if (uri == "") uri = fcatalogueUrl
+            if (uri == "") uri = fcatalogueUrlFromTemplate
+            if (uri == "") uri = fhomepageUrl
+            showUriInBrowser(uri)
+        }
+    }
 
     private fun showUriInBrowser(uri: String) {
         try {
@@ -303,10 +303,6 @@ open class VideLibriBaseActivity: AppCompatActivity(){
     protected fun finishWithResult(){
         setResult(Activity.RESULT_OK, Intent())
         finish()
-    }
-
-    companion object {
-        const val RETURNED_FROM_NEW_LIBRARY = 29326
     }
 
 }

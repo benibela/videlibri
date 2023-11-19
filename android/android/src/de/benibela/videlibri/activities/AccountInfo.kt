@@ -2,7 +2,6 @@ package de.benibela.videlibri.activities
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
 import android.text.Editable
@@ -158,9 +157,21 @@ class AccountInfo : VideLibriBaseActivity() {
     private fun updateLibrary() {
         binding.libraryTextView.postDelayed({
             startActivityForResult<LibraryList>(
-                    REQUEST_LIBRARY_FOR_ACCOUNT_CREATION,
                     "reason" to getString( if (mode == MODE_ACCOUNT_CREATION_INITIAL) R.string.account_createinitial else R.string.account_create)
-            )
+            ) {
+                resultCode, _ -> withActivity<AccountInfo> {
+                if (resultCode == Activity.RESULT_OK) {
+                    setActiveLibrary(LibraryList.lastSelectedLibId) ?: return@startActivityForResult
+                    binding.accountPrettyName.setText(libshortname)
+                } else if (libdetails == null) {
+                    if (mode == MODE_ACCOUNT_CREATION_INITIAL && accounts.isEmpty()) {
+                        //    updateLibrary();
+                        return@startActivityForResult
+                    }
+                    finish()
+                }
+            }
+            }
         }, 300)
     }
 
@@ -223,21 +234,6 @@ class AccountInfo : VideLibriBaseActivity() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_LIBRARY_FOR_ACCOUNT_CREATION) {
-            if (resultCode == Activity.RESULT_OK) {
-                setActiveLibrary(LibraryList.lastSelectedLibId) ?: return
-                binding.accountPrettyName.setText(libshortname)
-            } else if (libdetails == null) {
-                if (mode == MODE_ACCOUNT_CREATION_INITIAL && accounts.isEmpty()) {
-                    //    updateLibrary();
-                    return
-                }
-                finish()
-            }
-        } else super.onActivityResult(requestCode, resultCode, data)
-    }
-
     private fun addAccountNow() {
         inputToAccount()?.let {
             Accounts.add(it)
@@ -265,6 +261,5 @@ class AccountInfo : VideLibriBaseActivity() {
         internal const val MODE_ACCOUNT_CREATION_INITIAL = 134391
         internal const val MODE_ACCOUNT_MODIFY = 134392
         internal const val MODE_ACCOUNT_MODIFY_INVALID_PASSWORD = 134393
-        private const val REQUEST_LIBRARY_FOR_ACCOUNT_CREATION = 1236
     }
 }

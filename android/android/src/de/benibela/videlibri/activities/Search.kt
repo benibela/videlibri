@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.text.InputType
 import android.util.Log
-import android.util.Size
 import android.view.Menu
 import android.view.View
 import android.view.WindowInsets
@@ -136,8 +135,6 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
         }
     }
 
-    private val requestCodeChooseLibrary = 1234
-
 
     private var searcher: SearcherAccess? = null
 
@@ -224,11 +221,21 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
 
 
     private fun changeSearchLib() {
-        startActivityForResult<LibraryList>(requestCodeChooseLibrary,
+        startActivityForResult<LibraryList>(
                 "defaultLibId" to state.libId,
                 "reason" to getString(R.string.search_selectlib),
                 "search" to true
-        )
+        ) {resultCode, data -> withActivity<Search> {
+            if (resultCode == Activity.RESULT_OK) {
+                state.libId = LibraryList.lastSelectedLibId ?: ""
+                state.libName = LibraryList.lastSelectedLibName ?: ""
+                binding.library.text = state.libName
+
+                obtainSearcher()
+                updateSearchParamsViews()
+            } else if ("" == state.libId) finish()
+        }
+        }
     }
 
     private fun getDisplaySize(): Point {
@@ -322,19 +329,6 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
 
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == requestCodeChooseLibrary) {
-            if (resultCode == Activity.RESULT_OK) {
-                state.libId = LibraryList.lastSelectedLibId ?: ""
-                state.libName = LibraryList.lastSelectedLibName ?: ""
-                binding.library.text = state.libName
-
-                obtainSearcher()
-                updateSearchParamsViews()
-            } else if ("" == state.libId) finish()
-        } else
-            super.onActivityResult(requestCode, resultCode, data)
-    }
 
     override fun onSearchEvent(event: SearchEvent): Boolean {
         if (debugTester?.onSearchEvent(event) == true) return true

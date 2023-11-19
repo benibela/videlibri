@@ -1,7 +1,6 @@
 package de.benibela.videlibri.activities
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.*
@@ -168,7 +167,7 @@ class LibraryList: VideLibriBaseActivity() {
         else columnView = findViewById<MultiColumnListView>(R.id.libColumnListView).also {
             it.addOnItemClickListener(::onLeafClick)
         }
-        createListAdapter()
+        refreshLibraryList()
 
         findViewById<View>(R.id.textViewLibWhyNot).apply {
             if (accounts.isNotEmpty())
@@ -190,8 +189,7 @@ class LibraryList: VideLibriBaseActivity() {
         ancestors.takeLast(1).forEach { l.expand(it) }
     }
 
-    private fun createListAdapter(){
-
+    internal fun refreshLibraryList(){
         adapter = LibraryListAdapter()
         listView?.let {
             it.adapter = adapter
@@ -206,14 +204,6 @@ class LibraryList: VideLibriBaseActivity() {
             restoreExpansion(it)
         }
     }
-
-    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            RETURNED_FROM_NEW_LIBRARY -> createListAdapter()
-        }
-        super.onActivityResult(requestCode, resultCode, data)
-    }
-
 
     private fun showHowToAddLibraryDialog(){
         showDialog {
@@ -241,7 +231,7 @@ class LibraryList: VideLibriBaseActivity() {
                 dialogBinding.listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ ->
                     withActivity<LibraryList> {
                         when (i) {
-                            1 -> startActivityForResult<NewLibrary>(RETURNED_FROM_NEW_LIBRARY)
+                            1 -> startActivityForResultOk<LibraryList> { withActivity<LibraryList> { refreshLibraryList() } }
                             2 -> if (adapter.metaCatalogs >= 0) {
                                 val id = adapter.childId(adapter.bitsPerLevel, 0, adapter.metaCatalogs)
                                 listView?.expandableAdapter?.let { ea ->
