@@ -311,7 +311,7 @@ begin
 
 
 
-      searcherClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/Bridge$SearcherAccess'));
+      searcherClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/SearcherAccessPascal'));
       with searcherFields do begin
         nativePtrJ := getfield(searcherClass, 'nativePtr', 'J');
         totalResultCountI := getfield(searcherClass, 'totalResultCount', 'I');
@@ -2053,14 +2053,14 @@ const nativeMethods: array[1..40] of JNINativeMethod=
 
    ,(name:'VLGetNotifications'; signature: '()[Ljava/lang/String;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetNotifications)
 
-   ,(name:'VLSearchConnect'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;Ljava/lang/String;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchConnect)
-   ,(name:'VLSearchStart'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;Lde/benibela/videlibri/jni/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchStart)
-   ,(name:'VLSearchNextPage'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchNextPage)
-   ,(name:'VLSearchDetails'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;Lde/benibela/videlibri/jni/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchDetails)
-   ,(name:'VLSearchOrder'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;[Lde/benibela/videlibri/jni/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchOrder)
-   ,(name:'VLSearchOrder'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;[Lde/benibela/videlibri/jni/Bridge$Book;[I)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchOrderWithHolding)
-   ,(name:'VLSearchCompletePendingMessage'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;I)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchCompletePendingMessage)
-   ,(name:'VLSearchEnd'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchEnd)
+   ,(name:'VLSearchConnect'; signature: '(Lde/benibela/videlibri/jni/SearcherAccessPascal;Ljava/lang/String;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchConnect)
+   ,(name:'VLSearchStart'; signature: '(Lde/benibela/videlibri/jni/SearcherAccessPascal;Lde/benibela/videlibri/jni/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchStart)
+   ,(name:'VLSearchNextPage'; signature: '(Lde/benibela/videlibri/jni/SearcherAccessPascal;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchNextPage)
+   ,(name:'VLSearchDetails'; signature: '(Lde/benibela/videlibri/jni/SearcherAccessPascal;Lde/benibela/videlibri/jni/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchDetails)
+   ,(name:'VLSearchOrder'; signature: '(Lde/benibela/videlibri/jni/SearcherAccessPascal;[Lde/benibela/videlibri/jni/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchOrder)
+   ,(name:'VLSearchOrder'; signature: '(Lde/benibela/videlibri/jni/SearcherAccessPascal;[Lde/benibela/videlibri/jni/Bridge$Book;[I)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchOrderWithHolding)
+   ,(name:'VLSearchCompletePendingMessage'; signature: '(Lde/benibela/videlibri/jni/SearcherAccessPascal;I)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchCompletePendingMessage)
+   ,(name:'VLSearchEnd'; signature: '(Lde/benibela/videlibri/jni/SearcherAccessPascal;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchEnd)
 
    ,(name:'VLSetOptions'; signature: '(Lde/benibela/videlibri/jni/OptionsShared;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSetOptions)
    ,(name:'VLGetOptions'; signature: '()Lde/benibela/videlibri/jni/OptionsShared;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetOptions)
@@ -2068,8 +2068,8 @@ const nativeMethods: array[1..40] of JNINativeMethod=
    ,(name:'VLSetOptionsAndroidOnly'; signature: '(Lde/benibela/videlibri/jni/OptionsAndroidOnly;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSetOptionsAndroidOnly)
 
    ,(name:'VLExportAccounts'; signature: '(Ljava/lang/String;[Lde/benibela/videlibri/jni/Bridge$Account;I)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLExportAccounts)
-   ,(name:'VLImportAccountsPrepare'; signature: '(Ljava/lang/String;)Lde/benibela/videlibri/jni/Bridge$ImportExportData;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLImportAccountsPrepare)
-   ,(name:'VLImportAccounts'; signature: '(Lde/benibela/videlibri/jni/Bridge$ImportExportData;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLImportAccounts)
+   ,(name:'VLImportAccountsPrepare'; signature: '(Ljava/lang/String;)Lde/benibela/videlibri/jni/ImportExportData;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLImportAccountsPrepare)
+   ,(name:'VLImportAccounts'; signature: '(Lde/benibela/videlibri/jni/ImportExportData;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLImportAccounts)
 
    ,(name:'VLXQuery'; signature: '(Ljava/lang/String;)[Lde/benibela/videlibri/jni/Bridge$Book;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLXQuery)
 
