@@ -174,7 +174,7 @@ object CoverLoader {
             }
             task.forEachCoverUrl { url ->
                 try {
-                    Log.i("URL", url)
+                    Log.i("COVER LOADER", url)
                     val stream = URL(url).openStream()
                     val cover = stream.use {  BitmapFactory.decodeStream(it, null, bitmapOptions) }
                             ?: return@forEachCoverUrl null
@@ -185,6 +185,7 @@ object CoverLoader {
                         bestCover = cover
                     } else cover.recycle()
                 } catch (e: Throwable) {
+                    Log.i("COVER LOADER", "Failed to load image $url")
                 }
                 bestCover?.takeIf { it.width >= task.size.minWidth && it.height >= task.size.minHeight }
             }

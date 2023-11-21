@@ -1,7 +1,6 @@
 package de.benibela.videlibri.activities
 
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.util.TypedValue
 import androidx.appcompat.view.ContextThemeWrapper

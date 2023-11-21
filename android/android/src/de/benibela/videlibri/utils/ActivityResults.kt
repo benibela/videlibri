@@ -6,7 +6,7 @@ import android.util.Log
 
 const val ALL_ACTIVITY_RESULTS = 6740000
 const val ALL_ACTIVITY_RESULTS_MAX = 6740000 + 9999
-//const val ACTIVITY_RESULT_ID_KEY = "---internal-lamba-id"
+//const val ACTIVITY_RESULT_ID_KEY = "---internal-lambda-id"
 
 internal typealias ActivityResultEvent = Activity.(Int, Intent?) -> Unit
 internal typealias ActivityOKResultEvent = Activity.(Intent?) -> Unit
@@ -55,9 +55,8 @@ inline fun <reified T: Activity> Activity.startActivityForResultOk(vararg params
 fun handleActivityResult ( requestCode: Int, resultCode: Int, data: Intent? ) {
     Log.i("VIDELIBRI", "handleActivityResult: $requestCode")
     if (requestCode < ALL_ACTIVITY_RESULTS || requestCode > ALL_ACTIVITY_RESULTS_MAX) return
-    val id = requestCode
-    val launch = activityLaunches[id] ?: return
-    activityLaunches.remove(id)
+    val launch = activityLaunches[requestCode] ?: return
+    activityLaunches.remove(requestCode)
     pendingActivityResults.add(PendingActivityResult(launch, resultCode, data))
 }
 fun Activity.handlePendingActivityResults ( ) {
