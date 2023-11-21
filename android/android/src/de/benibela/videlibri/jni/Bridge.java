@@ -197,7 +197,7 @@ public class Bridge {
         }
     }
 
-    static private native void VLInit(@NotNull Context context);
+    static public native void VLInit(@NotNull Context context);
     static public native @NotNull String[] VLGetLibraryIds();
     static public native @Nullable LibraryDetails VLGetLibraryDetails(@NotNull String id, boolean needCatalogUrl);
     static public @Nullable LibraryDetails VLGetLibraryDetails(@NotNull String id){
@@ -280,22 +280,6 @@ public class Bridge {
 
 
 
-    static public boolean initialized = false;
     static public String userPath = "";
 
-    static public void initialize(Context context){
-        if (initialized) return;
-        initialized = true;
-        Log.i("Videlibri", "Trying to load liblclapp.so");
-        try {
-            System.loadLibrary("lclapp");
-        } catch (UnsatisfiedLinkError e) {
-            Log.i("Videlibri", "Android is broken, trying Relinker.");
-            if (context != null) ReLinker.loadLibrary(context, "lclapp");
-            else throw e;
-        }
-        Log.i("Videlibri", "Initializing Windows VM and Pascal layer");
-        VLInit(context);
-        //throw new Error("test");
-    }
 }

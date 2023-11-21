@@ -251,7 +251,7 @@ class VideLibriApp : Application() {
 
 
         @JvmStatic fun initializeAll(alternativeContext: Context?) {
-            if (Bridge.initialized) return
+            if (initializedJNI) return
             if (staticApplicationContext == null ) {
                 staticApplicationContext = instance?.applicationContext ?: alternativeContext?.applicationContext
                 //Class.forName("android.app.ActivityThread")
@@ -271,7 +271,7 @@ class VideLibriApp : Application() {
             checkLanguageOverride(context)
 
             if (instance != null && ACRA.isACRASenderServiceProcess()) {
-                Bridge.initialized = true
+                initializedJNI = true
                 return
             }
 
@@ -318,7 +318,7 @@ class VideLibriApp : Application() {
 
 
 
-            Bridge.initialize(context)
+            initializeJNI(context)
             globalOptionsShared = Bridge.VLGetOptions()
             globalOptionsAndroid = Bridge.VLGetOptionsAndroidOnly()
             ACRA.errorReporter.putCustomData("VL-VERSION", Bridge.VLGetVersion().platform + " " + Bridge.VLGetVersion().buildId)
