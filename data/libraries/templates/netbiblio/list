@@ -1,4 +1,4 @@
-<div class="wos-main">
+
 <div class="wos-box">
 <div class="wo-com wo-com-account">
 {mode := if (matches(@class, "wo-com-(orders|reservations)")) then "orders" else "circulations"}
@@ -8,7 +8,7 @@
 <table class="table wo-grid-table">
     <thead><tr>
       <t:siblings-header>
-        <th><input/></th>?
+        <t:element t:condition="self::td or self::th"><input/></t:element>?
         <th><a t:condition="matches(@href,'Items.ItemNr|Notices.NoticeNr|Items.CallNumber')"></a></th>?
         <th><a t:condition="contains(@href,'Notices.MediaType1Code')"></a></th>?
         <th><a t:condition="contains(@href,'Notices.Author')"></a> 
@@ -38,7 +38,6 @@
 		</tbody>
 	</table>
   
-</div>
 </div>
 </div>
 </div>
