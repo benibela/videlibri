@@ -38,7 +38,7 @@ type
     currentMode: integer;
     importParser: TTreeParser;
     importAccounts: array of string;
-    importFlags: array of TExportImportFlags;
+    importFlags: TImportExportFlagsArray;
     procedure updateMixedHeader(col: integer);
     procedure viewCurrentAccounts;
   end;
@@ -47,7 +47,7 @@ var
   XMLExportFrm: TXMLExportFrm;
 
 implementation
-uses strutils,bookWatchMain,libraryAccess, bbutils;
+uses strutils,bookWatchMain,libraryAccess, bbutils,commoninterface;
 
 const COLUMN_CURRENT = 1;
       COLUMN_HISTORY = 2;
@@ -108,7 +108,7 @@ begin
   end;
 end;
 
-function rowToFlags(item: TTreeListItem): TExportImportFlags;
+function rowToFlags(item: TTreeListItem): TImportExportFlags;
 begin
   result := [];
   if item.RecordItemsText[COLUMN_CURRENT] = CHECKBOX_CHECKED then include(result, eifCurrent);;
@@ -121,8 +121,8 @@ procedure TXMLExportFrm.Button2Click(Sender: TObject);
 var i: integer;
   choosenAccounts: array of TCustomAccountAccess;
   choosenAccountNames: array of string;
-  flags: TExportImportFlagsArray;
-  flag: TExportImportFlags;
+  flags: TImportExportFlagsArray;
+  flag: TImportExportFlags;
 begin
   choosenAccounts := nil;
   flags := nil;
