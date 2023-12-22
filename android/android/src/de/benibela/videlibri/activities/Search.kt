@@ -264,17 +264,19 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
 
     private fun updateSearchParamsViews() {
         val searcher = searcher ?: return
+        state.focusedChild = searchParamHolders.filter { it.value.view.isFocused }.keys.firstOrNull() ?: state.focusedChild
         val lay = binding.layout
         lay.removeAllViews()
         val inflater = layoutInflater
         val oldSearchParamHolders = searchParamHolders.toMap()
         searchParamHolders.clear()
+        var focusView: View? = null
         searcher.searchParams?.inputs?.forEach { param ->
             if (param.name !in searchParamHolders) {
                 val old = oldSearchParamHolders[param.name]?.takeIf { it.input == param }
-                if (old != null) {
+                val new = if (old != null) {
                     lay.addView(old.layout)
-                    searchParamHolders[param.name] = old
+                    old
                 } else {
                     val holder: SearchParamHolder
                     if (param is FormSelect) {
@@ -298,11 +300,13 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
                     when (param.name) {
                         "title", "author", "free" -> holder.caption.setTypeface(null, Typeface.BOLD)
                     }
-                    searchParamHolders[param.name] = holder
-                    if (param.name == state.focusedChild && param.name != "title") holder.view.requestFocus()
+                    holder
                 }
+                searchParamHolders[param.name] = new
+                if (param.name == state.focusedChild || focusView == null) focusView = new.view
             }
         }
+        focusView?.requestFocus()
 
 
         val portMode = resources.getBoolean(R.bool.port_mode)
