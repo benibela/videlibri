@@ -1,0 +1,2 @@
+* android: Remove Java Code from Search/Import/Export; new code to change between activities.
+* Update to changed library webpages in Freiburg, Bremen, Braunschweig, Osnabrück, Bochum, Biel, Dortmund, and Dortmund
