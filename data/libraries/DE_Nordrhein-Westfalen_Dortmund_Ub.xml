@@ -8,7 +8,7 @@
   <variable name="baseurl" value="https://api.ub.tu-dortmund.de/paia/"/>
   
   <template value="digibib7">
-    <variable name="searchurl" value="https://dobib.digibib.net"/>
+    <variable name="searchurl" value="https://dobib.digibib.net/search/dortmund/"/>
     <variable name="searchparams" value="srvgroup=dortmund&amp;s-ubdo=on"/>   
   </template>
   

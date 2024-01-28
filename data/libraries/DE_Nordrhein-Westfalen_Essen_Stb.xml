@@ -3,9 +3,9 @@
   <longName value="Stadtbibliothek Essen"/>
   <shortName value="StB Essen"/>
   
-  <template value="bibdia"/>
-  <variable name="baseurl" value="https://katalog.stadtbibliothek.essen.de/opax/"/>
-  <variable name="loginurl" value="https://katalog.stadtbibliothek.essen.de/opax/login.C"/>
+  <template value="arena"/>
+  <variable name="baseurl" value="https://essen.arena.axiell.de/"/>
+ 
 
   <template value="digibib7">
     <variable name="searchurl" value="https://stb-essen.digibib.net/search/bibkataloge"/>
