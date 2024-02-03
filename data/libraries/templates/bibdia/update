@@ -69,8 +69,8 @@
  <TD>{$book.status := $book.status || .}</TD>
  
  
- <TD>{$book.issuedate := parse-date(.)}</TD> 
- <TD>{$book.duedate := parse-date(.)}</TD> 
+ <TD>{if (matches(., "[0-9]+")) then $book.issuedate := parse-date(.) else () }</TD> 
+ <TD>{if (matches(., "[0-9]+")) then $book.duedate := parse-date(.) else () }</TD> 
  <TD>{$book.status := $book.status || " Entliehen bis: " || . }</TD>
  <TD>{$book.status := $book.status || " Rang: " || . }</TD>
  
