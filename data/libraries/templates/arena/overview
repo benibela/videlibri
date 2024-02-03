@@ -111,4 +111,16 @@
  
  </div> 
 
+
+<div class="portlet-body">
+ <div class="arena-internal-error-title">
+   <h2 class="arena-internal-error-title-value"></h2>
+  </div>
+  
+  <div class="arena-internal-error-description">
+  </div>
+  {vl:raise(.)}
+</div>
+                 
+
 </t:switch>
