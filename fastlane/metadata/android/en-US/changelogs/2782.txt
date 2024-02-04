@@ -1,0 +1,3 @@
+* Neue Adressen für Ortsbücherei Nordheim, Stadtbücherei Gießen, Universitätsbibliothek Dortmund, und Stadtbibliothek Essen. Android HTTPS-Zertifikat für Freiburg.
+* netbiblio: Verfügbarkeitsanzeige in Suche.
+* bibdia: Ignoriere fehlende Vormerkungsdaten.
