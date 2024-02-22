@@ -192,12 +192,12 @@ touchpoint := get('touchpoint', false())
           </div>
           <div class="row">
             {book := $default-book,
-             let $selectionInputs := td[1]//input
+             let $selectionInputs := .//input
              where $selectionInputs
              let $sel := $selectionInputs[starts-with(@name, "selectedMediaListentries")]
              where empty($sel/@disabled)
              let $id := $selectionInputs[starts-with(@name, "mediaNrEntries") ]
-             return $book.actionID := $id/@value}
+             return ($book.actionID := $id/@value, $book.statusId := "normal")}
             <div></div>
             <div class="col-md-1"><img/>?</div>
             <div class="col-8 col-md-7 my-2">    
