@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="Bibliothek-App VideLibri">
-      <build version="2783" date="2024-02-18">
+      <build version="2784" date="2024-02-24">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
         <fix>ignoriere EOFException in Downloads</fix>
      </build>
+      <build version="2783" date="2024-02-18">
+        <fix>ignoriere EOFException in Downloads</fix>
+     </build>
       <build version="2782" date="2024-02-04">
+        <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
+        <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
+        <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
         <fix>Neue Adressen für Ortsbücherei Nordheim, Stadtbücherei Gießen, Universitätsbibliothek Dortmund, und Stadtbibliothek Essen. Android HTTPS-Zertifikat für Freiburg.</fix>
         <fix>netbiblio: Verfügbarkeitsanzeige in Suche.</fix>
         <fix>bibdia: Ignoriere fehlende Vormerkungsdaten.</fix>
