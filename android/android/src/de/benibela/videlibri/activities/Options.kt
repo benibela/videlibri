@@ -106,9 +106,10 @@ class Options : VideLibriBaseActivity() {
                         }
                     }
                     seekBarToToggle = seekBar(PreferenceSeekBar(ctw)) {
-                        property(globalOptionsAndroid.notifications::serviceDelay)
+                        max(1620)
+                        logarithmicProperty(globalOptionsAndroid.notifications::serviceDelay)
                         //dependency(notificationSwitcher.key)
-                        max(1440)
+
                         title(R.string.lay_options_label_autocheckdelay)
                         onChanged(saveOptionsAndroidOnly)
                     } as PreferenceSeekBar
