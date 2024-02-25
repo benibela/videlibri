@@ -114,8 +114,9 @@ class Options : VideLibriBaseActivity() {
                         onChanged(saveOptionsAndroidOnly)
                     } as PreferenceSeekBar
                     seekBarToToggle!!.apply {
+                        //showSeekBarValue = true
                         dynamicSummary = getString(R.string.lay_options_label_autocheckdelay_summary)
-                        safeMax = 120
+                        safeMax = 1200
                         unsafeWarning = getString(R.string.lay_options_label_autocheckdelay_too_large)
                         isEnabled = globalOptionsAndroid.notifications.enabled
                         showDynamicSummary()
