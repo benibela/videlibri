@@ -12,5 +12,12 @@
        
 </table>
 
+<form name="UserAccountForm">
+  <div id="renewalConfirmation">
+    <h1>Ve</h1>
+    <div class="row"/>
+  </div>
+</form>
+
 <div class="alert message-error ">{vl:raise(.)}</div>
 </t:switch>
