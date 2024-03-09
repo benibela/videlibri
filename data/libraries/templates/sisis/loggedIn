@@ -199,7 +199,7 @@ touchpoint := get('touchpoint', false())
              let $id := $selectionInputs[starts-with(@name, "mediaNrEntries") ]
              return ($book.actionID := $id/@value, $book.statusId := "normal")}
             <div></div>
-            <div class="col-md-1"><img/>?</div>
+            <div class="col-2"><img/>?</div>
             <div class="col-8 col-md-7 my-2">    
              <span class="d-block">
               <strong>{$book.title}</strong>
