@@ -231,7 +231,7 @@ class LibraryList: VideLibriBaseActivity() {
                 dialogBinding.listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ ->
                     withActivity<LibraryList> {
                         when (i) {
-                            1 -> startActivityForResultOk<LibraryList> { withActivity<LibraryList> { refreshLibraryList() } }
+                            1 -> startActivityForResultOk<NewLibrary> { withActivity<LibraryList> { refreshLibraryList() } }
                             2 -> if (adapter.metaCatalogs >= 0) {
                                 val id = adapter.childId(adapter.bitsPerLevel, 0, adapter.metaCatalogs)
                                 listView?.expandableAdapter?.let { ea ->
