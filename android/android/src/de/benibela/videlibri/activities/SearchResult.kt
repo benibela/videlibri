@@ -49,7 +49,13 @@ class SearchResult : BookListActivity(), SearchEventHandler {
 
     private fun setTitle() {
         when (searcher?.state) {
-            Search.SEARCHER_STATE_SEARCHING -> title = getString(R.string.search_resultcountD, max(bookCache.size, searcher!!.totalResultCount))
+            Search.SEARCHER_STATE_SEARCHING -> {
+                val currentSize = max(bookCache.size, searcher!!.totalResultCount)
+                if (currentSize > 0 || !(isLoading || searcher!!.nextPageAvailable))
+                    title = getString(R.string.search_resultcountD, currentSize)
+                else
+                    setTitle(R.string.search_loading)
+            }
             Search.SEARCHER_STATE_INIT, Search.SEARCHER_STATE_CONNECTED -> setTitle(R.string.search_loading)
             Search.SEARCHER_STATE_FAILED -> setTitle(R.string.search_failed)
             null -> setTitle(R.string.search_lost)
@@ -167,25 +173,36 @@ class SearchResult : BookListActivity(), SearchEventHandler {
         return true
     }
 
+
+    private fun receivedNewBooks(searcher: SearcherAccess, books: Array<Bridge.Book>){
+        //searcher === this.searcher (but not null)
+        searcher.bookCache.addAll(books)
+        bookCache = searcher.bookCache
+
+        val expectedCount =
+            if (searcher.totalResultCount > bookCache.size) searcher.totalResultCount
+            else if (searcher.nextPageAvailable) bookCache.size + 1
+            else bookCache.size
+        list.adapter?.also {
+            it.expectedCount = expectedCount
+            it.books = bookCache
+        } ?: displayBookCache(expectedCount)
+        setTitle()
+    }
+
     private fun onSearchFirstPageComplete(books: Array<Bridge.Book>) {
         searcher?.let { searcher ->
             searcher.bookCache.clear()
-            searcher.bookCache.addAll(books)
-            bookCache = searcher.bookCache
-            val realCount = max(searcher.totalResultCount, bookCache.size)
-            displayBookCache(realCount)
+            list.adapter = null
+            receivedNewBooks(searcher, books)
         }
-        setTitle()
     }
 
     private fun onSearchNextPageComplete(books: Array<Bridge.Book>) {
         searcher?.let { searcher ->
             searcher.nextPageSearchPending = false
-            searcher.bookCache.addAll(books)
-            bookCache = searcher.bookCache
+            receivedNewBooks(searcher, books)
         }
-        list.adapter?.books = bookCache
-        setTitle()
     }
 
 
