@@ -50,7 +50,7 @@ class NewLibrary : VideLibriBaseActivity() {
             binding.deleteButton.setOnClickListener {
                 showMessageYesNo(getString(R.string.delete_library_confirmation, binding.name.text.toString())) {
                     Bridge.VLSetLibraryDetails(id, null)
-                    withActivity<NewLibrary> {  finish() }
+                    withActivity<NewLibrary> {  finishWithResult() }
                 }
             }
         } else {
@@ -71,7 +71,7 @@ class NewLibrary : VideLibriBaseActivity() {
                 details.variables = variables.map { (key, value) -> de.benibela.videlibri.jni.LibraryVariable(key, value.editText?.text?.toString() ?: value.defaultValue) }.toTypedArray()
                 Bridge.VLSetLibraryDetails(newId, details)
                 if (newId != oldId && oldId != null) Bridge.VLSetLibraryDetails(oldId, null)
-                finish()
+                finishWithResult()
             }
         }
         //binding.name.requestFocus() //or use scrollView.requestChildFocus(target, target); ??
