@@ -1,0 +1,3 @@
+* Nw OPAC public library Rüsselheim
+* Digibib 7: Fix missing search results
+* arena (Essen/Bochum): Do not abort if there are no items
