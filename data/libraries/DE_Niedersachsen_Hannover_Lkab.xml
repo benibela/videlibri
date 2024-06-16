@@ -4,9 +4,11 @@
 <library>
   <longName value="Bibliothek des Landeskirchenamts Hannovers"/>
   
-  <template value="pica"/>  
+  <template value="lbs"/>  
   <variable name="server" value="https://opac.tib.eu/"/>
   <variable name="picadb" value="10.1"/>
+  <variable name="borrower" value="USR=1217&amp;BES=10"/>
+
 
 
   <homepage value="http://www.landeskirche-hannovers.de/evlka-de/wir-ueber-uns/weitere-einrichtungen/bibliothek"/>

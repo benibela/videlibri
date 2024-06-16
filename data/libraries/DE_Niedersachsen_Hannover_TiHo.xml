@@ -4,9 +4,10 @@
 <library>
   <longName value="Bibliothek der Tierärztlichen Hochschule Hannover"/>
   
-  <template value="pica"/>  
+  <template value="lbs"/>  
   <variable name="server" value="https://opac.tib.eu/"/>
   <variable name="picadb" value="5"/>
+  <variable name="borrower" value="USR=1073"/>
 
 
   <homepage value="http://www.tiho-hannover.de/kliniken-institute/bibliothek/"/>

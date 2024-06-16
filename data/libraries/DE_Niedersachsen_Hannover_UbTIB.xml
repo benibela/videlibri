@@ -5,8 +5,9 @@
   <longName value="Technische Informationsbibliothek und Universitätsbibliothek Hannover"/>
   <shortName value="TIB/UB Hannover"/>
   
-  <template value="pica"/>  
+  <template value="lbs"/>  
   <variable name="server" value="https://opac.tib.eu/"/>
+  <variable name="borrower" value="USR=1070"/>
 
 
   <homepage value="https://www.tib.eu/"/>
