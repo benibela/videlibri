@@ -36,6 +36,9 @@
                           </TABLE>
                         </TD>
                       </TR>
+                      {if (contains(base-uri(), "hannover")) then 
+                        .//a/@href[contains(., "APS_PRESENT_BIB")]/resolve-uri(.)!($book.home-url := .)
+                      else ()}
                     </TABLE>
                 
             </DIV>
