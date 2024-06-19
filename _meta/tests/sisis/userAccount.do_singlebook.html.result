@@ -7,7 +7,7 @@ requestedUrl := ()
 mode := 1
 delete-current-books() := ()
 nextPage := ()
-default-book := {"_onPage": "vltest://sisis/touchpoint/userAccount_singlebook.html", "_onPageStart": "", "statusId": "critical"}
+default-book := {"_onPage": "vltest://sisis/touchpoint/userAccount_singlebook.html?anzPos=1", "_onPageStart": "", "statusId": "critical"}
 result := ()
-book := {"_onPage": "vltest://sisis/touchpoint/userAccount_singlebook.html", "_onPageStart": "", "author": "Delfs, Hans", "duedate": "2010-09-17", "id": "BP1357  ", "issuedate": "2010-08-19", "status": "Eine Verlängerung ist noch nicht möglich.", "statusId": "critical", "title": "Introduction to cryptography"}
+book := {"_onPage": "vltest://sisis/touchpoint/userAccount_singlebook.html?anzPos=1", "_onPageStart": "", "author": "Delfs, Hans", "duedate": "2010-09-17", "id": "BP1357  ", "issuedate": "2010-08-19", "status": "Eine Verlängerung ist noch nicht möglich.", "statusId": "critical", "title": "Introduction to cryptography"}
 nextPage := ()
