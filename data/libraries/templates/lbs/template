@@ -19,7 +19,10 @@
     <page url="{$nextpage}">
       <template>
         <DIV id="main_wrapper">
-          <FORM>{nextpage := form(., {"j_username": $username, "j_password": $password})}</FORM>
+          <t:switch>
+            <FORM><input name="username"/> {nextpage := form(., {"username": $username, "password": $password})}</FORM>
+            <FORM><input name="j_username"/> {nextpage := form(., {"j_username": $username, "j_password": $password})}</FORM>
+          </t:switch>
         </DIV>
       </template>
     </page>
