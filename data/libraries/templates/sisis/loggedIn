@@ -62,7 +62,9 @@ touchpoint := get('touchpoint', false())
        case 3 return {"statusId": "ordered", "cancelable": false()}
        case 2 return {"statusId": "provided", "cancelable": false()}
        default return {"statusId": "critical"},
-       {"_onPage": base-uri(), "_onPageStart": $startUrl})
+       {"_onPage": let $page := base-uri() 
+                   return if (contains($page, "anzPos")) then $page
+                   else request-combine($page, "anzPos=1")?url, "_onPageStart": $startUrl})
      )
     }
 
