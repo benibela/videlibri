@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="Bibliothek-App VideLibri">
-      <build version="2820" date="2024-05-04">
+      <build version="2850" date="2024-06-21">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <fix>Anpassung an geänderte Kataloge in Hannover, Lübeck, und Ilmenau.</fix>
+        <fix>Anpassung der Verlängerungsmöglichkeit an geänderte Kataloge in Leipzig und Chemnitz.</fix>
+     </build>
+      <build version="2820" date="2024-05-04">
         <fix>Neue Katalogadresse Stadtbücherei Rüsselheim</fix>
         <fix>Digibib 7: Behebe Probleme mit keinen Suchergebnissen</fix>
         <fix>arena (Essen/Bochum): Behebe Probleme mit keinen Ausleihen bzw. Vormerkungen</fix>
