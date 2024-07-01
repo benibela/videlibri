@@ -273,7 +273,7 @@ begin
   if CheckBox2.Checked then diagramDrawer.FillStyle:=fsMinOverMax
   else diagramDrawer.FillStyle:=fsNone;
   diagramDrawer.update;
-  PaintBox1.Update;
+  PaintBox1.refresh;
 end;
 
 procedure TstatistikForm.ComboBox1Select(Sender: TObject);
