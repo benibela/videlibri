@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Ortsbücherei Löchgau"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://wwwopac.komm.one/loechgau"/>
+  <variable name="DB" value="loechgau"/>
+  
+  <homepage value="https://wwwopac.komm.one/loechgau/index.asp?DB=loechgau"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>
