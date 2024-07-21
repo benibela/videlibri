@@ -575,7 +575,7 @@ begin
           if logging then log('Searcher thread: message smtCompletePendingMessage: '+book.toSimpleString());
           if book <> nil then Searcher.bookListReader.selectBook(book);
           Searcher.completePendingMessage(mes.pendingMessage, mes.messageResult);
-          processPendingMessage(book, (book <> nil) and (book.status in BOOK_CANCELABLE));
+          processPendingMessage(book, (book <> nil) and (book.status in BOOK_CANCELABLE)); //BOOK_CANCELABLE does not mean cancelable, it refers to all ordered books. The idea is that the template will only set the status if the ordering succeeded
           if logging then log('end order');
         end
         else if logging then log('Searcher thread: unknown type');

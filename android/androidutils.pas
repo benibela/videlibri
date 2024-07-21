@@ -1453,6 +1453,7 @@ begin
   pendingMessage := apendingMessage;
 
   case apendingMessage.kind of
+    pmkAlert: args[0].i := 0;
     pmkConfirm: args[0].i := 1;
     pmkChoose: args[0].i := 2;
   end;

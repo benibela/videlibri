@@ -315,6 +315,10 @@ class SearchResult : BookListActivity(), SearchEventHandler {
 
     private fun onTakePendingMessage(kind: Int, caption: String, options: Array<String>) {
         when (kind) {
+            0 -> showDialog {
+                message(caption)
+                okButton { currentActivity<SearchResult>()?.searcher?.completePendingMessage(0) }
+            }
             1 -> showDialog {
                 message(caption)
                 yesButton { currentActivity<SearchResult>()?.searcher?.completePendingMessage(1) }

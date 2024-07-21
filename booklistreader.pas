@@ -128,7 +128,7 @@ type
     property lendList: boolean read flendList write setLendList;
   end;
 
-  TPendingMessageKind = (pmkConfirm, pmkChoose);
+  TPendingMessageKind = (pmkAlert, pmkConfirm, pmkChoose);
   TPendingMessage = class
     kind: TPendingMessageKind;
     callback, caption: string;
@@ -1256,6 +1256,7 @@ begin
          if pendingMessage <> nil then pendingMessage.free;
          pendingMessage := TPendingMessage.Create;
          case book.getProperty('kind').toString of
+           'alert': pendingMessage.kind := pmkAlert;
            'choose': pendingMessage.kind := pmkChoose;
            'confirm': pendingMessage.kind := pmkConfirm;
          end;
@@ -1392,6 +1393,22 @@ begin
   result := xqvalue();
 end;
 
+function makeMessage(kind: TPendingMessageKind; argc: SizeInt; argv: PIXQValue): TXQBoxedStringMap;
+const kindNames: array[TPendingMessageKind] of string = ('alert', 'confirm', 'choose');
+var captionIndex: integer = 1;
+begin
+  result := TXQBoxedStringMap.create();
+  result.setMutable('kind', kindNames[kind]);
+  if (kind = pmkAlert) and (argc = 1) then captionIndex := 0
+  else result.setMutable('callback', argv[0].toString);
+  result.setMutable('caption', argv[captionIndex].toString);
+end;
+function storeMessage(const context: TXQEvaluationContext; message: TXQBoxedStringMap): IXQValue;
+begin
+  context.staticContext.sender.VariableChangelog.add('message()', message.boxInIXQValue);
+  result := xqvalue();
+end;
+
 //add function vl:choose(  callback action id,  caption,  option captions, option values )
 //
 //callback action is called with
@@ -1404,30 +1421,26 @@ var
   temp: TXQBoxedStringMap;
 begin
   requiredArgCount(argc, 4, 4);
-  temp := TXQBoxedStringMap.create();
-  temp.setMutable('kind', 'choose');
-  temp.setMutable('callback', argv[0].toString);
-  temp.setMutable('caption', argv[1].toString);
+  temp := makeMessage(pmkChoose, argc, argv);
   temp.setMutable('options', argv[2]);
   temp.setMutable('option-values', argv[3]);
-  context.staticContext.sender.VariableChangelog.add('message()', temp.boxInIXQValue);
-  result := xqvalue();
+  result := storeMessage(context, temp);
 end;
 
 //add function vl:confirm(  callback action id,  caption  )
 //
 //callback action is called with confirm-result := true/false
 function xqFunctionConfirm(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
-var
-  temp: TXQBoxedStringMap;
 begin
   requiredArgCount(argc, 2, 2);
-  temp := TXQBoxedStringMap.create();
-  temp.setMutable('kind', 'confirm');
-  temp.setMutable('callback', argv[0].toString);
-  temp.setMutable('caption', argv[1].toString);
-  context.staticContext.sender.VariableChangelog.add('message()', temp.boxInIXQValue);
-  result := xqvalue();
+  result := storeMessage(context, makeMessage(pmkConfirm, argc, argv));
+end;
+
+//add function vl:alert(  [callback action id, ] caption  )
+function xqFunctionAlert(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
+begin
+  requiredArgCount(argc, 1, 2);
+  result := storeMessage(context,  makeMessage(pmkAlert, argc, argv));
 end;
 
 //add function vl:select-book(  query  )
@@ -1561,6 +1574,7 @@ initialization
   vl.registerFunction('raise-timeout', 0, 1, @xqFunctionRaise_Timeout, []);
   vl.registerFunction('choose', 4, 4, @xqFunctionChoose, []);
   vl.registerFunction('confirm', 2, 2, @xqFunctionConfirm, []);
+  vl.registerFunction('alert', 1, 2, @xqFunctionAlert, []);
   vl.registerFunction('select-book', 1, 1, @xqFunctionSelectBook, []);
   vl.registerFunction('log-immediately', 1, 1, @xqFunctionLogImmediately, []);
 
