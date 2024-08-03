@@ -88,6 +88,72 @@
 </html>
 
 
+  <table summary="list of loans - data">
+    <tr>
+     <td class="infotab"/>
+     <td/>
+     <td class="infotab"/>
+     <td></td>
+     <td></td>
+     <td class="infotab"/>
+     <td class="infotab">Ti</td>
+     <td></td>
+    </tr>
+    <template:read var="delete-current-books()"/>
+    <tr>
+      <td class="h2">
+      </td>
+    </tr>
+    
+    <tr> {$book := {}}         
+      <td/>
+      <td></td>
+      
+      <td>{$book.extendId := ''}
+       <input type="checkbox" name="VB">{$book.extendId:=@value}</input>?
+      </td>
+      
+      <td></td>
+      <td></td>
+      <td></td>
+      
+      <td></td>
+      
+      <td>
+       
+       <table>
+        
+        <tbody><tr>
+         <td class="plain">{$book.title}</td>
+         </tr>
+        
+        <tr>
+         <td class="value-small">          
+          <span class="label-small">Si</span>
+          <span>{$book.id}</span>          
+          </td>
+         <td class="value-small">
+          <span class="label-small">Le</span>
+          {$book.duedate := parse-date(matched-text())}
+          </td>
+         <td class="value-small">
+          <span class="label-small">St</span>
+          {$book.status := matched-text()}
+          </td>
+         <td class="value-small">
+          <span class="label-small">Vo</span>
+          {$book.renewCount := matched-text()}
+          </td>
+         </tr>
+        
+        </tbody></table>
+       
+       </td>
+      
+      </tr>+
+        
+  </table>
+
 <table summary="Message block header">
 <strong class="alert">{
   string() ! (if (contains(., "Nummer und/oder Passwort sind nicht korrekt.")) then vl:raise-login(.)
