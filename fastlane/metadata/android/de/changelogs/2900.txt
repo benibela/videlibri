@@ -1,0 +1,6 @@
+* VÖBB: Extra-Dialog für Abholcode von Magazinbestellungen.
+* Automatisches Ausfüllen von HTML-Formularen ohne XPath.
+* Anpassung an geänderte System in Frankfurt UB.
+* bibdia: Verarbeite abholbereite Medien in Ausleihentabelle.
+* Windows: Verbessertes Ausleihstatistik.
+* neu: Ortsbücherei Löchgau und Stadtbibliothek Wilhelmshaven.

@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="Bibliothek-App VideLibri">
-      <build version="2850" date="2024-06-21">
+      <build version="2900" date="2024-08-03">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <change>VÖBB: Extra-Dialog für Abholcode von Magazinbestellungen.</change>
+        <change>Automatisches Ausfüllen von HTML-Formularen ohne XPath.</change>
+        <fix>Anpassung an geänderte System in Frankfurt UB.</fix>
+        <fix>bibdia: Verarbeite abholbereite Medien in Ausleihentabelle.</fix>
+        <fix>Windows: Verbessertes Ausleihstatistik.</fix>
+        <add>neu: Ortsbücherei Löchgau und Stadtbibliothek Wilhelmshaven.</add>
+     </build>
+      <build version="2850" date="2024-06-21">
         <fix>Anpassung an geänderte Kataloge in Hannover, Lübeck, und Ilmenau.</fix>
         <fix>Anpassung der Verlängerungsmöglichkeit an geänderte Kataloge in Leipzig und Chemnitz.</fix>
      </build>
