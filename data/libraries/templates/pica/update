@@ -124,24 +124,18 @@
          <td class="plain">{$book.title}</td>
          </tr>
         
-        <tr>
-         <td class="value-small">          
-          <span class="label-small">Si</span>
-          {$book.id := matched-text()}
-          </td>
-         <td class="value-small">
-          <span class="label-small">Le</span>
-          {$book.duedate := parse-date(matched-text())}
-          </td>
-         <td class="value-small">
-          <span class="label-small">St</span>
-          {$book.status := matched-text()}
-          </td>?
-         <td class="value-small">
-          <span class="label-small">Vo</span>
-          {$book.renewCount := matched-text()}
-          </td>
-         </tr>
+        <tr>{
+         for tumbling window $w in .//span/(.,following-sibling::text(),following-sibling::span[1])
+         start when true()
+         end next $next-span when contains-token($next-span/@class, "label-small")
+         let $v := $w[2]
+         return switch (extract($w[1], "[A-Za-z]+")) 
+           case "Signatur" return $book.id := $v
+           case "Leihfristende" return $book.duedate := parse-date($v)
+           case "Status" return $book.status := $v
+(:           case "Vormerkungen" return $book.?? := $v:)
+           default return $book.status := $book.status || ", " || join($w)
+         }</tr>
         
         </table>
        
