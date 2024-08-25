@@ -27,7 +27,7 @@
       <Language Value="0403"/>
       <CharSet Value="04E2"/>
     </VersionInfo>
-    <BuildModes Count="4">
+    <BuildModes Count="5">
       <Item1 Name="default" Default="True"/>
       <Item2 Name="win32release">
         <CompilerOptions>
@@ -147,6 +147,38 @@
           </Linking>
         </CompilerOptions>
       </Item4>
+      <Item5 Name="32">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <Target>
+            <Filename Value="videlibri"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="../../../components/pascal/import/synapse"/>
+            <OtherUnitFiles Value="../../../components/pascal/import/synapse;../../../components/lazarus/dialogs;../../../components/lazarus/internet/sendBackError;../../../components/pascal/data;../../../components/pascal/system;../../../components/pascal/internet;android;../../../components/lazarus/internet"/>
+            <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+            <SrcPath Value="$(LazarusDir)/lcl;$(LazarusDir)/lcl/interfaces/$(LCLWidgetType)"/>
+          </SearchPaths>
+          <Parsing>
+            <SyntaxOptions>
+              <IncludeAssertionCode Value="True"/>
+            </SyntaxOptions>
+          </Parsing>
+          <CodeGeneration>
+            <TargetCPU Value="i386"/>
+          </CodeGeneration>
+          <Linking>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+          <Other>
+            <CustomOptions Value="-dCOMPILE_SYNAPSE_INTERNETACCESS"/>
+          </Other>
+        </CompilerOptions>
+      </Item5>
       <SharedMatrixOptions Count="1">
         <Item1 ID="735573437810" Modes="linux64release-qt5" Type="IDEMacro" MacroName="LCLWidgetType" Value="qt5"/>
       </SharedMatrixOptions>
@@ -156,13 +188,13 @@
     </PublishOptions>
     <RunParams>
       <local>
-        <CommandLineParams Value="--debug"/>
+        <CommandLineParams Value="--debug --log"/>
       </local>
       <FormatVersion Value="2"/>
       <Modes Count="1">
         <Mode0 Name="default">
           <local>
-            <CommandLineParams Value="--debug"/>
+            <CommandLineParams Value="--debug --log"/>
           </local>
         </Mode0>
       </Modes>
