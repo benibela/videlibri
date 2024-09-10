@@ -6,6 +6,7 @@ unit commoninterface;
 interface
  uses sysutils, xquery.internals.common, xquery, fastjsonreader {$ifdef android}, jni, bbjniutils{$endif};
  type EVideLibriInterfaceException = class(Exception);
+ TImportExportFlag = ( eifCurrent = 1, eifHistory = 2, eifConfig = 4, eifPassword = 8 );
  TLibraryTestingInfo = ( tiUnknown = 0, tiYes = 1, tiNo = 2, tiBroken = 3 );
  TBookStatus = ( bsUnknown = 0, bsProblematic = 5, bsNormal = 6, bsOrdered = 8, bsProvided = 9, bsReserved = 10, bsAvailable = 100, bsLend = 101, bsVirtual = 102, bsPresentation = 103, bsInterLoan = 104 );
  TPendingExceptionKind = ( ekUnknown = 0, ekInternet = 1, ekLogin = 2 );
@@ -193,6 +194,22 @@ public
   function toJava: jobject; virtual;
   class function fromJava(jvm: jobject): TOptionsShared; virtual;
   class function fromJavaAndDelete(jvm: jobject): TOptionsShared; virtual;
+  
+  {$endif}
+
+end;  
+type 
+
+TImportExportData = record
+  //nativePtr is a very large object which must be destroyed with a call to VLImportAccounts
+  flags: int32;
+  nativePtr: int64;
+  accountsToImport: array of string;
+public
+  {$ifdef android}
+  function toJava: jobject; 
+  class function fromJava(jvm: jobject): TImportExportData;  static;
+  class function fromJavaAndDelete(jvm: jobject): TImportExportData;  static;
   
   {$endif}
 
@@ -905,6 +922,10 @@ var
   OptionsSharedClassInit: jmethodID;
  
 var
+  ImportExportDataClass: jclass;
+  ImportExportDataClassInit: jmethodID;
+ 
+var
   LibraryVariableClass: jclass;
   LibraryVariableClassInit: jmethodID;
  
@@ -938,6 +959,10 @@ var
  
   OptionsSharedFields: record
     nearTimeI, refreshIntervalI, userLibIdsA: jfieldID;
+  end;
+ 
+  ImportExportDataFields: record
+    accountsToImportA, flagsI, nativePtrJ: jfieldID;
   end;
  
   LibraryVariableFields: record
@@ -1128,6 +1153,20 @@ begin
  end;
 end;
  
+function TImportExportData.toJava: jobject;
+var temp: array[0..2] of jvalue;
+begin
+  with j do begin
+    temp[0].l := arrayToJArrayCI(self.accountsToImport);
+    temp[1].i := self.flags;
+    temp[2].j := self.nativePtr;
+
+    result := newObject(ImportExportDataClass, ImportExportDataClassInit, @temp[0]); 
+    deleteLocalRef(temp[0].l);
+
+ end;
+end;
+ 
 function TLibraryVariable.toJava: jobject;
 var temp: array[0..1] of jvalue;
 begin
@@ -1310,6 +1349,22 @@ begin
   j.deleteLocalRef(jvm);
 end;
  
+class function TImportExportData.fromJava(jvm: jobject): TImportExportData;
+begin
+  result := default(TImportExportData);
+  with j, result, ImportExportDataFields do begin
+    fromJavaArrayAndDelete(accountsToImport, getObjectField( jvm, accountsToImportA ));
+    flags := getintField( jvm, flagsI );
+    nativePtr := getlongField( jvm, nativePtrJ );
+
+ end;
+end;
+class function TImportExportData.fromJavaAndDelete(jvm: jobject): TImportExportData;
+begin
+  result := fromJava(jvm);
+  j.deleteLocalRef(jvm);
+end;
+ 
 class function TLibraryVariable.fromJava(jvm: jobject): TLibraryVariable;
 begin
   result := TLibraryVariable.create;
@@ -1397,6 +1452,11 @@ begin
     OptionsSharedFields.nearTimeI := getfield(OptionsSharedClass, 'nearTime', 'I');
     OptionsSharedFields.refreshIntervalI := getfield(OptionsSharedClass, 'refreshInterval', 'I');
     OptionsSharedFields.userLibIdsA := getfield(OptionsSharedClass, 'userLibIds', '[Ljava/lang/String;'); 
+    ImportExportDataClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/ImportExportData'));
+    ImportExportDataClassInit := getmethod(ImportExportDataClass, '<init>', '([Ljava/lang/String;IJ)V');
+    ImportExportDataFields.accountsToImportA := getfield(ImportExportDataClass, 'accountsToImport', '[Ljava/lang/String;');
+    ImportExportDataFields.flagsI := getfield(ImportExportDataClass, 'flags', 'I');
+    ImportExportDataFields.nativePtrJ := getfield(ImportExportDataClass, 'nativePtr', 'J'); 
     LibraryVariableClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/LibraryVariable'));
     LibraryVariableClassInit := getmethod(LibraryVariableClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;)V');
     LibraryVariableFields.nameS := getfield(LibraryVariableClass, 'name', 'Ljava/lang/String;');

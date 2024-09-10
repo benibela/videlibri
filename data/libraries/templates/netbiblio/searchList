@@ -26,7 +26,7 @@
     <th><a t:condition="contains(@href,'sort=Notices.AgeKey')"></a></th>?
     <th><a t:condition="contains(@href,'sort=Notices.MediaType1Code')"></a>
         <a t:condition="contains(@href,'sort=Notices.MediaType2Code')"></a></th>
-    <t:element t:condition="self::td or self::th"/>
+    <t:element t:condition="self::td or self::th"/>+
     </t:siblings-header>
   </tr>
  </thead>

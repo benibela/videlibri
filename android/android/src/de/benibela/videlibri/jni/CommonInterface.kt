@@ -109,6 +109,26 @@ package de.benibela.videlibri.jni
     override fun hashCode(): Int =
       super.hashCode() xor nearTime.hashCode().rotateLeft(1) xor refreshInterval.hashCode().rotateLeft(2) xor userLibIds.contentHashCode().rotateLeft(3)
   }
+typealias ImportExportFlagInt = Int
+object ImportExportFlag {
+    const val Current = 1
+    const val History = 2
+    const val Config = 4
+    const val Password = 8
+}
+
+
+  open class ImportExportData( 
+    @JvmField var accountsToImport: Array<String> = emptyArray(),
+    @JvmField var flags: Int = 0,
+    //nativePtr is a very large object which must be destroyed with a call to VLImportAccounts,
+    @JvmField var nativePtr: Long = 0
+  )   {
+    override fun equals(other: Any?): Boolean =
+       other != null && javaClass == other.javaClass && other is ImportExportData && accountsToImport.contentEquals(other.accountsToImport) && flags == other.flags && nativePtr == other.nativePtr
+    override fun hashCode(): Int =
+      super.hashCode() xor accountsToImport.contentHashCode().rotateLeft(1) xor flags.hashCode().rotateLeft(2) xor nativePtr.hashCode().rotateLeft(3)
+  }
 
 
 //Classes to represent metadata of a library

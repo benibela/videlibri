@@ -19,8 +19,8 @@ import de.benibela.videlibri.activities.LendingList
 import de.benibela.videlibri.isReal
 import de.benibela.videlibri.jni.Bridge
 import de.benibela.videlibri.jni.globalOptionsAndroid
-import de.benibela.videlibri.jni.globalOptionsShared
 import de.benibela.videlibri.jni.save
+import de.benibela.videlibri.utils.PascalDate
 import de.benibela.videlibri.utils.notificationManager
 
 object Notifier {
@@ -58,7 +58,7 @@ object Notifier {
                 if (n?.isNotEmpty() == true) n
                 else {
                     Accounts.refreshAccounts()
-                    if (Accounts.any { it.isReal && it.lastCheckDate > 0 && it.lastCheckDate <= Bridge.currentPascalDate - OUTDATED_DATA_PERIOD_DAYS })
+                    if (Accounts.any { it.isReal && it.lastCheckDate > 0 && it.lastCheckDate <= PascalDate.todayInt - OUTDATED_DATA_PERIOD_DAYS })
                         with(context) { arrayOf(getString(R.string.notificationOutdatedDataTitle), getString(R.string.notificationOutdatedData)) }
                     else
                         null
@@ -129,7 +129,7 @@ fun checkForRequiredNotificationPermission(context: Activity ){
        if (!globalOptionsAndroid.notifications.enabled) return
        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-               globalOptionsAndroid.notifications.lastAskedForPermission = Bridge.currentPascalDate
+               globalOptionsAndroid.notifications.lastAskedForPermission = PascalDate.todayInt
                globalOptionsAndroid.save()
                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), PERMISSION_REQUEST_CODE_NOTIFICATIONS)
            }

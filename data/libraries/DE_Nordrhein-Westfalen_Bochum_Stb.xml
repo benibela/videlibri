@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
-
 <library>
   <longName value="Stadtbücherei Bochum"/>
   <shortName value="StB Bochum"/>
   
-  <template value="bibdia"/>
-  <variable name="baseurl" value="https://stadtbuecherei.bochum.de/opax/"/>
+  <template value="arena"/>
+  <variable name="baseurl" value="https://stadtbuecherei.bochum.de/"/>
 
   <template value="digibib7">
     <variable name="searchurl" value="https://stb-bochum.digibib.net/search/bibkataloge"/>

@@ -649,6 +649,10 @@ var
 begin
   screen.Cursor:=crDefault;
   case pendingMessage.kind of
+    pmkAlert: begin
+      ShowMessage(pendingMessage.caption);
+      if pendingMessage.callback <> '' then searcherAccess.completePendingMessage(book, pendingMessage, 0);
+    end;
     pmkChoose: begin
       i := InputList(pendingMessage.caption, pendingMessage.options);
       screen.Cursor:=crHourGlass;

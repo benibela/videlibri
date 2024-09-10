@@ -1,0 +1,5 @@
+* New URLS for libraries in Nordheim, Gießen, Dortmund, and Essen. 
+* Include HTTPS-Zertifikat for Freiburg, update Linz and Cottbus certificates.
+* netbiblio: fix search availability.
+* bibdia: do not parse order date if there is none
+

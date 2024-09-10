@@ -6,9 +6,8 @@
   <longName value="Städtischen Bibliotheken Singen"/>
   <shortName value="Stb Singen"/>
   
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://wwwopac.komm.one/singen"/>	
-  <variable name="DB" value="singen"/>	
+  <template value="koha"/>
+  <variable name="baseurl" value="https://sb-singen.lmscloud.net/"/>	
   
   <!--<template value="pica"/>-->
 

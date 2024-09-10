@@ -6,7 +6,8 @@
   <shortName value="Ub Osnabrück"/>
   
   <template value="lbs"/>  
-  <variable name="server" value="https://lhosb.gbv.de"/>
+  <variable name="server" value="https://opac.lbs-osnabrueck.gbv.de"/>
+<!--  <variable name="borrower" value="USR=0000"/>-->
 
 
 

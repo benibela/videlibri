@@ -7,5 +7,5 @@ requestedUrl := ()
 mode := 1
 delete-current-books() := ()
 nextPage := ()
-default-book := {"_onPage": "vltest://sisis/userAccount.do_empty.html", "_onPageStart": "", "statusId": "critical"}
+default-book := {"_onPage": "vltest://sisis/userAccount.do_empty.html?anzPos=1", "_onPageStart": "", "statusId": "critical"}
 nextPage := ()

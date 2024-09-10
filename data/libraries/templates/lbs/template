@@ -19,12 +19,15 @@
     <page url="{$nextpage}">
       <template>
         <DIV id="main_wrapper">
-          <FORM>{nextpage := form(., {"j_username": $username, "j_password": $password})}</FORM>
+          <FORM> 
+            <input t:condition="@name=('username', 'j_username')" t:form-request="$username"/>
+            <input t:condition="@name=('password', 'j_password')" t:form-request="$password"/>
+          </form>
         </DIV>
       </template>
     </page>
 
-    <page url="{$nextpage}">
+    <page url="{$form-request}">
       <template>
         <t:switch prioritized="true">
           <FORM class="topbox">

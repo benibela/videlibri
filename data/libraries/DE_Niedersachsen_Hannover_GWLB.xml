@@ -4,9 +4,10 @@
 <library>
   <longName value="Gottfried Wilhelm Leibniz Bibliothek"/>
   
-  <template value="pica"/>  
+  <template value="lbs"/>  
   <variable name="server" value="https://opac.tib.eu/"/>
   <variable name="picadb" value="3"/>
+  <variable name="borrower" value="USR=1072"/>
 
 
   <homepage value="http://www.gwlb.de/"/>

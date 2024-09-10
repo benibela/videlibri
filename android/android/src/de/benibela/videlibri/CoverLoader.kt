@@ -40,18 +40,10 @@ class CoverLoadingTask(val book: Bridge.Book, val size: CoverLoadingSize){
 
     val hasCoverUrl get() = isbn.isNotEmpty() || imageUrl.isNotEmpty()
 
-    fun<T> forEachCoverUrl(load: (String) -> T?): T?{
-        imageUrl.toSet().forEach { url ->
-            load(url)?.let { return it }
-        }
+    fun<T> forEachCoverUrl(load: (String) -> T?): T? =
+        imageUrl.toSet().firstNotNullOfOrNull(load)
+            ?: isbn.takeNonEmpty()?.let { Bridge.VLGetCoverURLs(isbn, size.maxWidth, size.maxHeight).firstNotNullOfOrNull(load) }
 
-        if (isbn.isNotEmpty()) {
-            Bridge.VLGetCoverURLs(isbn, size.maxWidth, size.maxHeight)?.forEach {
-                load(it)?.let { return@forEachCoverUrl it }
-            }
-        }
-        return null
-    }
     companion object {
         val replaceRegex = Regex("[^-a-zA-Z0-9]+")
     }
@@ -182,7 +174,7 @@ object CoverLoader {
             }
             task.forEachCoverUrl { url ->
                 try {
-                    Log.i("URL", url)
+                    Log.i("COVER LOADER", url)
                     val stream = URL(url).openStream()
                     val cover = stream.use {  BitmapFactory.decodeStream(it, null, bitmapOptions) }
                             ?: return@forEachCoverUrl null
@@ -193,6 +185,7 @@ object CoverLoader {
                         bestCover = cover
                     } else cover.recycle()
                 } catch (e: Throwable) {
+                    Log.i("COVER LOADER", "Failed to load image $url")
                 }
                 bestCover?.takeIf { it.width >= task.size.minWidth && it.height >= task.size.minHeight }
             }

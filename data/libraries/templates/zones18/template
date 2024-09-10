@@ -85,6 +85,10 @@ s
 
 <action id="search-details"> 
   <if test="contains($book.home-url, '&View=ISBD&')"><s>$book.home-url:=replace($book.home-url, "&View=ISBD&", "&View=Annotated&")</s></if> <!-- needed for cologne -->
+ <if test="contains($book.home-url, 'hannover') and contains($book.home-url, 'APS_CAT_IDENTIFY')"><s>$book.home-url:= $book.home-url
+  => replace("/APS_CAT_IDENTIFY", "/APS_PRESENT_BIB")
+  => replace("Method=.*Key=", "Method=ShowStock&amp;no=")
+ </s></if> 
   <page url="{$book.home-url}" templateFile="searchDetails"/>
 </action>
 

@@ -7,7 +7,7 @@
   
   <template value="lbs"/>
   <variable name="server" value="https://opac.lbs-braunschweig.gbv.de/"/>	
-
+  <variable name="borrower" value="USR=9000"/>
 
   <homepage value="http://www.biblio.tu-bs.de/"/>
   <testing-search value="yes"/>

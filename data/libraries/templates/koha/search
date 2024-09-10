@@ -10,11 +10,11 @@
       <tr>
         <td/>
         <td><a class="title">{$book := {"title": ., "home-url": resolve-uri(@href)}}</a>
-          <span class="author">{$book.author}</span>?
+          <t:element class="author">{$book.author}</t:element>?
           <span class="type">{$book.year:=extract(.,"[0-9]{4}")}</span>?
-           <span class="availability">
+           <t:element class="availability">
              {$book.statusId:=if(exists(span[contains(@class,"available")])) then "available" else "lend"}
-           </span>
+           </t:element>
         </td>
         
       </tr>+

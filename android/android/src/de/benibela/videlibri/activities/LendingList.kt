@@ -94,7 +94,7 @@ class LendingList: BookListActivity(){
                 if (VideLibriApp.currentActivity is LendingList) //do not open the list, if the user navigated away
                     startActivity<AccountInfo>("mode" to AccountInfo.MODE_ACCOUNT_CREATION_INITIAL)
             }, 200) //without delay it has crashed on old android (android 3 or something) in onresume
-        } else if (globalOptionsAndroid.notifications.lastAskedForPermission < Bridge.currentPascalDate)
+        } else if (globalOptionsAndroid.notifications.lastAskedForPermission < PascalDate.todayInt)
             checkForRequiredNotificationPermission(this)
     }
 

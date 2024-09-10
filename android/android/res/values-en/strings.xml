@@ -440,7 +440,6 @@
     <string name="internet_invalid_certificateS">Invalid certificate for %s.\nIn the options you can set an exception at \"Download the certificate of a server and register it as valid\".</string>
     <string name="warning_duplicate_account">This account has already been registered in the app. To change the account information, select the account in the options (to open the options use the drawer menu).</string>
     <string name="internalVersion">Internal Version</string>
-    <string name="needReadExternalStoragePermissionForImport">Ohne Lese-Berechtigung können keine Daten zum Importieren geladen werden.</string>
     <string name="delete_library_confirmation">Do you want to delete the library \"%s\"?</string>
     <string name="lay_options_btn_installupdate">Download and install an update...</string>
     <string name="library_update_dialog_url">Enter the URL of an update providing website:</string>
@@ -460,4 +459,5 @@
     <string name="lay_newlib_error_choosesystem">You need to choose a library system to register a custom library.</string>
     <string name="lay_newlib_error_no_parameters">You need to enter an URL or server parameters to register a custom library.</string>
     <string name="notifications_duedate_permission_missing">Due date reminders cannot be shown without allowing notifications.</string>
+    <string name="search_no_terms">You need to enter some terms to search for.</string>
 </resources>

@@ -3,8 +3,8 @@
   <longName value="Stadtbibliothek Mönchengladbach"/>
   <shortName value="StB Mönchengladbach"/>
   
-  <template value="bibdia"/>
-  <variable name="baseurl" value="https://bibliothek.moenchengladbach.de/opax/"/>
+  <template value="arena"/>
+  <variable name="baseurl" value="https://moenchengladbach.arena.axiell.de/"/>
 
   <template value="digibib7">
     <variable name="searchurl" value="https://stb-moenchengladbach.digibib.net/search/bibkataloge"/>

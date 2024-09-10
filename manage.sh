@@ -208,15 +208,16 @@ downloadTable)
     while [[ $( stat $fastlane/de/changelogs/$INTVERSION.txt -c %s ) > 500 ]]; do 
       echo changelog too big;
       stat $fastlane/de/changelogs/$INTVERSION.txt -c %s
-      kate $fastlane/de/changelogs/$INTVERSION.txt
+      vim $fastlane/de/changelogs/$INTVERSION.txt
     done
     if [[ ! -f $fastlane/en-US/changelogs/$INTVERSION.txt ]]; then
       cp $fastlane/de/changelogs/$INTVERSION.txt $fastlane/en-US/changelogs/$INTVERSION.txt
+      vim $fastlane/en-US/changelogs/$INTVERSION.txt
     fi
     while [[ $( stat $fastlane/en-US/changelogs/$INTVERSION.txt -c %s ) > 500 ]]; do 
       echo changelog too big;
       stat $fastlane/en-US/changelogs/$INTVERSION.txt -c %s
-      kate $fastlane/en-US/changelogs/$INTVERSION.txt
+      vim $fastlane/en-US/changelogs/$INTVERSION.txt
     done
     hg add $fastlane/*/changelogs/*
         

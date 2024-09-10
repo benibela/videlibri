@@ -7,5 +7,5 @@ orderedUrl := ()
 requestedUrl := ()
 mode := 3
 nextPage := ()
-default-book := {"_onPage": "vltest://sisis/touchpoint/userAccount_0request_chem.html", "_onPageStart": "", "cancelable": false, "statusId": "ordered"}
+default-book := {"_onPage": "vltest://sisis/touchpoint/userAccount_0request_chem.html?anzPos=1", "_onPageStart": "", "cancelable": false, "statusId": "ordered"}
 nextPage := ()

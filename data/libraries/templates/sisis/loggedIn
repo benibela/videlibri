@@ -62,7 +62,9 @@ touchpoint := get('touchpoint', false())
        case 3 return {"statusId": "ordered", "cancelable": false()}
        case 2 return {"statusId": "provided", "cancelable": false()}
        default return {"statusId": "critical"},
-       {"_onPage": base-uri(), "_onPageStart": $startUrl})
+       {"_onPage": let $page := base-uri() 
+                   return if (contains($page, "anzPos")) then $page
+                   else request-combine($page, "anzPos=1")?url, "_onPageStart": $startUrl})
      )
     }
 
@@ -192,14 +194,14 @@ touchpoint := get('touchpoint', false())
           </div>
           <div class="row">
             {book := $default-book,
-             let $selectionInputs := td[1]//input
+             let $selectionInputs := .//input
              where $selectionInputs
              let $sel := $selectionInputs[starts-with(@name, "selectedMediaListentries")]
              where empty($sel/@disabled)
              let $id := $selectionInputs[starts-with(@name, "mediaNrEntries") ]
-             return $book.actionID := $id/@value}
+             return ($book.actionID := $id/@value, $book.statusId := "normal")}
             <div></div>
-            <div class="col-md-1"><img/>?</div>
+            <div class="col-2"><img/>?</div>
             <div class="col-8 col-md-7 my-2">    
              <span class="d-block">
               <strong>{$book.title}</strong>

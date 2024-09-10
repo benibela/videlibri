@@ -1,0 +1,4 @@
+* android: Entferne Java Code aus der Suche/Import/Export; und neuer Code für Wechsel zwischen Aktivitäten.
+* Anpassung an geänderte Kataloge der Stadtbibliothek Freiburg, Stadtbibliothek Bremen, Universitätsbibliothek Braunschweig, Universitätsbibliothek Osnabrück, Stadtbücherei Bochum, Universitätsbibliothek Dortmund, und Universitätsbibliothek Dortmund
+	
+* netbiblio/Biel: Anpassung an geänderte Ausleihentabelle

@@ -1,10 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="Bibliothek-App VideLibri">
-      <build version="2765" date="2023-11-10">
+      <build version="2920" date="2024-08-31">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <fix>Städtischen Bibliotheken Singen, Stadtbibliothek Karlsruhe</fix>
+        <fix>aDIS/VÖBB: korrigiere Kartenablaufdatum</fix>
+        <add>Stadtbücherei Lüdenscheid</add>
+     </build>
+      <build version="2900" date="2024-08-03">
+        <change>VÖBB: Extra-Dialog für Abholcode von Magazinbestellungen.</change>
+        <change>Automatisches Ausfüllen von HTML-Formularen ohne XPath.</change>
+        <fix>Anpassung an geänderte System in Frankfurt UB.</fix>
+        <fix>bibdia: Verarbeite abholbereite Medien in Ausleihentabelle.</fix>
+        <fix>Windows: Verbessertes Ausleihstatistik.</fix>
+        <add>neu: Ortsbücherei Löchgau und Stadtbibliothek Wilhelmshaven.</add>
+     </build>
+      <build version="2850" date="2024-06-21">
+        <fix>Anpassung an geänderte Kataloge in Hannover, Lübeck, und Ilmenau.</fix>
+        <fix>Anpassung der Verlängerungsmöglichkeit an geänderte Kataloge in Leipzig und Chemnitz.</fix>
+     </build>
+      <build version="2820" date="2024-05-04">
+        <fix>Neue Katalogadresse Stadtbücherei Rüsselheim</fix>
+        <fix>Digibib 7: Behebe Probleme mit keinen Suchergebnissen</fix>
+        <fix>arena (Essen/Bochum): Behebe Probleme mit keinen Ausleihen bzw. Vormerkungen</fix>
+     </build>
+      <build version="2800" date="2024-03-09">
+        <change>Stadtbibliothek Mönchengladbach: Verwende neuen Katalog</change>
+        <fix>Stadtbibliotheken Leipzig/Bremen: Anpassung an neue SISIS-Version.</fix>
+     </build>
+      <build version="2785" date="2024-03-02">
+        <fix>ignoriere EOFException in Downloads</fix>
+     </build>
+      <build version="2784" date="2024-02-24">
+        <fix>ignoriere EOFException in Downloads</fix>
+     </build>
+      <build version="2783" date="2024-02-18">
+        <fix>ignoriere EOFException in Downloads</fix>
+     </build>
+      <build version="2782" date="2024-02-04">
+        <fix>Neue Adressen für Ortsbücherei Nordheim, Stadtbücherei Gießen, Universitätsbibliothek Dortmund, und Stadtbibliothek Essen. Android HTTPS-Zertifikat für Freiburg.</fix>
+        <fix>netbiblio: Verfügbarkeitsanzeige in Suche.</fix>
+        <fix>bibdia: Ignoriere fehlende Vormerkungsdaten.</fix>
+     </build>
+      <build version="2780" date="2023-12-22">
+        <change>android: Entferne Java Code aus der Suche/Import/Export; und neuer Code für Wechsel zwischen Aktivitäten.</change>
+        <fix>Anpassung an geänderte Kataloge der Stadtbibliothek Freiburg, Stadtbibliothek Bremen, Universitätsbibliothek Braunschweig, Universitätsbibliothek Osnabrück, Stadtbücherei Bochum, Universitätsbibliothek Dortmund, und Universitätsbibliothek Dortmund
+	</fix>
+        <fix>netbiblio/Biel: Anpassung an geänderte Ausleihentabelle</fix>
+     </build>
+      <build version="2765" date="2023-11-10">
         <fix>Android 13: Frage nach Benachrichtungs-Rechten für Leihfristerinnerungen.</fix>
         <fix>Neue Internetadressen bei Stadtbibliothek Bonn, Mannheim; GKV, Hochschulbibliotheken Hildesheim, Görlitz, Leipzig, Osnabrück und Braunschweig
 </fix>

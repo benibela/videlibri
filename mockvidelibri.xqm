@@ -20,6 +20,10 @@ declare function vl:choose($a,$b,$c,$d) {
 declare function vl:confirm($a,$b) { 
   $message := {"kind": "confirm", "callback": $a, "caption": $b }
 };
+declare function vl:alert($a,$b) { 
+  $message := {"kind": "confirm", "callback": $a, "caption": $b }
+};
+declare function vl:alert($a) { vl:alert("", $a) };
 declare function vl:set-book-property($a,$b) { 
   $book($a||'!!') := $b 
 };

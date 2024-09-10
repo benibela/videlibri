@@ -1,7 +1,5 @@
 package de.benibela.videlibri.jni
 
-import de.benibela.videlibri.jni.Bridge.SearcherAccess
-
 sealed class SearchEvent {
     var searcherAccess: SearcherAccess? = null
     class Connected(val params: FormParams): SearchEvent()

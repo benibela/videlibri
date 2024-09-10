@@ -5,7 +5,7 @@
   <longName value="Stadtbücherei Gießen"/>
 
   <template value="koha"/>
-  <variable name="baseurl" value="https://stadtbibliothek.giessen.de/"/>
+  <variable name="baseurl" value="https://sb-giessen.lmscloud.net/"/>
 
   <homepage value="http://www.stadtbibliothek.giessen.de/"/>
   <testing-search value="yes"/>
