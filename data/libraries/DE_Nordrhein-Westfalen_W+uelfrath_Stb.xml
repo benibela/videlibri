@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<library>
+  <longName value="Katalog der Bibliotheken im Kreis Mettmann - Stadtbücherei Wülfrath"/>
+  <shortName value="Stb Wülfrath"/>
+  
+  <template value="vufind"/>  
+  <variable name="baseurl" value="https://bibnet.de/"/>
+  <variable name="loginParams" value="target=WULF"/>
+
+
+  <homepage value="https://www.wuelfrath.net/freizeit-bildung/wuelfrather-medien-welt/"/>
+  <testing-search value="yes"/>  <testing-account value="yes"/></library>
+
