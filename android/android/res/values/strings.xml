@@ -454,7 +454,6 @@
     <string name="internet_invalid_certificateS">Ungültiges Serverzertifikat für %s\nIn den Einstellungen unter \"Serverzertifikat herunterladen und als gültig akzeptieren\" kann hierfür eine Ausnahme gesetzt werden.</string>
     <string name="warning_duplicate_account">Dieses Ausleihkonto wurde bereits registriert. Um die Daten zu ändern, wähle das Konto in den Einstellungen aus (Die Einstellungen sind über das Seitenmenü zu erreichen).</string>
     <string name="internalVersion">Interne Version</string>
-    <string name="needReadExternalStoragePermissionForImport">Ohne Lese-Berechtigung können keine Daten zum Importieren geladen werden.</string>
     <string name="import_file_open_failed">Datei konnte nicht geöffnet werden</string>
     <string name="lay_options_btn_installupdate">Update herunterladen und installieren...</string>
     <string name="library_update_dialog_url">Adresse einer Webseite von der ein Update heruntergeladen werden soll:</string>
@@ -472,5 +471,7 @@
     <string name="lay_newlib_list_choosesystem" >Katalog-System auswählen</string>
     <string name="lay_newlib_error_choosesystem">Es muss ein Bibliothekssystem ausgewählt werden.</string>
     <string name="lay_newlib_error_no_parameters">Es muss die Adresse der Bibliothekswebseite eingegeben werden.</string>
+    <string name="notifications_duedate_permission_missing">Leihfristerinnerungen können nur angezeigt werden, wenn Benachrichtigungen erlaubt sind.</string>
+    <string name="search_no_terms">Für die Suche muss mindestens ein Suchbegriff eingegeben werden.</string>
 </resources>
 

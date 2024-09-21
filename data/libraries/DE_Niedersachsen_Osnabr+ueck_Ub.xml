@@ -5,8 +5,9 @@
   <longName value="Universitätsbibliothek Osnabrück"/>
   <shortName value="Ub Osnabrück"/>
   
-  <template value="pica"/>  
-  <variable name="server" value="https://lhosb.gbv.de"/>
+  <template value="lbs"/>  
+  <variable name="server" value="https://opac.lbs-osnabrueck.gbv.de"/>
+<!--  <variable name="borrower" value="USR=0000"/>-->
 
 
 

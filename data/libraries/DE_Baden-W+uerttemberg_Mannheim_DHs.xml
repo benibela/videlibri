@@ -9,6 +9,8 @@
   <variable name="server" value="bsz.ibs-bw.de"/>
   <variable name="startparams" value="?service=direct/0/Home/$DirectLink&amp;sp=SOPAC43"/>
 
+  <segregated-accounts value="true"/>
+ 
   <homepage value="http://www.bib.dhbw-mannheim.de/"/>
   <testing-search value="yes"/>
   <testing-account value="unknown"/>

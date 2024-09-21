@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbücherei Lüdenscheid"/>
+  
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://open.luedenscheid.de/Mein-Konto"/>
+  <variable name="urlsearch" value="https://open.luedenscheid.de/Mediensuche/Erweiterte-Suche"/>
+  
+  <homepage value="https://open.luedenscheid.de/Mein-Konto"/>
+  <testing-search value="yes"/> 
+  <testing-account value="yes"/>
+</library>

@@ -24,7 +24,7 @@ private const val VIEW_TYPE_NODETAILS = 1
 private const val VIEW_TYPE_GROUPING = 2
 
 
-internal class BookOverviewAdapter(private val context: BookListActivity, books: ArrayList<Bridge.Book>, count: Int, private val options: BookListDisplayOptions) : ClickableRecyclerView.Adapter<ViewHolderWithBinding<*>>() {
+internal class BookOverviewAdapter(private val context: BookListActivity, books: ArrayList<Bridge.Book>, var expectedCount: Int, private val options: BookListDisplayOptions) : ClickableRecyclerView.Adapter<ViewHolderWithBinding<*>>() {
     private val defaultColor: Int = context.resources.getColor(android.R.color.primary_text_dark)
     private val defaultColorSecondary: Int = context.resources.getColor(android.R.color.secondary_text_dark)
     private val defaultBackgroundColor: Int = context.resources.getColor(android.R.color.background_dark)
@@ -36,7 +36,8 @@ internal class BookOverviewAdapter(private val context: BookListActivity, books:
         notifyDataSetChanged()
     }
 
-    private val completeCount = kotlin.math.max(count, books.size)
+    private val completeCount
+    get() = kotlin.math.max(expectedCount, books.size)
 
     override fun getItemCount(): Int = completeCount
 

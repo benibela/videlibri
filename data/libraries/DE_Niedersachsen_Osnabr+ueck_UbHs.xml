@@ -5,7 +5,7 @@
   <longName value="Bibliothek der Hochschule Osnabrück"/>
   <shortName value="HSB Osnabrück"/>
   
-  <template value="pica"/>  
+  <template value="lbs"/>  
   <variable name="server" value="https://lhosb.gbv.de"/>
   <variable name="picadb" value="2"/>
 

@@ -115,6 +115,36 @@
     </div>
   </div>
   
+  <main id="main"> <!-- bremen -->
+   <div class="hitlist">
+     <section class="box">
+       <h1>{extract(., "[0-9]+")[.] ! (search-result-count := .)}</h1>
+       <ul class="pagination">
+         <a title="Nächste Seite">{$nextPage := resolve-html()}</a>?
+       </ul>
+     
+       <div class="container-fluid">
+         <div class="row">
+           {book := {"orderable": false()}}
+           <h2 class="recordtitle">
+             {$book.title}
+             <a>{$book._detail-url := resolve-html() }</a>
+             {let $text := following-sibling::text()!normalize-space()[.]
+              let $text := if ($text[1] => matches("[0-9]+")) then ("", $text) else $text
+              return (
+                $book.author := $text[1],
+                $book.year := $text[2],
+                $book.libraryLocation := $text[3]
+              )
+             }
+           </h2>
+           <div class="bibtip_isxn">{$book.isbn}</div>?	
+         </div>+
+       </div>
+     </section>
+   </div>
+  </main>
+  
   <t:element t:condition="(self::h1 or self::h2) and matches(normalize-space(), 'Ihre Suche erzielte ( *leider *)?keine Treffer')">{search-result-count:=0}</t:element>
   
   <form>

@@ -6,7 +6,7 @@
 
   <template value="bibliothecaplus"/>
   <variable name="urlaccount" value="https://webopac.stadt-witten.de/Mein-Konto"/>
-  <variable name="urlsearch" value="https://webopac.stadt-witten.de/Mediensuche/Erweiterte-Suche"/
+  <variable name="urlsearch" value="https://webopac.stadt-witten.de/Mediensuche/Erweiterte-Suche"/>
   <testing-search value="yes"/>
   <testing-account value="yes"/>
 </library>

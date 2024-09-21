@@ -1,0 +1,2 @@
+* Anpassung an geänderte Kataloge in Hannover, Lübeck, und Ilmenau.
+* Anpassung der Verlängerungsmöglichkeit an geänderte Kataloge in Leipzig und Chemnitz.

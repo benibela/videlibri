@@ -6,6 +6,9 @@ import android.content.Context
 import androidx.annotation.ArrayRes
 import androidx.annotation.StringRes
 import androidx.preference.*
+import kotlin.math.log2
+import kotlin.math.pow
+import kotlin.math.round
 import kotlin.reflect.KMutableProperty0
 
 class PreferenceScreenBuilder(val context: Context, val screen: PreferenceScreen, init: PreferenceScreenBuilder.() -> Unit) {
@@ -146,6 +149,38 @@ class SeekBarBuilder(ctx: Context, customPreference: SeekBarPreference?):
     override fun property(p: KMutableProperty0<Int>) {
         super.property(p)
         preference.value = p.get()
+    }
+    //scale the seekbar exponential
+    //this is kind of a hack, since the seekbar and preference is still linear, the value is scaled before being written to persistent storage
+    //so all the preference options (max, safeMax, showSeekBarValue) show the wrong value
+    fun logarithmicProperty(p: KMutableProperty0<Int>){
+/*
+     a good looking mapping:
+        180 -> 30
+        360 -> 60
+        540 -> 120
+        720 -> 240
+        900 -> 480
+     corresponds to
+        x -> 15*2**( x/180 )
+     reverse:
+        y -> log2(y/15) *180
+
+     but use 5, because that is also the minimum since exp(0) = 1
+ */
+        val propertyTransformer = object {
+            val actualProperty = p
+            var fakeProperty: Int
+                get() = getterTransform( p.get() )
+                set(value) {
+                    p.set( setterTransform( value ) );
+                  //  Log.i("videlibriLOG", "$value  -> ${setterTransform( value )}  -> ${p.get()}")
+                }
+            fun setterTransform(x: Int) = round( 5 * (2.0.pow(x/180.0)) ).toInt()
+            fun getterTransform(y: Int) = round( log2 (y / 5.0) * 180 ).toInt()
+        }
+        property(propertyTransformer::fakeProperty)
+        (preference as? PreferenceSeekBar)?.valueDisplayMapper = propertyTransformer::setterTransform
     }
 }
 

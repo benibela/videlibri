@@ -37,7 +37,7 @@ object LibraryUpdateLoader{
                         message(R.string.app_libregistered)
                         onDismiss = {
                             currentActivity<Options>()?.finish()
-                            currentActivity<LibraryList>()?.onActivityResult(VideLibriBaseActivity.RETURNED_FROM_NEW_LIBRARY, 0, null)
+                            currentActivity<LibraryList>()?.refreshLibraryList()
                         }
                     }
                 } else {

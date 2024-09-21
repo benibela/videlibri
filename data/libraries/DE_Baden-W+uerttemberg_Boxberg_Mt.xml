@@ -2,11 +2,9 @@
 <library>
   <longName value="Mediothek Boxberg"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/boxberg"/>	
-  <variable name="DB" value="Boxberg"/>	
-  
-  <homepage value="https://web-opac.kivbf.de/boxberg/index.asp?DB=Boxberg"/>
+  <template value="koha"/>
+  <variable name="baseurl" value="https://mt-boxberg.lmscloud.net/"/>
+
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

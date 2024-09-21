@@ -53,14 +53,15 @@ declare function igp:make-class($annotations, $nameAndParent, $children){
       case "@KotlinDataClass" return attribute kotlin-class {"data"} 
       case "@PascalClass" return attribute pascal-type {"class"} 
       default return igp:annotation-to-attribute($a),
-  for $x in $children!translate(., " ", "") 
+  for $w in $children
+  let $x := $w!translate(., " ", "") 
   let $split := extract($x, "([^:]+):([^=]+)(=\s*(.*))?", (1,2,4) )
   let $name := $split[1]!normalize-space()
   let $type := $split[2]!normalize-space()
   let $default := $split[3]
   let $default := $default!(if ($type = "String") then replace(., '^"|"$', '') else .) 
-  return 
-    igp:make-type($type, (attribute name { $name }, $default[.] ! attribute default { . } ) )
+  return if (starts-with($x, "//")) then <comment>{$w!replace(., "^//", "")}</comment>
+  else igp:make-type($type, (attribute name { $name }, $default[.] ! attribute default { . } ) )
 }
   </class>
 };

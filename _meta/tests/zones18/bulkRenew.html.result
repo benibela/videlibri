@@ -1,16 +1,7 @@
+renew-ids := item:IN=M01 923 717 2;AT=Butcher, Jim/Wolfsjagd
 book := {}
 obj := "Obj_582291377438929"
 bFoundBottom := false()
 baseForm := {"method": "POST", "post": "Method=SelectiveBulkRenew&BrowseAsHloc=-2&Style=Portal2&SubStyle=&Lang=GER&ResponseEncoding=utf-8&radioButton=on&DueInXDays=0&DueOnBox=", "url": "vltest://zones18/Obj_582291377438929"}
 options := {}
-tempId := "item:IN=M01 996 012 6;AT=Brandhorst, Andreas/Diamant"
-tempId := "item:IN=M02 005 789 2;AT=Niven, Larry/Ringwelt-Thron"
-tempId := "item:IN=M02 009 605 8;AT=Niven, Larry/Crashlander"
-tempId := "item:IN=M02 109 506 4;AT=McIntosh, Fiona/Der letzte Pfad◉3."
-tempId := "item:IN=M02 165 961 3;AT=Brandhorst, Andreas/Seelenfänger"
-tempId := "item:IN=M01 158 883 X;AT=Foster, Alan Dean/Bannsänger◉1."
-tempId := "item:IN=M01 158 885 3;AT=Foster, Alan Dean/Die Stunde des Tors◉2."
-tempId := "item:IN=M01 158 886 5;AT=Foster, Alan Dean/Der Tag der Dissonanz◉3."
-tempId := "item:IN=M01 158 888 9;AT=Foster, Alan Dean/Die Pfade des Wanderers◉5."
-tempId := "item:IN=M02 009 627 0;AT=Niven, Larry/Die Welt der PTAVV"
-tempId := "item:IN=M02 059 646 6;AT=Banks, Iain/Welten"
+result := ()

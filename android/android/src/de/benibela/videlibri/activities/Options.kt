@@ -1,7 +1,6 @@
 package de.benibela.videlibri.activities
 
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.util.TypedValue
 import androidx.appcompat.view.ContextThemeWrapper
@@ -19,6 +18,7 @@ import de.benibela.videlibri.internet.DownloadCertificate
 import de.benibela.videlibri.internet.UserKeyStore
 import de.benibela.videlibri.jni.*
 import de.benibela.videlibri.notifications.NotificationScheduling
+import de.benibela.videlibri.notifications.checkForRequiredNotificationPermission
 import de.benibela.videlibri.utils.*
 import java.util.regex.Pattern
 
@@ -102,18 +102,21 @@ class Options : VideLibriBaseActivity() {
                         onChanged { _, v ->
                             seekBarToToggle?.isEnabled = v
                             globalOptionsAndroid.save()
+                            VideLibriApp.currentActivity?.let(::checkForRequiredNotificationPermission)
                         }
                     }
                     seekBarToToggle = seekBar(PreferenceSeekBar(ctw)) {
-                        property(globalOptionsAndroid.notifications::serviceDelay)
+                        max(1620)
+                        logarithmicProperty(globalOptionsAndroid.notifications::serviceDelay)
                         //dependency(notificationSwitcher.key)
-                        max(1440)
+
                         title(R.string.lay_options_label_autocheckdelay)
                         onChanged(saveOptionsAndroidOnly)
                     } as PreferenceSeekBar
                     seekBarToToggle!!.apply {
+                        //showSeekBarValue = true
                         dynamicSummary = getString(R.string.lay_options_label_autocheckdelay_summary)
-                        safeMax = 120
+                        safeMax = 1200
                         unsafeWarning = getString(R.string.lay_options_label_autocheckdelay_too_large)
                         isEnabled = globalOptionsAndroid.notifications.enabled
                         showDynamicSummary()
@@ -260,7 +263,7 @@ class Options : VideLibriBaseActivity() {
                 title(R.string.lay_options_btn_newcertificate)
                 onClick {
                     val defaultServer: String? = VideLibriApp.errors.asSequence().map { e ->
-                        if (e.kind == PendingExceptionKind.Internet && e.error.contains("https://") == true) {
+                        if (e.kind == PendingExceptionKind.Internet && e.error.contains("https://")) {
                             val matcher = Pattern.compile("https://([^/]+)").matcher(e.error)
                             if (matcher.find()) matcher.group(1) else null
                         } else null
@@ -289,14 +292,6 @@ class Options : VideLibriBaseActivity() {
         }
     }
 
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == NEW_ACCOUNT_CREATION_RESULT && resultCode == Activity.RESULT_OK)
-            finish()
-        else
-            super.onActivityResult(requestCode, resultCode, data)
-    }
-
     fun updatePreferences() {
         for (f in supportFragmentManager.fragments)
             (f as? SettingsFragment)?.updatePreferences()
@@ -309,9 +304,6 @@ class Options : VideLibriBaseActivity() {
     }
 
     companion object {
-
-
-        internal const val NEW_ACCOUNT_CREATION_RESULT = 1235
 
         internal fun showLendingOptionsInView(activity: Activity, binding: OptionsLendingsBinding) {
             binding.viewHistory.isChecked = globalOptionsAndroid.bookListDisplayOptions.showHistory

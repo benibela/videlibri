@@ -65,6 +65,7 @@ class NotificationConfig {
   lastTime: Long
   lastTitle: String
   lastText: String
+  lastAskedForPermission: Int
 }
 
 @SerializeJson
@@ -94,6 +95,29 @@ class OptionsShared {
   refreshInterval: Int
   userLibIds: String[]
 }
+
+
+
+@Pascal<->Kotlin
+@PascalPrefix(eif)
+enum ImportExportFlag {
+  Current = 1
+  History = 2
+  Config = 4
+  Password = 8
+}
+
+
+@Pascal<->Kotlin
+@KotlinVar
+class ImportExportData {
+  accountsToImport: String[]
+  flags: Int  
+  //nativePtr is a very large object which must be destroyed with a call to  VLImportAccounts  
+  nativePtr: Long
+}
+
+
 
 
 //Classes to represent metadata of a library

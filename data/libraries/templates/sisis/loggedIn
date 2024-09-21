@@ -12,7 +12,7 @@ touchpoint := get('touchpoint', false())
 </head>
 <body>
    <div id="main"> 
-     <div id="middle"> 
+     <t:element id="middle"> 
       {
       let $account-links := .//a[contains(@href, "methodToCall=showAccount") and extract(.., "[0-9]+")[. > "0"]]
       return (
@@ -34,15 +34,24 @@ touchpoint := get('touchpoint', false())
   
     <t:if test="not($touchpoint)">
       <div class="box">
-        <div class="box-header">
-          <template:switch>
-            <h2>Ausleihen|Loans
-               <t:s>mode := 1</t:s>
-               <t:if test="empty($nextPage)"><template:read var="delete-current-books()"/></t:if></h2>
-            <h2>Bestellungen|Requests<t:s>mode := 2</t:s></h2>
-            <h2>Vormerkungen|Reservations<t:s>mode := 3</t:s></h2>
-          </template:switch>
-        </div>
+        <template:switch>
+          <div class="box-header">
+            <template:switch>
+              <h2>Ausleihen|Loans
+                 <t:s>mode := 1</t:s>
+                 <t:if test="empty($nextPage)"><template:read var="delete-current-books()"/></t:if></h2>
+              <h2>Bestellungen|Requests<t:s>mode := 2</t:s></h2>
+              <h2>Vormerkungen|Reservations<t:s>mode := 3</t:s></h2>
+            </template:switch>
+          </div>
+          
+          <h1>Ausleihen|Loans
+             <t:s>mode := 1</t:s>
+             <t:if test="empty($nextPage)"><template:read var="delete-current-books()"/></t:if></h1>
+          <h1>Bestellungen|Requests<t:s>mode := 2</t:s></h1>
+          <h1>Vormerkungen|Reservations<t:s>mode := 3</t:s></h1>
+          
+        </template:switch>
       </div>
     </t:if>
     <!--<fieldset>-->
@@ -53,13 +62,15 @@ touchpoint := get('touchpoint', false())
        case 3 return {"statusId": "ordered", "cancelable": false()}
        case 2 return {"statusId": "provided", "cancelable": false()}
        default return {"statusId": "critical"},
-       {"_onPage": base-uri(), "_onPageStart": $startUrl})
+       {"_onPage": let $page := base-uri() 
+                   return if (contains($page, "anzPos")) then $page
+                   else request-combine($page, "anzPos=1")?url, "_onPageStart": $startUrl})
      )
     }
 
 <!--    <template:if test="$allBooksAway=''">-->
     <t:switch prioritized="true">
-      <table class="data">
+      <table class="data"> 
         <tr>
           <th scope="col"></th>
         </tr>
@@ -131,6 +142,11 @@ touchpoint := get('touchpoint', false())
                  
         </table>
       
+      
+      
+      
+      
+      
         <div class="data">
           <div class="tableheader row d-flex">
           </div>
@@ -166,8 +182,67 @@ touchpoint := get('touchpoint', false())
           </div>*
         </div>
         
+
+
+
+        <div class="container-fluid"> <!-- bremen -->
+          <div class="tableheader row border-bottom py-2">
+            <div class="d-none"> </div>    
+            <div class="col-md-1"> </div>
+            <div class="col-md-7">Ti</div>    
+            <div class="d-none">Le</div>
+          </div>
+          <div class="row">
+            {book := $default-book,
+             let $selectionInputs := .//input
+             where $selectionInputs
+             let $sel := $selectionInputs[starts-with(@name, "selectedMediaListentries")]
+             where empty($sel/@disabled)
+             let $id := $selectionInputs[starts-with(@name, "mediaNrEntries") ]
+             return ($book.actionID := $id/@value, $book.statusId := "normal")}
+            <div></div>
+            <div class="col-2"><img/>?</div>
+            <div class="col-8 col-md-7 my-2">    
+             <span class="d-block">
+              <strong>{$book.title}</strong>
+             </span>
+             <span class="d-block">{$book.author}</span> <!--????-->
+                  
+             <span class="d-block">
+              <span>{$book.status}</span>
+              </span>
+             </div>
+                  
+             <div class="d-none d-md-block col-md-3 my-2">{
+               let $dates := extract(., '((\d{2}\.\d{2}\.\d{4}) *-)? *(\d{2}\.\d{2}\.\d{4})', (1,3)) 
+               return (
+                 if ($dates[1]) then book.issuedate:=parse-date($dates[1], 'dd.mm.yyyy') else (),
+                 if ($dates[2]) then book.duedate:=parse-date($dates[2], 'dd.mm.yyyy') else vl:raise("DATUM KANN NICHT GELESEN WERDEN: " || .)
+               )      
+              }</div>
+          </div>+
+        </div>
+
+       
+        
+        
         <div>Ausgewähltes Unterkonto enthält keine Daten|Selected sub-account does not contain any data</div>
+
+        <div class="container-fluid"><div class="row"><div class="alert message-info"></div></div></div>
       </t:switch>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
         
           <!--    </template:if>-->
     <!-- </fieldset> -->
@@ -191,7 +266,7 @@ touchpoint := get('touchpoint', false())
         }
       </t:element>?
    </div>
-  </div>
+  </t:element>
  </div>
 </body>
 </html>

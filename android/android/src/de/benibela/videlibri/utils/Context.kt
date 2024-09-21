@@ -24,10 +24,10 @@ inline fun <reified T: Activity> withActivity(f: T.() -> Unit) = currentActivity
 
 fun runOnUiThread(runnable: () -> Unit) = (VideLibriApp.uiHandler ?: Handler(Looper.getMainLooper())).post(runnable)
 
-fun showToast(message: CharSequence) =
-        Toast.makeText(currentContext, message, Toast.LENGTH_SHORT).show()
-fun showToast(@StringRes message: Int) =
-        Toast.makeText(currentContext, message, Toast.LENGTH_SHORT).show()
+fun showToast(message: CharSequence, length: Int = Toast.LENGTH_SHORT) =
+        Toast.makeText(currentContext, message, length).show()
+fun showToast(@StringRes message: Int, length: Int = Toast.LENGTH_SHORT) =
+        Toast.makeText(currentContext, message, length).show()
 
 //fun getString(@StringRes message: Int): String = Util.tr(message) ?: "??"
 fun getString(@StringRes message: Int,  vararg args: Any?): String = currentContext?.let { context -> try {

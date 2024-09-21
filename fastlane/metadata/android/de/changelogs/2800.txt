@@ -1,0 +1,2 @@
+* Stadtbibliothek Mönchengladbach: Verwende neuen Katalog
+* Stadtbibliotheken Leipzig/Bremen: Anpassung an neue SISIS-Version.

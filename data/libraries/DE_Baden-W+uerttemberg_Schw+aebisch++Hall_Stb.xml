@@ -4,7 +4,7 @@
     
   <template value="bibliothecaplus"/>
   <variable name="urlaccount" value="https://bibliotheken.kivbf.de/schwaebisch-hall/Mein-Konto"/>	
-  <variable name="urlsearch" value="https://bibliotheken.kivbf.de/schwaebisch-hall/Mediensuche/Erweiterte-Suche"/
+  <variable name="urlsearch" value="https://bibliotheken.kivbf.de/schwaebisch-hall/Mediensuche/Erweiterte-Suche"/>
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

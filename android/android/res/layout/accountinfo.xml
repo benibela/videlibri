@@ -19,7 +19,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/libraryTextView" android:textStyle="bold" android:layout_gravity="center"
-                    android:clickable="true" android:padding="4sp" android:gravity="center"/>
+                    android:clickable="true" android:padding="4sp" android:gravity="center"
+                android:focusable="true" />
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -68,7 +69,10 @@
                       android:layout_height="wrap_content"
                       android:minHeight="48dp"
                       android:id="@+id/accountId" android:singleLine="true" android:inputType="textNoSuggestions"
-                  android:autofillHints="username" />
+                  android:autofillHints="username" >
+                      <requestFocus/>
+              </com.google.android.material.textfield.TextInputEditText>
+                      
             </com.google.android.material.textfield.TextInputLayout>
             <TextView
                     android:layout_width="fill_parent"

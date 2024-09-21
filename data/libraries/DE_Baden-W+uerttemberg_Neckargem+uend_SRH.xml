@@ -5,7 +5,7 @@
   
   <template value="bibliothecaplus"/>
   <variable name="urlaccount" value="https://mediothek-srh.bibliotheca-open.de/mein-konto"/>	
-  <variable name="urlsearch" value="https://mediothek-srh.bibliotheca-open.de/mediensuche/erweiterte-suche"/
+  <variable name="urlsearch" value="https://mediothek-srh.bibliotheca-open.de/mediensuche/erweiterte-suche"/>
   
   <homepage value="https://beyondbooks-mediothek.de/"/>
   <testing-search value="yes"/>  

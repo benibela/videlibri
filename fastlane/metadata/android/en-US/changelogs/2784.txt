@@ -1,0 +1,1 @@
+* ignore EOFException in downloads

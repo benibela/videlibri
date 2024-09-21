@@ -7,8 +7,8 @@
   <shortName value="Stb Mannheim"/>
   
   <template value="bibliothecaplus"/>
-  <variable name="urlaccount" value="https://katalog.mannheim.de/Mein-Konto"/>
-  <variable name="urlsearch" value="https://katalog.mannheim.de/Mediensuche/Erweiterte-Suche"/>
+  <variable name="urlaccount" value="https://bibliotheken.komm.one/mannheim/de-de/Mein-Konto"/>
+  <variable name="urlsearch" value="https://bibliotheken.komm.one/mannheim/de-de/Mediensuche/Erweiterte-Suche"/>
    
   <homepage value="https://www.mannheim.de/de/bildung-staerken/stadtbibliothek"/>
   <testing-search value="yes"/>  <testing-account value="unknown"/></library>

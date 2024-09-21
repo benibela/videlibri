@@ -19,7 +19,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/lay_search_libselect"
-                android:id="@+id/library" android:paddingLeft="30sp" android:clickable="true"/>
+                android:id="@+id/library" android:paddingLeft="30sp" android:clickable="true"
+                android:focusable="true" />
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"

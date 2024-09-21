@@ -4,8 +4,10 @@
 <library>
   <longName value="Stadtbücherei Rüsselheim"/>
   
-  <template value="sisis"/>  
-  <variable name="server" value="https://opac.kultur123ruesselsheim.de:18443/webOPACClient/"/>
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://ruesselsheim.bibliotheca-open.de/Mein-Konto"/>
+  <variable name="urlsearch" value="https://ruesselsheim.bibliotheca-open.de/Erweiterte-Suche"/>
+
   
   <homepage value="https://www.ruesselsheim.de/stadtbuecherei1.html"/>
   <testing-search value="yes"/>

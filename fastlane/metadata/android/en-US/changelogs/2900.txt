@@ -1,0 +1,6 @@
+* add alert dialog to templates
+* adis: try to use alert messages in ordering
+* add t:form-request option for pattern matching that does not need xpath to submit forms
+* Fix Frankfurt UB.
+* bibdia: fix handling provided books in lending table
+* Ortsbücherei Löchgau and Stadtbibliothek Wilhelmshaven.

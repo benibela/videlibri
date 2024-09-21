@@ -8,6 +8,9 @@ declare function vl:raise($x) {
 declare function vl:raise-login($x) { 
   vl:raise("login error: " || $x)
 }; 
+declare function vl:raise-login() { 
+  vl:raise("login error")
+}; 
 declare function vl:raise-timeout($x) { 
   vl:raise("Timeout: " || $x)
 }; 
@@ -20,6 +23,10 @@ declare function vl:choose($a,$b,$c,$d) {
 declare function vl:confirm($a,$b) { 
   $message := {"kind": "confirm", "callback": $a, "caption": $b }
 };
+declare function vl:alert($a,$b) { 
+  $message := {"kind": "confirm", "callback": $a, "caption": $b }
+};
+declare function vl:alert($a) { vl:alert("", $a) };
 declare function vl:set-book-property($a,$b) { 
   $book($a||'!!') := $b 
 };

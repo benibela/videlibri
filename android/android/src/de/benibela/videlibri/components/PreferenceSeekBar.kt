@@ -19,6 +19,8 @@ class PreferenceSeekBar @JvmOverloads constructor(context: Context, attrs: Attri
     var safeMax: Int
     var unsafeWarning: String?
 
+    var valueDisplayMapper: ((Int)->Int) = { x -> x }
+
     init {
 
         val a = context.obtainStyledAttributes(attrs, R.styleable.PreferenceSeekBar, defStyleAttr, defStyleRes)
@@ -56,7 +58,7 @@ class PreferenceSeekBar @JvmOverloads constructor(context: Context, attrs: Attri
     }
 
     fun showDynamicSummary() {
-        val s = dynamicSummary?.let { String.format(it, value) } ?: ""
+        val s = dynamicSummary?.let { String.format(it, valueDisplayMapper( value)) } ?: ""
         //todo: plural https://stackoverflow.com/a/25648349
         summary = if (editable) s
                   else s + "   " + getString(R.string.lay_options_seekbar_tap_to_change)

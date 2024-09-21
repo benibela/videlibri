@@ -50,7 +50,7 @@ class NewLibrary : VideLibriBaseActivity() {
             binding.deleteButton.setOnClickListener {
                 showMessageYesNo(getString(R.string.delete_library_confirmation, binding.name.text.toString())) {
                     Bridge.VLSetLibraryDetails(id, null)
-                    withActivity<NewLibrary> {  finish() }
+                    withActivity<NewLibrary> {  finishWithResult() }
                 }
             }
         } else {
@@ -60,7 +60,7 @@ class NewLibrary : VideLibriBaseActivity() {
         binding.create.setOnClickListener {
             val templateId = binding.templateSpinner.selectedItem.toString()
             if (templateId == trChooseATemplate) showMessage(R.string.lay_newlib_error_choosesystem)
-            else if (!variables.isEmpty() && variables.all { it.value.editText?.text?.isBlank() ?: true }) showMessage(R.string.lay_newlib_error_no_parameters)
+            else if (variables.isNotEmpty() && variables.all { it.value.editText?.text?.isBlank() ?: true }) showMessage(R.string.lay_newlib_error_no_parameters)
             else {
                 val oldId = if (mode == MODE_LIBRARY_MODIFY) intent.getStringExtra("libId") else null
                 val newId = viewId
@@ -71,7 +71,7 @@ class NewLibrary : VideLibriBaseActivity() {
                 details.variables = variables.map { (key, value) -> de.benibela.videlibri.jni.LibraryVariable(key, value.editText?.text?.toString() ?: value.defaultValue) }.toTypedArray()
                 Bridge.VLSetLibraryDetails(newId, details)
                 if (newId != oldId && oldId != null) Bridge.VLSetLibraryDetails(oldId, null)
-                finish()
+                finishWithResult()
             }
         }
         //binding.name.requestFocus() //or use scrollView.requestChildFocus(target, target); ??
@@ -115,7 +115,7 @@ class NewLibrary : VideLibriBaseActivity() {
         val details =
             try {
                 Bridge.VLGetTemplateDetails(template) ?: return
-            } catch (e: InternalError) {
+            } catch (e: de.benibela.videlibri.jni.InternalError) {
                 showMessage(e.localizedMessage)
                 return
             }

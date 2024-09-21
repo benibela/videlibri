@@ -4,10 +4,10 @@
 <library>
   <longName value="Bibliothek im Kurt-Schwitters-Forum"/>
   
-  <template value="pica"/>  
+  <template value="lbs"/>  
   <variable name="server" value="https://opac.tib.eu/"/>
   <variable name="picadb" value="11"/>
-
+  <variable name="borrower" value="USR=1293"/>
 
   <homepage value="https://www.hs-hannover.de/ueber-uns/organisation/bibliothek/standorte-und-oeffnungszeiten/#c26513"/>
   <testing-search value="yes"/>

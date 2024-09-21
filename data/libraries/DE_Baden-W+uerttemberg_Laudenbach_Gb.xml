@@ -2,9 +2,10 @@
 <library>
   <longName value="GemeindeBücherei Laudenbach"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/laudenbach"/>	
-  <variable name="DB" value="Laudenbach"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.komm.one/laudenbach/Login?returnurl=%2flaudenbach%2f"/>
+  <variable name="urlsearch" value="https://bibliotheken.komm.one/laudenbach/Mediensuche/Erweiterte-Suche"/>
+  
   
   <homepage value="https://web-opac.kivbf.de/laudenbach/index.asp?DB=Laudenbach"/>
   <testing-search value="yes"/>

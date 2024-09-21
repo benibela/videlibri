@@ -7,7 +7,7 @@
   <catalogue value="http://www.gbv.de/"/>
 
   <template value="sru"/>
-  <variable name="baseurl" value="http://sru.gbv.de/gvk"/>
+  <variable name="baseurl" value="http://sru.k10plus.de/gvk"/>
 <!--  <variable name="searchKeys" value="pica.tit;pica.prs;pica.isb;pica.jah;pica.slw"/>
   <variable name="recordSchema" value="marcxml"/>  -->
  <!-- <template value="pica"/>  

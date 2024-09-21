@@ -5,8 +5,8 @@
   <longName value="Universitätsbibliothek Clausthal"/>
   <shortName value="Ub Clausthal"/>
   
-  <template value="pica"/>
-  <variable name="server" value="http://lhclz.gbv.de/"/>	
+  <template value="lbs"/>
+  <variable name="server" value="https://lbsclz.gbv.de"/>	
 
   <homepage value="http://www.bibliothek.tu-clausthal.de/"/>
   <testing-search value="yes"/>
