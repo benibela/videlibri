@@ -36,6 +36,10 @@
 <action id="search-next-page"> 
   <if test="contains($next-page, '/list/data')">  
     <s>
+     $search-next-page-available := false(),
+     $next-page-html := (),
+     
+    
      $eventStreamText := unparsed-text($next-page),
      let $eventStream := x:lines($eventStreamText)
      for tumbling window $w in $eventStream start when true end $line when $line eq ""
@@ -54,8 +58,10 @@
            (:todo multiple libraries:)
          )
     </s>
-    <page data="{$next-page-html}" pattern-href="search"/>
-    <page data="{$footer-html}" pattern-href="search-pagination"/>
+    <if test="exists($next-page-html)">  
+      <page data="{$next-page-html}" pattern-href="search"/>
+      <page data="{$footer-html}" pattern-href="search-pagination"/>
+    </if>
   </if>
   <else>
     <page url="{$next-page}"/>

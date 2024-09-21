@@ -1,0 +1,6 @@
+* Update to Unicode Version 15 and FLRE-Version.
+* Target SDK Android 13 (no actual change)
+* Public libraries Hannover, Köln: Anpassung für Verlängerungen.
+* Public libraries Bremen: Anpassung an neues System
+* Update URLs of public libraries Lauda-Königshofen, Laudenbach,  Mediothek Boxberg, Solingen; university libraries Bonn, Clausthal and RUB Bochum
+* add Stadtbücherei Landshut

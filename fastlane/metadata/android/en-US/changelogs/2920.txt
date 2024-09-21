@@ -1,0 +1,3 @@
+* fix Städtischen Bibliotheken Singen, Stadtbibliothek Karlsruhe
+* add Stadtbücherei Lüdenscheid
+* aDIS/VÖBB: new account-expiration

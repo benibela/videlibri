@@ -8,6 +8,6 @@
   <variable name="urlsearch" value="https://open.mainz.de/Mediensuche/Erweiterte-Suche"/>
   
   <homepage value="http://www.bibliothek.mainz.de/rubrik4/bereich1.php"/>
-  <testing-search value="yes"/>  <testing-account value="unknown"/>
+  <testing-search value="yes"/>  <testing-account value="yes"/>
 </library>
 

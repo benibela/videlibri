@@ -5,9 +5,9 @@
   <longName value="Stadtbibliothek Solingen"/>
 
   <template value="libero5"/>
-  <variable name="baseurl" value="http://www.stadtbib.stadt-solingen.de/libero/"/>
+  <variable name="baseurl" value="https://stadtbib.solingen.de/libero/"/>
 
-  <homepage value="https://www.solingen.de/de/inhalt/stadtbibliothek-solingen/"/>
+  <homepage value="https://stadtbib.solingen.de"/>
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
   

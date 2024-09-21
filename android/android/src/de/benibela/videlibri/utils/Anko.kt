@@ -17,8 +17,8 @@ inline fun <reified T: Activity> startActivity(vararg params: Pair<String, Any?>
 //inline fun <reified T: Activity> Context.startActivity(vararg params: Pair<String, Any?>) =
 //        internalStartActivity(this, T::class.java, params)
 
-inline fun <reified T: Activity> Activity.startActivityForResult(requestCode: Int, vararg params: Pair<String, Any?>) =
-        internalStartActivityForResult(this, T::class.java, requestCode, params)
+//inline fun <reified T: Activity> Activity.startActivityForResult(requestCode: Int, vararg params: Pair<String, Any?>) =
+//        internalStartActivityForResult(this, T::class.java, requestCode, params)
 
 
 fun internalStartActivity(

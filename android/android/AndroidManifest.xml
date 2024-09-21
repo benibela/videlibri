@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="de.benibela.videlibri"
-      android:versionCode="2752"
-      android:versionName="2.752">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="de.benibela.videlibri"
+      android:versionCode="2920"
+      android:versionName="2.920">
     <!--<uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="18" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
@@ -20,7 +22,7 @@
         android:hasFragileUserData="true"
         android:restoreAnyVersion="true"
         android:supportsRtl="false"
-        >
+        tools:ignore="UnusedAttribute">
 <!--        <uses-library android:name="org.apache.http.legacy" android:required="false" /> < !- - reactivated httpclient removed with 23 -->
         <activity android:name=".activities.LendingList"
                   android:configChanges="keyboardHidden"

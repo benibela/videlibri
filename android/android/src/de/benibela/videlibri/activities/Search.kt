@@ -5,12 +5,14 @@ import android.content.Intent
 import android.graphics.Paint
 import android.graphics.Point
 import android.graphics.Typeface
+import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.text.InputType
 import android.util.Log
 import android.view.Menu
 import android.view.View
+import android.view.WindowInsets
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Spinner
@@ -18,6 +20,7 @@ import android.widget.TextView
 import androidx.core.view.ViewCompat
 import de.benibela.videlibri.R
 import de.benibela.videlibri.VideLibriApp
+import de.benibela.videlibri.databinding.SearchlayoutBinding
 import de.benibela.videlibri.databinding.SearchlayoutRowEditBinding
 import de.benibela.videlibri.databinding.SearchlayoutRowSpinnerBinding
 import de.benibela.videlibri.jni.*
@@ -49,11 +52,12 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
     ): Parcelable
 
     var state = State()
+    lateinit var binding: SearchlayoutBinding
     private val searchParamHolders = mutableMapOf<String, SearchParamHolder>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setVideLibriView(R.layout.searchlayout)
+        binding = setVideLibriView(SearchlayoutBinding::inflate)
         registerState(::state)
 
         state.apply {
@@ -65,7 +69,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
             if (libName.isEmpty() && libId != "")
                 libName = Bridge.VLGetLibraryDetails(libId)?.prettyName ?: ""
 
-            val lib = findViewById<TextView>(R.id.library)
+            val lib = binding.library
             lib.text = "$libName (${getString(R.string.change)})"
             lib.paintFlags = lib.paintFlags or Paint.UNDERLINE_TEXT_FLAG
             if (libId.isEmpty() || (intent?.getBooleanExtra("showLibList", false) == true) && savedInstanceState == null) {
@@ -75,9 +79,14 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
             }
         }
 
-        findViewById<View>(R.id.library).setOnClickListener { changeSearchLib() }
+        binding.library.setOnClickListener { changeSearchLib() }
 
         val searchStartClickListener = View.OnClickListener {
+            if (searchParamHolders.entries.all { it.value.edit?.text?.isBlank() ?: true }) {
+                showMessage(R.string.search_no_terms)
+                return@OnClickListener
+            }
+
             obtainSearcher()
 
             if ("debug" == searchParamHolders["year"]?.edit?.text?.toString()) {
@@ -104,7 +113,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
             intent.putExtra("searchQuery", book)
             startActivity(intent)
         }
-        findViewById<View>(R.id.button).setOnClickListener(searchStartClickListener)
+        binding.button.setOnClickListener(searchStartClickListener)
 
         title = ""
         supportActionBar?.let {
@@ -126,10 +135,8 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
         }
     }
 
-    private val requestCodeChooseLibrary = 1234
 
-
-    private var searcher: Bridge.SearcherAccess? = null
+    private var searcher: SearcherAccess? = null
 
 
     private fun gcSearchers() {
@@ -155,7 +162,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
                     }
                 }
         }
-        searcher = Bridge.SearcherAccess(state.libId)
+        searcher = SearcherAccess(state.libId)
         searcher?.let {
             it.heartBeat = System.currentTimeMillis()
             it.state = SEARCHER_STATE_INIT
@@ -214,64 +221,97 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
 
 
     private fun changeSearchLib() {
-        startActivityForResult<LibraryList>(requestCodeChooseLibrary,
+        startActivityForResult<LibraryList>(
                 "defaultLibId" to state.libId,
                 "reason" to getString(R.string.search_selectlib),
                 "search" to true
-        )
+        ) {resultCode, data -> withActivity<Search> {
+            if (resultCode == Activity.RESULT_OK) {
+                state.libId = LibraryList.lastSelectedLibId ?: ""
+                state.libName = LibraryList.lastSelectedLibName ?: ""
+                binding.library.text = state.libName
+
+                obtainSearcher()
+                updateSearchParamsViews()
+            } else if ("" == state.libId) finish()
+        }
+        }
+    }
+
+    private fun getDisplaySize(): Point {
+        //see https://stackoverflow.com/questions/1016896/how-to-get-screen-dimensions-as-pixels-in-android/1016941#1016941
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val metrics = windowManager.currentWindowMetrics
+            val windowInsets = metrics.windowInsets
+            val insets = windowInsets.getInsetsIgnoringVisibility(
+                WindowInsets.Type.navigationBars() or WindowInsets.Type.displayCutout()
+            )
+
+            val insetsWidth = insets.right + insets.left
+            val insetsHeight = insets.top + insets.bottom
+            val bounds = metrics.bounds
+            return Point(
+                bounds.width() - insetsWidth,
+                bounds.height() - insetsHeight
+            )
+        } else @Suppress("DEPRECATION") {
+            val display = windowManager.defaultDisplay
+            val size = Point()
+            display.getSize(size)
+            return size
+        }
     }
 
     private fun updateSearchParamsViews() {
         val searcher = searcher ?: return
-        val lay = findViewById<LinearLayout>(R.id.layout)
+        state.focusedChild = searchParamHolders.filter { it.value.view.isFocused }.keys.firstOrNull() ?: state.focusedChild
+        val lay = binding.layout
         lay.removeAllViews()
         val inflater = layoutInflater
         val oldSearchParamHolders = searchParamHolders.toMap()
         searchParamHolders.clear()
-        for (param in searcher.searchParams.inputs){
-            if (param.name in searchParamHolders) continue
-            val old = oldSearchParamHolders[param.name]?.takeIf { it.input == param }
-            if (old != null) {
-                lay.addView(old.layout)
-                searchParamHolders[param.name] = old
-            } else {
-                val holder: SearchParamHolder
-                if (param is FormSelect) {
-                    val rowBinding = SearchlayoutRowSpinnerBinding.inflate(inflater, lay, true)
-                    holder = SearchParamHolder(param, rowBinding.innerLayout, rowBinding.textView, rowBinding.spinner)
-                    rowBinding.spinner.setItems(param.optionCaptions)
-                    val i = param.optionValues.indexOf(param.value)
-                    rowBinding.spinner.setSelection(if (i >= 0) i else 0)
+        var focusView: View? = null
+        searcher.searchParams?.inputs?.forEach { param ->
+            if (param.name !in searchParamHolders) {
+                val old = oldSearchParamHolders[param.name]?.takeIf { it.input == param }
+                val new = if (old != null) {
+                    lay.addView(old.layout)
+                    old
                 } else {
-                    val rowBinding = SearchlayoutRowEditBinding.inflate(inflater, lay, true)
-                    holder = SearchParamHolder(param, rowBinding.innerLayout, rowBinding.textView, rowBinding.edit)
-                    when (param.name) {
-                        "year" -> rowBinding.edit.setRawInputType(InputType.TYPE_CLASS_NUMBER)
+                    val holder: SearchParamHolder
+                    if (param is FormSelect) {
+                        val rowBinding = SearchlayoutRowSpinnerBinding.inflate(inflater, lay, true)
+                        holder = SearchParamHolder(param, rowBinding.innerLayout, rowBinding.textView, rowBinding.spinner)
+                        rowBinding.spinner.setItems(param.optionCaptions)
+                        val i = param.optionValues.indexOf(param.value)
+                        rowBinding.spinner.setSelection(if (i >= 0) i else 0)
+                    } else {
+                        val rowBinding = SearchlayoutRowEditBinding.inflate(inflater, lay, true)
+                        holder = SearchParamHolder(param, rowBinding.innerLayout, rowBinding.textView, rowBinding.edit)
+                        when (param.name) {
+                            "year" -> rowBinding.edit.setRawInputType(InputType.TYPE_CLASS_NUMBER)
+                        }
                     }
+                    holder.layout.isSaveEnabled = false
+                    holder.view.isSaveEnabled = false
+                    holder.view.id = ViewCompat.generateViewId()
+                    holder.caption.isSaveEnabled = false
+                    holder.caption.text = param.caption
+                    when (param.name) {
+                        "title", "author", "free" -> holder.caption.setTypeface(null, Typeface.BOLD)
+                    }
+                    holder
                 }
-                holder.layout.isSaveEnabled = false
-                holder.view.isSaveEnabled = false
-                holder.view.id = ViewCompat.generateViewId()
-                holder.caption.isSaveEnabled = false
-                holder.caption.text = param.caption
-                when (param.name) {
-                    "title", "author", "free" -> holder.caption.setTypeface(null, Typeface.BOLD)
-                }
-                searchParamHolders[param.name] = holder
-                if (param.name == state.focusedChild && param.name != "title") holder.view.requestFocus()
+                searchParamHolders[param.name] = new
+                if (param.name == state.focusedChild || focusView == null) focusView = new.view
             }
         }
+        focusView?.requestFocus()
 
 
         val portMode = resources.getBoolean(R.bool.port_mode)
-        var displayWidth = 0
+        val displayWidth = getDisplaySize().x
         var minimumWidth = 0
-        if (portMode) {
-            val display = windowManager.defaultDisplay
-            val size = Point()
-            display.getSize(size)
-            displayWidth = size.x
-        }
         for (h in searchParamHolders.values) {
             val captionWidth = h.caption.paint.measureText(h.caption.text.toString()).roundToInt()
             if (portMode || (displayWidth > 0 && captionWidth > displayWidth / 3) ) {
@@ -293,19 +333,6 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
 
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == requestCodeChooseLibrary) {
-            if (resultCode == Activity.RESULT_OK) {
-                state.libId = LibraryList.lastSelectedLibId ?: ""
-                state.libName = LibraryList.lastSelectedLibName ?: ""
-                findViewById<TextView>(R.id.library).text = state.libName
-
-                obtainSearcher()
-                updateSearchParamsViews()
-            } else if ("" == state.libId) finish()
-        } else
-            super.onActivityResult(requestCode, resultCode, data)
-    }
 
     override fun onSearchEvent(event: SearchEvent): Boolean {
         if (debugTester?.onSearchEvent(event) == true) return true
@@ -360,7 +387,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
     }
 
     companion object {
-        internal var searchers = ArrayList<Bridge.SearcherAccess>()
+        internal var searchers = ArrayList<SearcherAccess>()
 
         internal const val SEARCHER_HEARTH_BEAT_TIMEOUT = 5 * 60 * 1000
         internal const val SEARCHER_STATE_INIT = 0 //connecting
@@ -376,7 +403,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler {
 internal class SearchDebugTester(private var query: Bridge.Book, startId: String) {
     private var libs: Array<String> = Bridge.VLGetLibraryIds()
     var pos: Int = 0
-    private var searcher: Bridge.SearcherAccess? = null
+    private var searcher: SearcherAccess? = null
 
     init {
         pos = 0
@@ -394,12 +421,12 @@ internal class SearchDebugTester(private var query: Bridge.Book, startId: String
         Log.i("VIDELIBRI", "============================================================")
         Log.i("VIDELIBRI", "Testing search: " + libs[pos])
         Log.i("VIDELIBRI", "============================================================")
-        searcher = Bridge.SearcherAccess(libs[pos])
+        searcher = SearcherAccess(libs[pos])
         searcher?.connect()
         withActivity<Search> {
             state.libId = libs[pos]
             state.libName = libs[pos]
-            findViewById<TextView>(R.id.library).text = state.libName
+            binding.library.text = state.libName
             refreshLoadingIcon()
         }
     }

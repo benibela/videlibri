@@ -1,0 +1,8 @@
+<t:switch prioritized="true">
+  <table id="textBody" class="popupTextBody">
+  Die Verlängerung wurde abgeschlossen
+  </table>
+  <TABLE id="textBody" class="popupTextBody">
+  {vl:raise(.)}
+  </table>
+</t:switch>

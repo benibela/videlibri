@@ -5,8 +5,8 @@
   <longName value="Universitäts- und Landesbibliothek Bonn"/>
   <shortName value="Ulb Bonn"/> 
   
-  <template value="summon"/>
-  <variable name="baseurl" value="https://bonnus.ulb.uni-bonn.de/"/>   
+  <template value="primo"/>
+  <variable name="baseurl" value="https://bonnus.ulb.uni-bonn.de/discovery/search?vid=49HBZ_ULB:DEFAULT"/>
   
   <homepage value="http://www.ulb.uni-bonn.de/"/>
   <testing-search value="yes"/>

@@ -74,12 +74,13 @@ package de.benibela.videlibri.jni
     @JvmField var serviceDelay: Int = 15,
     @JvmField var lastTime: Long = 0,
     @JvmField var lastTitle: String = "",
-    @JvmField var lastText: String = ""
+    @JvmField var lastText: String = "",
+    @JvmField var lastAskedForPermission: Int = 0
   )   {
     override fun equals(other: Any?): Boolean =
-       other != null && javaClass == other.javaClass && other is NotificationConfig && enabled == other.enabled && serviceDelay == other.serviceDelay && lastTime == other.lastTime && lastTitle == other.lastTitle && lastText == other.lastText
+       other != null && javaClass == other.javaClass && other is NotificationConfig && enabled == other.enabled && serviceDelay == other.serviceDelay && lastTime == other.lastTime && lastTitle == other.lastTitle && lastText == other.lastText && lastAskedForPermission == other.lastAskedForPermission
     override fun hashCode(): Int =
-      super.hashCode() xor enabled.hashCode().rotateLeft(1) xor serviceDelay.hashCode().rotateLeft(2) xor lastTime.hashCode().rotateLeft(3) xor lastTitle.hashCode().rotateLeft(4) xor lastText.hashCode().rotateLeft(5)
+      super.hashCode() xor enabled.hashCode().rotateLeft(1) xor serviceDelay.hashCode().rotateLeft(2) xor lastTime.hashCode().rotateLeft(3) xor lastTitle.hashCode().rotateLeft(4) xor lastText.hashCode().rotateLeft(5) xor lastAskedForPermission.hashCode().rotateLeft(6)
   }
 
   open class OptionsAndroidOnly( 
@@ -107,6 +108,26 @@ package de.benibela.videlibri.jni
        other != null && javaClass == other.javaClass && other is OptionsShared && nearTime == other.nearTime && refreshInterval == other.refreshInterval && userLibIds.contentEquals(other.userLibIds)
     override fun hashCode(): Int =
       super.hashCode() xor nearTime.hashCode().rotateLeft(1) xor refreshInterval.hashCode().rotateLeft(2) xor userLibIds.contentHashCode().rotateLeft(3)
+  }
+typealias ImportExportFlagInt = Int
+object ImportExportFlag {
+    const val Current = 1
+    const val History = 2
+    const val Config = 4
+    const val Password = 8
+}
+
+
+  open class ImportExportData( 
+    @JvmField var accountsToImport: Array<String> = emptyArray(),
+    @JvmField var flags: Int = 0,
+    //nativePtr is a very large object which must be destroyed with a call to VLImportAccounts,
+    @JvmField var nativePtr: Long = 0
+  )   {
+    override fun equals(other: Any?): Boolean =
+       other != null && javaClass == other.javaClass && other is ImportExportData && accountsToImport.contentEquals(other.accountsToImport) && flags == other.flags && nativePtr == other.nativePtr
+    override fun hashCode(): Int =
+      super.hashCode() xor accountsToImport.contentHashCode().rotateLeft(1) xor flags.hashCode().rotateLeft(2) xor nativePtr.hashCode().rotateLeft(3)
   }
 
 

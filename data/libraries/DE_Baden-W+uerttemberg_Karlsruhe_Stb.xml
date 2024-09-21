@@ -2,11 +2,10 @@
 <library>
   <longName value="Stadtbibliothek Karlsruhe"/>
   
-  <template value="bibdia"/>
-  <variable name="baseurl" value="https://opac.karlsruhe.de/opax/"/>
+  <template value="koha"/>
+  <variable name="baseurl" value="https://opac.karlsruhe.de/"/>
 
-  <homepage value="https://stadtbibliothek.karlsruhe.de/"/>
-  <testing-search value="no"/>  
+  <testing-search value="yes"/>  
   <testing-account value="unknown"/>
 </library>
 

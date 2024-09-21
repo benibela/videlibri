@@ -1,0 +1,4 @@
+* Android 13: ask for notification permission 
+* New website URLs of Public library Bonn, Mannheim; GKV, University libraries Hildesheim, Görlitz, Leipzig, Osnabrück and Braunschweig
+* fix netbiblio headers
+* sisis bremen: handle empty account

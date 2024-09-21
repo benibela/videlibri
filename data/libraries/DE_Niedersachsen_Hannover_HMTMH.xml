@@ -4,10 +4,10 @@
 <library>
   <longName value="Bibliothek der Hochschule für Musik, Theater und Medien Hannover"/>
   
-  <template value="pica"/>  
+  <template value="lbs"/>  
   <variable name="server" value="https://opac.tib.eu/"/>
   <variable name="picadb" value="8"/>
-
+  <variable name="borrower" value="USR=1163"/>
 
   <homepage value="http://www.hmtm-hannover.de/de/studium/hochschulbibliothek/"/>
   <testing-search value="yes"/>

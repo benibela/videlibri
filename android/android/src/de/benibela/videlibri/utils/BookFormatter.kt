@@ -76,7 +76,7 @@ fun Bridge.Book.getStatusColor(): Int =
             -1
         else if ((account != null || isGroupingHeader)
                 && dueDate != 0
-                && dueDate - Bridge.currentPascalDate <= globalOptionsShared.nearTime)
+                && dueDate - PascalDate.todayInt <= globalOptionsShared.nearTime)
             Color.RED
         else
             when (status) {

@@ -37,7 +37,7 @@
     <div class="arena-feedback" role="alert">
       <ul class="feedbackPanel">
 				<li class="feedbackPanelINFO">
-				  <span class="feedbackPanelINFO">Keine Entleihungen vorhanden</span>
+				  <span class="feedbackPanelINFO">Keine</span>
 				</li>
 			</ul>	   
     </div>
@@ -65,7 +65,7 @@
         <div class="arena-record-container arena-library-record">                                                      
           <div class="arena-record">
             {$book:={"cancelable":false(),"statusId": "ordered"}}
-              <span class="arena-record-id">282637</span>
+              <span class="arena-record-id"></span>
               <div class="arena-record-cover">
                 <img>{$book.image-url:=resolve-html(.)}</img>?
               </div>
@@ -90,7 +90,7 @@
       	<div class="arena-feedback" role="alert">
       		<ul class="feedbackPanel">
   				<li class="feedbackPanelINFO">
-  					<span class="feedbackPanelINFO">Keine Reservierungen vorhanden</span>
+  					<span class="feedbackPanelINFO">Keine</span>
   				</li>
     			</ul>	 
         </div> 
@@ -110,5 +110,17 @@
   </span> </li> </ul>
  
  </div> 
+
+
+<div class="portlet-body">
+ <div class="arena-internal-error-title">
+   <h2 class="arena-internal-error-title-value"></h2>
+  </div>
+  
+  <div class="arena-internal-error-description">
+  </div>
+  {vl:raise(.)}
+</div>
+                 
 
 </t:switch>

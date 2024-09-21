@@ -7,7 +7,7 @@
   <shortName value="Wissenschaft Mainz"/>
   
   <template value="pica"/>  
-  <variable name="server" value="http://pica1l.lhb.tu-darmstadt.de"/>
+  <variable name="server" value="https://pica1l.lhb.tu-darmstadt.de"/>
   <variable name="picadb" value="STBMZ"/>
   <variable name="searchKeysOverride" value="tit;per;num;jhr;sww"/>
 

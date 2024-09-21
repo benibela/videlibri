@@ -7,17 +7,7 @@
       {baseForm := form(., {"": {"kind": "submit"}}), options := {}}
         
       <DIV id="elScrollingBrowseList">
-        <DIV>
-          <t:loop>
-            <TABLE>
-              <TR>
-                <TD>
-                  <INPUT>{$tempId := @VALUE}<t:if test="$tempId = get('renew-ids', ())">{$options(@NAME) := @VALUE}</t:if></INPUT>
-                </TD>
-              </TR>
-            </TABLE>
-          </t:loop>
-        </DIV>
+      { //input[@value = $renew-ids]/($options(@NAME) := @VALUE) }
       </DIV>
     </FORM>
   </html>

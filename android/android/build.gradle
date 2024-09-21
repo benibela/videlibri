@@ -7,7 +7,7 @@ plugins {
 
 android
 {
-  compileSdkVersion 31
+  compileSdkVersion 33
   buildToolsVersion "30.0.3"
   viewBinding.enabled = true
   ndkVersion "19.2.5345600"
@@ -15,7 +15,7 @@ android
   defaultConfig
   {
     minSdkVersion 14
-    targetSdkVersion 31
+    targetSdkVersion 33
     ndk {
       abiFilters 'armeabi-v7a', 'x86', 'armeabi', 'arm64-v8a', 'x86_64'
     }
@@ -48,6 +48,11 @@ android
     }
   }
 
+  dependenciesInfo {
+      // Disables dependency metadata when building APKs.
+      includeInApk = false
+  }
+  
   buildFeatures {
     viewBinding true
   }

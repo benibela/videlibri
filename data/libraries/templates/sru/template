@@ -36,11 +36,11 @@
   
   <variable name="query">
   encode-for-uri( string-join(
-    (if ($book.title)    then concat($searchKeys.title, "=", $book.title)    else (),
-     if ($book.author)   then concat($searchKeys.author, "=", $book.author)   else (),
-     if ($book.isbn)     then concat($searchKeys.isbn, "=", $book.isbn)     else (),
-     if ($book.year)     then concat($searchKeys.year, "=", $book.year)     else (),
-     if ($book.keywords) then concat($searchKeys.keywords, "=", $book.keywords) else ()), " AND "))
+    (if ($book.title)    then concat($searchKeys.title, "=""", $book.title, """")    else (),
+     if ($book.author)   then concat($searchKeys.author, "=""", $book.author, """")   else (),
+     if ($book.isbn)     then concat($searchKeys.isbn, "=""", $book.isbn, """")     else (),
+     if ($book.year)     then concat($searchKeys.year, "=""", $book.year, """")     else (),
+     if ($book.keywords) then concat($searchKeys.keywords, "=""", $book.keywords, """") else ()), " AND "))
   </variable>
 
   <variable name="position">1</variable>

@@ -4,7 +4,7 @@
   
   <template value="bibliothecaplus"/>
   <variable name="urlaccount" value="https://www.troisdorf-open.de/Mein-Konto"/>	
-  <variable name="urlsearch" value="https://www.troisdorf-open.de/Mediensuche/ErweiterteSuche.aspx"/
+  <variable name="urlsearch" value="https://www.troisdorf-open.de/Mediensuche/ErweiterteSuche.aspx"/>
   <testing-search value="yes"/>  
   <testing-account value="unknown"/>
 </library>

@@ -24,21 +24,25 @@ val LibraryDetails.accountMightWork
     get() = testingAccount <= 1
 
 
+@Suppress("unused")
 open class InternalError : RuntimeException {
     constructor(msg: String? = null, cause: Throwable? = null) : super(msg, cause)
     constructor(cause: Throwable? = null) : super(null, cause)
 }
 
+@Suppress("unused")
 open class InternalErrorJNI : InternalError {
     constructor(msg: String? = null, cause: Throwable? = null) : super(msg, cause)
     constructor(cause: Throwable? = null) : super(null, cause)
 }
 
+@Suppress("unused")
 open class InternalErrorFile : InternalError {
     constructor(msg: String? = null, cause: Throwable? = null) : super(msg, cause)
     constructor(cause: Throwable? = null) : super(null, cause)
 }
 
+@Suppress("unused")
 open class InternalErrorExternal : InternalError {
     constructor(msg: String? = null, cause: Throwable? = null) : super(msg, cause)
     constructor(cause: Throwable? = null) : super(null, cause)

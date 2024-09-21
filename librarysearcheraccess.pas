@@ -61,6 +61,7 @@ private
   procedure callPageCompleteEvent(event: TPageCompleteNotifyEvent; firstPage, nextPageAvailable: boolean);
   procedure callPendingMessageEvent(event: TPendingMessageEvent; book: TBook; pendingMes: TPendingMessage);
 
+  procedure processPendingMessage(book: TBook; isOrderingAction: boolean);
 protected
   procedure execute;override;
 public
@@ -367,6 +368,7 @@ end;
 procedure TLibrarySearcherAccess.completePendingMessage(book: TBook; pm: TPendingMessage; result: integer);
 begin
   if not assigned(fthread) then exit;
+  if pm.callback = '' then exit;
   fthread.messages.storeMessage(TSearcherMessage.Create(smtCompletePendingMessage,book, pm, result));
 end;
 
@@ -473,6 +475,22 @@ begin
   desktopSynchronized(@callPendingMessageEventSynchronized);
 end;
 
+procedure TSearcherThread.processPendingMessage(book: TBook; isOrderingAction: boolean);
+var
+  tmpPendingMessage: TPendingMessage;
+  hasCallback: Boolean;
+begin
+  tmpPendingMessage := Searcher.bookListReader.pendingMessage;
+  if tmpPendingMessage <> nil then begin
+    hasCallback := tmpPendingMessage.callback <> '';
+    callPendingMessageEvent(access.FOnTakePendingMessage, book, tmpPendingMessage);
+    Searcher.bookListReader.pendingMessage := nil;
+    if hasCallback then exit;  //the callback should be called by complete message, and handle it from there
+  end;
+  if isOrderingAction then begin
+    callBookEvent(access.FOnOrderComplete, book);
+  end else callNotifyEvent(access.FOnPendingMessageCompleted);
+end;
 
 procedure TSearcherThread.execute;
 var mes: TSearcherMessage;
@@ -549,11 +567,7 @@ begin
           if (book = nil) or (book.owningAccount = nil) then log('Invalid book')
           else begin
             Searcher.orderSingle(book);
-            if Searcher.bookListReader.pendingMessage <> nil then begin
-              callPendingMessageEvent(access.FOnTakePendingMessage, book.owningBook, Searcher.bookListReader.pendingMessage);
-              Searcher.bookListReader.pendingMessage := nil;
-             end else
-              callBookEvent(access.FOnOrderComplete, book.owningBook);
+            processPendingMessage(book.owningBook, true);
           end;
           if logging then log('end order');
         end;
@@ -561,12 +575,7 @@ begin
           if logging then log('Searcher thread: message smtCompletePendingMessage: '+book.toSimpleString());
           if book <> nil then Searcher.bookListReader.selectBook(book);
           Searcher.completePendingMessage(mes.pendingMessage, mes.messageResult);
-          if Searcher.bookListReader.pendingMessage <> nil then begin
-            callPendingMessageEvent(access.FOnTakePendingMessage, book, Searcher.bookListReader.pendingMessage);
-            Searcher.bookListReader.pendingMessage := nil;
-          end else if book.status in BOOK_CANCELABLE then begin
-            callBookEvent(access.FOnOrderComplete, book);
-          end else callNotifyEvent(access.FOnPendingMessageCompleted);
+          processPendingMessage(book, (book <> nil) and (book.status in BOOK_CANCELABLE)); //BOOK_CANCELABLE does not mean cancelable, it refers to all ordered books. The idea is that the template will only set the status if the ordering succeeded
           if logging then log('end order');
         end
         else if logging then log('Searcher thread: unknown type');

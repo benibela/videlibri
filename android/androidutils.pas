@@ -145,11 +145,6 @@ var
     end;
     //searcherResultInterface: jclass;
     searcherOnConnected, searcherOnSearchFirstPageComplete, searcherOnSearchNextPageComplete, searcherOnSearchDetailsComplete, searcherOnOrderComplete,  searcherOnTakePendingMessage, searcherOnPendingMessageCompleted, searcherOnException: jmethodID;
-    importExportDataClass: jclass;
-    importExportDataClassInit: jmethodID;
-    importExportDataFields: record
-      accountsToImportAL, flagsI, nativePtrJ: jfieldID;
-    end;
     globalStrings: record
       libraryBranch, libraryLocation, isbn, category, status, renewCount, cancelable: jobject;
     end;
@@ -316,7 +311,7 @@ begin
 
 
 
-      searcherClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/Bridge$SearcherAccess'));
+      searcherClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/SearcherAccessPascal'));
       with searcherFields do begin
         nativePtrJ := getfield(searcherClass, 'nativePtr', 'J');
         totalResultCountI := getfield(searcherClass, 'totalResultCount', 'I');
@@ -332,12 +327,6 @@ begin
       searcherOnPendingMessageCompleted := getmethod(searcherClass, 'onPendingMessageCompleted', '()V');
       searcherOnException := getmethod(searcherClass, 'onException', '()V');
 
-
-      importExportDataClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/Bridge$ImportExportData'));
-      importExportDataClassInit := getmethod(importExportDataClass, '<init>', '()V');
-      importExportDataFields.nativePtrJ := getfield(importExportDataClass, 'nativePtr', 'J');
-      importExportDataFields.flagsI := getfield(importExportDataClass, 'flags', 'I');
-      importExportDataFields.accountsToImportAL := getfield(importExportDataClass, 'accountsToImport', '[Ljava/lang/String;');
 
       callbacks := TCallbackHolderAndroid;
 
@@ -1464,6 +1453,7 @@ begin
   pendingMessage := apendingMessage;
 
   case apendingMessage.kind of
+    pmkAlert: args[0].i := 0;
     pmkConfirm: args[0].i := 1;
     pmkChoose: args[0].i := 2;
   end;
@@ -1813,28 +1803,28 @@ begin
 end;
 
 
-const ExportImportMap: array[0..3] of TExportImportFlag = (eifCurrent,eifHistory,eifConfig,eifPassword);
-function exportImportFlagsToInt(flags: TExportImportFlags): Integer;
+const ExportImportMap: array[0..3] of TImportExportFlag = (eifCurrent,eifHistory,eifConfig,eifPassword);
+function exportImportFlagsToInt(flags: TImportExportFlags): Integer;
 var
-  i: Integer;
+  f: TImportExportFlag;
 begin
   result := 0;
-  for i := 0 to high(ExportImportMap) do
-    if ExportImportMap[i] in flags then result := result or (1 shl i);
+  for f in ExportImportMap do
+    if f in flags then result := result or ord(f);
 end;
 
-function exportImportIntToFlags(flags: integer): TExportImportFlags;
+function exportImportIntToFlags(flags: integer): TImportExportFlags;
 var
-  i: Integer;
+  f: TImportExportFlag;
 begin
   result := [];
-  for i := 0 to high(ExportImportMap) do
-    if (1 shl i) and flags <> 0 then include(result, ExportImportMap[i]);
+  for f in ExportImportMap do
+    if (ord(f)) and flags <> 0 then include(result, f);
 end;
 
 function Java_de_benibela_VideLibri_Bridge_VLExportAccounts(env:PJNIEnv; this:jobject; filename: jstring; accounts: jobjectArray; flags: jint): jobject; cdecl;
 var accs: array of TCustomAccountAccess;
-    flgs: TExportImportFlagsArray;
+    flgs: TImportExportFlagsArray;
     acc: jobject;
     i: Integer;
 begin
@@ -1863,30 +1853,25 @@ end;
 function Java_de_benibela_VideLibri_Bridge_VLImportAccountsPrepare(env:PJNIEnv; this:jobject; filename: jstring): jobject; cdecl;
 var
   parser: TTreeParser;
+  importData: TImportExportData;
   accounts: TStringArray;
-  flags: TExportImportFlagsArray;
+  flags: TImportExportFlagsArray;
   combinedFlags: Integer;
   i: Integer;
-  jaccounts: jobject;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLImportAccountsPrepare (started)');
   try
-    result := j.newObject(importExportDataClass, importExportDataClassInit);
-
     importAccountsPrepare(j.jStringToString(filename), parser, accounts, flags);
 
-    j.SetLongField(result, importExportDataFields.nativePtrJ, ptrint(parser));
-
-    jaccounts := j.newObjectArray(length(accounts), jCommonClasses.&String.classRef, nil);
-    for i := 0 to high(accounts) do
-      j.setObjectArrayElement(jaccounts, i, j.NewStringUTF(accounts[i]));
-    j.SetObjectField(result, importExportDataFields.accountsToImportAL, jaccounts);
+    importData.nativePtr := ptrint(parser);
+    importData.accountsToImport := accounts;
 
     combinedFlags := 0;
     for i := 0 to high(flags) do
       combinedFlags := combinedFlags or exportImportFlagsToInt(flags[i]);
 
-    j.SetIntField(result, importExportDataFields.flagsI, combinedFlags);
+    importData.flags := combinedFlags;
+    result := importData.toJava;
   except
     on e: Exception do throwExceptionToJava(e);
   end;
@@ -1896,25 +1881,21 @@ end;
 function Java_de_benibela_VideLibri_Bridge_VLImportAccounts(env:PJNIEnv; this:jobject; data: jobject): jobject; cdecl;
 var
   parser: TTreeParser;
-  jaccounts: jobject;
-  accounts: TStringArray;
-  flags: TExportImportFlagsArray;
-  combinedFlags: TExportImportFlags;
+  flags: TImportExportFlagsArray = nil;
+  combinedFlags: TImportExportFlags;
   i: Integer;
+  importData: TImportExportData;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLImportAccounts (started)');
   result := nil;
   try
-    parser := TTreeParser(PtrInt(j.getLongField(data, importExportDataFields.nativePtrJ)));
-    jaccounts := j.getObjectField(data, importExportDataFields.accountsToImportAL);
-    combinedFlags := exportImportIntToFlags(j.getIntField(data, importExportDataFields.flagsI));
-    setlength(flags, j.getArrayLength(jaccounts));
+    importData := TImportExportData.fromJava(data);
+    parser := TTreeParser(PtrInt(importData.nativePtr));
+    combinedFlags := exportImportIntToFlags(importData.flags);
+    setlength(flags, length(importdata.accountsToImport));
     for i := 0 to high(flags) do
       flags[i] := combinedFlags;
-    setlength(accounts, j.getArrayLength(jaccounts));
-    for i := 0 to high(accounts) do
-      accounts[i] := j.jStringToStringAndDelete(j.getObjectArrayElement(jaccounts, i));
-    importAccounts(parser, accounts, flags);
+    importAccounts(parser, importData.accountsToImport, flags);
   except
     on e: Exception do throwExceptionToJava(e);
   end;
@@ -2073,14 +2054,14 @@ const nativeMethods: array[1..40] of JNINativeMethod=
 
    ,(name:'VLGetNotifications'; signature: '()[Ljava/lang/String;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetNotifications)
 
-   ,(name:'VLSearchConnect'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;Ljava/lang/String;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchConnect)
-   ,(name:'VLSearchStart'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;Lde/benibela/videlibri/jni/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchStart)
-   ,(name:'VLSearchNextPage'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchNextPage)
-   ,(name:'VLSearchDetails'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;Lde/benibela/videlibri/jni/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchDetails)
-   ,(name:'VLSearchOrder'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;[Lde/benibela/videlibri/jni/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchOrder)
-   ,(name:'VLSearchOrder'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;[Lde/benibela/videlibri/jni/Bridge$Book;[I)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchOrderWithHolding)
-   ,(name:'VLSearchCompletePendingMessage'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;I)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchCompletePendingMessage)
-   ,(name:'VLSearchEnd'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchEnd)
+   ,(name:'VLSearchConnect'; signature: '(Lde/benibela/videlibri/jni/SearcherAccessPascal;Ljava/lang/String;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchConnect)
+   ,(name:'VLSearchStart'; signature: '(Lde/benibela/videlibri/jni/SearcherAccessPascal;Lde/benibela/videlibri/jni/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchStart)
+   ,(name:'VLSearchNextPage'; signature: '(Lde/benibela/videlibri/jni/SearcherAccessPascal;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchNextPage)
+   ,(name:'VLSearchDetails'; signature: '(Lde/benibela/videlibri/jni/SearcherAccessPascal;Lde/benibela/videlibri/jni/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchDetails)
+   ,(name:'VLSearchOrder'; signature: '(Lde/benibela/videlibri/jni/SearcherAccessPascal;[Lde/benibela/videlibri/jni/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchOrder)
+   ,(name:'VLSearchOrder'; signature: '(Lde/benibela/videlibri/jni/SearcherAccessPascal;[Lde/benibela/videlibri/jni/Bridge$Book;[I)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchOrderWithHolding)
+   ,(name:'VLSearchCompletePendingMessage'; signature: '(Lde/benibela/videlibri/jni/SearcherAccessPascal;I)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchCompletePendingMessage)
+   ,(name:'VLSearchEnd'; signature: '(Lde/benibela/videlibri/jni/SearcherAccessPascal;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchEnd)
 
    ,(name:'VLSetOptions'; signature: '(Lde/benibela/videlibri/jni/OptionsShared;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSetOptions)
    ,(name:'VLGetOptions'; signature: '()Lde/benibela/videlibri/jni/OptionsShared;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetOptions)
@@ -2088,8 +2069,8 @@ const nativeMethods: array[1..40] of JNINativeMethod=
    ,(name:'VLSetOptionsAndroidOnly'; signature: '(Lde/benibela/videlibri/jni/OptionsAndroidOnly;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSetOptionsAndroidOnly)
 
    ,(name:'VLExportAccounts'; signature: '(Ljava/lang/String;[Lde/benibela/videlibri/jni/Bridge$Account;I)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLExportAccounts)
-   ,(name:'VLImportAccountsPrepare'; signature: '(Ljava/lang/String;)Lde/benibela/videlibri/jni/Bridge$ImportExportData;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLImportAccountsPrepare)
-   ,(name:'VLImportAccounts'; signature: '(Lde/benibela/videlibri/jni/Bridge$ImportExportData;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLImportAccounts)
+   ,(name:'VLImportAccountsPrepare'; signature: '(Ljava/lang/String;)Lde/benibela/videlibri/jni/ImportExportData;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLImportAccountsPrepare)
+   ,(name:'VLImportAccounts'; signature: '(Lde/benibela/videlibri/jni/ImportExportData;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLImportAccounts)
 
    ,(name:'VLXQuery'; signature: '(Ljava/lang/String;)[Lde/benibela/videlibri/jni/Bridge$Book;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLXQuery)
 

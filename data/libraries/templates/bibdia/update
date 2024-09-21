@@ -56,7 +56,7 @@
  <td/>
  <td><input type="checkbox">{$book._internalId := @name/string()}</input>?</td>
  <td/>
- <TD>{$book.duedate := parse-date(.)}</TD> 
+ <TD>{if (matches(., "[0-9]+")) then $book.duedate := parse-date(.) else () }</TD> 
  <td/>
  <td>{$book.libraryBranch := join((normalize-space(), .//@title), ", ")}</td>
  <TD>{$book.renewCount := normalize-space()}</TD>
@@ -69,14 +69,20 @@
  <TD>{$book.status := $book.status || .}</TD>
  
  
- <TD>{$book.issuedate := parse-date(.)}</TD> 
- <TD>{$book.duedate := parse-date(.)}</TD> 
+ <TD>{if (matches(., "[0-9]+")) then $book.issuedate := parse-date(.) else () }</TD> 
+ <TD>{if (matches(., "[0-9]+")) then $book.duedate := parse-date(.) else () }</TD> 
  <TD>{$book.status := $book.status || " Entliehen bis: " || . }</TD>
  <TD>{$book.status := $book.status || " Rang: " || . }</TD>
  
  <td/>
 </t:siblings>
-{$book.statusId := if ($mode eq "vorml") then "ordered" else if (exists($book._internalId)) then "curious" else "critical" }
+{$book.statusId := if ($mode eq "vorml") then "ordered" 
+                   else if (exists($book._internalId)) then "curious" 
+                   else if (empty($book.duedate) and contains($book.status || td[last()], "abholbereit")) then (
+                     (let $temp := extract($book.status || td[last()], "[0-9]+\.[0-9]+\.[0-9]+") where $temp 
+                     return $book.dueDate := parse-date($temp))[0],
+                     "provided" 
+                   ) else "critical" }
 </tr>+
 </table>
  

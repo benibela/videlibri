@@ -9,7 +9,7 @@
        else
         ()
        }
-    </select>        
+    </select>?
   </form>
   <ul class='SysMsgList'>
     <b>Die Transaktion wurde abgelehnt</b>

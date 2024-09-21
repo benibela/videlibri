@@ -5,9 +5,10 @@
   <longName value="Bibliothek der Hochschule Hannover"/>
   <shortName value="HSUB Hannover"/>
   
-  <template value="pica"/>  
+  <template value="lbs"/>  
   <variable name="server" value="https://opac.tib.eu/"/>
   <variable name="picadb" value="4"/>
+  <variable name="borrower" value="USR=1161"/>
 
 
   <homepage value="http://www.hs-hannover.de/bibl/"/>

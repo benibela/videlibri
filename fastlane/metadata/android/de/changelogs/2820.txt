@@ -1,0 +1,3 @@
+* Neue Katalogadresse Stadtbücherei Rüsselheim
+* Digibib 7: Behebe Probleme mit keinen Suchergebnissen
+* arena (Essen/Bochum): Behebe Probleme mit keinen Ausleihen bzw. Vormerkungen

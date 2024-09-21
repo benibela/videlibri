@@ -8,5 +8,5 @@ requestedUrl := ()
 mode := 1
 books-deleted := true()
 nextPage := ()
-default-book := {"_onPage": "vltest://sisis/touchpoint/userAccount_empty_chem.html", "_onPageStart": "", "statusId": "critical"}
+default-book := {"_onPage": "vltest://sisis/touchpoint/userAccount_empty_chem.html?anzPos=1", "_onPageStart": "", "statusId": "critical"}
 nextPage := ()

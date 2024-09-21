@@ -6,7 +6,7 @@
   
   <template value="sisis"/>  
   <variable name="server" value="https://literatursuche.ub.uni-passau.de/TouchPoint/"/>
-  <variable name="startparams" value="?View=upa&Language=de  "/>
+  <variable name="startparams" value="?View=upa&amp;Language=de"/>
 
   <homepage value="http://www.ub.uni-passau.de/"/>
   <testing-search value="yes"/>

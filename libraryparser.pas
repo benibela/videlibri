@@ -298,15 +298,13 @@ type
     function getDebugStackTrace: TStringArray; override;
   end;
 
-  TExportImportFlag = (eifCurrent, eifHistory, eifConfig, eifPassword);
-  TExportImportFlags = set of TExportImportFlag;
-  TExportImportFlagsArray = array of TExportImportFlags;
+  TImportExportFlags = set of TImportExportFlag;
+  TImportExportFlagsArray = array of TImportExportFlags;
 
-  procedure exportAccounts(const fn: string; accounts: array of TCustomAccountAccess; flags: array of TExportImportFlags );
-  procedure importAccountsPrepare(const fn: string; out parser: TTreeParser; out accounts: TStringArray; out flags: TExportImportFlagsArray);
+  procedure exportAccounts(const fn: string; accounts: array of TCustomAccountAccess; flags: array of TImportExportFlags );
+  procedure importAccountsPrepare(const fn: string; out parser: TTreeParser; out accounts: TStringArray; out flags: TImportExportFlagsArray);
   //frees the parser
-  procedure importAccounts(parser: TTreeParser; impAccounts: TStringArray; flags: TExportImportFlagsArray);
-
+  procedure importAccounts(parser: TTreeParser; impAccounts: TStringArray; flags: TImportExportFlagsArray);
 
 type TPatternMatchExceptionAnonymizer = class
   inIncludeOverrideElement: integer;
@@ -317,6 +315,7 @@ end;
 resourcestring
   rsCustomLibrary = 'selbst definierte';
   rsAllLibraries = 'alle';
+  rsInvalidImportFile = 'Die Import-Datei ist ungültig. Nur mit "Export" erstellte Dateien können zum Import geladen werden.';
 
 
 implementation
@@ -376,7 +375,7 @@ begin
     else result += '+' + IntToHex(ord(s[i]), 2);
 end;
 
-procedure exportAccounts(const fn: string; accounts: array of TCustomAccountAccess; flags: array of TExportImportFlags);
+procedure exportAccounts(const fn: string; accounts: array of TCustomAccountAccess; flags: array of TImportExportFlags);
 var
   f: TFileStream;
   tempsl: TStringList;
@@ -446,7 +445,7 @@ begin
 end;
 
 procedure importAccountsPrepare(const fn: string; out parser: TTreeParser; out accounts: TStringArray; out
-  flags: TExportImportFlagsArray);
+  flags: TImportExportFlagsArray);
 var
   xq: TXQueryEngine;
   xv: IXQValue;
@@ -486,13 +485,16 @@ begin
       xq.free;
     end;
   except
-    parser.free;
-    parser := nil;
-    raise;
+    on e: Exception do begin
+      parser.free;
+      parser := nil;
+      if e is ETreeParseException then e.Message := rsInvalidImportFile + ': '+LineEnding+e.Message;
+      raise;
+    end;
   end;
 end;
 
-procedure importAccounts(parser: TTreeParser; impAccounts: TStringArray; flags: TExportImportFlagsArray);
+procedure importAccounts(parser: TTreeParser; impAccounts: TStringArray; flags: TImportExportFlagsArray);
 var getHistory, getCurrent: IXQuery;
   procedure importBooklist(parent: TTreeNode; list: TBookList; current: boolean);
   var xbook: IXQValue;

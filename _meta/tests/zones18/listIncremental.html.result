@@ -1,4 +1,5 @@
 requestId := 1
+bulkRenew := fake-renew
 book := {}
 bFoundBottom := true()
 book := {"author": "Foster, Alan Dean", "duedate": "2013-09-16", "id": "M01 158 885 3", "issuedate": "2013-08-17", "status": "", "statusId": "normal", "title": "Die Stunde des Tors◉2."}
