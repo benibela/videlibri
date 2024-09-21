@@ -89,9 +89,9 @@ For example the currently borrowed books in the public library Biel can be obtai
 xidel -e '$username:="XXXXXXXX", 
           $password:="XXXXXXXX",
           $baseurl:="https://opac.bibliobiel.ch/"
-    ' --template-action connect,update-all  \
+    ' --template-action connect,update-all --deprecated-trim-nodes \
       --module mockvidelibri.xqm --xmlns videlibri=https://www.videlibri.de --dot-notation=on \
-      --template-file data/libraries/templates/netbiblio/template 
+      --template-file data/libraries/templates/netbiblio/template
 ```
 
 This prints all variables and the borrowed/ordered books in the variable `$book`, each in a line with a JSON object:
