@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<library>
+  <longName value="Katalog der Bibliotheken im Kreis Mettmann - Stadtbibliothek Langenfeld"/>
+  <shortName value="Stb Langenfeld"/>
+  
+  <template value="vufind"/>  
+  <variable name="baseurl" value="https://bibnet.de/"/>
+  <variable name="loginParams" value="target=LANG"/>
+
+
+  <homepage value="https://www.stadtbibliothek-langenfeld.de/"/>
+  <testing-search value="yes"/>  <testing-account value="yes"/></library>
+

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<library>
+  <longName value="Katalog der Bibliotheken im Kreis Mettmann - Stadtbibliothek Erkrath"/>
+  <shortName value="Stb Erkrath"/>
+  
+  <template value="vufind"/>  
+  <variable name="baseurl" value="https://bibnet.de/"/>
+  <variable name="loginParams" value="target=ERKR"/>
+
+
+  <homepage value="https://www.erkrath.de/stadtbuecherei/"/>
+  <testing-search value="yes"/>  <testing-account value="yes"/></library>
+

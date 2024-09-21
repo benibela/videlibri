@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<library>
+  <longName value="Katalog der Bibliotheken im Kreis Mettmann - Bibliothek Monheim am Rhein"/>
+  <shortName value="Bib Monheim am Rhein"/>
+  
+  <template value="vufind"/>  
+  <variable name="baseurl" value="https://bibnet.de/"/>
+  <variable name="loginParams" value="target=MONH"/>
+
+
+  <homepage value="https://www.monheim.de/kultur-bildung/bibliothek/"/>
+  <testing-search value="yes"/>  <testing-account value="yes"/></library>
+
