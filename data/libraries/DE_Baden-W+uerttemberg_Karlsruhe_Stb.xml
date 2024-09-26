@@ -6,6 +6,6 @@
   <variable name="baseurl" value="https://opac.karlsruhe.de/"/>
 
   <testing-search value="yes"/>  
-  <testing-account value="unknown"/>
+  <testing-account value="yes"/>
 </library>
 
