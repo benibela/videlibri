@@ -22,7 +22,9 @@
 
 <action id="renew-list">
   <s>renew-request := request-combine($renewForm, $renew-books?_internalId)</s>
-  <page url="{$renew-books[1]?_ajax}"/> <!-- todo: does this need to be called for all of them?-->
+  <loop var="ajax" list="$renew-books?_ajax">
+    <page url="{$ajax}"/> 
+  </loop>
   <page url="{$renew-request}"/>
   <pattern href="renewal"/>
   
