@@ -6,7 +6,7 @@
   <shortName value="Stb Leipzig"/> 
   
   <template value="sisis"/>  
-  <variable name="server" value="https://webopac.stadtbibliothek-leipzig.de/webOPACClient/"/>
+  <variable name="server" value="https://bibliothekskatalog.leipzig.de/webOPACClient/"/>
   
   <homepage value="http://www.leipzig.de/stadtbib/"/>
   <testing-search value="yes"/>
