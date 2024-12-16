@@ -6,9 +6,9 @@
      first-login := false()
      
    ) else (), 
-   head(//tr[ends-with(normalize-space(th[1]), "Ausweis gültig bis")]
+   head(//tr[ends-with(normalize-space(th[1]), "Ausweis gültig bis")]/join(td)
         otherwise //dl/dt[normalize-space() = "Ausweis gültig bis"]/following-sibling::dd[1]
-   )!($account-expiration := join(td)) }
+   )!($account-expiration := .) }
   <t:switch prioritized="true">
   <body>
     <t:switch>
