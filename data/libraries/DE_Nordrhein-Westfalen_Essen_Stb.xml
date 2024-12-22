@@ -3,15 +3,10 @@
   <longName value="Stadtbibliothek Essen"/>
   <shortName value="StB Essen"/>
   
-  <template value="arena"/>
-  <variable name="baseurl" value="https://essen.arena.axiell.de/"/>
- 
-
-  <template value="digibib7">
-    <variable name="searchurl" value="https://stb-essen.digibib.net/search/bibkataloge"/>
-    <variable name="searchparams" value="srvgroup=rheinruhr&amp;s-sbes=on"/>
-  </template>
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://katalog-essen.bibliotheca-open.de/Mein-Konto"/>
+  <variable name="urlsearch" value="https://katalog-essen.bibliotheca-open.de/Mediensuche"/>
 
   <homepage value="https://www.stadtbibliothek-essen.de"/>
-  <testing-search value="unknown"/>  <testing-account value="yes"/></library>
+  <testing-search value="yes"/>  <testing-account value="yes"/></library>
 

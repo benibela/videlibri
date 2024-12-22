@@ -4,9 +4,8 @@
 <library>
   <longName value="Hochschulbibliothek Würzburg-Schweinfurt"/>
   
-  <template value="sisis"/>  
-  <variable name="server" value="https://recherche.bibkatalog.de/TouchPoint/"/>
-  <variable name="startparams" value="?View=fws&amp;Branch=00"/>
+  <template value="vufind"/>  
+  <variable name="baseurl" value="https://thws.bibkatalog.de/vufind/"/>
   
   <homepage value="http://bibliothek.fhws.de/"/>
   <testing-search value="yes"/>

@@ -5,9 +5,8 @@
   <longName value="Hofbibliothek Aschaffenburg"/>
   <shortName value="Hofb Aschaffenburg"/> 
   
-  <template value="sisis"/>  
-  <variable name="server" value="https://recherche.bibkatalog.de/TouchPoint/"/>
-  <variable name="startparams" value="?View=fwssab&amp;Branch=4"/>
+  <template value="primo"/>
+  <variable name="baseurl" value="https://www.hofbibliothek-ab.de/discovery/search?vid=49BVB_RSB:SAB_VU1"/>
   
   <homepage value="http://www.hofbibliothek-ab.de/"/>
   <testing-search value="yes"/>

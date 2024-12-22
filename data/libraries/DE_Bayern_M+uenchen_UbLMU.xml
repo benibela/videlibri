@@ -4,9 +4,8 @@
 <library>
   <longName value="Universitätsbibliothek der LMU"/>
   
-  <template value="sisis"/>  
-  <variable name="server" value="https://opac.ub.uni-muenchen.de/TouchPoint/"/>
-  <variable name="startparams" value="?View=sunrise"/>
+  <template value="vufind"/>  
+  <variable name="baseurl" value="https://opac.ub.lmu.de"/>
   
   <homepage value="http://www.ub.uni-muenchen.de/"/>
   <testing-search value="yes"/>
