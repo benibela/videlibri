@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<library>
+  <longName value="Mediothek Borna"/>
+
+  <template value="koha"/>
+  <variable name="baseurl" value="https://borna.lmscloud.net/"/>
+
+  <homepage value="https://borna.lmscloud.net/"/>
+  <testing-search value="yes"/>
+  <testing-account value="yes"/>
+  
+</library>
+
