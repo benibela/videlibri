@@ -1,0 +1,5 @@
+* Android 14 as target SDK.
+* Arena: More AJAX requests when renewing.
+* aDIS/VÖBB/Munich/Berlin: Show expiration date.
+* New URLs for public library Leipzig,  Essen, Lübeck, Schwetzingen, Aschaffenburg, Kirchzarten, Staufen and Mauer; and university libraries Munich and Würzburg-Schweinfurt.
+* New: Mediothek Borna; public libraries in Mettmann district: Erkrath, Haan, Heiligenhaus, Hilden, Langenfeld, Mettmann, Monheim am Rhein, Velbert, and Wülfrath

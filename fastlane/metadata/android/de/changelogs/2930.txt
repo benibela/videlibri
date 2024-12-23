@@ -1,0 +1,5 @@
+* Android 14 als Zielversion.
+* Arena: Sende mehr AJAX Verlängerungsnachricht.
+* aDIS/VÖBB/München: Karten-Ablaufdatum.
+* Neue URLs für Stadtbibliothek Leipzig,  Essen, Lübeck, Schwetzingen und Hofbibliothek Aschaffenburg, Universitätsbibliothek der LMU, Würzburg-Schweinfurt, Bibliothek Kirchzarten, Staufen und Mauer.
+* Neu: Mediothek Borna; Mettmann-Kreis: Stadtbibliothek Erkrath, Haan, Heiligenhaus, Hilden, Langenfeld, Mettmann, Monheim am Rhein, Velbert, und Wülfrath

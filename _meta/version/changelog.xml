@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="Bibliothek-App VideLibri">
-      <build version="2920" date="2024-08-31">
+      <build version="2930" date="2024-12-23">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <change>Android 14 als Zielversion.</change>
+        <change>Arena: Sende AJAX-Nachricht für jedes zu verlängernde Buch.</change>
+        <fix>aDIS/VÖBB/München: Karten-Ablaufdatum.</fix>
+        <fix>Neue URLs für Stadtbibliothek Leipzig, Stadtbibliothek Essen, Stadtbibliothek Lübeck, Hofbibliothek Aschaffenburg, Universitätsbibliothek der LMU, Hochschulbibliothek Würzburg-Schweinfurt, Öffentliche Bibliothek Kirchzarten, Gemeindebücherei Mauer, Stadtbibliothek Schwetzingen, und Öffentliche Bibliothek Staufen.</fix>
+        <fix>Android: Fehlermeldungen wurden nicht angezeigt, sondern stürzten ab (beim Import/Export).</fix>
+        <add>Neu:  Mediothek Borna</add>
+        <add>Neu:  Mettmann-Kreis: Stadtbibliothek Erkrath, Stadtbibliothek Haan, Stadtbibliothek Heiligenhaus, Stadtbibliothek Hilden, Stadtbibliothek Langenfeld, Stadtbibliothek Mettmann, Bibliothek Monheim am Rhein, Bibliothek Velbert, und Stadtbücherei Wülfrath</add>
+     </build>
+      <build version="2920" date="2024-08-31">
         <fix>Städtischen Bibliotheken Singen, Stadtbibliothek Karlsruhe</fix>
         <fix>aDIS/VÖBB: korrigiere Kartenablaufdatum</fix>
         <add>Stadtbücherei Lüdenscheid</add>
