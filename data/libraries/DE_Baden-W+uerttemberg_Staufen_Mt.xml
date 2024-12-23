@@ -2,11 +2,9 @@
 <library>
   <longName value="Öffentliche Bibliothek Staufen"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/staufen"/>	
-  <variable name="DB" value="Staufen"/>	
-  
-  <homepage value="https://web-opac.kivbf.de/staufen/index.asp?DB=Staufen"/>
+  <template value="koha"/>
+  <variable name="baseurl" value="https://oeb-staufen.lmscloud.net/"/>
+    
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

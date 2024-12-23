@@ -2,11 +2,11 @@
 <library>
   <longName value="Stadtbibliothek Schwetzingen"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/schwetzingen"/>	
-  <variable name="DB" value="Schwetzingen"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.komm.one/schwetzingen/Mein-Konto"/>
+  <variable name="urlsearch" value="https://bibliotheken.komm.one/schwetzingen/Erweiterte-Suche"/>
   
-  <homepage value="https://web-opac.kivbf.de/schwetzingen/index.asp?DB=Schwetzingen"/>
+  <homepage value="https://bibliotheken.komm.one/Schwetzingen"/>
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

@@ -2,11 +2,13 @@
 <library>
   <longName value="Gemeindebücherei Mauer"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/mauer"/>	
-  <variable name="DB" value="Mauer"/>	
-  
-  <homepage value="https://web-opac.kivbf.de/mauer/index.asp?DB=Mauer"/>
+
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.komm.one/mauer/Mein-Konto"/>
+  <variable name="urlsearch" value="https://bibliotheken.komm.one/mauer/Mediensuche/Erweiterte-Suche"/>
+
+  <homepage value="https://bibliotheken.komm.one/mauer"/>    
+    
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>
