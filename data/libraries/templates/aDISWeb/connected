@@ -13,8 +13,9 @@
       <a>
        (^Benutzerkonto$)|(Konto$)|(^Anmeldung$)
        <t:s>$loginForm := let $href := @href 
-                          return if (starts-with($href, "javascript:")) then 
-                            let $code := extract($href, "javascript:top\.htmlOnLink\(['""](.*)['""]\)", 1) 
+                          return if (starts-with($href, "javascript:") or $href = "#") then 
+                            let $code := if ($href = "#" and starts-with(@id, "idfn")) then "*SBK" else
+                                         extract($href, "javascript:top\.htmlOnLink\(['""](.*)['""]\)", 1) 
                             return if ($code) then form(ancestor::form[1], "selected=ZTEXT       "||$code)
                             else vl:raise-internal("Der Link zum Ausleihkonto konnte nicht geöffnet werden: """ || . || """: " || $href )
                           else $href</t:s>
