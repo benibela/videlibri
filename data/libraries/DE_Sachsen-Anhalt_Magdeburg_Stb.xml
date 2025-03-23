@@ -4,8 +4,8 @@
   <shortName value="Stb Magdeburg"/>
   
   <template value="bibliothecaplus"/>
-  <variable name="urlaccount" value="https://stadtbibliothek.magdeburg.de/Mein-Konto"/>
-  <variable name="urlsearch" value="https://stadtbibliothek.magdeburg.de/Mediensuche/Erweiterte-Suche"/>
+  <variable name="urlaccount" value="https://auskunft.stadtbibliothek.magdeburg.de/Mein-Konto"/>
+  <variable name="urlsearch" value="https://auskunft.stadtbibliothek.magdeburg.de/Mediensuche/Erweiterte-Suche"/>
   
   <homepage value="http://www.magdeburg-stadtbibliothek.de/"/>
   <testing-search value="yes"/>  
