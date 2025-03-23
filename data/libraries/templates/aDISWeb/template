@@ -42,12 +42,6 @@
                 (.//*[@name="_eventId_proceed"])[1] 
               ))  }
           </form>
-          <div class="aDISMaske">
-            <input type="password" data-fld="LPASS1_1"/>
-            <input type="password" data-fld="LPASS2_1"/>
-            <input type="submit" value="Passwort &#228;ndern"/>
-            {vl:raise-internal("Das Passwort muss beim ersten Login auf der Webseite geändert werden.")}
-          </div>
           <div class="aDISMaske">{vl:raise-internal("Online-Katalog-Webseite wurde nicht erkannt.")}</div>
           <meta http-equiv="refresh">{$loginFormPost}</meta>    
           <a t:condition="contains(@href, '?')">{$loginFormPost}</a>

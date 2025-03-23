@@ -25,6 +25,13 @@
   <span class="warnung">{$error-login}<!--stuttgart--></span>
   <input type="password" class="errstate">{$error-login}</input>
    
+  <div class="aDISMaske">
+    <input type="password" data-fld="LPASS1_1"/>
+    <input type="password" data-fld="LPASS2_1"/>
+    <input type="submit" value="Passwort &#228;ndern"/>
+    {vl:raise-internal("Das Passwort muss beim ersten Login auf der Webseite geändert werden.")}
+  </div>
+
   
   <form><select/><select/></form> <!-- munich ordering -->
   <h1 t:test="$sessions-reconnects > 0"><strong>Mein Konto</strong>{error-login:="Ihre Sitzung wurde beendet. (2)"}</h1>
