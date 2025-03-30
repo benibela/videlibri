@@ -1,6 +1,14 @@
 <t:switch prioritized="true">
   <div role="main">
-    { $inOrderings := get("inOrderings", false()) or contains(@class, "template-name-holds") (:template-name-checkedout:)} 
+    { $inOrderings := get("inOrderings", false()) or contains(@class, "template-name-holds") (:template-name-checkedout:),
+    
+      let $submitBtn := //input[@name = ("renewSelected", "cancelSelected")]
+      let $form := $submitBtn/ancestor::form[1]
+      let $form := form($form, ($submitBtn, "confirm=1"))
+      return 
+        if ($inOrderings) then $cancel-form := $form
+        else $renew-form := $form
+    }
  
     <t:element t:condition="(self::div or self::li) and starts-with(@id, 'record')"> 
        <t:s>

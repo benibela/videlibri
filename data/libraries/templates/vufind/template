@@ -44,13 +44,13 @@
 </action>
 
 <action id="renew-list">
-  <s>form := request-combine({"url": x"{$accounturl}/CheckedOut", "method": "POST"}, ($renew-books!{"renewSelectedIDS[]": .("_renewID")}, "renewSelected=1", "confirm=1")  )</s>
+  <s>form := request-combine( $renew-form, $renew-books!{"renewSelectedIDS[]": .("_renewID")} )</s>
   <page url="{$form}"/>
   <call action="update-all"/>
 </action>
 
 <action id="cancel-list">
-  <s>form := request-combine({"url": x"{$accounturl}/Holds", "method": "POST"}, ($cancel-books!{"cancelSelectedIDS[]": .("_cancelID")}, "cancelSelected=1", "confirm=1")  )</s>
+  <s>form := request-combine( $cancel-form, $cancel-books!{"cancelSelectedIDS[]": .("_cancelID")} )</s>
   <page url="{$form}"/>
   <call action="update-all"/>
 </action>

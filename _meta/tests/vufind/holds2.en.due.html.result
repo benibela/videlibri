@@ -1,4 +1,5 @@
 book := {}
 inOrderings := true()
+cancel-form := {"method": "POST", "post": "cancelSelected=1&confirm=1&cancelSelected=Cancel+Selected+Holds&cancelAllIDS%5B%5D=DUE500037244550000100001&cancelAllIDS%5B%5D=DUE500023738350000100001", "submit-indices": 3, "url": "vltest:///vufind/test.html"}
 book := {"_cancelID": "DUE500037244550000100001", "author": "Baum, Christoph", "duedate": "2018-02-16", "id": "his p 808.b347", "issuedate": "2018-02-10", "libraryBranch": "Central Library, ground floor (pick-up shelf)", "status": "1. hold request in queue", "statusId": "ordered", "title": "Geschichte(n) der Königsallee"}
 book := {"_cancelID": "DUE500023738350000100001", "author": "Rathgeber, Jörg", "duedate": "2018-02-19", "id": "med n 310.r234", "issuedate": "2018-02-10", "libraryBranch": "Medical Library (O.A.S.E.), 4th floor (pickup shelf)", "status": "1. hold request in queue", "statusId": "ordered", "title": "Grundlagen der maschinellen Beatmung : Einführung in die Beatmung für Ärzte und Pflegekräfte ; 47 Tabellen"}

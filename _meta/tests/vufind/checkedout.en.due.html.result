@@ -1,5 +1,6 @@
 book := {}
 inOrderings := false()
+renew-form := {"method": "POST", "post": "renewSelected=Renew+Selected+Items&renewAllIDS%5B%5D=DUE50016001599&renewAllIDS%5B%5D=DUE50016001602&renewAllIDS%5B%5D=DUE50016001606&renewAllIDS%5B%5D=DUE50016001613&renewAllIDS%5B%5D=DUE50016001610&confirm=1", "submit-indices": 1, "url": "vltest:///vufind/test.html"}
 book := {"_renewID": "DUE50016001599", "author": "Felber, Helmut", "barcode": "092321601", "duedate": "2018-02-09", "id": "bib t 200.f311", "status": "( still 4 renewals left )", "statusId": "curious", "title": "Allgemeine Terminologielehre und Wissenstechnik : theoretische Grundlagen"}
 book := {"_renewID": "DUE50016001602", "author": "Detlor, Brian", "barcode": "109031701", "duedate": "2018-02-19", "id": "bib t 200.d481", "status": "( still 3 renewals left )", "statusId": "curious", "title": "Towards knowledge portals : from human issues to intelligent agents"}
 book := {"_renewID": "DUE50016001606", "author": "Czap, Hans [Herausgeber]", "barcode": "093342701", "duedate": "2018-02-19", "id": "bib t 200.c998", "status": "( still 3 renewals left )", "statusId": "curious", "title": "Analogie in der Wissensrepräsentation: case-based reasoning und räumliche Modelle : Trier, 17. - 20. Oktober 1995"}

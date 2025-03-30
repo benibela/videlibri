@@ -1,3 +1,4 @@
 book := {}
 inOrderings := true()
+cancel-form := {"method": "POST", "post": "cancelSelected=1&confirm=1&cancelSelected=Ausgew%C3%A4hlte+Bestellungen+annullieren&cancelAllIDS%5B%5D=DUE500033073850000100001", "submit-indices": 3, "url": "vltest:///vufind/test.html"}
 book := {"_cancelID": "DUE500033073850000100001", "author": "Mayer, Joachim", "duedate": "2018-02-26", "id": "bio t 146.m468", "issuedate": "2018-02-10", "libraryBranch": "Zentralbibliothek, Erdgeschoss (Selbstabholregal)", "status": "1. Vormerker", "statusId": "ordered", "title": "Welcher Baum ist das? : Bäume, Sträucher, Ziergehölze ; [über 600 Arten]"}
