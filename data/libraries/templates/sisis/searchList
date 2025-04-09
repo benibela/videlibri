@@ -115,7 +115,7 @@
     </div>
   </div>
   
-  <main id="main"> <!-- bremen -->
+  <main id="main"> <!-- bremen, chemnitz, etc. -->
    <div class="hitlist">
      <section class="box">
        <h1>{extract(., "[0-9]+")[.] ! (search-result-count := .)}</h1>
@@ -145,6 +145,15 @@
    </div>
   </main>
   
+  <div id="main"> <!-- bremen, chemnitz, etc. -->
+    <ul class="singlehit-tabs">
+      {search-result-count:=1, singleBookResult:= base-uri() }
+      <a>Titeldaten|mehr zum Titel<t:s>
+        if (starts-with(@href, "#")) then () else singleBookResult := resolve-html() 
+      </t:s></a>?
+    </ul>
+  </div>
+    
   <t:element t:condition="(self::h1 or self::h2) and matches(normalize-space(), 'Ihre Suche erzielte ( *leider *)?keine Treffer')">{search-result-count:=0}</t:element>
   
   <form>
