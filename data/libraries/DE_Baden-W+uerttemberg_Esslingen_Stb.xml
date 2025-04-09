@@ -2,11 +2,10 @@
 <library>
   <longName value="Stadtbücherei Esslingen"/>
   
-  <template value="sisis"/>  
-  <variable name="server" value="https://buecherei.esslingen.de/webOPACClient/"/>
-  <variable name="startparams" value="?Login=opacext&amp;BaseURL=this"/>
+  <template value="koha"/>  
+  <variable name="baseurl" value="https://sb-esslingen.lmscloud.net/"/>
   
-  <homepage value="https://stadtbuecherei.esslingen.de/start"/>
+  <homepage value="https://sb-esslingen.lmscloud.net/"/>
   <testing-search value="yes"/>
   <testing-account value="unknown"/>  
 </library>
