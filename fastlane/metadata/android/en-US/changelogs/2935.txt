@@ -1,0 +1,2 @@
+* Update for changed OPACs: Düsseldorf, Neuss, Esslingen, Magdeburg, Chemnitz und TUM.
+* vufind: Change renewing
