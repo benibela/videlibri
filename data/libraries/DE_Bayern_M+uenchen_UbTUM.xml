@@ -6,7 +6,7 @@
   <variable name="baseurl" value="https://search.ub.tum.de/vufind/"/>
   
   <homepage value="http://www.ub.tum.de/"/>
-  <testing-search value="yes"/>
+  <testing-search value="unknown"/>
   <testing-account value="unknown"/>
   
 </library>
