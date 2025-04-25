@@ -38,15 +38,34 @@
   </body>
   
   <div id="konto-services">
+    {
+      declare function local:htmlOnLink($html, $target){
+        form($html/ancestor::form[1], "selected=ZTEXT       "||$target) 
+          otherwise vl:raise-internal("Link zur Seite " || $target || " nicht gefunden")
+      };
+      declare function local:aDISLink($link, $fallback-target){
+        let $href := $link/@href 
+        return
+        if (starts-with($href, "javascript:") or $href = "#") then 
+          let $code := extract($href, "javascript:top\.htmlOnLink\(['""](.*)['""]\)", 1)[.] 
+                       otherwise $fallback-target
+          return local:htmlOnLink($link, $code)
+        else
+         $href
+      };
+      ()
+    }
     <t:switch>
-      <li><a t:condition="contains(., 'Ausleihe') and contains(@href, '&amp;sp=S*S')">{kontoPage := @href}</a></li>
+      <li><a t:condition="contains(., 'Ausleihe')">{$kontoPage := local:aDISLink(., "*SZA")}</a></li>
       <li>Keine Ausleihe</li>
     </t:switch>
-    {.//li/a[contains(@href, '&amp;sp=S*S' ) and not(contains(., "Ausleihe")) and matches(., "[0-9]")]/(
-      if (contains(., "Vormerkung")) then $requestedPage := @href
-      else if (contains(., "Magazin")) then $orderedMagazinePage := @href
-      else if (contains(., "Bereitstellung")) then $providedPage := @href
-      else if (contains(., "Bestellw")) then $orderedPage := @href
+    {let $otherLinks := .//li/a[not(contains(., "Ausleihe")) and matches(., "[0-9]")]
+     return
+    $otherLinks/(
+      if (contains(., "Vormerkung")) then $requestedPage := local:aDISLink(., "*SZM")
+      else if (contains(., "Magazin")) then $orderedMagazinePage := local:aDISLink(., "*SZB")
+      else if (contains(., "Bereitstellung")) then $providedPage := local:aDISLink(., "*SZS")
+      else if (contains(., "Bestellw")) then $orderedPage := local:aDISLink(., "*SZW")
       else ()
     )}
     
