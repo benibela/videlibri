@@ -38,23 +38,6 @@
   </body>
   
   <div id="konto-services">
-    {
-      declare function local:htmlOnLink($html, $target){
-        form($html/ancestor::form[1], "selected=ZTEXT       "||$target) 
-          otherwise vl:raise-internal("Link zur Seite " || $target || " nicht gefunden")
-      };
-      declare function local:aDISLink($link, $fallback-target){
-        let $href := $link/@href 
-        return
-        if (starts-with($href, "javascript:") or $href = "#") then 
-          let $code := extract($href, "javascript:top\.htmlOnLink\(['""](.*)['""]\)", 1)[.] 
-                       otherwise $fallback-target
-          return local:htmlOnLink($link, $code)
-        else
-         $href
-      };
-      ()
-    }
     <t:switch>
       <li><a t:condition="contains(., 'Ausleihe')">{$kontoPage := local:aDISLink(., "*SZA")}</a></li>
       <li>Keine Ausleihe</li>
