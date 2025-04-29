@@ -138,7 +138,7 @@
   <pattern href="accountOverview"/>
 
   <s>nextSplitTable := false(), $splitIndex := 1, $splitCount := 0, mode:="lend"</s>
-  <if test="$kontoPage">
+  <if test="exists($kontoPage)">
     <page url="{$kontoPage}" templateFile="list"/>
     <loop test="$nextSplitTable">
       <page url="{$nextSplitTable}" templateFile="list"/>
@@ -151,25 +151,25 @@
     <page url="{$goBackPage}" templateFile="accountOverview"/>
   </if>
   
-  <if test="$orderedMagazinePage">
+  <if test="exists($orderedMagazinePage)">
     <s>mode:="orderedMagazine"</s>
     <page url="{$orderedMagazinePage}" templateFile="list"/>
     <page url="{$goBackPage}" templateFile="accountOverview"/>
   </if>
   
-  <if test="$providedPage">
+  <if test="exists($providedPage)">
     <s>mode:="provided"</s>
     <page url="{$providedPage}" templateFile="list"/>
     <page url="{$goBackPage}" templateFile="accountOverview"/>
   </if>
 
-  <if test="$orderedPage">
+  <if test="exists($orderedPage)">
     <s>mode:="ordered"</s>
     <page url="{$orderedPage}" templateFile="list"/>
     <page url="{$goBackPage}" templateFile="accountOverview"/>
   </if>
   
-  <if test="$requestedPage">
+  <if test="exists($requestedPage)">
     <s>mode:="requested"</s>
     <page url="{$requestedPage}" templateFile="list"/>
     <page url="{$goBackPage}" templateFile="accountOverview"/>

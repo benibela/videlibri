@@ -1,6 +1,7 @@
 <t:switch prioritized="true">
 <html>
-  {goBackPage := $kontoPage := $orderedMagazinePage := $providedPage := $orderedPage := $requestedPage := "",
+  {$goBackPage := "",
+   $kontoPage := $orderedMagazinePage := $providedPage := $orderedPage := $requestedPage := (),
    if (get("first-login", false())) then (
      videlibri:delete-current-books(), 
      first-login := false()
