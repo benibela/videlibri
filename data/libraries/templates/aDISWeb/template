@@ -46,10 +46,10 @@
 
           <!-- seems we already are on the correct page, send request again (not tested with any library) -->
           <td>Keine Ausleihen<t:s>i:=1000</t:s></td>
-          <a t:condition="contains(., 'Ausleihe') and contains(@href, '&amp;sp=SZ')"><t:s>i:=1000</t:s></a>
+          <a t:condition="contains(., 'Ausleihe') and @href[contains(., '&amp;sp=SZ') or . = '#']"><t:s>i:=1000</t:s></a>
        
           <!-- we were logged out ? -->
-          <a>Mein Konto<t:s>loginFormPost := .</t:s></a>
+          <a>Mein Konto<t:s>loginFormPost := local:aDISLink(., "*SBK")</t:s></a>
   
           <!-- redirection -->
           <form t:condition=".//@name = ('_eventId_proceed', 'SAMLResponse', 'RelayState') ">
