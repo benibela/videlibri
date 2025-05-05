@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Wurzen"/>
+
+  <template value="koha"/>
+  <variable name="baseurl" value="https://sb-wurzen.lmscloud.net/"/>
+
+  <testing-search value="yes"/>
+  <testing-account value="yes"/>  
+</library>
+
