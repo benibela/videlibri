@@ -38,10 +38,9 @@ function testCrossDir {
   pagesDir=$1; shift
   if [[ $# -eq 0 ]]; then error="missing test cases $TEMP"; echo $error;  exit; fi
   for page in "$@"; do 
-    TEMPLATES=(${TEMPLATES[@]} "$TEMP") 
-    PAGES=(${PAGES[@]} "$pagesDir/$page")
+    TEMPLATES=("${TEMPLATES[@]}" "$TEMP") 
+    PAGES=("${PAGES[@]}" "$pagesDir/$page")
   done
- 
 }
 function test {
   system=$1; shift
@@ -53,6 +52,7 @@ TEMPLATES=()
 PAGES=()
 
 source "$INPATH/testcases.inc.sh"
+
 
 #echo $OUTPATH/stderr
 #echo > $OUTPATH/stderr
@@ -75,7 +75,7 @@ for ((i=0;i<${#TEMPLATES[@]};i++)); do
     TFILE=${BASH_REMATCH[1]}
     EXTRA="-e ${BASH_REMATCH[2]}"
   fi
-
+  
   #echo $TEMPLATEPARSER $EXTRA $TEMPLATEPARSERARGS $INPATH/${PAGES[i]} --extract-file=$TFILE  
   if ! eval $TEMPLATEPARSER $EXTRA $TEMPLATEPARSERARGS $INPATH/${PAGES[i]} --extract-file=$TFILE  > $OUTPATH/${PAGES[i]}.result 2> $OUTPATH/stderr; then
     echo EXCEPTION >> $OUTPATH/${PAGES[i]}.result

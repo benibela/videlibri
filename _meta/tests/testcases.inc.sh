@@ -117,7 +117,7 @@ test aDISWeb searchBasicForm search_go-back.voebb..html search_due..html  search
 
 test aDISWeb searchDetails searchDetails_albstadt.html searchDetails_due.html searchDetails_heilbronn.html searchDetails_heilbronn2.html searchDetails_single-result_hdmtest.html searchDetails_newdue.html searchDetails_new.voebb.html searchDetails_new2.voebb.html searchDetails_munich.html
 
-test aDISWeb 'connected{connect-target:=\"search\"}' connected_furtwangen.html connected_voebb1.html connected_voebb2.html
+test aDISWeb 'connected{@$TEMPLATEPATH/aDISWeb/functions.xq -e "connect-target:=\"search\""}' connected_furtwangen.html connected_voebb1.html connected_voebb2.html
 
 test aDISWeb searchInputForm searchInputForm_mannheim-hsb.html 
 
