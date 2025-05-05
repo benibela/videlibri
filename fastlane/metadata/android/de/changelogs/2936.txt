@@ -1,0 +1,2 @@
+* Anpassung an geänderte Kataloge: Düsseldorf, Neuss, Karlsruhe.
+* Bibliothek Wurzen

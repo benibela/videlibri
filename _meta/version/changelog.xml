@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="Bibliothek-App VideLibri">
-      <build version="2935" date="2025-04-13">
+      <build version="2936" date="2025-05-05">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <fix>Anpassung an geänderte Kataloge: Düsseldorf, Neuss, Karlsruhe.</fix>
+        <add>Bibliothek Wurzen</add>
+     </build>
+      <build version="2935" date="2025-04-13">
         <fix>Anpassung an geänderte Kataloge: Düsseldorf, Neuss, Esslingen, Magdeburg, Chemnitz und TUM.</fix>
         <change>vufind: Ändere Verlängerungsverarbeitung</change>
      </build>

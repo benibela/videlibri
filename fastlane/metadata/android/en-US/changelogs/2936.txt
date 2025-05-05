@@ -1,0 +1,2 @@
+* Changed OPACs: Düsseldorf, Neuss, Karlsruhe.
+* Bibliothek Wurzen
