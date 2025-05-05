@@ -8,5 +8,5 @@
   
   <homepage value="https://stadtbibliothek.wilhelmshaven.de/"/>
   <testing-search value="yes"/> 
-  <testing-account value="unknown"/>
+  <testing-account value="yes"/>
 </library>
