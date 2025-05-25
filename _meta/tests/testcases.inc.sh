@@ -104,7 +104,7 @@ test lbs list loans.stralsund.html
 mkdir -p $OUTPATH/aDISWeb
 
 
-test aDISWeb accountOverview accountOverview_munich.html accountOverview_nurnberg.html accountOverview_nurnberg.fake.html accountOverview_testhdm.html
+test aDISWeb 'accountOverview{@$TEMPLATEPATH/aDISWeb/functions.xq}' accountOverview_munich.html accountOverview_nurnberg.html accountOverview_nurnberg.fake.html accountOverview_testhdm.html
 test aDISWeb 'list{splitIndex:=0,mode:=\"lend\"}' list_munich.html list_nurnberg.html list_testhdm.html list_testhdm2.html 
 test aDISWeb 'list{splitIndex:=0,mode:=\"provided\"}' list_provided_testhdm.html
 test aDISWeb 'list{splitIndex:=0,mode:=\"requested\"}' list_requested_munich.html list_requested_testhdm.html
