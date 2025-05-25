@@ -95,8 +95,8 @@
       {book.status := concat("vorgemerkt am ", inner-text()), book.statusId := "ordered"}
     </td>
     <TD>{
-      if ($mode = "lend") then (.//input!(book.extendid := encode-for-uri(@name)) )
-      else if ($mode = ("ordered", "requested", "provided","orderedMagazine")) then .//input!(book.cancelid := encode-for-uri(@name))
+      if ($mode = "lend") then (.//input!(book.extendData := concat(encode-for-uri(@name), "=", encode-for-uri(@value otherwise "on")) ) )
+      else if ($mode = ("ordered", "requested", "provided","orderedMagazine")) then .//input!(book.cancelData := concat(encode-for-uri(@name), "=", encode-for-uri(@value otherwise "on")) )
       else (),
       let $date := extract(., "(([0-9]{1,2}\.[0-9]{1,2}\.[0-9]{4}) *- *)?([0-9]{1,2}\.[0-9]{1,2}\.[0-9]{4})", (1,3))
       where $date[2] and not($book.duedate)

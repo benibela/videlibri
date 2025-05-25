@@ -181,7 +181,7 @@
   <s>mode:="lend"</s>
   <if test="not($splitCount)">
     <page url="{$kontoPage}" templateFile="list"/>
-    <variable name="book-list">string-join(for $book in $renew-books return x"{$book.extendid}=on", "&amp;")</variable> 
+    <variable name="book-list">string-join(for $book in $renew-books return $book.extendData, "&amp;")</variable> 
     <page url="{$extendFormPost}"> <post value="{$book-list}"/> </page>    
   </if>
   <if test="$splitCount">
@@ -189,7 +189,7 @@
     <loop var="splitIndex" list="$renew-splits">
       <page url="{$kontoPage}" templateFile="list"/>
       <page url="{$nextSplitTable}" templateFile="list"/>
-      <variable name="book-list">string-join(for $book in $renew-books[(.)._splitIndex = $splitIndex] return x"{$book.extendid}=on", "&amp;")</variable> 
+      <variable name="book-list">string-join(for $book in $renew-books[(.)._splitIndex = $splitIndex] return $book.extendData, "&amp;")</variable> 
       <page url="{$extendFormPost}" templateFile="renewed"> <post value="{$book-list}"/> </page>    
       <page url="{$goBackPage}" templateFile="accountOverview"/>
     </loop>
@@ -216,7 +216,7 @@
     }</form></pattern>
 
   
-    <variable name="book-list">string-join(for $book in $cancel-books[(.)._mode = $mode] return  x"{$book.cancelid}=on", "&amp;")</variable> 
+    <variable name="book-list">string-join(for $book in $cancel-books[(.)._mode = $mode] return  $book.cancelData, "&amp;")</variable> 
     
     <page url="{$cancelFormPost}" templateFile="renewed">
       <post value="{$book-list}"/>
