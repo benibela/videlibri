@@ -2,9 +2,8 @@
 <library>
   <longName value="Stadtbibliothek Ulm"/>
   
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://opac.ulm.de/"/>	
-  <variable name="DB" value="w_biblio"/>	
+  <template value="koha"/>
+  <variable name="baseurl" value="https://sb-ulm.lmscloud.net/"/>
   
 
   <homepage value="https://stadtbibliothek.ulm.de/"/>
