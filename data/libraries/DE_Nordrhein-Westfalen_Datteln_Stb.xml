@@ -4,8 +4,8 @@
   <shortName value="Stb Datteln"/>
   
   <template value="vufind"/>  
-  <variable name="baseurl" value="https://www.bib-kreisre.de/"/>
-  <variable name="loginParams" value="library_select=DATT"/>
+  <variable name="baseurl" value="https://bib-kreisre.smartbib.de/"/>
+  <variable name="loginParams" value="target=DATT"/>
     
    
 

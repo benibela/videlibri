@@ -4,8 +4,8 @@
   <shortName value="Stb Castrop-Rauxel"/>
   
   <template value="vufind"/>  
-  <variable name="baseurl" value="https://www.bib-kreisre.de/"/>
-  <variable name="loginParams" value="library_select=CAST"/>
+  <variable name="baseurl" value="https://bib-kreisre.smartbib.de/"/>
+  <variable name="loginParams" value="target=CAST"/>
     
    
 
