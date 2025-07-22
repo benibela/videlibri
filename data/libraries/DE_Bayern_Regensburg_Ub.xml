@@ -4,9 +4,8 @@
 <library>
   <longName value="Universitätsbibliothek Regensburg"/>
   
-  <template value="sisis"/>  
-  <variable name="server" value="https://www.regensburger-katalog.de/TouchPoint/"/>
-  <variable name="startparams" value="?View=ubr"/>
+  <template value="vufind"/>  
+  <variable name="baseurl" value="https://katalog.uni-regensburg.de/vufind/"/>
   
   <homepage value="http://www.uni-regensburg.de/bibliothek/"/>
   <testing-search value="yes"/>

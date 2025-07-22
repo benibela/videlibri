@@ -2,11 +2,12 @@
 <library>
   <longName value="Mediathek Ebhausen"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/ebhausen"/>	
-  <variable name="DB" value="Ebhausen"/>	
+    <template value="bibliothecaplus"/>
+    <variable name="urlaccount" value="https://bibliotheken.komm.one/ebhausen/Login"/> <!--?returnurl=%2febhausen-->
+    <variable name="urlsearch" value="https://bibliotheken.komm.one/ebhausen/Mediensuche/Erweiterte-Suche"/>
+    
   
-  <homepage value="https://web-opac.kivbf.de/ebhausen/index.asp?DB=Ebhausen"/>
+  
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>
