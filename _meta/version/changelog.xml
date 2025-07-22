@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="Bibliothek-App VideLibri">
-      <build version="2937" date="2025-06-10">
+      <build version="2938" date="2025-07-23">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <fix>Neue Adressen für: Stadtbibliothek Saarbrücken, Stadtbücherei Castrop-Rauxel, Stadtbücherei Datteln, Stadtbücherei Dorsten, Stadtbücherei Gladbeck, Verbund Haltern Mark Recklinghausen, Stadtbücherei Herten, Verbund Haltern Mark Recklinghausen, Stadtbücherei Oer-Erkenschwick, Verbund Haltern Mark Recklinghausen, Mediathek Ebhausen, Universitätsbibliothek Regensburg
+</fix>
+     </build>
+      <build version="2937" date="2025-06-10">
         <fix>Neue Kataloge: Löchgau, Nußloch, Ulm, KHSB Berlin</fix>
         <fix>Neuss/Düsseldorf: Verlängerungen im geänderten Katalog</fix>
      </build>
