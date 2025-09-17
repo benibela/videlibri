@@ -1034,22 +1034,25 @@ end;
 procedure ToptionForm.checkUncommitedAccountChange;
 var
   account: TCustomAccountAccess;
+  pendingChange: Integer;
 begin
   if (accountList.Selected = nil) or (currentSelectedItem = nil) then exit;
   account := currentSelectedAccount;
   if account = nil then exit;
-
-  if    (edtAccountPrettyName.Text<>account.prettyName)
-     or (edtAccountUser.Text <> account.getUser())
-     or (edtAccountPass.Text <> account.passWord)
-     or (ckbAccountHistory.Checked <> account.keepHistory)
-     or (currentSelectedExtendType <> account.extendType)
-     or ( (currentSelectedExtendType in [etAllDepends,etSingleDepends])
-          and (StrToInt(edtAccountExtendDays.text)<> account.extendDays) )
-     or (accountType.Visible and ( accountType.ItemIndex <> currentSelectedAccount.accountType - 1) )
-  then
-    if MessageDlg(rsAccountChange, Format(rsAccountSaveConfirm, [#13#10]), mtConfirmation,mbYesNo,0) = mrYes then
+  pendingChange := 0;
+  if  edtAccountPrettyName.Text<>account.prettyName then pendingChange := 1;
+  if edtAccountUser.Text <> account.getUser() then pendingChange := 2;
+  if edtAccountPass.Text <> account.passWord then pendingChange := 3;
+  if ckbAccountHistory.Checked <> account.keepHistory then pendingChange := 4;
+  if currentSelectedExtendType <> account.extendType then pendingChange := 5;
+  if  (currentSelectedExtendType in [etAllDepends,etSingleDepends])
+          and (StrToInt(edtAccountExtendDays.text)<> account.extendDays) then pendingChange := 6;
+  if accountType.Visible and ( accountType.ItemIndex <> account.accountType - 1)
+  then pendingChange := 7;
+  if pendingChange > 0 then begin
+    if (MessageDlg(rsAccountChange, Format(rsAccountSaveConfirm, [#13#10]), mtConfirmation,mbYesNo,0) = mrYes) then
       btnAccountChange.Click;
+  end;
   currentSelectedItem := nil;
   currentSelectedAccount := nil;
 end;
