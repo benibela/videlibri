@@ -214,6 +214,7 @@ type
     currentSelectedItem: TListItem;
     currentSelectedAccount: TCustomAccountAccess;
     currentSelectedExtendType: TExtendType;
+    oldExtendTypeItemIndex: integer;
     function backSelect(const prompt: boolean):TCustomAccountAccess;
     procedure addAccount(const account: TCustomAccountAccess);
     procedure addUserLibrary(lib: TLibrary);
@@ -707,16 +708,17 @@ begin
   ckbAccountDisabled.Checked:=not currentSelectedAccount.enabled;
   if currentSelectedAccount.getLibrary().canModifySingleBooks then begin
     cmbAccountExtend.items.Text:=Format(rsRenewOptions, [#13#10, #13#10, #13#10]);
-    cmbAccountExtend.ItemIndex:=longint(TCustomAccountAccess(item.data).extendType);
+    oldExtendTypeItemIndex:=longint(TCustomAccountAccess(item.data).extendType);
   end else begin
     cmbAccountExtend.items.Text:=Format(rsRenewOptionsNoSingle, [#13#10, #13#10]);
     case currentSelectedAccount.extendType of
-      etAlways: cmbAccountExtend.ItemIndex:=0;
-      etAllDepends,etSingleDepends: cmbAccountExtend.ItemIndex:=1;
-      etNever: cmbAccountExtend.ItemIndex:=2;
+      etAlways: oldExtendTypeItemIndex:=0;
+      etAllDepends,etSingleDepends: oldExtendTypeItemIndex:=1;
+      etNever: oldExtendTypeItemIndex:=2;
     end;
   end;
-  cmbAccountExtend.OnSelect(cmbAccountExtend);
+  cmbAccountExtend.ItemIndex := oldExtendTypeItemIndex;
+  cmbAccountExtend.OnSelect(cmbAccountExtend); //calls ComboBox1Change to set currentSelectedExtendType
   edtAccountExtendDays.Text:=inttostr(currentSelectedAccount.extendDays);
 
   accountType.ItemIndex := currentSelectedAccount.accountType - 1;
@@ -1044,7 +1046,7 @@ begin
   if edtAccountUser.Text <> account.getUser() then pendingChange := 2;
   if edtAccountPass.Text <> account.passWord then pendingChange := 3;
   if ckbAccountHistory.Checked <> account.keepHistory then pendingChange := 4;
-  if currentSelectedExtendType <> account.extendType then pendingChange := 5;
+  if cmbAccountExtend.ItemIndex <> oldExtendTypeItemIndex then pendingChange := 5;
   if  (currentSelectedExtendType in [etAllDepends,etSingleDepends])
           and (StrToInt(edtAccountExtendDays.text)<> account.extendDays) then pendingChange := 6;
   if accountType.Visible and ( accountType.ItemIndex <> account.accountType - 1)
