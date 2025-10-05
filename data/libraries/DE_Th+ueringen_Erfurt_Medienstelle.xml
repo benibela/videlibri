@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Medienstelle Bistum Erfurt"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://medienstelle-erfurt.internetopac.de"/>
+  <variable name="DB" value="118603"/>
+  
+  <homepage value="https://www.bistum-erfurt.de/bildung-kultur/medienstelle/"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>
