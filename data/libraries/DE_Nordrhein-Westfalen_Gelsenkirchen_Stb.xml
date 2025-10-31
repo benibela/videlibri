@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
-
 <library>
   <longName value="Stadtbibliothek Gelsenkirchen"/>
   <shortName value="StB Gelsenkirchen"/>
-  <template value="bibdia"/>
-  <variable name="baseurl" value="https://katalog.stadtbibliothek-ge.de/opax/"/>
 
-<!--  <template value="arena"/>
-  <variable name="baseurl" value="https://gelsenkirchen.arena.axiell.de"/>-->
+  <template value="arena"/>
+  <variable name="baseurl" value="https://gelsenkirchen.arena.axiell.de"/>
 
 
   <template value="digibib7">
