@@ -45,12 +45,13 @@
           <p class="output-message output--error">{$error-login := ., i := 1000}</p><!--HS Offenburg-->
 
           <!-- seems we already are on the correct page, send request again (not tested with any library) -->
+          <div id="konto-services"/>
           <td>Keine Ausleihen<t:s>i:=1000</t:s></td>
           <a t:condition="contains(., 'Ausleihe') and @href[contains(., '&amp;sp=SZ') or . = '#']"><t:s>i:=1000</t:s></a>
        
           <!-- we were logged out ? -->
           <a>Mein Konto<t:s>loginFormPost := local:aDISLink(., "*SBK")</t:s></a>
-  
+    
           <!-- redirection -->
           <form t:condition=".//@name = ('_eventId_proceed', 'SAMLResponse', 'RelayState') ">
             { $loginFormPost := form(., ( 
@@ -58,6 +59,7 @@
                 (.//*[@name="_eventId_proceed"])[1] 
               ))  }
           </form>
+          <div class="aDISMaske"><select id="AUSGAB_1"/>{$i:=1000}<!--ordering in BLB K--></div>
           <div class="aDISMaske">{vl:raise-internal("Online-Katalog-Webseite wurde nicht erkannt.")}</div>
           <meta http-equiv="refresh">{$loginFormPost}</meta>    
           <a t:condition="contains(@href, '?')">{$loginFormPost}</a>
