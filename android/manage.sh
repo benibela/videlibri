@@ -305,6 +305,8 @@ setupfpccrosscfg)
   -Fu/usr/local/lib/fpc/$fpcversion/units/$fpctarget/rtl  
   
   #ifdef android
+  -k-z common-page-size=16384
+  -k-z max-page-size=16384
   '
 
   function singleplatform(){
