@@ -33,18 +33,18 @@
                       <t:loop>
                         <t:switch>
                         <TR>
-                          <TH class="spaltelinks">Titel</TH>
-                          <TD class="spalterechts">{book.title:=if (contains(., "/")) then extract(., "(.*)/", 1) else .}</TD>
+                          <TH>Titel</TH>
+                          <TD>{book.title:=if (contains(., "/")) then extract(., "(.*)/", 1) else .}</TD>
                         </TR>
                         
                         <TR>
-                          <TH class="spaltelinks">Person|Autor</TH>
-                          <TD class="spalterechts">{book.author:=.}</TD>
+                          <TH>Person|Autor</TH>
+                          <TD>{book.author:=.}</TD>
                         </TR>
   
                         <TR>
-                          <TH class="spaltelinks">erschienen</TH>
-                          <TD class="spalterechts">{
+                          <TH>erschienen</TH>
+                          <TD>{
                             book.year:=if (contains(., "/")) then translate(substring-after(., "/"), "[]", "")  (: translate for cases like [2009]? :)
                                        else if (contains(., ",")) then translate(extract(., ",[^,0-9]*([0-9]+)[^,0-9]*$", 1), "[]", "")
                                        else $book.year,  
@@ -56,16 +56,16 @@
                         </TR>
   
                         <TR>
-                          <TD class="spalterechts"><a href="{$book.home-url}">Zitierlink</a></TD>
+                          <TD><a href="{$book.home-url}">Zitierlink</a></TD>
                         </TR>
 
                         <TR>
-                          <TH class="spaltelinks">{name:=translate(normalize-space(.), ".", "")}</TH>
-                          <TD class="spalterechts"><t:read source="if (./a and contains(./a/@href, '://')) then x'{.} ( {./a/@href} )' else ."  var="book.{$name}!"/></TD>
+                          <TH>{name:=translate(normalize-space(.), ".", "")}</TH>
+                          <TD><t:read source="if (./a and contains(./a/@href, '://')) then x'{.} ( {./a/@href} )' else ."  var="book.{$name}!"/></TD>
                         </TR>
                         </t:switch>
                       </t:loop>
-                    </TABLE>
+                    </TABLE>*
                   </DIV>
                 </DIV>
               </DIV>
