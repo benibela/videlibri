@@ -39,7 +39,8 @@
           <th t:condition='@abbr="Mediengruppe" or contains(a/@href, "Sort$MediaGroup")'/>?
           <th t:condition='@abbr="Zweigstelle" or contains(a/@href, "Sort$Branch")'/>?
           <th t:condition='@abbr="Frist" or contains(a/@href, "Sort$DueDate")'/>
-          <th/>*
+          <t:element t:condition="self::td or self::th"/>*
+                              
           </t:siblings-header>
           <!--<th abbr="Verlängerbar">Verlängerbar</th>-->          
         </tr>
