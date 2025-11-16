@@ -43,7 +43,10 @@
                   let $key := if ($primary-key) then $search-reverse-keys($idlbl)
                               else $span || "!"
                   let $value := join($span!following-sibling::node()!(
-                    if (self::script or matches(@style, "display *: *none")) then ()
+                    if (self::script 
+                        or matches(@style, "display *: *none")
+                        or contains-token(@class, "oclc-screen-reader-only")
+                        ) then ()
                     else if (self::a and not($primary-key)) then (. || (if (contains(@href, "http")) then x" ( {@href} )" else ""))
                     else .
                   ))
@@ -74,7 +77,8 @@
                  let $key := if ($primary-key) then $search-reverse-keys($idlbl)
                              else $span || "!"
                  let $value := join($span!following-sibling::node()!(
-                   if (self::a and not($primary-key)) then (. || (if (contains(@href, "http")) then x" ( {@href} )" else ""))
+                   if (contains-token(@class, "oclc-screen-reader-only")) then ()
+                   else if (self::a and not($primary-key)) then (. || (if (contains(@href, "http")) then x" ( {@href} )" else ""))
                    else .
                  ))
                  where $value
