@@ -2,13 +2,15 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-parcelize'
+    id 'org.jetbrains.kotlin.android'
 }
 
 
 android
 {
+  namespace "de.benibela.videlibri"
   compileSdkVersion 34
-  buildToolsVersion "30.0.3"
+  buildToolsVersion "35.0.0"
   viewBinding.enabled = true
   ndkVersion "19.2.5345600"
   
@@ -72,8 +74,6 @@ android
       applicationIdSuffix '.debug'
       manifestPlaceholders = [ applicationLabel: "DebugVideLibri" ]
 
-      minifyEnabled true
-      shrinkResources true
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
     }
   }
