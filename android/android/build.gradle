@@ -73,6 +73,8 @@ android
     debug {
       applicationIdSuffix '.debug'
       manifestPlaceholders = [ applicationLabel: "DebugVideLibri" ]
+        //without minify it gives "D8: Cannot fit requested classes in a single dex file" error
+      minifyEnabled true
 
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
     }
