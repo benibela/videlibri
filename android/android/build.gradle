@@ -55,6 +55,9 @@ android
   
   buildFeatures {
     viewBinding true
+      //todo: AGP updater put renderScript and aidl there. Is that actually needed?
+      renderScript true
+      aidl true
   }
 
   buildTypes {
