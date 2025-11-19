@@ -2,11 +2,12 @@
 <library>
   <longName value="Stadtücherei Waibstadt"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/waibstadt"/>	
-  <variable name="DB" value="Waibstadt"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.komm.one/waibstadt/Mein-Konto"/>
+  <variable name="urlsearch" value="https://bibliotheken.komm.one/waibstadt/Mediensuche/Erweiterte-Suche"/>
+
+  <homepage value="https://bibliotheken.komm.one/waibstadt"/>
   
-  <homepage value="https://web-opac.kivbf.de/waibstadt/index.asp?DB=Waibstadt"/>
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

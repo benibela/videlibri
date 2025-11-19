@@ -2,11 +2,12 @@
 <library>
   <longName value="Gemeindebücherei Brühl"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/bruehl"/>	
-  <variable name="DB" value="Bruehl"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.komm.one/bruehl/Mein-Konto"/>
+  <variable name="urlsearch" value="https://bibliotheken.komm.one/bruehl/Mediensuche/Erweiterte-Suche"/>
   
-  <homepage value="https://web-opac.kivbf.de/bruehl/index.asp?DB=Bruehl"/>
+  <homepage value="https://bibliotheken.komm.one/bruehl"/>
+
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

@@ -2,11 +2,12 @@
 <library>
   <longName value="Gemeindebücherei Walzbachtal"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/walzbachtal"/>	
-  <variable name="DB" value="Walzbachtal"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.komm.one/walzbachtal/Mein-Konto"/>
+  <variable name="urlsearch" value="https://bibliotheken.komm.one/walzbachtal/Mediensuche/Erweiterte-Suche"/>
   
-  <homepage value="https://web-opac.kivbf.de/walzbachtal/index.asp?DB=Walzbachtal"/>
+  <homepage value="https://bibliotheken.komm.one/walzbachtal"/>
+
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

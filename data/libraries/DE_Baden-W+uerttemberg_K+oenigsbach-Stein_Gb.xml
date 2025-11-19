@@ -2,11 +2,12 @@
 <library>
   <longName value="Gemeindebücherei Königsbach-Stein"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/koenigsbach-stein"/>	
-  <variable name="DB" value="Koenigsbach-Stein"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.komm.one/koenigsbach-stein/Meine-Bibliothek"/>
+  <variable name="urlsearch" value="https://bibliotheken.komm.one/koenigsbach-stein/Mediensuche/Erweiterte-Suche"/>
   
-  <homepage value="https://web-opac.kivbf.de/koenigsbach-stein/index.asp?DB=Koenigsbach-Stein"/>
+  <homepage value="https://bibliotheken.komm.one/koenigsbach-stein"/>
+  
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

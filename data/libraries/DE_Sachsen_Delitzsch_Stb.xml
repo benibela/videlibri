@@ -4,9 +4,8 @@
   <longName value="Stadtbibliothek Delitzsch"/>
   <shortName value="Stb Delitzsch"/>
 
-  <template value="bibliothecaplus"/>
-  <variable name="urlaccount" value="http://kultur.delitzsch.de/Mein-Konto"/>	
-  <variable name="urlsearch" value="http://kultur.delitzsch.de/Mediensuche/Erweiterte-Suche"/>
+  <template value="koha"/>
+  <variable name="baseurl" value="https://sb-delitzsch.lmscloud.net"/>	
 
 
   <variable name="baseurl" value="http://kultur.delitzsch.de/webopac/"/>

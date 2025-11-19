@@ -2,11 +2,12 @@
 <library>
   <longName value="Stadtbücherei Adelsheim"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/adelsheim"/>	
-  <variable name="DB" value="Adelsheim"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.komm.one/adelsheim/Mein-Konto"/>
+  <variable name="urlsearch" value="https://bibliotheken.komm.one/adelsheim/Mediensuche"/>
   
-  <homepage value="https://web-opac.kivbf.de/adelsheim/index.asp?DB=Adelsheim"/>
+  <homepage value="https://bibliotheken.komm.one/adelsheim"/>
+
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

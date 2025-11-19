@@ -5,9 +5,8 @@
   <longName value="Hochschulbibliothek Aschaffenburg"/>
   <shortName value="TH Aschaffenburg"/> 
   
-  <template value="sisis"/>  
-  <variable name="server" value="https://recherche.bibkatalog.de/TouchPoint/"/>
-  <variable name="startparams" value="?View=fwsfab"/>
+  <template value="vufind"/>  
+  <variable name="baseurl" value="https://search.lib.th-ab.de/vufind/"/>
   
   <homepage value="http://www.h-ab.de/bibliothek"/>
   <testing-search value="yes"/>

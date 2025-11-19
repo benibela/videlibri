@@ -2,11 +2,11 @@
 <library>
   <longName value="Iffothek Iffezheim"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/iffezheim"/>	
-  <variable name="DB" value="Iffezheim"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.komm.one/iffezheim/Mein-Konto"/>
+  <variable name="urlsearch" value="https://bibliotheken.komm.one/iffezheim/Mediensuche-Medienangebote/Erweiterte-Suche"/>
   
-  <homepage value="https://web-opac.kivbf.de/iffezheim/index.asp?DB=Iffezheim"/>
+ 
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

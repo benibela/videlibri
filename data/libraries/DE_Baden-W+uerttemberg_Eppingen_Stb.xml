@@ -2,11 +2,12 @@
 <library>
   <longName value="Stadtbücherei Eppingen"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/eppingen"/>	
-  <variable name="DB" value="Eppingen"/>	
-  
-  <homepage value="https://web-opac.kivbf.de/eppingen/index.asp?DB=Eppingen"/>
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.komm.one/eppingen/MEIN-KONTO"/>
+  <variable name="urlsearch" value="https://bibliotheken.komm.one/eppingen/MEDIENSUCHE/Erweiterte-Suche"/>
+
+  <homepage value="https://bibliotheken.komm.one/eppingen"/>
+
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

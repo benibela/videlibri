@@ -4,9 +4,8 @@
   <shortName value="Hb Coburg"/> 
   <deprecatedName value="DE_Coburg_Coburg_Hb"/>
   
-  <template value="sisis"/>  
-  <variable name="server" value="https://recherche.bibkatalog.de/TouchPoint/"/>
-  <variable name="startparams" value="?View=fwsfco&amp;Language=de&amp;Branch=5"/>
+  <template value="vufind"/>  
+  <variable name="baseurl" value="https://katalog.hs-coburg.de/vufind//"/>
   
   <homepage value="http://www.hs-coburg.de/library.html"/>
   <testing-search value="yes"/>

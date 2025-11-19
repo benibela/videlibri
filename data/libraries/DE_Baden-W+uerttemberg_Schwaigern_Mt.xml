@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
   <longName value="Mediathek Schwaigern"/>
-    
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/schwaigern"/>	
-  <variable name="DB" value="Schwaigern"/>	
+   
   
-  <homepage value="https://web-opac.kivbf.de/schwaigern/index.asp?DB=Schwaigern"/>
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.komm.one/schwaigern/Mein-Konto"/>
+  <variable name="urlsearch" value="https://bibliotheken.komm.one/schwaigern/Mediensuche/Erweiterte-Suche"/>
+  
+  <homepage value="https://bibliotheken.komm.one/schwaigern"/>
+
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

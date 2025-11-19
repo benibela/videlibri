@@ -2,11 +2,12 @@
 <library>
   <longName value="Stadtbücherei Gottmadingen"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/gottmadingen"/>	
-  <variable name="DB" value="Gottmadingen"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.komm.one/gottmadingen/Mein-Konto"/>
+  <variable name="urlsearch" value="https://bibliotheken.komm.one/gottmadingen/Mediensuche/Erweiterte-Suche"/>
   
-  <homepage value="https://web-opac.kivbf.de/gottmadingen/index.asp?DB=Gottmadingen"/>
+  <homepage value="https://bibliotheken.komm.one/gottmadingen"/>
+
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>
