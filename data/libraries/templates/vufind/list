@@ -31,7 +31,7 @@
         return if (empty(switch ($name)
 (:          case "von" return if (empty($book.author)) then $book.author := $value else ():)
           case "Signatur" case "Call Number" return $book.id := $value
-          case "due date" case "fällig am" case "Bis" case "until" case "Ablaufdatum" case "Fälligkeit am" case "Rückgabedatum" return 
+          case "due date" case "fällig am" case "Bis" case "until" case "Ablaufdatum" case "Fälligkeit am" case "Rückgabedatum" case "Rückgabe bis einschließlich" return 
             if (matches($value, "[0-9][-0-9.]{7,10}")) then $book.duedate := parse-date($value) else ()
           case "Erstellt" case "Created" case "Ausleihdatum" return 
             if (matches($value, "[0-9][-0-9.]{7,10}")) then $book.issuedate := parse-date($value) else ()
