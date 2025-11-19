@@ -803,7 +803,7 @@ var
 begin
   if (fcatalogueUrl = '') and (fcatalogueUrlFromTemplate = '') and (template.findAction('catalogue') <> nil)  then begin
     tempinternet := TInternetAccessNonSense.create(); //will crash if used
-    parser := TMultipageTemplateReader.create(template,tempinternet, nil);
+    parser := TBookListReader.create(template,tempinternet);
     parser.parser.KeepPreviousVariables:=kpvKeepValues; //used in book list reader. needed here, too?
     for vpair in variables do
       parser.parser.variableChangeLog.ValuesString[vpair.name]:=vpair.value;

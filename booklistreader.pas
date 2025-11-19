@@ -156,7 +156,7 @@ type
     pendingMessage: TPendingMessage;
     cache: TXQBoxedStringMap;
     accountExpiration: string;
-    constructor create(atemplate:TMultiPageTemplate);
+    constructor create(atemplate:TMultiPageTemplate; ainternet: TInternetAccess = nil);
     destructor destroy();override;
 
     class function bookToPXP(book:TBook): TXQBoxedStringMap; static;
@@ -1279,7 +1279,7 @@ begin
   end;
 end;
 
-constructor TBookListReader.create(atemplate:TMultiPageTemplate);
+constructor TBookListReader.create(atemplate:TMultiPageTemplate; ainternet: TInternetAccess);
 var
   temp: TXQVideLibriStaticContext;
   tempc: TXQEvaluationContext;
@@ -1287,7 +1287,7 @@ var
 begin
   matcher := TVideLibriHtmlPatternMatcher.create;
   matcher.KeepPreviousVariables := kpvKeepValues;
-  inherited create(atemplate, nil, matcher);
+  inherited create(atemplate, ainternet, matcher);
   defaultBook:=TBook.create;
   self.onLog:=@logall;
   parser.QueryEngine.GlobalNamespaces.add(XMlNamespaceVideLibri);
