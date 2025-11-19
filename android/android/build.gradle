@@ -96,7 +96,7 @@ dependencies {
     implementation "ch.acra:acra-http:5.9.7"
     implementation "ch.acra:acra-dialog:5.9.7"
     implementation 'com.squareup.okhttp3:okhttp:3.12.13'
-    implementation "com.getkeepsafe.relinker:relinker:1.4.4"
+    implementation "com.getkeepsafe.relinker:relinker:1.4.5"
     //implementation 'androidx.core:core-ktx:+' does not work with minSdk 14
 }
 
