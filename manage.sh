@@ -208,7 +208,7 @@ downloadTable)
        let $filename := x"{$fastlane}/de/changelogs/{$version/@version}.txt"
        where not(file:exists($filename))
        return $version!(file:write-text($filename, join((.//fix|.//add|.//change)!concat("* ", .), $line-ending))) '
-    while [[ $( stat $fastlane/de/changelogs/$INTVERSION.txt -c %s ) > 500 ]]; do 
+    while [[ $( stat $fastlane/de/changelogs/$INTVERSION.txt -c %s ) -gt 500 ]]; do 
       echo changelog too big;
       stat $fastlane/de/changelogs/$INTVERSION.txt -c %s
       vim $fastlane/de/changelogs/$INTVERSION.txt
@@ -217,7 +217,7 @@ downloadTable)
       cp $fastlane/de/changelogs/$INTVERSION.txt $fastlane/en-US/changelogs/$INTVERSION.txt
       vim $fastlane/en-US/changelogs/$INTVERSION.txt
     fi
-    while [[ $( stat $fastlane/en-US/changelogs/$INTVERSION.txt -c %s ) > 500 ]]; do 
+    while [[ $( stat $fastlane/en-US/changelogs/$INTVERSION.txt -c %s ) -gt 500 ]]; do 
       echo changelog too big;
       stat $fastlane/en-US/changelogs/$INTVERSION.txt -c %s
       vim $fastlane/en-US/changelogs/$INTVERSION.txt
