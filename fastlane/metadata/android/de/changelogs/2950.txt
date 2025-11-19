@@ -1,0 +1,7 @@
+* entferne Unterstützung für ARMv5.
+* Geräte mit 16 KB Speicherseiten.
+* update zu Gradle/AGP 8.14.3, Relinker 1.4.5, ACRA 5.10.1.
+* Neue Adressen für Bibliotheken in Adelsheim, Brühl, Breisach, Eppingen, Gottmadingen, Iffezheim, Ispringen, Königsbachinbach-Stein, Potsdam, Schwaigern, Waibstadt, Walzbachtal, Aschaffenburg, Coburg, Dortmund, Viersen, Delitzsch
+* Anpassung an Änderungen in BLB Karlsruhe, TU München (UB), Essen, VÖBB, etc..
+* Katalogadressen
+* neu: Medienstelle Erfurt

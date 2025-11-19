@@ -1,0 +1,7 @@
+* remove ARMv5 version.
+* support 16 KB pages.
+* update to Gradle/AGP 8.14.3, Relinker 1.4.5, ACRA 5.10.1.
+* update urls: Adelsheim, Brühl, Breisach, Eppingen, Gelsenkirchen, Gottmadingen, Iffezheim, Ispringen, Königsbachinbach-Stein, Potsdam, Schwaigern, Waibstadt, Walzbachtal, Aschaffenburg, Coburg, Dortmund, Viersen, Delitzsch
+* updates for BLB Karlsruhe, TU München (UB), Essen, VÖBB, etc..
+* show some catalog addresses again
+* add: Medienstelle Erfurt

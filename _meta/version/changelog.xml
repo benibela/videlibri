@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="Bibliothek-App VideLibri">
-      <build version="2938" date="2025-07-23">
+      <build version="2950" date="2025-11-19">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <change>android: entferne Unterstützung für ARMv5 Geräte.</change>
+        <change>android: unterstütze Geräte mit 16 KB Speicherseiten.</change>
+        <change>android: update Gradle/AGP zu 8.14.3, update Relinker zu 1.4.5, update ACRA zu 5.10.1.</change>
+        <fix>Neue Adressen für Bibliotheken in Adelsheim, Brühl, Breisach, Eppingen, Gelsenkirchen, Gottmadingen, Iffezheim, Ispringen, Königsbachinbach-Stein, Potsdam, Schwaigern, Waibstadt, Walzbachtal, Aschaffenburg, Coburg, Dortmund, Viersen, Delitzsch</fix>
+        <fix>Anpassung an geänderten Login in BLB Karlsruhe.</fix>
+        <fix>Anpassung an geänderte Fristdatumsanzeige in TU München-Universitätsbibliothek.</fix>
+        <fix>Anpassung an geänderten Tabelle in Essen und andere Bibliotheca+-Bibliotheken.</fix>
+        <fix>Anpassung an geänderte Suchdetails in VÖBB, München, etc..</fix>
+        <fix>Katalogadressen mit aDIS</fix>
+        <add>neu: Medienstelle Bistum Erfurt</add>
+     </build>
+      <build version="2938" date="2025-07-23">
         <fix>Neue Adressen für: Stadtbibliothek Saarbrücken, Stadtbücherei Castrop-Rauxel, Stadtbücherei Datteln, Stadtbücherei Dorsten, Stadtbücherei Gladbeck, Verbund Haltern Mark Recklinghausen, Stadtbücherei Herten, Verbund Haltern Mark Recklinghausen, Stadtbücherei Oer-Erkenschwick, Verbund Haltern Mark Recklinghausen, Mediathek Ebhausen, Universitätsbibliothek Regensburg
 </fix>
      </build>
