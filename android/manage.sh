@@ -99,10 +99,10 @@ build)
   esac
 
   
-  nativeBuild $BUILDARM     armeabi    arm-linux-androideabi-strip   $FPC_ARM    arm
-  nativeBuild $BUILDX86     x86        i686-linux-android-strip      $FPC_386    i386
-  nativeBuild $BUILDARM64   arm64-v8a  aarch64-linux-android-strip   $FPC_ARM64  aarch64
-  nativeBuild $BUILDX64     x86_64     strip                         $FPC_X64    x86_64
+  nativeBuild $BUILDARM     armeabi-v7a   arm-linux-androideabi-strip   $FPC_ARM    arm
+  nativeBuild $BUILDX86     x86           i686-linux-android-strip      $FPC_386    i386
+  nativeBuild $BUILDARM64   arm64-v8a     aarch64-linux-android-strip   $FPC_ARM64  aarch64
+  nativeBuild $BUILDX64     x86_64        strip                         $FPC_X64    x86_64
 
   ./manage.sh build-gradle $BUILDMODE
 ;;
@@ -150,8 +150,7 @@ install)
 ;;
 
 clean)
-  rm android/libs/armeabi/liblclapp.so; 
-  rm android/libs/x86/liblclapp.so; 
+  rm android/libs/*/liblclapp.so; 
   ./gradlew clean
 ;;
 
@@ -348,10 +347,10 @@ fakesignature)
 symbols)
   rm -rf symbols
   mkdir -p symbols symbols/armeabi-v7a/ symbols/arm64-v8a/ symbols/x86 symbols/x86_64
-  ln liblclapp.unstripped.release.arm64-v8a.so symbols/arm64-v8a/liblclapp.so
-  ln liblclapp.unstripped.release.armeabi.so   symbols/armeabi-v7a/liblclapp.so
-  ln liblclapp.unstripped.release.x86_64.so    symbols/x86/liblclapp.so
-  ln liblclapp.unstripped.release.x86.so       symbols/x86_64/liblclapp.so
+  ln liblclapp.unstripped.release.arm64-v8a.so     symbols/arm64-v8a/liblclapp.so
+  ln liblclapp.unstripped.release.armeabi-v7a.so   symbols/armeabi-v7a/liblclapp.so
+  ln liblclapp.unstripped.release.x86_64.so        symbols/x86/liblclapp.so
+  ln liblclapp.unstripped.release.x86.so           symbols/x86_64/liblclapp.so
   cd symbols
   zip -r symbols.zip .
   mv symbols.zip ..

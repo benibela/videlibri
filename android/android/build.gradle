@@ -19,7 +19,7 @@ android
     minSdkVersion 14
     targetSdkVersion 34
     ndk {
-      abiFilters 'armeabi-v7a', 'x86', 'armeabi', 'arm64-v8a', 'x86_64'
+      abiFilters 'armeabi-v7a', 'x86', 'arm64-v8a', 'x86_64'
     }
   }
 
