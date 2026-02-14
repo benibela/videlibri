@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbücherei Pfullingen"/>
+    
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliothek.komm.one/pfullingen/Mein-Konto"/>
+  <variable name="urlsearch" value="https://bibliothek.komm.one/pfullingen/Mediensuche/Erweiterte-Suche"/>
+
+  <homepage value="https://bibliothek.komm.one/pfullingen/"/>
+
+  <testing-search value="yes"/>
+  <testing-account value="yes"/>
+</library>
