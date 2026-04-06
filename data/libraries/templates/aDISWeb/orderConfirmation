@@ -24,8 +24,8 @@
   </form>
 
   <form> 
-    {tempOrderConfirmation := x"Wohin soll das Buch ""{css("h2, span.titanzeige")}"" vorbestellt werden?"}
-    <select name="select" t:condition="not(starts-with(@id,'SUC'))">{tempOptions :=  ./option[. != ""],    
+    {tempOrderConfirmation := x"Wohin soll das Buch ""{css("h2, span.titanzeige")[last()]}"" vorbestellt werden?"}
+    <select t:condition="@name = ('select','$select') and not(starts-with(@id,'SUC'))">{tempOptions :=  ./option[. != ""],    
     vl:choose("internal-order-confirmed", $tempOrderConfirmation, $tempOptions, $tempOptions/@value)
     }</select>
     <input type="submit"/>

@@ -315,8 +315,8 @@ begin
   //updater:=TAutoUpdater.create(versionNumber,programpath,'http://videlibri.hg.sourceforge.net/hgweb/videlibri/videlibri/raw-file/tip/programs/internet/VideLibri/_meta/version/version.xml'
   //                                                      ,'http://videlibri.hg.sourceforge.net/hgweb/videlibri/videlibri/raw-file/tip/programs/internet/VideLibri/_meta/version/changelog.xml');
   try
-    updater:=TAutoUpdater.create(versionNumber,programpath,'http://www.videlibri.de/updates/version.xml'
-                                                          ,'http://www.videlibri.de/updates/changelog.xml');
+    updater:=TAutoUpdater.create(versionNumber,programpath,'https://www.videlibri.de/updates/version.xml'
+                                                          ,'https://www.videlibri.de/updates/changelog.xml');
     updater.language := 'de';
 
     if updater.existsUpdate then begin

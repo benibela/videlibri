@@ -8,11 +8,16 @@
   
   <div class="portlet" id="portlet_loansWicket_WAR_arenaportlet"> 
     <div class="portlet-content"> 
-      <table id="loansTable"> 
-        <th class="arena-renewal-loan"></th> 
-        {$login-form := () (:already logged in:)}
-      </table>
+      <t:switch>
+        <table id="loansTable"> 
+          <th class="arena-renewal-loan"></th> 
+        </table>
+        
+        <ul class="feedbackPanel"/>
+      </t:switch>
     </div>
+    {$login-form := () (:already logged in:)}
   </div>
+
 
 </t:switch>

@@ -2,11 +2,11 @@
 <library>
   <longName value="Gemeindebibliothek Sandhausen"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/sandhausen"/>	
-  <variable name="DB" value="Sandhausen"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.komm.one/sandhausen/Mein-Konto"/>
+  <variable name="urlsearch" value="https://bibliotheken.komm.one/sandhausen/Mediensuche/Erweiterte-Suche"/>
   
-  <homepage value="https://web-opac.kivbf.de/sandhausen/index.asp?DB=Sandhausen"/>
+ y
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
 </library>

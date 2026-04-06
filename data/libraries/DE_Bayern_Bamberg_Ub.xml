@@ -5,7 +5,8 @@
   <longName value="Universitätsbibliothek Bamberg"/>
   <shortName value="Ub Bamberg"/> 
   
-  <template value="sisis"/>  
+  <template value="vufind"/>  
+  <!--https://katalog.ub.uni-bamberg.de/vufind/Search/Results?lng=de&lookfor=huhn-->
   <variable name="server" value="https://katalog.ub.uni-bamberg.de/TouchPoint/"/>
   <variable name="startparams" value="?View=ubg&amp;Branch=1"/>
   
