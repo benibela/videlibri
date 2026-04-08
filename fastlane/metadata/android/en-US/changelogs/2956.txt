@@ -1,0 +1,3 @@
+* Fix OPAC address: Stadtbibliothek Bielefeld, Universitätsbibliothek Bamberg, Gemeindebibliothek Sandhausen
+* aDIS/Düsseldorf: Fix ordering
+* New: Reutlingen, Pfullingen

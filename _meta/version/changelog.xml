@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="Bibliothek-App VideLibri">
-      <build version="2953" date="2025-11-29">
+      <build version="2956" date="2026-04-08">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <change>Linux/Windows: Verwende HTTPS für Updatechecking</change>
+        <change>Linux: Update HTTP/S-Client zu Synapse 278.</change>
+        <fix>Neue Katalogadressen: Stadtbibliothek Bielefeld, Universitätsbibliothek Bamberg, Gemeindebibliothek Sandhausen</fix>
+        <fix>aDIS/Düsseldorf: Anpassung an geänderte Vormerkungen</fix>
+        <add>Neu: Reutlingen, Pfullingen</add>
+     </build>
+      <build version="2953" date="2025-11-29">
         <change>android: Update zu Kotlin 2.1.20, appcompat 1.6.1, material 1.11.0</change>
         <change>android: Update HTTPS-Zertifikate</change>
         <fix>BLB Karlsruhe Login</fix>

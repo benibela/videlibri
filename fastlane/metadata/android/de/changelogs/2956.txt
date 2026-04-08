@@ -1,0 +1,5 @@
+* Linux/Windows: Verwende HTTPS für Updatechecking
+* Linux: Update HTTP/S-Client zu Synapse 278.
+* Neue Katalogadressen: Stadtbibliothek Bielefeld, Universitätsbibliothek Bamberg, Gemeindebibliothek Sandhausen
+* aDIS/Düsseldorf: Anpassung an geänderte Vormerkungen
+* Neu: Reutlingen, Pfullingen
