@@ -96,8 +96,8 @@
       <h1>Ihre Suche.*erzielte keinen? Treffer</h1>
       <span class="alert">Ihre Suche erzielte keinen Treffer</span>  
       <p class="hinweis">Ihre Suche.*erzielte keinen? Treffer</p>
-      <p class="wichtig">Bitte geben Sie einen Suchbegriff ein</p>
-      <p class="hinweis">Bitte geben Sie einen Suchbegriff ein</p>
+      <p class="wichtig">Bitte geben Sie.*Suchbegriff</p>
+      <p class="hinweis">Bitte geben Sie.*Suchbegriff</p>
     </t:switch>
     <t:s>search-result-count :=  0</t:s>
   </html>
@@ -121,15 +121,16 @@
   </html>
   
   <body>  
-    <div id="main">
+    <t:element id="main">
       <div class="inside">
           <div class="message">
             <div id="R01">
-              <h1>{vl:raise(.)}</h1>
+              <h1></h1>
+              {vl:raise(.)}
             </div>
           </div>
       </div>
-    </div>
+    </t:element>
   </body>
   
   <span class="alert">{vl:raise(.)}</span>
