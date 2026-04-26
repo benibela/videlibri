@@ -115,6 +115,9 @@
           else vl:raise-internal("Diese Bibliothek unterscheidet zwischen internen und externen Benutzern. In den Videlibri-Kontoeinstellungen muss dafür der richtige Benutzertyp ausgewählt werden.")
           </t:s>
         </div></form>
+
+        <div id="konto-services"><li/></div>
+
         <form><div class="message">vl:raise(.)</div></form>
         <form t:condition=" .//@name = ('_eventId_proceed', 'SAMLResponse', 'RelayState') ">
         { $loginFormPost := form(., (.//*[@name="_eventId_proceed"])[1]), $idpSystem := true() }
