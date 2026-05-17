@@ -11,9 +11,12 @@
 
 
 <action id="connect">
-  <s>
+  <s> (:when updating this block, update functions.xq for testing:)
+    declare function local:selected-ZTEXT($target){
+      "selected=ZTEXT       "||$target
+    };
     declare function local:htmlOnLink($html, $target){
-      form($html/ancestor::form[1], "selected=ZTEXT       "||$target) 
+      form($html/ancestor::form[1], local:selected-ZTEXT($target)) 
         otherwise vl:raise-internal("Link zur Seite " || $target || " nicht gefunden")
     };
     declare function local:aDISLink($link, $fallback-target){
@@ -318,7 +321,7 @@
 <action id="search-details">
   <variable name="targetIndex">$book._index * 1</variable> <call action="gotoindex"/>
 
-  <s>form := request-combine($form, "selected=" || $book._searchId)</s>
+  <s>form := request-combine($form, local:selected-ZTEXT($book._searchId))</s>
   <page url="{$form}" templateFile="searchDetails"/>
   
   <page url="{$goback}" templateFile="searchBasicForm" test="not($search-result-count = '1')"/>
@@ -331,7 +334,7 @@
 <action id="order-single">
   <variable name="targetIndex">$book._index * 1</variable> <call action="gotoindex"/>
 
-  <s>form := request-combine($form, "selected=" || $book._searchId)</s>
+  <s>form := request-combine($form, local:selected-ZTEXT($book._searchId))</s>
   <call action="internal-order-single"/>
 </action>
 

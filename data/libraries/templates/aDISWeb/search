@@ -31,7 +31,7 @@
                              "title": extract(., "^[^/]+"), 
                              "author": extract(., "^[^/]+/([^-]+)", 1), 
                              "publisher": extract(., "-([^-]+)$", 1),
-                             "_searchId": encode-for-uri(concat("ZTEXT       ", extract(@href, "\('(.*)'\)", 1))),
+                             "_searchId": extract(@href, "\('(.*)'\)", 1),
                              "_index": $lastIndex
                            }
 
@@ -63,7 +63,7 @@
                         $ava   := $props[contains(@class, "rList_availability")]//img[1]
                     return (book := {
                         "title": $title,
-                        "_searchId": encode-for-uri(concat("ZTEXT       ", extract($title//a/@href, "\('(.*)'\)", 1))),
+                        "_searchId": extract($title//a/@href, "\('(.*)'\)", 1),
                         "_index": $lastIndex
                       }, 
                       $year ! ($book.year := .),
