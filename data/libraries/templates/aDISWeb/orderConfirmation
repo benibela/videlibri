@@ -25,14 +25,16 @@
 
   <form> 
     {tempOrderConfirmation := x"Wohin soll das Buch ""{css("h2, span.titanzeige")[last()]}"" vorbestellt werden?"}
-    <select t:condition="@name = ('select','$select') and not(starts-with(@id,'SUC'))">{tempOptions :=  ./option[. != ""],    
+    <select t:condition="@name = ('select','$Select') and not(starts-with(@id,'SUC'))">{
+    tempTargetName := @name,
+    tempOptions :=  ./option[. != ""],    
     vl:choose("internal-order-confirmed", $tempOrderConfirmation, $tempOptions, $tempOptions/@value)
     }</select>
     <input type="submit"/>
     <input type="submit" t:condition="(@value,@class)=('Abbrechen','Zurück')">{$cancelinput}</input>
     {form := form(., (
-      {"select": "_DESTINATIONFILLER_"},
-      (.//select[@name = "select$0"])[1]/{@name: "Nein"}, (: benachrichtigung :)
+      {$tempTargetName: "_DESTINATIONFILLER_"},
+      (.//select[@name = ("select$0", "$Select$0")])[1]/{@name: "Nein"}, (: benachrichtigung :)
       (.//input[@type = "submit"])[1]
       )),
      goBackPage := form(., $cancelinput) )
