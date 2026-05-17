@@ -52,6 +52,7 @@
               
               {
                 let $props := .//div[contains(@class, "rList_")]
+                let $search-id := @data-ajax
                 return (
                   lastIndex := xs:integer($props[contains(@class, "rList_num") or contains(@class, "r_list_name" (:ulm only:) )][matches(., "^[0-9]+\s*$")][1] ),
                   if ($lastIndex > $lastSearchedIndex) then (
@@ -63,7 +64,7 @@
                         $ava   := $props[contains(@class, "rList_availability")]//img[1]
                     return (book := {
                         "title": $title,
-                        "_searchId": extract($title//a/@href, "\('(.*)'\)", 1),
+                        "_searchId": $search-id otherwise extract($title//a/@href, "\('(.*)'\)", 1),
                         "_index": $lastIndex
                       }, 
                       $year ! ($book.year := .),
