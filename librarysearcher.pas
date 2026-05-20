@@ -241,6 +241,8 @@ var
   value: ixqvalue;
   name, newvalue: String;
 begin
+  if lib.id = 'DE_Baden-W+uerttemberg_Karlsruhe_Stb' then
+    bookListReader.internet.cookies.setCookie('opac.karlsruhe.de', '/', 'KOHA_INIT', '1', []); //todo: move to template
   flibsToSearch.Add(lib);
   vars := bookListReader.parser.variableChangeLog;
   for j := 0 to high(lib.variables) do begin
