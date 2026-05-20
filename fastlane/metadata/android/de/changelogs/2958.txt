@@ -1,0 +1,2 @@
+* aDIS/VÖBB/München/Düsseldorf: Anpassung an geänderte Suche und Vormerkungen.
+* Karlsruhe: Setze Cookie für Suche
