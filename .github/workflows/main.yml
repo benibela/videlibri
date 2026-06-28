@@ -9,6 +9,9 @@ on:
   workflow_dispatch:
   create:
 
+env:
+  FPC_VERSION_SHA: f0c2fd2cee3177e170d0180092fa6b3569daf675
+
 jobs:
   build-android:
     runs-on: ubuntu-latest
@@ -26,8 +29,9 @@ jobs:
         sudo -E $oldpath/android/manage.sh setupbinutils /usr/bin
         sudo apt-get update
         sudo apt-get install fpc
-        git clone https://gitlab.com/freepascal.org/fpc/source/ --depth 1 --single-branch -b fixes_3_2 fpc
+        git clone https://gitlab.com/freepascal.org/fpc/source/ --depth 1 --single-branch -b fixes_3_2 $FPC_CLONE_OPTIONS fpc
         cd fpc
+        if [[ "$FPC_VERSION_SHA" != "" ]]; then git fetch --depth 1 origin $FPC_VERSION_SHA; git checkout $FPC_VERSION_SHA; fi
         git apply -v $oldpath/patches/fpc*patch
         sudo $oldpath/android/manage.sh setupfpccrosscompile
         cd $oldpath;
