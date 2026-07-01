@@ -1,0 +1,2 @@
+* HTML Parser: Handle invalid comments 
+* Rename UB Stuttgart to UB Hohenheim

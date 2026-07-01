@@ -1,8 +1,8 @@
 ﻿
  [Setup]
 ;Change this in every version
-AppVerName=VideLibri 2.958
-AppVersion=2.958
+AppVerName=VideLibri 2.959
+AppVersion=2.959
 
 ;Don't change
 ;Unicode-Check: ääääääööööüüüüüü

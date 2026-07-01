@@ -1,0 +1,2 @@
+* HTML Parser: Verarbeite ungültige Kommentare
+* Umbenenne UB Stuttgart zu UB Hohenheim
