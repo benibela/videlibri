@@ -3,9 +3,9 @@
   <longName value="Stadtbücherei Datteln"/>
   <shortName value="Stb Datteln"/>
   
-  <template value="vufind"/>  
-  <variable name="baseurl" value="https://bib-kreisre.smartbib.de/"/>
-  <variable name="loginParams" value="target=DATT"/>
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://datteln.bib-kreisre.de/Mein-Konto"/>
+  <variable name="urlsearch" value="https://datteln.bib-kreisre.de/Mediensuche/Erweiterte-Suche"/>
     
    
 

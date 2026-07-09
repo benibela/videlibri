@@ -3,9 +3,9 @@
   <longName value="Stadtbücherei Oer-Erkenschwick"/>
   <shortName value="Stb Oer-Erkenschwick"/>
   
-  <template value="vufind"/>  
-  <variable name="baseurl" value="https://bib-kreisre.smartbib.de/"/>
-  <variable name="loginParams" value="target=OERE"/>
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://oer-erkenschwick.bib-kreisre.de/Mein-Konto"/>
+  <variable name="urlsearch" value="https://oer-erkenschwick.bib-kreisre.de/Mediensuche/Erweiterte-Suche"/>
     
   <homepage value="https://www.oer-erkenschwick.de/inhalte/rathaus_politik/buergerservice_a-z/index.asp?seite=angebot&amp;id=1682"/>
   <testing-search value="yes"/>  <testing-account value="yes"/>

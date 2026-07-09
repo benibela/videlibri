@@ -3,9 +3,10 @@
   <longName value="Stadtbücherei Gladbeck"/>
   <shortName value="Stb Gladbeck"/>
   
-  <template value="vufind"/>  
-  <variable name="baseurl" value="https://bib-kreisre.smartbib.de/"/>
-  <variable name="loginParams" value="target=GLAD"/>
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://gladbeck.bib-kreisre.de/Mein-Konto"/>
+  <variable name="urlsearch" value="https://gladbeck.bib-kreisre.de/Mediensuche/Erweiterte-Suche"/>
+  
     
    
 

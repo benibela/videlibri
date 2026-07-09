@@ -3,10 +3,10 @@
   <longName value="Stadtbücherei Castrop-Rauxel"/>
   <shortName value="Stb Castrop-Rauxel"/>
   
-  <template value="vufind"/>  
-  <variable name="baseurl" value="https://bib-kreisre.smartbib.de/"/>
-  <variable name="loginParams" value="target=CAST"/>
-    
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://castrop-rauxel.bib-kreisre.de/Mein-Konto"/>
+  <variable name="urlsearch" value="https://castrop-rauxel.bib-kreisre.de/Mediensuche/Erweiterte-Suche"/>
+   
    
 
   <homepage value="https://www.datteln.de/04_Kultur_Bildung/Stadtbuecherei.asp?A_highmain=13&amp;A_highsub=0&amp;A_highsubsub=0"/>

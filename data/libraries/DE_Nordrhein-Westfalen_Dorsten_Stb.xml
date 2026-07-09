@@ -10,7 +10,7 @@
    
 
   <homepage value="https://www.vhsundkultur-dorsten.de/stadtbibliothek/"/>
-  <testing-search value="yes"/>  <testing-account value="yes"/>
+  <testing-search value="no"/>  <testing-account value="no"/>
 </library>
 
 

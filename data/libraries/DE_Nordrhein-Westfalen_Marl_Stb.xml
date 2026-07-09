@@ -6,16 +6,16 @@
   <longName value="Verbund Haltern Mark Recklinghausen"/>
   <shortName value="HMR"/>
   
-  <template value="vufind"/>  
-  <variable name="baseurl" value="https://bib-kreisre.smartbib.de/"/>
-  <variable name="loginParams" value="target=VERB"/>
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://verbund.bib-kreisre.de/Mein-Konto"/>
+  <variable name="urlsearch" value="https://verbund.bib-kreisre.de/Mediensuche/Erweiterte-Suche"/>
     
    
-  <template value="digibib">
+<!--  <template value="digibib">
     <variable name="location" value="RECKL"/>
     <variable name="view" value="RECKL:RecherchedatenbankenExt"/>
     <variable name="searchid" value="SERVICEGROUP1.SERVICE.SEARCH_SBRHM"/>
-  </template>
+  </template>-->
 
 
   <homepage value="https://www.marl.de/marl-nach-themen/bildung-schule-und-erziehung/zentralbibliothek.html"/>

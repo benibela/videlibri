@@ -3,9 +3,9 @@
   <longName value="Stadtbücherei Herten"/>
   <shortName value="Stb Herten"/>
   
-  <template value="vufind"/>  
-  <variable name="baseurl" value="https://bib-kreisre.smartbib.de/"/>
-  <variable name="loginParams" value="target=HERT"/>
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://herten.bib-kreisre.de/Mein-Konto"/>
+  <variable name="urlsearch" value="https://herten.bib-kreisre.de/Mediensuche/Erweiterte-Suche"/>
     
    
 
