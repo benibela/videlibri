@@ -78,8 +78,9 @@
             <table class="arena-reservation-details">
               <td class="arena-record-branch"> <span/> <span>{$book.libraryLocation}</span> </td>?
               <!--<td class="arena-record-queue"> <span class="arena-field">Warteposition</span> <span class="arena-value">1</span> </td>-->
-              <td class="arena-reservation-from-container"> <span/> <span>{$book.issueDate:=parse-date(.)}</span> </td>
+              <td class="arena-reservation-from-container"> <span/> <span>{$book.issueDate:=parse-date(.)}</span> </td>?
               <td class="arena-reservation-to-container"> <span/> <span>{$book.dueDate:=parse-date(.)}</span> </td>?
+              <td class="arena-reservation-date"> <span/> <span>{$book.dueDate:=parse-date(.)}</span> </td>?
               <td class="arena-result-info"> <span/>  <span>{$book.status}</span> </td>
             </table>
           </div>+
