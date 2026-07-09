@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="Bibliothek-App VideLibri">
-      <build version="2959" date="2026-07-01">
+      <build version="2960" date="2026-07-09">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <fix>SISIS: Anpassung an Änderung der Stadtbibliothek Leipzig.</fix>
+        <fix>Neuer OPAC: Stadtbibliothek Castrop-Rauxel,
+Stadtbücherei Datteln,
+Stadtbücherei Gladbeck,
+Stadtbibliothek Herten,
+Stadtbücherei Oer-Erkenschwick,
+Verbundbibliotheken Haltern, Marl und Recklinghausen.</fix>
+        <fix>Arena OPAC: Freiburg Vormerkungen.</fix>
+     </build>
+      <build version="2959" date="2026-07-01">
         <fix>HTML Parser: Verarbeite ungültige Kommentare</fix>
         <fix>Umbenenne UB Stuttgart zu UB Hohenheim</fix>
      </build>

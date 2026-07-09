@@ -1,0 +1,8 @@
+* SISIS: Update for public library Leipzig.
+* New OPAC: public library Castrop-Rauxel,
+public library Datteln,
+public library Gladbeck,
+public library Herten,
+public library Oer-Erkenschwick,
+Verbundbibliotheken Haltern, Marl and Recklinghausen.
+* Arena OPAC: fix Freiburg reservations.

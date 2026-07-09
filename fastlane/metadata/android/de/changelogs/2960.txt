@@ -1,0 +1,8 @@
+* SISIS: Anpassung an Änderung der Stadtbibliothek Leipzig.
+* Neuer OPAC: Stadtbibliothek Castrop-Rauxel,
+Stadtbücherei Datteln,
+Stadtbücherei Gladbeck,
+Stadtbibliothek Herten,
+Stadtbücherei Oer-Erkenschwick,
+Verbundbibliotheken Haltern, Marl und Recklinghausen.
+* Arena OPAC: Freiburg Vormerkungen.
