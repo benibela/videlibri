@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Universitätsbibliothek Stuttgart"/>
+  <template value="aDISWeb"/>
+  <variable name="fullurl" value="https://stg.ibs-bw.de/aDISWeb/app"/>
+  <homepage value="https://www.ub.uni-stuttgart.de/"/>
+  <testing-search value="yes"/>
+  <testing-account value="yes"/>
+</library>

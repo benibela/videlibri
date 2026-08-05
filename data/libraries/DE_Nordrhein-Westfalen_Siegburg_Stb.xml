@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Siegburg"/>
+    
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://opac.stadtbibliothek-siegburg.de/Mein-Konto"/>
+  <variable name="urlsearch" value="https://opac.stadtbibliothek-siegburg.de/Mediensuche/Erweiterte-Suche"/>
+    
+  <testing-search value="yes"/>
+  <testing-account value="yes"/>
+</library>
