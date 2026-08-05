@@ -1,0 +1,4 @@
+* Android HTTPS certificates.
+* VÖBB: no error message for no search results.
+* Stadtbibliothek Darmstadt: New OPAC.
+* new: Stuttgart Ub and Siegburg Stb

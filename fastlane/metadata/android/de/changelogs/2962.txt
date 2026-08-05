@@ -1,0 +1,4 @@
+* Android HTTPS-Zertifikate.
+* VÖBB: Keine Meldung bei leeren Suchergebnissen.
+* Stadtbibliothek Darmstadt: Anpassung an neuen Katalog.
+* neu: Stuttgart Ub und Siegburg Stb
